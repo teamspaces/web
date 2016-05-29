@@ -1,0 +1,21 @@
+FROM ruby:2.3.1
+
+ENV APP_HOME=/app \
+    DEBIAN_FRONTEND=noninteractive \
+    DEBIAN_PRIORITY=critical \
+    DEBCONF_NOWARNINGS=yes \
+    BUNDLE_PATH=/bundler-cache \
+    BUNDLE_JOBS=2
+
+# Get the essentials
+RUN apt-get update -qq && apt-get install -y build-essential
+
+# Setup SSH and remove Host Checking
+RUN ssh-keygen -t rsa -N "" -f /root/.ssh/id_rsa && \
+    echo "Host *\n\tStrictHostKeyChecking no\n" >> /root/.ssh/config
+
+# Setup app
+RUN mkdir $APP_HOME
+WORKDIR $APP_HOME
+
+ADD . $APP_HOME
