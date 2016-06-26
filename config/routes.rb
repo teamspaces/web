@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  devise_for :users
+  resources :teams
   resources :projects
+  devise_for :users
   root 'landing#index'
 end

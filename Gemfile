@@ -1,17 +1,17 @@
 ruby "2.3.1"
 source "https://rubygems.org"
 
-gem "rails", ">= 5.0.0.rc1", "< 5.1"
-gem "pg", "~> 0.18"
-gem "puma", "~> 3.0"
+gem "rails", "~> 5.0.0.rc2"
+gem "pg"
+gem "puma"
 gem "therubyracer", platforms: :ruby
 
 gem "bcrypt"
-gem "jbuilder", "~> 2.0"
+gem "jbuilder"
 gem "jquery-rails"
-gem "sass-rails", "~> 5.0"
-gem "uglifier", ">= 1.3.0"
-gem "turbolinks", "~> 5.x"
+gem "sass-rails"
+gem "uglifier"
+gem "turbolinks"
 
 gem "devise"
 gem "omniauth"
@@ -22,13 +22,18 @@ gem "omniauth-github"
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 3.0"
 
+group :test do
+  gem "minitest-rails", "~> 3.0.0.rc1"
+  gem "minitest-rails-capybara", "~> 3.0.0.rc1"
+end
+
 group :development, :test do
   gem "byebug"
 end
 
 group :development do
   gem "web-console"
-  gem "listen", "~> 3.0.5"
+  gem "listen"
 end
 
 group :production do

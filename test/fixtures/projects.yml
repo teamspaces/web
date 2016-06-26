@@ -1,7 +1,5 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+furrow:
+  name: Furrow
 
-one:
-  name: MyString
-
-two:
-  name: MyString
+developers:
+  name: Developers
