@@ -16,8 +16,6 @@ gem "turbolinks"
 gem "devise"
 gem "omniauth"
 gem "omniauth-slack"
-gem "omniauth-google"
-gem "omniauth-github"
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 3.0"
