@@ -14,8 +14,10 @@ gem "uglifier"
 gem "turbolinks"
 
 gem "devise"
-gem "omniauth"
 gem "omniauth-slack"
+gem "httparty"
+
+gem "awesome_print"
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 3.0"
