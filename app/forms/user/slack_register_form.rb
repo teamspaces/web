@@ -22,10 +22,9 @@ class User::SlackRegisterForm
         @slack_identity = Slack::Identity.new(token_secret)
         slack_identity.fetch
       rescue Faraday::Error => e
-        Rails.logger
         logger.error("User::SlackRegisterForm#find_user_on_slack: #{e.message}")
         logger.error e.backtrace.join("\n")
-
+        
         # TODO: Add an error "We're unable to connect with Slack right now."
 
         return false
