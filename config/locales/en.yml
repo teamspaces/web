@@ -1,23 +1,15 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
+# http://guides.rubyonrails.org/i18n.html.
 en:
-  hello: "Hello world"
+  users:
+    omniauth_callbacks:
+      # TODO: Move these errors into the models instead.
+      # errors[:base] << "This person is invalid because ..."
+      failed_login_using_slack: |
+        We are unfortunately unable to sign you in using Slack at this moment.
+        Please try again, and if it does not work you can always reset your
+        password or get in contact with us and we will help you troubleshoot.
+      failed_register_using_slack: |
+        We are unfortunately unable to create your account using Slack at this
+        moment. Please try again, and if it does not work you can always sign up
+        using your email or get in contact with us and we will help you get
+        started.

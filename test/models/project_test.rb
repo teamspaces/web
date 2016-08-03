@@ -1,6 +1,6 @@
-require 'test_helper'
+require "test_helper"
 
-class ProjectTest < ActiveSupport::TestCase
+describe Project do
   # test "the truth" do
   #   assert true
   # end

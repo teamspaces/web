@@ -1,61 +1,75 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+  STATE_PARAM = "state".freeze
+  LOGIN_STATE = "login".freeze
+  REGISTER_STATE = "register".freeze
+
   def slack
-    token = auth_response.credentials.token
-    users_identity_url = "https://slack.com/api/users.identity?token=#{token}"
-    response = HTTParty.get(users_identity_url)
+    if login_request?
+      login_using_slack and return
+    elsif register_request?
+      register_using_slack and return
+    end
 
-    ap response.parsed_response
-
-    # 1. User Creation
-    # 1.1 There's already an account with this email which is not connected to Slack.
-    #    Sign in with this account and then connect slack if you like.
-    # 2.1 Pre-fill all fields (Team Name, URL, Name, Username, Email).
-    #
-    # 2. Team Creation
-    # 2.1 There's already a team with that URL
-
-    # {
-    #   "ok" => true,
-    #   "user" => {
-    #             "name" => "Martin Samami",
-    #               "id" => "U0C8MBAE6",
-    #            "email" => "martin@furrow.io",
-    #         "image_24" => "https://avatars.slack-edge.com/2016-05-23/44963978023_46d03d2e50e6d99474d7_24.jpg",
-    #         "image_32" => "https://avatars.slack-edge.com/2016-05-23/44963978023_46d03d2e50e6d99474d7_32.jpg",
-    #         "image_48" => "https://avatars.slack-edge.com/2016-05-23/44963978023_46d03d2e50e6d99474d7_48.jpg",
-    #         "image_72" => "https://avatars.slack-edge.com/2016-05-23/44963978023_46d03d2e50e6d99474d7_72.jpg",
-    #        "image_192" => "https://avatars.slack-edge.com/2016-05-23/44963978023_46d03d2e50e6d99474d7_192.jpg",
-    #        "image_512" => "https://avatars.slack-edge.com/2016-05-23/44963978023_46d03d2e50e6d99474d7_512.jpg",
-    #       "image_1024" => "https://avatars.slack-edge.com/2016-05-23/44963978023_46d03d2e50e6d99474d7_512.jpg"
-    #   },
-    #   "team" => {
-    #                  "id" => "T0C8MBADQ",
-    #                "name" => "Furrow",
-    #              "domain" => "furrow",
-    #            "image_34" => "https://a.slack-edge.com/66f9/img/avatars-teams/ava_0013-34.png",
-    #            "image_44" => "https://a.slack-edge.com/66f9/img/avatars-teams/ava_0013-44.png",
-    #            "image_68" => "https://a.slack-edge.com/66f9/img/avatars-teams/ava_0013-68.png",
-    #            "image_88" => "https://a.slack-edge.com/66f9/img/avatars-teams/ava_0013-88.png",
-    #           "image_102" => "https://a.slack-edge.com/66f9/img/avatars-teams/ava_0013-102.png",
-    #           "image_132" => "https://a.slack-edge.com/66f9/img/avatars-teams/ava_0013-132.png",
-    #           "image_230" => "https://a.slack-edge.com/9e9be/img/avatars-teams/ava_0013-230.png",
-    #       "image_default" => true
-    #   }
-    # }
-
-    # First requests authorizes but only returns very basic information, like
-    # team name and nickname of the user. You need to make subsequent requests
-    # which then have been authorizsed in the first request, to get name, email,
-    # and avatar image.
-    #
-    # https://slack.com/api/users.identity?token=xoxp-12293384466-12293384482-54462895425-144f9d291b
+    render status: :unprocessable_entity,
+           plain: "Missing parameter: #{STATE_PARAM}"
   end
 
   def failure
     redirect_to root_path
   end
 
-  def auth_response
-    request.env["omniauth.auth"]
+  def login_using_slack
+    login_form = User::SlackLoginForm.new(uid: uid)
+    if login_form.login
+      login_and_redirect(login_form.user)
+    else
+      redirect_to new_user_session_path, alert: login_form.errors.full_messages
+    end
   end
+
+  def register_using_slack
+    login_form = User::SlackLoginForm.new(uid: uid)
+    if login_form.login
+      login_and_redirect(login_form.user)
+      redirect_to choose_team_path and return
+    end
+
+    register_form = User::SlackRegisterForm.new(token_secret: token_secret)
+    if register_form.save
+      redirect_to create_team_path
+    else
+      redirect_to register_path, alert: t(".failed_register_using_slack") # TODO: Use error from the form instead?
+    end
+  end
+
+  private
+
+    def login_and_redirect(user)
+      # Passing `event` causes Warden to trigger the hook `after_authentication`
+      sign_in_and_redirect(user, event: :authentication)
+    end
+
+    def login_request?
+      omniauth_params[STATE_PARAM] == LOGIN_STATE
+    end
+
+    def register_request?
+      omniauth_params[STATE_PARAM] == REGISTER_STATE
+    end
+
+    def uid
+      omniauth_auth.uid
+    end
+
+    def token_secret
+      omniauth_auth.credentials.token
+    end
+
+    def omniauth_auth
+      request.env["omniauth.auth"]
+    end
+
+    def omniauth_params
+      request.env["omniauth.params"]
+    end
 end

@@ -1,7 +1,7 @@
 ruby "2.3.1"
 source "https://rubygems.org"
 
-gem "rails", "~> 5.0.0.rc2"
+gem "rails", "~> 5.0.0"
 gem "pg"
 gem "puma"
 gem "therubyracer", platforms: :ruby
@@ -13,27 +13,29 @@ gem "sass-rails"
 gem "uglifier"
 gem "turbolinks"
 
+gem "inflorm"
 gem "devise"
 gem "omniauth-slack"
 gem "httparty"
-
-gem "awesome_print"
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 3.0"
 
 group :test do
-  gem "minitest-rails", "~> 3.0.0.rc1"
-  gem "minitest-rails-capybara", "~> 3.0.0.rc1"
+  gem "minitest-rails"
+  gem "minitest-rails-capybara"
+  gem "mocha"
 end
 
 group :development, :test do
   gem "byebug"
+  gem "awesome_print"
 end
 
 group :development do
   gem "web-console"
   gem "listen"
+  gem "spring"
 end
 
 group :production do

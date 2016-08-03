@@ -8,7 +8,14 @@ ENV APP_HOME=/app \
     BUNDLE_JOBS=2
 
 # Get the essentials
-RUN apt-get update -qq && apt-get install -y build-essential
+RUN apt-get update -qq && apt-get install -y \
+    build-essential \
+  && rm -rf /var/lib/apt/lists/*
+
+# Install other dependencies
+RUN apt-get update -qq && apt-get install -y \
+    imagemagick \
+  && rm -rf /var/lib/apt/lists/*
 
 # Setup SSH and remove Host Checking
 RUN ssh-keygen -t rsa -N "" -f /root/.ssh/id_rsa && \

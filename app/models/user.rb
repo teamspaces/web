@@ -4,7 +4,7 @@ class User < ApplicationRecord
          :omniauthable, omniauth_providers: [:slack]
 
   has_many :authentications
-  has_many :teams, through: :team_members
+  has_and_belongs_to_many :teams, through: :team_members
 
   def name=(name)
     names = name.to_s.split(" ", 2)
