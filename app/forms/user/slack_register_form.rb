@@ -14,8 +14,7 @@ class User::SlackRegisterForm
     def persist!
       find_user_on_slack &&
         create_user &&
-        create_authentication &&
-        create_team
+        create_authentication
     end
 
     def find_user_on_slack
@@ -26,6 +25,9 @@ class User::SlackRegisterForm
         Rails.logger
         logger.error("User::SlackRegisterForm#find_user_on_slack: #{e.message}")
         logger.error e.backtrace.join("\n")
+
+        # TODO: Add an error "We're unable to connect with Slack right now."
+
         return false
       end
 
@@ -37,9 +39,15 @@ class User::SlackRegisterForm
                           email: slack_user["email"],
                           password: generated_password }
 
-      @user = User.create(user_attributes)
+      @user = User.new(user_attributes)
 
-      user.persisted?
+      if user.save
+        return true
+      else
+        # TODO: "#create_user: unable to create from slack (name,email,user.errors)
+        # TODO: Add user errors `errors.push(user.errors)`?
+        return false
+      end
     end
 
     def create_authentication
@@ -48,26 +56,24 @@ class User::SlackRegisterForm
                                     token_secret: token_secret }
 
       @authentication = user.authentication
-                            .create(authentication_attributes)
+                            .new(authentication_attributes)
 
-      authentication.persisted?
-    end
-
-    def create_team
-      team_attributes = { name: slack_team["name"] }
-      @team = user.team
-                  .create(team_attributes)
-
-      team.persisted?
+      if authentication.save
+        return true
+      else
+        # TODO: "#create_authentication: unable to create from slack (user_id,uid)
+        # TODO: Add user errors `errors.push(authentication.errors)`?
+      end
     end
 
     def slack_user
       slack_identity.response["user"]
     end
 
-    def slack_team
-      slack_identity.response["team"]
-    end
+    # slack_team["name"]
+    # def slack_team
+    #   slack_identity.response["team"]
+    # end
 
     def generated_password
       @generated_password ||= Devise.friendly_token.first(8)
