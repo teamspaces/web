@@ -102,7 +102,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 11
 
   # Set up a pepper to generate the hashed password.
-  config.pepper = '433aaadc6c6f38caf261aad477b656fbba1b0c8a13e360a4892c8775c40151ce2d9fa5186682030519b8ce07a4f95f3d8705b51041aa6a09c2d82a4da2b771ad'
+  config.pepper = ENV["DEVISE_PEPPER"]
 
   # Send a notification email when the user's password is changed
   config.send_password_change_notification = true
@@ -134,7 +134,7 @@ Devise.setup do |config|
 
   # ==> Configuration for :rememberable
   # The time the user will be remembered without asking for credentials again.
-  config.remember_for = 1.month
+  config.remember_for = 3.month
 
   # Invalidates all the remember me tokens when the user signs out.
   config.expire_all_remember_me_on_sign_out = false
@@ -144,7 +144,11 @@ Devise.setup do |config|
 
   # Options to be passed to the created cookie. For instance, you can set
   # secure: true in order to force SSL only cookies.
-  # config.rememberable_options = {}
+  if Rails.env.production?
+    config.rememberable_options = { secure: true }
+  else
+    config.rememberable_options = { }
+  end
 
   # ==> Configuration for :validatable
   # Range for password length.
@@ -237,12 +241,7 @@ Devise.setup do |config|
 
   # The default HTTP method used to sign out a resource. Default is :delete.
   config.sign_out_via = :delete
-
-  # ==> OmniAuth
-  # Add a new OmniAuth provider. Check the wiki for more information on setting
-  # up on your models and hooks.
-  # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
-
+  
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.
