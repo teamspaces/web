@@ -23,6 +23,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if login_form.login
       login_and_redirect(login_form.user)
     else
+      # TODO: This will alert with an array...
       redirect_to new_user_session_path, alert: login_form.errors.full_messages
     end
   end
