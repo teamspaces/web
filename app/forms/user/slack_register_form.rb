@@ -24,8 +24,9 @@ class User::SlackRegisterForm
       rescue Faraday::Error => e
         logger.error("User::SlackRegisterForm#find_user_on_slack: #{e.message}")
         logger.error e.backtrace.join("\n")
-        
-        # TODO: Add an error "We're unable to connect with Slack right now."
+
+        errors.add(:base, :unable_to_connect_with_slack,
+          message: "Slack is currently unreachable.")
 
         return false
       end
@@ -43,8 +44,12 @@ class User::SlackRegisterForm
       if user.save
         return true
       else
-        # TODO: "#create_user: unable to create from slack (name,email,user.errors)
-        # TODO: Add user errors `errors.push(user.errors)`?
+        logger.error("User::SlackRegisterForm#create_user: unable to create from slack (name=#{user.name},email=#{user.email})")
+        
+        user.errors.full_messages.each do |message|
+          errors.add(:base, :user_errors, message: message)
+        end
+
         return false
       end
     end
