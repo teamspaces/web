@@ -1,6 +1,6 @@
 class TeamMember < ApplicationRecord
   include HasRole
-  
-  belongs_to :team
-  belongs_to :user
+
+  belongs_to :team, dependent: :destroy
+  belongs_to :user, dependent: :destroy
 end
