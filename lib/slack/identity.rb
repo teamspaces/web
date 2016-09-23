@@ -12,12 +12,12 @@ class Slack::Identity
   end
 
   def uid
-    return nil unless valid_response?
+    return nil unless success?
     build_uid
   end
 
   def success?
-    response["ok"] == "true"
+    response["ok"] == true
   end
 
   private

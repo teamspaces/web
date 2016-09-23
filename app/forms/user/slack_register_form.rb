@@ -1,37 +1,28 @@
 class User::SlackRegisterForm
   include Inflorm
 
-  attr_reader :token_secret,
-              :authentication,
+  attr_reader :authentication,
               :slack_identity,
-              :generated_password
+              :generated_password,
+              :user
 
-  attribute :token_secret, String
-  validates :token_secret, presence: true
+  attribute :slack_identity, Slack::Identity
+  validates :slack_identity, presence: true
 
   private
 
     def persist!
-      find_user_on_slack &&
+      validate_slack_identity &&
         create_user &&
         create_authentication
     end
 
-    def find_user_on_slack
-      begin
-        @slack_identity = Slack::Identity.new(token_secret)
-        slack_identity.fetch
-      rescue Faraday::Error => e
-        logger.error("User::SlackRegisterForm#find_user_on_slack: #{e.message}")
-        logger.error e.backtrace.join("\n")
-
-        errors.add(:base, :unable_to_connect_with_slack,
-          message: "Slack is currently unreachable.")
-
-        return false
-      end
-
+    def validate_slack_identity
       slack_identity.success?
+    end
+
+    def slack_user
+      slack.identity.slack_user
     end
 
     def create_user
@@ -44,8 +35,8 @@ class User::SlackRegisterForm
       if user.save
         return true
       else
-        logger.error("User::SlackRegisterForm#create_user: unable to create from slack (name=#{user.name},email=#{user.email})")
-        
+        logger.error("unable to create user (name=#{user.name},email=#{user.email})")
+
         user.errors.full_messages.each do |message|
           errors.add(:base, :user_errors, message: message)
         end
@@ -57,14 +48,15 @@ class User::SlackRegisterForm
     def create_authentication
       authentication_attributes = { provider: :slack,
                                     uid: slack_identity.uid,
-                                    token_secret: token_secret }
+                                    token_secret: slack_identity.token }
 
-      @authentication = user.authentication
+      @authentication = user.authentications
                             .new(authentication_attributes)
 
       if authentication.save
         return true
       else
+        logger.error("unable to create authentication (user_id=#{user.id},provider=#{authentication.provier},uid=#{authentication.uid})")
         # TODO: "#create_authentication: unable to create from slack (user_id,uid)
         # TODO: Add user errors `errors.push(authentication.errors)`?
       end
@@ -74,12 +66,11 @@ class User::SlackRegisterForm
       slack_identity.response["user"]
     end
 
-    # slack_team["name"]
-    # def slack_team
-    #   slack_identity.response["team"]
-    # end
-
     def generated_password
       @generated_password ||= Devise.friendly_token.first(8)
+    end
+
+    def logger
+      Rails.logger
     end
 end

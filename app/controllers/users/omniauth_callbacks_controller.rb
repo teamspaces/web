@@ -5,13 +5,15 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def slack
     if login_request?
-      login_using_slack and return
+      login_using_slack
     elsif register_request?
-      register_using_slack and return
+      register_using_slack
+    else
+      render status: :unprocessable_entity,
+             plain: "Missing parameter: #{STATE_PARAM}"
     end
 
-    render status: :unprocessable_entity,
-           plain: "Missing parameter: #{STATE_PARAM}"
+    return
   end
 
   def failure
@@ -19,35 +21,71 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def login_using_slack
-    login_form = User::SlackLoginForm.new(uid: uid)
-    if login_form.login
-      login_and_redirect(login_form.user)
+    logger.info "login user with slack initiated"
+
+    unless slack_identity&.success?
+      logger.info "failed to fetch user from slack, redirecting"
+      redirect_to new_user_session_path,
+                  alert: t(".failed_to_fetch_user_from_slack") and return
+    end
+
+    login_form = User::SlackLoginForm.new(slack_identity: slack_identity)
+    if login_form.authenticate
+      sign_in login_form.user
+      redirect_to teams_path
     else
-      # TODO: This will alert with an array...
-      redirect_to new_user_session_path, alert: login_form.errors.full_messages
+      redirect_to new_user_session_path,
+                  alert: t(".failed_login_using_slack")
     end
   end
 
   def register_using_slack
-    login_form = User::SlackLoginForm.new(uid: uid)
-    if login_form.login
-      login_and_redirect(login_form.user)
-      redirect_to choose_team_path and return
+    logger.info "register user with slack initiated"
+
+    unless slack_identity&.success?
+      logger.info "failed to fetch user from slack, redirecting"
+      redirect_to register_path,
+                  alert: t(".failed_to_fetch_user_from_slack") and return
     end
 
-    register_form = User::SlackRegisterForm.new(token_secret: token_secret)
-    if register_form.save
-      redirect_to create_team_path
+    login_form = User::SlackLoginForm.new(slack_identity: slack_identity)
+    if login_form.authenticate
+      logger.info "user already registered, login instead"
+      sign_in login_form.user
+      redirect_to teams_path,
+                  alert: t(".register_failed_as_user_already_exists")
     else
-      redirect_to register_path, alert: t(".failed_register_using_slack") # TODO: Use error from the form instead?
+      register_form = User::SlackRegisterForm.new(slack_identity: slack_identity)
+      if register_form.save
+        logger.info "user registered successfully, redirecting"
+        sign_in register_form.user
+        redirect_to new_team_path
+      else
+        logger.info "failed to register, redirecting"
+        redirect_to register_path,
+                    alert: t(".failed_register_using_slack")
+      end
     end
   end
 
   private
 
-    def login_and_redirect(user)
-      # Passing `event` causes Warden to trigger the hook `after_authentication`
-      sign_in_and_redirect(user, event: :authentication)
+    def token_secret
+      omniauth_auth["credentials"]["token"]
+    end
+
+    def slack_identity
+      @slack_identity ||= fetch_slack_identity(token_secret)
+    end
+
+    def fetch_slack_identity(token)
+      identity = Slack::Identity.new(token)
+      identity.fetch and identity
+    rescue Faraday::Error => e
+      logger.error("failed to fetch slack identity: #{e.message}")
+      logger.error e.backtrace.join("\n")
+
+      return false
     end
 
     def login_request?
@@ -56,14 +94,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     def register_request?
       omniauth_params[STATE_PARAM] == REGISTER_STATE
-    end
-
-    def uid
-      omniauth_auth.uid
-    end
-
-    def token_secret
-      omniauth_auth.credentials.token
     end
 
     def omniauth_auth

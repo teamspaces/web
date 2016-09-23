@@ -3,10 +3,10 @@ class User::SlackLoginForm
 
   attr_reader :authentication
 
-  attribute :uid, String
-  validates :uid, presence: true
+  attribute :slack_identity, Slack::Identity
+  validates :slack_identity, presence: true
 
-  def login
+  def authenticate
     !!find_authentication
   end
 
@@ -18,6 +18,6 @@ class User::SlackLoginForm
 
     def find_authentication
       @authentication = Authentication.find_by(provider: :slack,
-                                               uid: uid)
+                                               uid: slack_identity.uid)
     end
 end
