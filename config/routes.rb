@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :teams
-  resources :projects
+  resources :spaces
 
   get :landing, to: "landing#index", as: :landing
   get :register, to: "register#index", as: :register

@@ -16,11 +16,11 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create team" do
-    assert_difference('Project.count') do
+    assert_difference('Space.count') do
       post teams_url, params: { team: { name: @team.name } }
     end
 
-    assert_redirected_to team_path(Project.last)
+    assert_redirected_to team_path(Space.last)
   end
 
   test "should show team" do
@@ -39,7 +39,7 @@ class TeamsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy team" do
-    assert_difference('Project.count', -1) do
+    assert_difference('Space.count', -1) do
       delete team_url(@team)
     end
 

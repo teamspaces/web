@@ -1,6 +1,6 @@
 require "test_helper"
 
-describe Project do
+describe Space do
   # test "the truth" do
   #   assert true
   # end
