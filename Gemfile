@@ -26,6 +26,7 @@ group :test do
   gem "minitest-rails"
   gem "minitest-rails-capybara"
   gem "mocha"
+  gem "shoulda-context"
 end
 
 group :development, :test do

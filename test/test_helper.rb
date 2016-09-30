@@ -4,6 +4,7 @@ require 'rails/test_help'
 require 'minitest/rails'
 require 'minitest/rails/capybara'
 require 'mocha/mini_test'
+require 'shoulda/context'
 
 class ActiveSupport::TestCase
   fixtures :all
