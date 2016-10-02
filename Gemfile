@@ -1,32 +1,46 @@
 ruby "2.3.1"
 source "https://rubygems.org"
 
-gem "rails", ">= 5.0.0.rc1", "< 5.1"
-gem "pg", "~> 0.18"
-gem "puma", "~> 3.0"
+gem "rails", "~> 5.0.0"
+gem "pg"
+gem "puma"
 gem "therubyracer", platforms: :ruby
 
-gem "jbuilder", "~> 2.0"
+gem "lograge"
+gem "bcrypt"
+gem "jbuilder"
 gem "jquery-rails"
-gem "sass-rails", "~> 5.0"
-gem "uglifier", ">= 1.3.0"
+gem "sass-rails"
+gem "uglifier"
+gem "turbolinks"
 
-gem "turbolinks", "~> 5.x"
+gem "inflorm"
+gem "devise"
+gem "omniauth-slack"
+gem "httparty"
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 3.0"
-# Use ActiveModel has_secure_password
-# gem "bcrypt", "~> 3.1.7"
+
+group :test do
+  gem "minitest-rails"
+  gem "minitest-rails-capybara"
+  gem "mocha"
+  gem "shoulda-context"
+end
 
 group :development, :test do
   gem "byebug"
+  gem "awesome_print"
 end
 
 group :development do
   gem "web-console"
-  gem "listen", "~> 3.0.5"
+  gem "listen"
+  gem "spring"
 end
 
 group :production do
+  gem "passenger"
   gem "rails_12factor"
 end

@@ -1,0 +1,14 @@
+ulf: &default
+  email: $LABEL@furrow.io
+  first_name: Ulf
+  last_name: Bürgman
+
+sven:
+  <<: *default
+  first_name: Sven
+  last_name: Molander
+
+lars:
+  <<: *default
+  first_name: Lars
+  last_name: Bengtsson

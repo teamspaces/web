@@ -1,0 +1,14 @@
+ulf_at_furrow:
+  team: furrow
+  user: ulf
+  role: primary_owner
+
+sven_at_furrow:
+  team: furrow
+  user: sven
+  role: owner
+
+lars_at_furrow:
+  team: furrow
+  user: lars
+  role: member
