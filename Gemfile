@@ -6,6 +6,7 @@ gem "pg"
 gem "puma"
 gem "therubyracer", platforms: :ruby
 
+gem "envied"
 gem "lograge"
 gem "bcrypt"
 gem "jbuilder"
