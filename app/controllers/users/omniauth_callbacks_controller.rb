@@ -12,11 +12,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       render status: :unprocessable_entity,
              plain: "Missing parameter: #{STATE_PARAM}"
     end
-
-    return
   end
 
   def failure
+    logger.error "callback failure, redirecting"
     redirect_to root_path
   end
 
@@ -24,16 +23,18 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     logger.info "login user with slack initiated"
 
     unless slack_identity&.success?
-      logger.info "failed to fetch user from slack, redirecting"
+      logger.error "failed to fetch user from slack, redirecting"
       redirect_to new_user_session_path,
                   alert: t(".failed_to_fetch_user_from_slack") and return
     end
 
     login_form = User::SlackLoginForm.new(slack_identity: slack_identity)
     if login_form.authenticate
+      logger.info "successful authentication, signing in and redirecting"
       sign_in login_form.user
       redirect_to teams_path
     else
+      logger.error "failed authentication, redirecting"
       redirect_to new_user_session_path,
                   alert: t(".failed_login_using_slack")
     end
@@ -43,7 +44,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     logger.info "register user with slack initiated"
 
     unless slack_identity&.success?
-      logger.info "failed to fetch user from slack, redirecting"
+      logger.error "failed to fetch user from slack, redirecting"
       redirect_to register_path,
                   alert: t(".failed_to_fetch_user_from_slack") and return
     end
@@ -61,7 +62,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         sign_in register_form.user
         redirect_to new_team_path
       else
-        logger.info "failed to register, redirecting"
+        logger.error "failed to register, redirecting"
         redirect_to register_path,
                     alert: t(".failed_register_using_slack")
       end
