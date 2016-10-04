@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160922235803) do
+ActiveRecord::Schema.define(version: 20161004212636) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,9 +27,11 @@ ActiveRecord::Schema.define(version: 20160922235803) do
   end
 
   create_table "spaces", force: :cascade do |t|
+    t.integer  "team_id"
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["team_id"], name: "index_spaces_on_team_id", using: :btree
   end
 
   create_table "team_members", force: :cascade do |t|
@@ -68,6 +70,7 @@ ActiveRecord::Schema.define(version: 20160922235803) do
   end
 
   add_foreign_key "authentications", "users", on_delete: :cascade
+  add_foreign_key "spaces", "teams", on_delete: :cascade
   add_foreign_key "team_members", "teams", on_delete: :cascade
   add_foreign_key "team_members", "users", on_delete: :cascade
 end

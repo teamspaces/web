@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class TeamMemberTest < ActiveSupport::TestCase
+describe TeamMember do
   let(:team_member) { team_members(:ulf_at_furrow) }
 
   describe "includes concerns" do

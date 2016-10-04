@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  resources :teams
-  resources :spaces
+  resources :teams do
+    resources :spaces, shallow: true
+  end
 
   get :landing, to: "landing#index", as: :landing
   get :register, to: "register#index", as: :register
