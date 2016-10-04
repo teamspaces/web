@@ -1,4 +1,7 @@
 require "test_helper"
 
-class AuthenticationTest < ActiveSupport::TestCase
+describe Authentication do
+  # test "the truth" do
+  #   assert true
+  # end
 end

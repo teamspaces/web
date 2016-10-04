@@ -1,5 +1,6 @@
 class SpacesController < ApplicationController
   before_action :set_space, only: [:show, :edit, :update, :destroy]
+  before_action :set_team, only: [:index, :new, :create]
 
   # GET /spaces
   # GET /spaces.json
@@ -14,7 +15,7 @@ class SpacesController < ApplicationController
 
   # GET /spaces/new
   def new
-    @space = Space.new
+    @space = @team.spaces.build
   end
 
   # GET /spaces/1/edit
@@ -24,7 +25,7 @@ class SpacesController < ApplicationController
   # POST /spaces
   # POST /spaces.json
   def create
-    @space = Space.new(space_params)
+    @space = @team.spaces.new(space_params)
 
     respond_to do |format|
       if @space.save
@@ -65,6 +66,10 @@ class SpacesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_space
       @space = Space.find(params[:id])
+    end
+
+    def set_team
+      @team = Team.find(params[:team_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
