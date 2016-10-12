@@ -1,11 +1,11 @@
 require 'test_helper'
 
-describe TeamsController do
-  let(:team) { teams(:furrow) }
+describe PagesController do
+  let(:page) { pages(:furrow) }
 
-  describe "#spaces" do
+  describe "#show" do
     it "works" do
-      get team_spaces_url(team)
+      get page_url(page)
       assert_response :success
     end
   end

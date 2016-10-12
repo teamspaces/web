@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
-  resources :teams do
-    resources :spaces, shallow: true
+  resources :teams, shallow: true do
+    resources :spaces do
+      resources :pages, only: [:index, :new, :create]
+    end
   end
 
-  get :landing, to: "landing#index", as: :landing
-  get :register, to: "register#index", as: :register
+  resources :pages, only: [:show, :edit, :update, :destroy]
 
   devise_for :users,
              skip: [:registration, :sessions],
@@ -15,6 +16,9 @@ Rails.application.routes.draw do
     post :login, to: "devise/sessions#create", as: :user_session
     delete :logout, to: "devise/sessions#destroy", as: :destroy_user_session
   end
+
+  get :landing, to: "landing#index", as: :landing
+  get :register, to: "register#index", as: :register
 
   root "landing#index"
 end
