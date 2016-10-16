@@ -7,6 +7,18 @@ ENV APP_HOME=/app \
     BUNDLE_PATH=/bundler-cache \
     BUNDLE_JOBS=2
 
+# Apt cacher
+RUN /sbin/ip route | awk '/default/ { print "Acquire::http::Proxy \"http://"$3":8200\";" }' >> /etc/apt/apt.conf.d/01proxy \
+ && echo 'Acquire::HTTPS::Proxy "false";' >> /etc/apt/apt.conf.d/01proxy \
+ && echo 'Acquire::http::Proxy::ppa.launchpad.net DIRECT;' >> /etc/apt/apt.conf.d/01proxy
+
+#RUN apt-get update -qq \
+#  && apt-get install -y \
+#    squid-deb-proxy-client \
+#  && rm -rf /var/lib/apt/lists/* \
+#  && /sbin/ip route | awk '/default/ { print "Acquire::http::Proxy \"http://"$3":8200\";" }' > /etc/apt/apt.conf.d/30proxy \
+#  && echo "Acquire::http::Proxy::ppa.launchpad.net DIRECT;" >> /etc/apt/apt.conf.d/30proxy
+
 # Get the essentials
 RUN apt-get update -qq && apt-get install -y \
     build-essential \
@@ -15,6 +27,7 @@ RUN apt-get update -qq && apt-get install -y \
 # Install other dependencies
 RUN apt-get update -qq && apt-get install -y \
     imagemagick \
+    nodejs npm nodejs-legacy \
   && rm -rf /var/lib/apt/lists/*
 
 # Setup SSH and remove Host Checking
