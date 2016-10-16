@@ -1,7 +1,7 @@
 require 'test_helper'
 
 describe PagesController do
-  let(:page) { pages(:furrow) }
+  let(:page) { pages(:onboarding) }
 
   describe "#show" do
     it "works" do
