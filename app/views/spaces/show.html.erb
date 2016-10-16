@@ -5,5 +5,9 @@
   <%= @space.name %>
 </p>
 
+<p>
+  <%= link_to 'Pages', space_pages_path(@space) %>
+</p>
+
 <%= link_to 'Edit', edit_space_path(@space) %> |
 <%= link_to 'Back', team_spaces_path(@space.team) %>
