@@ -2,4 +2,4 @@
 //= require jquery_ujs
 //= require turbolinks
 //
-//= require global
+//= require main

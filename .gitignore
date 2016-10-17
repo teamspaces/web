@@ -16,4 +16,11 @@
 # Ignore Byebug command history file.
 .byebug_history
 
+# OSX junk files
 .DS_Store
+
+# Local node modules
+node_modules/
+
+# Prevent gulp-generated assets from being saved in the repository
+public/assets/
