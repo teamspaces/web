@@ -12,23 +12,22 @@ RUN /sbin/ip route | awk '/default/ { print "Acquire::http::Proxy \"http://"$3":
  && echo 'Acquire::HTTPS::Proxy "false";' >> /etc/apt/apt.conf.d/01proxy \
  && echo 'Acquire::http::Proxy::ppa.launchpad.net DIRECT;' >> /etc/apt/apt.conf.d/01proxy
 
-#RUN apt-get update -qq \
-#  && apt-get install -y \
-#    squid-deb-proxy-client \
-#  && rm -rf /var/lib/apt/lists/* \
-#  && /sbin/ip route | awk '/default/ { print "Acquire::http::Proxy \"http://"$3":8200\";" }' > /etc/apt/apt.conf.d/30proxy \
-#  && echo "Acquire::http::Proxy::ppa.launchpad.net DIRECT;" >> /etc/apt/apt.conf.d/30proxy
-
 # Get the essentials
 RUN apt-get update -qq && apt-get install -y \
     build-essential \
   && rm -rf /var/lib/apt/lists/*
 
+# Use latest version of nodejs
+RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
+
 # Install other dependencies
 RUN apt-get update -qq && apt-get install -y \
     imagemagick \
-    nodejs npm nodejs-legacy \
+    nodejs \
   && rm -rf /var/lib/apt/lists/*
+
+# Install gulp
+RUN npm install gulp -g
 
 # Setup SSH and remove Host Checking
 RUN ssh-keygen -t rsa -N "" -f /root/.ssh/id_rsa && \
