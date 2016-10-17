@@ -1,3 +1,6 @@
-var editor = require('./editor');
+window.$ = window.jQuery = require('jquery');
+window._ = require('underscore');
 
-editor.init();
+window.Spaces = {
+  Editor: require('./editor')
+};
