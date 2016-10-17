@@ -7,7 +7,7 @@ module.exports = {
     src: sourceFiles + "/stylesheets/**/*.{sass,scss}",
     dest: publicAssets + "/stylesheets",
     settings: {
-      indentedSyntax: true, // Enable .sass syntax!
+      indentedSyntax: false, // 'true' to enable .sass syntax!
       imagePath: '/assets/images' // Used by the image-url helper
     }
   },
@@ -32,9 +32,9 @@ module.exports = {
   },
   browserify: {
     bundleConfigs: [{
-      entries: sourceFiles + '/javascripts/global.coffee',
+      entries: sourceFiles + '/javascripts/main.js',
       dest: publicAssets + '/javascripts',
-      outputName: 'global.js',
+      outputName: 'main.js',
       extensions: ['.js','.coffee']
     }]
   }
