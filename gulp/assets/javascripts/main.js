@@ -1,1 +1,3 @@
-console.log("Hi from Gulp");
+var editor = require('./editor');
+
+editor.init();
