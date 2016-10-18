@@ -1,5 +1,15 @@
 # API & Landing
 
+
+### Assets
+
+#### How it works
+- Sprockets load gulpified assets
+- Gulp compiles fonts, images (SVG etc.), stylesheets, javascripts. Look in `gulp/config.js`.
+
+#### Building
+`docker-compose run api gulp`
+
 ### Form Objects using Inflorm
 
 Documentation: https://github.com/influitive/inflorm
