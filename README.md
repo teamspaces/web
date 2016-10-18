@@ -38,6 +38,20 @@ class PetForm
 end
 ```
 
+### Working with Slack
+Access the app here: https://api.slack.com/apps
+
+Default configuration for all allowed URLs to sign in is:
+```
+http://localhost:5510/users/auth/slack/callback
+http://127.0.0.1.nip.io:5510/users/auth/slack/callback
+http://192.168.99.100:5510/users/auth/slack/callback
+http://192.168.99.101:5510/users/auth/slack/callback
+http://192.168.99.100.nip.io:5510/users/auth/slack/callback
+http://192.168.99.101.nip.io:5510/users/auth/slack/callback
+```
+
+## Other
 This README would normally document whatever steps are necessary to get the
 application up and running.
 

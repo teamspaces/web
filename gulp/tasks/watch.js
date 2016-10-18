@@ -12,3 +12,11 @@ gulp.task('watch', ['watchify'], function(callback) {
   watch(config.iconFont.src, function() { gulp.start('iconFont'); });
   // Watchify will watch and recompile our JS, so no need to gulp.watch it
 });
+
+// TODO: Move this into a file of it's own and include it?
+// Ctrl + C won't work otherwise..
+process.on('SIGINT', function() {
+  setTimeout(function() {
+    process.exit(1);
+  }, 100);
+});
