@@ -3,6 +3,16 @@
 <%= render 'form', page: @page %>
 
 <%= link_to 'Show', @page %> |
-<%= link_to 'Back', space_pages_path(@page) %>
+<%= link_to 'Back', space_pages_path(@page.space) %>
 
 <div id="page-editor"></div>
+
+<script>
+  $(function(){
+    Spaces.Editor.init("#page-editor", {
+      collab_url: "ws://192.168.99.101:5520?token=XYZ",
+      collection: "collab_pages",
+      document_id: "<%= @page.id %>"
+    });
+  });
+</script>
