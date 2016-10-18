@@ -1,11 +1,12 @@
 @import "base/iconFont";
 
 body {
-  font-family: "sans-serif";
+  font-family: "Futura";
+  font-weight: 100;
 }
 
 img {
-  background-color: #999;
+  background-color: #000;
 }
 
 p {
@@ -15,4 +16,9 @@ p {
 a {
   text-decoration: none;
   color: #f0f;
+}
+
+input {
+  font-size: 18px;
+  margin: 10px 10px;
 }
