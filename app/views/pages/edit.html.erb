@@ -10,7 +10,7 @@
 <script>
   $(function(){
     Spaces.Editor.init("#page-editor", {
-      collab_url: "ws://192.168.99.101:5520?token=XYZ",
+      collab_url: "<%= ENV["COLLAB_SERVICE_URL"] %>?token=XYZ",
       collection: "collab_pages",
       document_id: "<%= @page.id %>"
     });
