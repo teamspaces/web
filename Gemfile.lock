@@ -263,6 +263,7 @@ DEPENDENCIES
   inflorm
   jbuilder
   jquery-rails
+  jwt
   listen
   lograge
   minitest-rails
@@ -287,4 +288,4 @@ RUBY VERSION
    ruby 2.3.1p112
 
 BUNDLED WITH
-   1.12.5
+   1.13.4

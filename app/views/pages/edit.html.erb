@@ -9,10 +9,6 @@
 
 <script>
   $(function(){
-    Spaces.Editor.init("#page-editor", {
-      collab_url: "<%= ENV["COLLAB_SERVICE_URL"] %>?token=XYZ",
-      collection: "collab_pages",
-      document_id: "<%= @page.id %>"
-    });
+    Spaces.Editor.init("#page-editor", <%= editor_settings(current_user.id, 'collab_pages', @page.id) %>);
   });
 </script>
