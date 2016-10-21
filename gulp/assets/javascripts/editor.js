@@ -6,7 +6,7 @@
   var Editor = function(){};
 
   Editor.prototype.init = function(attach_to, options) {
-    // Use a proper logger instead...
+    // TODO: Use a proper logger instead...
     console.log("Editor initialized with options:");
     console.log(attach_to);
     console.log(options);
@@ -25,16 +25,16 @@
       connection.bindToSocket(socket);
     };
 
-    var doc = connection.get(options.collection, options.document_id);
-    doc.subscribe(function(err) {
-      if (err) throw err;
+    var page = connection.get(options.collection, options.document_id);
+    page.subscribe(function(error) {
+      if (error) throw error;
       var quill = new Quill(attach_to, {theme: 'snow'});
-      quill.setContents(doc.data);
+      quill.setContents(page.data);
       quill.on('text-change', function(delta, oldDelta, source) {
         if (source !== 'user') return;
-        doc.submitOp(delta, {source: quill});
+        page.submitOp(delta, {source: quill});
       });
-      doc.on('op', function(op, source) {
+      page.on('op', function(op, source) {
         if (source === quill) return;
         quill.updateContents(op);
       });

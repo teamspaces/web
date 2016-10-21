@@ -2,6 +2,26 @@ class PagesController < ApplicationController
   before_action :set_page, only: [:show, :edit, :update, :destroy]
   before_action :set_space, only: [:index, :new, :create]
 
+  # TODO: Move this into
+  # EditorSettingsHashPresenter.new(user_id: current_user.id, ...)
+  def editor_settings(user_id, collection, document_id)
+    payload = {
+      exp: (Time.now.to_i + 10),
+      user_id: user_id,
+      collection: 'collab_pages',
+      document_id: document_id.to_s
+    }
+
+    token = JWT.encode(payload, ENV["COLLAB_SERVICE_JWT_SECRET"], 'HS256')
+
+    {
+      collection: collection,
+      document_id: document_id.to_s,
+      collab_url: "#{ENV["COLLAB_SERVICE_URL"]}?token=#{token}",
+    }.to_json.html_safe
+  end
+  helper_method :editor_settings
+
   # GET /pages
   # GET /pages.json
   def index

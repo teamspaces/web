@@ -20,6 +20,7 @@ gem "inflorm"
 gem "devise"
 gem "omniauth-slack"
 gem "httparty"
+gem "jwt"
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 3.0"
