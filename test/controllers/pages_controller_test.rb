@@ -1,19 +1,24 @@
 require 'test_helper'
 
-describe PagesController do
+class PagesControllerTest < ActionController::TestCase
+  include Devise::Test::ControllerHelpers
+
   let(:page) { pages(:onboarding) }
 
-  describe "#show" do
-    it "works" do
-      get page_url(page)
-      assert_response :success
+  context "not signed in" do
+    it "redirects" do
+
+        get :show, params: { id: page.id }
+        assert_redirected_to new_user_session_path
     end
   end
 
-  # TODO: Test all methods
-  describe "all other methods" do
-    it "need testing" do
-      skip
+  context "signed in" do
+    it "shows pages" do
+      sign_in users(:lars)
+
+      get :show, params: { id: page.id }
+      assert_response :success
     end
   end
 end
