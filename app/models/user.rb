@@ -4,6 +4,7 @@ class User < ApplicationRecord
          :omniauthable, omniauth_providers: [:slack]
 
   has_many :authentications
+  has_many :team_members
   has_many :teams, through: :team_members
 
   def name=(name)
