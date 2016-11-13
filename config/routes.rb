@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   end
 
   get :landing, to: "landing#index", as: :landing
+  get :register, to: "register#index", as: :register
 
   root "landing#index"
 end
