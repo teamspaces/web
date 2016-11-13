@@ -1,19 +1,28 @@
 require 'test_helper'
 
-describe TeamsController do
-  let(:team) { teams(:furrow) }
+class TeamsControllerTest < ActionController::TestCase
+  include Devise::Test::ControllerHelpers
 
-  describe "#spaces" do
-    it "works" do
-      get team_spaces_url(team)
-      assert_response :success
-    end
+  let(:user) { users(:lars) }
+
+  before(:each) do
+    sign_in user
   end
 
-  # TODO: Test all methods
-  describe "all other methods" do
-    it "need testing" do
-      skip
+  context "#create" do
+    it "creates team" do
+      post :create, params: { team: { name: "google" } }
+
+      team = Team.last
+      assert_equal "google", team.name
+    end
+
+    it "makes creator primary owner" do
+      post :create, params: { team: { name: "google" } }
+
+      team_member = Team.last.team_members.last
+      assert_equal user, team_member.user
+      assert team_member.primary_owner?
     end
   end
 end
