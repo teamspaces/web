@@ -8,4 +8,8 @@ describe Team do
       assert team.members.count.positive?
     end
   end
+
+  it "has primary owner" do
+    assert_equal team_members(:ulf_at_furrow), team.primary_owner
+  end
 end
