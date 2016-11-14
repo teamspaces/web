@@ -13,6 +13,8 @@ end
 class ActiveSupport::IntegrationTest
 end
 
+
+
 # Make OmniAuth fake requests
 # https://github.com/intridea/omniauth/wiki/Integration-Testing
 OmniAuth.config.test_mode = true

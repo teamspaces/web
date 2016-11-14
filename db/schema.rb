@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161012161506) do
+ActiveRecord::Schema.define(version: 20161113135843) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,17 @@ ActiveRecord::Schema.define(version: 20161012161506) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.index ["user_id"], name: "index_authentications_on_user_id", using: :btree
+  end
+
+  create_table "invitations", force: :cascade do |t|
+    t.integer  "team_member_id"
+    t.string   "email"
+    t.string   "firstname"
+    t.string   "lastname"
+    t.string   "token"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["team_member_id"], name: "index_invitations_on_team_member_id", using: :btree
   end
 
   create_table "pages", force: :cascade do |t|
@@ -78,6 +89,7 @@ ActiveRecord::Schema.define(version: 20161012161506) do
   end
 
   add_foreign_key "authentications", "users", on_delete: :cascade
+  add_foreign_key "invitations", "team_members"
   add_foreign_key "pages", "spaces", on_delete: :cascade
   add_foreign_key "spaces", "teams", on_delete: :cascade
   add_foreign_key "team_members", "teams", on_delete: :cascade

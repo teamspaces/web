@@ -1,5 +1,5 @@
 class TeamsController < ApplicationController
-  before_action :set_team, only: [:show, :edit, :update, :destroy]
+  before_action :set_team, only: [:show, :edit, :update, :destroy, :invite]
 
   # GET /teams
   # GET /teams.json
@@ -10,6 +10,21 @@ class TeamsController < ApplicationController
   # GET /teams/1
   # GET /teams/1.json
   def show
+    @invitation = @team.team_members.last.invitations.build
+  end
+
+  def invite
+    @invitation = @team.team_members.last.invitations.new(invitation_params)
+
+    respond_to do |format|
+      if @invitation.save
+        format.html { redirect_to @team, notice: 'Invitation was send.' }
+        format.json { render :show, status: :created, location: @invitation }
+      else
+        format.html { render :show }
+        format.json { render json: @invitation.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # GET /teams/new
@@ -25,9 +40,11 @@ class TeamsController < ApplicationController
   # POST /teams.json
   def create
     @team = Team.new(team_params)
+    team_member = current_user.team_members.new(team: @team,
+                                                role: TeamMember::Roles::PRIMARY_OWNER)
 
     respond_to do |format|
-      if @team.save
+      if team_member.save
         format.html { redirect_to @team, notice: 'Team was successfully created.' }
         format.json { render :show, status: :created, location: @team }
       else
@@ -70,5 +87,9 @@ class TeamsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def team_params
       params.require(:team).permit(:name)
+    end
+
+    def invitation_params
+      params.require(:invitation).permit(:email, :firstname, :lastname)
     end
 end
