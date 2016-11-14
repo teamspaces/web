@@ -12,3 +12,8 @@ lars:
   <<: *default
   first_name: Lars
   last_name: Bengtsson
+
+without_team:
+  <<: *default
+  first_name: Katharina
+  last_name: Gaalen

@@ -13,6 +13,17 @@ end
 class ActiveSupport::IntegrationTest
 end
 
+class ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
+  def sign_in_user
+    user = users(:ulf)
+    sign_in user
+    user
+  end
+end
+
+
 # Make OmniAuth fake requests
 # https://github.com/intridea/omniauth/wiki/Integration-Testing
 OmniAuth.config.test_mode = true
