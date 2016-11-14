@@ -4,8 +4,12 @@ class Page < ApplicationRecord
 
   # TODO: Temporary approach to creating documents for collaboration. Move this
   # into a service object or anything prettier than this.
-  after_create :create_collab_page
-  after_destroy :destroy_collab_page
+  after_commit :create_collab_page # synchronous
+  after_destroy :destroy_collab_page # asynchronous
+
+  def contents
+    page_revision.published.last&.contents
+  end
 
   def create_collab_page
     collab_page

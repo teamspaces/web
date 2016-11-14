@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  page_revision: one
+  user_id: one
+
+two:
+  page_revision: two
+  user_id: two

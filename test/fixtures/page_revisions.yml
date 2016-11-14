@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  page: one
+  increment_id: 1
+  published: false
+  published_at: 2016-10-22 06:58:29
+  body: 
+
+two:
+  page: two
+  increment_id: 1
+  published: false
+  published_at: 2016-10-22 06:58:29
+  body: 

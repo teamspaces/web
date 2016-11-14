@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161012161506) do
+ActiveRecord::Schema.define(version: 20161022065901) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,26 @@ ActiveRecord::Schema.define(version: 20161012161506) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.index ["user_id"], name: "index_authentications_on_user_id", using: :btree
+  end
+
+  create_table "page_revision_authors", force: :cascade do |t|
+    t.integer  "page_revision_id"
+    t.integer  "user_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["page_revision_id"], name: "index_page_revision_authors_on_page_revision_id", using: :btree
+    t.index ["user_id"], name: "index_page_revision_authors_on_user_id", using: :btree
+  end
+
+  create_table "page_revisions", force: :cascade do |t|
+    t.integer  "page_id"
+    t.integer  "increment_id"
+    t.boolean  "published"
+    t.datetime "published_at"
+    t.text     "contents"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["page_id"], name: "index_page_revisions_on_page_id", using: :btree
   end
 
   create_table "pages", force: :cascade do |t|
@@ -78,6 +98,9 @@ ActiveRecord::Schema.define(version: 20161012161506) do
   end
 
   add_foreign_key "authentications", "users", on_delete: :cascade
+  add_foreign_key "page_revision_authors", "page_revisions", on_delete: :cascade
+  add_foreign_key "page_revision_authors", "users", on_delete: :cascade
+  add_foreign_key "page_revisions", "pages", on_delete: :cascade
   add_foreign_key "pages", "spaces", on_delete: :cascade
   add_foreign_key "spaces", "teams", on_delete: :cascade
   add_foreign_key "team_members", "teams", on_delete: :cascade

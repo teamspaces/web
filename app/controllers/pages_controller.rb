@@ -4,9 +4,10 @@ class PagesController < ApplicationController
 
   # TODO: Move this into
   # EditorSettingsHashPresenter.new(user_id: current_user.id, ...)
-  def editor_settings(user_id, collection, document_id)
+  def editor_settings(attach_to, user_id, collection, document_id)
     payload = {
-      exp: (Time.now.to_i + 10),
+      attach_to: attach_to,
+      exp: (Time.now.to_i + 60),
       user_id: user_id,
       collection: 'collab_pages',
       document_id: document_id.to_s
@@ -17,7 +18,7 @@ class PagesController < ApplicationController
     {
       collection: collection,
       document_id: document_id.to_s,
-      collab_url: "#{ENV["COLLAB_SERVICE_URL"]}?token=#{token}",
+      collab_url: "#{ENV["COLLAB_SERVICE_URL"]}",
     }.to_json.html_safe
   end
   helper_method :editor_settings
