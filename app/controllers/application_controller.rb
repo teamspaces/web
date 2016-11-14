@@ -11,4 +11,10 @@ class ApplicationController < ActionController::Base
   def after_sign_out_path_for(_resource)
     landing_path
   end
+
+  def current_team_member
+    if current_user && @team
+      @team.members.find_by(user: current_user)
+    end
+  end
 end

@@ -33,4 +33,9 @@ describe Invitation do
       assert_includes email_errors, "already has invitation for team"
     end
   end
+
+  it "generates token before creation" do
+    invite = Invitation.create(team_member: member, email: "n@web.com")
+    assert invite.token
+  end
 end

@@ -1,24 +1,24 @@
 class InvitationsController < ApplicationController
+  before_action :set_invitation, only: [:destroy]
   before_action :set_team, only: [:index, :create]
 
   # GET /invitations
   # GET /invitations.json
   def index
-    @invitations = Invitation.all
-    @invitation = Invitation.new
+    @invitation = current_team_member.invitations.build
   end
 
   # POST /invitations
   # POST /invitations.json
   def create
-    @invitation = @team.invitations.new(invitation_params)
+    @invitation = current_team_member.invitations.new(invitation_params)
 
     respond_to do |format|
       if @invitation.save
-        format.html { redirect_to @invitation, notice: 'Invitation was successfully created.' }
+        format.html { render :index, notice: 'Invitation was successfully created.' }
         format.json { render :show, status: :created, location: @invitation }
       else
-        format.html { render :new }
+        format.html { render :index }
         format.json { render json: @invitation.errors, status: :unprocessable_entity }
       end
     end
@@ -36,6 +36,10 @@ class InvitationsController < ApplicationController
   end
 
   private
+
+    def set_invitation
+      @invitation = Invitation.find(params[:id])
+    end
 
     def set_team
       @team = Team.find(params[:team_id])
