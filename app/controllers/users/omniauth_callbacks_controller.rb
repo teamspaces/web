@@ -45,7 +45,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     unless slack_identity&.success?
       logger.error "failed to fetch user from slack, redirecting"
-      redirect_to register_path,
+      redirect_to signup_path,
                   alert: t(".failed_to_fetch_user_from_slack") and return
     end
 
@@ -63,7 +63,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         redirect_to new_team_path
       else
         logger.error "failed to register, redirecting"
-        redirect_to register_path,
+        redirect_to signup_path,
                     alert: t(".failed_register_using_slack")
       end
     end

@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :pages, only: [:show, :edit, :update, :destroy]
 
   devise_for :users,
-             skip: [ :sessions],
+             skip: [:sessions],
              controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
 
   devise_scope :user do
@@ -16,7 +16,6 @@ Rails.application.routes.draw do
     post :login, to: "devise/sessions#create", as: :user_session
     delete :logout, to: "devise/sessions#destroy", as: :destroy_user_session
     get :signup, to: 'devise/registrations#new', as: :signup
-    post :register, to: 'devise/registrations#create', as: :register
   end
 
   get :landing, to: "landing#index", as: :landing
