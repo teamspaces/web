@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   devise :database_authenticatable, :recoverable, :rememberable,
+         :registerable,
          :trackable, :validatable,
          :omniauthable, omniauth_providers: [:slack]
 

@@ -1,6 +1,7 @@
 require 'test_helper'
 
 describe TeamsController do
+  before(:each) { sign_in_user }
   let(:team) { teams(:furrow) }
 
   describe "#spaces" do

@@ -1,6 +1,12 @@
 <h1>Landing#index</h1>
 
 <% if !user_signed_in? %>
-  <%= link_to "Login with Slack", user_slack_omniauth_authorize_path(state: :login) %>
-  <%= link_to "Register with Slack", user_slack_omniauth_authorize_path(state: :register) %>
+
+  <p><%= link_to "Create Team with Slack", user_slack_omniauth_authorize_path(state: :register) %></p>
+
+
+
+  <%= link_to "or signup with your email", signup_path %>
+
+
 <% end %>
