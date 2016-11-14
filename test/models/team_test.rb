@@ -7,6 +7,10 @@ describe Team do
     it "should have many team_members" do
       assert team.members.count.positive?
     end
+
+    it "has many invitations" do
+      assert team.invitations.count.positive?
+    end
   end
 
   it "has primary owner" do

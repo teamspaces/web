@@ -1,0 +1,32 @@
+<%= form_for(invitation, url: team_invitations_path) do |f| %>
+  <% if invitation.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(invitation.errors.count, "error") %> prohibited this invitation from being send:</h2>
+
+      <ul>
+      <% invitation.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <span class="field">
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </span>
+
+  <span class="field">
+    <%= f.label :firstname %>
+    <%= f.text_field :firstname, placeholder: "Optional" %>
+  </span>
+
+  <span class="field">
+    <%= f.label :lastname %>
+    <%= f.text_field :lastname, placeholder: "Optional" %>
+  </span>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

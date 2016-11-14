@@ -1,17 +1,8 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  firstname: MyString
-  lastname: MyString
-  email: MyString
-  token: MyString
-  recipient_team_member_id: 1
-  sender_team_member_id: 1
-
-two:
-  firstname: MyString
-  lastname: MyString
-  email: MyString
-  token: MyString
-  recipient_team_member_id: 1
-  sender_team_member_id: 1
+furrow:
+  team_member: sven_at_furrow
+  firstname: Jonas
+  lastname: Klemt
+  email: jonasklemt@gmail.com
+  token: 230400ijsjfoij2i3i40iij
