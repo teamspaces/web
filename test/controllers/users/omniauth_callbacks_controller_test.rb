@@ -107,7 +107,7 @@ describe Users::OmniauthCallbacksController do
         slack_identity_mock.expects(:success?).returns(false)
 
         get user_slack_omniauth_callback_url
-        assert_redirected_to signup_path
+        assert_redirected_to sign_up_path
       end
     end
   end
@@ -151,7 +151,7 @@ describe Users::OmniauthCallbacksController do
         register_form_mock.stubs(:save).returns(false)
 
         get user_slack_omniauth_callback_url
-        assert_redirected_to signup_path
+        assert_redirected_to sign_up_path
       end
     end
 
@@ -175,7 +175,7 @@ describe Users::OmniauthCallbacksController do
         slack_identity_mock.expects(:success?).returns(false)
 
         get user_slack_omniauth_callback_url
-        assert_redirected_to signup_path
+        assert_redirected_to sign_up_path
       end
     end
   end

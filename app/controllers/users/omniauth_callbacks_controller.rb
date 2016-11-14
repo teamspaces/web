@@ -38,7 +38,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def redirect_to_standard_auth
     logger.error "failed to fetch user from slack, redirecting"
 
-    redirect_to signup_path,
+    redirect_to sign_up_path,
                 alert: t(".failed_to_fetch_user_from_slack") and return
   end
 

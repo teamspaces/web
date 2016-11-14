@@ -4,7 +4,7 @@ describe User do
   let(:user) { users(:ulf) }
 
   describe "associations" do
-    it "is member of many teams" do
+    it "member of many teams" do
       assert user.team_members.count >= 0
     end
   end
