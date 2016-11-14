@@ -1,75 +1,61 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  STATE_PARAM = "state".freeze
-  LOGIN_STATE = "login".freeze
-  REGISTER_STATE = "register".freeze
 
   def slack
-    if login_request?
-      login_using_slack
-    elsif register_request?
-      register_using_slack
+    if slack_identity_fetched?
+      register_or_login_using_slack
     else
-      render status: :unprocessable_entity,
-             plain: "Missing parameter: #{STATE_PARAM}"
+      redirect_to_standard_auth
     end
   end
 
-  def failure
-    logger.error "callback failure, redirecting"
-    redirect_to root_path
+  def register_or_login_using_slack
+    user = login_using_slack || register_using_slack
+
+    if user
+      sign_in user
+      add_to_team_members(user) if invitation
+      redirect_to_teams
+    else
+      redirect_to_standard_auth
+    end
   end
 
   def login_using_slack
-    logger.info "login user with slack initiated"
-
-    unless slack_identity&.success?
-      logger.error "failed to fetch user from slack, redirecting"
-      redirect_to new_user_session_path,
-                  alert: t(".failed_to_fetch_user_from_slack") and return
-    end
-
     login_form = User::SlackLoginForm.new(slack_identity: slack_identity)
-    if login_form.authenticate
-      logger.info "successful authentication, signing in and redirecting"
-      sign_in login_form.user
-      redirect_to teams_path
-    else
-      logger.error "failed authentication, redirecting"
-      redirect_to new_user_session_path,
-                  alert: t(".failed_login_using_slack")
-    end
+    return login_form.user if login_form.authenticate
   end
 
   def register_using_slack
-    logger.info "register user with slack initiated"
+    register_form = User::SlackRegisterForm.new(slack_identity: slack_identity)
+    return register_form.user if register_form.save
+  end
 
-    unless slack_identity&.success?
-      logger.error "failed to fetch user from slack, redirecting"
-      redirect_to register_path,
-                  alert: t(".failed_to_fetch_user_from_slack") and return
-    end
+  def redirect_to_teams
+    path = current_user.teams ? teams_path : new_team_path
 
-    login_form = User::SlackLoginForm.new(slack_identity: slack_identity)
-    if login_form.authenticate
-      logger.info "user already registered, login instead"
-      sign_in login_form.user
-      redirect_to teams_path,
-                  alert: t(".register_failed_as_user_already_exists")
-    else
-      register_form = User::SlackRegisterForm.new(slack_identity: slack_identity)
-      if register_form.save
-        logger.info "user registered successfully, redirecting"
-        sign_in register_form.user
-        redirect_to new_team_path
-      else
-        logger.error "failed to register, redirecting"
-        redirect_to register_path,
-                    alert: t(".failed_register_using_slack")
-      end
-    end
+    redirect_to path
+  end
+
+  def redirect_to_standard_auth
+    logger.error "failed to fetch user from slack, redirecting"
+
+    redirect_to register_path,
+                alert: t(".failed_to_fetch_user_from_slack") and return
+  end
+
+
+  def add_to_team_members(user)
+    team_member = user.team_members.new(team: invitation.team_member.team,
+                                        role: TeamMember::Roles::MEMBER)
+    team_member.save
   end
 
   private
+
+    def invitation
+      token = omniauth_params["invitation_token"]
+      @invitation ||= token ? Invitation.find_by_token(token) : nil
+    end
 
     def token_secret
       omniauth_auth["credentials"]["token"]
@@ -77,6 +63,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     def slack_identity
       @slack_identity ||= fetch_slack_identity(token_secret)
+    end
+
+    def slack_identity_fetched?
+      slack_identity&.success?
     end
 
     def fetch_slack_identity(token)
@@ -87,14 +77,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       logger.error e.backtrace.join("\n")
 
       return false
-    end
-
-    def login_request?
-      omniauth_params[STATE_PARAM] == LOGIN_STATE
-    end
-
-    def register_request?
-      omniauth_params[STATE_PARAM] == REGISTER_STATE
     end
 
     def omniauth_auth

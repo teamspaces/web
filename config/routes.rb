@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :teams, shallow: true do
+    post 'invite', on: :member
     resources :spaces do
       resources :pages, only: [:index, :new, :create]
     end
@@ -19,6 +20,8 @@ Rails.application.routes.draw do
 
   get :landing, to: "landing#index", as: :landing
   get :register, to: "register#index", as: :register
+
+ # resources :invitations
 
   root "landing#index"
 end

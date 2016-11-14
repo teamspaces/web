@@ -11,5 +11,7 @@
 
 <%= render 'team_members', team_members: @team.team_members %>
 
+<%= render '/invitations/form', invitation: @invitation, team: @team %>
+
 <%= link_to 'Edit', edit_team_path(@team) %> |
 <%= link_to 'Back', teams_path %>

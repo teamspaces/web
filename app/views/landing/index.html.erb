@@ -1,4 +1,4 @@
 <h1>Landing#index</h1>
 
 <%= link_to "Login", new_user_session_path %>
-<%= link_to "Register with Slack", user_slack_omniauth_authorize_path(state: :register) %>
+<%= link_to "Register with Slack", user_slack_omniauth_authorize_path(state: :register, invitation_token: @invitation_token) %>

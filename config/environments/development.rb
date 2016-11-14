@@ -42,6 +42,17 @@ Rails.application.configure do
   # number of complex assets.
   config.assets.debug = true
 
+  config.action_mailer.delivery_method = :smtp
+# SMTP settings for gmail
+config.action_mailer.smtp_settings = {
+ :address              => "mail.rz.htw-berlin.de",
+ :port                 => 587,
+ :user_name            => "s0544845",
+ :password             => "Fucker13",
+ :authentication       => "plain",
+:enable_starttls_auto => true
+}
+
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
