@@ -4,7 +4,7 @@ describe TeamMember do
   let(:team_member) { team_members(:ulf_at_furrow) }
 
   describe "validations" do
-    it "should have unique user per team" do
+    it "should have an unique user per team" do
       duplicated_team_member = TeamMember.new(user: team_member.user,
                                               team: team_member.team)
        duplicated_team_member.valid?

@@ -5,7 +5,7 @@ describe Team do
 
   describe "associations" do
     it "should have many team_members" do
-      assert team.team_members.count >= 0
+      assert team.members.count.positive?
     end
   end
 end

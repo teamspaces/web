@@ -113,29 +113,27 @@ describe Users::OmniauthCallbacksController do
   end
 
   describe "#register_using_slack" do
-    context "able to register" do
-      it "creates an account" do
-        assert_register(user)
+    it "creates an account" do
+      assert_register(user)
+      get user_slack_omniauth_callback_url
+    end
+
+    context "account belongs to a team" do
+      it "redirects to teams" do
+        team_member_user = user
+        assert_register(team_member_user)
         get user_slack_omniauth_callback_url
+
+        assert_redirected_to teams_path
       end
+    end
 
-      context "account belongs to a team" do
-        it "redirects to teams" do
-          team_member_user = user
-          assert_register(team_member_user)
-          get user_slack_omniauth_callback_url
+    context "account has no team" do
+      it "redirects to create new team" do
+        assert_register(users(:without_team))
+        get user_slack_omniauth_callback_url
 
-          assert_redirected_to teams_path
-        end
-      end
-
-      context "account has no team" do
-        it "redirects to create new team" do
-          assert_register(users(:without_team))
-          get user_slack_omniauth_callback_url
-
-          assert_redirected_to new_team_path
-        end
+        assert_redirected_to new_team_path
       end
     end
 
