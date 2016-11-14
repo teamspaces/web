@@ -47,8 +47,7 @@ Rails.application.configure do
 config.action_mailer.smtp_settings = {
  :address              => "mail.rz.htw-berlin.de",
  :port                 => 587,
- :user_name            => "s0544845",
- :password             => "Fucker13",
+
  :authentication       => "plain",
 :enable_starttls_auto => true
 }
