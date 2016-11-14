@@ -59,10 +59,6 @@ describe Users::OmniauthCallbacksController do
     })
   end
 
-  def stub_omniauth_params(hash)
-    stub_with_hash(:omniauth_params, hash)
-  end
-
   def stub_with_hash(method, hash)
     subject.any_instance
            .stubs(method)
@@ -79,23 +75,19 @@ describe Users::OmniauthCallbacksController do
            .stubs(method)
   end
 
-  context "#slack" do
-    describe "state is unknown" do
-      let(:omniauth_params) { { state: "unknown" } }
-      it "will fail" do
-        stub_omniauth_params(omniauth_params)
-        get user_slack_omniauth_callback_url
-        assert_response :unprocessable_entity
-      end
-    end
+  def assert_register(user)
+    subject_stubs(:slack_identity).returns(slack_identity_mock = mock)
+    slack_identity_mock.stubs(:success?).returns(true)
+
+    User::SlackLoginForm.expects(:new).returns(login_form_mock = mock)
+    login_form_mock.stubs(:authenticate).returns(false)
+
+    User::SlackRegisterForm.expects(:new).returns(register_form_mock = mock)
+    register_form_mock.stubs(:save).returns(true)
+    register_form_mock.stubs(:user).returns(user)
   end
 
   describe "#login_using_slack" do
-    let(:omniauth_params) { { state: "login" } }
-
-    before(:each) do
-      stub_omniauth_params(omniauth_params)
-    end
 
     it "redirects and signs in" do
       subject_stubs(:slack_identity).returns(slack_identity_mock = mock)
@@ -109,50 +101,42 @@ describe Users::OmniauthCallbacksController do
       assert_redirected_to teams_path
     end
 
-    context "unable to login" do
-      it "redirects" do
-        subject_stubs(:slack_identity).returns(slack_identity_mock = mock)
-        slack_identity_mock.stubs(:success?).returns(true)
-
-        User::SlackLoginForm.expects(:new).returns(login_form_mock = mock)
-        login_form_mock.stubs(:authenticate).returns(false)
-
-        get user_slack_omniauth_callback_url
-        assert_redirected_to new_user_session_path
-      end
-    end
-
     context "unable to fetch identity from slack" do
       it "redirects" do
         subject_stubs(:slack_identity).returns(slack_identity_mock = mock)
         slack_identity_mock.expects(:success?).returns(false)
 
         get user_slack_omniauth_callback_url
-        assert_redirected_to new_user_session_path
+        assert_redirected_to signup_path
       end
     end
   end
 
   describe "#register_using_slack" do
-    let(:omniauth_params) { { state: "register" } }
+    context "able to register" do
+      it "creates an account" do
+        assert_register(user)
+        get user_slack_omniauth_callback_url
+      end
 
-    before(:each) do
-      stub_omniauth_params(omniauth_params)
-    end
+      context "account belongs to a team" do
+        it "redirects to teams" do
+          team_member_user = user
+          assert_register(team_member_user)
+          get user_slack_omniauth_callback_url
 
-    it "creates an account and redirects" do
-      subject_stubs(:slack_identity).returns(slack_identity_mock = mock)
-      slack_identity_mock.stubs(:success?).returns(true)
+          assert_redirected_to teams_path
+        end
+      end
 
-      User::SlackLoginForm.expects(:new).returns(login_form_mock = mock)
-      login_form_mock.stubs(:authenticate).returns(false)
+      context "account has no team" do
+        it "redirects to create new team" do
+          assert_register(users(:without_team))
+          get user_slack_omniauth_callback_url
 
-      User::SlackRegisterForm.expects(:new).returns(register_form_mock = mock)
-      register_form_mock.stubs(:save).returns(true)
-      register_form_mock.stubs(:user).returns(user)
-
-      get user_slack_omniauth_callback_url
-      assert_redirected_to new_team_path
+          assert_redirected_to new_team_path
+        end
+      end
     end
 
     context "unable to register" do
