@@ -1,5 +1,5 @@
 machine:
   environment:
-    ACTION_MAILER_HOST: www.furrow.io
+    ACTION_MAILER_HOST: 'www.furrow.io'
     ACTION_MAILER_PORT: 5510
-    ACTION_MAILER_DEFAULT_FROM: [DEV] <Team Furrow> hello@furrow.io
+    ACTION_MAILER_DEFAULT_FROM: '[DEV] <Team Furrow> hello@furrow.io'
