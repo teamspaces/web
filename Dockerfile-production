@@ -34,6 +34,12 @@ RUN \
     apk add --virtual build-packages build-base $BUILD_PACKAGES && \
     # Install runtime packages.
     apk add --virtual runtime-packages nodejs tzdata $RUNTIME_PACKAGES && \
+    # Install Gulp globally
+    npm install --production --global gulp && \
+    # Install NPM packages
+    npm install --production && \
+    # Compile our assets
+    RAILS_ENV=$RAILS_ENV gulp build && \
     # Install application gems.
     bundle install --jobs 10 --retry 5 --without development test --with production && \
     # Precompile Rails assets.
@@ -45,6 +51,10 @@ RUN \
     rm -rf /var/cache/apk/* && \
     rm -rf /usr/local/lib/ruby/gems/*/cache/* && \
     rm -rf ~/.gem
+
+# TODO:
+# - Clean up NPM packages
+# - See if we can tweak NPM install for production
 
 # Run your application with Puma.
 CMD bundle exec puma -C config/puma.rb
