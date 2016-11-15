@@ -2,7 +2,9 @@
 FROM ruby:2.3-alpine
 
 # Import ENV needed for build process
+ARG RAILS_ENV
 ARG SECRET_KEY_BASE
+ARG DATABASE_URL
 
 # Build packages are system packages that are only required for installing
 # gems, precompiling assets, etc. They are not included in the final Docker
@@ -35,7 +37,7 @@ RUN \
     # Install application gems.
     bundle install --jobs 10 --retry 5 --without development test --with production && \
     # Precompile Rails assets.
-    RAILS_ENV=production SECRET_KEY_BASE=$SECRET_KEY_BASE bundle exec rake assets:precompile && \
+    RAILS_ENV=$RAILS_ENV SECRET_KEY_BASE=$SECRET_KEY_BASE DATABASE_URL=$DATABASE_URL bundle exec rake assets:precompile && \
     # Clean up build packages.
     apk del --purge build-packages && \
     # Delete APK and gem caches.
