@@ -45,6 +45,7 @@ RUN \
   && RAILS_ENV=$RAILS_ENV gulp build \
   # Disable bundler from installing documentation
   && echo 'gem: --no-rdoc --no-ri' >> /.gemrc \
+  && echo 'gem: --no-document' >> ~/.gemrc
   # Install application gems.
   && bundle install --jobs 10 --retry 5 --without development test --with production \
   # Precompile Rails assets.
