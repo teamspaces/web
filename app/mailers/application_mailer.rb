@@ -1,3 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  layout 'mailer'
+  default from: "hello@furrow.io"
+  layout "mailer"
 end
