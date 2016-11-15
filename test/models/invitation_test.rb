@@ -22,11 +22,6 @@ describe Invitation do
       assert_includes invitation.errors[:email], "is invalid"
     end
 
-    it "validates presence of token" do
-      invitation = Invitation.create(token: nil, team_member: member)
-      assert_includes invitation.errors[:token], "can't be blank"
-    end
-
     it "validates email only one invitation for team" do
       invite_same_email = Invitation.create(invitation.attributes)
       email_errors = invite_same_email.errors[:email]

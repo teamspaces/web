@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
 
   def current_team_member
     if current_user && @team
-      @team.members.find_by(user: current_user)
+      current_user.team_members.find_by(team: @team)
     end
   end
 end
