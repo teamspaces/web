@@ -11,11 +11,11 @@ class InvitationsController < ApplicationController
   # POST /invitations
   # POST /invitations.json
   def create
-    @invitation = @team.invitations.new(invitation_params)
-    @invitation.user = current_user
+    service = Invitation::CreateAndSendJoinTeamInviteMail
+    success, @invitation = service.call(invitation_params, @team, current_user)
 
     respond_to do |format|
-      if @invitation.save
+      if success
         format.html { redirect_to team_invitations_url(@team), notice: 'Invitation was successfully created.' }
         format.json { render :show, status: :created, location: @invitation }
       else

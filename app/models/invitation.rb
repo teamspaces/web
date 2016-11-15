@@ -11,11 +11,6 @@ class Invitation < ApplicationRecord
   validate :email_one_invitation_per_team
 
   before_create :generate_token
-  after_create :send_invitation_mail
-
-  def send_invitation_mail
-    InvitationMailer.join_team(self).deliver
-  end
 
   private
 
@@ -26,6 +21,6 @@ class Invitation < ApplicationRecord
     end
 
     def generate_token
-      self.token = Digest::SHA1.hexdigest([self.team, self.user, rand].join)
+      self.token = SecureRandom.urlsafe_base64(64)
     end
 end

@@ -21,15 +21,6 @@ describe InvitationsController do
       end
     end
 
-    it "has current_user as creator" do
-      params = { invitation: { email: "gall@nl.se"} }
-      post team_invitations_path(team), params: params
-
-      invitation =  Invitation.find_by_email("gall@nl.se")
-      assert_equal team, invitation.team
-      assert_equal user, invitation.user
-    end
-
     context "with invalid attributes" do
 
       it "does not create the invitation" do
