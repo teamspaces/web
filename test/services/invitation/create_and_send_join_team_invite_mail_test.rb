@@ -10,7 +10,6 @@ describe Invitation::CreateAndSendJoinTeamInviteMail, :model do
   end
 
   it "creates invitation" do
-    debugger
     success, invitation = service.call(team_params("ken@o.es"), team, user)
 
     assert success
@@ -27,10 +26,10 @@ describe Invitation::CreateAndSendJoinTeamInviteMail, :model do
 
   context "invalid params" do
     it "does not create invitation" do
-       success, invitation = service.call(team_params("invalid"), team, user)
+      success, invitation = service.call(team_params("invalid"), team, user)
 
-       refute success
-       assert invitation.errors[:email]
+      refute success
+      assert invitation.errors[:email]
     end
   end
 end
