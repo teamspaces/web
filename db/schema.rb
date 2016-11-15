@@ -27,14 +27,17 @@ ActiveRecord::Schema.define(version: 20161114154421) do
   end
 
   create_table "invitations", force: :cascade do |t|
-    t.integer  "team_member_id"
+    t.integer  "team_id"
+    t.integer  "user_id"
+    t.integer  "invitee_user_id"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
     t.string   "token"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.index ["team_member_id"], name: "index_invitations_on_team_member_id", using: :btree
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["team_id"], name: "index_invitations_on_team_id", using: :btree
+    t.index ["user_id"], name: "index_invitations_on_user_id", using: :btree
   end
 
   create_table "pages", force: :cascade do |t|
@@ -89,7 +92,8 @@ ActiveRecord::Schema.define(version: 20161114154421) do
   end
 
   add_foreign_key "authentications", "users", on_delete: :cascade
-  add_foreign_key "invitations", "team_members"
+  add_foreign_key "invitations", "teams"
+  add_foreign_key "invitations", "users"
   add_foreign_key "pages", "spaces", on_delete: :cascade
   add_foreign_key "spaces", "teams", on_delete: :cascade
   add_foreign_key "team_members", "teams", on_delete: :cascade

@@ -5,13 +5,14 @@ class InvitationsController < ApplicationController
   # GET /invitations
   # GET /invitations.json
   def index
-    @invitation = current_team_member.invitations.build
+    @invitation = @team.invitations.build
   end
 
   # POST /invitations
   # POST /invitations.json
   def create
-    @invitation = current_team_member.invitations.new(invitation_params)
+    @invitation = @team.invitations.new(invitation_params)
+    @invitation.user = current_user
 
     respond_to do |format|
       if @invitation.save

@@ -2,7 +2,6 @@ require 'test_helper'
 
 describe InvitationsController do
   let(:user) { users(:lars) }
-  let(:team_member) { team_members(:lars_at_furrow) }
   let(:team) { teams(:furrow) }
 
   before(:each) { sign_in user }
@@ -22,13 +21,13 @@ describe InvitationsController do
       end
     end
 
-    it "has current_user's team_member as creator" do
+    it "has current_user as creator" do
       params = { invitation: { email: "gall@nl.se"} }
       post team_invitations_path(team), params: params
 
       invitation =  Invitation.find_by_email("gall@nl.se")
       assert_equal team, invitation.team
-      assert_equal team_member, invitation.team_member
+      assert_equal user, invitation.user
     end
 
     context "with invalid attributes" do
