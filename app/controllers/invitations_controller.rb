@@ -47,6 +47,6 @@ class InvitationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def invitation_params
-      params.require(:invitation).permit(:email, :firstname, :lastname)
+      params.require(:invitation).permit(:email, :first_name, :last_name)
     end
 end

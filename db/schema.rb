@@ -28,8 +28,8 @@ ActiveRecord::Schema.define(version: 20161114154421) do
 
   create_table "invitations", force: :cascade do |t|
     t.integer  "team_member_id"
-    t.string   "firstname"
-    t.string   "lastname"
+    t.string   "first_name"
+    t.string   "last_name"
     t.string   "email"
     t.string   "token"
     t.datetime "created_at",     null: false
