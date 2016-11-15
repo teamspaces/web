@@ -15,7 +15,7 @@ class InvitationsController < ApplicationController
 
     respond_to do |format|
       if @invitation.save
-        format.html { render :index, notice: 'Invitation was successfully created.' }
+        format.html { redirect_to team_invitations_url(@team), notice: 'Invitation was successfully created.' }
         format.json { render :show, status: :created, location: @invitation }
       else
         format.html { render :index }

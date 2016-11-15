@@ -6,4 +6,4 @@ Hi <%= @invitation.first_name %>,
 
 thx, Join now
 
-<%= @invitation_url %>
+<%=  landing_url(invitation_token: @invitation.token) %>
