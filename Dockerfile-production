@@ -14,18 +14,18 @@ RUN apt-get update -qq && apt-get install -y \
 # Add NodeJS deb source repository
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
 
-# Install dependencies
-RUN apt-get update -qq && apt-get install -y \
-    imagemagick \
-    nodejs \
-  && rm -rf /var/lib/apt/lists/*
-
 # Create user and group
 RUN groupadd web --gid 6156 \
     && useradd --home /home/web --create-home --shell /bin/false --uid 6157 --gid 6156 web
 
 # Run as web user from here on
 USER web
+
+# Install dependencies
+RUN apt-get update -qq && apt-get install -y \
+    imagemagick \
+    nodejs \
+  && rm -rf /var/lib/apt/lists/*
 
 # Path to app home
 ENV APP_HOME=/home/web/app
