@@ -1,6 +1,7 @@
 require 'test_helper'
 
 describe PagesController do
+  before(:each) { sign_in_user }
   let(:page) { pages(:onboarding) }
 
   describe "#show" do

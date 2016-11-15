@@ -1,6 +1,7 @@
 require 'test_helper'
 
 describe SpacesController do
+  before(:each) { sign_in_user }
   let(:space) { spaces(:furrow) }
 
   describe "#show" do
