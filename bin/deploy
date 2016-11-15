@@ -1,0 +1,2 @@
+#!/usr/bin/env ruby
+`curl -X POST #{ENV["CLOUD66_REDEPLOYMENT_HOOK"]}`
