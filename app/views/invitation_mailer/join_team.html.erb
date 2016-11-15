@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <% user = @invitation.team_member.user %>
+
+    <h1>Hi <%= @invitation.firstname %>,</h1>
+    <p>
+      <%= "#{user.first_name} invited you to join the #{@invitation.team.name}-Team in Spaces" %>
+    </p>
+   <%= link_to "thx, Join now", landing_url(invitation_token: @invitation.token) %>
+  </body>
+</html>

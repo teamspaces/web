@@ -1,0 +1,9 @@
+<% user = @invitation.team_member.user %>
+
+Hi <%= @invitation.firstname %>,
+
+<%= "#{user.first_name} invited you to join the #{@invitation.team.name}-Team in Spaces" %>
+
+thx, Join now
+
+<%= landing_url(invitation_token: @invitation.token) %>

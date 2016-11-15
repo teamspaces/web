@@ -1,7 +1,6 @@
 require "test_helper"
 
 describe Invitation do
-  let(:invitation) { invitations(:furrow) }
   let(:member)  { team_members(:lars_at_furrow) }
 
   describe "associations" do
@@ -23,7 +22,7 @@ describe Invitation do
     end
 
     it "validates email only one invitation for team" do
-      invite_same_email = Invitation.create(invitation.attributes)
+      invite_same_email = Invitation.create(invitations(:furrow).attributes)
       email_errors = invite_same_email.errors[:email]
       assert_includes email_errors, "already has invitation for team"
     end
@@ -32,5 +31,14 @@ describe Invitation do
   it "generates token before creation" do
     invite = Invitation.create(team_member: member, email: "n@web.com")
     assert invite.token
+  end
+
+  describe "sends invitation after creation" do
+    it "sends join team email invitation" do
+      invitation = Invitation.new(email: "new_sarah@es.com", team_member: member)
+      InvitationMailer.expects(:join_team).with(invitation).returns(email_mock = mock)
+      email_mock.expects(:deliver)
+      invitation.save
+    end
   end
 end
