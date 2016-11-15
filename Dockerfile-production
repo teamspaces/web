@@ -1,6 +1,9 @@
 # Our base image is Ruby 2.3, running on Alpine Linux.
 FROM ruby:2.3-alpine
 
+# Import ENV needed for build process
+ARG SECRET_KEY_BASE
+
 # Build packages are system packages that are only required for installing
 # gems, precompiling assets, etc. They are not included in the final Docker
 # image.
@@ -11,6 +14,10 @@ ENV BUILD_PACKAGES \
 # to run. They are included in the final Docker image.
 ENV RUNTIME_PACKAGES \
     postgresql-libs
+
+# Set Rails environment to production
+ENV RAILS_ENV production
+ENV RACK_ENV production
 
 # Copy your application into the container.
 COPY . .
@@ -28,7 +35,7 @@ RUN \
     # Install application gems.
     bundle install --jobs 10 --retry 5 --without development test --with production && \
     # Precompile Rails assets.
-    RAILS_ENV=production bundle exec rake assets:precompile && \
+    RAILS_ENV=production SECRET_KEY_BASE=$SECRET_KEY_BASE bundle exec rake assets:precompile && \
     # Clean up build packages.
     apk del --purge build-packages && \
     # Delete APK and gem caches.
@@ -38,4 +45,4 @@ RUN \
     rm -rf ~/.gem
 
 # Run your application with Puma.
-CMD puma -e production -p 8080
+CMD bundle exec puma -C config/puma.rb
