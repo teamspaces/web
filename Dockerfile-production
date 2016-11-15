@@ -46,11 +46,12 @@ RUN \
     RAILS_ENV=$RAILS_ENV SECRET_KEY_BASE=$SECRET_KEY_BASE DATABASE_URL=$DATABASE_URL bundle exec rake assets:precompile && \
     # Clean up build packages.
     apk del --purge build-packages && \
-    # Delete APK and gem caches.
+    # Delete APK, Gem and NPM caches.
     find / -type f -iname \*.apk-new -delete && \
     rm -rf /var/cache/apk/* && \
     rm -rf /usr/local/lib/ruby/gems/*/cache/* && \
-    rm -rf ~/.gem
+    rm -rf ~/.gem && \
+    npm cache clear
 
 # TODO:
 # - Clean up NPM packages
