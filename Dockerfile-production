@@ -1,9 +1,15 @@
 # Our base image is Ruby 2.3
 FROM ruby:2.3
 
-ENV DEBIAN_FRONTEND=noninteractive \
+ENV APP_HOME=/app \
+    DEBIAN_FRONTEND=noninteractive \
     DEBIAN_PRIORITY=critical \
     DEBCONF_NOWARNINGS=yes
+
+# Import ENV needed for build process
+ARG RAILS_ENV
+ARG SECRET_KEY_BASE
+ARG DATABASE_URL
 
 # Install build essentials
 RUN apt-get update -qq && apt-get install -y \
@@ -20,32 +26,17 @@ RUN apt-get update -qq && apt-get install -y \
     nodejs \
   && rm -rf /var/lib/apt/lists/*
 
-# Create user and group
-RUN groupadd web --gid 6156 \
-    && useradd --home /home/web --create-home --shell /bin/false --uid 6157 --gid 6156 web
-
-# Run as web user from here on
-USER web
-
-# Path to app home
-ENV APP_HOME=/home/web/app
-
-# Import ENV needed for build process
-ARG RAILS_ENV
-ARG SECRET_KEY_BASE
-ARG DATABASE_URL
-
-# Setup app home
+# Setup app path
 RUN mkdir $APP_HOME
 WORKDIR $APP_HOME
 
-# Copy files to app home
+# Copy app
 COPY . $APP_HOME
 
 # Build process
 RUN \
-  # Install gulp
-  npm install --production gulp \
+  # Install gulp globally
+  npm install --production --global gulp \
   # Install NPM packages
   && npm install --production \
   # Compile our assets
