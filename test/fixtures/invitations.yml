@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+furrow:
+  team: furrow
+  user: lars
+  first_name: Jonas
+  last_name: Klemt
+  email: jonasklemt@gmail.com
+  token: 230400ijsjfoij2i3i40iij
