@@ -1,7 +1,7 @@
 require "test_helper"
 
 describe SendInvitationForm, :model do
-  let(:existing_invitation) { invitations(:furrow) }
+  let(:existing_invitation) { invitations(:jonas_at_furrow) }
   subject { SendInvitationForm.new(user: users(:lars), team: teams(:furrow)) }
 
   describe "validations" do

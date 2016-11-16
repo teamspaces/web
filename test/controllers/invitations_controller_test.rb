@@ -35,7 +35,7 @@ describe InvitationsController do
   describe "#destroy" do
     it "delets invitation" do
       assert_difference -> { Invitation.count }, -1 do
-        delete invitation_path(invitations(:furrow))
+        delete invitation_path(invitations(:jonas_at_furrow))
       end
     end
   end

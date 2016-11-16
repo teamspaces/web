@@ -1,6 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-furrow:
+jonas_at_furrow:
   team: furrow
   user: lars
   first_name: Jonas
