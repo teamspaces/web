@@ -1,4 +1,4 @@
-class TeamForUserForm
+class CreateTeamForUserForm
   include Inflorm
 
   attr_reader :team, :to_key

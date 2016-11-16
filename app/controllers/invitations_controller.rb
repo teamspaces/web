@@ -11,7 +11,8 @@ class InvitationsController < ApplicationController
   # POST /invitations
   # POST /invitations.json
   def create
-    @invitation_form = SendInvitationForm.new(send_invitation_form_params)
+    @invitation_form = SendInvitationForm.new(send_invitation_form_params.to_h
+                                              .merge(team: @team, user: current_user))
 
     respond_to do |format|
       if @invitation_form.save
@@ -46,8 +47,6 @@ class InvitationsController < ApplicationController
     end
 
     def send_invitation_form_params
-      params.require(:send_invitation_form)
-            .permit(:email, :first_name, :last_name)
-            .to_h.merge(team: @team, user: current_user)
+      params.require(:send_invitation_form).permit(:email, :first_name, :last_name)
     end
 end

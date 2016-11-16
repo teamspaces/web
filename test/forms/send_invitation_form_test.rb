@@ -24,7 +24,7 @@ describe SendInvitationForm, :model do
   end
 
   it "sends email-invitation" do
-    SendJoinTeamInvitation.expects(:call)
+    SendTeamInvitation.expects(:call)
 
     subject.email = "gu@es.de"
     subject.save
