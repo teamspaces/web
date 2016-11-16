@@ -3,11 +3,7 @@ development:
   clients:
     # Defines the default client. (required)
     default:
-      # Defines the name of the default database that Mongoid can connect to.
-      # (required).
       database: furrow_development
-      # Provides the hosts the default client can connect to. Must be an array
-      # of host:port pairs. (required)
       hosts:
         - mongo:27017
       options:
@@ -141,3 +137,12 @@ test:
         read:
           mode: :primary
         max_pool_size: 1
+
+production:
+  clients:
+    default:
+      uri: <%= ENV["MONGODB_URL"] %>
+      options:
+        wait_queue_timeout: 2
+        connect_timeout: 2
+        socket_timeout: 2
