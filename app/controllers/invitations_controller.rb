@@ -5,18 +5,16 @@ class InvitationsController < ApplicationController
   # GET /invitations
   # GET /invitations.json
   def index
-    @invitation_form = Invitation::InvitationForm.new
+    @invitation_form = SendInvitationForm.new
   end
 
   # POST /invitations
   # POST /invitations.json
   def create
-    result = Invitation::CreateAndSendJoinTeamMail.call(team: @team, user: current_user,
-                                                        invitation_params: invitation_form_params)
-    @invitation_form = result.invitation_form
+    @invitation_form = SendInvitationForm.new(send_invitation_form_params)
 
     respond_to do |format|
-      if result.success?
+      if @invitation_form.save
         format.html { redirect_to team_invitations_url(@team), notice: 'Invitation was successfully created.' }
         format.json { render :show, status: :created, location: @invitation_form.invitation }
       else
@@ -47,7 +45,9 @@ class InvitationsController < ApplicationController
       @team = Team.find(params[:team_id])
     end
 
-    def invitation_form_params
-      params.require(:invitation_invitation_form).permit(:email, :first_name, :last_name)
+    def send_invitation_form_params
+      params.require(:send_invitation_form)
+            .permit(:email, :first_name, :last_name)
+            .to_h.merge(team: @team, user: current_user)
     end
 end

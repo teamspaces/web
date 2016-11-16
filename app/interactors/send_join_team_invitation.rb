@@ -1,4 +1,4 @@
-class Invitation::SendJoinTeamInvitation
+class SendJoinTeamInvitation
   include Interactor
 
   def call

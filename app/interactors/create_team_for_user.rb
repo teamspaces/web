@@ -1,4 +1,4 @@
-class Team::CreateTeamForUser
+class CreateTeamForUser
   include Interactor
 
   def call
