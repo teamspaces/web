@@ -1,7 +1,8 @@
 class CreateTeamForUserForm
+  include ActiveModel::Conversion
   include Inflorm
 
-  attr_reader :team, :to_key
+  attr_reader :team
 
   attribute :user, User
   attribute :name, String

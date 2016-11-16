@@ -1,7 +1,8 @@
 class SendInvitationForm
+  include ActiveModel::Conversion
   include Inflorm
 
-  attr_reader :invitation, :to_key
+  attr_reader :invitation
 
   attribute :team, Team
   attribute :user, User
@@ -23,6 +24,7 @@ class SendInvitationForm
         errors.add(:email, "already has invitation for team")
       end
     end
+
 
     def persist!
       @invitation = Invitation.new(to_h.except(:team, :user, :invitee))
