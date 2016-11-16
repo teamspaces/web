@@ -5,26 +5,12 @@ describe SendInvitationForm, :model do
   subject { SendInvitationForm.new(invitation.attributes) }
 
   describe "validations" do
-    it "validates presence of team" do
-      subject.team = nil
-      subject.save
-      assert_includes subject.errors[:team], "can't be blank"
-    end
-
-    it "validates presence of user" do
-      subject.user = nil
-      subject.save
-      assert_includes subject.errors[:user], "can't be blank"
-    end
+    should validate_presence_of(:team)
+    should validate_presence_of(:user)
+    should validate_presence_of(:email)
 
     it "validates format of email" do
       subject.email = "invalid_format"
-      subject.save
-      assert_includes subject.errors[:email], "is invalid"
-    end
-
-    it "validates presence of email" do
-      subject.email = nil
       subject.save
       assert_includes subject.errors[:email], "is invalid"
     end
@@ -35,5 +21,13 @@ describe SendInvitationForm, :model do
       subject.save
       assert_includes subject.errors[:email], "already has invitation for team"
     end
+  end
+
+  it "calls email-invitation interactor" do
+    SendJoinTeamInvitation.expects(:call)
+
+    invitation_form = SendInvitationForm.new(user: users(:lars), team: teams(:furrow))
+    invitation_form.email = "gu@es.de"
+    invitation_form.save
   end
 end
