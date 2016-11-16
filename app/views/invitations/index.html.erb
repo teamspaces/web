@@ -11,7 +11,7 @@
   </thead>
 
   <tbody>
-    <% @team.invitations.all.each do |invitation| %>
+    <% @team.invitations.each do |invitation| %>
       <tr>
         <td><%= invitation.email %></td>
         <td><%= link_to 'Destroy', invitation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -22,7 +22,7 @@
 
 <br>
 
-<%= render 'form', invitation: @invitation %>
+<%= render 'form', invitation_form: @invitation_form %>
 
 <p>
 <%= link_to 'Back', team_path(@team) %>

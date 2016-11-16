@@ -5,23 +5,21 @@ class InvitationsController < ApplicationController
   # GET /invitations
   # GET /invitations.json
   def index
-    @invitation = @team.invitations.build
+    @invitation_form = SendInvitationForm.new
   end
 
   # POST /invitations
   # POST /invitations.json
   def create
-    result = Invitation::CreateAndSendJoinTeamMail.call(team: @team, user: current_user,
-                                                        invitation_params: invitation_params)
-    @invitation = result.invitation
+    @invitation_form = SendInvitationForm.new(send_invitation_form_params)
 
     respond_to do |format|
-      if result.success?
+      if @invitation_form.save
         format.html { redirect_to team_invitations_url(@team), notice: 'Invitation was successfully created.' }
-        format.json { render :show, status: :created, location: @invitation }
+        format.json { render :show, status: :created, location: @invitation_form.invitation }
       else
         format.html { render :index }
-        format.json { render json: @invitation.errors, status: :unprocessable_entity }
+        format.json { render json: @invitation_form.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -47,8 +45,9 @@ class InvitationsController < ApplicationController
       @team = Team.find(params[:team_id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def invitation_params
-      params.require(:invitation).permit(:email, :first_name, :last_name)
+    def send_invitation_form_params
+      params.require(:send_invitation_form)
+            .permit(:email, :first_name, :last_name)
+            .to_h.merge(team: @team, user: current_user)
     end
 end
