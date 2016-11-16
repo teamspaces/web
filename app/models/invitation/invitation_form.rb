@@ -19,6 +19,10 @@ class Invitation::InvitationForm
   validates :user, presence: true
   validate :email_one_invitation_per_team
 
+  def to_key
+    nil
+  end
+
   private
 
     def email_one_invitation_per_team
