@@ -9,7 +9,7 @@ describe TeamForUserForm, :model do
     should validate_presence_of(:user)
     should validate_presence_of(:name)
 
-    it "validates url safe name" do
+    it "validates url_safe name" do
       subject.name = "not/save"
       subject.save
       assert_includes subject.errors[:name], "has special characters"
@@ -25,6 +25,6 @@ describe TeamForUserForm, :model do
   it "creates first team member" do
     CreateTeamMemberForNewTeam.expects(:call)
 
-    TeamForUserForm.new(name: "team_name", user: user).save
+    subject.save
   end
 end

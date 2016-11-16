@@ -1,8 +1,8 @@
 require "test_helper"
 
 describe SendInvitationForm, :model do
-  let(:invitation) { invitations(:furrow) }
-  subject { SendInvitationForm.new(invitation.attributes) }
+  let(:existing_invitation) { invitations(:furrow) }
+  subject { SendInvitationForm.new(user: users(:lars), team: teams(:furrow)) }
 
   describe "validations" do
     should validate_presence_of(:team)
@@ -16,18 +16,17 @@ describe SendInvitationForm, :model do
     end
 
     it "validates email only one invitation for team" do
-      subject.team = invitation.team
-      subject.email = invitation.email
+      subject.team = existing_invitation.team
+      subject.email = existing_invitation.email
       subject.save
       assert_includes subject.errors[:email], "already has invitation for team"
     end
   end
 
-  it "calls email-invitation interactor" do
+  it "sends email-invitation" do
     SendJoinTeamInvitation.expects(:call)
 
-    invitation_form = SendInvitationForm.new(user: users(:lars), team: teams(:furrow))
-    invitation_form.email = "gu@es.de"
-    invitation_form.save
+    subject.email = "gu@es.de"
+    subject.save
   end
 end
