@@ -87,6 +87,10 @@ GEM
     inflorm (0.3.0)
       activemodel (>= 4.2, <= 5.0)
       virtus (~> 1.0)
+    interactor (3.1.0)
+    interactor-rails (2.0.2)
+      interactor (~> 3.0)
+      rails (>= 3, < 5.1)
     jbuilder (2.6.0)
       activesupport (>= 3.0.0, < 5.1)
       multi_json (~> 1.2)
@@ -256,6 +260,7 @@ DEPENDENCIES
   envied
   httparty
   inflorm
+  interactor-rails (~> 2.0)
   jbuilder
   jquery-rails
   jwt
@@ -282,4 +287,4 @@ RUBY VERSION
    ruby 2.3.1p112
 
 BUNDLED WITH
-   1.13.5
+   1.13.6

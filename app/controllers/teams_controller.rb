@@ -24,10 +24,11 @@ class TeamsController < ApplicationController
   # POST /teams
   # POST /teams.json
   def create
-    success, @team = Team::CreateTeamForUser.call(team_params, current_user)
+    result = Team::CreateTeamForUser.call(team_params: team_params, user: current_user)
+    @team = result.team
 
     respond_to do |format|
-      if success
+      if result.success?
         format.html { redirect_to @team, notice: 'Team was successfully created.' }
         format.json { render :show, status: :created, location: @team }
       else

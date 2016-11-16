@@ -16,6 +16,7 @@ gem "uglifier"
 gem "turbolinks"
 
 gem "inflorm"
+gem "interactor-rails", "~> 2.0"
 gem "devise"
 gem "omniauth-slack"
 gem "httparty"
