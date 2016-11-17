@@ -6,7 +6,7 @@
 </p>
 
 <p>
-  <%= link_to 'Spaces', team_spaces_path(@team) %>
+  <%= link_to 'Spaces', spaces_path %>
 </p>
 
 <hr>
@@ -14,10 +14,12 @@
 
 
 <p>
-<%= link_to 'Invite', team_invitations_path(@team) %>
+<%= link_to 'Invite', invitations_path %>
 </p>
 
 <hr>
 
+<% if false %>
 <%= link_to 'Edit', edit_team_path(@team) %> |
 <%= link_to 'Back', teams_path %>
+<% end %>

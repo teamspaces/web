@@ -1,6 +1,7 @@
 class PagesController < ApplicationController
   before_action :set_page, only: [:show, :edit, :update, :destroy]
   before_action :set_space, only: [:index, :new, :create]
+  before_action :authorize_association
 
   # TODO: Move this into
   # EditorSettingsHashPresenter.new(user_id: current_user.id, ...)
@@ -25,7 +26,7 @@ class PagesController < ApplicationController
   # GET /pages
   # GET /pages.json
   def index
-    @pages = Page.all
+    @pages = policy_scope(Page).all
   end
 
   # GET /pages/1
@@ -35,7 +36,7 @@ class PagesController < ApplicationController
 
   # GET /pages/new
   def new
-    @page = @space.pages.build
+    @page = policy_scope(Page).build
   end
 
   # GET /pages/1/edit
@@ -45,7 +46,7 @@ class PagesController < ApplicationController
   # POST /pages
   # POST /pages.json
   def create
-    @page = @space.pages.new(page_params)
+    @page = policy_scope(Page).new(page_params)
 
     respond_to do |format|
       if @page.save
@@ -95,5 +96,17 @@ class PagesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def page_params
       params.require(:page).permit(:title)
+    end
+
+    def authorize_association
+      if @page
+        authorize(@page, :associated?)
+      else
+        authorize(@space, :associated?)
+      end
+    end
+
+    def pundit_user
+      SpacePolicy::Context.new(current_user, current_team, @space)
     end
 end

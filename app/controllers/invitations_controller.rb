@@ -1,6 +1,7 @@
 class InvitationsController < ApplicationController
   before_action :set_invitation, only: [:destroy]
   before_action :set_team, only: [:index, :create]
+  before_action :authorize_association
 
   # GET /invitations
   # GET /invitations.json
@@ -16,7 +17,7 @@ class InvitationsController < ApplicationController
 
     respond_to do |format|
       if @invitation_form.save
-        format.html { redirect_to team_invitations_url(@team), notice: 'Invitation was successfully created.' }
+        format.html { redirect_to invitations_path, notice: 'Invitation was successfully created.' }
         format.json { render :show, status: :created, location: @invitation_form.invitation }
       else
         format.html { render :index }
@@ -31,7 +32,7 @@ class InvitationsController < ApplicationController
   def destroy
     @invitation.destroy
     respond_to do |format|
-      format.html { redirect_to team_invitations_url(@invitation.team), notice: 'Invitation was successfully destroyed.' }
+      format.html { redirect_to invitations_path, notice: 'Invitation was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -43,10 +44,22 @@ class InvitationsController < ApplicationController
     end
 
     def set_team
-      @team = Team.find(params[:team_id])
+      @team = current_team
     end
 
     def send_invitation_form_params
       params.require(:send_invitation_form).permit(:email, :first_name, :last_name)
+    end
+
+    def authorize_association
+      if @invitation
+        authorize(@invitation, :associated?)
+      else
+        authorize(current_team, :associated?)
+      end
+    end
+
+    def pundit_user
+      TeamPolicy::Context.new(current_user, current_team)
     end
 end

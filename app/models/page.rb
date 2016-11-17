@@ -1,5 +1,6 @@
 class Page < ApplicationRecord
   belongs_to :space
+  has_one :team, through: :space
   validates :space, presence: true
 
   # TODO: Temporary approach to creating documents for collaboration. Move this

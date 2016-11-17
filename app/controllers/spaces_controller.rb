@@ -1,11 +1,11 @@
 class SpacesController < ApplicationController
   before_action :set_space, only: [:show, :edit, :update, :destroy]
-  before_action :set_team, only: [:index, :new, :create]
+  before_action :authorize_association
 
   # GET /spaces
   # GET /spaces.json
   def index
-    @spaces = Space.all
+    @spaces = policy_scope(Space)
   end
 
   # GET /spaces/1
@@ -15,7 +15,7 @@ class SpacesController < ApplicationController
 
   # GET /spaces/new
   def new
-    @space = @team.spaces.build
+    @space = policy_scope(Space).build
   end
 
   # GET /spaces/1/edit
@@ -25,7 +25,7 @@ class SpacesController < ApplicationController
   # POST /spaces
   # POST /spaces.json
   def create
-    @space = @team.spaces.new(space_params)
+    @space = policy_scope(Space).new(space_params)
 
     respond_to do |format|
       if @space.save
@@ -57,7 +57,7 @@ class SpacesController < ApplicationController
   def destroy
     @space.destroy
     respond_to do |format|
-      format.html { redirect_to team_spaces_url(@space.team), notice: 'Space was successfully destroyed.' }
+      format.html { redirect_to spaces_url(@space.team), notice: 'Space was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -68,12 +68,20 @@ class SpacesController < ApplicationController
       @space = Space.find(params[:id])
     end
 
-    def set_team
-      @team = Team.find(params[:team_id])
-    end
-
     # Never trust parameters from the scary internet, only allow the white list through.
     def space_params
       params.require(:space).permit(:name)
+    end
+
+    def authorize_association
+      if @space
+        authorize(@space, :associated?)
+      else
+        authorize(current_team, :associated?)
+      end
+    end
+
+    def pundit_user
+      TeamPolicy::Context.new(current_user, current_team)
     end
 end
