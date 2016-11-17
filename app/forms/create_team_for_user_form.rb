@@ -11,21 +11,12 @@ class CreateTeamForUserForm
   validates :user, presence: true
   validates :name, presence: true
   validate :unique_team_name
-  validate :url_safe_team_name
 
   def save
     valid? && persist!
   end
 
   private
-
-    def url_safe_team_name
-      only_letters_and_numbers = /^[a-zA-Z0-9_-]*$/
-
-      if name && !(name =~ only_letters_and_numbers)
-        errors.add(:name, "has special characters")
-      end
-    end
 
     def unique_team_name
       if Team.where(name: name).exists?

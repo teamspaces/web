@@ -9,12 +9,6 @@ describe CreateTeamForUserForm, :model do
     should validate_presence_of(:user)
     should validate_presence_of(:name)
 
-    it "validates url_safe name" do
-      subject.name = "not/save"
-      subject.save
-      assert_includes subject.errors[:name], "has special characters"
-    end
-
     it "validates uniqueness of name" do
       subject.name = existing_team.name
       subject.save
