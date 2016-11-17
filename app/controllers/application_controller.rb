@@ -7,10 +7,17 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
 
   def after_sign_in_path_for(_resource)
-    teams_path
+    team_url(subdomain: current_user.teams.first.name)
   end
 
   def after_sign_out_path_for(_resource)
     landing_path
+  end
+
+  def set_team
+    @team = current_user.teams.find_by_name(request.subdomain)
+    unless @team
+       redirect_to teams_url(subdomain: "")
+    end
   end
 end

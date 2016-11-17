@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
-  resources :teams, shallow: true do
+  constraints subdomain: /^[A-Za-z0-9-]+$/ do
     resources :spaces do
       resources :pages, only: [:index, :new, :create]
     end
+
+    get '', to: 'teams#show', as: :team
   end
 
   resources :pages, only: [:show, :edit, :update, :destroy]
@@ -19,6 +21,8 @@ Rails.application.routes.draw do
   end
 
   get :landing, to: "landing#index", as: :landing
+
+  get :teams, to: 'teams#index', as: :teams
 
   root "landing#index"
 end

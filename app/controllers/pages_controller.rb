@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
+  before_action :set_team
   before_action :set_page, only: [:show, :edit, :update, :destroy]
   before_action :set_space, only: [:index, :new, :create]
 
@@ -85,11 +86,11 @@ class PagesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_page
-      @page = Page.find(params[:id])
+      @page = @team.pages.find(params[:id])
     end
 
     def set_space
-      @space = Space.find(params[:space_id])
+      @space = @team.spaces.find(params[:space_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
