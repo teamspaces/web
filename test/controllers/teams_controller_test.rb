@@ -3,8 +3,25 @@ require 'test_helper'
 describe TeamsController do
   let(:user) { users(:lars) }
   let(:team) { teams(:furrow) }
+  let(:no_membership_team) { teams(:power_rangers) }
 
   before(:each) { sign_in user }
+
+
+  describe "#show" do
+    context "user is team member" do
+      it "shows team page" do
+        get team_url(subdomain: team.name)
+        assert_response :success
+      end
+    end
+
+    context "user not team member" do
+      it "redirects to landing" do
+        get team_url(subdomain: no_membership_team.name)
+      end
+    end
+  end
 
   describe "#create" do
     it "creates team" do
@@ -17,13 +34,6 @@ describe TeamsController do
       post teams_path, params: { create_team_for_user_form: { name: "emm" } }
 
       assert_equal Team.last.primary_owner.user, user
-    end
-  end
-
-  describe "#spaces" do
-    it "works" do
-      get team_spaces_url(team)
-      assert_response :success
     end
   end
 
