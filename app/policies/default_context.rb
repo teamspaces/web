@@ -1,5 +1,4 @@
-class TeamPolicy
-  class Context
+class DefaultContext
 
     attr_reader :user, :team
 
@@ -7,5 +6,4 @@ class TeamPolicy
       @user = user
       @team = team
     end
-  end
 end

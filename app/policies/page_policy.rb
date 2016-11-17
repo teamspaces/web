@@ -1,23 +1,21 @@
 class PagePolicy
 
-  attr_reader :team_policy_context, :page
+  attr_reader :page_policy_context, :page
 
-  def initialize(team_policy_context, page)
-    @team_policy_context = team_policy_context
+  def initialize(page_policy_context, page)
+    @page_policy_context = page_policy_context
     @page = page
   end
 
-  def associated?
-    associated_to_team_space? && team_page?
+  def index?
+    page_policy_context.team == page_policy_context.space.team
   end
 
-  private
+  def team_page?
+    page_policy_context.team == page.team
+  end
 
-    def associated_to_team_space?
-      SpacePolicy.new(team_policy_context, page.space).associated?
-    end
-
-    def team_page?
-      team_policy_context.team == page.team
-    end
+  [:show?, :new?, :edit?,:create?,:update?, :destroy?].each do |alt|
+    alias_method alt, :team_page?
+  end
 end

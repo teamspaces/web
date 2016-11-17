@@ -1,23 +1,17 @@
 class SpacePolicy
 
-  attr_reader :team_policy_context, :space
+  attr_reader :default_context, :space
 
-  def initialize(team_policy_context, space)
-    @team_policy_context = team_policy_context
+  def initialize(default_context, space)
+    @default_context = default_context
     @space = space
   end
 
-  def associated?
-   associated_to_user_team? && team_space?
+  def team_space?
+    default_context.team == space.team
   end
 
-  private
-
-    def associated_to_user_team?
-      TeamPolicy.new(team_policy_context, space.team).associated?
-    end
-
-    def team_space?
-      team_policy_context.team == space.team
-    end
+  [:show?, :new?, :edit?, :create?, :update?, :destroy?].each do |alt|
+    alias_method alt, :team_space?
+  end
 end

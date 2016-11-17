@@ -1,7 +1,6 @@
-class InvitationsController < ApplicationController
+class InvitationsController < SubdomainBaseController
   before_action :set_invitation, only: [:destroy]
   before_action :set_team, only: [:index, :create]
-  before_action :authorize_association
 
   # GET /invitations
   # GET /invitations.json
@@ -14,6 +13,7 @@ class InvitationsController < ApplicationController
   def create
     @invitation_form = SendInvitationForm.new(send_invitation_form_params.to_h
                                               .merge(team: @team, user: current_user))
+    authorize @invitation_form
 
     respond_to do |format|
       if @invitation_form.save
@@ -30,6 +30,8 @@ class InvitationsController < ApplicationController
   # DELETE /invitations/1
   # DELETE /invitations/1.json
   def destroy
+    authorize @invitation
+
     @invitation.destroy
     respond_to do |format|
       format.html { redirect_to invitations_path, notice: 'Invitation was successfully destroyed.' }
@@ -49,17 +51,5 @@ class InvitationsController < ApplicationController
 
     def send_invitation_form_params
       params.require(:send_invitation_form).permit(:email, :first_name, :last_name)
-    end
-
-    def authorize_association
-      if @invitation
-        authorize(@invitation, :associated?)
-      else
-        authorize(current_team, :associated?)
-      end
-    end
-
-    def pundit_user
-      TeamPolicy::Context.new(current_user, current_team)
     end
 end

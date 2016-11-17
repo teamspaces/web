@@ -1,6 +1,5 @@
-class TeamsController < ApplicationController
+class TeamsController < SubdomainBaseController
   before_action :set_team, only: [:show, :edit, :update, :destroy]
-  before_action :authorize_association
 
   # GET /teams
   # GET /teams.json
@@ -76,15 +75,5 @@ class TeamsController < ApplicationController
 
     def create_team_for_user_form_params
       params.require(:create_team_for_user_form).permit(:name)
-    end
-
-    def authorize_association
-      if current_team
-        authorize(current_team, :associated?)
-      end
-    end
-
-    def pundit_user
-      TeamPolicy::Context.new(current_user, current_team)
     end
 end

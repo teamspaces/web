@@ -1,4 +1,5 @@
-class SpacePolicy::Context < TeamPolicy::Context
+class PagePolicy
+  class Context < DefaultContext
 
     attr_reader :user, :team, :space
 
@@ -6,4 +7,5 @@ class SpacePolicy::Context < TeamPolicy::Context
       super(user, team)
       @space = space
     end
+  end
 end

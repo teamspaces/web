@@ -1,7 +1,6 @@
-class PagesController < ApplicationController
+class PagesController < SubdomainBaseController
   before_action :set_page, only: [:show, :edit, :update, :destroy]
   before_action :set_space, only: [:index, :new, :create]
-  before_action :authorize_association
 
   # TODO: Move this into
   # EditorSettingsHashPresenter.new(user_id: current_user.id, ...)
@@ -27,26 +26,31 @@ class PagesController < ApplicationController
   # GET /pages.json
   def index
     @pages = policy_scope(Page).all
+    authorize @pages
   end
 
   # GET /pages/1
   # GET /pages/1.json
   def show
+    authorize @page
   end
 
   # GET /pages/new
   def new
     @page = policy_scope(Page).build
+    authorize @page
   end
 
   # GET /pages/1/edit
   def edit
+    authorize @page
   end
 
   # POST /pages
   # POST /pages.json
   def create
     @page = policy_scope(Page).new(page_params)
+    authorize @page
 
     respond_to do |format|
       if @page.save
@@ -62,6 +66,8 @@ class PagesController < ApplicationController
   # PATCH/PUT /pages/1
   # PATCH/PUT /pages/1.json
   def update
+    authorize @page
+
     respond_to do |format|
       if @page.update(page_params)
         format.html { redirect_to [@page], notice: 'Page was successfully updated.' }
@@ -76,6 +82,8 @@ class PagesController < ApplicationController
   # DELETE /pages/1
   # DELETE /pages/1.json
   def destroy
+    authorize @page
+
     @page.destroy
     respond_to do |format|
       format.html { redirect_to space_pages_path(@page.space), notice: 'Page was successfully destroyed.' }
@@ -98,15 +106,7 @@ class PagesController < ApplicationController
       params.require(:page).permit(:title)
     end
 
-    def authorize_association
-      if @page
-        authorize(@page, :associated?)
-      else
-        authorize(@space, :associated?)
-      end
-    end
-
     def pundit_user
-      SpacePolicy::Context.new(current_user, current_team, @space)
+      PagePolicy::Context.new(current_user, current_team, @space)
     end
 end
