@@ -14,7 +14,7 @@ class TeamsController < ApplicationController
 
   # GET /teams/new
   def new
-    @team = Team.new
+    @team_form = CreateTeamForUserForm.new
   end
 
   # GET /teams/1/edit
@@ -24,15 +24,16 @@ class TeamsController < ApplicationController
   # POST /teams
   # POST /teams.json
   def create
-    @team = Team.new(team_params)
+    @team_form = CreateTeamForUserForm.new(create_team_for_user_form_params.to_h
+                                           .merge(user: current_user))
 
     respond_to do |format|
-      if @team.save
-        format.html { redirect_to @team, notice: 'Team was successfully created.' }
-        format.json { render :show, status: :created, location: @team }
+      if @team_form.save
+        format.html { redirect_to @team_form.team, notice: 'Team was successfully created.' }
+        format.json { render :show, status: :created, location: @team_form.team }
       else
         format.html { render :new }
-        format.json { render json: @team.errors, status: :unprocessable_entity }
+        format.json { render json: @team_form.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -70,5 +71,9 @@ class TeamsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def team_params
       params.require(:team).permit(:name)
+    end
+
+    def create_team_for_user_form_params
+      params.require(:create_team_for_user_form).permit(:name)
     end
 end

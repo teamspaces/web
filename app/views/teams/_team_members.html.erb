@@ -1,0 +1,17 @@
+<h3>Team Members</h3>
+
+<table>
+    <% team_members.each do |member| %>
+        <% user = member.user %>
+
+        <tr>
+            <td><%= user.first_name %><%= user.last_name %></td>
+            <td></td>
+        <tr>
+        <tr>
+            <td><%= user.email %></td>
+            <td><%= member.role %></td>
+        </tr>
+    <% end %>
+</table>
+

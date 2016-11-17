@@ -1,11 +1,7 @@
 require 'test_helper'
 
 describe Team do
-  let(:team) { teams(:furrow) }
-
-  describe "associations" do
-    it "should have many team_members" do
-      assert team.members.count.positive?
-    end
-  end
+  should have_many(:members).dependent(:destroy)
+  should have_many(:invitations).dependent(:destroy)
+  should have_many(:spaces).dependent(:destroy)
 end

@@ -3,6 +3,8 @@ Rails.application.routes.draw do
     resources :spaces do
       resources :pages, only: [:index, :new, :create]
     end
+
+    resources :invitations, only: [:index, :create, :destroy]
   end
 
   resources :pages, only: [:show, :edit, :update, :destroy]
