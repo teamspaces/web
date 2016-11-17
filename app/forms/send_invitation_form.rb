@@ -1,6 +1,7 @@
 class SendInvitationForm
+  include ActiveModel::Model
   include ActiveModel::Conversion
-  include Inflorm
+  include Virtus.model
 
   attr_reader :invitation
 
@@ -17,6 +18,10 @@ class SendInvitationForm
   validates :user, presence: true
   validate :email_one_invitation_per_team
 
+  def save
+    valid? && persist!
+  end
+
   private
 
     def email_one_invitation_per_team
@@ -24,7 +29,6 @@ class SendInvitationForm
         errors.add(:email, "already has invitation for team")
       end
     end
-
 
     def persist!
       @invitation = Invitation.new(to_h.except(:team, :user, :invitee))

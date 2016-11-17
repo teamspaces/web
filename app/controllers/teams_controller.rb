@@ -24,8 +24,8 @@ class TeamsController < ApplicationController
   # POST /teams
   # POST /teams.json
   def create
-    @team_form = CreateTeamForUserForm.new(team_for_user_form_params.to_h
-                                     .merge(user: current_user))
+    @team_form = CreateTeamForUserForm.new(create_team_for_user_form_params.to_h
+                                           .merge(user: current_user))
 
     respond_to do |format|
       if @team_form.save
@@ -73,7 +73,7 @@ class TeamsController < ApplicationController
       params.require(:team).permit(:name)
     end
 
-    def team_for_user_form_params
-      params.require(:team_for_user_form).permit(:name)
+    def create_team_for_user_form_params
+      params.require(:create_team_for_user_form).permit(:name)
     end
 end

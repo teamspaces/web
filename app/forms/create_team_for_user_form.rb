@@ -1,6 +1,7 @@
 class CreateTeamForUserForm
+  include ActiveModel::Model
   include ActiveModel::Conversion
-  include Inflorm
+  include Virtus.model
 
   attr_reader :team
 
@@ -11,6 +12,10 @@ class CreateTeamForUserForm
   validates :name, presence: true
   validate :unique_team_name
   validate :url_safe_team_name
+
+  def save
+    valid? && persist!
+  end
 
   private
 
