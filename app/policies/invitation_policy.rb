@@ -1,9 +1,8 @@
 class InvitationPolicy
-
-  attr_reader :default_context, :invitation
+  attr_reader :team, :invitation
 
   def initialize(default_context, invitation)
-    @default_context = default_context
+    @team = default_context.team
     @invitation = invitation
   end
 
@@ -14,6 +13,6 @@ class InvitationPolicy
   private
 
     def owned_by_team?
-      default_context.team == invitation.team
+      team == invitation.team
     end
 end
