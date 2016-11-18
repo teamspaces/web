@@ -1,5 +1,5 @@
 class TeamPolicy
-  include AliasMethods
+  extend AliasMethods
 
   attr_reader :default_context, :team
 
@@ -8,9 +8,9 @@ class TeamPolicy
     @team = team
   end
 
-  alias_methods :user_team_member?, [:read?, :show?, :new?, :edit?, :create?, :update?, :destroy?]
-
   def user_team_member?
     default_context.user.teams.where(id: team.id).exists?
   end
+
+   alias_methods :user_team_member?, [:read?, :show?, :new?, :edit?, :create?, :update?, :destroy?]
 end
