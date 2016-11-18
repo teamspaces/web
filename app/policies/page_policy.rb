@@ -1,19 +1,20 @@
 class PagePolicy
   extend AliasMethods
 
-  attr_reader :page_policy_context, :page
+  attr_reader :team, :space, :page
 
   def initialize(page_policy_context, page)
-    @page_policy_context = page_policy_context
+    @team = page_policy_context.team
+    @space = page_policy_context.space
     @page = page
   end
 
   def index?
-    page_policy_context.team == page_policy_context.space.team
+    team == space.team
   end
 
   def team_page?
-    page_policy_context.team == page.team
+    team == page.team
   end
 
   alias_methods :team_page?, [:show?, :new?, :edit?, :create?, :update?, :destroy?]
