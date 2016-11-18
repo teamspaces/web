@@ -8,12 +8,12 @@ class InvitationPolicy
   end
 
   def destroy?
-    team_invitation?
+    owned_by_team?
   end
 
   private
 
-    def team_invitation?
+    def owned_by_team?
       default_context.team == invitation.team
     end
 end

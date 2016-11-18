@@ -1,4 +1,5 @@
 class TeamPolicy
+  include AliasMethods
 
   attr_reader :default_context, :team
 
@@ -7,11 +8,9 @@ class TeamPolicy
     @team = team
   end
 
-  def user_team_member?
-    default_context.team == team
-  end
+  alias_methods :user_team_member?, [:read?, :show?, :new?, :edit?, :create?, :update?, :destroy?]
 
-  [:show?, :new?, :edit?, :create?, :update?, :destroy?].each do |alt|
-    alias_method alt, :user_team_member?
+  def user_team_member?
+    default_context.user.teams.where(id: team.id).exists?
   end
 end

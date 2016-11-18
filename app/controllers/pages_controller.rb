@@ -26,31 +26,31 @@ class PagesController < SubdomainBaseController
   # GET /pages.json
   def index
     @pages = policy_scope(Page).all
-    authorize @pages
+    authorize @pages, :index?
   end
 
   # GET /pages/1
   # GET /pages/1.json
   def show
-    authorize @page
+    authorize @page, :show?
   end
 
   # GET /pages/new
   def new
     @page = policy_scope(Page).build
-    authorize @page
+    authorize @page, :new?
   end
 
   # GET /pages/1/edit
   def edit
-    authorize @page
+    authorize @page, :edit?
   end
 
   # POST /pages
   # POST /pages.json
   def create
     @page = policy_scope(Page).new(page_params)
-    authorize @page
+    authorize @page, :create?
 
     respond_to do |format|
       if @page.save
@@ -66,7 +66,7 @@ class PagesController < SubdomainBaseController
   # PATCH/PUT /pages/1
   # PATCH/PUT /pages/1.json
   def update
-    authorize @page
+    authorize @page, :update?
 
     respond_to do |format|
       if @page.update(page_params)
@@ -82,7 +82,7 @@ class PagesController < SubdomainBaseController
   # DELETE /pages/1
   # DELETE /pages/1.json
   def destroy
-    authorize @page
+    authorize @page, :destroy?
 
     @page.destroy
     respond_to do |format|

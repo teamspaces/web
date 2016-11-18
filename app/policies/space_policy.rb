@@ -1,4 +1,5 @@
 class SpacePolicy
+  include AliasMethods
 
   attr_reader :default_context, :space
 
@@ -7,11 +8,9 @@ class SpacePolicy
     @space = space
   end
 
+  alias_methods :team_space?, [:show?, :new?, :edit?, :create?, :update?, :destroy?]
+
   def team_space?
     default_context.team == space.team
-  end
-
-  [:show?, :new?, :edit?, :create?, :update?, :destroy?].each do |alt|
-    alias_method alt, :team_space?
   end
 end

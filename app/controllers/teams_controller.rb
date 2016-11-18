@@ -10,7 +10,7 @@ class TeamsController < SubdomainBaseController
   # GET /teams/1
   # GET /teams/1.json
   def show
-    authorize @team
+    authorize @team, :show?
   end
 
   # GET /teams/new
@@ -20,7 +20,7 @@ class TeamsController < SubdomainBaseController
 
   # GET /teams/1/edit
   def edit
-    authorize @team
+    authorize @team, :edit?
   end
 
   # POST /teams
@@ -43,7 +43,7 @@ class TeamsController < SubdomainBaseController
   # PATCH/PUT /teams/1
   # PATCH/PUT /teams/1.json
   def update
-    authorize @team
+    authorize @team, :update?
 
     respond_to do |format|
       if @team.update(team_params)
@@ -59,7 +59,7 @@ class TeamsController < SubdomainBaseController
   # DELETE /teams/1
   # DELETE /teams/1.json
   def destroy
-    authorize @team
+    authorize @team, :destroy?
 
     @team.destroy
     respond_to do |format|

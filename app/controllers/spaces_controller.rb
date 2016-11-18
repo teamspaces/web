@@ -10,18 +10,18 @@ class SpacesController < SubdomainBaseController
   # GET /spaces/1
   # GET /spaces/1.json
   def show
-    authorize @space
+    authorize @space, :show?
   end
 
   # GET /spaces/new
   def new
     @space = policy_scope(Space).build
-    authorize @space
+    authorize @space, :new?
   end
 
   # GET /spaces/1/edit
   def edit
-    authorize @space
+    authorize @space, :edit?
   end
 
   # POST /spaces
@@ -29,7 +29,7 @@ class SpacesController < SubdomainBaseController
   def create
     @space = policy_scope(Space).new(space_params)
 
-    authorize @space
+    authorize @space, :create?
 
     respond_to do |format|
       if @space.save
@@ -45,7 +45,7 @@ class SpacesController < SubdomainBaseController
   # PATCH/PUT /spaces/1
   # PATCH/PUT /spaces/1.json
   def update
-    authorize @space
+    authorize @space, :update?
 
     respond_to do |format|
       if @space.update(space_params)
@@ -61,7 +61,7 @@ class SpacesController < SubdomainBaseController
   # DELETE /spaces/1
   # DELETE /spaces/1.json
   def destroy
-    authorize @space
+    authorize @space, :destroy?
 
     @space.destroy
     respond_to do |format|

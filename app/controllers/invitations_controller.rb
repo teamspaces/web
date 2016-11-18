@@ -29,7 +29,7 @@ class InvitationsController < SubdomainBaseController
   # DELETE /invitations/1
   # DELETE /invitations/1.json
   def destroy
-    authorize @invitation
+    authorize @invitation, :destroy?
 
     @invitation.destroy
     respond_to do |format|
