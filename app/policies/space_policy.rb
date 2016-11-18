@@ -1,7 +1,7 @@
 class SpacePolicy
   extend AliasMethods
 
-  attr_reader :default_context, :space
+  attr_reader :team, :space
 
   def initialize(default_context, space)
     @team = default_context.team
