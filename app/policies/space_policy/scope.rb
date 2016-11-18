@@ -1,13 +1,12 @@
 class SpacePolicy::Scope
-
-  attr_reader :default_context, :scope
+  attr_reader :team, :scope
 
   def initialize(default_context, scope)
-    @default_context = default_context
+    @team = default_context.team
     @scope = scope
   end
 
   def resolve
-    scope.where(team: default_context.team)
+    scope.where(team: team)
   end
 end
