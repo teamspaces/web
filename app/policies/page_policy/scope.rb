@@ -1,15 +1,13 @@
-class PagePolicy
-  class Scope
+class PagePolicy::Scope
 
-    attr_reader :space_policy_context, :scope
+  attr_reader :page_policy_context, :scope
 
-    def initialize(space_policy_context, scope)
-      @space_policy_context = space_policy_context
-      @scope = scope
-    end
+  def initialize(page_policy_context, scope)
+    @page_policy_context = page_policy_context
+    @scope = scope
+  end
 
-    def resolve
-      scope.where(space: space_policy_context.space)
-    end
+  def resolve
+    scope.where(space: page_policy_context.space)
   end
 end

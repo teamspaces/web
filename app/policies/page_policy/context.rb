@@ -1,11 +1,9 @@
-class PagePolicy
-  class Context < DefaultContext
+class PagePolicy::Context < DefaultContext
 
-    attr_reader :user, :team, :space
+  attr_reader :user, :team, :space
 
-    def initialize(user, team, space)
-      super(user, team)
-      @space = space
-    end
+  def initialize(user, team, space)
+    super(user, team)
+    @space = space
   end
 end
