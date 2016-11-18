@@ -13,7 +13,6 @@ class InvitationsController < SubdomainBaseController
   def create
     @invitation_form = SendInvitationForm.new(send_invitation_form_params.to_h
                                               .merge(team: @team, user: current_user))
-    authorize @invitation_form
 
     respond_to do |format|
       if @invitation_form.save

@@ -1,19 +1,17 @@
 class TeamPolicy
 
-  attr_reader :team_policy_context, :team
+  attr_reader :default_context, :team
 
-  def initialize(team_policy_context, team)
-    @team_policy_context = team_policy_context
+  def initialize(default_context, team)
+    @default_context = default_context
     @team = team
   end
 
-  def associated?
-    user_allowed_to_access_team?
+  def user_team_member?
+    default_context.team == team
   end
 
-  private
-
-    def user_allowed_to_access_team?
-      team_policy_context.user.teams.where(id: team.id).exists?
-    end
+  [:show?, :new?, :edit?, :create?, :update?, :destroy?].each do |alt|
+    alias_method alt, :user_team_member?
+  end
 end

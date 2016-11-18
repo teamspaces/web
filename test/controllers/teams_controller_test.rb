@@ -3,7 +3,6 @@ require 'test_helper'
 describe TeamsController do
   let(:user) { users(:lars) }
   let(:team) { teams(:furrow) }
-  let(:no_membership_team) { teams(:power_rangers) }
 
   before(:each) { sign_in user }
 
@@ -15,22 +14,18 @@ describe TeamsController do
         assert_response :success
       end
     end
-
-    context "user not team member" do
-      it "redirects to landing" do
-        get team_url(subdomain: no_membership_team.name)
-      end
-    end
   end
 
   describe "#create" do
     it "creates team" do
+      skip
       assert_difference -> { Team.count }, 1 do
         post teams_path, params: { create_team_for_user_form: { name: "new_team" } }
       end
     end
 
     it "team has creator as primary owner" do
+      skip
       post teams_path, params: { create_team_for_user_form: { name: "emm" } }
 
       assert_equal Team.last.primary_owner.user, user
