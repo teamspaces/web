@@ -1,5 +1,4 @@
 class SubdomainBaseController < ApplicationController
-
   before_action :check_team_membership
 
   def current_team
