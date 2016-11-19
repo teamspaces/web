@@ -1,10 +1,10 @@
 class InvitationsController < SubdomainBaseController
   before_action :set_invitation, only: [:destroy]
-  before_action :set_team, only: [:index, :create]
 
   # GET /invitations
   # GET /invitations.json
   def index
+    @team = current_team
     @invitation_form = SendInvitationForm.new
   end
 
@@ -12,7 +12,7 @@ class InvitationsController < SubdomainBaseController
   # POST /invitations.json
   def create
     @invitation_form = SendInvitationForm.new(send_invitation_form_params.to_h
-                                              .merge(team: @team, user: current_user))
+                                              .merge(team: current_team, user: current_user))
 
     respond_to do |format|
       if @invitation_form.save
@@ -42,10 +42,6 @@ class InvitationsController < SubdomainBaseController
 
     def set_invitation
       @invitation = Invitation.find(params[:id])
-    end
-
-    def set_team
-      @team = current_team
     end
 
     def send_invitation_form_params
