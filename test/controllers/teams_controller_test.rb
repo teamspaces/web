@@ -20,8 +20,8 @@ describe TeamsController do
       post teams_path, params: { create_team_for_user_form: { name: team_name, subdomain: team_subdomain } }
       created_team = Team.last
 
-      assert_equal team.name, created_team.name
-      assert_equal team.subdomain, created_team.subdomain
+      assert_equal team_name, created_team.name
+      assert_equal team_subdomain, created_team.subdomain
     end
 
     it "team has creator as primary owner" do
