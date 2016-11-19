@@ -11,8 +11,9 @@ class InvitationsController < SubdomainBaseController
   # POST /invitations
   # POST /invitations.json
   def create
+    @team = current_team
     @invitation_form = SendInvitationForm.new(send_invitation_form_params.to_h
-                                              .merge(team: current_team, user: current_user))
+                                              .merge(team: @team, user: current_user))
 
     respond_to do |format|
       if @invitation_form.save
