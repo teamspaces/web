@@ -74,6 +74,6 @@ class TeamsController < ApplicationController
     end
 
     def create_team_for_user_form_params
-      params.require(:create_team_for_user_form).permit(:name)
+      params.require(:create_team_for_user_form).permit(:name, :subdomain)
     end
 end
