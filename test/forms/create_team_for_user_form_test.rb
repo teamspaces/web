@@ -19,10 +19,10 @@ describe CreateTeamForUserForm, :model do
     it "validates uniqueness of subdomain" do
       subject.subdomain = existing_team.subdomain
       subject.save
-      assert_includes subject.errors[:subdomain], "already in use"
+      assert_includes subject.errors[:subdomain], "has already been taken"
     end
 
-    it "validates url safe subdomain" do
+    it "validates subdomain" do
       subject.subdomain = "team/nasa"
       subject.save
       assert_includes subject.errors[:subdomain], "contains special characters"

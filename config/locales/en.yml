@@ -13,3 +13,6 @@ en:
         moment. Please try again, and if it does not work you can always sign up
         using your email or get in contact with us and we will help you get
         started.
+  errors:
+    messages:
+      not_url_safe: contains special characters

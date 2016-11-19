@@ -23,7 +23,7 @@ class CreateTeamForUserForm
 
     def unique_subdomain
       if Team.where(subdomain: subdomain).exists?
-        errors.add(:subdomain, "already in use")
+        errors.add(:subdomain, :taken)
       end
     end
 
@@ -31,7 +31,7 @@ class CreateTeamForUserForm
       only_letters_and_numbers = /^[a-zA-Z0-9_-]*$/
 
       if subdomain && !(subdomain =~ only_letters_and_numbers)
-        errors.add(:subdomain, "contains special characters")
+        errors.add(:subdomain, :not_url_safe)
       end
     end
 
