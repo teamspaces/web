@@ -25,7 +25,7 @@ describe TeamsController do
     end
 
     it "team has creator as primary owner" do
-      post teams_path, params: { create_team_for_user_form: { name: "emma", subdomain: "hi" } }
+      post teams_path, params: { create_team_for_user_form: { name: "emm", subdomain: "hiio" } }
 
       assert_equal Team.last.primary_owner.user, user
     end
