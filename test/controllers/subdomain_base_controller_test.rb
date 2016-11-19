@@ -10,7 +10,7 @@ describe SubdomainBaseController do
   describe "team subdomain check" do
     context "current_user is member of team" do
       it "shows content" do
-        get team_url(subdomain: furrow_team.name)
+        get team_url(subdomain: furrow_team.subdomain)
 
         assert_response :success
       end
@@ -18,7 +18,7 @@ describe SubdomainBaseController do
 
     context "current_user is not member of team" do
       it "redirects to landing page without subdomain" do
-        get team_url(subdomain: power_rangers_team.name)
+        get team_url(subdomain: power_rangers_team.subdomain)
 
         assert_redirected_to landing_url(subdomain: "")
       end
