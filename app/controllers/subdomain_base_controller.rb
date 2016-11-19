@@ -2,7 +2,7 @@ class SubdomainBaseController < ApplicationController
   before_action :check_team_membership
 
   def current_team
-    Team.find_by_name(request.subdomain)
+    Team.find_by_subdomain(request.subdomain)
   end
 
   private
