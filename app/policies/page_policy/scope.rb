@@ -1,5 +1,5 @@
 class PagePolicy::Scope
-  attr_reader :page_policy_context, :scope
+  attr_reader :space, :scope
 
   def initialize(page_policy_context, scope)
     @space = page_policy_context.space
