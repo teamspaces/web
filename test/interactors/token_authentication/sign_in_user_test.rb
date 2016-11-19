@@ -9,8 +9,8 @@ describe TokenAuthentication::SignInUser, :model do
 
   it "signs in user, redirects to url without token_param" do
     controller = ApplicationController.new
-    controller.expects(:sign_in).with(user).returns(:ok)
-    controller.expects(:redirect_to).with(url).returns(:ok)
+    controller.expects(:sign_in).with(user)
+    controller.expects(:redirect_to).with(url)
 
     subject.call(url: url_with_token_param, controller: controller)
   end
