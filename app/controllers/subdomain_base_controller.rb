@@ -8,7 +8,7 @@ class SubdomainBaseController < ApplicationController
   private
 
     def check_team_membership
-      unless TeamPolicy.new(pundit_user, current_team).read?
+      unless current_team && TeamPolicy.new(pundit_user, current_team).read?
         redirect_to landing_url(subdomain: "")
       end
     end

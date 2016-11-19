@@ -1,5 +1,6 @@
 class TeamsController < SubdomainBaseController
-  before_action :set_team, only: [:show, :edit, :update, :destroy]
+  before_action :set_team, except: [:index]
+  skip_before_action :check_team_membership, only: [:index]
 
   # GET /teams
   # GET /teams.json

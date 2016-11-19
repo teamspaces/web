@@ -6,29 +6,24 @@ describe TeamsController do
 
   before(:each) { sign_in user }
 
-
-  describe "#show" do
-    context "user is team member" do
-      it "shows team page" do
-        get team_url(subdomain: team.subdomain)
-        assert_response :success
-      end
-    end
-  end
-
   describe "#create" do
     it "creates team" do
-      skip
       assert_difference -> { Team.count }, 1 do
         post teams_path, params: { create_team_for_user_form: { name: "new_team" } }
       end
     end
 
     it "team has creator as primary owner" do
-      skip
       post teams_path, params: { create_team_for_user_form: { name: "emm" } }
 
       assert_equal Team.last.primary_owner.user, user
+    end
+  end
+
+  describe "#spaces" do
+    it "works" do
+      get team_spaces_url(team)
+      assert_response :success
     end
   end
 

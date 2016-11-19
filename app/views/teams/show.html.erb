@@ -19,7 +19,8 @@
 
 <hr>
 
-<% if false %>
-<%= link_to 'Edit', edit_team_path(@team) %> |
-<%= link_to 'Back', teams_path %>
-<% end %>
+
+<%= link_to 'Edit', edit_team_path %> |
+<%= link_to 'Destroy Team', team_path, method: :delete, data: { confirm: 'Are you sure?' } %> |
+<%= link_to 'Back', teams_url(subdomain: "") %>
+
