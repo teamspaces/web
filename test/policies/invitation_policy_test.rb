@@ -7,15 +7,17 @@ describe InvitationPolicy, :model do
   let(:external_invitation) { invitations(:sven_at_power_rangers) }
   let(:default_context) { DefaultContext.new(user, team) }
 
-  context "team invitation" do
-    it "permits invitation deletion" do
-      assert InvitationPolicy.new(default_context, team_invitation).destroy?
+  describe "#destroy?" do
+    context "team invitation" do
+      it "returns true" do
+        assert InvitationPolicy.new(default_context, team_invitation).destroy?
+      end
     end
-  end
 
-  context "invation belongs not to user team" do
-    it "prevents invitation deletion" do
-      refute InvitationPolicy.new(default_context, external_invitation).destroy?
+    context "invitation belongs to another team" do
+      it "returns false" do
+        refute InvitationPolicy.new(default_context, external_invitation).destroy?
+      end
     end
   end
 end

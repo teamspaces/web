@@ -10,7 +10,7 @@ describe TeamsController do
   describe "#show" do
     context "user is team member" do
       it "shows team page" do
-        get team_url(subdomain: team.name)
+        get team_url(subdomain: team.subdomain)
         assert_response :success
       end
     end

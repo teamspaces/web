@@ -7,7 +7,7 @@ describe SpacesController do
 
   describe "#show" do
     it "works" do
-      get space_url(space, subdomain: team.name)
+      get space_url(space, subdomain: team.subdomain)
       assert_response :success
     end
   end

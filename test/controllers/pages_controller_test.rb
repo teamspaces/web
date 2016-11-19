@@ -8,7 +8,7 @@ describe PagesController do
 
   describe "#show" do
     it "works" do
-      get page_url(page, subdomain: team.name)
+      get page_url(page, subdomain: team.subdomain)
       assert_response :success
     end
   end

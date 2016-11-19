@@ -2,7 +2,7 @@ require 'test_helper'
 
 describe ApplicationController do
   let(:team) { teams(:furrow) }
-  let(:furrow_team_url) { team_url(subdomain: team.name) }
+  let(:furrow_team_url) { team_url(subdomain: team.subdomain) }
 
   context "not signed in" do
     it "redirects" do
