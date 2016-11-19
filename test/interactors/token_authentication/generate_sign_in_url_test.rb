@@ -7,6 +7,5 @@ describe TokenAuthentication::GenerateSignInUrl, :model do
 
   it "creates url with token" do
     result = TokenAuthentication::GenerateSignInUrl.call(user: user, url: url)
-    debugger
   end
 end
