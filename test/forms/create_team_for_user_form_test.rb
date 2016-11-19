@@ -25,7 +25,7 @@ describe CreateTeamForUserForm, :model do
     it "validates subdomain" do
       subject.subdomain = "team/nasa"
       subject.save
-      assert_includes subject.errors[:subdomain], "contains special characters"
+      assert_includes subject.errors[:subdomain], "must be alphanumeric (or hyphen)"
     end
   end
 

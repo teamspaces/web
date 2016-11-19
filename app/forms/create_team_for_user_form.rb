@@ -11,9 +11,9 @@ class CreateTeamForUserForm
 
   validates :user, presence: true
   validates :name, presence: true
-  validates :subdomain, presence: true
+  validates :subdomain, presence: true,
+                        subdomain: true
   validate :unique_subdomain
-  validate :url_safe_subdomain
 
   def save
     valid? && persist!
@@ -24,14 +24,6 @@ class CreateTeamForUserForm
     def unique_subdomain
       if Team.where(subdomain: subdomain).exists?
         errors.add(:subdomain, :taken)
-      end
-    end
-
-    def url_safe_subdomain
-      only_letters_and_numbers = /^[a-zA-Z0-9_-]*$/
-
-      if subdomain && !(subdomain =~ only_letters_and_numbers)
-        errors.add(:subdomain, :not_url_safe)
       end
     end
 

@@ -15,4 +15,7 @@ en:
         started.
   errors:
     messages:
-      not_url_safe: contains special characters
+      reserved_name: cannot be a reserved name
+      must_have_between_3_and_63_characters: must have between 3 and 63 characters
+      cannot_start_end_with_hypen: cannot start or end with a hyphen
+      must_be_alphanumeric_or_hyphen: must be alphanumeric (or hyphen)
