@@ -5,7 +5,7 @@ describe GenerateTokenLoginUrl, :model do
   let(:url) { "www.kilos.spaces.is/invitations" }
 
   describe "#call" do
-    it "creates sign in url" do
+    it "returns login url" do
       result = GenerateTokenLoginUrl.call(url: url, user: user)
 
       assert_match url, result.url
