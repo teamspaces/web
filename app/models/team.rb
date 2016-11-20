@@ -1,8 +1,9 @@
 class Team < ApplicationRecord
   has_many :spaces, dependent: :destroy
+  has_many :pages, through: :spaces, dependent: :destroy
+  has_many :invitations, dependent: :destroy
   has_many :members, foreign_key: "team_id", class_name: "TeamMember", dependent: :destroy
   has_many :users, through: :members
-  has_many :invitations, dependent: :destroy
 
   def primary_owner
     self.members.find_by(role: TeamMember::Roles::PRIMARY_OWNER)

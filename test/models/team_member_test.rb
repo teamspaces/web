@@ -3,15 +3,10 @@ require 'test_helper'
 describe TeamMember do
   let(:team_member) { team_members(:ulf_at_furrow) }
 
-  describe "validations" do
-    it "should have an unique user per team" do
-      duplicated_team_member = TeamMember.new(user: team_member.user,
-                                              team: team_member.team)
-       duplicated_team_member.valid?
-       team_member_errors = duplicated_team_member.errors.messages[:user]
-       assert_includes team_member_errors, "has already been taken"
-    end
-  end
+  should belong_to(:team)
+  should belong_to(:user)
+
+  should validate_uniqueness_of(:user).scoped_to(:team_id)
 
   describe "includes concerns" do
     it "HasRole" do
