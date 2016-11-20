@@ -1,15 +1,11 @@
 class ApplicationController < ActionController::Base
   include HTTPBasicAuthentication
+  include TokenParamLogin
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  before_action :token_authentication_requested?
   before_action :authenticate_user!
-
-  def token_authentication_requested?
-    TokenAuthentication::SignInUser.call(url: request.original_url, controller: self)
-  end
 
   def after_sign_in_path_for(_resource)
     teams_path
