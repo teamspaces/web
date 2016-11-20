@@ -6,7 +6,8 @@ describe Invitation do
 
   should belong_to(:team)
   should belong_to(:user)
-  should have_one(:invitee)
+  should have_one(:invitee).with_foreign_key("invitee_user_id")
+                           .class_name("User")
 
   should validate_uniqueness_of(:token)
 
