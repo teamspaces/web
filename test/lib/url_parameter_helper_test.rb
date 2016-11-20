@@ -10,14 +10,14 @@ describe UrlParameterHelper do
   subject { Object.new.extend(UrlParameterHelper) }
 
   describe "#parameter_value" do
-    context "url contains param key" do
+    context "url with param key" do
       it "returns param value" do
         url_person_param = subject.parameter_value(url_with_person_param, person_param_key)
         assert_equal person_param_value, url_person_param
       end
     end
 
-    context "url does not contain param key" do
+    context "url without param key" do
       it "returns nil" do
         url_person_param = subject.parameter_value(url_without_params, person_param_key)
         assert_nil url_person_param
@@ -29,8 +29,8 @@ describe UrlParameterHelper do
     let(:param_key) { "city" }
     let(:param_value) { "newyork" }
 
-    context "url already contains several params" do
-      it "appends parameter" do
+    context "url with several params" do
+      it "appends param" do
         url = subject.add_parameter_to_url(url_with_person_param, param_key, param_value)
 
         assert_match person_param, url
@@ -38,8 +38,8 @@ describe UrlParameterHelper do
       end
     end
 
-    context "url does not contain params" do
-      it "sets parameter" do
+    context "url without params" do
+      it "sets param" do
         url = subject.add_parameter_to_url(url_without_params, param_key, param_value)
 
         assert_match "?#{param_key}=#{param_value}", url

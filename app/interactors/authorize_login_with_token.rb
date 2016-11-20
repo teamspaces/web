@@ -15,10 +15,6 @@ class AuthorizeLoginWithToken
 
   private
 
-    def url_without_token_param
-       remove_parameter_from_url(@url, ENV["AUTH_TOKEN_PARAM_KEY"])
-    end
-
     def valid_authentication_payload?
       authentication_payload &&
       authentication_payload["exp"] > Time.now.to_i &&
@@ -27,6 +23,10 @@ class AuthorizeLoginWithToken
 
     def user_encoded_in_payload
       @user_encoded_in_payload ||= User.find_by_id(authentication_payload["user_id"])
+    end
+
+    def url_without_token_param
+       remove_parameter_from_url(@url, ENV["AUTH_TOKEN_PARAM_KEY"])
     end
 
     def authentication_payload
