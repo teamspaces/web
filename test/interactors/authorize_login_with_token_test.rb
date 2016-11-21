@@ -2,8 +2,8 @@ require "test_helper"
 
 describe AuthorizeLoginWithToken, :model do
   let(:user) { users(:lars) }
-  let(:standard_url) { "www.kilos.spaces.is/invitations?" }
-  let(:sign_in_url) { GenerateTokenLoginUrl.call(url: standard_url, user: user).url }
+  let(:auth_token) { GenerateLoginToken.call(user: user) }
+  let(:sign_in_url) { landing_url(auth_token: auth_token) }
 
   describe "#call" do
     context "sign_in_url" do

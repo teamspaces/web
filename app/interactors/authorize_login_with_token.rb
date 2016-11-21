@@ -1,16 +1,14 @@
 class AuthorizeLoginWithToken
-  include UrlParameterHelper
   include Interactor
 
-  attr_reader :url, :controller
+  attr_reader :auth_token
 
   def call
-    @url = context.url
+    @auth_token = context.auth_token
 
     return context.fail! unless valid_authentication_payload?
 
     context.user = user_encoded_in_payload
-    context.url = url_without_token_param
   end
 
   private
@@ -25,19 +23,11 @@ class AuthorizeLoginWithToken
       @user_encoded_in_payload ||= User.find_by_id(authentication_payload["user_id"])
     end
 
-    def url_without_token_param
-       remove_parameter_from_url(@url, ENV["AUTH_TOKEN_PARAM_KEY"])
-    end
-
     def authentication_payload
-      if authentication_token_param.present?
+      if auth_token.present?
         @authentication_payload ||= begin
-          JWT.decode(authentication_token_param, ENV["COLLAB_SERVICE_JWT_SECRET"])[0]
+          JWT.decode(auth_token, ENV["COLLAB_SERVICE_JWT_SECRET"])[0]
         end
       end
-    end
-
-    def authentication_token_param
-      @authentication_token_param ||= parameter_value(url, ENV["AUTH_TOKEN_PARAM_KEY"])
     end
 end

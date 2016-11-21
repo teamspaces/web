@@ -6,11 +6,11 @@ module TokenParamLogin
   end
 
   def token_authentication_requested?
-    result = AuthorizeLoginWithToken.call(url: request.original_url)
+    result = AuthorizeLoginWithToken.call(auth_token: params[:auth_token])
 
     if result.success?
       sign_in result.user
-      redirect_to result.url
+      redirect_to url_for(params.except(:auth_token))
     end
   end
 end
