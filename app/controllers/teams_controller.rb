@@ -1,6 +1,6 @@
 class TeamsController < SubdomainBaseController
   before_action :set_team, except: [:index]
-  skip_before_action :check_team_membership, only: [:index]
+  skip_before_action :check_team_membership, only: [:index, :create, :new, :update]
 
   # GET /teams
   # GET /teams.json
@@ -32,7 +32,7 @@ class TeamsController < SubdomainBaseController
 
     respond_to do |format|
       if @team_form.save
-        format.html { redirect_to @team_form.team, notice: 'Team was successfully created.' }
+        format.html { redirect_to team_url(subdomain: @team_form.team.subdomain), notice: 'Team was successfully created.' }
         format.json { render :show, status: :created, location: @team_form.team }
       else
         format.html { render :new }
@@ -77,10 +77,11 @@ class TeamsController < SubdomainBaseController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def team_params
-      params.require(:team).permit(:name)
+      params.require(:team).permit(:name, :subdomain)
     end
 
     def create_team_for_user_form_params
-      params.require(:create_team_for_user_form).permit(:name)
+      params.require(:create_team_for_user_form)
+            .permit(:name, :subdomain)
     end
 end
