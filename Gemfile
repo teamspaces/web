@@ -5,6 +5,7 @@ gem "rails", "~> 5.0.0"
 gem "pg"
 gem "mongoid"
 gem "puma"
+gem "sidekiq"
 
 gem "envied"
 gem "lograge"

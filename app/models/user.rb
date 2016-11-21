@@ -3,8 +3,8 @@ class User < ApplicationRecord
          :registerable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:slack]
 
-  has_many :authentications
-  has_many :team_members
+  has_many :authentications, dependent: :destroy
+  has_many :team_members, dependent: :destroy
   has_many :teams, through: :team_members
 
   def name=(name)
