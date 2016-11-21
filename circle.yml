@@ -4,7 +4,7 @@ machine:
     ACTION_MAILER_PORT: 5510
     ACTION_MAILER_DEFAULT_FROM: '[DEV] <Team Furrow> hello@furrow.io'
     COLLAB_SERVICE_JWT_SECRET: 'secret-jwt-token-123'
-    JWT_SECRET: 'general-jwt-token-123'
+    USER_AUTH_JWT_SECRET: 'user-auth-jwt-token-123'
 
 deployment:
   production:

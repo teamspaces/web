@@ -27,7 +27,7 @@ class DecodeLoginToken
 
     def decode_authentication_payload
       begin
-        JWT.decode(token, ENV["JWT_SECRET"])[0]
+        JWT.decode(token, ENV["USER_AUTH_JWT_SECRET"])[0]
       rescue JWT::DecodeError, JWT::ExpiredSignature
         return nil
       end
