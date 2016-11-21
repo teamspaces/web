@@ -1,5 +1,7 @@
 class GenerateLoginToken
 
+  EXPIRES_IN_SECONDS=60
+
   def self.call(user:)
     authentication_token(user)
   end
@@ -7,7 +9,7 @@ class GenerateLoginToken
   private
 
     def self.authentication_token(user)
-      payload = { user_id: user.id, exp: Time.now.to_i + ENV["AUTH_TOKEN_EXPIRES_IN_SECONDS"].to_i }
-      JWT.encode(payload, ENV["COLLAB_SERVICE_JWT_SECRET"], "HS256")
+      payload = { user_id: user.id, exp: Time.now.to_i + GenerateLoginToken::EXPIRES_IN_SECONDS }
+      JWT.encode(payload, ENV["JWT_SECRET"], "HS256")
     end
 end
