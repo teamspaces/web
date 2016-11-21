@@ -7,10 +7,13 @@ class CreateTeamForUserForm
 
   attribute :user, User
   attribute :name, String
+  attribute :subdomain, String
 
   validates :user, presence: true
   validates :name, presence: true
-  validate :unique_team_name
+  validates :subdomain, presence: true,
+                        subdomain: true
+  validate :unique_subdomain
 
   def save
     valid? && persist!
@@ -18,14 +21,14 @@ class CreateTeamForUserForm
 
   private
 
-    def unique_team_name
-      if Team.where(name: name).exists?
-        errors.add(:name, "name already in use")
+    def unique_subdomain
+      if Team.where(subdomain: subdomain).exists?
+        errors.add(:subdomain, :taken)
       end
     end
 
     def persist!
-      @team = Team.create(name: name)
+      @team = Team.create(name: name, subdomain: subdomain)
 
       CreateTeamMemberForNewTeam.call(user: user, team: @team)
     end
