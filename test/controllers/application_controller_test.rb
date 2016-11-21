@@ -19,7 +19,7 @@ describe ApplicationController do
     end
   end
 
-  describe "token login" do
+  describe "auth token param" do
     context "valid" do
       it "signs in user" do
         get landing_url(auth_token: GenerateLoginToken.call(user: user))

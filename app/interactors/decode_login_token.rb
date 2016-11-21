@@ -6,7 +6,7 @@ class DecodeLoginToken
   def call
     @token = context.token
 
-    return context.fail! unless token.present? && valid_authentication_payload?
+    return context.fail! unless valid_authentication_payload?
 
     context.user = user_encoded_in_payload
   end
@@ -28,9 +28,7 @@ class DecodeLoginToken
     def decode_authentication_payload
       begin
         JWT.decode(token, ENV["JWT_SECRET"])[0]
-      rescue JWT::DecodeError
-        return nil
-      rescue JWT::ExpiredSignature
+      rescue JWT::DecodeError, JWT::ExpiredSignature
         return nil
       end
     end

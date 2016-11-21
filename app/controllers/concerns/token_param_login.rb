@@ -6,6 +6,8 @@ module TokenParamLogin
   end
 
   def token_authentication_requested?
+    return unless params[:auth_token].present?
+
     result = DecodeLoginToken.call(token: params[:auth_token])
 
     sign_in(result.user) if result.success?

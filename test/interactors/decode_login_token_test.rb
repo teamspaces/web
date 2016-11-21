@@ -27,7 +27,6 @@ describe DecodeLoginToken, :model do
 
     context "invalid" do
       it "fails" do
-        refute subject.call(token: nil).success?
         refute subject.call(token: "invalid").success?
       end
     end
