@@ -12,7 +12,7 @@ class PagesController < ApplicationController
       document_id: document_id.to_s
     }
 
-    token = JWT.encode(payload, ENV["JWT_SECRET"], 'HS256')
+    token = JWT.encode(payload, ENV["COLLAB_SERVICE_JWT_SECRET"], 'HS256')
 
     {
       collection: collection,
