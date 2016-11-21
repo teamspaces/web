@@ -16,13 +16,13 @@ describe CreateTeamForUserForm, :model do
     should validate_presence_of(:name)
     should validate_presence_of(:subdomain)
 
-    it "validates uniqueness of subdomain" do
+    it "subdomain uniqueness" do
       subject.subdomain = existing_team.subdomain
       subject.save
       assert_includes subject.errors[:subdomain], "has already been taken"
     end
 
-    it "validates subdomain" do
+    it "subdomain format" do
       subject.subdomain = "team/nasa"
       subject.save
       assert_includes subject.errors[:subdomain], "must be alphanumeric (or hyphen)"
