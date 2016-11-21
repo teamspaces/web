@@ -1,5 +1,7 @@
 furrow:
   name: Furrow Organization
+  subdomain: furrow
 
 power_rangers:
   name: Power Rangers
+  subdomain: power
