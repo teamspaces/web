@@ -3,6 +3,11 @@ require 'test_helper'
 describe User do
   let(:user) { users(:ulf) }
 
+  should have_many(:authentications).dependent(:destroy)
+  should have_many(:team_members).dependent(:destroy)
+  should have_many(:teams).through(:team_members)
+
+
   describe "#name" do
     it "responds" do
       assert_equal "#{user.first_name} #{user.last_name}", user.name
