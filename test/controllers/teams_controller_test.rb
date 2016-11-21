@@ -9,12 +9,23 @@ describe TeamsController do
   describe "#create" do
     it "creates team" do
       assert_difference -> { Team.count }, 1 do
-        post teams_path, params: { create_team_for_user_form: { name: "new_team" } }
+        post teams_path, params: { create_team_for_user_form: { name: "bain ltd", subdomain: "baincompany" } }
       end
     end
 
+    it "team has correct name and subdomain" do
+      team_name = "barcelona"
+      team_subdomain = "barca09"
+
+      post teams_path, params: { create_team_for_user_form: { name: team_name, subdomain: team_subdomain } }
+      created_team = Team.last
+
+      assert_equal team_name, created_team.name
+      assert_equal team_subdomain, created_team.subdomain
+    end
+
     it "team has creator as primary owner" do
-      post teams_path, params: { create_team_for_user_form: { name: "emm" } }
+      post teams_path, params: { create_team_for_user_form: { name: "boston_consulting", subdomain: "bconsulting" } }
 
       assert_equal Team.last.primary_owner.user, user
     end
