@@ -1,31 +1,35 @@
-class SpacesController < ApplicationController
+class SpacesController < SubdomainBaseController
   before_action :set_space, only: [:show, :edit, :update, :destroy]
-  before_action :set_team, only: [:index, :new, :create]
 
   # GET /spaces
   # GET /spaces.json
   def index
-    @spaces = Space.all
+    @spaces = policy_scope(Space)
   end
 
   # GET /spaces/1
   # GET /spaces/1.json
   def show
+    authorize @space, :show?
   end
 
   # GET /spaces/new
   def new
-    @space = @team.spaces.build
+    @space = policy_scope(Space).build
+    authorize @space, :new?
   end
 
   # GET /spaces/1/edit
   def edit
+    authorize @space, :edit?
   end
 
   # POST /spaces
   # POST /spaces.json
   def create
-    @space = @team.spaces.new(space_params)
+    @space = policy_scope(Space).new(space_params)
+
+    authorize @space, :create?
 
     respond_to do |format|
       if @space.save
@@ -41,6 +45,8 @@ class SpacesController < ApplicationController
   # PATCH/PUT /spaces/1
   # PATCH/PUT /spaces/1.json
   def update
+    authorize @space, :update?
+
     respond_to do |format|
       if @space.update(space_params)
         format.html { redirect_to @space, notice: 'Space was successfully updated.' }
@@ -55,9 +61,11 @@ class SpacesController < ApplicationController
   # DELETE /spaces/1
   # DELETE /spaces/1.json
   def destroy
+    authorize @space, :destroy?
+
     @space.destroy
     respond_to do |format|
-      format.html { redirect_to team_spaces_url(@space.team), notice: 'Space was successfully destroyed.' }
+      format.html { redirect_to spaces_url(@space.team), notice: 'Space was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -66,10 +74,6 @@ class SpacesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_space
       @space = Space.find(params[:id])
-    end
-
-    def set_team
-      @team = Team.find(params[:team_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

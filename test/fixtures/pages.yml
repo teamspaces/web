@@ -1,3 +1,7 @@
+furrow:
+  space: furrow
+  title: Furrow Main
+
 onboarding:
   space: furrow
   title: Onboarding Guide
@@ -5,3 +9,7 @@ onboarding:
 marketing:
   space: furrow
   title: Marketing for everyone
+
+power_rangers:
+  space: power_rangers
+  title: Power Rangers

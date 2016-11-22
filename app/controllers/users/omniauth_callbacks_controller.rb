@@ -13,7 +13,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     if user
       sign_in user
-      redirect_to_team_path
+      redirect_to after_sign_in_path_for(user)
     else
       redirect_to_standard_auth
     end
@@ -27,12 +27,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def register_using_slack
     register_form = User::SlackRegisterForm.new(slack_identity: slack_identity)
     return register_form.user if register_form.save
-  end
-
-  def redirect_to_team_path
-    path = current_user.teams.any? ? teams_path : new_team_path
-
-    redirect_to path
   end
 
   def redirect_to_standard_auth

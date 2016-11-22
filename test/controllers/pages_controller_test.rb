@@ -1,12 +1,14 @@
 require 'test_helper'
 
 describe PagesController do
-  before(:each) { sign_in_user }
+  let(:team) { teams(:furrow) }
   let(:page) { pages(:onboarding) }
+
+  before(:each) { sign_in_user }
 
   describe "#show" do
     it "works" do
-      get page_url(page)
+      get page_url(page, subdomain: team.subdomain)
       assert_response :success
     end
   end

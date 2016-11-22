@@ -1,22 +1,23 @@
-class InvitationsController < ApplicationController
+class InvitationsController < SubdomainBaseController
   before_action :set_invitation, only: [:destroy]
-  before_action :set_team, only: [:index, :create]
 
   # GET /invitations
   # GET /invitations.json
   def index
+    @team = current_team
     @invitation_form = SendInvitationForm.new
   end
 
   # POST /invitations
   # POST /invitations.json
   def create
+    @team = current_team
     @invitation_form = SendInvitationForm.new(send_invitation_form_params.to_h
                                               .merge(team: @team, user: current_user))
 
     respond_to do |format|
       if @invitation_form.save
-        format.html { redirect_to team_invitations_url(@team), notice: 'Invitation was successfully created.' }
+        format.html { redirect_to invitations_path, notice: 'Invitation was successfully created.' }
         format.json { render :show, status: :created, location: @invitation_form.invitation }
       else
         format.html { render :index }
@@ -29,9 +30,11 @@ class InvitationsController < ApplicationController
   # DELETE /invitations/1
   # DELETE /invitations/1.json
   def destroy
+    authorize @invitation, :destroy?
+
     @invitation.destroy
     respond_to do |format|
-      format.html { redirect_to team_invitations_url(@invitation.team), notice: 'Invitation was successfully destroyed.' }
+      format.html { redirect_to invitations_path, notice: 'Invitation was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -40,10 +43,6 @@ class InvitationsController < ApplicationController
 
     def set_invitation
       @invitation = Invitation.find(params[:id])
-    end
-
-    def set_team
-      @team = Team.find(params[:team_id])
     end
 
     def send_invitation_form_params

@@ -1,4 +1,4 @@
-class PagesController < ApplicationController
+class PagesController < SubdomainBaseController
   before_action :set_page, only: [:show, :edit, :update, :destroy]
   before_action :set_space, only: [:index, :new, :create]
 
@@ -25,27 +25,32 @@ class PagesController < ApplicationController
   # GET /pages
   # GET /pages.json
   def index
-    @pages = Page.all
+    @pages = policy_scope(Page).all
+    authorize @pages, :index?
   end
 
   # GET /pages/1
   # GET /pages/1.json
   def show
+    authorize @page, :show?
   end
 
   # GET /pages/new
   def new
-    @page = @space.pages.build
+    @page = policy_scope(Page).build
+    authorize @page, :new?
   end
 
   # GET /pages/1/edit
   def edit
+    authorize @page, :edit?
   end
 
   # POST /pages
   # POST /pages.json
   def create
-    @page = @space.pages.new(page_params)
+    @page = policy_scope(Page).new(page_params)
+    authorize @page, :create?
 
     respond_to do |format|
       if @page.save
@@ -61,6 +66,8 @@ class PagesController < ApplicationController
   # PATCH/PUT /pages/1
   # PATCH/PUT /pages/1.json
   def update
+    authorize @page, :update?
+
     respond_to do |format|
       if @page.update(page_params)
         format.html { redirect_to [@page], notice: 'Page was successfully updated.' }
@@ -75,6 +82,8 @@ class PagesController < ApplicationController
   # DELETE /pages/1
   # DELETE /pages/1.json
   def destroy
+    authorize @page, :destroy?
+
     @page.destroy
     respond_to do |format|
       format.html { redirect_to space_pages_path(@page.space), notice: 'Page was successfully destroyed.' }
@@ -95,5 +104,9 @@ class PagesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def page_params
       params.require(:page).permit(:title)
+    end
+
+    def pundit_user
+      PagePolicy::Context.new(current_user, current_team, @space)
     end
 end
