@@ -1,6 +1,8 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def slack
+    params[:invitation_token] = omniauth_params["invitation_token"]
+
     if slack_identity_fetched?
       register_or_login_using_slack
     else
