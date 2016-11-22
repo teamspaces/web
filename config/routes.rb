@@ -1,12 +1,19 @@
 Rails.application.routes.draw do
-  resources :teams, shallow: true do
+
+  constraints subdomain: /^[A-Za-z0-9-]+$/ do
     resources :spaces do
       resources :pages, only: [:index, :new, :create]
     end
 
     resources :invitations, only: [:index, :create, :destroy]
+
+    get :edit, to: 'teams#edit', as: :edit_team
+    get '', to: 'teams#show', as: :team
+    patch '', to: 'teams#update'
+    delete '', to: 'teams#destroy'
   end
 
+  resources :teams, only: [:index, :new, :create]
   resources :pages, only: [:show, :edit, :update, :destroy]
 
   devise_for :users,

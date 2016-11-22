@@ -168,6 +168,8 @@ GEM
     pg (0.18.4)
     pkg-config (1.1.7)
     puma (3.6.0)
+    pundit (1.1.0)
+      activesupport (>= 3.0.0)
     rack (2.0.1)
     rack-protection (1.5.3)
       rack
@@ -288,6 +290,7 @@ DEPENDENCIES
   passenger
   pg
   puma
+  pundit
   rails (~> 5.0.0)
   rails_12factor
   sass-rails
