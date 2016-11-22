@@ -1,4 +1,4 @@
-<%= form_for(invitation_form, url: team_invitations_path) do |f| %>
+<%= form_for(invitation_form, url: invitations_path) do |f| %>
   <% if invitation_form.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(invitation_form.errors.count, "error") %> prohibited this invitation from being send:</h2>
