@@ -22,16 +22,6 @@ describe ApplicationController do
     end
   end
 
-  describe "auth token param" do
-    context "valid" do
-      it "signs in user" do
-        get landing_url(auth_token: GenerateLoginToken.call(user: user))
-
-        assert_equal user, controller.current_user
-      end
-    end
-  end
-
   describe "#after_sign_out_path_for" do
     it "redirects to landing page" do
       sign_in_user
