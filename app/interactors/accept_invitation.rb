@@ -16,7 +16,7 @@ class AcceptInvitation
   end
 
   def accept_invitation
-    invitation.team.members.new(user: user, role: Roles::MEMBER).save
+    invitation.team.members.new(user: user, role: TeamMember::Roles::MEMBER).save
   end
 
   def invitation
