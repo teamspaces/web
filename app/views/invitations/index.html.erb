@@ -24,6 +24,22 @@
 
 <%= render 'form', invitation_form: @invitation_form %>
 
+<% result = Slack::FetchTeamMembers.call(team: @team) %>
+
+<% if result.success? %>
+  <% result.team_members.each do |team_member| %>
+
+    <%= image_tag(team_member.image) %>
+    <p><%= team_member.full_name %></p>
+    <p><a><%= team_member.email %></a></p>
+
+  <% end %>
+<% else %>
+  <%= link_to "Slack Button", user_slack_button_omniauth_authorize_url(state: team_invitations_url(@team)) %>
+<% end %>
+
+
+
 <p>
 <%= link_to 'Back', team_path(@team) %>
 </p>
