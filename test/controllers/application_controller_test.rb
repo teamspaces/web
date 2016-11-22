@@ -32,40 +32,6 @@ describe ApplicationController do
     end
   end
 
-  describe "#after_sign_in_path_for" do
-    context "user without teams" do
-      it "redirects to create team" do
-        sign_in users(:without_team)
-
-        get new_user_session_path
-
-        assert_redirected_to new_team_url(subdomain: "")
-      end
-    end
-
-    context "user with team" do
-      it "redirects to team" do
-        GenerateLoginToken.expects(:call).with(user: user).returns(auth_token)
-
-        sign_in user
-
-        get new_user_session_path
-
-        assert_redirected_to team_url(subdomain: team.subdomain, auth_token: auth_token)
-      end
-    end
-
-    context "user with several teams" do
-      it "redirects to teams" do
-        sign_in users(:with_several_teams)
-
-        get new_user_session_path
-
-        assert_redirected_to teams_url(subdomain: "")
-      end
-    end
-  end
-
   describe "#after_sign_out_path_for" do
     it "redirects to landing page" do
       sign_in_user

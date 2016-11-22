@@ -1,7 +1,7 @@
-module UserSignInPath
+module UserAfterSignInPath
   extend ActiveSupport::Concern
 
-  def user_sign_in_path
+  def user_after_sign_in_path
     case current_user.teams.count
     when 0
       new_team_url(subdomain: "")

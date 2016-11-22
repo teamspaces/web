@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   include Pundit
   include HTTPBasicAuthentication
   include TokenParamLogin
-  include UserSignInPath
+  include UserAfterSignInPath
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(_resource)
     AcceptInvitation.call(user: current_user,
                           token: params[:invitation_token]) if params[:invitation_token]
-    user_sign_in_path
+    user_after_sign_in_path
   end
 
   def after_sign_out_path_for(_resource)
