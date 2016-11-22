@@ -3,6 +3,7 @@ require 'test_helper'
 describe TeamsController do
   let(:user) { users(:lars) }
   let(:team) { teams(:furrow) }
+  let(:auth_token) { "secret_token" }
 
   before(:each) { sign_in user }
 
@@ -74,9 +75,11 @@ describe TeamsController do
       it "redirects to team path" do
         team_subdomain = "munichdesign"
 
+        GenerateLoginToken.expects(:call).with(user: user).returns(auth_token)
+
         post teams_path, params: { create_team_for_user_form: { name: "Design Munich", subdomain: team_subdomain } }
 
-        assert_redirected_to team_url(subdomain: team_subdomain)
+        assert_redirected_to team_url(subdomain: team_subdomain, auth_token: auth_token)
       end
     end
 
@@ -93,11 +96,15 @@ describe TeamsController do
 
   describe "#update" do
     it "works" do
+      GenerateLoginToken.expects(:call).with(user: user).returns(auth_token)
       new_team_name = "Southside Security PLC"
-      patch team_url(subdomain: team.subdomain), params: { team: { name: new_team_name } }
+      new_team_subdomain = "southside-security"
+
+      patch team_url(subdomain: team.subdomain), params: { team: { name: new_team_name, subdomain: new_team_subdomain } }
 
       team.reload
       assert_equal new_team_name, team.name
+      assert_redirected_to team_url(subdomain: new_team_subdomain, auth_token: auth_token)
     end
   end
 
@@ -105,6 +112,8 @@ describe TeamsController do
     it "works" do
       assert_difference -> { Team.count }, -1 do
         delete team_url(subdomain: team.subdomain)
+
+        assert_redirected_to teams_url(subdomain: "")
       end
     end
   end

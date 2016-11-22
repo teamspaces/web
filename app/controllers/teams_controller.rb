@@ -32,7 +32,7 @@ class TeamsController < SubdomainBaseController
 
     respond_to do |format|
       if @team_form.save
-        format.html { redirect_to team_url(subdomain: @team_form.team.subdomain), notice: 'Team was successfully created.' }
+        format.html { redirect_to team_url(subdomain: @team_form.team.subdomain, auth_token: GenerateLoginToken.call(user: current_user)), notice: 'Team was successfully created.' }
         format.json { render :show, status: :created, location: @team_form.team }
       else
         format.html { render :new }
@@ -48,7 +48,7 @@ class TeamsController < SubdomainBaseController
 
     respond_to do |format|
       if @team.update(team_params)
-        format.html { redirect_to @team, notice: 'Team was successfully updated.' }
+        format.html { redirect_to team_url(subdomain: @team.subdomain, auth_token: GenerateLoginToken.call(user: current_user)), notice: 'Team was successfully updated.' }
         format.json { render :show, status: :ok, location: @team }
       else
         format.html { render :edit }
@@ -64,7 +64,7 @@ class TeamsController < SubdomainBaseController
 
     @team.destroy
     respond_to do |format|
-      format.html { redirect_to teams_url, notice: 'Team was successfully destroyed.' }
+      format.html { redirect_to teams_url(subdomain: ""), notice: 'Team was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

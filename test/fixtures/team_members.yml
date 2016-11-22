@@ -12,3 +12,14 @@ lars_at_furrow:
   team: furrow
   user: lars
   role: member
+
+maja_at_furrow:
+  team: furrow
+  user: with_several_teams
+  role: member
+
+maja_at_power:
+  team: power_rangers
+  user: with_several_teams
+  role: member
+

@@ -9,10 +9,16 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
 
   def after_sign_in_path_for(_resource)
-    team_path
+    if current_user.teams.count > 1
+      teams_url(subdomain: "")
+    elsif current_user.teams.first
+      team_url(subdomain: current_user.teams.first.subdomain, auth_token: GenerateLoginToken.call(user: current_user))
+    else
+      new_team_url(subdomain: "")
+    end
   end
 
   def after_sign_out_path_for(_resource)
-    landing_path
+    landing_url(subdomain: "")
   end
 end
