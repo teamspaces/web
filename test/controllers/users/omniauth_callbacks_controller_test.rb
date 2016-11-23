@@ -98,7 +98,7 @@ describe Users::OmniauthCallbacksController do
       login_form_mock.stubs(:user).returns(user)
 
       get user_slack_omniauth_callback_url
-      assert_redirected_to team_path
+      assert_redirected_to @controller.after_sign_in_path_for(user)
     end
 
     context "unable to fetch identity from slack" do
@@ -116,26 +116,8 @@ describe Users::OmniauthCallbacksController do
     it "creates an account" do
       assert_register(user)
       get user_slack_omniauth_callback_url
-    end
 
-    context "account belongs to a team" do
-      it "redirects to teams" do
-        team_member_user = user
-        assert_register(team_member_user)
-        get user_slack_omniauth_callback_url
-
-        assert_redirected_to team_path
-      end
-    end
-
-    context "account has no team" do
-      it "redirects to create new team" do
-        skip
-        assert_register(users(:without_team))
-        get user_slack_omniauth_callback_url
-
-        assert_redirected_to new_team_path
-      end
+      assert_redirected_to @controller.after_sign_in_path_for(user)
     end
 
     context "unable to register" do
@@ -164,7 +146,7 @@ describe Users::OmniauthCallbacksController do
         login_form_mock.stubs(:user).returns(user)
 
         get user_slack_omniauth_callback_url
-        assert_redirected_to team_path
+        assert_redirected_to @controller.after_sign_in_path_for(user)
       end
     end
 

@@ -33,7 +33,7 @@ describe TeamsController do
         sign_in users(:without_team)
         get team_url(subdomain: team.subdomain)
 
-        assert_redirected_to landing_url(subdomain: "")
+        assert_redirected_to landing_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
       end
     end
   end

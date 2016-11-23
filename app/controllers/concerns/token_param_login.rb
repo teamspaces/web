@@ -11,5 +11,8 @@ module TokenParamLogin
     result = DecodeLoginToken.call(token: params[:auth_token])
 
     sign_in(result.user) if result.success?
+
+    params.delete :auth_token
+    redirect_to request.path, params: params
   end
 end
