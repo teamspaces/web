@@ -27,7 +27,10 @@ class InvitationsController < SubdomainBaseController
   end
 
   def create_slack
-    Slack::InviteTeamMember.call(user: current_user, team: current_team, slack_id: params[:slack_id])
+    Slack::InviteTeamMember.call(slack_id: params[:slack_id],
+                                 user: current_user,
+                                 team: current_team,
+                                 host: request.host )
     redirect_to invitations_path, notice: 'Invitation was successfully created.'
   end
 
