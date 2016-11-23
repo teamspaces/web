@@ -1,12 +1,13 @@
 class TeamSubdomain
   def self.matches?(request)
-    request.subdomain != ENV["DEFAULT_SUBDOMAIN"] &&  request.subdomain  =~ /^[A-Za-z0-9-]+$/
+    request.subdomain != ENV["DEFAULT_SUBDOMAIN"] &&
+    request.subdomain =~ /^[A-Za-z0-9-]+$/
   end
 end
 
 Rails.application.routes.draw do
 
-  constraints subdomain: TeamSubdomain do
+  constraints TeamSubdomain do
 
     resources :spaces do
       resources :pages, only: [:index, :new, :create]
