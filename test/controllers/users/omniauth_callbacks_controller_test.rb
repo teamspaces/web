@@ -59,6 +59,10 @@ describe Users::OmniauthCallbacksController do
     })
   end
 
+  def stub_omniauth_params(hash)
+    stub_with_hash(:omniauth_params, hash)
+  end
+
   def stub_with_hash(method, hash)
     subject.any_instance
            .stubs(method)
@@ -158,6 +162,16 @@ describe Users::OmniauthCallbacksController do
 
         get user_slack_omniauth_callback_url
         assert_redirected_to sign_up_path
+      end
+    end
+
+    context "with invitation token" do
+      it "adds invitation token to params" do
+        invitation_token = "token"
+        stub_omniauth_params({ invitation_token: invitation_token })
+        get user_slack_omniauth_callback_url
+
+        assert_equal invitation_token, controller.params[:invitation_token]
       end
     end
   end
