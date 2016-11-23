@@ -1,5 +1,12 @@
 class InvitationsController < SubdomainBaseController
+  skip_before_action :authenticate_user!, only: [:join]
+  skip_before_action :check_team_membership, only: [:join]
   before_action :set_invitation, only: [:destroy]
+
+  # GET /join
+  def join
+    @invitation = Invitation.find_by(token: params[:token])
+  end
 
   # GET /invitations
   # GET /invitations.json
