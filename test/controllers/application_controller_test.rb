@@ -28,7 +28,7 @@ describe ApplicationController do
 
       delete destroy_user_session_path
 
-      assert_redirected_to landing_url(subdomain: "")
+      assert_redirected_to landing_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
     end
   end
 end

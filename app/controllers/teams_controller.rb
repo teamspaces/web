@@ -64,7 +64,7 @@ class TeamsController < SubdomainBaseController
 
     @team.destroy
     respond_to do |format|
-      format.html { redirect_to teams_url(subdomain: ""), notice: 'Team was successfully destroyed.' }
+      format.html { redirect_to teams_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]), notice: 'Team was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

@@ -7,7 +7,7 @@ describe UserAfterSignInPath, :controller do
       sign_in users(:without_team)
       get new_user_session_path
 
-      assert_redirected_to new_team_url(subdomain: "")
+      assert_redirected_to new_team_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
     end
   end
 
@@ -30,7 +30,7 @@ describe UserAfterSignInPath, :controller do
       sign_in users(:with_several_teams)
       get new_user_session_path
 
-      assert_redirected_to teams_url(subdomain: "")
+      assert_redirected_to teams_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
     end
   end
 end

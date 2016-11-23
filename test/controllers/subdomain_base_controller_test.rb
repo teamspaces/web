@@ -20,7 +20,7 @@ describe SubdomainBaseController do
       it "redirects to landing page without subdomain" do
         get team_url(subdomain: power_rangers_team.subdomain)
 
-        assert_redirected_to landing_url(subdomain: "")
+        assert_redirected_to landing_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
       end
     end
   end
