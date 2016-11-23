@@ -1,6 +1,14 @@
+class TeamSubdomain
+  def self.matches?(request)
+    request.subdomain != ENV["DEFAULT_SUBDOMAIN"] &&
+    request.subdomain =~ /^[A-Za-z0-9-]+$/
+  end
+end
+
 Rails.application.routes.draw do
 
-  constraints subdomain: /^[A-Za-z0-9-]+$/ do
+  constraints TeamSubdomain do
+
     resources :spaces do
       resources :pages, only: [:index, :new, :create]
     end
@@ -22,7 +30,7 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     get :login, to: "devise/sessions#new", as: :new_user_session
-    post :login, to: "devise/sessions#create", as: :user_session
+    post :login, to: "hola#create", as: :user_session
     delete :logout, to: "devise/sessions#destroy", as: :destroy_user_session
     get :sign_up, to: 'devise/registrations#new', as: :sign_up
   end
