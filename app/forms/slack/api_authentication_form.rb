@@ -1,18 +1,18 @@
 class Slack::ApiAuthenticationForm
   include Inflorm
 
-  attribute :user, User
+  attribute :team, Team
   attribute :token, String
   attribute :scopes, Array
 
-  validates :user, :token, :scopes, presence: true
+  validates :team, :token, :scopes, presence: true
 
   private
 
     def persist!
-      Authentication.create(provider: :slack_api,
-                            user: user,
-                            scopes: scopes,
-                            token: token)
+      TeamAuthentication.create(provider: :slack_api,
+                                team: team,
+                                scopes: scopes,
+                                token: token)
     end
 end

@@ -3,9 +3,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def slack_button
     result = Slack::ParseToken.call(request: request)
 
-    Slack::ApiAuthenticationForm.new(user: current_user,
+    Slack::ApiAuthenticationForm.new(team: current_team,
                                      token: result.token,
-                                     scopes: ["users:read"]).save if result.success?
+                                     scopes: ["users:read","chat:write:bot"]).save if result.success?
 
     redirect_to request.env["omniauth.params"]["state"]
   end

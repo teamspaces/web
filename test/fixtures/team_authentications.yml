@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  team: one
+  provider: MyString
+  token: MyString
+  scopes: MyString
+
+two:
+  team: two
+  provider: MyString
+  token: MyString
+  scopes: MyString

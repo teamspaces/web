@@ -15,5 +15,5 @@ Devise.setup do |config|
   config.omniauth :slack_button,
                   ENV["SLACK_OAUTH_CLIENT_ID"],
                   ENV["SLACK_OAUTH_CLIENT_SECRET"],
-                  scope: 'users:read'
+                  scope: 'users:read,chat:write:bot'
 end

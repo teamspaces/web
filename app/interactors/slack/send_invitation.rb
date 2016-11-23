@@ -12,7 +12,11 @@ class Slack::SendInvitation
   end
 
   def send_invitation
-    client.chat_postMessage(channel: invitation.slack_id, text: invitation_text, as_user: false)
+    client.chat_postMessage(channel: invitation.slack_id,
+                            text: invitation_text,
+                            as_user: false,
+                            username: "Spaces",
+                            icon_url: "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQp5ZEaGkEW2ifVCsmzoIalvZfRiAiVzigkyvWJtJtAK2CXQUshcw")
   end
 
   def invitation_text
