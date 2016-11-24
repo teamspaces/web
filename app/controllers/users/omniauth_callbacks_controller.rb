@@ -2,15 +2,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def slack
     if slack_identity_fetched?
-      if upon_invitation? && !invitation_matches_slack_identity?
-        redirect_back_and_show_slack_invitation_inconsistency
-      else
-        register_or_login_using_slack do |user|
-          if upon_invitation?
-            AcceptInvitation.call(user: user, token: invitation_from_token_param)
-          end
-        end
-      end
+      register_or_login_using_slack
     else
       redirect_to_standard_auth
     end
@@ -20,7 +12,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     user = login_using_slack || register_using_slack
 
     if user
-      yield user if block_given?
       sign_in user
       redirect_to after_sign_in_path_for(user)
     else
@@ -46,28 +37,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   private
-
-    def upon_invitation?
-      omniauth_params["invitation_token"].present? && invitation_from_token_param
-    end
-
-    def invitation_from_token_param
-       Invitation.find_by(token: omniauth_params["invitation_token"])
-    end
-
-    def invitation_matches_slack_identity?
-      invitation = invitation_from_token_param
-      if invitation.slack_id
-        slack_identity.id == invitation.slack_id
-      else
-        slack_identity.email == invitation.email
-      end
-    end
-
-    def redirect_back_and_show_slack_invitation_inconsistency
-      flash[:notice] = t(:invitation_does_not_match_slack_account)
-      redirect_back(fallback_location: landing_path)
-    end
 
     def token_secret
       omniauth_auth["credentials"]["token"]

@@ -20,14 +20,6 @@ class Slack::Identity
     response["ok"] == true
   end
 
-  def id
-    response["user"]["id"]
-  end
-
-  def email
-    response["user"]["email"]
-  end
-
   private
 
     def build_api_url(token)
