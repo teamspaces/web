@@ -1,10 +1,11 @@
-module InvitationTokenSignUpIn
+module CreateSessionRegistrationWithInvitation
   extend ActiveSupport::Concern
 
-  #ovverrides devise session create and devise registration create
+  #overrides devise sessions_controller.rb create
+  #overrider devise registrations_controller.rb create
   def create
     if upon_invitation? && !invitation_matches_email?(params[:user][:email])
-      redirect_and_show_invitation_email_inconsistency
+      redirect_back_and_show_invitation_email_inconsistency
     else
       super do |user|
         if upon_invitation? && user.persisted?
@@ -23,7 +24,7 @@ module InvitationTokenSignUpIn
       email == invitation_from_token_param.email
     end
 
-    def redirect_and_show_invitation_email_inconsistency
+    def redirect_back_and_show_invitation_email_inconsistency
       flash[:notice] = t(:invitation_does_not_match_provided_email)
       redirect_back(fallback_location: landing_path)
     end

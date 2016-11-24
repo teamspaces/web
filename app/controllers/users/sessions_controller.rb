@@ -1,3 +1,3 @@
 class Users::SessionsController < Devise::SessionsController
-  include InvitationTokenSignUpIn
+  include CreateSessionRegistrationWithInvitation
 end
