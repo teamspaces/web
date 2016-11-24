@@ -40,7 +40,7 @@ class Slack::Register
   end
 
   def rollback
-
+    @user.destroy
   end
 
   def identity_uid
