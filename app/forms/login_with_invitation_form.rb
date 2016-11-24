@@ -12,7 +12,7 @@ class LoginWithInvitationForm
 
   validate :email_password_combination
   validates :invitation, presence: true
-  validates_with EmailInvitationValidator
+  validates_with InvitationInviteeEmailValidator
 
   def user
     @user ||= User.find_by(email: email)

@@ -1,4 +1,4 @@
-class InvitationEmailValidator < ActiveModel::Validator
+class InvitationInviteeEmailValidator < ActiveModel::Validator
   def validate(form)
     if form.invitation && form.user
       if form.invitation.email != form.user.email

@@ -10,7 +10,7 @@ class RegisterWithInvitationForm
 
   validate :validate_user_object
   validates :invitation, presence: true
-  validates_with InvitationEmailValidator
+  validates_with InvitationInviteeEmailValidator
 
   def user
     @user ||= User.new(email: email, password: password, password_confirmation: password_confirmation)
