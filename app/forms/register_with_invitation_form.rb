@@ -31,6 +31,10 @@ class RegisterWithInvitationForm
 
  private
 
+  # I want to have the user errors on the Form Object
+  # first I tried something like validates_associated  :user, but didn't work
+  # now I'm copying all user errors to the form object
+  # Is there a nicer way?
   def validate_user_object
     user.valid?
     user.errors.each do |attribute, message|
