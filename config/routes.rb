@@ -9,8 +9,8 @@ Rails.application.routes.draw do
     get 'join/:token', to: 'accept_invitations#show', as: :accept_invitation
     get 'join_login/:token', to: 'accept_invitations#new_login',as: :accept_invitation_login
     post 'join_login/:token', to: 'accept_invitations#create_login', as: :login_with_invitation_forms
-    get 'join_register/:token', to: 'accept_invitation#new_register',as: :accept_invitation_register
-    post 'join_register/:token', to: 'accept_invitation#create_regiser'
+    get 'join_register/:token', to: 'accept_invitations#new_register',as: :accept_invitation_register
+    post 'join_register/:token', to: 'accept_invitations#create_register', as: :register_with_invitation_forms
 
     get :edit, to: 'teams#edit', as: :edit_team
     get '', to: 'teams#show', as: :team
