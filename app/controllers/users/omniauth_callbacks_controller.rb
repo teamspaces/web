@@ -1,8 +1,15 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+  include InvitationTokenSignUpIn
 
   def slack
+    params[:invitation_token] = omniauth_params["invitation_token"]
+
     if slack_identity_fetched?
-      register_or_login_using_slack
+      if upon_invitation? && !invitation_matches_slack_identity?
+        redirect_and_show_email_invitation_inconsistency
+      else
+        register_or_login_using_slack
+      end
     else
       redirect_to_standard_auth
     end
@@ -37,6 +44,15 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   private
+
+    def invitation_matches_slack_identity?
+      invitation = invitation_from_token_param
+      if invitation.slack_id
+        slack_identity.id == invitation.slack_id
+      else
+        slack_identity.email == invitation.email
+      end
+    end
 
     def token_secret
       omniauth_auth["credentials"]["token"]

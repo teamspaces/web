@@ -1,0 +1,24 @@
+<% if @invitation.present? %>
+
+  <h1><%= "Hi #{@invitation.first_name}" %></h1>
+  <h3>We welcome YOU on Spaces</h3>
+
+  <% if @invitation.slack_id.present? %>
+
+    <p><%= link_to "Join #{@invitation.team.name}", user_slack_omniauth_authorize_url(subdomain: "", invitation_token: @invitation.token) %></p>
+
+  <% else %>
+
+   <p><%= link_to "Join #{@invitation.team.name} with Slack", user_slack_omniauth_authorize_url(subdomain: "", invitation_token: @invitation.token) %></p>
+
+   <%= link_to "or sign up with your email", sign_up_path(invitation_token: @invitation.token) %>
+
+  <% end %>
+
+<% else %>
+
+  <h1>Invitation no longer exists</h1>
+
+  <p><%= link_to "Take me back", landing_url(subdomain: "") %></p>
+
+<% end %>
