@@ -19,5 +19,6 @@ en:
       must_have_between_3_and_63_characters: must have between 3 and 63 characters
       cannot_start_end_with_hypen: cannot start or end with a hyphen
       must_be_alphanumeric_or_hyphen: must be alphanumeric (or hyphen)
+      does_not_match_invited_email: does not match invited email
   invitation_does_not_match_provided_email: The provided email does not match the invited email
   invitation_does_not_match_slack_account: Your Slack account does not match the invitation

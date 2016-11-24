@@ -1,0 +1,29 @@
+<%= form_for(@login_with_invitation_form, token: params[:token]) do |f| %>
+
+  <% if @login_with_invitation_form.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+      <% @login_with_invitation_form.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <%= f.hidden_field :invitation_token, value: params[:token] %>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %><br />
+    <%= f.password_field :password, autocomplete: "off" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Log in" %>
+  </div>
+<% end %>

@@ -11,7 +11,7 @@
 
    <p><%= link_to "Join #{@invitation.team.name} with Slack", user_slack_omniauth_authorize_url(subdomain: "", invitation_token: @invitation.token) %></p>
 
-   <%= link_to "or sign up with your email", sign_up_path(invitation_token: @invitation.token) %>
+   <%= link_to "or sign up with your email", accept_invitation_login_path(token: @invitation.token) %>
 
   <% end %>
 
