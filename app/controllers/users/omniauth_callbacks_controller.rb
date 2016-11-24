@@ -65,7 +65,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
 
     def redirect_back_and_show_slack_invitation_inconsistency
-      flash[:notice] = t(:invitation_does_not_match_provided_email)
+      flash[:notice] = t(:invitation_does_not_match_slack_account)
       redirect_back(fallback_location: landing_path)
     end
 
