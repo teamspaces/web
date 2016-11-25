@@ -16,21 +16,46 @@ describe UserAfterSignInPath, :controller do
     let(:team) { user_with_one_team.teams.first }
     let(:auth_token) { "encoded"}
 
-    it "redirects to team" do
-      GenerateLoginToken.expects(:call).with(user: user_with_one_team).returns(auth_token)
-      sign_in user_with_one_team
-      get new_user_session_path
+    context "on team subdomain" do
+      it "redirects to team without authentication token" do
+        sign_in user_with_one_team
+        get new_user_session_url(subdomain: team.subdomain)
 
-      assert_redirected_to team_url(subdomain: team.subdomain, auth_token: auth_token)
+        assert_redirected_to team_url(subdomain: team.subdomain)
+      end
+    end
+
+    context "other than team subdomain" do
+      it "redirects to team with authentication token" do
+        GenerateLoginToken.expects(:call).with(user: user_with_one_team).returns(auth_token)
+        sign_in user_with_one_team
+        get new_user_session_path
+
+        assert_redirected_to team_url(subdomain: team.subdomain, auth_token: auth_token)
+      end
     end
   end
 
   context "user with several teams" do
-    it "redirects to teams" do
-      sign_in users(:with_several_teams)
-      get new_user_session_path
+    let(:user_with_several_teams) { users(:with_several_teams) }
+    let(:team) { user_with_several_teams.teams.first }
 
-      assert_redirected_to teams_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
+    context "on team subdomain" do
+      it "redirects to team without authentication token" do
+        sign_in user_with_several_teams
+        get new_user_session_url(subdomain: team.subdomain)
+
+        assert_redirected_to team_url(subdomain: team.subdomain)
+      end
+    end
+
+    context "other than team subdomain" do
+      it "redirects to teams" do
+        sign_in users(:with_several_teams)
+        get new_user_session_path
+
+        assert_redirected_to teams_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
+      end
     end
   end
 end
