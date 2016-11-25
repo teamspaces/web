@@ -4,6 +4,7 @@ class User < ApplicationRecord
          :omniauthable, omniauth_providers: [:slack, :slack_invitation]
 
   has_many :authentications, dependent: :destroy
+  validates_associated :authentications
   has_many :team_members, dependent: :destroy
   has_many :teams, through: :team_members
 

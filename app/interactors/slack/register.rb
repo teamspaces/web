@@ -7,36 +7,24 @@ class Slack::Register
     @token = context.token
     @slack_identity = context.slack_identity
 
-    if create_user && create_authentication
+    if create_user_with_authentication
       context.user = user
     else
       context.fail!
     end
   end
 
-  def create_user
+  def create_user_with_authentication
     @user = User.new(name: slack_identity.user.name, email: slack_identity.user.email,
                      password: Devise.friendly_token.first(8))
 
-    if user.save
-      return true
-    else
-      Rails.logger.error("unable to create user (name=#{user.name},email=#{user.email})")
-      return false
-    end
-  end
+    authentication = user.authentications.build(provider: :slack, uid: identity_uid, token_secret: token)
 
-  def create_authentication
-    @authentication = user.authentications
-                          .new(provider: :slack, uid: slack_identity.uid,
-                               token_secret: slack_identity.token)
-
-    if authentication.save
-      return true
-    else
-      Rails.logger.error("unable to create authentication (user_id=#{user.id},provider=#{authentication.provier},uid=#{authentication.uid})")
-      return false
+    unless user.valid?
+      Rails.logger.error("unable to create user #{user.attributes} with authentication #{authentication.attributes}")
     end
+
+    user.save
   end
 
   def rollback
