@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  constraints lambda { |req| req.subdomain != ENV['DEFAULT_SUBDOMAIN']}  do
+  constraints !ReservedSubdomain do
     resources :spaces do
       resources :pages, only: [:index, :new, :create]
     end
