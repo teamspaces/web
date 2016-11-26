@@ -7,32 +7,26 @@ describe AcceptInvitation, :model do
 
   context "valid token" do
     it "works" do
-      assert subject.call(user: user, token: invitation.token).success?
+      assert subject.call(user: user, invitation: invitation).success?
     end
 
     it "adds users as team member" do
       assert_difference ->{ user.teams.count }, 1 do
-        subject.call(user: user, token: invitation.token)
+        subject.call(user: user, invitation: invitation)
       end
     end
 
     it "destroyes invitation" do
       assert_difference ->{ Invitation.count }, -1 do
-        subject.call(user: user, token: invitation.token)
+        subject.call(user: user, invitation: invitation)
       end
-    end
-  end
-
-  context "invalid token" do
-    it "fails" do
-      refute subject.call(user: user, token: "wrong").success?
     end
   end
 
   context "already member" do
     it "destroyes invitation" do
       assert_difference ->{ Invitation.count }, -1 do
-        subject.call(user: invitation.team.users.first, token: invitation.token)
+        subject.call(user: invitation.team.users.first, invitation: invitation)
       end
     end
   end
