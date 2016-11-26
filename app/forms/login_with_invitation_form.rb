@@ -34,8 +34,7 @@ class LoginWithInvitationForm
 
   def email_password_combination
     unless user.try(:valid_password?, password)
-      #would be nice to use devise error messages here!
-      errors.add(:email, "Wrong combination with password")
+      self.errors[:base] << I18n.t('devise.failure.invalid', authentication_keys: User.authentication_keys.join(", "))
     end
   end
 end

@@ -13,7 +13,7 @@ class Invitations::LoginController < ApplicationController
       sign_in user
       redirect_to after_sign_in_path_for user
     else
-      render :new_login
+      render :new
     end
   end
 
