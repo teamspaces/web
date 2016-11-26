@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  constraints subdomain: /^[A-Za-z0-9-]+$/ do
+  constraints !ReservedSubdomain do
     resources :spaces do
       resources :pages, only: [:index, :new, :create]
     end

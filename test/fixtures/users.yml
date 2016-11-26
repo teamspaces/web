@@ -13,6 +13,11 @@ lars:
   first_name: Lars
   last_name: Bengtsson
 
+with_several_teams:
+ <<: *default
+ first_name: Maja
+ last_name: Lundgren
+
 without_team:
   <<: *default
   first_name: Katharina
