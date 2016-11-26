@@ -32,9 +32,3 @@ class Slack::CreateUser
     @user.destroy
   end
 end
-
-
-
-
-
-

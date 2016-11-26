@@ -16,10 +16,6 @@ class Slack::FindOrCreateUser
     end
   end
 
-  def rollback
-    @create_user.rollback
-  end
-
   def find
     @find_user = Slack::FindUser.call(uid: slack_identity_uid)
     find_user.success? ? find_user.user : nil
@@ -31,6 +27,10 @@ class Slack::FindOrCreateUser
                                           token: token)
 
     create_user.success? ? create_user.user : nil
+  end
+
+  def rollback
+    create_user.rollback
   end
 
   def slack_identity_uid
