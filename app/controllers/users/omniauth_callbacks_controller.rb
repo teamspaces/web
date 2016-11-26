@@ -1,7 +1,7 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def slack_invitation
-    result = LoginOrRegisterWithSlackUponInvitation.call(token: token, invitation_token: invitation_token)
+    result = FindOrCreateUserWithSlackUponInvitation.call(token: token, invitation_token: invitation_token)
 
     if result.success?
       sign_in(result.user)
@@ -12,7 +12,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def slack
-    result = LoginOrRegisterWithSlack.call(token: token)
+    result = FindOrCreateUserWithSlack.call(token: token)
 
     if result.success?
       sign_in(result.user)
