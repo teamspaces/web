@@ -27,3 +27,6 @@
     <%= f.submit "Log in" %>
   </div>
 <% end %>
+
+
+<%= link_to "or sign up with your email", register_with_invitation_path(token: params[:token]) %>

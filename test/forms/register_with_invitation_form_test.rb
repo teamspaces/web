@@ -1,7 +1,7 @@
 require "test_helper"
 
 describe RegisterWithInvitationForm, :model do
-  let(:invitation) { invitations(:katharina_at_power_rangers) }
+  let(:invitation) { invitations(:jonas_at_furrow) }
   subject do
     RegisterWithInvitationForm.new(email: invitation.email, password: 'password', password_confirmation: 'password',
                                    invitation_token: invitation.token)

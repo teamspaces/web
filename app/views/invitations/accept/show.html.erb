@@ -3,17 +3,9 @@
   <h1><%= "Hi #{@invitation.first_name}" %></h1>
   <h3>We welcome YOU on Spaces</h3>
 
-  <% if @invitation.slack_id.present? %>
+  <%= link_to "login", login_with_invitation_path(token: @invitation.token) %>
 
-    <p><%= link_to "Join #{@invitation.team.name}", user_slack_omniauth_authorize_url(subdomain: "", invitation_token: @invitation.token) %></p>
-
-  <% else %>
-
-   <p><%= link_to "Join #{@invitation.team.name} with Slack", user_slack_omniauth_authorize_url(subdomain: "", invitation_token: @invitation.token) %></p>
-
-   <%= link_to "or sign up with your email", login_with_invitation_path(token: @invitation.token) %>
-
-  <% end %>
+  <%= link_to "or sign up with your email", register_with_invitation_path(token: @invitation.token) %>
 
 <% else %>
 

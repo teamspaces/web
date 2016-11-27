@@ -7,7 +7,6 @@ sven:
   <<: *default
   first_name: Sven
   last_name: Molander
-  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
 
 lars:
   <<: *default
