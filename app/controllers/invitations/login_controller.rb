@@ -10,6 +10,7 @@ class Invitations::LoginController < ApplicationController
 
     if @login_with_invitation_form.save
       user = @login_with_invitation_form.user
+
       sign_in user
       redirect_to after_sign_in_path_for user
     else
