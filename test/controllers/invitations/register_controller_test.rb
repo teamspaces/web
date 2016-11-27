@@ -1,42 +1,55 @@
 require 'test_helper'
 
 describe Invitations::RegisterController do
-  let(:user) { users(:lars) }
-  let(:team) { teams(:furrow) }
-  let(:team_invitations_url) { invitations_url(subdomain: team.subdomain) }
+  let(:invitation) { invitations(:jonas_at_furrow) }
 
-  before(:each) { sign_in user }
-
-  describe "#index" do
-    it "renders the :index view" do
-       get team_invitations_url
-       assert_response :success
+  describe "#new" do
+    it "renders :new" do
+      get register_with_invitation_url(token: invitation.token)
+      assert_response :success
     end
   end
 
   describe "#create" do
-    it "creates an invitation" do
-      assert_difference -> { Invitation.count }, 1 do
-        params = { send_invitation_form: { email: "gallen@nl.se"} }
-        post team_invitations_url, params: params
+    context "valid" do
+      let(:valid_params) do
+        { register_with_invitation_form:
+          { email: invitation.email,
+            password: 'password', password_confirmation: 'password',
+            invitation_token: invitation.token } }
       end
-    end
 
-    context "with invalid attributes" do
-
-      it "does not create the invitation" do
-        assert_difference -> { Invitation.count }, 0 do
-          params = { send_invitation_form: { email: "invalid_email"} }
-          post team_invitations_url, params: params
+      it "creates user" do
+        assert_difference ->{ User.count }, 1 do
+          post register_with_invitation_forms_path(token: invitation.token), params: valid_params
         end
       end
-    end
-  end
 
-  describe "#destroy" do
-    it "delets invitation" do
-      assert_difference -> { Invitation.count }, -1 do
-        delete invitation_url(invitations(:jonas_at_furrow), subdomain: team.subdomain)
+      it "accepts team invitation" do
+        post register_with_invitation_forms_path(token: invitation.token), params: valid_params
+
+        assert invitation.team, @controller.current_user.teams.first
+      end
+
+      it "redirects to after sign in path" do
+        post register_with_invitation_forms_path(token: invitation.token), params: valid_params
+
+        assert_redirected_to @controller.after_sign_in_path_for(@controller.current_user)
+      end
+    end
+
+    context "invalid" do
+      let(:invalid_params) do
+        { register_with_invitation_form:
+          { email: invitation.email,
+            password: 'wrong', password_confirmation: 'password',
+            invitation_token: invitation.token } }
+      end
+
+      it "renders :new" do
+        post register_with_invitation_forms_path(token: invitation.token), params: invalid_params
+
+        assert_match "Password confirmation doesn&#39;t match Password", response.body
       end
     end
   end
