@@ -2,9 +2,7 @@ class SubdomainValidator < ActiveModel::EachValidator
 
   def validate_each(object, attribute, value)
     return unless value.present?
-    reserved_names = %w(www ftp mail pop smtp admin ssl sftp what)
-    reserved_names = options[:reserved] if options[:reserved]
-    if reserved_names.include?(value)
+    if ReservedSubdomain.include?(value)
       object.errors.add(attribute, :reserved_name)
     end
     object.errors.add(attribute, :must_have_between_3_and_63_characters) unless (3..63) === value.length

@@ -3,6 +3,7 @@ require 'test_helper'
 describe TeamsController do
   let(:user) { users(:lars) }
   let(:team) { teams(:furrow) }
+  let(:auth_token) { "secret_token" }
 
   before(:each) { sign_in user }
 
@@ -33,7 +34,7 @@ describe TeamsController do
         sign_in users(:without_team)
         get team_url(subdomain: team.subdomain)
 
-        assert_redirected_to landing_url(subdomain: "")
+        assert_redirected_to landing_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
       end
     end
   end
@@ -72,11 +73,12 @@ describe TeamsController do
       end
 
       it "redirects to team path" do
+        GenerateLoginToken.expects(:call).with(user: user).returns(auth_token)
         team_subdomain = "munichdesign"
 
         post teams_path, params: { create_team_for_user_form: { name: "Design Munich", subdomain: team_subdomain } }
 
-        assert_redirected_to team_url(subdomain: team_subdomain)
+        assert_redirected_to team_url(subdomain: team_subdomain, auth_token: auth_token)
       end
     end
 

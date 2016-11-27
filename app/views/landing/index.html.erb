@@ -2,7 +2,7 @@
 
 <% if !user_signed_in? %>
 
-  <p><%= link_to "Create Team with Slack", user_slack_omniauth_authorize_path(state: :register) %></p>
+  <p><%= link_to "Create Team with Slack", user_slack_omniauth_authorize_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], state: :register) %></p>
 
 
 

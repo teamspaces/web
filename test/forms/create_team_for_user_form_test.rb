@@ -24,12 +24,8 @@ describe CreateTeamForUserForm, :model do
 
     it "subdomain format" do
       subject.subdomain = "team/nasa"
-      subject.save
-      assert_includes subject.errors[:subdomain], "must be alphanumeric (or hyphen)"
-
-      subject.subdomain = "what"
-      subject.save
-      assert_includes subject.errors[:subdomain], "cannot be a reserved name"
+      refute subject.save
+      assert subject.errors[:subdomain]
     end
   end
 
