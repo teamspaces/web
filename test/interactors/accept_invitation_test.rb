@@ -10,13 +10,13 @@ describe AcceptInvitation, :model do
       assert subject.call(user: user, invitation: invitation).success?
     end
 
-    it "adds users as team member" do
+    it "adds user as team member" do
       assert_difference ->{ user.teams.count }, 1 do
         subject.call(user: user, invitation: invitation)
       end
     end
 
-    it "destroyes invitation" do
+    it "destroys invitation" do
       assert_difference ->{ Invitation.count }, -1 do
         subject.call(user: user, invitation: invitation)
       end

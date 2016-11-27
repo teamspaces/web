@@ -28,7 +28,7 @@ describe Invitations::RegisterController do
       it "accepts team invitation" do
         post register_with_invitation_forms_path(token: invitation.token), params: valid_params
 
-        assert invitation.team, @controller.current_user.teams.first
+        assert_equal invitation.team, @controller.current_user.teams.first
       end
 
       it "redirects to after sign in path" do
