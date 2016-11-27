@@ -6,7 +6,7 @@ class Invitations::LoginController < ApplicationController
   end
 
   def create
-    @login_with_invitation_form = LoginWithInvitationForm.new(login_with_invitation_form_params)
+    @login_with_invitation_form = LoginWithInvitationForm.new(login_with_invitation_form_params.to_h)
 
     if @login_with_invitation_form.save
       user = @login_with_invitation_form.user

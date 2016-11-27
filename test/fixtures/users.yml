@@ -18,3 +18,5 @@ without_team:
   <<: *default
   first_name: Katharina
   last_name: Gaalen
+  email: katharinagaalen@nl.com
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>

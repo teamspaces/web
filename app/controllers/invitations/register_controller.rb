@@ -6,7 +6,7 @@ class Invitations::RegisterController < ApplicationController
   end
 
   def create
-    @register_with_invitation_form = RegisterWithInvitationForm.new(register_with_invitation_form_params)
+    @register_with_invitation_form = RegisterWithInvitationForm.new(register_with_invitation_form_params.to_h)
 
     if @register_with_invitation_form.save
       user = @register_with_invitation_form.user

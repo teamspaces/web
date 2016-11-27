@@ -1,8 +1,8 @@
 require "test_helper"
 
 describe LoginWithInvitationForm, :model do
-  let(:user) { users(:sven) }
-  let(:invitation) { invitations(:sven_at_power_rangers) }
+  let(:user) { users(:without_team) }
+  let(:invitation) { invitations(:katharina_at_power_rangers) }
   subject { LoginWithInvitationForm.new(email: user.email, password: 'password', invitation_token: invitation.token) }
 
   describe "validations" do

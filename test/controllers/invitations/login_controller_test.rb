@@ -1,42 +1,42 @@
 require 'test_helper'
 
 describe Invitations::LoginController do
-  let(:user) { users(:lars) }
-  let(:team) { teams(:furrow) }
-  let(:team_invitations_url) { invitations_url(subdomain: team.subdomain) }
+  let(:user) { users(:without_team) }
+  let(:invitation) { invitations(:katharina_at_power_rangers) }
 
-  before(:each) { sign_in user }
-
-  describe "#index" do
-    it "renders the :index view" do
-       get team_invitations_url
-       assert_response :success
+  describe "#new" do
+    it "renders :new" do
+      get login_with_invitation_url(token: invitation.token)
+      assert_response :success
     end
   end
 
   describe "#create" do
-    it "creates an invitation" do
-      assert_difference -> { Invitation.count }, 1 do
-        params = { send_invitation_form: { email: "gallen@nl.se"} }
-        post team_invitations_url, params: params
+    context "valid" do
+      before(:each) do
+        params = { login_with_invitation_form: { email: user.email, password: 'password', invitation_token: invitation.token} }
+        post login_with_invitation_forms_path(token: invitation.token), params: params
+      end
+
+      it "accepts team invitation" do
+        assert invitation.team, user.teams.first
+      end
+
+      it "signs in user" do
+        assert user, @controller.current_user
+      end
+
+      it "redirects to after sign in path" do
+        assert_redirected_to @controller.after_sign_in_path_for(user)
       end
     end
 
-    context "with invalid attributes" do
+    context "invalid" do
+      it "renders :new" do
+        params = { login_with_invitation_form: { email: user.email, password: 'wrong', invitation_token: invitation.token} }
+        post login_with_invitation_forms_path(token: invitation.token), params: params
 
-      it "does not create the invitation" do
-        assert_difference -> { Invitation.count }, 0 do
-          params = { send_invitation_form: { email: "invalid_email"} }
-          post team_invitations_url, params: params
-        end
-      end
-    end
-  end
-
-  describe "#destroy" do
-    it "delets invitation" do
-      assert_difference -> { Invitation.count }, -1 do
-        delete invitation_url(invitations(:jonas_at_furrow), subdomain: team.subdomain)
+        assert_match 'Invalid email or password', response.body
       end
     end
   end
