@@ -18,23 +18,16 @@ class Slack::FindOrCreateUser
   end
 
   def find
-    @find_user = Slack::FindUser.call(uid: slack_identity_uid)
+    @find_user = Slack::FindUser.call(slack_identity: slack_identity)
     find_user.success? ? find_user.user : nil
   end
 
   def create
-    @create_user = Slack::CreateUser.call(slack_identity: slack_identity,
-                                          uid: slack_identity_uid,
-                                          token: token)
-
+    @create_user = Slack::CreateUser.call(slack_identity: slack_identity, token: token)
     create_user.success? ? create_user.user : nil
   end
 
   def rollback
     create_user.rollback
-  end
-
-  def slack_identity_uid
-    "#{slack_identity.user.id}-#{slack_identity.team.id}"
   end
 end

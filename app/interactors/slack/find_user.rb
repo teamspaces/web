@@ -1,10 +1,10 @@
 class Slack::FindUser
   include Interactor
 
-  attr_reader :uid
+  attr_reader :slack_identity
 
   def call
-    @uid = context.uid
+    @slack_identity = context.slack_identity
 
     if existing_authentication
       context.user = existing_authentication.user
@@ -14,6 +14,9 @@ class Slack::FindUser
   end
 
   def existing_authentication
-    existing_authentication ||= Authentication.find_by(provider: :slack, uid: uid)
+    existing_authentication = begin
+      Authentication.find_by(provider: :slack,
+                             uid: SlackIdentityUid.build(slack_identity))
+    end
   end
 end
