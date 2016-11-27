@@ -24,6 +24,8 @@
 
 <%= render 'form', invitation_form: @invitation_form %>
 
+<%= render 'slack_invitations', team: @team %>
+
 <p>
 <%= link_to 'Back', team_path %>
 </p>

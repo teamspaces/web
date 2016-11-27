@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     end
 
     resources :invitations, only: [:index, :create, :destroy]
+    post 'invitations_slack', to: 'invitations#create_slack', as: :slack_invite
 
     get :edit, to: 'teams#edit', as: :edit_team
     get '', to: 'teams#show', as: :team

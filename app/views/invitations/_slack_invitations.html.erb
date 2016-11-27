@@ -1,0 +1,16 @@
+<% result = Slack::TeamMembersToInvite.call(team: team) %>
+
+<% if result.success? %>
+  <% result.members.each do |team_member| %>
+
+    <%= image_tag(team_member.profile.image_192) %>
+    <p><%= team_member.profile.real_name %></p>
+    <p><a><%= team_member.profile.email %></a></p>
+
+
+    <p><%= link_to "Invite", slack_invite_path(slack_id: team_member.id), method: :post %></p>
+    <hr>
+  <% end %>
+<% else %>
+  <%= link_to "Slack Button", user_slack_button_omniauth_authorize_url(state: team_invitations_url(team)) %>
+<% end %>
