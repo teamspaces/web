@@ -15,10 +15,10 @@ class Slack::FetchIdentity
       identity = Slack::Web::Client.new(token: context.token).users_identity
       return identity if identity.ok
 
-      Rails.logger.error "slack api returned failure response #{identity.inspect}"
+      Rails.logger.error "Slack::FetchIdentity#fetch_slack_identity Api returned failure response with token (token=#{context.token}), identity (#{identity.inspect})"
       return nil
     rescue
-      Rails.logger.error "failed to fetch slack identity"
+      Rails.logger.error "Slack::FetchIdentity#fetch_slack_identity raised an exception (token=#{context.token})"
       return nil
     end
   end

@@ -21,7 +21,7 @@ class Slack::CreateUser
     authentication = user.authentications.build(provider: :slack, uid: Slack::Identity::UID.build(slack_identity), token_secret: token)
 
     unless user.valid?
-      Rails.logger.error("unable to create user #{user.attributes} with authentication #{authentication.attributes}")
+      Rails.logger.error("Slack::CreateUser#create_user_with_authentication failed to create user (user.email=#{user.email}, user.first_name=#{user.first_name}, user.last_name=#{user.last_name}) with authentication: (authentication.uid=#{authentication.uid}) erros: (#{user.errors.full_messages})")
     end
 
     user.save
