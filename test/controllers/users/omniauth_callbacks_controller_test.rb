@@ -4,10 +4,10 @@ describe Users::OmniauthCallbacksController do
   before(:each) { Users::OmniauthCallbacksController.any_instance.stubs(:token).returns("token") }
 
   describe "#slack" do
-    context "finds or creates user" do
+    describe "finds or creates user" do
       let(:slack_user) { users(:slack_user_milad) }
 
-      before(:each) do
+      before(:context) do
         FindOrCreateUserWithSlack.expects(:call).returns(context_mock = mock)
         context_mock.stubs(:success?).returns(true)
         context_mock.stubs(:user).returns(slack_user)
@@ -23,13 +23,11 @@ describe Users::OmniauthCallbacksController do
         assert_redirected_to(@controller.after_sign_in_path_for(slack_user))
       end
     end
-  end
 
-  describe "holo" do
-    context "fails to find or create user" do
+    describe "fails to find or create user" do
       let(:http_referer) { new_user_session_url }
 
-      before(:each) do
+      before(:context) do
         FindOrCreateUserWithSlack.expects(:call).returns(context_mock = mock)
         context_mock.stubs(:success?).returns(false)
 

@@ -1,15 +1,13 @@
 require "test_helper"
-require "slack_identites"
 
 describe Slack::FindUser do
-  include SlackIdentities
 
   subject { Slack::FindUser }
 
   context "existent" do
 
     it "returns user" do
-      result = subject.call(slack_identity: existing_slack_identity)
+      result = subject.call(slack_identity: Slack::Identity::Existing.new)
 
       assert result.success?
       assert_kind_of User, result.user
@@ -19,7 +17,7 @@ describe Slack::FindUser do
   context "non existent" do
 
     it "fails" do
-      refute subject.call(slack_identity: new_slack_identity).success?
+      refute subject.call(slack_identity: Slack::Identity::New.new).success?
     end
   end
 end

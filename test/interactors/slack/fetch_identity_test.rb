@@ -1,8 +1,6 @@
 require "test_helper"
-require "slack_identites"
 
 describe Slack::FetchIdentity, :model do
-  include SlackIdentities
 
   subject { Slack::FetchIdentity }
 
@@ -10,7 +8,7 @@ describe Slack::FetchIdentity, :model do
 
     it "returns slack_identity" do
       Slack::Web::Client.any_instance.expects(:users_identity)
-                                     .returns(new_slack_identity)
+                                     .returns(Slack::Identity::New.new)
 
       result = subject.call(token: "valid")
       assert result.success?
@@ -23,7 +21,7 @@ describe Slack::FetchIdentity, :model do
 
     it "fails" do
       Slack::Web::Client.any_instance.expects(:users_identity)
-                                     .returns(invalid_slack_identity)
+                                     .returns(Slack::Identity::Invalid.new)
 
       refute subject.call(token: "invalid").success?
     end

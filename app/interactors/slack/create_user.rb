@@ -18,7 +18,7 @@ class Slack::CreateUser
     @user = User.new(name: slack_identity.user.name, email: slack_identity.user.email,
                      password: Devise.friendly_token.first(8))
 
-    authentication = user.authentications.build(provider: :slack, uid: SlackIdentityUid.build(slack_identity), token_secret: token)
+    authentication = user.authentications.build(provider: :slack, uid: Slack::Identity::UID.build(slack_identity), token_secret: token)
 
     unless user.valid?
       Rails.logger.error("unable to create user #{user.attributes} with authentication #{authentication.attributes}")

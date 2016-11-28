@@ -1,8 +1,6 @@
 require "test_helper"
-require "slack_identites"
 
 describe Slack::FindOrCreateUser, :model do
-  include SlackIdentities
 
   subject { Slack::FindOrCreateUser }
 
@@ -10,7 +8,7 @@ describe Slack::FindOrCreateUser, :model do
     context "existent" do
 
       it "finds user" do
-        result = subject.call(slack_identity: existing_slack_identity, token: "secret")
+        result = subject.call(slack_identity: Slack::Identity::Existing.new, token: "secret")
 
         assert result.success?
         assert_kind_of User, result.user
@@ -20,7 +18,7 @@ describe Slack::FindOrCreateUser, :model do
     context "non existent" do
 
       it "creates user" do
-        result = subject.call(slack_identity: new_slack_identity, token: "secret")
+        result = subject.call(slack_identity: Slack::Identity::New.new, token: "secret")
 
         assert result.success?
         assert_kind_of User, result.user
@@ -36,7 +34,7 @@ describe Slack::FindOrCreateUser, :model do
         context_mock.stubs(:user).returns(users(:lars))
         context_mock.expects(:rollback!)
 
-        result = subject.call(slack_identity: new_slack_identity, token: "secret")
+        result = subject.call(slack_identity: Slack::Identity::New.new, token: "secret")
 
         result.rollback!
       end
