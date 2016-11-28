@@ -1,4 +1,3 @@
-
 class Slack::FindOrCreateUser
   include Interactor
 

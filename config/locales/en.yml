@@ -4,15 +4,10 @@ en:
     omniauth_callbacks:
       # TODO: Move these errors into the models instead.
       # errors[:base] << "This person is invalid because ..."
-      failed_login_using_slack: |
-        We are unfortunately unable to sign you in using Slack at this moment.
+      failed_to_login_or_register_using_slack: |
+        We are unfortunately unable to sign you in/ register you using Slack at this moment.
         Please try again, and if it does not work you can always reset your
         password or get in contact with us and we will help you troubleshoot.
-      failed_register_using_slack: |
-        We are unfortunately unable to create your account using Slack at this
-        moment. Please try again, and if it does not work you can always sign up
-        using your email or get in contact with us and we will help you get
-        started.
   errors:
     messages:
       reserved_name: cannot be a reserved name
