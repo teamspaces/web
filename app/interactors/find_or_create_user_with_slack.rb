@@ -1,5 +1,5 @@
 class FindOrCreateUserWithSlack
   include Interactor::Organizer
 
-  organize Slack::FetchIdentity, Slack::FindOrCreateUser
+  organize Slack::FetchIdentity, User::FindOrCreateUserFromSlackIdentity
 end

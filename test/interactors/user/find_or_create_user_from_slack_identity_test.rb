@@ -1,8 +1,8 @@
 require "test_helper"
 
-describe Slack::FindOrCreateUser, :model do
+describe User::FindOrCreateUserFromSlackIdentity, :model do
 
-  subject { Slack::FindOrCreateUser }
+  subject { User::FindOrCreateUserFromSlackIdentity }
 
   describe "#call" do
     context "existent" do
@@ -29,7 +29,7 @@ describe Slack::FindOrCreateUser, :model do
   describe "#rollback" do
     context "user was created" do
       it "rollbacks creation" do
-        Slack::CreateUser.expects(:call).returns(context_mock = mock)
+        User::CreateUserFromSlackIdentity.expects(:call).returns(context_mock = mock)
         context_mock.stubs(:success?).returns(true)
         context_mock.stubs(:user).returns(users(:lars))
         context_mock.expects(:rollback!)

@@ -1,8 +1,8 @@
 require "test_helper"
 
-describe Slack::CreateUser, :model do
+describe User::CreateUserFromSlackIdentity, :model do
 
-  subject { Slack::CreateUser }
+  subject { User::CreateUserFromSlackIdentity }
 
   describe "#call" do
     it "creates user with authentication" do

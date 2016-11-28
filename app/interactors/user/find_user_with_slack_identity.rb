@@ -1,4 +1,4 @@
-class Slack::FindUser
+class User::FindUserWithSlackIdentity
   include Interactor
 
   attr_reader :slack_identity

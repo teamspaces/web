@@ -1,4 +1,4 @@
-class Slack::FindOrCreateUser
+class User::FindOrCreateUserFromSlackIdentity
   include Interactor
 
   attr_reader :token, :slack_identity, :find_user, :create_user
@@ -16,13 +16,14 @@ class Slack::FindOrCreateUser
     end
   end
 
+
   def find
-    @find_user = Slack::FindUser.call(slack_identity: slack_identity)
+    @find_user = User::FindUserWithSlackIdentity.call(slack_identity: slack_identity)
     find_user.success? ? find_user.user : nil
   end
 
   def create
-    @create_user = Slack::CreateUser.call(slack_identity: slack_identity, token: token)
+    @create_user = User::CreateUserFromSlackIdentity.call(slack_identity: slack_identity, token: token)
     create_user.success? ? create_user.user : nil
   end
 

@@ -1,8 +1,8 @@
 require "test_helper"
 
-describe Slack::FindUser do
+describe User::FindUserWithSlackIdentity do
 
-  subject { Slack::FindUser }
+  subject { User::FindUserWithSlackIdentity }
 
   context "existent" do
 
