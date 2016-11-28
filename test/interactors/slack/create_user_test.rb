@@ -11,8 +11,8 @@ describe Slack::CreateUser, :model do
       result = subject.call(slack_identity: new_slack_identity, token: 'secret')
       assert result.success?
 
-      assert_equal "emmanuel@furrow.io", result.user.email
-      assert_equal "Emmanuel", result.user.first_name
+      assert_equal "maria@balvin.com", result.user.email
+      assert_equal "Maria", result.user.first_name
 
       authentication = result.user.authentications.first
       assert_equal "slack", authentication.provider

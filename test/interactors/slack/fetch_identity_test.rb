@@ -14,7 +14,7 @@ describe Slack::FetchIdentity, :model do
 
       result = subject.call(token: "valid")
       assert result.success?
-      assert_equal "emmanuel@furrow.io", result.slack_identity.user.email
+      assert_equal "maria@balvin.com", result.slack_identity.user.email
     end
   end
 
