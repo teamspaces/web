@@ -10,7 +10,7 @@ describe Slack::FetchIdentity, :model do
 
     it "returns slack_identity" do
       Slack::Web::Client.any_instance.expects(:users_identity)
-                                     .returns(valid_slack_identity)
+                                     .returns(new_slack_identity)
 
       result = subject.call(token: "valid")
       assert result.success?

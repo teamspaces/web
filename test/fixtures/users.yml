@@ -22,3 +22,8 @@ without_team:
   <<: *default
   first_name: Katharina
   last_name: Gaalen
+
+slack_user_milad:
+  <<: *default
+  first_name: Milad
+  last_name: Marzano
