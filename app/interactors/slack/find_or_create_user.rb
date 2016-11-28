@@ -28,6 +28,6 @@ class Slack::FindOrCreateUser
   end
 
   def rollback
-    create_user.rollback
+    create_user.rollback!
   end
 end
