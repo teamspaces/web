@@ -24,6 +24,8 @@ gem "omniauth-slack"
 gem "httparty"
 gem "jwt"
 
+gem "slack-ruby-client"
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 3.0"
 
