@@ -3,8 +3,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def slack
     result = FindOrCreateUserWithSlack.call(token: token)
 
-    debugger
-
     if result.success?
       sign_in(result.user)
       redirect_to after_sign_in_path_for(result.user)

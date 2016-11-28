@@ -23,7 +23,9 @@ describe Users::OmniauthCallbacksController do
         assert_redirected_to(@controller.after_sign_in_path_for(slack_user))
       end
     end
+  end
 
+  describe "holo" do
     context "fails to find or create user" do
       let(:http_referer) { new_user_session_url }
 
