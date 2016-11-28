@@ -1,7 +1,7 @@
 require "test_helper"
 require "slack_identites"
 
-describe Slack::FindOrCreateUser do
+describe Slack::FindOrCreateUser, :model do
   include SlackIdentities
 
   subject { Slack::FindOrCreateUser }
@@ -31,8 +31,10 @@ describe Slack::FindOrCreateUser do
   describe "#rollback" do
     context "user was created" do
       it "rollbacks creation" do
-       # Slack::CreateUser.expects(:call).returns(context_mock = mock)
-       # context_mock.expects(:rollback!)
+        Slack::CreateUser.expects(:call).returns(context_mock = mock)
+        context_mock.stubs(:success?).returns(true)
+        context_mock.stubs(:user).returns(users(:lars))
+        context_mock.expects(:rollback!)
 
         result = subject.call(slack_identity: new_slack_identity, token: "secret")
 
