@@ -8,8 +8,10 @@ jonas_at_furrow: &default
   email: jonasklemt@gmail.com
   token: 230400ijsjfoij2i3i40iij
 
-sven_at_power_rangers:
+katharina_at_power_rangers:
   <<: *default
   team: power_rangers
-  first_name: Sven
-  last_name: Molander
+  first_name: Katharina
+  last_name: Gaalen
+  email: katharinagaalen@nl.com
+  token: 2343434ss332soko

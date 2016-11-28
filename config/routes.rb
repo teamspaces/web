@@ -6,6 +6,13 @@ Rails.application.routes.draw do
     end
 
     resources :invitations, only: [:index, :create, :destroy]
+    get 'accept/:token', to: 'invitations/accept#show', as: :accept_invitation
+
+    get 'login/:token', to: 'invitations/login#new', as: :login_with_invitation
+    post 'login/:token', to: 'invitations/login#create', as: :login_with_invitation_forms
+
+    get 'register/:token', to: 'invitations/register#new', as: :register_with_invitation
+    post 'register/:token', to: 'invitations/register#create', as: :register_with_invitation_forms
 
     get :edit, to: 'teams#edit', as: :edit_team
     get '', to: 'teams#show', as: :team
