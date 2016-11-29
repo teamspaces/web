@@ -19,12 +19,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     result = User::FindUserWithSlackIdentity.call(slack_identity: @slack_identity)
 
     if result.success?
-      logger.info "successful authentication, signing in and redirecting"
 
       sign_in(result.user)
       redirect_to after_sign_in_path_for(result.user)
     else
-      logger.error "failed authentication, redirecting"
       redirect_to new_user_session_path, alert: t(".failed_login_using_slack")
     end
   end
@@ -33,7 +31,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     login_result = User::FindUserWithSlackIdentity.call(slack_identity: @slack_identity)
 
     if login_result.success?
-      logger.info "user already registered, login instead"
 
       sign_in(login_result.user)
       redirect_to after_sign_in_path_for(login_result.user), alert: t(".register_failed_as_user_already_exists")
@@ -41,12 +38,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       result = User::CreateUserFromSlackIdentity.call(slack_identity: @slack_identity, token: token)
 
       if result.success?
-        logger.info "user registered successfully, redirecting"
 
         sign_in(result.user)
         redirect_to after_sign_in_path_for(result.user)
       else
-        logger.error "failed to register, redirecting"
         redirect_to register_path, alert: t(".failed_register_using_slack")
       end
     end

@@ -17,8 +17,8 @@ class Slack::FetchIdentity
 
       Rails.logger.error "Slack::FetchIdentity#fetch_slack_identity Api returned failure response with token (token=#{context.token}), identity (#{identity.inspect})"
       return nil
-    rescue
-      Rails.logger.error "Slack::FetchIdentity#fetch_slack_identity raised an exception (token=#{context.token})"
+    rescue => exception
+      Rails.logger.error "Slack::FetchIdentity#fetch_slack_identity raised an exception (exception.class=#{exception.class} exception.message=#{exception.message}) with token (token=#{context.token})"
       return nil
     end
   end

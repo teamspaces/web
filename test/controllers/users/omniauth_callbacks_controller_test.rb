@@ -13,9 +13,7 @@ describe Users::OmniauthCallbacksController do
     omniauth_params = {}
     omniauth_params["state"] = state
 
-    Users::OmniauthCallbacksController.any_instance
-                                      .stubs(:omniauth_params)
-                                      .returns(omniauth_params)
+    Users::OmniauthCallbacksController.any_instance.stubs(:omniauth_params).returns(omniauth_params)
   end
 
   describe "login" do
