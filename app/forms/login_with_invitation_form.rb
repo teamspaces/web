@@ -15,7 +15,7 @@ class LoginWithInvitationForm
   validates_with InvitationInviteeEmailValidator
 
   def user
-    @user ||= User.find_for_authentication(email: email)
+    @user ||= User.find_by(email: email)
   end
 
   def invitation
