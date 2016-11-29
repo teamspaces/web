@@ -4,13 +4,38 @@ describe Users::OmniauthCallbacksController do
   before(:each) { Users::OmniauthCallbacksController.any_instance.stubs(:token).returns("token") }
 
   describe "#slack" do
-    describe "finds or creates user" do
-      let(:slack_user) { users(:slack_user_milad) }
-
-      before(:context) do
-        FindOrCreateUserWithSlack.expects(:call).returns(context_mock = mock)
+    describe "new user" do
+      before(:each) do
+        Slack::FetchIdentity.stubs(:call).returns(context_mock = mock)
         context_mock.stubs(:success?).returns(true)
-        context_mock.stubs(:user).returns(slack_user)
+        context_mock.stubs(:slack_identity).returns(Slack::Identity::New.new)
+      end
+
+      it "creates user" do
+        assert_difference -> { User.count }, 1 do
+          get user_slack_omniauth_callback_url
+        end
+      end
+
+      it "signs in user" do
+        get user_slack_omniauth_callback_url
+
+        assert @controller.current_user
+      end
+
+      it "redirects to after_sign_in_path" do
+        get user_slack_omniauth_callback_url
+
+        assert_redirected_to(@controller.after_sign_in_path_for(@controller.current_user))
+      end
+    end
+
+    describe "existing user" do
+      let(:slack_user) { users(:slack_user_milad) }
+      before(:each) do
+        Slack::FetchIdentity.stubs(:call).returns(context_mock = mock)
+        context_mock.stubs(:success?).returns(true)
+        context_mock.stubs(:slack_identity).returns(Slack::Identity::Existing.new)
 
         get user_slack_omniauth_callback_url
       end
@@ -24,11 +49,11 @@ describe Users::OmniauthCallbacksController do
       end
     end
 
-    describe "fails to find or create user" do
+    describe "fetching slack identity fails" do
       let(:http_referer) { new_user_session_url }
 
-      before(:context) do
-        FindOrCreateUserWithSlack.expects(:call).returns(context_mock = mock)
+      before(:each) do
+        Slack::FetchIdentity.stubs(:call).returns(context_mock = mock)
         context_mock.stubs(:success?).returns(false)
 
         get user_slack_omniauth_callback_url, headers: { 'HTTP_REFERER': http_referer }
