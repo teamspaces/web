@@ -1,28 +1,22 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+  before_action :fetch_slack_identity
 
   STATE_PARAM = "state".freeze
   LOGIN_STATE = "login".freeze
   REGISTER_STATE = "register".freeze
 
   def slack
-    result = Slack::FetchIdentity.call(token: token)
-
-    if result.success?
-
-      if login_request?
-        login_using_slack(result.slack_identity)
-      elsif register_request?
-        register_using_slack(result.slack_identity)
-      else
-        render status: :unprocessable_entity, plain: "Missing parameter: #{STATE_PARAM}"
-      end
+    if login_request?
+      login_using_slack
+    elsif register_request?
+      register_using_slack
     else
-      redirect_back(fallback_location: landing_url, alert: t(".failed_to_fetch_slack_identity"))
+      render status: :unprocessable_entity, plain: "Missing parameter: #{STATE_PARAM}"
     end
   end
 
-  def login_using_slack(slack_identity)
-    result = User::FindUserWithSlackIdentity.call(slack_identity: slack_identity)
+  def login_using_slack
+    result = User::FindUserWithSlackIdentity.call(slack_identity: @slack_identity)
 
     if result.success?
       logger.info "successful authentication, signing in and redirecting"
@@ -35,8 +29,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
   end
 
-  def register_using_slack(slack_identity)
-    login_result = User::FindUserWithSlackIdentity.call(slack_identity: slack_identity)
+  def register_using_slack
+    login_result = User::FindUserWithSlackIdentity.call(slack_identity: @slack_identity)
 
     if login_result.success?
       logger.info "user already registered, login instead"
@@ -44,7 +38,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       sign_in(login_result.user)
       redirect_to after_sign_in_path_for(login_result.user), alert: t(".register_failed_as_user_already_exists")
     else
-      result = User::CreateUserFromSlackIdentity.call(slack_identity: slack_identity, token: token)
+      result = User::CreateUserFromSlackIdentity.call(slack_identity: @slack_identity, token: token)
 
       if result.success?
         logger.info "user registered successfully, redirecting"
@@ -59,6 +53,16 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   private
+
+    def fetch_slack_identity
+      result = Slack::FetchIdentity.call(token: token)
+
+      if result.success?
+        @slack_identity = @slack_identity
+      else
+        redirect_back(fallback_location: landing_url, alert: t(".failed_to_fetch_slack_identity")) and return
+      end
+    end
 
     def login_request?
       request.env["omniauth.params"][STATE_PARAM] == LOGIN_STATE
