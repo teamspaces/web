@@ -58,21 +58,25 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       result = Slack::FetchIdentity.call(token: token)
 
       if result.success?
-        @slack_identity = @slack_identity
+        @slack_identity = result.slack_identity
       else
         redirect_back(fallback_location: landing_url, alert: t(".failed_to_fetch_slack_identity")) and return
       end
     end
 
     def login_request?
-      request.env["omniauth.params"][STATE_PARAM] == LOGIN_STATE
+      omniauth_params[STATE_PARAM] == LOGIN_STATE
     end
 
     def register_request?
-      request.env["omniauth.params"][STATE_PARAM] == REGISTER_STATE
+      omniauth_params[STATE_PARAM] == REGISTER_STATE
     end
 
     def token
       request.env["omniauth.auth"]["credentials"]["token"]
+    end
+
+    def omniauth_params
+      request.env["omniauth.params"]
     end
 end
