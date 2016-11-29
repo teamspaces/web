@@ -13,7 +13,7 @@ describe User do
   describe "email validations" do
     let(:user_with_email_login) { users(:lars) }
 
-    it "allows only one user to login with email" do
+    it "allows only one user to use email for email login" do
       another_user_with_email_login = User.new(email: user_with_email_login.email)
 
       refute another_user_with_email_login.save
@@ -21,14 +21,13 @@ describe User do
     end
 
     it "allows same email for users without email login" do
-      another_user_without_email_login = User.new(email: user_with_email_login.email,
-                                                  password: "secret",
-                                                  allow_email_login: false)
+      user_with_same_email_attributes = { email: user_with_email_login.email,
+                                          password: "secret",
+                                          allow_email_login: false }
 
-
-      another_user_without_email_login.save
-
-
+      another_user_without_email_login = User.new(user_with_same_email_attributes)
+      assert another_user_without_email_login.save
+      assert User.new(user_with_same_email_attributes).save
     end
   end
 
