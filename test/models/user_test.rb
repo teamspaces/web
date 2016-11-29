@@ -21,4 +21,15 @@ describe User do
       assert_equal "Chulo King", user.last_name
     end
   end
+
+  describe "#find_for_authentication" do
+    it "finds user that allows email login" do
+      lars_email_login_allowed = users(:lars)
+      lars_email_login_not_allowed = users(:lars_email_login_not_allowed)
+
+      user_to_authenticate = User.find_for_authentication(email: lars_email_login_not_allowed.email)
+      debugger
+      assert_equal lars_email_login_allowed, user_to_authenticate
+    end
+  end
 end

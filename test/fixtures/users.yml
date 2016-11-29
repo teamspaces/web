@@ -8,10 +8,15 @@ sven:
   first_name: Sven
   last_name: Molander
 
-lars:
+lars: &lars
   <<: *default
   first_name: Lars
   last_name: Bengtsson
+  email: lars@furrow.io
+
+lars_email_login_not_allowed:
+  <<: *lars
+  allow_email_login: false
 
 with_several_teams:
  <<: *default
