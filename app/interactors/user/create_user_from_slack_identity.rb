@@ -15,10 +15,14 @@ class User::CreateUserFromSlackIdentity
   end
 
   def create_user_with_authentication
-    @user = User.new(name: slack_identity.user.name, email: slack_identity.user.email,
-                     password: Devise.friendly_token.first(8))
+    @user = User.new(name: slack_identity.user.name,
+                     email: slack_identity.user.email,
+                     password: Devise.friendly_token.first(8),
+                     allow_email_login: false)
 
-    authentication = user.authentications.build(provider: :slack, uid: Slack::Identity::UID.build(slack_identity), token_secret: token)
+    authentication = user.authentications.build(provider: :slack,
+                                                uid: uid,
+                                                token_secret: token)
 
     unless user.valid?
       Rails.logger.error("User::CreateUserFromSlackIdentity#create_user_with_authentication failed to create user (user.email=#{user.email}, user.first_name=#{user.first_name}, user.last_name=#{user.last_name}) with authentication: (authentication.uid=#{authentication.uid}) erros: (#{user.errors.full_messages})")
@@ -30,4 +34,10 @@ class User::CreateUserFromSlackIdentity
   def rollback
     user.destroy
   end
+
+  private
+
+    def uid
+      Slack::Identity::UID.build(slack_identity)
+    end
 end
