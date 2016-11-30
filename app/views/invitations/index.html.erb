@@ -24,6 +24,8 @@
 
 <%= render 'form', invitation_form: @invitation_form %>
 
+<%= link_to "Slack Button", user_slack_button_omniauth_authorize_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], callback_url: invitations_url) %>
+
 <p>
 <%= link_to 'Back', team_path %>
 </p>
