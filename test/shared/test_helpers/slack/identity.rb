@@ -2,42 +2,47 @@ class TestHelpers
   class Slack
     class Identity
 
-      def self.new(type)
-        options = { unknown_user: self.unkown_identity,
-                    existing_user: self.existing_identity,
-                    invalid: self.invalid_identity }
-
-        return ::Slack::Messages::Message.new(options[type])
+      def initialize(type)
+        return send(type)
       end
 
+      def unknown_user
+        identity = default_identity
 
-      class << self
+        identity[:user].merge!({ "id": "U2ZILGD39",
+                                  "name": "Maria Balvin",
+                                  "email": "maria@balvin.com" })
 
-        def unkown_identity
-          identity = self.default_identity
+        identity[:team].merge!({ "id": "T0C8MBADA",
+                                  "name": "Spaces",
+                                  "domain": "teamspaces" })
 
-          identity[:user].merge!({ "id": "U2ZILGD39",
-                                    "name": "Maria Balvin",
-                                    "email": "maria@balvin.com" })
+        ::Slack::Messages::Message.new(identity)
+      end
 
-          identity[:team].merge!({ "id": "T0C8MBADA",
-                                    "name": "Spaces",
-                                    "domain": "teamspaces" })
-          identity
-        end
+      def existing_user
+        identity = default_identity
 
-        def existing_identity
-          identity = self.default_identity
+        identity[:user].merge!({ "id": "U2ZKLGE49",
+                                  "name": "Milad Marzano",
+                                  "email": "milad@lui.com" })
 
-          identity[:user].merge!({ "id": "U2ZKLGE49",
-                                    "name": "Milad Marzano",
-                                    "email": "milad@lui.com" })
+        identity[:team].merge!({ "id": "T0C7MBADQ",
+                                  "name": "La Industria",
+                                  "domain": "laindustria" })
 
-          identity[:team].merge!({ "id": "T0C7MBADQ",
-                                    "name": "La Industria",
-                                    "domain": "laindustria" })
-          identity
-        end
+        ::Slack::Messages::Message.new(identity)
+      end
+
+      def invalid
+        ::Slack::Messages::Message.new({
+          "ok": false,
+          "error": "missing_scope",
+          "needed": "identity.basic",
+          "provided": "identify,read,post,client,apps,admin" })
+      end
+
+      private
 
         def default_identity
           return {
@@ -67,14 +72,6 @@ class TestHelpers
                     }
           }
         end
-
-        def invalid_identity
-          { "ok": false,
-            "error": "missing_scope",
-            "needed": "identity.basic",
-            "provided": "identify,read,post,client,apps,admin" }
-        end
-      end
     end
   end
 end
