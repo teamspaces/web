@@ -22,7 +22,7 @@ describe Users::OmniauthCallbacksController do
     describe "user exists" do
       let(:slack_user) { users(:slack_user_milad) }
       before(:each) do
-        stub_slack_identity_with(Slack::Identity::Existing.new)
+        stub_slack_identity_with(TestHelpers::Slack::Identity.new(:existing_user))
         get user_slack_omniauth_callback_url
       end
 
@@ -37,7 +37,7 @@ describe Users::OmniauthCallbacksController do
 
     describe "user non existent" do
       before(:each) do
-        stub_slack_identity_with(Slack::Identity::New.new)
+        stub_slack_identity_with(TestHelpers::Slack::Identity.new(:unknown_user))
         get user_slack_omniauth_callback_url
       end
 
@@ -54,7 +54,7 @@ describe Users::OmniauthCallbacksController do
     describe "user already exists" do
       let(:slack_user) { users(:slack_user_milad) }
       before(:each) do
-        stub_slack_identity_with(Slack::Identity::Existing.new)
+        stub_slack_identity_with(TestHelpers::Slack::Identity.new(:existing_user))
         get user_slack_omniauth_callback_url
       end
 
@@ -70,7 +70,7 @@ describe Users::OmniauthCallbacksController do
 
     describe "new user" do
       before(:each) do
-        stub_slack_identity_with(Slack::Identity::New.new)
+        stub_slack_identity_with(TestHelpers::Slack::Identity.new(:unknown_user))
       end
 
       it "creates user" do

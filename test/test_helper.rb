@@ -6,9 +6,7 @@ require 'minitest/rails/capybara'
 require 'mocha/mini_test'
 require 'shoulda/context'
 
-require "shared/slack/identity/new"
-require "shared/slack/identity/invalid"
-require "shared/slack/identity/existing"
+require "shared/test_helpers/slack/identity"
 
 class ActiveSupport::TestCase
   fixtures :all

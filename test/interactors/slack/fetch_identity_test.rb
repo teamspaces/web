@@ -8,7 +8,7 @@ describe Slack::FetchIdentity, :model do
 
     it "returns slack_identity" do
       Slack::Web::Client.any_instance.expects(:users_identity)
-                                     .returns(Slack::Identity::New.new)
+                                     .returns(TestHelpers::Slack::Identity.new(:unknown_user))
 
       result = subject.call(token: "valid")
       assert result.success?
@@ -21,7 +21,7 @@ describe Slack::FetchIdentity, :model do
 
     it "fails" do
       Slack::Web::Client.any_instance.expects(:users_identity)
-                                     .returns(Slack::Identity::Invalid.new)
+                                     .returns(TestHelpers::Slack::Identity.new(:invalid))
 
       refute subject.call(token: "invalid").success?
     end

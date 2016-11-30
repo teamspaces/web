@@ -6,7 +6,7 @@ describe User::CreateUserFromSlackIdentity, :model do
 
   describe "#call" do
     it "creates user with authentication" do
-      result = subject.call(slack_identity: Slack::Identity::New.new, token: 'secret')
+      result = subject.call(slack_identity: TestHelpers::Slack::Identity.new(:unknown_user), token: 'secret')
       assert result.success?
 
       assert_equal "maria@balvin.com", result.user.email
@@ -19,7 +19,7 @@ describe User::CreateUserFromSlackIdentity, :model do
     end
 
     it "does not allow user to login with email" do
-      result = subject.call(slack_identity: Slack::Identity::New.new, token: 'secret')
+      result = subject.call(slack_identity: TestHelpers::Slack::Identity.new(:unknown_user), token: 'secret')
       assert result.success?
 
       refute result.user.allow_email_login
@@ -28,7 +28,7 @@ describe User::CreateUserFromSlackIdentity, :model do
 
   describe "#rollback" do
     it "destroys created user" do
-      result = subject.call(slack_identity: Slack::Identity::New.new, token: 'secret')
+      result = subject.call(slack_identity: TestHelpers::Slack::Identity.new(:unknown_user), token: 'secret')
 
       assert_difference -> { User.count }, -1 do
         result.rollback!
