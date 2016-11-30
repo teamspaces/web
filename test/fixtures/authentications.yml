@@ -1,15 +1,8 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  user: one
-  provider: MyString
-  uid: MyString
-  token: MyString
-  token_secret: MyString
-
-two:
-  user: two
-  provider: MyString
-  uid: MyString
-  token: MyString
-  token_secret: MyString
+milad:
+  user: slack_user_milad
+  provider: :slack
+  uid: U2ZKLGE49-T0C7MBADQ
+  token: secret
+  token_secret: secret

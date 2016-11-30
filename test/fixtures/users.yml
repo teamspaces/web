@@ -29,3 +29,8 @@ without_team:
   last_name: Gaalen
   email: katharinagaalen@nl.com
   encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+
+slack_user_milad:
+  <<: *default
+  first_name: Milad
+  last_name: Marzano
