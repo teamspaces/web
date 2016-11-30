@@ -28,7 +28,8 @@ class User::SlackRegisterForm
     def create_user
       user_attributes = { name: slack_user["name"],
                           email: slack_user["email"],
-                          password: generated_password }
+                          password: generated_password,
+                          allow_email_login: false }
 
       @user = User.new(user_attributes)
 
