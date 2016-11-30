@@ -13,8 +13,16 @@ describe User::CreateUserFromSlackIdentity, :model do
       assert_equal "Maria", result.user.first_name
 
       authentication = result.user.authentications.first
+      assert authentication.uid
       assert_equal "slack", authentication.provider
       assert_equal "secret", authentication.token_secret
+    end
+
+    it "does not allow user to login with email" do
+      result = subject.call(slack_identity: Slack::Identity::New.new, token: 'secret')
+      assert result.success?
+
+      refute result.user.allow_email_login
     end
   end
 
