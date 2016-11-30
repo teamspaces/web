@@ -30,7 +30,7 @@ describe SlackTeamAuthenticationPolicy, :model do
     end
   end
 
-  context "team has only email user and not slack team authorization" do
+  context "team has only email user and no slack team authorizations" do
     describe "primary owner adds slack team authorization" do
       it "allows team authorization for any slack team" do
 
