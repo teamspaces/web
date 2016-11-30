@@ -1,10 +1,11 @@
 class TestHelpers
   class Slack
-    class Identity
 
-      def initialize(type)
-        return send(type)
-      end
+    def self.identity(type)
+      Identity.new.public_send(type)
+    end
+
+    class Identity
 
       def unknown_user
         identity = default_identity
