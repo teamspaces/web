@@ -1,5 +1,10 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  #before_action :fetch_slack_authentication_info, only: :slack_button
+  before_action :fetch_slack_identity, only: :slack
+  before_action :fetch_slack_authentication_info, only: :slack_button
+
+  STATE_PARAM = "state".freeze
+  LOGIN_STATE = "login".freeze
+  REGISTER_STATE = "register".freeze
 
   def slack_button
     team = current_user.teams.find(omniauth_params["team_id"])
@@ -13,86 +18,79 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
   end
 
-  def authentication_for_users_team?
-    if @slack_authentication_info.team_id == Slack::Identity::UID.parse(user.authentications.first.uid).team_id
-      return true
-    else
-      return false
-    end
-  end
-
-  def fetch_slack_authentication_info
-    result = Slack::FetchAuthenticationInfo.call(token: token)
-
-    if result.success?
-      @slack_authentication_info = result.slack_authentication_info
-    else
-      redirect_back(fallback_location: landing_url, alert: t(".failed_to_fetch_slack_authentication_info")) and return
-    end
-  end
-
   def slack
-    if slack_identity_fetched?
-      register_or_login_using_slack
+    if login_request?
+      login_using_slack
+    elsif register_request?
+      register_using_slack
     else
-      redirect_to_standard_auth
-    end
-  end
-
-  def register_or_login_using_slack
-    user = login_using_slack || register_using_slack
-
-    if user
-      sign_in user
-      redirect_to after_sign_in_path_for(user)
-    else
-      redirect_to_standard_auth
+      render status: :unprocessable_entity, plain: "Missing parameter: #{STATE_PARAM}"
     end
   end
 
   def login_using_slack
-    login_form = User::SlackLoginForm.new(slack_identity: slack_identity)
-    return login_form.user if login_form.authenticate
+    result = User::FindUserWithSlackIdentity.call(slack_identity: @slack_identity)
+
+    if result.success?
+
+      sign_in(result.user)
+      redirect_to after_sign_in_path_for(result.user)
+    else
+      redirect_to new_user_session_path, alert: t(".failed_login_using_slack")
+    end
   end
 
   def register_using_slack
-    register_form = User::SlackRegisterForm.new(slack_identity: slack_identity)
-    return register_form.user if register_form.save
-  end
+    login_result = User::FindUserWithSlackIdentity.call(slack_identity: @slack_identity)
 
-  def redirect_to_standard_auth
-    logger.error "failed to fetch user from slack, redirecting"
+    if login_result.success?
 
-    redirect_to sign_up_path,
-                alert: t(".failed_to_fetch_user_from_slack") and return
+      sign_in(login_result.user)
+      redirect_to after_sign_in_path_for(login_result.user), alert: t(".register_failed_as_user_already_exists")
+    else
+      result = User::CreateUserFromSlackIdentity.call(slack_identity: @slack_identity, token: token)
+
+      if result.success?
+
+        sign_in(result.user)
+        redirect_to after_sign_in_path_for(result.user)
+      else
+        redirect_to register_path, alert: t(".failed_register_using_slack")
+      end
+    end
   end
 
   private
+    def fetch_slack_authentication_info
+      result = Slack::FetchAuthenticationInfo.call(token: token)
 
-    def token_secret
-      omniauth_auth["credentials"]["token"]
+      if result.success?
+        @slack_authentication_info = result.slack_authentication_info
+      else
+        redirect_back(fallback_location: landing_url, alert: t(".failed_to_fetch_slack_authentication_info")) and return
+      end
     end
 
-    def slack_identity
-      @slack_identity ||= fetch_slack_identity(token_secret)
+    def fetch_slack_identity
+      result = Slack::FetchIdentity.call(token: token)
+
+      if result.success?
+        @slack_identity = result.slack_identity
+      else
+        redirect_back(fallback_location: landing_url, alert: t(".failed_to_fetch_slack_identity")) and return
+      end
     end
 
-    def slack_identity_fetched?
-      slack_identity&.success?
+    def login_request?
+      omniauth_params[STATE_PARAM] == LOGIN_STATE
     end
 
-    def fetch_slack_identity(token)
-      identity = Slack::Identity.new(token)
-      identity.fetch and identity
-    rescue Faraday::Error => e
-      logger.error("failed to fetch slack identity: #{e.message}")
-      logger.error e.backtrace.join("\n")
-
-      return false
+    def register_request?
+      omniauth_params[STATE_PARAM] == REGISTER_STATE
     end
 
-    def omniauth_auth
-      request.env["omniauth.auth"]
+    def token
+      request.env["omniauth.auth"]["credentials"]["token"]
     end
 
     def omniauth_params
