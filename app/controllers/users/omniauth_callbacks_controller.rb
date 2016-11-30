@@ -9,10 +9,13 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def slack_button
     team = current_user.teams.find(omniauth_params["team_id"])
 
-    if TeamAuthenticationPolicy.new(team, user, slack_authentication_info).matching?
+    if SlackTeamAuthenticationPolicy.new(team, current_user, @slack_authentication_info).matching?
       TeamAuthentications::CreateSlackAuthentication.call(team: team,
                                                           token: token,
+                                                          slack_authentication_info: @slack_authentication_info,
                                                           scopes: ["users:read","chat:write:bot"])
+
+      redirect_to request.env['omniauth.origin']
     else
       redirect_back(fallback_location: landing_url, alert: t(".authentication_does_not_fit_spaces_team")) and return
     end

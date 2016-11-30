@@ -6,8 +6,8 @@ class Slack::FetchAuthenticationInfo
   def call
     @token = context.token
 
-    context.authentication_info = fetch_authentication_info
-    context.fail! unless context.authentication_info
+    context.slack_authentication_info = fetch_authentication_info
+    context.fail! unless context.slack_authentication_info
   end
 
   def fetch_authentication_info
