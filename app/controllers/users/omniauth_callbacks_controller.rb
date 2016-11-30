@@ -1,12 +1,22 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  before_action :fetch_slack_authentication_info
+  before_action :fetch_slack_authentication_info, only: :slack_button
 
   def slack_button
+    if authentication_for_users_team?
+      TeamAuthentications::CreateSlackAuthentication.call(user: current_user
+                                                          token: token,
+                                                          scopes: ["users:read","chat:write:bot"])
+    else
+      redirect_back(fallback_location: landing_url, alert: t(".failed_to_fetch_slack_authentication_info")) and return
+    end
+  end
 
-    TeamAuthentications::CreateSlackAuthentication.call(token: token,
-                                                        scopes: ["users:read","chat:write:bot"])
-
-    #redirect_to request.env["omniauth.params"]["url"]
+  def authentication_for_users_team?
+    if @slack_authentication_info.team_id == Slack::Identity::UID.parse(user.authentications.first.uid).team_id
+      return true
+    else
+      return false
+    end
   end
 
   def fetch_slack_authentication_info
