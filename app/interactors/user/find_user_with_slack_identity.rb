@@ -16,7 +16,13 @@ class User::FindUserWithSlackIdentity
   def existing_authentication
     existing_authentication = begin
       Authentication.find_by(provider: :slack,
-                             uid: Slack::Identity::UID.build(slack_identity))
+                             uid: uid
     end
   end
+  
+  private
+  
+    def uid
+      Slack::Identity::UID.build(slack_identity)
+    end
 end
