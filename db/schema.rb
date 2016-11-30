@@ -40,26 +40,6 @@ ActiveRecord::Schema.define(version: 20161129181823) do
     t.index ["user_id"], name: "index_invitations_on_user_id", using: :btree
   end
 
-  create_table "page_revision_authors", force: :cascade do |t|
-    t.integer  "page_revision_id"
-    t.integer  "user_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
-    t.index ["page_revision_id"], name: "index_page_revision_authors_on_page_revision_id", using: :btree
-    t.index ["user_id"], name: "index_page_revision_authors_on_user_id", using: :btree
-  end
-
-  create_table "page_revisions", force: :cascade do |t|
-    t.integer  "page_id"
-    t.integer  "increment_id"
-    t.boolean  "published"
-    t.datetime "published_at"
-    t.text     "contents"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.index ["page_id"], name: "index_page_revisions_on_page_id", using: :btree
-  end
-
   create_table "pages", force: :cascade do |t|
     t.integer  "space_id"
     t.string   "title"
@@ -116,9 +96,6 @@ ActiveRecord::Schema.define(version: 20161129181823) do
   add_foreign_key "authentications", "users", on_delete: :cascade
   add_foreign_key "invitations", "teams"
   add_foreign_key "invitations", "users"
-  add_foreign_key "page_revision_authors", "page_revisions", on_delete: :cascade
-  add_foreign_key "page_revision_authors", "users", on_delete: :cascade
-  add_foreign_key "page_revisions", "pages", on_delete: :cascade
   add_foreign_key "pages", "spaces", on_delete: :cascade
   add_foreign_key "spaces", "teams", on_delete: :cascade
   add_foreign_key "team_members", "teams", on_delete: :cascade
