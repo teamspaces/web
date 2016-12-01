@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161130224841) do
+ActiveRecord::Schema.define(version: 20161201214933) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(version: 20161130224841) do
     t.string   "scopes",     default: [],              array: true
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.index ["team_id", "provider"], name: "index_team_authentications_on_team_id_and_provider", using: :btree
     t.index ["team_id"], name: "index_team_authentications_on_team_id", using: :btree
   end
 
