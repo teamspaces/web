@@ -3,12 +3,12 @@ module InvitationCookie
 
   def set_invitation_cookie
     if params[:invitation_token]
-      cookies[:invitation_token] = { value: params[:invitation_token] }
+      cookies.signed[:invitation_token] = { value: params[:invitation_token] }
     end
   end
 
-  def read_invitation_cookie
-    cookies[:invitation_token]
+  def invitation_cookie
+    cookies.signed[:invitation_token]
   end
 
   def destroy_invitation_cookie
