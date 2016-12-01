@@ -14,9 +14,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
                                                                           "chat:write:bot",
                                                                           "commands"])
     if result.success?
-      redirect_to request.env['omniauth.origin']
+      redirect_to previous_url
     else
-      redirect_to request.env['omniauth.origin'], alert: t(".failed_to_save_team_authentication")
+      redirect_to previous_url, alert: t(".failed_to_save_team_authentication")
     end
   end
 
@@ -88,5 +88,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     def omniauth_params
       request.env["omniauth.params"]
+    end
+
+    def previous_url
+      request.env['omniauth.origin']
     end
 end
