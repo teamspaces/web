@@ -2,6 +2,8 @@ module UserAfterSignInPath
   extend ActiveSupport::Concern
 
   def user_after_sign_in_path
+    read_invitation_cookie
+
     case current_user.teams.count
     when 0
       new_team_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])

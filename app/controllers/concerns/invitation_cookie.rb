@@ -2,15 +2,16 @@ module InvitationCookie
   extend ActiveSupport::Concern
 
   def set_invitation_cookie
-    debugger
+    if params[:invitation_token]
+      cookies[:invitation_token] = { value: params[:invitation_token] }
+    end
   end
 
   def read_invitation_cookie
-    return "ok"
+    cookies[:invitation_token]
   end
 
   def destroy_invitation_cookie
-    return "ok"
+    cookies.delete :invitation_token
   end
-
 end
