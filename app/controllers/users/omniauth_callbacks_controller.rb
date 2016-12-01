@@ -1,6 +1,5 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   before_action :fetch_slack_identity, only: :slack
-  before_action :fetch_slack_authentication_info, only: :slack_button
 
   STATE_PARAM = "state".freeze
   LOGIN_STATE = "login".freeze
@@ -9,10 +8,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def slack_button
     team = current_user.teams.find(omniauth_params["team_id"])
 
-    if SlackTeamAuthenticationPolicy.new(team, current_user, @slack_authentication_info).matching?
+    if SlackTeamAuthenticationPolicy.new(team, authentication_info).matching?
       TeamAuthentications::CreateSlackAuthentication.call(team: team,
                                                           token: token,
-                                                          slack_authentication_info: @slack_authentication_info,
                                                           scopes: ["users:read","chat:write:bot"])
 
       redirect_to request.env['omniauth.origin']
@@ -64,15 +62,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   private
-    def fetch_slack_authentication_info
-      result = Slack::FetchAuthenticationInfo.call(token: token)
-
-      if result.success?
-        @slack_authentication_info = result.slack_authentication_info
-      else
-        redirect_back(fallback_location: landing_url, alert: t(".failed_to_fetch_slack_authentication_info")) and return
-      end
-    end
 
     def fetch_slack_identity
       result = Slack::FetchIdentity.call(token: token)
@@ -90,6 +79,14 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     def register_request?
       omniauth_params[STATE_PARAM] == REGISTER_STATE
+    end
+
+    def authentication_info
+      request.env["omniauth.auth"].info
+    end
+
+    def user_info
+      request.env["omniauth.auth"].extra.user_info
     end
 
     def token

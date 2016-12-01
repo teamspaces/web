@@ -4,8 +4,6 @@ class CreateTeamAuthentications < ActiveRecord::Migration[5.0]
       t.references :team, foreign_key: true
       t.string :provider
       t.string :token
-      t.string :foreign_team_id
-      t.string :foreign_user_id
       t.string :scopes, array: true, default: []
 
       t.timestamps

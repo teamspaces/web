@@ -60,11 +60,9 @@ ActiveRecord::Schema.define(version: 20161130110448) do
     t.integer  "team_id"
     t.string   "provider"
     t.string   "token"
-    t.string   "foreign_team_id"
-    t.string   "foreign_user_id"
-    t.string   "scopes",          default: [],              array: true
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.string   "scopes",     default: [],              array: true
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
     t.index ["team_id"], name: "index_team_authentications_on_team_id", using: :btree
   end
 
