@@ -12,7 +12,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
                                                                 token: token,
                                                                 scopes: [ "users:read",
                                                                           "chat:write:bot",
-                                                                          "commands"])
+                                                                          "commands" ])
     if result.success?
       redirect_to previous_url
     else
