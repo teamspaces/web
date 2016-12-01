@@ -82,10 +82,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       omniauth_params[STATE_PARAM] == REGISTER_STATE
     end
 
-    def authentication_info
-      request.env["omniauth.auth"].info
-    end
-
     def token
       request.env["omniauth.auth"]["credentials"]["token"]
     end

@@ -8,9 +8,9 @@ class TeamAuthentication::CreateSlackAuthentication
     @token = context.token
     @scopes = context.scopes
 
-    authentication = build_authentication
-    if authentication.save
-      context.authentication = authentication
+    team_authentication = build_team_authentication
+    if team_authentication.save
+      context.team_authentication = team_authentication
     else
       Rails.logger.error "TeamAuthentications::CreateSlackAuthentication#call failed with team.id=#{team.id} token=#{token} scopes=#{scopes}"
 
@@ -18,17 +18,13 @@ class TeamAuthentication::CreateSlackAuthentication
     end
   end
 
-  def build_authentication
-    authentication = TeamAuthentication.first_or_initialize(provider: :slack,
-                                                            team: team)
+  def build_team_authentication
+    authentication = TeamAuthentication.find_or_initialize_by(provider: :slack,
+                                                              team: team)
 
     authentication.scopes = scopes
     authentication.token = token
 
     authentication
-  end
-
-  def rollback
-    authentication.destroy
   end
 end
