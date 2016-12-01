@@ -1,11 +1,3 @@
-module OmniAuth
-  module Strategies
-    class SlackButton < OmniAuth::Strategies::Slack
-      option :name, 'slack_button'
-    end
-  end
-end
-
 Devise.setup do |config|
   config.omniauth :slack,
                   ENV["SLACK_OAUTH_CLIENT_ID"],

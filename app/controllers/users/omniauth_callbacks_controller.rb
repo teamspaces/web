@@ -8,10 +8,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def slack_button
     team = current_user.teams.find(omniauth_params["team_id"])
 
-    result = TeamAuthentications::CreateSlackAuthentication.call(team: team,
-                                                                 token: token,
-                                                                 scopes: [ "users:read",
-                                                                           "chat:write:bot"])
+    result = TeamAuthentication::CreateSlackAuthentication.call(team: team,
+                                                                token: token,
+                                                                scopes: [ "users:read",
+                                                                          "chat:write:bot"])
     if result.success?
       redirect_to request.env['omniauth.origin']
     else
@@ -91,9 +91,5 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     def omniauth_params
       request.env["omniauth.params"]
-    end
-
-    def token
-      request.env["omniauth.auth"]["credentials"]["token"]
     end
 end

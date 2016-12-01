@@ -1,4 +1,4 @@
-class TeamAuthentications::CreateSlackAuthentication
+class TeamAuthentication::CreateSlackAuthentication
   include Interactor
 
   attr_reader :team, :token, :scopes
