@@ -1,29 +1,31 @@
 class TeamAuthentications::CreateSlackAuthentication
   include Interactor
 
-  attr_reader :team, :token, :scopes, :slack_authentication_info, :authentication
+  attr_reader :team, :token, :scopes
 
   def call
     @team = context.team
     @token = context.token
     @scopes = context.scopes
-    @slack_authentication_info = context.slack_authentication_info
 
-    @authentication = build_authentication
+    authentication = build_authentication
     if authentication.save
       context.authentication = authentication
     else
+      Rails.logger.error "TeamAuthentications::CreateSlackAuthentication#call failed with team.id=#{team.id} token=#{token} scopes=#{scopes}"
+
       context.fail!
     end
   end
 
   def build_authentication
-    TeamAuthentication.new(provider: :slack,
-                           team: team,
-                           scopes: scopes,
-                           token: token,
-                           foreign_team_id: slack_authentication_info.team_id,
-                           foreign_user_id: slack_authentication_info.user_id)
+    authentication = TeamAuthentication.first_or_initialize(provider: :slack,
+                                                            team: team)
+
+    authentication.scopes = scopes
+    authentication.token = token
+
+    authentication
   end
 
   def rollback
