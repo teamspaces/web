@@ -11,7 +11,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     result = TeamAuthentication::CreateSlackAuthentication.call(team: team,
                                                                 token: token,
                                                                 scopes: [ "users:read",
-                                                                          "chat:write:bot"])
+                                                                          "chat:write:bot",
+                                                                          "commands"])
     if result.success?
       redirect_to request.env['omniauth.origin']
     else

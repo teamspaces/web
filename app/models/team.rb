@@ -4,7 +4,6 @@ class Team < ApplicationRecord
   has_many :invitations, dependent: :destroy
   has_many :members, foreign_key: "team_id", class_name: "TeamMember", dependent: :destroy
   has_many :users, through: :members
-  has_many :user_authentications, through: :users, source: :authentications
   has_one :team_authentication, dependent: :destroy
 
   def primary_owner
