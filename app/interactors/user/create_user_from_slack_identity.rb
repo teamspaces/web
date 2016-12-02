@@ -15,8 +15,8 @@ class User::CreateUserFromSlackIdentity
   end
 
   def create_user_with_authentication
-    @user = User.new(name: slack_identity.user.name,
-                     email: slack_identity.user.email,
+    @user = User.new(name: slack_identity.user.real_name,
+                     email: slack_identity.user.profile.email,
                      password: generate_password,
                      allow_email_login: false)
 
@@ -40,7 +40,7 @@ class User::CreateUserFromSlackIdentity
     def uid
       Slack::Identity::UID.build(slack_identity)
     end
-  
+
     def generate_password
       Devise.friendly_token.first(8)
     end
