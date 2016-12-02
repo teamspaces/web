@@ -3,7 +3,7 @@ require "test_helper"
 describe User::AcceptInvitation, :model do
   let(:user) { users(:without_team) }
   let(:invitation) { invitations(:katharina_at_power_rangers) }
-  subject { AcceptInvitation }
+  subject { User::AcceptInvitation }
 
   context "valid token" do
     it "works" do
