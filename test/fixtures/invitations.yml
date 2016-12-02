@@ -15,3 +15,12 @@ katharina_at_power_rangers:
   last_name: Gaalen
   email: katharinagaalen@nl.com
   token: 2343434ss332soko
+
+slack_user_milad_invitation:
+  <<: *default
+  first_name: Milad
+  last_name: Marzano
+  team: power_rangers
+  token: 093jjkj3294kjji
+  email: slack_user_milad@furrow.io
+  slack_id: U2ZKLGE49
