@@ -3,7 +3,7 @@ require "test_helper"
 describe TeamAuthentication::CreateSlackAuthentication, :model do
   let(:token) { "secret_token" }
   let(:scopes) { ["users:read", "chat:write:bot"] }
-  let(:provider) { "slack" }
+  let(:slack_provider) { "slack" }
   subject { TeamAuthentication::CreateSlackAuthentication }
 
   describe "#call" do
@@ -17,7 +17,7 @@ describe TeamAuthentication::CreateSlackAuthentication, :model do
                                 scopes: scopes)
 
           assert result.success?
-          assert_equal provider, result.team_authentication.provider
+          assert_equal slack_provider, result.team_authentication.provider
           assert_equal token, result.team_authentication.token
           assert_equal team_without_authentication, result.team_authentication.team
         end
@@ -34,7 +34,7 @@ describe TeamAuthentication::CreateSlackAuthentication, :model do
                                 scopes: scopes)
 
           assert result.success?
-          assert_equal provider, result.team_authentication.provider
+          assert_equal slack_provider, result.team_authentication.provider
           assert_equal token, result.team_authentication.token
           assert_equal team_with_authentication, result.team_authentication.team
         end
