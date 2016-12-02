@@ -1,7 +1,8 @@
 require "test_helper"
 
 describe Users::OmniauthCallbacksController do
-  before(:each) { Users::OmniauthCallbacksController.any_instance.stubs(:token).returns("token") }
+  subject { Users::OmniauthCallbacksController }
+  before(:each) { subject.any_instance.stubs(:token).returns("token") }
 
   def stub_slack_identity_with(identity)
     Users::OmniauthCallbacksController.any_instance
@@ -9,11 +10,51 @@ describe Users::OmniauthCallbacksController do
                                       .returns(identity)
   end
 
+  def stub_omniauth_params_with(params)
+    subject.any_instance.stubs(:omniauth_params).returns(params)
+  end
+
   def stub_omniauth_state_param_with(state)
     omniauth_params = {}
     omniauth_params["state"] = state
 
-    Users::OmniauthCallbacksController.any_instance.stubs(:omniauth_params).returns(omniauth_params)
+    subject.any_instance.stubs(:omniauth_params).returns(omniauth_params)
+  end
+
+  describe "#slack_button" do
+    let(:team) { teams(:power_rangers) }
+    let(:token) { "token" }
+    let(:previous_url) { "team.spaces.is" }
+    before(:each) do
+      stub_omniauth_params_with({team_id: team.id}.stringify_keys)
+      subject.any_instance.stubs(:current_user).returns(team.users.first)
+      subject.any_instance.stubs(:previous_url).returns(previous_url)
+    end
+
+    describe "valid" do
+      it "saves team authentication" do
+        assert_difference -> { TeamAuthentication.count }, 1 do
+          get user_slack_button_omniauth_callback_url
+        end
+      end
+
+      it "redirects back" do
+        get user_slack_button_omniauth_callback_url
+        assert_redirected_to previous_url
+      end
+    end
+
+    describe "invalid" do
+      before(:each) do
+        subject.any_instance.stubs(:token).returns(nil)
+        get user_slack_button_omniauth_callback_url
+      end
+
+      it "redirects back with alert" do
+        assert_equal I18n.t("users.omniauth_callbacks.slack_button.failed_to_save_team_authentication"), flash[:alert]
+        assert_redirected_to previous_url
+      end
+    end
   end
 
   describe "login" do

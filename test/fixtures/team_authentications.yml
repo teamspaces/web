@@ -1,0 +1,5 @@
+furrow_slack_authorization:
+  team: furrow
+  provider: slack
+  token: secret
+  scopes: ["users:read"]

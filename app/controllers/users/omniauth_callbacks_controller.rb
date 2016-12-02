@@ -4,6 +4,21 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   LOGIN_STATE = "login".freeze
   REGISTER_STATE = "register".freeze
 
+  def slack_button
+    team = current_user.teams.find(omniauth_params["team_id"])
+
+    result = TeamAuthentication::CreateSlackAuthentication.call(team: team,
+                                                                token: token,
+                                                                scopes: [ "users:read",
+                                                                          "chat:write:bot",
+                                                                          "commands" ])
+    if result.success?
+      redirect_to previous_url
+    else
+      redirect_to previous_url, alert: t(".failed_to_save_team_authentication")
+    end
+  end
+
   def slack
     if login_request?
       login_using_slack
@@ -66,5 +81,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     def omniauth_params
       request.env["omniauth.params"]
+    end
+
+    def previous_url
+      request.env['omniauth.origin']
     end
 end
