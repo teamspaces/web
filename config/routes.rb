@@ -5,6 +5,9 @@ Rails.application.routes.draw do
       resources :pages, only: [:index, :new, :create]
     end
 
+    resources :pages, only: [:show, :edit, :update, :destroy]
+    resources :page_contents, only: [:show, :update]
+
     resources :invitations, only: [:index, :create, :destroy]
     get 'accept/:token', to: 'invitations/accept#show', as: :accept_invitation
 
@@ -21,7 +24,6 @@ Rails.application.routes.draw do
   end
 
   resources :teams, only: [:index, :new, :create]
-  resources :pages, only: [:show, :edit, :update, :destroy]
 
   devise_for :users,
              skip: [:sessions],

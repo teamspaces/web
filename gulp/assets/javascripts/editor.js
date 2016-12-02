@@ -44,22 +44,30 @@
         console.log("Checking if we should auto-save.");
 
         if(contentsChanged == true){
+            console.log("Saving changes to page.");
+
             // Prevent overlapping saves
             contentsChanged = false;
 
-            console.log("Saving changes to page.");
-
             // Lets save the page contents
             $.ajax({
-                url: "/page/123/contents", // TODO: lets use a real URl...
+                url: options.page_content_url,
                 type: "PATCH",
+                dataType: "json",
+                headers: { "X-CSRF-Token": options.csrf_token },
                 error: function(){
                     // Errors should make sure we try to save again on next tick
                     console.log("Unable to save page, re-triggering save.");
                     contentsChanged = true;
+                    // TODO: We just want to retry a number of times before we stop
+                },
+                success: function(){
+                    console.log("Saved changes.");
                 },
                 data: {
-                    contents: quill.getText()
+                    page_content: {
+                        contents: quill.getText()
+                    }
                 }
             });
         }
@@ -84,12 +92,19 @@
       });
 
       // Caused by network errors or eg. jtw token expired
-      page.on('error', function(error) {
-          if (error == "Error: 403: Invalid or expired token"){
-              console.log("JWT IS NOT VALID, DISABLING EDITOR");
-              quill.disable();
-          }
-      });
+        page.on('error', function(error) {
+            console.log(error.code);
+            console.log(error.message);
+
+            // We don't have access to this document
+            if (error.code == 403) {
+                quill.disable();
+                console.log("Access denied:" + error.message);
+            } else {
+                // What else do we want to handle? And how?
+                console.log("Unhandled error:", error);
+            }
+        });
     });
   }
 

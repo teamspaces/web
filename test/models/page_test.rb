@@ -12,6 +12,15 @@ describe Page do
       assert_kind_of CollabPage, page.collab_page
   end
 
+  it "has page_content" do
+    page = Page.create(space: space)
+    assert_kind_of PageContent, page.page_content
+  end
+
+  describe "#contents" do
+    # TODO: this should be page_content.contents
+  end
+
   describe "#destroy" do
     it "destroys collab_page as well" do
       marketing_page.collab_page
@@ -19,6 +28,12 @@ describe Page do
       assert_difference -> { CollabPage.count }, -1 do
         marketing_page.destroy
       end
+    end
+  end
+
+  describe "#contents" do
+    it "returns page_content.contents" do
+      # TODO: Implement this...
     end
   end
 end

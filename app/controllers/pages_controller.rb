@@ -18,6 +18,8 @@ class PagesController < SubdomainBaseController
       collection: collection,
       document_id: document_id.to_s,
       collab_url: "#{ENV["COLLAB_SERVICE_URL"]}?token=#{token}",
+      page_content_url: page_content_url(@page.page_content),
+      csrf_token: form_authenticity_token,
     }.to_json.html_safe
   end
   helper_method :editor_settings
