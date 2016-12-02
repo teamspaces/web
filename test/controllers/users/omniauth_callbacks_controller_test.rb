@@ -4,9 +4,9 @@ describe Users::OmniauthCallbacksController do
   before(:each) { Users::OmniauthCallbacksController.any_instance.stubs(:token).returns("token") }
 
   def stub_slack_identity_with(identity)
-    Slack::FetchIdentity.stubs(:call).returns(context_mock = mock)
-    context_mock.stubs(:success?).returns(true)
-    context_mock.stubs(:slack_identity).returns(identity)
+    Users::OmniauthCallbacksController.any_instance
+                                      .stubs(:slack_identity)
+                                      .returns(identity)
   end
 
   def stub_omniauth_state_param_with(state)
@@ -90,21 +90,6 @@ describe Users::OmniauthCallbacksController do
 
         assert_redirected_to(@controller.after_sign_in_path_for(@controller.current_user))
       end
-    end
-  end
-
-  describe "fails to fetch slack identity" do
-    let(:http_referer) { new_user_session_url }
-    before(:each) do
-      Slack::FetchIdentity.stubs(:call).returns(context_mock = mock)
-      context_mock.stubs(:success?).returns(false)
-    end
-
-    it "redirects back with alert" do
-      get user_slack_omniauth_callback_url, headers: { 'HTTP_REFERER': http_referer }
-
-      assert_equal I18n.t("users.omniauth_callbacks.slack.failed_to_fetch_slack_identity"), flash[:alert]
-      assert_redirected_to(http_referer)
     end
   end
 end
