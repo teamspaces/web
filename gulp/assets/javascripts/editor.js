@@ -25,18 +25,70 @@
       connection.bindToSocket(socket);
     };
 
+    // Create the quill editor
+    var quill = new Quill(attach_to, {theme: 'snow'});
+
+    // This could fail as the document does not exist
     var page = connection.get(options.collection, options.document_id);
+
+    // Use this to trigger saves
+    var contentsChanged = false;
+
     page.subscribe(function(error) {
-      if (error) throw error;
-      var quill = new Quill(attach_to, {theme: 'snow'});
+      if (error) {
+        console.log("Unable to subscribe to page.");
+        quill.disable();
+      }
+
+    setInterval(function(){
+        console.log("Checking if we should auto-save.");
+
+        if(contentsChanged == true){
+            // Prevent overlapping saves
+            contentsChanged = false;
+
+            console.log("Saving changes to page.");
+
+            // Lets save the page contents
+            $.ajax({
+                url: "/page/123/contents", // TODO: lets use a real URl...
+                type: "PATCH",
+                error: function(){
+                    // Errors should make sure we try to save again on next tick
+                    console.log("Unable to save page, re-triggering save.");
+                    contentsChanged = true;
+                },
+                data: {
+                    contents: quill.getText()
+                }
+            });
+        }
+    }, 2000);
+
+      // Setup quill using all deltas for this page
       quill.setContents(page.data);
+
+      // Changes made in the editor
       quill.on('text-change', function(delta, oldDelta, source) {
         if (source !== 'user') return;
         page.submitOp(delta, {source: quill});
+
+        // Trigger auto-save
+        contentsChanged = true;
       });
+
+      // Update quill with new deltas coming from collab
       page.on('op', function(op, source) {
         if (source === quill) return;
         quill.updateContents(op);
+      });
+
+      // Caused by network errors or eg. jtw token expired
+      page.on('error', function(error) {
+          if (error == "Error: 403: Invalid or expired token"){
+              console.log("JWT IS NOT VALID, DISABLING EDITOR");
+              quill.disable();
+          }
       });
     });
   }

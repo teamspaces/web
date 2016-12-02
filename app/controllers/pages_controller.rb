@@ -6,7 +6,7 @@ class PagesController < SubdomainBaseController
   # EditorSettingsHashPresenter.new(user_id: current_user.id, ...)
   def editor_settings(user_id, collection, document_id)
     payload = {
-      exp: (Time.now.to_i + 10),
+      exp: (Time.now.to_i + 60),
       user_id: user_id,
       collection: 'collab_pages',
       document_id: document_id.to_s
