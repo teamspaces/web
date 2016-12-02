@@ -7,11 +7,11 @@ class User::AcceptInvitation
     @user = context.user
     @invitation = context.invitation
 
-    accept_invitation
+    accept_team_invitation
     invitation.destroy
   end
 
-  def accept_invitation
+  def accept_team_invitation
     invitation.team.members.new(user: user, role: TeamMember::Roles::MEMBER).save
   end
 end

@@ -1,7 +1,7 @@
 module AcceptTeamInvitation
   extend ActiveSupport::Concern
 
-  def accept_invitation
+  def accept_team_invitation
     invitation = Invitation.find_by(token: invitation_cookie)
 
     if invitation.present?

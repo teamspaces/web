@@ -9,7 +9,7 @@ describe AcceptTeamInvitation, :controller do
     get user_session_path, params: { invitation_token: token }
   end
 
-  describe "#accept_invitation" do
+  describe "#accept_team_invitation" do
     describe "invitation exists" do
       before(:each) { set_invitation_cookie(invitation.token) }
 
@@ -18,12 +18,12 @@ describe AcceptTeamInvitation, :controller do
 
         it "accepts invitation" do
           assert_difference -> { invitation.team.members.count }, 1 do
-            @controller.accept_invitation
+            @controller.accept_team_invitation
           end
         end
 
         it "shows notice" do
-          @controller.accept_invitation
+          @controller.accept_team_invitation
           assert_equal I18n.t("successfully_accepted_invitation"), @controller.flash[:notice]
         end
       end
@@ -31,7 +31,7 @@ describe AcceptTeamInvitation, :controller do
       describe "user is not invitee" do
         before(:each) do
           @controller.sign_in(not_invitee)
-          @controller.accept_invitation
+          @controller.accept_team_invitation
         end
 
         it "shows notice" do
@@ -43,7 +43,7 @@ describe AcceptTeamInvitation, :controller do
     describe "invitation does not exist" do
       before(:each) do
         set_invitation_cookie("invalid")
-        @controller.accept_invitation
+        @controller.accept_team_invitation
       end
 
       it "shows notice" do
@@ -55,7 +55,7 @@ describe AcceptTeamInvitation, :controller do
       set_invitation_cookie("token")
       @controller.expects(:destroy_invitation_cookie).once
 
-      @controller.accept_invitation
+      @controller.accept_team_invitation
     end
   end
 end

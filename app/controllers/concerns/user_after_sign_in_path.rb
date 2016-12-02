@@ -2,7 +2,7 @@ module UserAfterSignInPath
   extend ActiveSupport::Concern
 
   def user_after_sign_in_path
-    accept_invitation if invitation_cookie.present?
+    accept_team_invitation if invitation_cookie.present?
 
     case current_user.teams.count
     when 0
