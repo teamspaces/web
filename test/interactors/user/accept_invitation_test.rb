@@ -1,6 +1,6 @@
 require "test_helper"
 
-describe AcceptInvitation, :model do
+describe User::AcceptInvitation, :model do
   let(:user) { users(:without_team) }
   let(:invitation) { invitations(:katharina_at_power_rangers) }
   subject { AcceptInvitation }

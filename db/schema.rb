@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161201164735) do
+ActiveRecord::Schema.define(version: 20161201214933) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,17 @@ ActiveRecord::Schema.define(version: 20161201164735) do
     t.index ["team_id"], name: "index_spaces_on_team_id", using: :btree
   end
 
+  create_table "team_authentications", force: :cascade do |t|
+    t.integer  "team_id"
+    t.string   "provider"
+    t.string   "token"
+    t.string   "scopes",     default: [],              array: true
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.index ["team_id", "provider"], name: "index_team_authentications_on_team_id_and_provider", using: :btree
+    t.index ["team_id"], name: "index_team_authentications_on_team_id", using: :btree
+  end
+
   create_table "team_members", force: :cascade do |t|
     t.integer  "team_id"
     t.integer  "user_id"
@@ -72,6 +83,7 @@ ActiveRecord::Schema.define(version: 20161201164735) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "subdomain"
+    t.index ["subdomain"], name: "index_teams_on_subdomain", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -99,6 +111,7 @@ ActiveRecord::Schema.define(version: 20161201164735) do
   add_foreign_key "invitations", "users"
   add_foreign_key "pages", "spaces", on_delete: :cascade
   add_foreign_key "spaces", "teams", on_delete: :cascade
+  add_foreign_key "team_authentications", "teams"
   add_foreign_key "team_members", "teams", on_delete: :cascade
   add_foreign_key "team_members", "users", on_delete: :cascade
 end

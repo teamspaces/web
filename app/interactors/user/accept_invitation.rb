@@ -1,4 +1,4 @@
-class AcceptInvitation
+class User::AcceptInvitation
   include Interactor
 
   attr_reader :user, :invitation

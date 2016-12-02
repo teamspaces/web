@@ -1,7 +1,7 @@
 module InvitationCookie
   extend ActiveSupport::Concern
 
-  def set_invitation_cookie
+  def set_invitation_cookie_from_params
     if params[:invitation_token]
       cookies.signed[:invitation_token] = { value: params[:invitation_token] }
     end

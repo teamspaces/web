@@ -1,4 +1,4 @@
-module AcceptInvitation
+module AcceptTeamInvitation
   extend ActiveSupport::Concern
 
   def accept_invitation
@@ -7,21 +7,21 @@ module AcceptInvitation
     if invitation.present?
       check_invitation_user_affiliation(invitation)
     else
-      flash[:notice] = t(".invitation_does_not_exist")
+      flash[:notice] = t("invitation_does_not_exist")
     end
 
     destroy_invitation_cookie
   end
 
   def check_invitation_user_affiliation(invitation)
-    policy = User::AcceptInvitationPolicy(current_user, invitation)
+    policy = User::AcceptInvitationPolicy.new(current_user, invitation)
 
     if policy.matching?
-      AcceptInvitation.call(user: user, invitation: invitation)
+      User::AcceptInvitation.call(user: current_user, invitation: invitation)
 
-      flash[:notice] = t(".successfully_accepted_invitation")
+      flash[:notice] = t("successfully_accepted_invitation")
     else
-      flash[:notice] = t(".invitation_does_not_match_user")
+      flash[:notice] = t("invitation_does_not_match_user")
     end
   end
 end
