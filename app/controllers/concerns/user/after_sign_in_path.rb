@@ -1,4 +1,4 @@
-module UserAfterSignInPath
+module User::AfterSignInPath
   extend ActiveSupport::Concern
   include AcceptTeamInvitation
 
@@ -24,11 +24,9 @@ module UserAfterSignInPath
     end
   end
 
-
   private
 
     def request_with_team_subdomain?
       current_user.teams.map(&:subdomain).include?(request.subdomain)
     end
-
 end

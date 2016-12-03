@@ -1,4 +1,4 @@
-module AcceptTeamInvitation
+module User::AfterSignInPath::AcceptTeamInvitation
   extend ActiveSupport::Concern
 
   def accept_team_invitation
