@@ -9,6 +9,7 @@ class SlackProfile::ToInvitePolicy::Scope
   def resolve
     @scope = not_roboter?
     @scope = not_deleted?
+    @scope = not_invited?
     @scope = not_team_member?
   end
 
@@ -20,6 +21,10 @@ class SlackProfile::ToInvitePolicy::Scope
 
     def not_deleted?
       scope.where.not(deleted: true)
+    end
+
+    def not_invited?
+      scope.where.not(user_id:  team.invitations.map(&:slack_user_id))
     end
 
     def not_team_member?

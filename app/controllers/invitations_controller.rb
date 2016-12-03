@@ -40,7 +40,7 @@ class InvitationsController < SubdomainBaseController
                                                     team: current_team,
                                                     slack_profile: slack_profile)
 
-    invitation_url = landing_url(subdomain: current_team.subdomain,
+    invitation_url = sign_up_url(subdomain: current_team.subdomain,
                                  invitation_token: result.slack_invitation.token)
 
     result = Slack::SendInvitation.call(invitation: result.slack_invitation,
