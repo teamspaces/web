@@ -1,5 +1,6 @@
 module UserAfterSignInPath
   extend ActiveSupport::Concern
+  include AcceptTeamInvitation
 
   def user_after_sign_in_path
     accept_team_invitation if invitation_cookie.present?
