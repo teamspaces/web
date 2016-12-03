@@ -1,0 +1,55 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: MyString
+  name: MyString
+  deleted: false
+  color: MyString
+  string: MyString
+  first_name: MyString
+  last_name: MyString
+  real_name: MyString
+  email: MyString
+  skype: MyString
+  phone: MyString
+  image_24: MyString
+  image_32: MyString
+  image_48: MyString
+  image_72: MyString
+  image_192: MyString
+  image_512: MyString
+  is_admin: false
+  is_owner: false
+  is_primary_owner: false
+  is_restricted: false
+  is_ultra_restricted: false
+  has_2fa: false
+  two_factor_type: MyString
+  has_files: false
+
+two:
+  id: MyString
+  name: MyString
+  deleted: false
+  color: MyString
+  string: MyString
+  first_name: MyString
+  last_name: MyString
+  real_name: MyString
+  email: MyString
+  skype: MyString
+  phone: MyString
+  image_24: MyString
+  image_32: MyString
+  image_48: MyString
+  image_72: MyString
+  image_192: MyString
+  image_512: MyString
+  is_admin: false
+  is_owner: false
+  is_primary_owner: false
+  is_restricted: false
+  is_ultra_restricted: false
+  has_2fa: false
+  two_factor_type: MyString
+  has_files: false

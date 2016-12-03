@@ -20,3 +20,8 @@ en:
       cannot_start_end_with_hypen: cannot start or end with a hyphen
       must_be_alphanumeric_or_hyphen: must be alphanumeric (or hyphen)
       does_not_match_invited_email: doesn't match invited email
+
+  invitation:
+    slack:
+      successfully_sent: Slack Invitation was successfully sent
+      failure_sent: Slack Invitation could not be sent

@@ -20,7 +20,11 @@
   </tbody>
 </table>
 
-<br>
+
+<% @slack_profiles_to_invite.each do |slack_profile| %>
+  <%= render "slack_invitation_user", slack_profile: slack_profile %>
+<% end %>
+
 
 <%= render 'form', invitation_form: @invitation_form %>
 

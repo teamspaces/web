@@ -8,6 +8,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     team = current_user.teams.find(omniauth_params["team_id"])
 
     result = TeamAuthentication::CreateSlackAuthentication.call(team: team,
+                                                                team_uid: slack_identity.user.team_id,
                                                                 token: token,
                                                                 scopes: [ "users:read",
                                                                           "chat:write:bot",
