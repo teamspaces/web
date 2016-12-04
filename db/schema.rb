@@ -65,6 +65,17 @@ ActiveRecord::Schema.define(version: 20161202142227) do
     t.index ["team_id"], name: "index_spaces_on_team_id", using: :btree
   end
 
+  create_table "team_authentications", force: :cascade do |t|
+    t.integer  "team_id"
+    t.string   "provider"
+    t.string   "token"
+    t.string   "scopes",     default: [],              array: true
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.index ["team_id", "provider"], name: "index_team_authentications_on_team_id_and_provider", using: :btree
+    t.index ["team_id"], name: "index_team_authentications_on_team_id", using: :btree
+  end
+
   create_table "team_members", force: :cascade do |t|
     t.integer  "team_id"
     t.integer  "user_id"
@@ -109,6 +120,7 @@ ActiveRecord::Schema.define(version: 20161202142227) do
   add_foreign_key "page_contents", "pages"
   add_foreign_key "pages", "spaces", on_delete: :cascade
   add_foreign_key "spaces", "teams", on_delete: :cascade
+  add_foreign_key "team_authentications", "teams"
   add_foreign_key "team_members", "teams", on_delete: :cascade
   add_foreign_key "team_members", "users", on_delete: :cascade
 end

@@ -6,6 +6,7 @@ describe Team do
   should have_many(:spaces).dependent(:destroy)
   should have_many(:pages).through(:spaces).dependent(:destroy)
   should have_many(:users).through(:members)
+  should have_one(:team_authentication).dependent(:destroy)
 
   describe "#primary_owner" do
     let(:team) { teams(:furrow) }
