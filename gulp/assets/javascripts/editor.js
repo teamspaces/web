@@ -1,112 +1,172 @@
 (function(){
-  const ShareDB = require('sharedb/lib/client');
-  const RichText = require('rich-text');
-  const Quill = require('quill');
+    const ShareDB = require('sharedb/lib/client');
+    const RichText = require('rich-text');
+    const Quill = require('quill');
 
-  var Editor = function(){};
+    var Editor = function(){};
 
-  Editor.prototype.init = function(attach_to, options) {
-    // TODO: Use a proper logger instead...
-    console.log("Editor initialized with options:");
-    console.log(attach_to);
-    console.log(options);
+    var attach_to;
+    var options;
+    var webSocket;
+    var shareDBConnection;
+    var editor;
+    var page;
+    var contentsChanged;
 
-    ShareDB.types.register(RichText.type);
-    var socket = new WebSocket(options.collab_url);
-    var connection = new ShareDB.Connection(socket);
+    Editor.prototype.init = function(attach_to, options) {
+        this.attach_to = attach_to;
+        this.options = options;
 
-    // Is this the way to do it?
-    window.disconnect = function() {
-      connection.close();
-    };
-    window.connect = function() {
-      // DRY this (same code above)
-      var socket = new WebSocket(options.collab_url);
-      connection.bindToSocket(socket);
-    };
+        this.registerOT();
 
-    // Create the quill editor
-    var quill = new Quill(attach_to, {theme: 'snow'});
+        // Error out if the two steps below does not work.
+        this.connectWebSocket();
+        this.connectShareDB();
 
-    // This could fail as the document does not exist
-    var page = connection.get(options.collection, options.document_id);
+        this.bindWindowEvents();
+        this.setupEditor();
+        this.setupAutoSave();
 
-    // Use this to trigger saves
-    var contentsChanged = false;
+        // Eg. If someone deleted this page, we need to display a nice message
+        // to the user. We can ask them to reload the page and let the Rails
+        // controller redirect the user back to the Space with an error message
+        // if the page has been removed.
+        this.setupPage();
+    }
 
-    page.subscribe(function(error) {
-      if (error) {
-        console.log("Unable to subscribe to page.");
-        quill.disable();
-      }
+    Editor.prototype.debug = function(message){
+        console.log(message);
+    }
 
-    setInterval(function(){
-        console.log("Checking if we should auto-save.");
+    Editor.prototype.registerOT = function(){
+        ShareDB.types.register(RichText.type);
+    }
 
-        if(contentsChanged == true){
-            console.log("Saving changes to page.");
+    Editor.prototype.connectWebSocket = function(){
+        this.webSocket = new WebSocket(this.options.collab_url);
+    }
+
+    Editor.prototype.connectShareDB = function(){
+        this.shareDBConnection = new ShareDB.Connection(this.webSocket);
+    }
+
+    Editor.prototype.reconnectShareDB = function(){
+        this.shareDBConnection.bindToSocket(this.webSocket);
+    }
+
+    Editor.prototype.bindWindowEvents = function(){
+        window.disconnect = this.disconnect;
+    }
+
+    Editor.prototype.disconnect = function(){
+        webSocket.close();
+    }
+
+    Editor.prototype.reconnect = function(){
+        this.connectWebSocket();
+        this.reconnectShareDB();
+    }
+
+    Editor.prototype.setupEditor = function(){
+        this.editor = new Quill(this.attach_to, { theme: "snow" });
+    }
+
+    Editor.prototype.enableEditor = function(){
+        this.editor.enable();
+    }
+
+    Editor.prototype.disableEditor = function(){
+        this.editor.disable();
+    }
+
+    Editor.prototype.setupPage = function(){
+        this.page = this.shareDBConnection.get(this.options.collection,
+                                               this.options.document_id);
+
+        this.page.subscribe(this.onPageSubcribe);
+    }
+
+    Editor.prototype.onPageSubcribe = function(error){
+        if (error) {
+            this.debug("Disabling editor, page subscribe failed with error:");
+            this.debug(error);
+            this.disableEditor();
+            return false;
+        }
+
+        // Setup editor using all deltas for this page
+        base.editor.setContents(base.page.data);
+
+        // Changes made in the editor
+        base.editor.on('text-change', function(delta, oldDelta, source) {
+            if (source !== 'user') return;
+            base.page.submitOp(delta, {source: base.editor});
+
+            // Trigger auto-save
+            base.contentsChanged = true;
+        });
+
+        // Update editor with new deltas coming from collab
+        base.page.on('op', function(op, source) {
+            if (source === base.editor) return;
+            base.editor.updateContents(op);
+        });
+
+        // Caused by network errors or eg. jwt token expired
+        base.page.on('error', function(error) {
+            this.debug(error.code);
+            this.debug(error.message);
+
+            // We don't have access to this document
+            if (error.code == 403) {
+                base.editor.disable();
+                base.debug("Access denied:" + error.message);
+            } else {
+                // What else do we want to handle? And how?
+                base.debug("Unhandled error:", error);
+            }
+        });
+    }
+
+    Editor.prototype.setupAutoSave = function(){
+        setInterval(this.onAutoSave, 2000);
+    }
+
+    Editor.prototype.onAutoSave = function(){
+        base.debug("Checking if we should auto-save.");
+
+        if(base.contentsChanged == true){
+            base.debug("Saving changes to page.");
 
             // Prevent overlapping saves
-            contentsChanged = false;
+            base.contentsChanged = false;
 
-            // Lets save the page contents
             $.ajax({
-                url: options.page_content_url,
+                url: base.options.page_content_url,
                 type: "PATCH",
                 dataType: "json",
-                headers: { "X-CSRF-Token": options.csrf_token },
+                headers: { "X-CSRF-Token": base.options.csrf_token },
                 error: function(){
                     // Errors should make sure we try to save again on next tick
-                    console.log("Unable to save page, re-triggering save.");
-                    contentsChanged = true;
+                    base.debug("Unable to save page, re-triggering save.");
+                    base.contentsChanged = true;
                     // TODO: We just want to retry a number of times before we stop
+                    // Eg. if document has been deleted, this is nuking the servers
+                    // with failing requests. Best if server can respond that
+                    // the content has been destroyed/does not exist. We dont
+                    // want to stop on eg. 500 errors.
                 },
                 success: function(){
-                    console.log("Saved changes.");
+                    base.debug("Saved changes.");
                 },
                 data: {
                     page_content: {
-                        contents: quill.getText()
+                        contents: base.editor.getText()
                     }
                 }
             });
         }
-    }, 2000);
+    }
 
-      // Setup quill using all deltas for this page
-      quill.setContents(page.data);
-
-      // Changes made in the editor
-      quill.on('text-change', function(delta, oldDelta, source) {
-        if (source !== 'user') return;
-        page.submitOp(delta, {source: quill});
-
-        // Trigger auto-save
-        contentsChanged = true;
-      });
-
-      // Update quill with new deltas coming from collab
-      page.on('op', function(op, source) {
-        if (source === quill) return;
-        quill.updateContents(op);
-      });
-
-      // Caused by network errors or eg. jtw token expired
-        page.on('error', function(error) {
-            console.log(error.code);
-            console.log(error.message);
-
-            // We don't have access to this document
-            if (error.code == 403) {
-                quill.disable();
-                console.log("Access denied:" + error.message);
-            } else {
-                // What else do we want to handle? And how?
-                console.log("Unhandled error:", error);
-            }
-        });
-    });
-  }
-
-  module.exports = new Editor();
+    var base = module.exports = new Editor();
 })();
