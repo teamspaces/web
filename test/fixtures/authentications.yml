@@ -1,8 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-milad:
+milad: &default
   user: slack_user_milad
   provider: :slack
   uid: U2ZKLGE49-T0C7MBADQ
   token: secret
   token_secret: secret
+
+emil:
+  <<: *default
+  user: slack_user_emil
+  uid: UKIGE49-T0C7BADQU
