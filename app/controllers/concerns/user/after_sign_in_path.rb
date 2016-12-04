@@ -1,7 +1,10 @@
-module UserAfterSignInPath
+module User::AfterSignInPath
   extend ActiveSupport::Concern
+  include AcceptTeamInvitation
 
   def user_after_sign_in_path
+    accept_team_invitation if invitation_cookie.present?
+
     case current_user.teams.count
     when 0
       new_team_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
@@ -21,11 +24,9 @@ module UserAfterSignInPath
     end
   end
 
-
   private
 
     def request_with_team_subdomain?
       current_user.teams.map(&:subdomain).include?(request.subdomain)
     end
-
 end

@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20161202142227) do
     t.string   "token"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.string   "slack_id"
     t.index ["team_id"], name: "index_invitations_on_team_id", using: :btree
     t.index ["user_id"], name: "index_invitations_on_user_id", using: :btree
   end

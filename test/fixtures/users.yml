@@ -34,3 +34,8 @@ slack_user_milad:
   <<: *default
   first_name: Milad
   last_name: Marzano
+
+slack_user_emil:
+  <<: *default
+  first_name: Emil
+  last_name: Danesi
