@@ -1,7 +1,10 @@
 class Invitation < ApplicationRecord
   belongs_to :team
   belongs_to :user
-  has_one :invitee, class_name: "User", foreign_key: "invitee_user_id"
+  has_one :invitee, class_name: "User", primary_key: "invitee_user_id", foreign_key: "id"
+
+  scope :used, -> { where.not(invitee_user_id: nil) }
+  scope :unused, -> { where(invitee_user_id: nil) }
 
   validates :token, uniqueness: true
   before_create :generate_token

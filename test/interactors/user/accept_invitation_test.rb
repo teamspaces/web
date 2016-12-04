@@ -16,18 +16,11 @@ describe User::AcceptInvitation, :model do
       end
     end
 
-    it "destroys invitation" do
-      assert_difference ->{ Invitation.count }, -1 do
-        subject.call(user: user, invitation: invitation)
-      end
-    end
-  end
+    it "saves user as invitee " do
+      subject.call(user: user, invitation: invitation)
 
-  context "already member" do
-    it "destroyes invitation" do
-      assert_difference ->{ Invitation.count }, -1 do
-        subject.call(user: invitation.team.users.first, invitation: invitation)
-      end
+      invitation.reload
+      assert_equal user, invitation.invitee
     end
   end
 end

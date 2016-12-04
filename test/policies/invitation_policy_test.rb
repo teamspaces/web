@@ -5,6 +5,7 @@ describe InvitationPolicy, :model do
   let(:team) { teams(:furrow) }
   let(:team_invitation) { invitations(:jonas_at_furrow) }
   let(:external_invitation) { invitations(:katharina_at_power_rangers) }
+  let(:accepted_invitation) { invitations(:accepted_invitation) }
   let(:default_context) { DefaultContext.new(user, team) }
 
   describe "#destroy?" do
@@ -17,6 +18,12 @@ describe InvitationPolicy, :model do
     context "invitation belongs to another team" do
       it "returns false" do
         refute InvitationPolicy.new(default_context, external_invitation).destroy?
+      end
+    end
+
+    context "invitation already accepted" do
+      it "returns false" do
+        refute InvitationPolicy.new(default_context, accepted_invitation).destroy?
       end
     end
   end

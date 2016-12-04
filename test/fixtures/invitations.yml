@@ -24,3 +24,7 @@ slack_user_milad_invitation:
   token: 093jjkj3294kjji
   email: slack_user_milad@furrow.io
   slack_id: U2ZKLGE49
+
+accepted_invitation:
+  <<: *default
+  invitee_user_id: <%= ActiveRecord::FixtureSet.identify(:lars) %>
