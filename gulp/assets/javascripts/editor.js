@@ -114,8 +114,8 @@
 
         // Caused by network errors or eg. jwt token expired
         base.page.on('error', function(error) {
-            this.debug(error.code);
-            this.debug(error.message);
+            base.debug(error.code);
+            base.debug(error.message);
 
             // We don't have access to this document
             if (error.code == 403) {
