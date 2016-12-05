@@ -1,11 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  id: MyString
   name: MyString
   deleted: false
   color: MyString
-  string: MyString
   first_name: MyString
   last_name: MyString
   real_name: MyString
@@ -28,11 +26,9 @@ one:
   has_files: false
 
 two:
-  id: MyString
   name: MyString
   deleted: false
   color: MyString
-  string: MyString
   first_name: MyString
   last_name: MyString
   real_name: MyString

@@ -1,32 +1,24 @@
 class Slack::FetchTeamProfiles
   include Interactor
 
-  attr_reader :team, :memory_first
+  attr_reader :team
 
   def call
     @team = context.team
     @memory_first = context.memory_first
 
-    unless memory_first && profiles_recently_fetched?
-      destroy_existing_team_profiles
-      fetch_and_store_slack_team_profiles
-    end
+    destroy_existing_team_profiles
+    fetch_and_store_slack_team_profiles
 
     context.slack_team_profiles = slack_team_profiles
   end
 
-  def profiles_recently_fetched?
-    profiles = slack_team_profiles
-
-    profiles.any? && profiles.first.created_at.today?
-  end
-
   def slack_team_profiles
-    SlackProfile.belonging_to(team)
+    team.team_authentication.slack_profiles
   end
 
   def destroy_existing_team_profiles
-    SlackProfile.belonging_to(team).destroy_all
+    team.team_authentication.slack_profiles.destroy_all
   end
 
   def fetch_and_store_slack_team_profiles

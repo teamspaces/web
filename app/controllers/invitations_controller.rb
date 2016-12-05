@@ -7,11 +7,9 @@ class InvitationsController < SubdomainBaseController
     @team = current_team
     @invitation_form = SendInvitationForm.new
 
-    result = Slack::FetchTeamProfiles.call(team: @team, memory_first: true)
+    result = Slack::FetchTeamProfiles.call(team: @team)
 
-    @slack_profiles_to_invite = SlackProfile::
-                                ToInvitePolicy::
-                                Scope.new(@team, result.slack_team_profiles).resolve
+    @slack_profiles_to_invite = SlackProfileQuery.new.to_invite_for(@team)
   end
 
   # POST /invitations
