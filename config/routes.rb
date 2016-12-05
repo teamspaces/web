@@ -28,6 +28,8 @@ Rails.application.routes.draw do
   end
 
   get :landing, to: "landing#index", as: :landing
+  get :sign_in_method, to: "landing#sign_in_method", as: :sign_in_method
+  get :sign_in_with_email, to: "landing#sign_in_with_email", as: :sign_in_with_email
 
   root "landing#index"
 end
