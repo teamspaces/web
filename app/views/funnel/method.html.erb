@@ -1,9 +1,7 @@
-
-
 <p>Sign in Method</p>
 
 <%= link_to "Sign in with slack", user_slack_omniauth_authorize_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], state: :register) %>
 
 <br>
 
-<%= link_to "Sign in with email", sign_in_with_email_path %>
+<%= link_to "Sign in with email", email_method_path %>

@@ -28,8 +28,12 @@ Rails.application.routes.draw do
   end
 
   get :landing, to: "landing#index", as: :landing
-  get :sign_in_method, to: "landing#sign_in_method", as: :sign_in_method
-  get :sign_in_with_email, to: "landing#sign_in_with_email", as: :sign_in_with_email
+
+  get :method, to: "funnel#method", as: :method
+  get :slack_method, to: "funnel#slack_method", as: :slack_method
+  get :email_method, to: "funnel#email_method", as: :email_method
+  get :email_login, to: "funnel#email_login", as: :email_login
+  get :email_register, to: "funnel#email_register", as: :email_register
 
   root "landing#index"
 end
