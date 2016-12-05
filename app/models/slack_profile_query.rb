@@ -11,7 +11,7 @@ class SlackProfileQuery
     @team = team
     not_roboter?
     not_deleted?
-     not_invited?
+    not_invited?
     not_team_member?
     @relation
   end
