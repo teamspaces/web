@@ -5,7 +5,6 @@ class Slack::FetchTeamProfiles
 
   def call
     @team = context.team
-    @memory_first = context.memory_first
 
     destroy_existing_team_profiles
     fetch_and_store_slack_team_profiles
@@ -36,6 +35,6 @@ class Slack::FetchTeamProfiles
   end
 
   def slack_api_token
-    team.team_authentication.try(:token)
+    team.team_authentication&.token
   end
 end

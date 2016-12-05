@@ -23,5 +23,7 @@ en:
 
   invitation:
     slack:
+      text: "Hi %{invitee_first_name}, %{host_first_name} invited you to collaborate on Spaces <%{url}|Join>"
       successfully_sent: Slack Invitation was successfully sent
       failure_sent: Slack Invitation could not be sent
+

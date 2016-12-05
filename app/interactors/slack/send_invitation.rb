@@ -1,4 +1,5 @@
 class Slack::SendInvitation
+  include ActionView::Helpers::AssetUrlHelper
   include Interactor
 
   attr_reader :invitation, :invitation_url
@@ -16,11 +17,13 @@ class Slack::SendInvitation
                             text: invitation_text,
                             as_user: false,
                             username: "Spaces",
-                            icon_url: "http://2.bp.blogspot.com/-xbfpggNA6iU/UvwAer0QKII/AAAAAAAAAGA/cKpUb3nXZpE/s1600/SpaceShipStill.png")
+                            icon_url: url_to_image("SpaceShip.png"))
   end
 
   def invitation_text
-    "Hi #{invitation.first_name}, #{@invitation.user.first_name} invited you to collaborate on Spaces <#{invitation_url}|Join>"
+    I18n.t('invitation.slack.text', invitee_first_name: invitation.first_name,
+                                    host_first_name: @invitation.user.first_name,
+                                    url: invitation_url)
   end
 
   def client
