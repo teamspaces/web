@@ -8,19 +8,25 @@ class FunnelController < ApplicationController
   end
 
   def email_method
-    email = params.permit(:email)[:email]
+    @email_form = Funnel::EmailForm.new
 
-    if email
-      existing_user = User.find_by(email: email)
+    if request.post?
+      @email_form = Funnel::EmailForm.new(email_form_params)
 
-      if existing_user
-        if existing_user.allow_email_login
-          redirect_to email_login_path(email: email)
+      if @email_form.valid?
+        existing_user = User.find_by(email: @email_form.email)
+
+        if existing_user
+          if existing_user.allow_email_login
+            redirect_to email_login_path(email: @email_form.email)
+          else
+            redirect_to slack_method_path
+          end
         else
-          redirect_to slack_method_path
+          redirect_to email_register_path(email: @email_form.email)
         end
       else
-        redirect_to email_register_path(email: email)
+        render :email_method
       end
     end
   end
@@ -30,6 +36,12 @@ class FunnelController < ApplicationController
 
   def email_register
   end
+
+  private
+
+    def email_form_params
+      params.require(:funnel_email_form).permit(:email)
+    end
 end
 
 

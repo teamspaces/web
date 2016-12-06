@@ -4,13 +4,21 @@
 
 <p class="center">Please type your email address</p>
 
-<%= form_tag(email_method_path, method: :get, class: "center") do %>
+<%= form_for(@email_form, url: email_method_path, method: :post, html: { class: "center"}) do |f| %>
 
-  <%= text_field_tag :email, nil, placeholder: "Email" %>
+  <% if @email_form.errors.any? %>
+    <div id="error_explanation">
+      <% @email_form.errors.full_messages.each do |message| %>
+        <a><%= message %></a>
+      <% end %>
+    </div>
+  <% end %>
+
+  <%= f.text_field :email, placeholder: "Email" %>
 
   <br>
 
-  <%= submit_tag 'This is my email' %>
+  <%= f.submit 'This is my email' %>
 <% end %>
 
 <br>
