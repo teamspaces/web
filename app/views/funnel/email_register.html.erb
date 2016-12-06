@@ -1,3 +1,7 @@
+<h1 class="center">3/3</h1>
+
+<p class="center"><img src="https://d30y9cdsu7xlg0.cloudfront.net/png/736563-200.png" width="80px" style="background-color:white" /></p>
+
 <p class="center">Register with your email:</p>
 
 <h1 class="center"><a><%= params[:email] %></a></h1>
@@ -17,7 +21,7 @@
 
   <br>
 
-  <%= submit_tag 'Ok' %>
+  <%= submit_tag 'Create my account' %>
 
 
 <% end %>
@@ -28,16 +32,17 @@
 <div class="center">
   <i>You prefer to sign in with Slack?</i>
   <br>
-  <a>Register with Slack</a>
+    <%= link_to "Register with slack", user_slack_omniauth_authorize_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], state: :register) %>
 
   <br>
   <br>
 
   <i>You already have an account?</i>
   <br>
-  <a>Sign in with another Email</a>
+  <%= link_to "Sign in with another Email", email_method_path %>
   <br>
-  <a>Sign in with Slack</a>
-
-  <p>Back</b>
+  <%= link_to "Sign in with Slack", user_slack_omniauth_authorize_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], state: :login) %>
 </div>
+
+<br>
+<p class="center"><%= link_to "Back", email_method_path, style: "color:grey" %></p>

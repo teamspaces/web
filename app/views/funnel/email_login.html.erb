@@ -1,2 +1,27 @@
-<h1>Funnel#email_login</h1>
-<p>Find me in app/views/funnel/email_login.html.erb</p>
+<h1 class="center">3/3</h1>
+
+<p class="center"><img src="https://d30y9cdsu7xlg0.cloudfront.net/png/598366-200.png" width="80px" style="background-color:white" /></p>
+
+<p class="center">Login with your email:</p>
+
+<h1 class="center"><a><%= params[:email] %></a></h1>
+
+
+<p class="center">Please enter your password:</p>
+
+
+<%= form_tag(email_login_path, method: :get, class: "center") do %>
+
+
+  <%= password_field_tag :password, nil, placeholder: "Password" %>
+
+  <br>
+
+  <%= submit_tag 'Login' %>
+
+
+<% end %>
+
+
+<br>
+<p class="center"><%= link_to "Back", email_method_path, style: "color:grey" %></p>
