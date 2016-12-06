@@ -1,11 +1,15 @@
-<h1>Landing#index</h1>
+<h1 class="center">Hi, to Spaces.is</h1>
+
+<p class="center"><img src="http://s3.amazonaws.com/rapgenius/1379625720_future-astronaut.jpg" width="220px"/></p>
 
 <% if !user_signed_in? %>
 
+<p class="center">
   <%= link_to "Sign In", method_path %>
 
   <br>
 
   <%= link_to "or create Team", method_path %>
+</p>
 
 <% end %>

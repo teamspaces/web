@@ -1,2 +1,43 @@
-<h1>Funnel#email_register</h1>
-<p>Find me in app/views/funnel/email_register.html.erb</p>
+<p class="center">Register with your email:</p>
+
+<h1 class="center"><a><%= params[:email] %></a></h1>
+
+
+<p class="center">Please choose a password:</p>
+
+
+<%= form_tag(email_method_path, method: :get, class: "center") do %>
+
+
+  <%= password_field_tag :password, nil, placeholder: "Password" %>
+
+<p>Please confirm your password:</p>
+
+  <%= password_field_tag :password_confirmation, nil, placeholder: "Password confirmation" %>
+
+  <br>
+
+  <%= submit_tag 'Ok' %>
+
+
+<% end %>
+
+
+<br>
+<br>
+<div class="center">
+  <i>You prefer to sign in with Slack?</i>
+  <br>
+  <a>Register with Slack</a>
+
+  <br>
+  <br>
+
+  <i>You already have an account?</i>
+  <br>
+  <a>Sign in with another Email</a>
+  <br>
+  <a>Sign in with Slack</a>
+
+  <p>Back</b>
+</div>

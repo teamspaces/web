@@ -1,7 +1,9 @@
-<p>Sign in Method</p>
+<p class="center">How would you like to sign in?</p>
 
-<%= link_to "Sign in with slack", user_slack_omniauth_authorize_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], state: :register) %>
+<p class="center">
+  <%= link_to "Sign in with slack", user_slack_omniauth_authorize_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], state: :register) %>
 
 <br>
 
-<%= link_to "Sign in with email", email_method_path %>
+  <%= link_to "Sign in with email", email_method_path %>
+</p>

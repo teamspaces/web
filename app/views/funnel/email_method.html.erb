@@ -1,6 +1,10 @@
-<%= form_tag(email_method_path, method: :get) do %>
+<p class="center">Please type your email address</p>
+
+<%= form_tag(email_method_path, method: :get, class: "center") do %>
 
   <%= text_field_tag :email %>
 
-  <%= submit_tag 'Save' %>
+  <br>
+
+  <%= submit_tag 'Ok' %>
 <% end %>

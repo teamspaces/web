@@ -11,16 +11,16 @@ class FunnelController < ApplicationController
     email = params.permit(:email)[:email]
 
     if email
-      user = User.find_by(email: email)
+      existing_user = User.find_by(email: email)
 
-      if user
-        if user.allow_email_login
-          redirect_to email_login_path
+      if existing_user
+        if existing_user.allow_email_login
+          redirect_to email_login_path(email: email)
         else
           redirect_to slack_method_path
         end
       else
-        redirect_to email_register_path
+        redirect_to email_register_path(email: email)
       end
     end
   end
