@@ -18,23 +18,17 @@ class FunnelController < ApplicationController
 
         if existing_user
           if existing_user.allow_email_login
-            redirect_to email_login_path(email: @email_form.email)
+            redirect_to new_user_session_path(email: @email_form.email)
           else
-            redirect_to slack_method_path
+            redirect_to slack_method_path, alert: "You're emails is already attached to a Slack Account"
           end
         else
-          redirect_to email_register_path(email: @email_form.email)
+          redirect_to sign_up_path(email: @email_form.email)
         end
       else
         render :email_method
       end
     end
-  end
-
-  def email_login
-  end
-
-  def email_register
   end
 
   private

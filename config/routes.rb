@@ -32,8 +32,6 @@ Rails.application.routes.draw do
   get :method, to: "funnel#method", as: :method
   get :slack_method, to: "funnel#slack_method", as: :slack_method
   match :email_method, to: "funnel#email_method", as: :email_method, via: [:get, :post]
-  get :email_login, to: "funnel#email_login", as: :email_login
-  get :email_register, to: "funnel#email_register", as: :email_register
 
   root "landing#index"
 end
