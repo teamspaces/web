@@ -16,8 +16,8 @@ class Slack::TeamProfilesToInvite
 
     @slack_team_members.reject! { |i| i.name == "slackbot" }
     @slack_team_members.reject! { |i| i.deleted == true }
-    @slack_team_members.reject! { |i| invite_ids.include? i.user_id }
-    @slack_team_members.reject! { |i| user_ids.include? i.user_id }
+    @slack_team_members.reject! { |i| invite_ids.include? i.id }
+    @slack_team_members.reject! { |i| user_ids.include? i.id }
 
     context.slack_team_members = @slack_team_members
   end
