@@ -21,7 +21,6 @@ class Invitation::CreateSlackInvitation
   end
 
 
-
   def build_slack_invitation
     Invitation.new(user: user,
                    team: team,

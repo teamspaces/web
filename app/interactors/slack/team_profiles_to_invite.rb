@@ -6,20 +6,9 @@ class Slack::TeamProfilesToInvite
   def call
     @team = context.team
 
-    @slack_team_members = fetch_slack_team_members
+    slack_team_members = fetch_slack_team_members
 
-    user_ids = team.authentications.map do |authentication|
-      Slack::Identity::UID.parse(authentication.uid)[:user_id]
-    end
-
-    invite_ids = team.invitations.map(&:slack_user_id)
-
-    @slack_team_members.reject! { |i| i.name == "slackbot" }
-    @slack_team_members.reject! { |i| i.deleted == true }
-  #  @slack_team_members.reject! { |i| invite_ids.include? i.id }
-  #  @slack_team_members.reject! { |i| user_ids.include? i.id }
-
-    context.slack_team_members = @slack_team_members
+    context.slack_team_members = Slack::TeamProfilesToInvite::Filter.new(slack_team_members, team).filter
   end
 
   def fetch_slack_team_members
