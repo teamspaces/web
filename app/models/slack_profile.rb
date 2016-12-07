@@ -1,3 +1,0 @@
-class SlackProfile < ApplicationRecord
-
-end
