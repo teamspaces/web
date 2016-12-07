@@ -8,10 +8,7 @@ class InvitationsController < SubdomainBaseController
     @invitation_form = SendInvitationForm.new
 
     result = Slack::TeamProfilesToInvite.call(team: @team)
-
-    @slack_profiles_to_invite = result.success? ?  result.slack_team_members : []
-
-    # = SlackProfileQuery.new.to_invite_for(@team)
+    @slack_profiles_to_invite = result.success? ? result.slack_team_members : []
   end
 
   # POST /invitations
@@ -34,6 +31,7 @@ class InvitationsController < SubdomainBaseController
 
   # POST /slack_invitation/:uid
   def create_slack_invitation
+    debugger
     slack_profile = SlackProfile.find_by(user_id: params[:uid])
 
     result = Invitation::CreateSlackInvitation.call(user: current_user,
