@@ -1,10 +1,10 @@
 <hr>
 
-<%= image_tag slack_profile.image_192 %>
+<%= image_tag slack_profile.profile.image_192 %>
 
 
 <p><%= slack_profile.real_name %></p>
 
-<%= link_to "Invite", create_slack_invitation_path(slack_profile.user_id), method: :post %>
+<%= link_to "Invite", create_slack_invitation_path(slack_profile.id), method: :post %>
 
 </hr>

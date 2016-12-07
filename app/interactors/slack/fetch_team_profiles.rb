@@ -6,18 +6,23 @@ class Slack::FetchTeamProfiles
   def call
     @team = context.team
 
-    destroy_existing_team_profiles
-    fetch_and_store_slack_team_profiles
+    debugger
+
+
+
+
+    #destroy_existing_team_profiles
+    #fetch_and_store_slack_team_profiles
 
     context.slack_team_profiles = slack_team_profiles
   end
 
   def slack_team_profiles
-    team.team_authentication.slack_profiles
+    #team.team_authentication.slack_profiles
   end
 
   def destroy_existing_team_profiles
-    team.team_authentication.slack_profiles.destroy_all
+   # team.team_authentication.slack_profiles.destroy_all
   end
 
   def fetch_and_store_slack_team_profiles

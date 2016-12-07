@@ -4,12 +4,14 @@ class InvitationsController < SubdomainBaseController
   # GET /invitations
   # GET /invitations.json
   def index
-    @team = current_team
+    @team = current_team.decorate
     @invitation_form = SendInvitationForm.new
 
-    result = Slack::FetchTeamProfiles.call(team: @team)
+    result = Slack::TeamProfilesToInvite.call(team: @team)
 
-    @slack_profiles_to_invite = SlackProfileQuery.new.to_invite_for(@team)
+    @slack_profiles_to_invite = result.success? ?  result.slack_team_members : []
+
+    # = SlackProfileQuery.new.to_invite_for(@team)
   end
 
   # POST /invitations

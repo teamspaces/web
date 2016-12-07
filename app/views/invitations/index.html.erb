@@ -21,14 +21,16 @@
 </table>
 
 
-<% @slack_profiles_to_invite.each do |slack_profile| %>
-  <%= render "slack_invitation_user", slack_profile: slack_profile %>
-<% end %>
-
-
 <%= render 'form', invitation_form: @invitation_form %>
 
-<%= link_to "Slack Button", user_slack_button_omniauth_authorize_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], team_id: @team.id) %>
+
+<% if @team.connected_to_slack? %>
+  <% @slack_profiles_to_invite.each do |aa| %>
+    <%= render "slack_invitation_user", slack_profile: aa %>
+  <% end %>
+<% else %>
+  <%= link_to "Slack Button", user_slack_button_omniauth_authorize_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], team_id: @team.id) %>
+<% end %>
 
 <p>
 <%= link_to 'Back', team_path %>
