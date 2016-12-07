@@ -1,6 +1,4 @@
 class SlackInvitationsController < SubdomainBaseController
-  before_action :set_invitation, only: [:destroy]
-
 
   # POST /slack_invitation/:slack_user_id
   def create
