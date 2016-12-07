@@ -11,7 +11,6 @@
     var shareDBConnection;
     var editor;
     var page;
-    var contentsChanged;
 
     Editor.prototype.init = function(attach_to, options) {
         this.attach_to = attach_to;
@@ -25,8 +24,6 @@
 
         this.bindWindowEvents();
         this.setupEditor();
-        this.setupAutoSave();
-
         // Eg. If someone deleted this page, we need to display a nice message
         // to the user. We can ask them to reload the page and let the Rails
         // controller redirect the user back to the Space with an error message
@@ -101,9 +98,7 @@
         base.editor.on('text-change', function(delta, oldDelta, source) {
             if (source !== 'user') return;
             base.page.submitOp(delta, {source: base.editor});
-
-            // Trigger auto-save
-            base.contentsChanged = true;
+            base.publishContents();
         });
 
         // Update editor with new deltas coming from collab
@@ -112,15 +107,11 @@
             base.editor.updateContents(op);
         });
 
-        // Caused by network errors or eg. jwt token expired
         base.page.on('error', function(error) {
-            base.debug(error.code);
-            base.debug(error.message);
-
             // We don't have access to this document
             if (error.code == 403) {
                 base.editor.disable();
-                base.debug("Access denied:" + error.message);
+                base.debug("Disabling editor, received access denied to page:" + error.message);
             } else {
                 // What else do we want to handle? And how?
                 base.debug("Unhandled error:", error);
@@ -128,43 +119,108 @@
         });
     }
 
-    Editor.prototype.setupAutoSave = function(){
-        setInterval(this.onAutoSave, 2000);
+    Editor.prototype.sendSaveRequest = function() {
+        base.saveInProgress = true;
+        base.resetWaitingTimer();
+
+        base.saveRequest = $.ajax({
+            url: base.options.page_content_url,
+            headers: { "X-CSRF-Token": base.options.csrf_token },
+            method: "PATCH",
+            dataType: "json",
+            data: {
+                page_content: {
+                    contents: base.editor.getText()
+                }
+            },
+            error: base.onSaveRequestError,
+            success: base.onSaveRequestSuccess,
+            complete: base.onSaveRequestComplete
+        });
     }
 
-    Editor.prototype.onAutoSave = function(){
-        base.debug("Checking if we should auto-save.");
+    Editor.prototype.onSaveRequestError = function(request, status, _error) {
+        if(request.status == 404) {
+            base.debug("Disabling editor, page not found");
+            base.disableEditor();
+        } else if (request.status == 403) { // TODO: Should it be 403?
+            base.debug("Disabling editor, not authorized to this page");
+            base.disableEditor();
+        } else if (status == "abort") {
+            base.debug("Save request aborted");
+        } else {
+            base.debug("Unable to save page, triggering retry using timer");
+            base.startSaveTimer();
+        }
+    }
 
-        if(base.contentsChanged == true){
-            base.debug("Saving changes to page.");
+    Editor.prototype.onSaveRequestSuccess = function() {
+        base.debug("Saved changes.");
+        base.lastSaveRequestFinishedAt = new Date().getTime();
+    }
 
-            // Prevent overlapping saves
-            base.contentsChanged = false;
+    Editor.prototype.onSaveRequestComplete = function() {
+        base.resetSaveInProgress();
+    }
 
-            $.ajax({
-                url: base.options.page_content_url,
-                type: "PATCH",
-                dataType: "json",
-                headers: { "X-CSRF-Token": base.options.csrf_token },
-                error: function(){
-                    // Errors should make sure we try to save again on next tick
-                    base.debug("Unable to save page, re-triggering save.");
-                    base.contentsChanged = true;
-                    // TODO: We just want to retry a number of times before we stop
-                    // Eg. if document has been deleted, this is nuking the servers
-                    // with failing requests. Best if server can respond that
-                    // the content has been destroyed/does not exist. We dont
-                    // want to stop on eg. 500 errors.
-                },
-                success: function(){
-                    base.debug("Saved changes.");
-                },
-                data: {
-                    page_content: {
-                        contents: base.editor.getText()
-                    }
-                }
-            });
+    Editor.prototype.isSavingTooFrequent = function() {
+        var currentTime = new Date().getTime();
+        if (!lastSaveRequestFinishedAt) {
+            return false;
+        } else if (currentTime - lastSaveRequestFinishedAt >= 1500) {
+            return false;
+        }
+
+        return true;
+    }
+
+    Editor.prototype.abortSaveRequest = function() {
+        base.saveRequest.abort();
+        base.resetSaveInProgress();
+    }
+
+    var isWaitingForTimer = false;
+    var saveInProgress = false;
+    var lastSaveRequestFinishedAt;
+
+    Editor.prototype.startSaveTimer = function() {
+        if (base.isWaitingForTimer === true) {
+            base.debug("Halting save, there is already a timer running")
+            return;
+        } else {
+            base.isWaitingForTimer = true;
+        }
+
+        base.debug("Starting timer to publish contents")
+        setTimeout(base.publishContents,
+                   1500 + 10)
+    }
+
+    Editor.prototype.resetWaitingTimer = function() {
+        base.isWaitingForTimer = false;
+    }
+
+    Editor.prototype.resetSaveInProgress = function() {
+        base.saveRequest = null;
+        base.saveInProgress = false;
+    }
+
+    Editor.prototype.publishContents = function(){
+        if (base.isWaitingForTimer === true) {
+            base.debug("Timer running, ignoring request to publish contents")
+            return;
+        }
+
+        if (base.saveInProgress === true) {
+            base.abortSaveRequest() ;
+            base.sendSaveRequest();
+        } else {
+            if (base.isSavingTooFrequent()) {
+                base.startSaveTimer();
+            } else {
+                base.resetWaitingTimer();
+                base.sendSaveRequest();
+            }
         }
     }
 
