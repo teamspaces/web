@@ -1,13 +1,11 @@
-class Slack::SendInvitation
+class TeamInvitation::SendSlack
   include ActionView::Helpers::AssetUrlHelper
   include Interactor
 
-  attr_reader :invitation, :invitation_url
-
+  attr_reader :invitation
 
   def call
     @invitation = context.invitation
-    @invitation_url = context.invitation_url
 
     send_invitation
   end
@@ -22,8 +20,8 @@ class Slack::SendInvitation
 
   def invitation_text
     I18n.t('invitation.slack.text', invitee_first_name: invitation.first_name,
-                                    host_first_name: @invitation.user.first_name,
-                                    url: invitation_url)
+                                    host_first_name: invitation.user.first_name,
+                                    url: "Igotstacksondeck")
   end
 
   def client

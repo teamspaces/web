@@ -2,17 +2,13 @@ class SlackInvitationsController < SubdomainBaseController
   before_action :set_invitation, only: [:destroy]
 
 
-  # POST /slack_invitation/:uid
+  # POST /slack_invitation/:slack_user_id
   def create
     result = Invitation::CreateSlackInvitation.call(user: current_user,
                                                     team: current_team,
-                                                    slack_user_id: params[:uid])
+                                                    slack_user_id: params[:slack_user_id])
 
-    #invitation_url = sign_up_url(subdomain: current_team.subdomain,
-    #                             invitation_token: result.slack_invitation.token)
-
-    #result = Slack::SendInvitation.call(invitation: result.slack_invitation,
-    #                                    invitation_url: invitation_url)
+    result = TeamInvitation::Send.call(invitation: result.invitation)
 
     notice = result.success? ? t('invitation.slack.successfully_sent') :
                                t('invitation.slack.failure_sent')

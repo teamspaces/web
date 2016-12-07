@@ -7,14 +7,14 @@ class Invitation::CreateSlackInvitation
     @user = context.user
     @team = context.team
 
-    result = Slack::FetchUserInfo.call(team: current_team, user_id: context.slack_user_id)
+    result = Slack::FetchUserInfo.call(team: team, user_id: context.slack_user_id)
     context.fail! unless result.success?
 
     @slack_user = result.slack_user
 
     slack_invitation = build_slack_invitation
     if slack_invitation.save
-      context.slack_invitation = slack_invitation
+      context.invitation = slack_invitation
     else
       context.fail!
     end
