@@ -8,8 +8,8 @@ class Slack::TeamProfilesToInvite::Filter
   def filter
     @slack_team_members.reject(&roboter?)
                        .reject(&deleted?)
-       #                .reject(&already_invited?)
-       #                .reject(&already_team_member?)
+                       .reject(&already_invited?)
+                       .reject(&already_team_member?)
   end
 
   private
