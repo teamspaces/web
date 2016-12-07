@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161201214933) do
+ActiveRecord::Schema.define(version: 20161207085343) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,36 @@ ActiveRecord::Schema.define(version: 20161201214933) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["space_id"], name: "index_pages_on_space_id", using: :btree
+  end
+
+  create_table "slack_profiles", force: :cascade do |t|
+    t.string   "user_id"
+    t.string   "team_id"
+    t.string   "name"
+    t.boolean  "deleted"
+    t.string   "color"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "real_name"
+    t.string   "email"
+    t.string   "skype"
+    t.string   "phone"
+    t.string   "image_24"
+    t.string   "image_32"
+    t.string   "image_48"
+    t.string   "image_72"
+    t.string   "image_192"
+    t.string   "image_512"
+    t.boolean  "is_admin"
+    t.boolean  "is_owner"
+    t.boolean  "is_primary_owner"
+    t.boolean  "is_restricted"
+    t.boolean  "is_ultra_restricted"
+    t.boolean  "has_2fa"
+    t.string   "two_factor_type"
+    t.boolean  "has_files"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
 
   create_table "spaces", force: :cascade do |t|
@@ -108,7 +138,7 @@ ActiveRecord::Schema.define(version: 20161201214933) do
 
   add_foreign_key "authentications", "users", on_delete: :cascade
   add_foreign_key "invitations", "teams"
-  add_foreign_key "invitations", "users"
+  add_foreign_key "invitations", "users", on_delete: :cascade
   add_foreign_key "pages", "spaces", on_delete: :cascade
   add_foreign_key "spaces", "teams", on_delete: :cascade
   add_foreign_key "team_authentications", "teams"
