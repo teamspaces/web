@@ -11,7 +11,8 @@
     var shareDBConnection;
     var editor;
     var page;
-    var contentsChanged;
+    var contentsChanged = false;
+    var calledSaveAt = 0.0;
 
     Editor.prototype.init = function(attach_to, options) {
         this.attach_to = attach_to;
@@ -25,7 +26,8 @@
 
         this.bindWindowEvents();
         this.setupEditor();
-        this.setupAutoSave();
+
+        this.startAutoSaveCycle();
 
         // Eg. If someone deleted this page, we need to display a nice message
         // to the user. We can ask them to reload the page and let the Rails
@@ -103,7 +105,7 @@
             base.page.submitOp(delta, {source: base.editor});
 
             // Trigger auto-save
-            base.contentsChanged = true;
+            base.save();
         });
 
         // Update editor with new deltas coming from collab
@@ -123,49 +125,78 @@
                 base.debug("Access denied:" + error.message);
             } else {
                 // What else do we want to handle? And how?
-                base.debug("Unhandled error:", error);
+                base.debug("Unhandled error:" + error);
             }
         });
     }
 
-    Editor.prototype.setupAutoSave = function(){
-        setInterval(this.onAutoSave, 2000);
+    Editor.prototype.stillTyping = function() {
+        var currentTime = window.performance.now();
+        if (currentTime - base.calledSaveAt < 1000) {
+            return true;
+        }
+
+        return false;
     }
 
-    Editor.prototype.onAutoSave = function(){
-        base.debug("Checking if we should auto-save.");
+    Editor.prototype.save = function() {
+        base.calledSaveAt = window.performance.now();
+        base.contentsChanged = true;
+    }
 
-        if(base.contentsChanged == true){
-            base.debug("Saving changes to page.");
-
-            // Prevent overlapping saves
-            base.contentsChanged = false;
-
-            $.ajax({
-                url: base.options.page_content_url,
-                type: "PATCH",
-                dataType: "json",
-                headers: { "X-CSRF-Token": base.options.csrf_token },
-                error: function(){
-                    // Errors should make sure we try to save again on next tick
-                    base.debug("Unable to save page, re-triggering save.");
-                    base.contentsChanged = true;
-                    // TODO: We just want to retry a number of times before we stop
-                    // Eg. if document has been deleted, this is nuking the servers
-                    // with failing requests. Best if server can respond that
-                    // the content has been destroyed/does not exist. We dont
-                    // want to stop on eg. 500 errors.
-                },
-                success: function(){
-                    base.debug("Saved changes.");
-                },
-                data: {
-                    page_content: {
-                        contents: base.editor.getText()
-                    }
-                }
-            });
+    Editor.prototype.onSave = function() {
+        if (!base.contentsChanged) {
+            base.debug("No changes to be saved.");
+            base.startAutoSaveCycle();
+            return;
         }
+
+        if (base.stillTyping()) {
+            base.debug("Still typing, skipping until finished.");
+            base.startAutoSaveCycle();
+            return;
+        }
+
+        base.debug("Saving changes to page.");
+        $.ajax({
+            url: base.options.page_content_url,
+            headers: { "X-CSRF-Token": base.options.csrf_token },
+            method: "PATCH",
+            dataType: "json",
+            data: {
+                page_content: {
+                    contents: base.editor.getText()
+                }
+            },
+            error: base.onSaveRequestError,
+            success: base.onSaveRequestSuccess,
+            complete: base.onSaveRequestComplete
+        });
+    }
+
+    Editor.prototype.onSaveRequestError = function(request) {
+        if(request.status == 404) {
+            base.debug("Disabling editor, page not found");
+            base.disableEditor();
+        } else if (request.status == 403) { // TODO: Should it be 403?
+            base.debug("Disabling editor, not authorized to this page");
+            base.disableEditor();
+        }
+
+        base.debug("Unable to save changes, will retry on next cycle");
+    }
+
+    Editor.prototype.onSaveRequestSuccess = function() {
+        base.contentsChanged = false;
+        base.debug("Saved changes.");
+    }
+
+    Editor.prototype.onSaveRequestComplete = function() {
+        base.startAutoSaveCycle();
+    }
+
+    Editor.prototype.startAutoSaveCycle = function() {
+        setTimeout(this.onSave, 500);
     }
 
     var base = module.exports = new Editor();
