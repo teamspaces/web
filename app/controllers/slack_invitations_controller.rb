@@ -8,7 +8,7 @@ class SlackInvitationsController < SubdomainBaseController
                                                     team: current_team,
                                                     slack_user_id: params[:slack_user_id])
 
-    result = TeamInvitation::Send.call(invitation: result.invitation)
+    TeamInvitation::Send.call(invitation: result.invitation) if result.success?
 
     notice = result.success? ? t('invitation.slack.successfully_sent') :
                                t('invitation.slack.failure_sent')

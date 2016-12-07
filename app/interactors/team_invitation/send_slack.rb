@@ -1,4 +1,4 @@
-class TeamInvitation::SendSlack
+class TeamInvitation::SendSlack < ApplicationMailer
   include ActionView::Helpers::AssetUrlHelper
   include Interactor
 
@@ -19,9 +19,11 @@ class TeamInvitation::SendSlack
   end
 
   def invitation_text
+    invitation_url = landing_url(subdomain: invitation.team.subdomain, invitation_token: invitation.token)
+
     I18n.t('invitation.slack.text', invitee_first_name: invitation.first_name,
                                     host_first_name: invitation.user.first_name,
-                                    url: "Igotstacksondeck")
+                                    url: invitation_url)
   end
 
   def client

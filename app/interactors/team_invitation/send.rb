@@ -5,6 +5,6 @@ class TeamInvitation::Send
     invitation = context.invitation
 
     TeamInvitation::SendMail.call(invitation: invitation) if invitation.email
-    TeamInvitation::SendSlack.call(invitation: invitation) if invitation.slack_user_id
+    SlackTeamInvitationMailer.perform_async(invitation.id) if invitation.slack_user_id
   end
 end

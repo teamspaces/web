@@ -7,7 +7,6 @@ class Slack::TeamProfilesToInvite
     @team = context.team
 
     slack_team_members = fetch_slack_team_members
-
     context.slack_team_members = Slack::TeamProfilesToInvite::Filter.new(slack_team_members, team).filter
   end
 
