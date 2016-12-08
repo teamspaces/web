@@ -132,11 +132,15 @@
 
     Editor.prototype.stillTyping = function() {
         var currentTime = window.performance.now();
-        if (currentTime - base.calledSaveAt < 1000) {
+        if (currentTime - base.calledSaveAt < 900) {
             return true;
         }
 
         return false;
+    }
+
+    Editor.prototype.editorHTMLContents = function() {
+        return $(base.attach_to + " .ql-editor").html();
     }
 
     Editor.prototype.save = function() {
@@ -165,7 +169,7 @@
             dataType: "json",
             data: {
                 page_content: {
-                    contents: base.editor.getText()
+                    contents: base.editorHTMLContents(),
                 }
             },
             error: base.onSaveRequestError,
