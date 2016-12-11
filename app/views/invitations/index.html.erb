@@ -25,8 +25,8 @@
 
 
 <% if @team.connected_to_slack? %>
-  <% @slack_profiles_to_invite.each do |slack_profile| %>
-    <%= render "slack_invitation_user", slack_profile: slack_profile %>
+  <% @slack_users_to_invite.each do |slack_user| %>
+    <%= render "slack_invitation_user", slack_user: slack_user %>
   <% end %>
 <% else %>
   <%= link_to "Slack Button", user_slack_button_omniauth_authorize_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], team_id: @team.id) %>

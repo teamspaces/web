@@ -1,16 +1,16 @@
 class Invitation::CreateSlackInvitation
   include Interactor
 
-  attr_reader :user, :team, :slack_user
+  attr_reader :user, :team, :first_name, :last_name, :email, :slack_user_id
 
   def call
     @user = context.user
     @team = context.team
 
-    result = Slack::FetchUserInfo.call(team: team, user_id: context.slack_user_id)
-    context.fail! unless result.success?
-
-    @slack_user = result.slack_user
+    @first_name = context.first_name
+    @last_name = context.last_name
+    @email = context.email
+    @slack_user_id = context.slack_user_id
 
     slack_invitation = build_slack_invitation
     if slack_invitation.save
@@ -24,9 +24,9 @@ class Invitation::CreateSlackInvitation
   def build_slack_invitation
     Invitation.new(user: user,
                    team: team,
-                   first_name: slack_user.profile.first_name,
-                   last_name: slack_user.profile.last_name,
-                   email: slack_user.profile.email,
-                   slack_user_id: slack_user.id)
+                   first_name: first_name,
+                   last_name: last_name,
+                   email: email,
+                   slack_user_id: slack_user_id)
   end
 end
