@@ -26,8 +26,16 @@
   <h1><%= @page.title %></h1>
 </main>
 
-<div class="space-actions">
-  <a href="#" class="button button-icon button-icon-members">Members</a>
-  <%= link_to 'Edit Space', edit_page_path(@page), class: 'button button-icon button-icon-edit' %>
-  <a href="#" class="button button-icon button-icon-share">Share</a>
-</div>
+<ul class="space-actions">
+  <li class="space-actions-members">
+    <a href="#">Members</a>
+  </li>
+
+  <li class="space-actions-edit">
+    <%= link_to 'Edit Space', edit_page_path(@page) %>
+  </li>
+
+  <li class="space-actions-share">
+    <a href="#">Share</a>
+  </li>
+</ul>

@@ -1,24 +1,60 @@
 .space-actions {
   position: fixed;
-  width: calc(50% - 300px - 84px - 84px - 24px);
-  bottom: 24px;
-  right: 24px;
+  width: calc(50% - 336px - 84px - 18px);
+  bottom: 18px;
+  right: 18px;
+  z-index: 10;
+  box-shadow: 0 0 0 1px #E6E8EB, 0 1px 3px rgba(0, 0, 0, 0.04);
+  border-radius: 5px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 
-  .button {
-    width: 100%;
-    margin-top: 12px;
+  li {
+    display: block;
+    border-bottom: 1px solid #E6E8EB;
+    margin: 0;
+    padding: 0;
+
+    &:last-child {
+      border: 0;
+    }
   }
 
-  .button-icon-members {
+  a {
+    display: block;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 18px;
+    text-decoration: none;
+    background: #fff;
+    color: $color-text-secondary;
+    padding: 18px 24px 18px 54px;
+    text-align: left;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.5s;
+    background-repeat: no-repeat;
+    background-position: 19px center;
+
+    &:hover, &:active, &:focus {
+      opacity: 0.6;
+      text-decoration: none;
+      color: $color-text-secondary;
+      outline: 0;
+    }
+  }
+
+  .space-actions-members a {
     background-image: url(../assets/images/space/members-icon.svg);
   }
 
-  .button-icon-edit {
+  .space-actions-edit a {
     background-image: url(../assets/images/space/edit-icon.svg);
-    background-position: 18px center;
+    background-position: 21px center;
   }
 
-  .button-icon-share {
+  .space-actions-share a {
     background-image: url(../assets/images/space/share-icon.svg);
   }
 }

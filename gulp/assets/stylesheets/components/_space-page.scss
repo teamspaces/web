@@ -1,16 +1,12 @@
 .space-page {
-  width: calc(50% + 384px);
+  width: calc(50% + 420px);
   height: 100%;
-  margin: 0 0 0 calc(50% - 384px);
+  margin: 0 0 0 calc(50% - 420px);
   padding: 72px 0 84px 84px;
   background: #fff;
 
   * {
-    max-width: 600px;
-  }
-
-  table {
-    max-width: 684px;
+    max-width: 672px;
   }
 
   h1 + * {
