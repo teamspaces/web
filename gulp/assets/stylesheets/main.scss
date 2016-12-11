@@ -1,24 +1,20 @@
-@import "base/iconFont";
+// Uncomment this @import to display the baseline grid during development
+// @import 'dev/baseline';
 
-body {
-  font-family: "Futura";
-  font-weight: 100;
-}
+// Base
+@import 'base/variables';
+@import 'base/mixins';
+@import 'base/bootstrap';
+@import 'base/elements';
 
-img {
-  background-color: #000;
-}
-
-p {
-  font-size: 18px;
-}
-
-a {
-  text-decoration: none;
-  color: #f0f;
-}
-
-input {
-  font-size: 18px;
-  margin: 10px 10px;
-}
+// Components
+@import 'components/body';
+@import 'components/button';
+@import 'components/topbar';
+@import 'components/message';
+@import 'components/card';
+@import 'components/space-sidebar';
+@import 'components/space-page';
+@import 'components/space-actions';
+@import 'components/edit-sidebar';
+@import 'components/edit-page';

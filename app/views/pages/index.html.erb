@@ -1,27 +1,95 @@
-<p id="notice"><%= notice %></p>
+<% content_for :body_class, 'body-space' %>
 
-<h1>Pages</h1>
+<aside class="space-sidebar">
+  <h3><%= link_to @space.name, space_pages_path(@space) %></h3>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+  <ul>
+    <li class="space-sidebar-active">
+      <a href="#">Test Page</a>
+    </li>
 
-  <tbody>
     <% @pages.each do |page| %>
-      <tr>
-        <td><%= page.title %></td>
-        <td><%= link_to 'Show', page %></td>
-        <td><%= link_to 'Edit', edit_page_path(page) %></td>
-        <td><%= link_to 'Destroy', page, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+    <li>
+      <%= link_to page.title, page %>
+    </li>
     <% end %>
-  </tbody>
-</table>
 
-<br>
+    <li>
+      <%= link_to '+ Add Page', new_space_page_path(@space) %>
+    </li>
+  </ul>
+</aside>
 
-<%= link_to 'New Page', new_space_page_path(@space) %>
+<main class="space-page">
+  <%= notice %>
+
+  <h1>PM Discovers Spaces</h1>
+
+  <p>
+    Peter is frustrated. He has wasted another hour on answering questions and finding documents for colleagues. He wants to organize his documentation, make it searchable, and keep everyone up to date when he changes it. He heads to google and searches for "organize documentation" which takes him to a thread on Quora. He can see a couple of recommendations and follows a link to a service called Spaces. The landing page promises tools for organizing his content, great team integration, a modern look, and streamlined workflows. He decides to test Spaces and signs up with his Slack account. Slack asks him to authorize access and he is then redirected back to the app. His name is prefilled and he is asked to name his team (also prefilled from Slack?). Peter types "Pied Piper", submits, and his new team is created.
+  </p>
+
+  <p>
+    Spaces explains what a space is and asks Peter to name his first space. Spaces also advises Peter that he can create multiple spaces (maybe one for those working on the product, marketing folks, one for employee onboarding, etc.) and invite users to each space individually. Peter calls his first space "Employee Onboarding".
+  </p>
+
+  <p>
+    Spaces asks Peter to create his first page. He gets familiar with the editor, adds an image, and he adds more pages to test how nesting works. He likes the flow of things and writes an outline for a couple of pages. Peter looks at his watch and he has to run to a meeting in a five minutes. He follows a prominent link on the page to invite two of his colleagues that can help with adding content. Since he has already connected his account to Slack, he can select his colleagues from a list. He adds a message to the invite – "Hey guys, help me move the onboarding docs here?". Peter closes his laptop and hurries to the meeting.
+  </p>
+
+  <h2>Dapibus Quam Elit</h2>
+
+  <ol>
+    <li>Cras Purus Ultricies</li>
+    <li>Sit Fusce</li>
+  </ol>
+
+  <h3>Nibh Etiam Cursus</h3>
+
+  <p>
+    Vestibulum id ligula porta felis euismod semper. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Nulla vitae elit libero, a pharetra augue. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
+  </p>
+
+  <h4>Magna Commodo Ligula</h4>
+
+  <p>
+    Vestibulum id ligula porta felis euismod semper. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Nulla vitae elit libero, a pharetra augue. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
+  </p>
+
+  <ul>
+    <li>Cras Purus Ultricies</li>
+    <li>Sit Fusce</li>
+  </ul>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Vehicula Venenatis</th>
+        <th>Nullam Ligula</th>
+        <th>Etiam Sem Egestas</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>Vestibulum Ultricies Magna</td>
+        <td>Inceptos Fermentum Justo</td>
+        <td>Vestibulum Ultricies Magna</td>
+      </tr>
+    </tbody>
+  </table>
+</main>
+
+<ul class="space-actions">
+  <li class="space-actions-members">
+    <a href="#">Members</a>
+  </li>
+
+  <li class="space-actions-edit">
+    <a href="#">Edit Space</a>
+  </li>
+
+  <li class="space-actions-share">
+    <a href="#">Share</a>
+  </li>
+</ul>

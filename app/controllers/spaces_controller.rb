@@ -1,5 +1,6 @@
 class SpacesController < SubdomainBaseController
   before_action :set_space, only: [:show, :edit, :update, :destroy]
+  layout 'client'
 
   # GET /spaces
   # GET /spaces.json

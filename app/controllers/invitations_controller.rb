@@ -1,5 +1,6 @@
 class InvitationsController < SubdomainBaseController
   before_action :set_invitation, only: [:destroy]
+  layout 'client'
 
   # GET /invitations
   # GET /invitations.json

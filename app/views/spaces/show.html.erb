@@ -1,13 +1,20 @@
-<p id="notice"><%= notice %></p>
+<main>
+  <div class="card">
+    <header>
+      <h1><%= @space.name %></h1>
+    </header>
 
-<p>
-  <strong>Name:</strong>
-  <%= @space.name %>
-</p>
+    <div class="card-content">
+      <%= notice %>
 
-<p>
-  <%= link_to 'Pages', space_pages_path(@space) %>
-</p>
+      <div>
+        <%= link_to "View #{@space.name}", space_pages_path(@space), class: 'button button-primary' %>
 
-<%= link_to 'Edit', edit_space_path(@space) %> |
-<%= link_to 'Back', spaces_path %>
+        <div class="card-actions">
+          <%= link_to 'Back to Spaces', spaces_path %> | 
+          <%= link_to "Edit #{@space.name}", edit_space_path(@space) %>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

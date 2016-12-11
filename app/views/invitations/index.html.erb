@@ -1,31 +1,36 @@
-<p id="notice"><%= notice %></p>
+<main>
+  <div class="card">
+    <header>
+      <h1>Invitations</h1>
+    </header>
 
-<h1>Invitations</h1>
+    <div class="card-content">
+      <%= notice %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Email</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+      <table>
+        <thead>
+          <tr>
+            <th>Email</th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
 
-  <tbody>
-    <% @team.invitations.unused.each do |invitation| %>
-      <tr>
-        <td><%= invitation.email %></td>
-        <td><%= link_to 'Destroy', invitation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+        <tbody>
+          <% @team.invitations.unused.each do |invitation| %>
+            <tr>
+              <td><%= invitation.email %></td>
+              <td><%= link_to 'Destroy', invitation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
 
-<br>
+      <%= render 'form', invitation_form: @invitation_form %>
 
-<%= render 'form', invitation_form: @invitation_form %>
-
-<%= link_to "Slack Button", user_slack_button_omniauth_authorize_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], team_id: @team.id) %>
-
-<p>
-<%= link_to 'Back', team_path %>
-</p>
+      <div class="card-actions">
+        <%= link_to 'Back to Team', team_path %> |
+        <%= link_to "Slack Button", user_slack_button_omniauth_authorize_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], team_id: @team.id) %>
+      </div>
+    </div>
+  </div>
+</main>

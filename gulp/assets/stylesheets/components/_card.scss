@@ -1,0 +1,42 @@
+.card {
+  width: 672px;
+  background: #fff;
+  box-shadow: 0 0 0 1px #E6E8EB, 0 1px 3px rgba(0,0,0,0.08);
+  border-radius: 5px;
+  margin: 0 auto;
+
+  header {
+    padding: 30px 48px 29px 48px;
+    border-bottom: 1px solid #E6E8EB;
+
+    h1 {
+      font-size: 20px;
+      line-height: 24px;
+      font-weight: 400;
+      letter-spacing: 0;
+      color: $color-text-primary;
+      margin: 0;
+    }
+  }
+}
+
+.card-content {
+  @include clearfix;
+  padding: 48px;
+
+  > *:first-child {
+    margin-top: 0;
+  }
+
+  .button, input[type=submit] {
+    float: right;
+  }
+}
+
+.card-actions {
+  float: left;
+  margin: 48px 0 0 0;
+  color: #ccc;
+  font-size: 12px;
+  line-height: 48px;
+}

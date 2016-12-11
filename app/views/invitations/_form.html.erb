@@ -11,22 +11,14 @@
     </div>
   <% end %>
 
-  <span class="field">
-    <%= f.label :email %>
-    <%= f.text_field :email %>
-  </span>
+  <%= f.label :email %>
+  <%= f.text_field :email %>
 
-  <span class="field">
-    <%= f.label :first_name %>
-    <%= f.text_field :first_name, placeholder: "Optional" %>
-  </span>
+  <%= f.label :first_name %>
+  <%= f.text_field :first_name, placeholder: "Optional" %>
 
-  <span class="field">
-    <%= f.label :last_name %>
-    <%= f.text_field :last_name, placeholder: "Optional" %>
-  </span>
+  <%= f.label :last_name %>
+  <%= f.text_field :last_name, placeholder: "Optional" %>
 
-  <div class="actions">
-    <%= f.submit "Create Invitation" %>
-  </div>
+  <%= f.submit "Create Invitation" %>
 <% end %>

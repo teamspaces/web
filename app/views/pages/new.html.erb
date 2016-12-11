@@ -1,5 +1,15 @@
-<h1>New Page</h1>
+<main>
+  <div class="card">
+    <header>
+      <h1>New Page</h1>
+    </header>
 
-<%= render 'form', page: @page %>
+    <div class="card-content">
+      <%= render 'form', page: @page %>
 
-<%= link_to 'Back', space_pages_path(@page.space) %>
+      <div class="card-actions">
+        <%= link_to 'Back', space_pages_path(@page.space) %>
+      </div>
+    </div>
+  </div>
+</main>
