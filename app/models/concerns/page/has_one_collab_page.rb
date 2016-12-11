@@ -1,4 +1,4 @@
-module HasOneCollabPage
+module Page::HasOneCollabPage
   extend ActiveSupport::Concern
 
   included do
