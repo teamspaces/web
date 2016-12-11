@@ -36,6 +36,6 @@ class SendInvitationForm
       @invitation.team = team
       @invitation.save
 
-      TeamInvitation::Send.call(invitation: @invitation)
+      SendInvitation.call(invitation: @invitation)
     end
 end
