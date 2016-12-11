@@ -1,17 +1,21 @@
-<h3>Team Members</h3>
-
 <table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Role</th>
+    </tr>
+  </thead>
+
+  <tbody>
     <% team_members.each do |member| %>
-        <% user = member.user %>
+      <% user = member.user %>
 
-        <tr>
-            <td><%= user.first_name %><%= user.last_name %></td>
-            <td></td>
-        <tr>
-        <tr>
-            <td><%= user.email %></td>
-            <td><%= member.role %></td>
-        </tr>
+      <tr>
+        <td><%= user.first_name %><%= user.last_name %></td>
+        <td><%= user.email %></td>
+        <td><%= member.role %></td>
+      </tr>
     <% end %>
+  </tbody>
 </table>
-

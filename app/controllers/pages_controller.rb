@@ -1,6 +1,7 @@
 class PagesController < SubdomainBaseController
   before_action :set_page, only: [:show, :edit, :update, :destroy]
   before_action :set_space, only: [:index, :new, :create]
+  layout 'client'
 
   # TODO: Move this into
   # EditorSettingsHashPresenter.new(user_id: current_user.id, ...)

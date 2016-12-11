@@ -1,27 +1,33 @@
-<p id="notice"><%= notice %></p>
+<main>
+  <div class="card">
+    <header>
+      <h1>Spaces</h1>
+    </header>
 
-<h1>Spaces</h1>
+    <div class="card-content">
+      <%= notice %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
 
-  <tbody>
-    <% @spaces.each do |space| %>
-      <tr>
-        <td><%= space.name %></td>
-        <td><%= link_to 'Show', space %></td>
-        <td><%= link_to 'Edit', edit_space_path(space) %></td>
-        <td><%= link_to 'Destroy', space, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+        <tbody>
+          <% @spaces.each do |space| %>
+          <tr>
+            <td><%= space.name %></td>
+            <td><%= link_to 'View', space_pages_path(space) %></td>
+            <td><%= link_to 'Edit', edit_space_path(space) %></td>
+            <td><%= link_to 'Destroy', space, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
 
-<br>
-
-<%= link_to 'New Space', new_space_path %>
+      <%= link_to 'New Space', new_space_path, class: 'button button-primary' %>
+    </div>
+  </div>
+</main>

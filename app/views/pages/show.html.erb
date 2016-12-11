@@ -1,13 +1,29 @@
-<p id="notice"><%= notice %></p>
+<% content_for :body_class, 'space-container' %>
 
-<p>
-  <strong>Title:</strong>
-  <%= @page.title %>
-</p>
+<aside class="space-sidebar">
+  <h3><%= @page.space.name %></h3>
 
-<p>
-  <%= link_to 'Pages', space_pages_path(@page.space) %>
-</p>
+  <ul>
+    <li class="space-sidebar-active">
+      <a href="#">Test Page</a>
+    </li>
 
-<%= link_to 'Edit', edit_page_path(@page) %> |
-<%= link_to 'Back', space_pages_path(@page.space) %>
+    <% @page.space.pages.each do |page| %>
+    <li>
+      <%= link_to page.title, page %>
+    </li>
+    <% end %>
+  </ul>
+</aside>
+
+<main class="space-page">
+  <%= notice %>
+
+  <h1><%= @page.title %></h1>
+</main>
+
+<div class="space-actions">
+  <a href="#" class="button button-icon button-icon-members">Members</a>
+  <%= link_to 'Edit Space', edit_page_path(@page), class: 'button button-icon button-icon-edit' %>
+  <a href="#" class="button button-icon button-icon-share">Share</a>
+</div>

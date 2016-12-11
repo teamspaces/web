@@ -13,6 +13,7 @@
     ]
   },
   "dependencies": {
+    "bootstrap-sass": "^3.3.7",
     "browserify": "^13.1.1",
     "coffeeify": "^2.0.1",
     "del": "^2.2.2",
