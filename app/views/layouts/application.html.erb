@@ -15,11 +15,15 @@
     <%= javascript_include_tag 'application' %>
   </head>
 
-  <body class="<%= content_for :body_class %>">
-    
-    <%= yield %>
+  <body class="body-no-topbar <%= content_for :body_class %>">
+    <% if notice %>
+      <div class="message message-notice"><%= notice %></div>
+    <% end %>
 
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <% if alert %>
+      <div class="message message-alert"><%= alert %></div>
+    <% end %>
+
+    <%= yield %>
   </body>
 </html>

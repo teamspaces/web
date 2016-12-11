@@ -8,10 +8,11 @@
 @import 'base/elements';
 
 // Components
+@import 'components/body';
 @import 'components/button';
 @import 'components/topbar';
+@import 'components/message';
 @import 'components/card';
-@import 'components/space-container';
 @import 'components/space-sidebar';
 @import 'components/space-page';
 @import 'components/space-actions';
