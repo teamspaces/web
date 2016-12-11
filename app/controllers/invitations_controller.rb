@@ -7,8 +7,7 @@ class InvitationsController < SubdomainBaseController
     @team = current_team.decorate
     @invitation_form = SendInvitationForm.new
 
-    result = Slack::TeamProfilesToInvite.call(team: @team)
-    @slack_profiles_to_invite = result.success? ? result.slack_team_members : []
+    @slack_profiles_to_invite = Team::FindInvitableSlackUsers.new(@team).all
   end
 
   # POST /invitations
