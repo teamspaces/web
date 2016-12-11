@@ -1,12 +1,12 @@
 .space-actions {
   position: fixed;
-  width: 144px;
+  width: calc(50% - 300px - 84px - 84px - 24px);
   bottom: 24px;
   right: 24px;
 
   .button {
-    width: 144px;
-    margin-top: 10px;
+    width: 100%;
+    margin-top: 12px;
   }
 
   .button-icon-members {

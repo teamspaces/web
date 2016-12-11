@@ -1,7 +1,7 @@
 <% content_for :body_class, 'space-container' %>
 
 <aside class="space-sidebar">
-  <h3><%= @page.space.name %></h3>
+  <h3><%= link_to @page.space.name, space_pages_path(@page.space) %></h3>
 
   <ul>
     <li class="space-sidebar-active">
@@ -13,6 +13,10 @@
       <%= link_to page.title, page %>
     </li>
     <% end %>
+
+    <li>
+      <%= link_to '+ Add Page', new_space_page_path(@page.space) %>
+    </li>
   </ul>
 </aside>
 
