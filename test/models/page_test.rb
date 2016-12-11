@@ -18,7 +18,9 @@ describe Page do
   end
 
   describe "#contents" do
-    # TODO: this should be page_content.contents
+    it "responds" do
+      assert_respond_to marketing_page, :contents
+    end
   end
 
   describe "#destroy" do
@@ -28,12 +30,6 @@ describe Page do
       assert_difference -> { CollabPage.count }, -1 do
         marketing_page.destroy
       end
-    end
-  end
-
-  describe "#contents" do
-    it "returns page_content.contents" do
-      # TODO: Implement this...
     end
   end
 end

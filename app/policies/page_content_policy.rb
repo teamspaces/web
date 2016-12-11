@@ -1,15 +1,19 @@
 class PageContentPolicy
+  attr_reader :page_policy_context,
+              :page_content,
+              :page_policy
 
-  def initialize(user, page_content)
+  def initialize(page_policy_context, page_content)
+    @page_policy_context = page_policy_context
+    @page_content = page_content
+    @page_policy = PagePolicy.new(@page_policy_context, @page_content.page)
   end
 
   def show?
-    # TODO: :-)
-    true
+    @page_policy.show?
   end
 
   def update?
-    # TODO: :-)
-    true
+    @page_policy.update?
   end
 end

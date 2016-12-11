@@ -1,11 +1,4 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  page: one
-  contents: MyText
-  byte_size: 1
-
-two:
-  page: two
-  contents: MyText
-  byte_size: 1
+default:
+  page: furrow
+  contents: Here is some snappy text <br> with a rowbreak.
+  byte_size: 42

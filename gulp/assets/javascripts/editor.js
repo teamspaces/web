@@ -182,7 +182,7 @@
         if(request.status == 404) {
             base.debug("Disabling editor, page not found");
             base.disableEditor();
-        } else if (request.status == 403) { // TODO: Should it be 403?
+        } else if (request.status == 403) {
             base.debug("Disabling editor, not authorized to this page");
             base.disableEditor();
         }

@@ -1,4 +1,4 @@
-class PageContentsController < ApplicationController
+class PageContentsController < SubdomainBaseController
   before_action :set_page_content, only: [:show, :update]
 
   # GET /page_contents/1
@@ -14,7 +14,6 @@ class PageContentsController < ApplicationController
 
     respond_to do |format|
       if @page_content.update(page_content_params)
-        format.html { redirect_to [@page_content], notice: 'Page Content was successfully updated.' }
         format.json { render :show, status: :ok, location: @page_content }
       else
         format.json { render json: @page_content.errors, status: :unprocessable_entity }
@@ -31,5 +30,9 @@ class PageContentsController < ApplicationController
 
     def set_page_content
       @page_content = PageContent.find(params[:id])
+    end
+
+    def pundit_user
+      PagePolicy::Context.new(current_user, current_team)
     end
 end
