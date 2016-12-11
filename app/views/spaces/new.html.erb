@@ -1,5 +1,15 @@
-<h1>New Space</h1>
+<main>
+  <div class="card">
+    <header>
+      <h1>New Space</h1>
+    </header>
 
-<%= render 'form', space: @space %>
+    <div class="card-content">
+      <%= render 'form', space: @space %>
 
-<%= link_to 'Back', spaces_path %>
+      <div class="card-actions">
+        <%= link_to 'Back', spaces_path %>
+      </div>
+    </div>
+  </div>
+</main>

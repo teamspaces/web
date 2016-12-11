@@ -1,6 +1,17 @@
-<h1>Editing Team</h1>
+<main>
+  <div class="card">
+    <header>
+      <h1>Edit Team</h1>
+    </header>
 
-<%= render 'form', team: @team, url: team_path %>
+    <div class="card-content">
+      <%= notice %>
 
-<%= link_to 'Show', @team %> |
-<%= link_to 'Back', teams_path %>
+      <%= render 'form', team: @team, url: team_path %>
+
+      <div class="card-actions">
+        <%= link_to 'Back', @team %>
+      </div>
+    </div>
+  </div>
+</main>

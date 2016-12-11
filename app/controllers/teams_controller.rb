@@ -1,6 +1,7 @@
 class TeamsController < SubdomainBaseController
   before_action :set_team, except: [:index]
   skip_before_action :check_team_membership, only: [:index, :create, :new, :update]
+  layout 'client'
 
   # GET /teams
   # GET /teams.json
