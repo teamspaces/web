@@ -31,5 +31,9 @@ Rails.application.routes.draw do
 
   get :landing, to: "landing#index", as: :landing
 
+  get :method, to: "funnel#method", as: :method
+  get :slack_method, to: "funnel#slack_method", as: :slack_method
+  match :email_method, to: "funnel#email_method", as: :email_method, via: [:get, :post]
+
   root "landing#index"
 end

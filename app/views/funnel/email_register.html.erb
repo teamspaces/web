@@ -4,32 +4,25 @@
 
 <p class="center">Register with your email:</p>
 
-<h1 class="center"><a><%= params[:email] || resource.email %></a></h1>
+<h1 class="center"><a><%= params[:email] %></a></h1>
 
 
 <p class="center">Please choose a password:</p>
 
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: "center" }) do |f| %>
-  <%= devise_error_messages! %>
+<%= form_tag(email_method_path, method: :get, class: "center") do %>
 
 
-  <%= f.hidden_field :email, value: params[:email] || resource.email %>
+  <%= password_field_tag :password, nil, placeholder: "Password" %>
 
+<p>Please confirm your password:</p>
 
+  <%= password_field_tag :password_confirmation, nil, placeholder: "Password confirmation" %>
 
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "off", placeholder: "Password" %>
+  <br>
 
-    <br>
+  <%= submit_tag 'Create my account' %>
 
-    <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Password Confirmation" %>
-
-    <br>
-
-     <%= submit_tag 'Create my account' %>
 
 <% end %>
 

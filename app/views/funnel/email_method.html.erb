@@ -1,0 +1,26 @@
+<h1 class="center">2/3</h1>
+
+<p class="center"><img src="https://d30y9cdsu7xlg0.cloudfront.net/png/573193-200.png" width="130px" style="background-color:white" /></p>
+
+<p class="center">Please type in your email address</p>
+
+<%= form_for(@email_form, url: email_method_path, method: :post, html: { class: "center"}) do |f| %>
+
+  <% if @email_form.errors.any? %>
+    <div id="error_explanation">
+      <% @email_form.errors.full_messages.each do |message| %>
+        <a><%= message %></a>
+      <% end %>
+    </div>
+  <% end %>
+
+  <%= f.text_field :email, placeholder: "Email" %>
+
+  <br>
+
+  <%= f.submit 'This is my email' %>
+<% end %>
+
+<br>
+<p class="center"><%= link_to "Back", method_path, style: "color:grey" %></p>
+
