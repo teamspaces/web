@@ -1,0 +1,4 @@
+default:
+  page: furrow
+  contents: Here is some snappy text <br> with a rowbreak.
+  byte_size: 42

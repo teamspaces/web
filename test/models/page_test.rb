@@ -12,6 +12,17 @@ describe Page do
       assert_kind_of CollabPage, page.collab_page
   end
 
+  it "has page_content" do
+    page = Page.create(space: space)
+    assert_kind_of PageContent, page.page_content
+  end
+
+  describe "#contents" do
+    it "responds" do
+      assert_respond_to marketing_page, :contents
+    end
+  end
+
   describe "#destroy" do
     it "destroys collab_page as well" do
       marketing_page.collab_page

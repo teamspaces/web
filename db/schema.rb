@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161201214933) do
+ActiveRecord::Schema.define(version: 20161211164634) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,15 @@ ActiveRecord::Schema.define(version: 20161201214933) do
     t.string   "slack_id"
     t.index ["team_id"], name: "index_invitations_on_team_id", using: :btree
     t.index ["user_id"], name: "index_invitations_on_user_id", using: :btree
+  end
+
+  create_table "page_contents", force: :cascade do |t|
+    t.integer  "page_id"
+    t.text     "contents"
+    t.integer  "byte_size",  default: 0
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.index ["page_id"], name: "index_page_contents_on_page_id", using: :btree
   end
 
   create_table "pages", force: :cascade do |t|
@@ -109,6 +118,7 @@ ActiveRecord::Schema.define(version: 20161201214933) do
   add_foreign_key "authentications", "users", on_delete: :cascade
   add_foreign_key "invitations", "teams"
   add_foreign_key "invitations", "users"
+  add_foreign_key "page_contents", "pages", on_delete: :cascade
   add_foreign_key "pages", "spaces", on_delete: :cascade
   add_foreign_key "spaces", "teams", on_delete: :cascade
   add_foreign_key "team_authentications", "teams"
