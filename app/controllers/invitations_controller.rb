@@ -23,7 +23,7 @@ class InvitationsController < SubdomainBaseController
         format.html { redirect_to invitations_path, notice: 'Invitation was successfully created.' }
         format.json { render :show, status: :created, location: @invitation_form.invitation }
       else
-        format.html { render :index }
+        format.html { redirect_to invitations_path, notice: t("invitation.email.failure") }
         format.json { render json: @invitation_form.errors, status: :unprocessable_entity }
       end
     end

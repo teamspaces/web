@@ -7,8 +7,3 @@ class SendEmailInvitationJob < ActiveJob::Base
     InvitationMailer.join_team(invitation).deliver_later
   end
 end
-
-
-
-
-

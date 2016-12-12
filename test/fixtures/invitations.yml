@@ -23,7 +23,7 @@ slack_user_milad_invitation:
   team: power_rangers
   token: 093jjkj3294kjji
   email: slack_user_milad@furrow.io
-  slack_id: U2ZKLGE49
+  slack_user_id: U2ZKLGE49
 
 accepted_invitation:
   <<: *default
