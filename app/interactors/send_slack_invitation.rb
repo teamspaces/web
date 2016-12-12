@@ -1,7 +1,6 @@
 class SendSlackInvitation
-  include Rails.application.routes.url_helpers
-  include ActionView::Helpers::AssetUrlHelper
   include Interactor
+  include RouteHelper
 
   attr_reader :invitation
 

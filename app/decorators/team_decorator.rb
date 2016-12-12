@@ -4,5 +4,4 @@ class TeamDecorator < Draper::Decorator
   def connected_to_slack?
     object.team_authentication
   end
-
 end

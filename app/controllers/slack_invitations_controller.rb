@@ -1,6 +1,6 @@
 class SlackInvitationsController < SubdomainBaseController
 
-  # POST /slack_invitation
+  # GET /slack_invitation
   def create
     result = Invitation::CreateSlackInvitation.call(invitation_params.to_h
                                                     .merge({user: current_user,

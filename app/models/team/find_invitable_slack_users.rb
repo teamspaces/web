@@ -38,7 +38,7 @@ class Team::FindInvitableSlackUsers
     end
 
     def match_already_team_member?
-      team_member_ids = @team.authentications.map do |authentication|
+      team_member_ids = @team.user_authentications.map do |authentication|
         Slack::Identity::UID.parse(authentication.uid)[:user_id]
       end
 
