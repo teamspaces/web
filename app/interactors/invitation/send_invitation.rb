@@ -1,4 +1,4 @@
-class SendInvitation
+class Invitation::SendInvitation
   include Interactor
 
   def call

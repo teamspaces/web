@@ -1,4 +1,4 @@
-class SendSlackInvitation
+class Invitation::SendSlackInvitation
   include Interactor
   include RouteHelper
 

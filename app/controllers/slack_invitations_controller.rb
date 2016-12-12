@@ -6,7 +6,7 @@ class SlackInvitationsController < SubdomainBaseController
                                                     .merge({user: current_user,
                                                             team: current_team}))
 
-    SendInvitation.call(invitation: result.invitation) if result.success?
+    Invitation::SendInvitation.call(invitation: result.invitation) if result.success?
 
     notice = result.success? ? t("invitation.slack.successfully_sent") :
                                t("invitation.slack.failure_create")

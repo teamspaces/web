@@ -19,7 +19,7 @@ describe SlackInvitationsController do
       end
 
       it "sends invitation" do
-        SendInvitation.expects(:call).once
+        Invitation::SendInvitation.expects(:call).once
 
         get subject_url, params: valid_params
       end
