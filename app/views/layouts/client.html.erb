@@ -1,0 +1,74 @@
+<!doctype html>
+<html class="" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="Describe Spaces here.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%= csrf_meta_tags %>
+
+    <title>Spaces: Knowledge Management for Teams</title>
+
+    <link rel="icon" href="">
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+
+    <script src="https://use.typekit.net/iec2bxy.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+    <%= javascript_include_tag 'application' %>
+  </head>
+
+  <body class="<%= content_for :body_class %>">
+    <header class="topbar">
+      <div class="topbar-left">
+        <div class="topbar-account">
+          <div class="topbar-account-toggle">
+            <%= image_tag '/assets/images/topbar/default-team-avatar.png', alt: 'Teamname' %>
+
+            <h3>
+              <%= link_to 'Teamname', team_path %>
+            </h3>
+
+            <p>
+              Username,
+
+              <% if user_signed_in? %>
+                <%= link_to("sign out", destroy_user_session_path, method: :delete) %>
+              <% end %>
+            </p>
+          </div>
+
+          <div class="topbar-account-content">
+
+          </div>
+        </div>
+      </div>
+
+      <div class="topbar-center">
+        <div class="topbar-search">
+          <input type="text" placeholder="Search">
+        </div>
+      </div>
+
+      <div class="topbar-right">
+        <div class="topbar-spaces">
+          <%= link_to 'Spaces', spaces_path, class: 'topbar-spaces-toggle' %>
+
+          <div class="topbar-spaces-content">
+
+          </div>
+        </div>
+
+        <%= link_to 'Invite', invitations_path, class: 'button button-small button-primary' %>
+      </div>
+    </header>
+
+    <% if notice %>
+      <div class="message message-notice"><%= notice %></div>
+    <% end %>
+
+    <% if alert %>
+      <div class="message message-alert"><%= alert %></div>
+    <% end %>
+
+    <%= yield %>
+  </body>
+</html>

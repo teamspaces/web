@@ -1,6 +1,15 @@
-<h1>Editing Space</h1>
+<main>
+  <div class="card">
+    <header>
+      <h1>Editing Space</h1>
+    </header>
 
-<%= render 'form', space: @space %>
+    <div class="card-content">
+      <%= render 'form', space: @space %>
 
-<%= link_to 'Show', @space %> |
-<%= link_to 'Back', spaces_path(@space.team) %>
+      <div class="card-actions">
+        <%= link_to 'Back', spaces_path(@space.team) %>
+      </div>
+    </div>
+  </div>
+</main>

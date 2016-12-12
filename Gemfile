@@ -14,7 +14,6 @@ gem "jbuilder"
 gem "jquery-rails"
 gem "sass-rails"
 gem "uglifier"
-gem "turbolinks"
 
 gem "inflorm"
 gem "interactor-rails", "~> 2.0"

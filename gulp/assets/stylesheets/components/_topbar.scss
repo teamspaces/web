@@ -1,0 +1,172 @@
+/**
+ * Topbar
+ */
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+  background: #fff;
+  box-shadow: 0 1px 0 #E6E8EB, 0 0 5px rgba(0,0,0,0.08);
+}
+
+
+
+/**
+ * Topbar containers
+ */
+.topbar-left, .topbar-center, .topbar-right {
+  float: left;
+}
+
+.topbar-center {
+  width: 648px;
+}
+
+.topbar-left, .topbar-right {
+  width: calc(50% - 324px);
+}
+
+// Right column contains floated elements
+.topbar-right {
+  @include clearfix;
+}
+
+
+/**
+ * Account & team navigation
+ */
+.topbar-account {
+
+}
+
+.topbar-account-toggle {
+  padding: 18px 24px 15px 18px;
+
+  img {
+    float: left;
+    width: 36px;
+    height: 36px;
+    border-radius: 5px;
+    box-shadow: 0 0 0 1px #E6EAF0;
+    margin-right: 16px;
+  }
+
+  h3 {
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: 400;
+    color: $color-text-secondary;
+    margin: 3px 0 0 0;
+
+    a {
+      color: $color-text-primary;
+      transition: all 0.3s;
+
+      &:hover, &:active, &:focus {
+        opacity: 0.6;
+        color: $color-text-primary;
+        text-decoration: none;
+      }
+    }
+  }
+
+  p {
+    font-size: 13px;
+    line-height: 18px;
+    color: $color-text-faded;
+    margin: 0;
+  }
+}
+
+.topbar-account-content {
+
+}
+
+
+
+/**
+ * Search
+ */
+.topbar-search {
+  padding: 12px 0;
+
+  input {
+    display: block;
+    width: 100%;
+    height: 48px;
+    list-style: none;
+    background: #fff url(../assets/images/topbar/search-inactive.svg) no-repeat 16px 16px;
+    background-size: 16px 16px;
+    border: 0;
+    border-radius: 5px;
+    font-size: 13px;
+    line-height: 16px;
+    color: $color-text-primary;
+    padding: 16px 32px 16px 48px;
+    box-shadow: 0 0 0 1px #E6E8EB, 0 1px 3px rgba(0,0,0,0.04);
+    margin: 0;
+    transition: all 0.5s;
+
+    &:hover, &:focus {
+      outline: none;
+      background-image: url(../assets/images/topbar/search-active.svg);
+      box-shadow: 0 0 0 1px #E6E8EB, 0 1px 3px rgba(0,0,0,0.04), 0 7px 25px rgba(0,0,0,0.12);
+    }
+
+    &::-webkit-input-placeholder {
+      color: #9EA1A6;
+    }
+
+    &::-moz-placeholder {
+      color: #9EA1A6;
+    }
+
+    &:-ms-input-placeholder {
+      color: #9EA1A6;
+    }
+  }
+}
+
+
+
+/**
+ * Spaces navigation
+ */
+.topbar-spaces {
+  float: left;
+  margin-left: 40px;
+}
+
+.topbar-spaces-toggle {
+  display: block;
+  background: transparent url(../assets/images/topbar/spaces-icon.svg) no-repeat 20px center;
+  background-size: 20px 20px;
+  padding: 0 20px 0 58px;
+  font-size: 13px;
+  line-height: 72px;
+  color: $color-text-secondary;
+  transition: all 0.5s;
+
+  &:hover, &:active, &:focus {
+    color: $color-text-faded;
+    text-decoration: none;
+    opacity: 0.6;
+  }
+}
+
+.topbar-spaces-content {
+
+}
+
+
+
+/**
+ * Invite button
+ */
+.topbar .button {
+  float: right;
+  margin-top: 18px;
+  margin-right: 18px;
+}

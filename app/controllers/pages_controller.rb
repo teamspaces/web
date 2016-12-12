@@ -1,12 +1,13 @@
 class PagesController < SubdomainBaseController
   before_action :set_page, only: [:show, :edit, :update, :destroy]
   before_action :set_space, only: [:index, :new, :create]
+  layout 'client'
 
   # TODO: Move this into
   # EditorSettingsHashPresenter.new(user_id: current_user.id, ...)
   def editor_settings(user_id, collection, document_id)
     payload = {
-      exp: (Time.now.to_i + 10),
+      exp: (Time.now.to_i + 60),
       user_id: user_id,
       collection: 'collab_pages',
       document_id: document_id.to_s
@@ -18,6 +19,8 @@ class PagesController < SubdomainBaseController
       collection: collection,
       document_id: document_id.to_s,
       collab_url: "#{ENV["COLLAB_SERVICE_URL"]}?token=#{token}",
+      page_content_url: page_content_url(@page.page_content),
+      csrf_token: form_authenticity_token,
     }.to_json.html_safe
   end
   helper_method :editor_settings

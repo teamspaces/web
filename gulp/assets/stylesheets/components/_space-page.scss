@@ -1,0 +1,15 @@
+.space-page {
+  width: calc(50% + 384px);
+  height: 100%;
+  margin: 0 0 0 calc(50% - 384px);
+  padding: 72px 0 60px 60px;
+  background: #fff;
+
+  * {
+    max-width: 648px;
+  }
+
+  h1 + * {
+    margin-top: 42px;
+  }
+}

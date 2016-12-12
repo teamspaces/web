@@ -5,6 +5,9 @@ Rails.application.routes.draw do
       resources :pages, only: [:index, :new, :create]
     end
 
+    resources :pages, only: [:show, :edit, :update, :destroy]
+    resources :page_contents, only: [:show, :update]
+
     resources :invitations, only: [:index, :create, :destroy]
     post 'slack_invitation', to: 'slack_invitations#create',
                              as: :create_slack_invitation
@@ -16,7 +19,6 @@ Rails.application.routes.draw do
   end
 
   resources :teams, only: [:index, :new, :create]
-  resources :pages, only: [:show, :edit, :update, :destroy]
 
   devise_for :users,
              skip: [:sessions],

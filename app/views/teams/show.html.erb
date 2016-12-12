@@ -1,26 +1,21 @@
-<p id="notice"><%= notice %></p>
+<main>
+  <div class="card">
+    <header>
+      <h1>Team</h1>
+    </header>
 
-<p>
-  <strong>Team:</strong>
-  <%= @team.name %>
-</p>
+    <div class="card-content">
+      <%= notice %>
 
-<p>
-  <%= link_to 'Spaces', spaces_path %>
-</p>
+      <%= render 'team_members', team_members: @team.members %>
 
-<hr>
-<%= render 'team_members', team_members: @team.members %>
+      <%= link_to 'Invite', invitations_path, class: 'button button-primary' %>
 
-
-<p>
-<%= link_to 'Invite', invitations_path %>
-</p>
-
-<hr>
-
-
-<%= link_to 'Edit', edit_team_path %> |
-<%= link_to 'Destroy Team', team_path, method: :delete, data: { confirm: 'Are you sure?' } %> |
-<%= link_to 'Back', teams_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]) %>
-
+      <div class="card-actions">
+        <%= link_to 'Edit', edit_team_path %> |
+        <%= link_to 'Delete', team_path, method: :delete, data: { confirm: 'Are you sure?' } %> |
+        <%= link_to 'New Team', new_team_path %>
+      </div>
+    </div>
+  </div>
+</main>
