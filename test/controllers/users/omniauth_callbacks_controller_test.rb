@@ -29,6 +29,7 @@ describe Users::OmniauthCallbacksController do
       stub_omniauth_params_with({team_id: team.id}.stringify_keys)
       subject.any_instance.stubs(:current_user).returns(team.users.first)
       subject.any_instance.stubs(:previous_url).returns(previous_url)
+      stub_slack_identity_with(TestHelpers::Slack.identity(:existing_user))
     end
 
     describe "valid" do
@@ -47,6 +48,7 @@ describe Users::OmniauthCallbacksController do
     describe "invalid" do
       before(:each) do
         subject.any_instance.stubs(:token).returns(nil)
+        stub_slack_identity_with(TestHelpers::Slack.identity(:unknown_user))
         get user_slack_button_omniauth_callback_url
       end
 

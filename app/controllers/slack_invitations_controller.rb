@@ -9,7 +9,7 @@ class SlackInvitationsController < SubdomainBaseController
     SendInvitation.call(invitation: result.invitation) if result.success?
 
     notice = result.success? ? t("invitation.slack.successfully_sent") :
-                               t("invitation.slack.failure")
+                               t("invitation.slack.failure_create")
 
     respond_to do |format|
       format.html { redirect_to invitations_path, notice: notice }

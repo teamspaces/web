@@ -33,7 +33,7 @@
           <%= render "slack_user_to_invite", slack_user: slack_user %>
         <% end %>
       <% else %>
-        <%= link_to "Slack Button", user_slack_button_omniauth_authorize_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], team_id: @team.id) %>
+        <%= link_to "Add Slack Team-Members", user_slack_button_omniauth_authorize_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], team_id: @team.id) %>
       <% end %>
 
 
