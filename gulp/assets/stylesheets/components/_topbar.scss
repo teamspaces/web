@@ -21,11 +21,11 @@
 }
 
 .topbar-center {
-  width: 672px;
+  width: 648px;
 }
 
 .topbar-left, .topbar-right {
-  width: calc(50% - 336px);
+  width: calc(50% - 324px);
 }
 
 // Right column contains floated elements
@@ -54,10 +54,10 @@
   }
 
   h3 {
-    font-size: 14px;
+    font-size: 16px;
     line-height: 18px;
     font-weight: 400;
-    color: $color-text-primary;
+    color: $color-text-secondary;
     margin: 3px 0 0 0;
 
     a {
@@ -73,7 +73,7 @@
   }
 
   p {
-    font-size: 12px;
+    font-size: 13px;
     line-height: 18px;
     color: $color-text-faded;
     margin: 0;
@@ -101,7 +101,7 @@
     background-size: 16px 16px;
     border: 0;
     border-radius: 5px;
-    font-size: 12px;
+    font-size: 13px;
     line-height: 16px;
     color: $color-text-primary;
     padding: 16px 32px 16px 48px;
@@ -144,13 +144,13 @@
   background: transparent url(../assets/images/topbar/spaces-icon.svg) no-repeat 20px center;
   background-size: 20px 20px;
   padding: 0 20px 0 58px;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 72px;
   color: $color-text-secondary;
   transition: all 0.5s;
 
   &:hover, &:active, &:focus {
-    color: $color-text-secondary;
+    color: $color-text-faded;
     text-decoration: none;
     opacity: 0.6;
   }

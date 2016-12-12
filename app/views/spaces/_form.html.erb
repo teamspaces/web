@@ -1,13 +1,12 @@
 <%= form_for([@team, space]) do |f| %>
   <% if space.errors.any? %>
-      <h2><%= pluralize(space.errors.count, "error") %> prohibited this space from being saved:</h2>
+    <h2><%= pluralize(space.errors.count, "error") %> prohibited this space from being saved:</h2>
 
-      <ul>
-      <% space.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
+    <ul>
+    <% space.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
   <% end %>
 
   <%= f.label :name %>
