@@ -18,19 +18,20 @@ class Invitation::SendSlackInvitation
                             icon_url: url_to_image("SpaceShip.png"))
   end
 
-  def invitation_text
-    invitation_url = landing_url(subdomain: invitation.team.subdomain, invitation_token: invitation.token)
+  private
+    def invitation_text
+      invitation_url = landing_url(subdomain: invitation.team.subdomain, invitation_token: invitation.token)
 
-    I18n.t('invitation.slack.text', invitee_first_name: invitation.first_name,
-                                    host_first_name: invitation.user.first_name,
-                                    url: invitation_url)
-  end
-
-  def client
-    begin
-      Slack::Web::Client.new(token: invitation.team.team_authentication.token)
-    rescue
-      context.fail!
+      I18n.t('invitation.slack.text', invitee_first_name: invitation.first_name,
+                                      host_first_name: invitation.user.first_name,
+                                      url: invitation_url)
     end
-  end
+
+    def client
+      begin
+        Slack::Web::Client.new(token: invitation.team.team_authentication.token)
+      rescue
+        context.fail!
+      end
+    end
 end
