@@ -1,7 +1,6 @@
 require "test_helper"
 
 describe Invitation::SendInvitation, :model do
-
   subject { Invitation::SendInvitation }
 
   describe "#call" do
