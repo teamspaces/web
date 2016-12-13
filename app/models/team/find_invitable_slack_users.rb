@@ -14,7 +14,6 @@ class Team::FindInvitableSlackUsers
 
     def all_slack_members
       token = @team.team_authentication&.token
-      return [] unless token
 
       begin
         Slack::Web::Client.new(token: token).users_list.members
@@ -24,7 +23,9 @@ class Team::FindInvitableSlackUsers
     end
 
     def match_bot?
-      lambda { |x| x.name == "slackbot" }
+      lambda do |x|
+        x.is_bot == true || x.name == "slackbot" || x.id == "USLACKBOT"
+      end
     end
 
     def match_deleted?

@@ -27,6 +27,32 @@ class TestHelpers
         identity
       end
 
+      def invited_user_for_furrow_team
+        identity = default_identity
+
+        identity.user.merge!({id: "U4919w39",
+                              real_name: "Nina Malone",
+                              profile: { email: "nina_malone@furrow.io" }})
+        identity
+      end
+
+      def slack_bot
+        identity = default_identity
+
+        identity.user.merge!({id: "USLACKBOT",
+                              name: "slackbot",
+                              real_name: "slackbot"})
+        identity
+      end
+
+      def deleted
+        identity = default_identity
+
+        identity.user.merge!({deleted: true})
+
+        identity
+      end
+
       private
 
         def default_identity

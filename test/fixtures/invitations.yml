@@ -25,6 +25,15 @@ slack_user_milad_invitation:
   email: slack_user_milad@furrow.io
   slack_user_id: U2ZKLGE49
 
+slack_user_furrow_invitation:
+  <<: *default
+  first_name: Nina
+  last_name: Malone
+  team: furrow
+  token: 093jjkj329sd4kjji
+  email: nina_malone@furrow.io
+  slack_user_id: U4919w39
+
 accepted_invitation:
   <<: *default
   invitee_user_id: <%= ActiveRecord::FixtureSet.identify(:lars) %>
