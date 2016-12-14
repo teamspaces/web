@@ -1,13 +1,13 @@
-furrow:
-  space: furrow
-  title: Furrow Main
+spaces:
+  space: spaces
+  title: Spaces Main
 
 onboarding:
-  space: furrow
+  space: spaces
   title: Onboarding Guide
 
 marketing:
-  space: furrow
+  space: spaces
   title: Marketing for everyone
 
 power_rangers:

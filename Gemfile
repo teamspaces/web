@@ -19,11 +19,15 @@ gem "inflorm"
 gem "interactor-rails", "~> 2.0"
 gem "devise"
 gem "pundit"
-gem "omniauth-slack"
+gem 'omniauth-slack', git: 'https://github.com/teamspaces/omniauth-slack.git', branch: 'auth-hash-fixes'
 gem "httparty"
 gem "jwt"
 
+gem 'draper', "~> 3.0.0.pre1"
+
 gem "slack-ruby-client"
+gem "sentry-raven"
+gem "skylight"
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 3.0"

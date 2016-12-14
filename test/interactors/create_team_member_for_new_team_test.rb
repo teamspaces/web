@@ -2,7 +2,7 @@ require "test_helper"
 
 describe CreateTeamMemberForNewTeam, :model do
   let(:user) { users(:without_team) }
-  let(:team) { teams(:furrow) }
+  let(:team) { teams(:spaces) }
   let(:primary_role) { TeamMember::Roles::PRIMARY_OWNER }
 
   it "creates team_member as primary owner associated to user" do

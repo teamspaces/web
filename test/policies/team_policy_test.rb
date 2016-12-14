@@ -2,7 +2,7 @@ require "test_helper"
 
 describe TeamPolicy, :model do
   let(:user) { users(:lars) }
-  let(:user_team_member_team) { teams(:furrow) }
+  let(:user_team_member_team) { teams(:spaces) }
   let(:not_team_member_team) { teams(:power_rangers) }
   let(:default_context) { DefaultContext.new(user, user_team_member_team) }
 

@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-jonas_at_furrow: &default
-  team: furrow
+jonas_at_spaces: &default
+  team: spaces
   user: lars
   first_name: Jonas
   last_name: Klemt
@@ -22,8 +22,17 @@ slack_user_milad_invitation:
   last_name: Marzano
   team: power_rangers
   token: 093jjkj3294kjji
-  email: slack_user_milad@furrow.io
-  slack_id: U2ZKLGE49
+  email: slack_user_milad@spaces.is
+  slack_user_id: U2ZKLGE49
+
+slack_user_spaces_invitation:
+  <<: *default
+  first_name: Nina
+  last_name: Malone
+  team: spaces
+  token: 093jjkj329sd4kjji
+  email: nina_malone@spaces.is
+  slack_user_id: U4919w39
 
 accepted_invitation:
   <<: *default

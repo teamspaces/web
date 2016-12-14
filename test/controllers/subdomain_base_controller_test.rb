@@ -1,16 +1,16 @@
 require 'test_helper'
 
 describe SubdomainBaseController do
-  let(:furrow_user) { users(:lars) }
-  let(:furrow_team) { teams(:furrow) }
+  let(:spaces_user) { users(:lars) }
+  let(:spaces_team) { teams(:spaces) }
   let(:power_rangers_team) { teams(:power_rangers) }
 
-  before(:each) { sign_in furrow_user }
+  before(:each) { sign_in spaces_user }
 
   describe "team subdomain check" do
     context "current_user is member of team" do
       it "shows content" do
-        get team_url(subdomain: furrow_team.subdomain)
+        get team_url(subdomain: spaces_team.subdomain)
 
         assert_response :success
       end

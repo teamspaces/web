@@ -1,8 +1,8 @@
 {
-  "name": "Furrow",
+  "name": "Spaces",
   "description": "Gulp Asset Pipeline with Rails",
   "author": "Martin Samami <martin@digitalkookie.io>",
-  "repository": "https://github.com/MrTin/furrow-api",
+  "repository": "https://github.com/teamspaces/web",
   "license": "gtfo",
   "scripts": {
     "postinstall": "gulp build"
@@ -33,6 +33,7 @@
     "gulp-util": "^3.0.7",
     "gulp-watch": "^4.3.10",
     "jquery": "^3.1.1",
+    "jquery-ujs": "^1.2.2",
     "lodash": "^4.16.4",
     "merge-stream": "^1.0.0",
     "pretty-hrtime": "^1.0.2",

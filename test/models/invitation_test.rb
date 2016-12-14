@@ -1,7 +1,7 @@
 require "test_helper"
 
 describe Invitation do
-  let(:team) { teams(:furrow) }
+  let(:team) { teams(:spaces) }
   let(:user)  { users(:lars) }
 
   should belong_to(:team)

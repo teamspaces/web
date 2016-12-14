@@ -15,8 +15,8 @@ class User::CreateUserFromSlackIdentity
   end
 
   def create_user_with_authentication
-    @user = User.new(name: slack_identity.user.real_name,
-                     email: slack_identity.user.profile.email,
+    @user = User.new(name: slack_identity.user.name,
+                     email: slack_identity.user.email,
                      password: generate_password,
                      allow_email_login: false)
 

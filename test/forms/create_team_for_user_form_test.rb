@@ -4,7 +4,7 @@ describe CreateTeamForUserForm, :model do
   let(:team_name) { "nasa" }
   let(:team_subdomain) { "worldwide"}
   let(:user) { users(:lars) }
-  let(:existing_team) { teams(:furrow) }
+  let(:existing_team) { teams(:spaces) }
 
   subject do
    CreateTeamForUserForm.new(name: team_name, user: user,

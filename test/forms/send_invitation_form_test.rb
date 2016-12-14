@@ -1,8 +1,8 @@
 require "test_helper"
 
 describe SendInvitationForm, :model do
-  let(:existing_invitation) { invitations(:jonas_at_furrow) }
-  subject { SendInvitationForm.new(user: users(:lars), team: teams(:furrow)) }
+  let(:existing_invitation) { invitations(:jonas_at_spaces) }
+  subject { SendInvitationForm.new(user: users(:lars), team: teams(:spaces)) }
 
   describe "validations" do
     should validate_presence_of(:team)
@@ -24,7 +24,7 @@ describe SendInvitationForm, :model do
   end
 
   it "sends email-invitation" do
-    SendTeamInvitation.expects(:call)
+    Invitation::SendInvitation.expects(:call)
 
     subject.email = "gu@es.de"
     subject.save
