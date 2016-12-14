@@ -13,6 +13,11 @@ lars_at_furrow:
   user: lars
   role: member
 
+slack_user_milad_at_furrow:
+  team: furrow
+  user: slack_user_milad
+  role: member
+
 maja_at_furrow:
   team: furrow
   user: with_several_teams
