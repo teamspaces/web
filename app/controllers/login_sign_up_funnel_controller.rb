@@ -22,11 +22,15 @@ class LoginSignUpFunnelController < ApplicationController
           redirect_to slack_sign_in_method_path, alert: "Please sign in with your Slack Account"
         end
       else
-        redirect_to sign_up_path(email: @email_address_form.email)
+        redirect_to email_register_path(email: @email_address_form.email)
       end
     else
       render :email_sign_in_method
     end
+  end
+
+  def email_register
+    @resource = User.new
   end
 
   def slack_sign_in_method
