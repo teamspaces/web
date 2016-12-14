@@ -87,12 +87,12 @@ class TestHelpers
         user_object
       end
 
-      def invited_user_for_furrow_team
+      def invited_user_for_spaces_team
         user_object = default_user_object
 
         user_object.user.merge!({id: "U4919w39",
                                  real_name: "Nina Malone",
-                                 profile: { email: "nina_malone@furrow.io" }})
+                                 profile: { email: "nina_malone@spaces.is" }})
         user_object
       end
 
@@ -143,7 +143,7 @@ class TestHelpers
                                                      skype: "",
                                                      real_name: "Emmanuel Stadler",
                                                      real_name_normalized: "Emmanuel Stadler",
-                                                     email: "emmanuel@furrow.io"
+                                                     email: "emmanuel@spaces.is"
                                                     },
                                           is_admin: true,
                                           is_owner: true,

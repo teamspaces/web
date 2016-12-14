@@ -10,8 +10,8 @@ describe Team do
   should have_one(:team_authentication).dependent(:destroy)
 
   describe "#primary_owner" do
-    let(:team) { teams(:furrow) }
-    let(:team_primary_owner) { team_members(:ulf_at_furrow) }
+    let(:team) { teams(:spaces) }
+    let(:team_primary_owner) { team_members(:ulf_at_spaces) }
 
     it "returns primary owner" do
       assert_equal team_primary_owner, team.primary_owner

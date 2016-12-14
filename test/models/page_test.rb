@@ -1,7 +1,7 @@
 require "test_helper"
 
 describe Page do
-  let(:space) { spaces(:furrow) }
+  let(:space) { spaces(:spaces) }
   let(:marketing_page) { pages(:marketing) }
 
   should belong_to(:space)

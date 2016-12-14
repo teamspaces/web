@@ -23,7 +23,7 @@ gem 'omniauth-slack', git: 'https://github.com/teamspaces/omniauth-slack.git', b
 gem "httparty"
 gem "jwt"
 
-gem 'draper', git: 'https://github.com/drapergem/draper.git', ref: '45e18569d9631710f889d75d49f971fb60d5cbcd'
+gem 'draper', "~> 3.0.0.pre1"
 
 gem "slack-ruby-client"
 gem "sentry-raven"

@@ -28,7 +28,7 @@ describe TeamAuthentication::CreateSlackAuthentication, :model do
     end
 
     context "team with slack authentication" do
-      let(:team_with_authentication) { teams(:furrow) }
+      let(:team_with_authentication) { teams(:spaces) }
 
       it "updates slack team authentication" do
         assert_difference -> { TeamAuthentication.count }, 0 do

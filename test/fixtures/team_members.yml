@@ -1,25 +1,25 @@
-ulf_at_furrow:
-  team: furrow
+ulf_at_spaces:
+  team: spaces
   user: ulf
   role: primary_owner
 
-sven_at_furrow:
-  team: furrow
+sven_at_spaces:
+  team: spaces
   user: sven
   role: owner
 
-lars_at_furrow:
-  team: furrow
+lars_at_spaces:
+  team: spaces
   user: lars
   role: member
 
-slack_user_milad_at_furrow:
-  team: furrow
+slack_user_milad_at_spaces:
+  team: spaces
   user: slack_user_milad
   role: member
 
-maja_at_furrow:
-  team: furrow
+maja_at_spaces:
+  team: spaces
   user: with_several_teams
   role: member
 

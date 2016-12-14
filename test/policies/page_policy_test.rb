@@ -2,10 +2,10 @@ require "test_helper"
 
 describe PagePolicy, :model do
   let(:user) { users(:lars) }
-  let(:team) { teams(:furrow) }
-  let(:team_space) { spaces(:furrow) }
+  let(:team) { teams(:spaces) }
+  let(:team_space) { spaces(:spaces) }
   let(:external_space) { spaces(:power_rangers) }
-  let(:team_page) { pages(:furrow) }
+  let(:team_page) { pages(:spaces) }
   let(:external_page) { pages(:power_rangers) }
   let(:page_policy_context) { PagePolicy::Context.new(user, team, team_space) }
 

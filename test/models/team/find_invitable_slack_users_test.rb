@@ -2,7 +2,7 @@ require "test_helper"
 
 describe Team::FindInvitableSlackUsers, :model do
   subject { Team::FindInvitableSlackUsers }
-  let(:team) { teams(:furrow) }
+  let(:team) { teams(:spaces) }
 
   let(:invitable_slack_user) { TestHelpers::Slack.user_object(:unknown_user).user }
   let(:slack_bot_user) { TestHelpers::Slack.user_object(:slack_bot).user }
