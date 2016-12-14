@@ -25,7 +25,7 @@ gem "jwt"
 
 # Required by draper: https://github.com/drapergem/draper/issues/697
 gem "activemodel-serializers-xml", git: "https://github.com/rails/activemodel-serializers-xml"
-gem 'draper', git: 'drapergem/draper' #hardcode
+gem 'draper', git: 'https://github.com/drapergem/draper.git', ref: '45e18569d9631710f889d75d49f971fb60d5cbcd'
 
 gem "slack-ruby-client"
 gem "sentry-raven"
