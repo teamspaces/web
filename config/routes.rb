@@ -29,6 +29,13 @@ Rails.application.routes.draw do
     get :sign_up, to: 'devise/registrations#new', as: :sign_up
   end
 
+  get :choose_sign_in_method, to: "login_sign_up_funnel#choose_sign_in_method",
+                              as: :choose_sign_in_method
+  get :email_sign_in_method, to: "login_sign_up_funnel#email_sign_in_method",
+                             as: :email_sign_in_method
+  get :slack_sign_in_method, to: "login_sign_up_funnel#slack_sign_in_method",
+                             as: :slack_sign_in_method
+
   get :landing, to: "landing#index", as: :landing
 
   root "landing#index"
