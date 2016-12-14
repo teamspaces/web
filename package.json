@@ -2,7 +2,7 @@
   "name": "Spaces",
   "description": "Gulp Asset Pipeline with Rails",
   "author": "Martin Samami <martin@digitalkookie.io>",
-  "repository": "https://github.com/MrTin/spaces-api",
+  "repository": "https://github.com/teamspaces/web",
   "license": "gtfo",
   "scripts": {
     "postinstall": "gulp build"
