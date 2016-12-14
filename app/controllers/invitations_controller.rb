@@ -5,8 +5,10 @@ class InvitationsController < SubdomainBaseController
   # GET /invitations
   # GET /invitations.json
   def index
-    @team = current_team
+    @team = current_team.decorate
     @invitation_form = SendInvitationForm.new
+
+    @slack_users_to_invite = Team::FindInvitableSlackUsers.new(@team).all
   end
 
   # POST /invitations
@@ -21,12 +23,11 @@ class InvitationsController < SubdomainBaseController
         format.html { redirect_to invitations_path, notice: 'Invitation was successfully created.' }
         format.json { render :show, status: :created, location: @invitation_form.invitation }
       else
-        format.html { render :index }
+        format.html { redirect_to invitations_path, notice: t("invitation.email.failure") }
         format.json { render json: @invitation_form.errors, status: :unprocessable_entity }
       end
     end
   end
-
 
   # DELETE /invitations/1
   # DELETE /invitations/1.json

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     resources :page_contents, only: [:show, :update]
 
     resources :invitations, only: [:index, :create, :destroy]
+    get 'slack_invitation', to: 'slack_invitations#create', as: :create_slack_invitation
 
     get :edit, to: 'teams#edit', as: :edit_team
     get '', to: 'teams#show', as: :team

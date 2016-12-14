@@ -1,10 +1,11 @@
 class TeamAuthentication::CreateSlackAuthentication
   include Interactor
 
-  attr_reader :team, :token, :scopes
+  attr_reader :team, :team_uid, :token, :scopes
 
   def call
     @team = context.team
+    @team_uid = context.team_uid
     @token = context.token
     @scopes = context.scopes
 
@@ -22,6 +23,7 @@ class TeamAuthentication::CreateSlackAuthentication
     authentication = TeamAuthentication.find_or_initialize_by(provider: :slack,
                                                               team: team)
 
+    authentication.team_uid = team_uid
     authentication.scopes = scopes
     authentication.token = token
 
