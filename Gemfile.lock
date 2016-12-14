@@ -251,6 +251,8 @@ GEM
       connection_pool (~> 2.2, >= 2.2.0)
       rack-protection (>= 1.5.0)
       redis (~> 3.2, >= 3.2.1)
+    skylight (1.0.1)
+      activesupport (>= 3.0.0)
     slack-ruby-client (0.7.7)
       activesupport
       faraday
@@ -328,6 +330,7 @@ DEPENDENCIES
   shoulda-context
   shoulda-matchers (~> 2.0)
   sidekiq
+  skylight
   slack-ruby-client
   spring
   uglifier
