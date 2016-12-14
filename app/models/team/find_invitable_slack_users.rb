@@ -13,12 +13,12 @@ class Team::FindInvitableSlackUsers
   private
 
     def all_slack_members
-      token = @team.team_authentication&.token
+      team_authentication = @team.team_authentication
 
       begin
-        Slack::Web::Client.new(token: token).users_list.members
-      rescue
-        Rails.logger.error("Team::FindInvitableSlackUsers#all_slack_members failed to fetch slack team members (team.id=#{@team.id})")
+        Slack::Web::Client.new(token: team_authentication&.token).users_list.members
+      rescue Exception => ex
+        Slack::Api::ExceptionHandler.new(ex, team_authentication)
 
         []
       end
