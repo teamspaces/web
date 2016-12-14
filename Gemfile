@@ -31,6 +31,7 @@ gem "draper"
 
 gem "slack-ruby-client"
 gem "sentry-raven"
+gem "skylight"
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 3.0"
