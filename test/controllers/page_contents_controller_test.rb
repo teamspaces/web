@@ -1,7 +1,7 @@
 require "test_helper"
 
 describe PageContentsController do
-  let(:team) { teams(:furrow) }
+  let(:team) { teams(:spaces) }
   let(:page_content) { page_contents(:default) }
 
   before(:each) { sign_in_user }

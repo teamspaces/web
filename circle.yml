@@ -1,8 +1,8 @@
 machine:
   environment:
-    ACTION_MAILER_HOST: 'www.furrow.io'
+    ACTION_MAILER_HOST: 'www.spaces.is'
     ACTION_MAILER_PORT: 5510
-    ACTION_MAILER_DEFAULT_FROM: '[DEV] <Team Furrow> hello@furrow.io'
+    ACTION_MAILER_DEFAULT_FROM: '[DEV] <Team Spaces> hello@spaces.is'
     COLLAB_SERVICE_JWT_SECRET: 'secret-jwt-token-123'
     USER_AUTH_JWT_SECRET: 'user-auth-jwt-token-123'
     DEFAULT_SUBDOMAIN: 'what'

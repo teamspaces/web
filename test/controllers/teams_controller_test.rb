@@ -2,7 +2,7 @@ require 'test_helper'
 
 describe TeamsController do
   let(:user) { users(:lars) }
-  let(:team) { teams(:furrow) }
+  let(:team) { teams(:spaces) }
   let(:auth_token) { "secret_token" }
 
   before(:each) { sign_in user }

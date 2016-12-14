@@ -2,8 +2,8 @@ require "test_helper"
 
 describe InvitationPolicy, :model do
   let(:user) { users(:lars) }
-  let(:team) { teams(:furrow) }
-  let(:team_invitation) { invitations(:jonas_at_furrow) }
+  let(:team) { teams(:spaces) }
+  let(:team_invitation) { invitations(:jonas_at_spaces) }
   let(:external_invitation) { invitations(:katharina_at_power_rangers) }
   let(:accepted_invitation) { invitations(:accepted_invitation) }
   let(:default_context) { DefaultContext.new(user, team) }

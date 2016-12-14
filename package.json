@@ -1,8 +1,8 @@
 {
-  "name": "Furrow",
+  "name": "Spaces",
   "description": "Gulp Asset Pipeline with Rails",
   "author": "Martin Samami <martin@digitalkookie.io>",
-  "repository": "https://github.com/MrTin/furrow-api",
+  "repository": "https://github.com/MrTin/spaces-api",
   "license": "gtfo",
   "scripts": {
     "postinstall": "gulp build"

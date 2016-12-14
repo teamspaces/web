@@ -2,7 +2,7 @@ require "test_helper"
 
 describe SendEmailInvitationJob, :model do
   subject { SendEmailInvitationJob }
-  let(:invitation) { invitations(:jonas_at_furrow) }
+  let(:invitation) { invitations(:jonas_at_spaces) }
 
   it "sends invitation as email" do
     InvitationMailer.expects(:join_team).returns(email_mock = mock)

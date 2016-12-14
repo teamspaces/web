@@ -4,7 +4,7 @@ describe TeamDecorator, :model do
 
   describe "#connected_to_slack?" do
     context "team with slack team authentication" do
-      let(:team_with_slack_authentication) { teams(:furrow).decorate }
+      let(:team_with_slack_authentication) { teams(:spaces).decorate }
 
       it "is true" do
         assert team_with_slack_authentication.connected_to_slack?

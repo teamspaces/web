@@ -1,5 +1,5 @@
 ulf: &default
-  email: $LABEL@furrow.io
+  email: $LABEL@spaces.is
   first_name: Ulf
   last_name: Bürgman
 
@@ -12,7 +12,7 @@ lars: &lars
   <<: *default
   first_name: Lars
   last_name: Bengtsson
-  email: lars@furrow.io
+  email: lars@spaces.is
 
 lars_email_login_not_allowed:
   <<: *lars

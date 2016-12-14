@@ -2,7 +2,7 @@ require 'test_helper'
 
 describe SpacesController do
   before(:each) { sign_in_user }
-  let(:space) { spaces(:furrow) }
+  let(:space) { spaces(:spaces) }
 
   describe "#show" do
     it "works" do

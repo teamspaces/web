@@ -2,12 +2,12 @@ require "test_helper"
 
 describe Team::FindInvitableSlackUsers, :model do
   subject { Team::FindInvitableSlackUsers }
-  let(:team) { teams(:furrow) }
+  let(:team) { teams(:spaces) }
 
   let(:invitable_slack_user) { TestHelpers::Slack.identity(:unknown_user).user }
   let(:slack_bot_user) { TestHelpers::Slack.identity(:slack_bot).user }
   let(:slack_deleted_user) { TestHelpers::Slack.identity(:deleted).user }
-  let(:already_invited_slack_user) { TestHelpers::Slack.identity(:invited_user_for_furrow_team).user }
+  let(:already_invited_slack_user) { TestHelpers::Slack.identity(:invited_user_for_spaces_team).user }
   let(:already_team_member_slack_user) { TestHelpers::Slack.identity(:existing_user).user }
 
   describe "#all" do

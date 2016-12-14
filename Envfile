@@ -7,7 +7,7 @@ variable :DEVISE_PEPPER, :string, default: "pepperpepper"
 
 variable :ACTION_MAILER_HOST, :string, default: "www.192.168.99.100.nip.io"
 variable :ACTION_MAILER_PORT, :integer, default: 5510
-variable :ACTION_MAILER_DEFAULT_FROM, :string, default: "[DEV] <Team Furrow> hello@furrow.io"
+variable :ACTION_MAILER_DEFAULT_FROM, :string, default: "[DEV] <Team Spaces> hello@spaces.is"
 
 variable :SLACK_OAUTH_CLIENT_ID, :string, default: "12293384466.54416334950"
 variable :SLACK_OAUTH_CLIENT_SECRET, :string, default: "2fc7a5af5e26ed310213fdad123308dc"
