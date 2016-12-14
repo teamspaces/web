@@ -1,4 +1,23 @@
 GIT
+  remote: git://github.com/drapergem/draper.git
+  revision: 45e18569d9631710f889d75d49f971fb60d5cbcd
+  specs:
+    draper (3.0.0.pre1)
+      actionpack (~> 5.0)
+      activemodel (~> 5.0)
+      activemodel-serializers-xml (~> 1.0)
+      activesupport (~> 5.0)
+      request_store (~> 1.0)
+
+GIT
+  remote: https://github.com/ginjo/omniauth-slack.git
+  revision: 34f13e1196ee8e259458d8312116a9ccebdf0819
+  branch: auth-hash-fixes
+  specs:
+    omniauth-slack (2.3.0)
+      omniauth-oauth2 (~> 1.3.1)
+
+GIT
   remote: https://github.com/rails/activemodel-serializers-xml
   revision: 570ee7ed33d60e44ca1f3ccbec3d1fbf61d52cbf
   specs:
@@ -79,11 +98,6 @@ GEM
       railties (>= 4.1.0, < 5.1)
       responders
       warden (~> 1.2.3)
-    draper (2.1.0)
-      actionpack (>= 3.0)
-      activemodel (>= 3.0)
-      activesupport (>= 3.0)
-      request_store (~> 1.0)
     envied (0.5.0)
       rack
       virtus (~> 1.0.1)
@@ -178,8 +192,6 @@ GEM
     omniauth-oauth2 (1.3.1)
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
-    omniauth-slack (2.3.0)
-      omniauth-oauth2 (~> 1.3.1)
     orm_adapter (0.5.0)
     passenger (5.0.30)
       rack
@@ -299,7 +311,7 @@ DEPENDENCIES
   bcrypt
   byebug
   devise
-  draper
+  draper!
   envied
   httparty
   inflorm
@@ -313,7 +325,7 @@ DEPENDENCIES
   minitest-rails-capybara
   mocha
   mongoid
-  omniauth-slack
+  omniauth-slack!
   passenger
   pg
   puma
