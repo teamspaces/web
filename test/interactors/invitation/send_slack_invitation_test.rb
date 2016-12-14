@@ -5,7 +5,8 @@ describe Invitation::SendSlackInvitation, :model do
   let(:invitation) { invitations(:slack_user_milad_invitation) }
 
   it "sends invitation as slack message" do
-    Slack::Web::Client.any_instance.expects(:chat_postMessage).with() do |message|
+    subject.any_instance.stubs(:client).returns(client_mock = mock)
+    client_mock.expects(:chat_postMessage).with() do |message|
       message[:text].include? "Hi Milad, Lars invited you to collaborate on Spaces"
     end
 

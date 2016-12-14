@@ -11,17 +11,14 @@ class Invitation::SendSlackInvitation
   end
 
   def send_invitation
-    team_authentication = invitation.team.team_authentication
-    client = Slack::Web::Client.new(token: team_authentication&.token)
-
     begin
-    client.chat_postMessage(channel: invitation.slack_user_id,
-                            text: invitation_text,
-                            as_user: false,
-                            username: "Spaces",
-                            icon_url: url_to_image("SpaceShip.png"))
-    rescue Exception => ex
-      Slack::Api::ExceptionHandler.new(ex, team_authentication)
+      client.chat_postMessage(channel: invitation.slack_user_id,
+                              text: invitation_text,
+                              as_user: false,
+                              username: "Spaces",
+                              icon_url: url_to_image("SpaceShip.png"))
+    rescue
+      # ERROR we need to handle exceptions, that occur because of invalid authentication tokens
       context.fail!
     end
   end
@@ -33,5 +30,9 @@ class Invitation::SendSlackInvitation
       I18n.t('invitation.slack.text', invitee_first_name: invitation.first_name,
                                       host_first_name: invitation.user.first_name,
                                       url: invitation_url)
+    end
+
+    def client
+      Slack::Web::Client.new(token: invitation.team.team_authentication.token)
     end
 end

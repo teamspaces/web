@@ -17,8 +17,8 @@ class Team::FindInvitableSlackUsers
 
       begin
         Slack::Web::Client.new(token: team_authentication&.token).users_list.members
-      rescue Exception => ex
-        Slack::Api::ExceptionHandler.new(ex, team_authentication)
+      rescue
+        # ERROR we need to handle exceptions, that occur because of invalid authentication tokens
 
         []
       end
