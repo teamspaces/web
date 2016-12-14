@@ -7,7 +7,7 @@ describe Team::FindInvitableSlackUsers, :model do
   let(:invitable_slack_user) { TestHelpers::Slack.user_object(:unknown_user).user }
   let(:slack_bot_user) { TestHelpers::Slack.user_object(:slack_bot).user }
   let(:slack_deleted_user) { TestHelpers::Slack.user_object(:deleted).user }
-  let(:already_invited_slack_user) { TestHelpers::Slack.user_object(:invited_user_for_furrow_team).user }
+  let(:already_invited_slack_user) { TestHelpers::Slack.user_object(:invited_user_for_spaces_team).user }
   let(:already_team_member_slack_user) { TestHelpers::Slack.user_object(:existing_user).user }
 
   describe "#all" do

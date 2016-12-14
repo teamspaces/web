@@ -1,16 +1,4 @@
 GIT
-  remote: https://github.com/drapergem/draper.git
-  revision: 45e18569d9631710f889d75d49f971fb60d5cbcd
-  ref: 45e18569d9631710f889d75d49f971fb60d5cbcd
-  specs:
-    draper (3.0.0.pre1)
-      actionpack (~> 5.0)
-      activemodel (~> 5.0)
-      activemodel-serializers-xml (~> 1.0)
-      activesupport (~> 5.0)
-      request_store (~> 1.0)
-
-GIT
   remote: https://github.com/teamspaces/omniauth-slack.git
   revision: 34f13e1196ee8e259458d8312116a9ccebdf0819
   branch: auth-hash-fixes
@@ -94,6 +82,12 @@ GEM
       railties (>= 4.1.0, < 5.1)
       responders
       warden (~> 1.2.3)
+    draper (3.0.0.pre1)
+      actionpack (~> 5.0)
+      activemodel (~> 5.0)
+      activemodel-serializers-xml (~> 1.0)
+      activesupport (~> 5.0)
+      request_store (~> 1.0)
     envied (0.5.0)
       rack
       virtus (~> 1.0.1)
@@ -310,7 +304,7 @@ DEPENDENCIES
   bcrypt
   byebug
   devise
-  draper!
+  draper (~> 3.0.0.pre1)
   envied
   httparty
   inflorm
