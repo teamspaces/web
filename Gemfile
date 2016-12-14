@@ -19,15 +19,11 @@ gem "inflorm"
 gem "interactor-rails", "~> 2.0"
 gem "devise"
 gem "pundit"
-gem "omniauth-slack"
+gem 'omniauth-slack', git: 'https://github.com/teamspaces/omniauth-slack.git', branch: 'auth-hash-fixes'
 gem "httparty"
 gem "jwt"
 
-# Required by draper: https://github.com/drapergem/draper/issues/697
-gem "activemodel-serializers-xml",
-  git: "https://github.com/rails/activemodel-serializers-xml"
-
-gem "draper"
+gem 'draper', "~> 3.0.0.pre1"
 
 gem "slack-ruby-client"
 gem "sentry-raven"

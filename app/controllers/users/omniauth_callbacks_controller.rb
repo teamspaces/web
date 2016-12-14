@@ -8,7 +8,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     team = current_user.teams.find(omniauth_params["team_id"])
 
     result = TeamAuthentication::CreateSlackAuthentication.call(team: team,
-                                                                team_uid: slack_identity.user.team_id,
+                                                                team_uid: slack_identity.team.id,
                                                                 token: token,
                                                                 scopes: [ "users:read",
                                                                           "chat:write:bot",
@@ -65,7 +65,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   private
 
     def slack_identity
-      request.env["omniauth.auth"].extra.user_info
+      request.env["omniauth.auth"].extra.identity
     end
 
     def login_request?
