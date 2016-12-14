@@ -17,8 +17,9 @@ class Invitation::SendSlackInvitation
                               as_user: false,
                               username: "Spaces",
                               icon_url: url_to_image("SpaceShip.png"))
-    rescue
-      # ERROR we need to handle exceptions, that occur because of invalid authentication tokens
+    rescue Slack::Web::Api::Error => exception
+      Rails.logger.error("Invitation::SendSlackInvitation#send_invitation failed with (#{exception.class}=#{exception.message})")
+      # ERROR: we need to handle exceptions, that occur because of invalid authentication tokens
       context.fail!
     end
   end
