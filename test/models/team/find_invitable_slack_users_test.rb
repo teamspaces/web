@@ -21,28 +21,4 @@ describe Team::FindInvitableSlackUsers, :model do
       assert_equal [invitable_slack_user], invitable_slack_users
     end
   end
-
-  describe "filter" do
-    subject { Team::FindInvitableSlackUsers.new(team) }
-
-    it "#match_bot?" do
-      assert subject.send(:match_bot?)
-                    .call(slack_bot_user)
-    end
-
-    it "#match_deleted?" do
-      assert subject.send(:match_deleted?)
-                    .call(slack_deleted_user)
-    end
-
-    it "#match_already_invited?" do
-      assert subject.send(:match_already_invited?)
-                    .call(already_invited_slack_user)
-    end
-
-    it "#match_already_team_member?" do
-      assert subject.send(:match_already_team_member?)
-                    .call(already_team_member_slack_user)
-    end
-  end
 end
