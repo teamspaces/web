@@ -1,7 +1,7 @@
-class LoginSignUpFunnelController < ApplicationController
+class LoginRegisterFunnel::ChooseLoginMethodController < ApplicationController
   skip_before_action :authenticate_user!
 
-  def choose_sign_in_method
+  def index
 
   end
 
@@ -29,17 +29,4 @@ class LoginSignUpFunnelController < ApplicationController
     end
   end
 
-  def email_register
-    @resource = User.new
-  end
-
-  def slack_sign_in_method
-
-  end
-
-  private
-
-    def email_address_form_params
-      params.require(:login_sign_up_funnel_email_address_form).permit(:email)
-    end
 end
