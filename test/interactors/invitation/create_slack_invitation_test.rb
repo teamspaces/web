@@ -2,7 +2,7 @@ require "test_helper"
 
 describe Invitation::CreateSlackInvitation, :model do
   let(:user) { users(:slack_user_emil) }
-  let(:team) { teams(:furrow) }
+  let(:team) { teams(:spaces) }
   let(:valid_params) { { first_name: "Jessica", last_name: "Tol",
                          email: "jessica@nl.com", slack_user_id: "97sl3"} }
 

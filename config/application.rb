@@ -7,7 +7,7 @@ require 'rails/all'
 Bundler.require(*Rails.groups)
 ENVied.require(*ENV['ENVIED_GROUPS'] || Rails.groups)
 
-module Furrow
+module Spaces
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

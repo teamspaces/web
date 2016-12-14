@@ -2,7 +2,7 @@ require "test_helper"
 
 describe SpacePolicy::Scope, :model do
   let(:user) { users(:lars) }
-  let(:team) { teams(:furrow) }
+  let(:team) { teams(:spaces) }
   let(:default_context) { DefaultContext.new(user, team) }
 
   describe "#resolve" do

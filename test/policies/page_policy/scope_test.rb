@@ -2,8 +2,8 @@ require "test_helper"
 
 describe PagePolicy::Scope, :model do
   let(:user) { users(:lars) }
-  let(:team) { teams(:furrow) }
-  let(:team_space) { spaces(:furrow) }
+  let(:team) { teams(:spaces) }
+  let(:team_space) { spaces(:spaces) }
   let(:page_policy_context) { PagePolicy::Context.new(user, team, team_space) }
 
   describe "#resolve" do

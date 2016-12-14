@@ -1,9 +1,9 @@
 require 'test_helper'
 
 class HasRoleTest < ActiveSupport::TestCase
-  let(:primary_owner) { team_members(:ulf_at_furrow) }
-  let(:owner)         { team_members(:sven_at_furrow) }
-  let(:member)        { team_members(:lars_at_furrow) }
+  let(:primary_owner) { team_members(:ulf_at_spaces) }
+  let(:owner)         { team_members(:sven_at_spaces) }
+  let(:member)        { team_members(:lars_at_spaces) }
 
   describe "#primary_owner?" do
     it "returns true for primary owners" do

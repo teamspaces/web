@@ -1,7 +1,7 @@
 require 'test_helper'
 
 describe PagesController do
-  let(:team) { teams(:furrow) }
+  let(:team) { teams(:spaces) }
   let(:page) { pages(:onboarding) }
 
   before(:each) { sign_in_user }

@@ -1,7 +1,7 @@
 require "test_helper"
 
 describe PageContent do
-  let(:page) { pages(:furrow) }
+  let(:page) { pages(:spaces) }
   let(:page_content) { PageContent.new(page: page) }
 
   it "must be valid" do

@@ -2,7 +2,7 @@ require 'test_helper'
 
 describe InvitationsController do
   let(:user) { users(:lars) }
-  let(:team) { teams(:furrow) }
+  let(:team) { teams(:spaces) }
   let(:team_invitations_url) { invitations_url(subdomain: team.subdomain) }
 
   before(:each) { sign_in user }
@@ -36,7 +36,7 @@ describe InvitationsController do
   describe "#destroy" do
     it "delets invitation" do
       assert_difference -> { Invitation.count }, -1 do
-        delete invitation_url(invitations(:jonas_at_furrow), subdomain: team.subdomain)
+        delete invitation_url(invitations(:jonas_at_spaces), subdomain: team.subdomain)
       end
     end
   end

@@ -2,7 +2,7 @@ require 'test_helper'
 
 describe SlackInvitationsController do
   let(:user) { users(:lars) }
-  let(:team) { teams(:furrow) }
+  let(:team) { teams(:spaces) }
 
   before(:each) { sign_in user }
 

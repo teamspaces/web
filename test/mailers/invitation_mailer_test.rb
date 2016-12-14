@@ -1,7 +1,7 @@
 require "test_helper"
 
 describe InvitationMailer do
-  let(:invitation) { invitations(:jonas_at_furrow) }
+  let(:invitation) { invitations(:jonas_at_spaces) }
 
   describe "join team invitation" do
     it "redirects to landing page with invitation token" do

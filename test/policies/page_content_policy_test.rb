@@ -2,7 +2,7 @@ require "test_helper"
 
 describe PageContentPolicy, :model do
   let(:user) { users(:ulf) }
-  let(:team) { teams(:furrow) }
+  let(:team) { teams(:spaces) }
   let(:page_content) { page_contents(:default) }
   let(:policy_context) { PagePolicy::Context.new(user, team) }
   subject { PageContentPolicy.new(policy_context, page_content) }

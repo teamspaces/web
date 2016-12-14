@@ -1,7 +1,7 @@
 require 'test_helper'
 
 describe TeamMember do
-  let(:team_member) { team_members(:ulf_at_furrow) }
+  let(:team_member) { team_members(:ulf_at_spaces) }
 
   should belong_to(:team)
   should belong_to(:user)
