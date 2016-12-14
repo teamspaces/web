@@ -19,7 +19,7 @@ class Team::FindInvitableSlackUsers
         Slack::Web::Client.new(token: team_authentication&.token).users_list.members
       rescue Slack::Web::Api::Error => exception
         Rails.logger.error("Team::FindInvitableSlackUsers#all_slack_members failed (team.id=#{@team.id}) with (#{exception.class}=#{exception.message})")
-        Raven.capture_exception(exception, team_id: @team.id)
+        Raven.capture_exception(exception, extra: { team_id: @team.id })
 
         []
       end
