@@ -24,10 +24,13 @@ gem "httparty"
 gem "jwt"
 
 # Required by draper: https://github.com/drapergem/draper/issues/697
-gem "activemodel-serializers-xml", git: "https://github.com/rails/activemodel-serializers-xml"
+gem "activemodel-serializers-xml",
+  git: "https://github.com/rails/activemodel-serializers-xml"
+
 gem "draper"
 
 gem "slack-ruby-client"
+gem "sentry-raven"
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 3.0"
