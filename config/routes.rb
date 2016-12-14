@@ -33,6 +33,8 @@ Rails.application.routes.draw do
                               as: :choose_sign_in_method
   get :email_sign_in_method, to: "login_sign_up_funnel#email_sign_in_method",
                              as: :email_sign_in_method
+  post :check_email_address, to: "login_sign_up_funnel#check_email_address",
+                             as: :check_email_address
   get :slack_sign_in_method, to: "login_sign_up_funnel#slack_sign_in_method",
                              as: :slack_sign_in_method
 
