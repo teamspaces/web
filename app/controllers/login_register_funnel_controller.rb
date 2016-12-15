@@ -1,5 +1,8 @@
 class LoginRegisterFunnelController < ApplicationController
+  include InvitationCookie
+
   skip_before_action :authenticate_user!
+  before_action :set_invitation_cookie_from_params
 
   private
 
