@@ -6,8 +6,7 @@ class LoginRegisterFunnel::EmailLoginController < LoginRegisterFunnelController
   end
 
   def create
-    @email_login_form = LoginRegisterFunnel::EmailLoginForm.new(email: session[:user_email_address],
-                                                                password: login_params[:password])
+    @email_login_form = LoginRegisterFunnel::EmailLoginForm.new(email_login_params)
 
     if @email_login_form.valid?
       user = @email_login_form.user
@@ -19,10 +18,9 @@ class LoginRegisterFunnel::EmailLoginController < LoginRegisterFunnelController
     end
   end
 
-
   private
 
-    def login_params
-      params.require(:login_register_funnel_email_login_form).permit(:password)
+    def email_login_params
+      params.require(:login_register_funnel_email_login_form).permit(:email, :password)
     end
 end

@@ -20,6 +20,8 @@
           </div>
         <% end %>
 
+        <%= f.hidden_field :email %>
+
         <%= f.password_field :password, autocomplete: "off", placeholder: :password %>
 
         <%= submit_tag 'Login with my account' %>

@@ -6,12 +6,24 @@
 
     <div class="card-content">
 
-      <p>Register with your email address: <b><%= @user.email %></b></p>
+      <p>Register with your email address: <b><%= @email_register_form.email %></b></p>
 
-      <%= form_for(@user, url: email_register_path) do |f| %>
+      <%= form_for(@email_register_form, url: email_register_path) do |f| %>
+
+        <% if @email_register_form.errors.any? %>
+          <div id="error_explanation">
+            <ul>
+            <% @email_register_form.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <%= f.hidden_field :email %>
 
         <%= f.text_field :first_name, placeholder: :first_name %>
-        <%= f.text_field :first_name, placeholder: :last_name %>
+        <%= f.text_field :last_name, placeholder: :last_name %>
 
         <hr>
 
