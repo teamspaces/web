@@ -6,13 +6,21 @@
 
     <div class="card-content">
 
-      <p>Login with your email address: <b><%= @user.email %></b></p>
+      <p>Login with your email address: <b><%= @email_login_form.email %></b></p>
 
-      <%= form_for(@user, url: email_login_path) do |f| %>
+      <%= form_for(@email_login_form, url: email_login_path) do |f| %>
+
+        <% if @email_login_form.errors.any? %>
+          <div id="error_explanation">
+            <ul>
+            <% @email_login_form.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
 
         <%= f.password_field :password, autocomplete: "off", placeholder: :password %>
-
-        <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: :password_confirmation %>
 
         <%= submit_tag 'Login with my account' %>
 

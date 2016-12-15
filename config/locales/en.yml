@@ -13,6 +13,9 @@ en:
         moment. Please try again, and if it does not work you can always sign up
         using your email or get in contact with us and we will help you get
         started.
+    login:
+      errors:
+        wrong_password: Password doesn't match email address
   errors:
     messages:
       reserved_name: cannot be a reserved name
@@ -26,4 +29,3 @@ en:
       text: "Hi %{invitee_first_name}, %{host_first_name} invited you to collaborate on Spaces <%{url}|Join>"
       successfully_sent: Slack Invitation was successfully sent
       failure_create: Slack Invitation could not be created
-
