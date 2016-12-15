@@ -5,7 +5,7 @@ class LoginRegisterFunnel::ReviewEmailAddressController < LoginRegisterFunnelCon
   end
 
   def review
-    @email_address_form = LoginRegisterFunnel::EmailAddressForm.new(email_address_form_params)
+    @email_address_form = LoginRegisterFunnel::EmailAddressForm.new(email_address_form_params.to_h)
 
     if @email_address_form.valid?
       existing_user = User.find_by(email: @email_address_form.email)

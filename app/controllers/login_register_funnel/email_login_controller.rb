@@ -6,7 +6,7 @@ class LoginRegisterFunnel::EmailLoginController < LoginRegisterFunnelController
   end
 
   def create
-    @email_login_form = LoginRegisterFunnel::EmailLoginForm.new(email_login_params)
+    @email_login_form = LoginRegisterFunnel::EmailLoginForm.new(email_login_params.to_h)
 
     if @email_login_form.valid?
       user = @email_login_form.user
