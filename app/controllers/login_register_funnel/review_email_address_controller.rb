@@ -1,5 +1,4 @@
-class LoginRegisterFunnel::ReviewEmailAddressController < ApplicationController
-  skip_before_action :authenticate_user!
+class LoginRegisterFunnel::ReviewEmailAddressController < LoginRegisterFunnelController
 
   def new
     @email_address_form = LoginRegisterFunnel::EmailAddressForm.new

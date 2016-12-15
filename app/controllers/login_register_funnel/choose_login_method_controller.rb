@@ -1,6 +1,4 @@
-class LoginRegisterFunnel::ChooseLoginMethodController < ApplicationController
-  skip_before_action :authenticate_user!
-
+class LoginRegisterFunnel::ChooseLoginMethodController < LoginRegisterFunnelController
   def index
   end
 end

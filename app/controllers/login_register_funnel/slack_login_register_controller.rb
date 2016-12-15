@@ -1,5 +1,4 @@
-class LoginRegisterFunnel::SlackLoginRegisterController < ApplicationController
-  skip_before_action :authenticate_user!
+class LoginRegisterFunnel::SlackLoginRegisterController < LoginRegisterFunnelController
 
   def login
 
