@@ -30,6 +30,15 @@ Rails.application.routes.draw do
     get :sign_up, to: 'devise/registrations#new', as: :sign_up
   end
 
+  get :choose_login_method, to: "login_register_funnel/choose_login_method#index",
+                            as: :choose_login_method
+
+  get :review_email_address, to: "login_register_funnel/review_email_address#new",
+                             as: :reveal_email_address
+
+  post :review_email_address, to: "login_register_funnel/review_email_address#review",
+                              as: :review_email_address
+
   get :choose_sign_in_method, to: "login_sign_up_funnel#choose_sign_in_method",
                               as: :choose_sign_in_method
   get :email_sign_in_method, to: "login_sign_up_funnel#email_sign_in_method",

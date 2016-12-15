@@ -1,4 +1,4 @@
-class LoginLoginFunnel::EmailLoginController < ApplicationController
+class LoginRegisterFunnel::EmailLoginController < ApplicationController
   skip_before_action :authenticate_user!
 
   def new

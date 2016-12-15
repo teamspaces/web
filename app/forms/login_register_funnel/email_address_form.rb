@@ -1,4 +1,4 @@
-class LoginSignUpFunnel::EmailAddressForm
+class LoginRegisterFunnel::EmailAddressForm
   include ActiveModel::Model
   include Virtus.model
 

@@ -2,11 +2,11 @@ class LoginRegisterFunnel::ReviewEmailAddressController < ApplicationController
   skip_before_action :authenticate_user!
 
   def new
-    @email_address_form = LoginSignUpFunnel::EmailAddressForm.new
+    @email_address_form = LoginRegisterFunnel::EmailAddressForm.new
   end
 
   def review
-    @email_address_form = LoginSignUpFunnel::EmailAddressForm.new(email_address_form_params)
+    @email_address_form = LoginRegisterFunnel::EmailAddressForm.new(email_address_form_params)
 
     if @email_address_form.valid?
       existing_user = User.find_by(email: @email_address_form.email)
@@ -27,6 +27,6 @@ class LoginRegisterFunnel::ReviewEmailAddressController < ApplicationController
 
   private
     def email_address_form_params
-      params.require(:login_sign_up_funnel_email_address_form).permit(:email)
+      params.require(:login_register_funnel_email_address_form).permit(:email)
     end
 end
