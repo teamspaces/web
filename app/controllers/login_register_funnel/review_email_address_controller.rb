@@ -10,15 +10,16 @@ class LoginRegisterFunnel::ReviewEmailAddressController < ApplicationController
 
     if @email_address_form.valid?
       existing_user = User.find_by(email: @email_address_form.email)
+      session[:user_email_address] = @email_address_form.email
 
       if existing_user
         if existing_user.allow_email_login
-          redirect_to new_user_session_path(email: @email_address_form.email)
+          redirect_to new_email_login_path
         else
-          redirect_to slack_sign_in_method_path, alert: "Please sign in with your Slack Account"
+          redirect_to slack_login_path, notice: "Please sign in with your Slack Account"
         end
       else
-        redirect_to email_register_path(email: @email_address_form.email)
+        redirect_to new_email_register_path
       end
     else
       render :new

@@ -33,22 +33,30 @@ Rails.application.routes.draw do
   get :choose_login_method, to: "login_register_funnel/choose_login_method#index",
                             as: :choose_login_method
 
-  get :review_email_address, to: "login_register_funnel/review_email_address#new",
-                             as: :reveal_email_address
+  get :provide_email_addresss, to: "login_register_funnel/review_email_address#new",
+                             as: :provide_email_address
 
   post :review_email_address, to: "login_register_funnel/review_email_address#review",
                               as: :review_email_address
 
-  get :choose_sign_in_method, to: "login_sign_up_funnel#choose_sign_in_method",
-                              as: :choose_sign_in_method
-  get :email_sign_in_method, to: "login_sign_up_funnel#email_sign_in_method",
-                             as: :email_sign_in_method
-  post :check_email_address, to: "login_sign_up_funnel#check_email_address",
-                             as: :check_email_address
-  get :email_register, to: "login_sign_up_funnel#email_register",
-                       as: :email_register
-  get :slack_sign_in_method, to: "login_sign_up_funnel#slack_sign_in_method",
-                             as: :slack_sign_in_method
+  get :email_login, to: "login_register_funnel/email_login#new",
+                    as: :new_email_login
+
+  post :email_login, to: "login_register_funnel/email_login#create",
+                     as: :email_login
+
+  get :email_register, to: "login_register_funnel/email_register#new",
+                       as: :new_email_register
+
+  post :email_register, to: "login_register_funnel/email_register#create",
+                        as: :email_register
+
+  get :slack_login, to: "login_register_funnel/slack_login_register#login",
+                    as: :slack_login
+
+  get :slack_register, to: "login_register_funnel/slack_login_register#register",
+                       as: :slack_register
+
 
   get :landing, to: "landing#index", as: :landing
 

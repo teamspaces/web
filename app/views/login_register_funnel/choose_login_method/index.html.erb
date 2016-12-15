@@ -8,7 +8,7 @@
 
       <div class="card-actions">
         <%= link_to "Sign in with slack", user_slack_omniauth_authorize_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], state: :register) %> | 
-        <%= link_to "Sign in with email", reveal_email_address_path %>
+        <%= link_to "Sign in with email", provide_email_address_path %>
       </div>
     </div>
   </div>
