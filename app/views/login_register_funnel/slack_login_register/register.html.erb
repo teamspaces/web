@@ -6,7 +6,7 @@
 
     <div class="card-content">
       <div class="card-actions">
-        <%= link_to "Login with Slack", user_slack_omniauth_authorize_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], state: :register) %>
+        <%= link_to "Register with Slack", user_slack_omniauth_authorize_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], state: :register) %>
       </div>
     </div>
   </div>
