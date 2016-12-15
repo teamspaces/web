@@ -1,7 +1,7 @@
 require "test_helper"
 
 describe LoginRegisterFunnel::EmailLoginForm, :model do
-   subject { LoginRegisterFunnel::EmailLoginForm.new }
+  subject { LoginRegisterFunnel::EmailLoginForm.new }
 
   describe "validations" do
     should validate_presence_of(:email)

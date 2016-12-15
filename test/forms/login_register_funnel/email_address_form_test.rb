@@ -11,18 +11,18 @@ describe LoginRegisterFunnel::EmailAddressForm, :model do
 
       context "valid" do
         it "works" do
-          subject.new(email: "valid@email.com")
+          form = subject.new(email: "valid@email.com")
 
-          assert subject.valid?
+          assert form.valid?
         end
       end
 
       context "invalid" do
         it "includes error message" do
-          subject.new(email: "invalid_email.com")
+          form = subject.new(email: "invalid_email.com")
 
-          refute subject.valid?
-          assert_includes subject.errors[:email], "is invalid"
+          refute form.valid?
+          assert_includes form.errors[:email], "is invalid"
         end
       end
     end

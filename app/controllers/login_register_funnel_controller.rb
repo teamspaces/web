@@ -8,7 +8,7 @@ class LoginRegisterFunnelController < ApplicationController
   private
 
     def redirect_if_user_already_signed_in
-      redirect_to user_after_sign_in_path(current_user) if current_user
+      redirect_to user_after_sign_in_path if current_user
     end
 
     def check_user_completed_preceding_funnel_steps

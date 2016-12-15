@@ -38,7 +38,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       sign_in(result.user)
       redirect_to after_sign_in_path_for(result.user)
     else
-      redirect_to new_user_session_path, alert: t(".failed_login_using_slack")
+      redirect_to landing_path, alert: t(".failed_login_using_slack")
     end
   end
 
@@ -57,7 +57,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         sign_in(result.user)
         redirect_to after_sign_in_path_for(result.user)
       else
-        redirect_to register_path, alert: t(".failed_register_using_slack")
+        redirect_to landing_path, alert: t(".failed_register_using_slack")
       end
     end
   end
