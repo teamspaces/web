@@ -12,7 +12,7 @@ class AcceptInvitationController < ApplicationController
     set_invitation_cookie_from_params
 
     case invitation
-      when :slack_invitation? then redirect_to_slack_login_register(invitation)
+      when :slack_invitation? then redirect_to slack_register_path
       when :email_invitation? then redirect_to_email_login_register(invitation)
   end
 
@@ -26,11 +26,13 @@ class AcceptInvitationController < ApplicationController
       redirect_to landing_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]), notice: t("invitation_already_accepted")
     end
 
-    def redirect_to_slack_login_register(invitation)
-      #email checken ne
-    end
-
     def redirect_to_email_login_register(invitation)
-      #email checken
+      session[:user_email_address] = invitation.email
+
+      if invitation.invitee_is_registered_email_user?
+        redirect_to email_login_path
+      else
+        redirect_to email_register_path
+      end
     end
 end

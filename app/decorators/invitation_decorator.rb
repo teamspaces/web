@@ -12,4 +12,8 @@ class InvitationDecorator < Draper::Decorator
   def already_accepted?
     object.invitee_user_id
   end
+
+  def invitee_is_registered_email_user?
+    User.find_by(email: object.email, allow_email_login: true)
+  end
 end
