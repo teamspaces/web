@@ -27,6 +27,7 @@ class AcceptInvitationController < ApplicationController
     end
 
     def redirect_to_email_login_register(invitation)
+      #TODO des mehr übersichtlich
       session[:user_email_address] = invitation.email
 
       if invitation.invitee_is_registered_email_user?
