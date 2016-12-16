@@ -11,7 +11,7 @@ describe LoginRegisterFunnel::EmailRegisterController do
   end
 
   describe "#new" do
-    context "completed precending funnel steps" do
+    context "completed preceding funnel steps" do
       it "works" do
         fulfill_preceding_email_review_step("email@spaces.is")
         get new_email_register_path
@@ -20,7 +20,7 @@ describe LoginRegisterFunnel::EmailRegisterController do
       end
     end
 
-    context "skiped precending funnel steps" do
+    context "skipped preceding funnel steps" do
       it "redirects to choose sign in method step" do
         get new_email_register_path
 

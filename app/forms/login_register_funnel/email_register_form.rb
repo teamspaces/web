@@ -18,10 +18,7 @@ class LoginRegisterFunnel::EmailRegisterForm
   validates :password, presence: true
   validates :password_confirmation, presence: true
 
-  validates :email, presence: true
-  validates_format_of :email, with: Devise::email_regexp, allow_blank: true
-
-  validate :validate_user_object
+  validate :validate_user
 
   def user
     @user ||= User.new(email: email,
@@ -41,7 +38,7 @@ class LoginRegisterFunnel::EmailRegisterForm
 
  private
 
-  def validate_user_object
+  def validate_user
     user.valid?
     user.errors.each do |attribute, message|
       self.errors.add(attribute, message)

@@ -20,6 +20,17 @@ describe LoginRegisterFunnel::EmailRegisterForm, :model do
         assert_includes form.errors[:password_confirmation], "doesn't match Password"
       end
     end
+
+    describe "email" do
+      subject { LoginRegisterFunnel::EmailRegisterForm }
+
+      it "validates format of email" do
+        form = subject.new(email: "non_valid")
+
+        form.valid?
+        assert_includes form.errors[:email], "is invalid"
+      end
+    end
   end
 
   describe "#save" do
