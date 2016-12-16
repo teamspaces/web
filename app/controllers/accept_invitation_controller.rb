@@ -2,22 +2,35 @@ class AcceptInvitationController < ApplicationController
   include InvitationCookie
 
   skip_before_action :authenticate_user!
-  before_action :set_invitation_cookie_from_params
-
 
   def new
-    invitation = Invitation.find_by(token: invitation_cookie)&.decorate
+    invitation = Invitation.find_by(token: params[:invitation_cookie])&.decorate
 
-    if invitation.present?
-      if invitation.already_accepted?
+    return redirect_with_invalid_invitation_notice unless invitation.present?
+    return redirect_with_already_accepted_notice if invitation.already_accepted?
 
-      if invitation.slack_invitation?
+    set_invitation_cookie_from_params
 
-      elsif invitation.email_invitation?
-
-      end
-    else
-
-    end
+    case invitation
+      when :slack_invitation? then redirect_to_slack_login_register(invitation)
+      when :email_invitation? then redirect_to_email_login_register(invitation)
   end
+
+  private
+
+    def redirect_with_invalid_invitation_notice
+      redirect_to landing_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]), notice: t("invitation_does_not_exist")
+    end
+
+    def redirect_with_already_accepted_notice
+      redirect_to landing_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]), notice: t("invitation_already_accepted")
+    end
+
+    def redirect_to_slack_login_register(invitation)
+      #email checken ne
+    end
+
+    def redirect_to_email_login_register(invitation)
+      #email checken
+    end
 end
