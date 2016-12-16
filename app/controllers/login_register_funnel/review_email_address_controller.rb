@@ -11,14 +11,11 @@ class LoginRegisterFunnel::ReviewEmailAddressController < LoginRegisterFunnelCon
       existing_user = User.find_by(email: @email_address_form.email)&.decorate
       session[:user_email_address] = @email_address_form.email
 
-      case
-        when existing_user.nil?
-          redirect_to new_email_register_path
-        when existing_user.login_using_email?
-          redirect_to new_email_login_path
-        when existing_user.login_using_slack?
-          redirect_to slack_login_path, notice: "Please sign in with your Slack Account"
-        end
+      existing_user.switch(
+        nil?: -> { redirect_to new_email_register_path },
+        login_using_email?: -> { redirect_to new_email_login_path },
+        login_using_slack?: -> { redirect_to slack_login_path, notice: "Please sign in with your Slack Account" }
+      )
     else
       render :new
     end

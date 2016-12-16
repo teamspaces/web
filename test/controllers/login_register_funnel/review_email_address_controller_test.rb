@@ -42,7 +42,7 @@ describe LoginRegisterFunnel::ReviewEmailAddressController do
         it "redirects to slack login" do
           post review_email_address_path, params: build_params(slack_user.email)
 
-          assert_redirected_to new_email_login_path
+          assert_redirected_to slack_login_path
         end
       end
     end
