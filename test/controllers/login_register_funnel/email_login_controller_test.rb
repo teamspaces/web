@@ -38,12 +38,8 @@ describe LoginRegisterFunnel::EmailLoginController do
         post email_login_path, params: build_params({ email: email_user.email, password: "password" })
       end
 
-      it "signs in user" do
-        assert_equal email_user, @controller.current_user
-      end
-
-      it "redirects to after sign in path" do
-        assert_redirected_to @controller.after_sign_in_path_for(email_user)
+      it "redirects to sign in path" do
+        assert_redirected_to @controller.user_sign_in_path(user)
       end
     end
 

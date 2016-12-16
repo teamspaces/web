@@ -10,8 +10,13 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate_user!
 
+  def sign_in_path_for(_resource)
+    user_sign_in_path(_resource)
+  end
+
   def after_sign_in_path_for(_resource)
-    user_after_sign_in_path
+    raise "error"
+    #user_after_sign_in_path
   end
 
   def after_sign_out_path_for(_resource)

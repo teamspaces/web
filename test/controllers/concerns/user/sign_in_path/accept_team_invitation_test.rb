@@ -1,6 +1,6 @@
 require 'test_helper'
 
-describe User::AfterSignInPath::AcceptTeamInvitation, :controller do
+describe User::SignInPath::AcceptTeamInvitation, :controller do
   let(:invitation) { invitations(:katharina_at_power_rangers) }
   let(:email_invitee) { users(:without_team) }
   let(:not_invitee) { users(:lars) }

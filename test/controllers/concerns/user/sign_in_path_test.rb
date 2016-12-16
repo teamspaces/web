@@ -1,6 +1,6 @@
 require 'test_helper'
 
-describe User::AfterSignInPath, :controller do
+describe User::SignInPath, :controller do
 
   context "user without teams" do
     it "redirects to create team" do

@@ -1,11 +1,11 @@
-module User::AfterSignInPath::AcceptTeamInvitation
+module User::SignInPath::AcceptTeamInvitation
   extend ActiveSupport::Concern
 
-  def accept_team_invitation
+  def accept_team_invitation(user)
     invitation = Invitation.find_by(token: invitation_cookie)
 
     if invitation.present?
-      check_invitation_user_affiliation(invitation)
+      check_invitation_user_affiliation(invitation, user)
     else
       flash[:notice] = t("invitation_does_not_exist")
     end
@@ -13,11 +13,11 @@ module User::AfterSignInPath::AcceptTeamInvitation
     destroy_invitation_cookie
   end
 
-  def check_invitation_user_affiliation(invitation)
-    policy = User::AcceptInvitationPolicy.new(current_user, invitation)
+  def check_invitation_user_affiliation(invitation, user)
+    policy = User::AcceptInvitationPolicy.new(user, invitation)
 
     if policy.matching?
-      User::AcceptInvitation.call(user: current_user, invitation: invitation)
+      User::AcceptInvitation.call(user: user, invitation: invitation)
 
       flash[:notice] = t("successfully_accepted_invitation")
     else
