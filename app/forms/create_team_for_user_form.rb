@@ -3,10 +3,11 @@ class CreateTeamForUserForm
   include ActiveModel::Conversion
   include Virtus.model
 
-  attr_reader :team, :subdomain
+  attr_reader :team
 
   attribute :user, User
   attribute :name, String
+  attribute :subdomain, String
 
   validates :user, presence: true
   validates :name, presence: true
