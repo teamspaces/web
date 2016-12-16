@@ -12,6 +12,6 @@ module LoginRegisterFunnel::CheckUserCompletedPrecedingFunnelSteps
     end
 
     def user_already_provided_email_address?
-      in_login_register_funnel_provided_email.present?
+      in_login_register_funnel_provided_email_address.present?
     end
 end
