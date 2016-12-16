@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
     resources :invitations, only: [:index, :create, :destroy]
     get 'slack_invitation', to: 'slack_invitations#create', as: :create_slack_invitation
+    get 'accept_invitation/:invitation_token', to: 'accept_invitation#new', as: :accept_invitation
 
     get :edit, to: 'teams#edit', as: :edit_team
     get '', to: 'teams#show', as: :team
