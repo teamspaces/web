@@ -14,6 +14,7 @@ class AcceptInvitationController < ApplicationController
     case invitation
       when :slack_invitation? then redirect_to slack_register_path
       when :email_invitation? then redirect_to_email_login_register(invitation)
+    end
   end
 
   private
