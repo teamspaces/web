@@ -3,17 +3,20 @@ class CreateTeamForUserForm
   include ActiveModel::Conversion
   include Virtus.model
 
-  attr_reader :team
+  attr_reader :team, :subdomain
 
   attribute :user, User
   attribute :name, String
-  attribute :subdomain, String
 
   validates :user, presence: true
   validates :name, presence: true
   validates :subdomain, presence: true,
                         subdomain: true
   validate :unique_subdomain
+
+  def subdomain=(val)
+    @subdomain = val&.downcase
+  end
 
   def save
     valid? && persist!
