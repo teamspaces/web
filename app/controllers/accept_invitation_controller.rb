@@ -1,20 +1,20 @@
 class AcceptInvitationController < ApplicationController
+  include LoginRegisterFunnel::PrecedingFunnelStepsInfo
   include InvitationCookie
 
   skip_before_action :authenticate_user!
 
   def new
-    invitation = Invitation.find_by(token: params[:invitation_cookie])&.decorate
+    invitation = Invitation.find_by(token: params[:invitation_token])&.decorate
 
     return redirect_with_invalid_invitation_notice unless invitation.present?
     return redirect_with_already_accepted_notice if invitation.already_accepted?
 
     set_invitation_cookie_from_params
 
-    case invitation
-      when :slack_invitation? then redirect_to slack_register_path
-      when :email_invitation? then redirect_to_email_login_register(invitation)
-    end
+    invitation.switch(
+      slack_invitation?: -> { redirect_to slack_register_path },
+      email_invitation?: -> { redirect_to_email_login_register(invitation) })
   end
 
   private
@@ -28,13 +28,11 @@ class AcceptInvitationController < ApplicationController
     end
 
     def redirect_to_email_login_register(invitation)
-      #TODO des mehr übersichtlich
-      session[:user_email_address] = invitation.email
+      set_in_login_register_funnel_provided_email(invitation.email)
 
-      if invitation.invitee_is_registered_email_user?
-        redirect_to email_login_path
-      else
-        redirect_to email_register_path
+      redirect_to case
+        when invitation.invitee_is_registered_email_user? then new_email_login_path
+        else new_email_register_path
       end
     end
 end
