@@ -1,6 +1,5 @@
 require "test_helper"
 
-
 describe LoginRegisterFunnel::ReviewEmailAddressController do
 
   def build_params(email)
