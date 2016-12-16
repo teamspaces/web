@@ -10,7 +10,7 @@ Devise.setup do |config|
 
   #if user is not authenticated, redirect to custom path instead of new_user_session_path
   config.warden do |manager|
-    manager.failure_app = CustomFailure
+    manager.failure_app = CustomWardenFailure
   end
 
   # ==> Mailer Configuration

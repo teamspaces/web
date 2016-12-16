@@ -1,4 +1,4 @@
-class CustomFailure < Devise::FailureApp
+class CustomWardenFailure < Devise::FailureApp
   def redirect_url
      landing_url(subdomain:  ENV["DEFAULT_SUBDOMAIN"])
   end

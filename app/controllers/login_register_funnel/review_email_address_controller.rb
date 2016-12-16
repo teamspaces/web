@@ -15,7 +15,7 @@ class LoginRegisterFunnel::ReviewEmailAddressController < LoginRegisterFunnelCon
         if existing_user.allow_email_login
           redirect_to new_email_login_path
         else
-          redirect_to slack_login_path, notice: "Please sign in with your Slack Account"
+          redirect_to slack_login_path, notice: t("please_login_using_slack_instead")
         end
       else
         redirect_to new_email_register_path
