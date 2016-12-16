@@ -1,5 +1,5 @@
 class LoginRegisterFunnel::EmailLoginController < LoginRegisterFunnelController
-  before_action :check_user_completed_preceding_funnel_steps
+  include LoginRegisterFunnel::CheckUserCompletedPrecedingFunnelSteps
 
   def new
     @email_login_form = LoginRegisterFunnel::EmailLoginForm.new(email: session[:user_email_address])
