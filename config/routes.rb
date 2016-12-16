@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     resources :invitations, only: [:index, :create, :destroy]
     get 'slack_invitation', to: 'slack_invitations#create', as: :create_slack_invitation
 
+    get 'sign_in_into_team/:team_subdomain', to: 'sign_in_into_team_subdomain#new', as: :sign_in_into_team
+
     get :edit, to: 'teams#edit', as: :edit_team
     get '', to: 'teams#show', as: :team
     patch '', to: 'teams#update'
