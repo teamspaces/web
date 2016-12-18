@@ -59,6 +59,11 @@ describe AcceptInvitationController do
     end
 
     describe "set_invitation_cookie_from_params" do
+      it "sets cookie over all subdomains" do
+        #also works for slack-login/register
+        assert false
+      end
+
       it "do" do
         assert false
       end
