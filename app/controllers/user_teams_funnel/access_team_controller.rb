@@ -1,0 +1,5 @@
+class AccessTeamController < UserTeamsFunnelController
+
+
+
+end

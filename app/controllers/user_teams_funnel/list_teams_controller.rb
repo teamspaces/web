@@ -1,0 +1,5 @@
+class ListTeamsController < UserTeamsFunnelController
+
+
+
+end
