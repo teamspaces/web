@@ -39,7 +39,7 @@ describe LoginRegisterFunnel::EmailLoginController do
       end
 
       it "redirects to sign in path" do
-        assert_redirected_to @controller.user_sign_in_path(user)
+        assert_redirected_to @controller.user_sign_in_path(email_user)
       end
     end
 

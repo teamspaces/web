@@ -12,7 +12,7 @@ class LoginRegisterFunnel::EmailRegisterController < LoginRegisterFunnelControll
     if @email_register_form.save
       user = @email_register_form.user
 
-      user_sign_in_path(user)
+      redirect_to user_sign_in_path(user)
     else
       render :new
     end

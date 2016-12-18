@@ -28,12 +28,16 @@ class TeamsController < SubdomainBaseController
   # POST /teams
   # POST /teams.json
   def create
+    user = current_user
+
     @team_form = CreateTeamForUserForm.new(create_team_for_user_form_params.to_h
-                                           .merge(user: current_user))
+                                           .merge(user: user))
 
     respond_to do |format|
       if @team_form.save
-        format.html { redirect_to team_url(subdomain: @team_form.team.subdomain, auth_token: GenerateLoginToken.call(user: current_user)), notice: 'Team was successfully created.' }
+        sign_out user
+
+        format.html { redirect_to team_url(subdomain: @team_form.team.subdomain, auth_token: GenerateLoginToken.call(user: user)), notice: 'Team was successfully created.' }
         format.json { render :show, status: :created, location: @team_form.team }
       else
         format.html { render :new }

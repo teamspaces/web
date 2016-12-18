@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   include Pundit
   include HTTPBasicAuthentication
   include TokenParamLogin
-  include User::AfterSignInPath
+  include User::SignInPath
   include InvitationCookie
 
   # Prevent CSRF attacks by raising an exception.
