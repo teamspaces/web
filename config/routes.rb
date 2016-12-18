@@ -42,6 +42,11 @@ Rails.application.routes.draw do
   get :slack_login, to: "login_register_funnel/slack_login_register#login", as: :slack_login
   get :slack_register, to: "login_register_funnel/slack_login_register#register", as: :slack_register
 
+  get :create_team, to: "user_teams_funnel/create_team#new", as: :user_teams_funnel_create_team
+  post :create_team, to: "user_teams_funnel/create_team#create", as: :user_teams_funnel_create_team_post
+
+  get :list_teams, to: "user_teams_funnel/list_teams#index", as: :user_teams_funnel_list_teams
+  get 'access_team/:team_subdomain', to: "user_teams_funnel/access_team#new", as: :user_teams_funnel_access_team
 
   get :landing, to: "landing#index", as: :landing
 

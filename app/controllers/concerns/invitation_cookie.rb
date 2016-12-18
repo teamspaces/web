@@ -14,6 +14,6 @@ module InvitationCookie
   end
 
   def destroy_invitation_cookie
-    cookies.delete :invitation_token
+    cookies.delete :invitation_token, domain: :all, tld_length: 2
   end
 end
