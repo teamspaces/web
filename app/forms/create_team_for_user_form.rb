@@ -15,10 +15,6 @@ class CreateTeamForUserForm
                         subdomain: true
   validate :unique_subdomain
 
-  def subdomain=(val)
-    @subdomain = val&.downcase
-  end
-
   def save
     valid? && persist!
   end

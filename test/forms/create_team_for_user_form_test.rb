@@ -11,13 +11,6 @@ describe CreateTeamForUserForm, :model do
                              subdomain: team_subdomain)
   end
 
-  it "converts subdomain to lower case" do
-    subject.subdomain = "UPPERCASE"
-
-    assert subject.save
-    assert_equal "uppercase", subject.team.subdomain
-  end
-
   describe "validations" do
     should validate_presence_of(:user)
     should validate_presence_of(:name)

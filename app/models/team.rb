@@ -7,6 +7,12 @@ class Team < ApplicationRecord
   has_many :user_authentications, source: :authentications, through: :users
   has_one :team_authentication, dependent: :destroy
 
+  validates_uniqueness_of :subdomain
+
+  def subdomain=(val)
+    @subdomain = val&.downcase
+  end
+
   def primary_owner
     self.members.find_by(role: TeamMember::Roles::PRIMARY_OWNER)
   end

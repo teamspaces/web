@@ -9,6 +9,16 @@ describe Team do
   should have_many(:user_authentications).through(:users).source(:authentications)
   should have_one(:team_authentication).dependent(:destroy)
 
+  should validate_uniqueness_of(:subdomain)
+
+  describe "#subdomain" do
+    it "is set to lower case" do
+      team = subject.new(subdomain: "UPPERCASE")
+
+      assert_equal "uppercase", team.subdomain
+    end
+  end
+
   describe "#primary_owner" do
     let(:team) { teams(:spaces) }
     let(:team_primary_owner) { team_members(:ulf_at_spaces) }
