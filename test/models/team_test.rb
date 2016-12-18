@@ -13,7 +13,7 @@ describe Team do
 
   describe "#subdomain" do
     it "is set to lower case" do
-      team = subject.new(subdomain: "UPPERCASE")
+      team = Team.new(subdomain: "UPPERCASE")
 
       assert_equal "uppercase", team.subdomain
     end

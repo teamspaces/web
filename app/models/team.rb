@@ -10,7 +10,7 @@ class Team < ApplicationRecord
   validates_uniqueness_of :subdomain
 
   def subdomain=(val)
-    @subdomain = val&.downcase
+    write_attribute(:subdomain, val&.downcase)
   end
 
   def primary_owner
