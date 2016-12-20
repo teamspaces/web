@@ -2,6 +2,7 @@ module User::SignInPath
   extend ActiveSupport::Concern
   include AcceptTeamInvitation
   include UserTeamsFunnel::CurrentUser
+  include LoginRegisterFunnel::PrecedingFunnelStepsInfo
 
   def user_sign_in_path(user)
     accept_team_invitation(user) if invitation_cookie.present?
@@ -13,7 +14,7 @@ module User::SignInPath
 
     case user.teams.count
     when 0
-      create_new_team(user)
+      create_new_team_path(user)
     when 1
       team_url(subdomain: user.teams.first.subdomain,
                auth_token: GenerateLoginToken.call(user: user))
