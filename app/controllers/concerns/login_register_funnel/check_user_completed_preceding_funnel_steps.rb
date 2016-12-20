@@ -2,6 +2,7 @@ module LoginRegisterFunnel::CheckUserCompletedPrecedingFunnelSteps
   extend ActiveSupport::Concern
 
   included do
+    include LoginRegisterFunnel::PrecedingFunnelStepsInfo
     before_action :check_user_completed_preceding_funnel_steps
   end
 
@@ -12,6 +13,6 @@ module LoginRegisterFunnel::CheckUserCompletedPrecedingFunnelSteps
     end
 
     def user_already_provided_email_address?
-      session[:user_email_address].present?
+      in_login_register_funnel_provided_email_address.present?
     end
 end
