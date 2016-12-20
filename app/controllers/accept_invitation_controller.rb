@@ -28,7 +28,7 @@ class AcceptInvitationController < ApplicationController
     end
 
     def redirect_to_email_login_register(invitation)
-      in_login_register_funnel_provided_email_address(invitation.email)
+      in_login_register_funnel_provided_email_address = invitation.email
 
       redirect_to case
         when invitation.invitee_is_registered_email_user? then new_email_login_path

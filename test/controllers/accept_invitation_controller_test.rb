@@ -8,6 +8,12 @@ describe AcceptInvitationController do
         let(:email_invitation_for_registered_user) { invitations(:katharina_at_power_rangers) }
         let(:email_invitation_for_new_user) { invitations(:jonas_at_spaces) }
 
+        it "sets invitation cookie from params" do
+          AcceptInvitationController.any_instance.expects(:set_invitation_cookie_from_params)
+
+          get accept_invitation_path(email_invitation_for_registered_user.token)
+        end
+
         context "user already registered" do
           it "it redirects to login with email" do
             get accept_invitation_path(email_invitation_for_registered_user.token)
@@ -55,17 +61,6 @@ describe AcceptInvitationController do
 
         assert_redirected_to landing_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
         assert_equal I18n.t("invitation_does_not_exist"), flash[:notice]
-      end
-    end
-
-    describe "set_invitation_cookie_from_params" do
-      it "sets cookie over all subdomains" do
-        #also works for slack-login/register
-        assert false
-      end
-
-      it "do" do
-        assert false
       end
     end
   end

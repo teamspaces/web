@@ -10,7 +10,7 @@ class LoginRegisterFunnel::ReviewEmailAddressController < LoginRegisterFunnelCon
 
     if @email_address_form.valid?
       existing_user = User.find_by(email: @email_address_form.email)&.decorate
-      in_login_register_funnel_provided_email_address(@email_address_form.email)
+      in_login_register_funnel_provided_email_address = @email_address_form.email
 
       existing_user.switch(
         nil?: -> { redirect_to new_email_register_path },
