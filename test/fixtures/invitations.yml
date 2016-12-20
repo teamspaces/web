@@ -36,4 +36,5 @@ slack_user_spaces_invitation:
 
 accepted_invitation:
   <<: *default
+  token: ksokfo9u
   invitee_user_id: <%= ActiveRecord::FixtureSet.identify(:lars) %>
