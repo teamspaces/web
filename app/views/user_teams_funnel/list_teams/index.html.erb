@@ -15,7 +15,7 @@
         </thead>
 
         <tbody>
-          <% @user.teams.each do |team| %>
+          <% @teams.each do |team| %>
             <tr>
               <td><%= team.name %></td>
               <td><%= link_to 'Show', user_teams_funnel_access_team_path(team.subdomain) %></td>
