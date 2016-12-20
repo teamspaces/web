@@ -49,16 +49,10 @@ describe LoginRegisterFunnel::EmailRegisterController do
         end
       end
 
-      it "signs in user" do
+      it "redirects to sign in path" do
         post_user_data
 
-        assert @controller.current_user
-      end
-
-      it "redirects to after sign in path" do
-        post_user_data
-
-        assert_redirected_to @controller.after_sign_in_path_for(@controller.current_user)
+        assert_redirected_to @controller.user_sign_in_path(User.last)
       end
     end
 

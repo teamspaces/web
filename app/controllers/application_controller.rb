@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   include Pundit
   include HTTPBasicAuthentication
   include TokenParamLogin
-  include User::AfterSignInPath
+  include User::SignInPath
   include InvitationCookie
 
   # Prevent CSRF attacks by raising an exception.
@@ -10,8 +10,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate_user!
 
-  def after_sign_in_path_for(_resource)
-    user_after_sign_in_path
+  def sign_in_path_for(_resource)
+    user_sign_in_path(_resource)
   end
 
   def after_sign_out_path_for(_resource)

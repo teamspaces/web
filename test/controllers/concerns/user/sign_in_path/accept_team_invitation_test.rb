@@ -1,9 +1,8 @@
 require 'test_helper'
 
-describe User::AfterSignInPath::AcceptTeamInvitation, :controller do
+describe User::SignInPath::AcceptTeamInvitation, :controller do
   let(:invitation) { invitations(:katharina_at_power_rangers) }
   let(:email_invitee) { users(:without_team) }
-  let(:not_invitee) { users(:lars) }
 
   def set_invitation_cookie(token)
     get accept_invitation_path(token)
@@ -14,25 +13,21 @@ describe User::AfterSignInPath::AcceptTeamInvitation, :controller do
       before(:each) { set_invitation_cookie(invitation.token) }
 
       describe "user is invitee" do
-        before(:each) { @controller.sign_in(email_invitee) }
-
         it "accepts invitation" do
           assert_difference -> { invitation.team.members.count }, 1 do
-            @controller.accept_team_invitation
+            @controller.accept_team_invitation(email_invitee)
           end
         end
 
         it "shows notice" do
-          @controller.accept_team_invitation
+          @controller.accept_team_invitation(email_invitee)
           assert_equal I18n.t("successfully_accepted_invitation"), @controller.flash[:notice]
         end
       end
 
       describe "user is not invitee" do
-        before(:each) do
-          @controller.sign_in(not_invitee)
-          @controller.accept_team_invitation
-        end
+        let(:not_invitee) { users(:lars) }
+        before(:each) {  @controller.accept_team_invitation(not_invitee) }
 
         it "shows notice" do
           assert_equal I18n.t("invitation_does_not_match_user"), @controller.flash[:notice]
@@ -43,7 +38,7 @@ describe User::AfterSignInPath::AcceptTeamInvitation, :controller do
     describe "invitation does not exist" do
       before(:each) do
         set_invitation_cookie("invalid")
-        @controller.accept_team_invitation
+        @controller.accept_team_invitation(email_invitee)
       end
 
       it "shows notice" do
@@ -55,7 +50,7 @@ describe User::AfterSignInPath::AcceptTeamInvitation, :controller do
       set_invitation_cookie("token")
       @controller.expects(:destroy_invitation_cookie).once
 
-      @controller.accept_team_invitation
+      @controller.accept_team_invitation(email_invitee)
     end
   end
 end
