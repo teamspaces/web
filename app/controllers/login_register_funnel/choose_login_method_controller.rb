@@ -2,6 +2,6 @@ class LoginRegisterFunnel::ChooseLoginMethodController < LoginRegisterFunnelCont
   include LoginRegisterFunnel::PrecedingFunnelStepsInfo
 
   def index
-    set_after_sign_in_action
+    after_sign_in_action = params[:after_sign_in_action]
   end
 end
