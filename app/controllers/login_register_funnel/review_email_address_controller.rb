@@ -1,0 +1,3 @@
+class LoginRegisterFunnel::ReviewEmailAddressController < LoginRegisterFunnelController
+
+end

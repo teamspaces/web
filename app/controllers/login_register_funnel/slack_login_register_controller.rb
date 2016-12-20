@@ -1,0 +1,3 @@
+class LoginRegisterFunnel::SlackLoginRegisterController < LoginRegisterFunnelController
+
+end
