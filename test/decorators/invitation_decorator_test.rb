@@ -18,21 +18,21 @@ describe InvitationDecorator, :model do
 
   describe "#slack_invitation?" do
     context "slack_invitation" do
-      it { refute slack_invitation.slack_invitation? }
+      it { assert slack_invitation.slack_invitation? }
     end
 
     context "email_invitation" do
-      it { assert email_invitation.slack_invitation? }
+      it { refute email_invitation.slack_invitation? }
     end
   end
 
   describe "#invitee_email_kown?" do
     context "email_invitation" do
-      it { refute email_invitation.invitee_email_kown? }
+      it { assert email_invitation.invitee_email_kown? }
     end
 
     context "slack_invitation" do
-      it { refute slack_invitation.invitee_email_kown? }
+      it { assert slack_invitation.invitee_email_kown? }
     end
   end
 
