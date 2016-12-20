@@ -3,6 +3,7 @@ module LoginRegisterFunnel::CheckUserCompletedPrecedingFunnelSteps
 
   included do
     include LoginRegisterFunnel::PrecedingFunnelStepsInfo
+
     before_action :check_user_completed_preceding_funnel_steps
   end
 

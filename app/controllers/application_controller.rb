@@ -14,11 +14,6 @@ class ApplicationController < ActionController::Base
     user_sign_in_path(_resource)
   end
 
-  def after_sign_in_path_for(_resource)
-    raise "error"
-    #user_after_sign_in_path
-  end
-
   def after_sign_out_path_for(_resource)
     landing_path
   end
