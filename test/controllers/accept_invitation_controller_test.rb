@@ -8,12 +8,6 @@ describe AcceptInvitationController do
         let(:email_invitation_for_registered_user) { invitations(:katharina_at_power_rangers) }
         let(:email_invitation_for_new_user) { invitations(:jonas_at_spaces) }
 
-        it "sets invitation cookie from params" do
-          AcceptInvitationController.any_instance.expects(:set_invitation_cookie_from_params)
-
-          get accept_invitation_path(email_invitation_for_registered_user.token)
-        end
-
         context "user already registered" do
           it "it redirects to login with email" do
             get accept_invitation_path(email_invitation_for_registered_user.token)
@@ -28,6 +22,12 @@ describe AcceptInvitationController do
 
             assert_redirected_to new_email_register_path
           end
+        end
+
+        it "sets invitation cookie from params" do
+          AcceptInvitationController.any_instance.expects(:set_invitation_cookie_from_params)
+
+          get accept_invitation_path(email_invitation_for_registered_user.token)
         end
       end
 
