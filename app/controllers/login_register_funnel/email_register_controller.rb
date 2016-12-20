@@ -1,5 +1,4 @@
 class LoginRegisterFunnel::EmailRegisterController < LoginRegisterFunnelController
-  include LoginRegisterFunnel::PrecedingFunnelStepsInfo
   include LoginRegisterFunnel::CheckUserCompletedPrecedingFunnelSteps
 
   def new

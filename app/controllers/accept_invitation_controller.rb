@@ -12,9 +12,10 @@ class AcceptInvitationController < ApplicationController
 
     set_invitation_cookie_from_params
 
-    invitation.switch(
-      slack_invitation?: -> { redirect_to slack_register_path },
-      email_invitation?: -> { redirect_to_email_login_register(invitation) })
+    redirect_to case
+      when invitation.slack_invitation? then slack_register_path
+      when invitation.email_invitation? then email_login_or_register_path(invitation)
+    end
   end
 
   private
@@ -27,10 +28,10 @@ class AcceptInvitationController < ApplicationController
       redirect_to landing_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]), notice: t("invitation_already_accepted")
     end
 
-    def redirect_to_email_login_register(invitation)
-      set_in_login_register_funnel_provided_email_address(invitation.email)
+    def email_login_or_register_path(invitation)
+      in_login_register_funnel_provided_email_address = invitation.email
 
-      redirect_to case
+      case
         when invitation.invitee_is_registered_email_user? then new_email_login_path
         else new_email_register_path
       end
