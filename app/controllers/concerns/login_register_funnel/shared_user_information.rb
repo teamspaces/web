@@ -5,7 +5,7 @@ module LoginRegisterFunnel::SharedUserInformation
       redirect_to choose_login_method_path unless users_reviewed_email_address.present?
     end
 
-    def users_reviewed_email_address=(email_address)
+    def set_users_reviewed_email_address(email_address)
       session[:users_reviewed_email_address] = email_address
     end
 

@@ -7,11 +7,10 @@ class LoginRegisterFunnel::ReviewEmailAddressController < LoginRegisterFunnelCon
   def review
     @email_address_form = LoginRegisterFunnel::EmailAddressForm.new(email_address_form_params.to_h)
 
-    debugger
     if @email_address_form.valid?
       #TODO allow_email_login => true
       existing_user = User.find_by(email: @email_address_form.email)&.decorate
-      users_reviewed_email_address = @email_address_form.email
+      set_users_reviewed_email_address(@email_address_form.email)
 
       existing_user.switch(
         nil?: -> { redirect_to new_email_register_path },
