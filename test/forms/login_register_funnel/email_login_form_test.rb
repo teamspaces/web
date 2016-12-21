@@ -20,7 +20,7 @@ describe LoginRegisterFunnel::EmailLoginForm, :model do
           form = subject.new(email: email_user.email, password: "wrong")
 
           refute form.valid?
-          assert_includes form.errors.full_messages, "Password doesn't match email address"
+          assert_includes form.errors.full_messages, I18n.t("users.login.errors.wrong_password")
         end
       end
     end

@@ -24,7 +24,10 @@ Rails.application.routes.draw do
              controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
 
   devise_scope :user do
+    get :login, to: "devise/sessions#new", as: :new_user_session #TODO
+    post :login, to: "devise/sessions#create", as: :user_session #TODO
     delete :logout, to: "devise/sessions#destroy", as: :destroy_user_session
+    get :sign_up, to: 'devise/registrations#new', as: :sign_up #TODO
   end
 
   get :choose_login_method, to: "login_register_funnel/choose_login_method#index", as: :choose_login_method

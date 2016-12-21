@@ -2,6 +2,7 @@ ulf: &default
   email: $LABEL@spaces.is
   first_name: Ulf
   last_name: Bürgman
+  allow_email_login: true
 
 sven:
   <<: *default
@@ -34,8 +35,10 @@ slack_user_milad:
   <<: *default
   first_name: Milad
   last_name: Marzano
+  allow_email_login: false
 
 slack_user_emil:
   <<: *default
   first_name: Emil
   last_name: Danesi
+  allow_email_login: false

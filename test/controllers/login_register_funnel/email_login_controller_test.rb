@@ -46,7 +46,7 @@ describe LoginRegisterFunnel::EmailLoginController do
         post email_login_path, params: build_params({ email: email_user.email, password: "wrong" })
 
         errors = @controller.instance_variable_get(:@email_login_form).errors.full_messages
-        assert_includes errors, "Password doesn't match email address"
+        assert_includes errors, I18n.t("users.login.errors.wrong_password")
         assert_response :success
       end
     end

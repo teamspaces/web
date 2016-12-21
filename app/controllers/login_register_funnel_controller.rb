@@ -4,6 +4,10 @@ class LoginRegisterFunnelController < ApplicationController
   skip_before_action :authenticate_user!
   before_action :redirect_if_user_already_signed_in
 
+  def sign_in_path_for(user)
+    landing_path
+  end
+
   private
 
     def redirect_if_user_already_signed_in
