@@ -10,6 +10,7 @@ require "shared/test_helpers/slack/identity"
 
 Capybara.default_driver = :poltergeist
 
+
 class ActiveSupport::TestCase
   fixtures :all
 end
