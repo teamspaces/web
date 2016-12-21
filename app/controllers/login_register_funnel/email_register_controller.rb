@@ -1,3 +1,4 @@
 class LoginRegisterFunnel::EmailRegisterController < LoginRegisterFunnelController
+  before_action :check_user_completed_review_email_address_step
 
 end
