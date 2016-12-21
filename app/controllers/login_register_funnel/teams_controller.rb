@@ -19,7 +19,7 @@ class LoginRegisterFunnel::TeamsController < LoginRegisterFunnelController
   end
 
   def show
-    team = current_user.teams.find_by(subdomain: params[:subdomain])
+    team = current_user.teams.find_by(subdomain: params[:team_subomain])
 
     redirect_to team_url(subdomain: team.subdomain, auth_token: GenerateLoginToken.call(user: current_user))
 

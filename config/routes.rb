@@ -48,7 +48,7 @@ Rails.application.routes.draw do
     get :create_team, to: "login_register_funnel/teams#new", as: :new_team_ree
     post :create_team, to: "login_register_funnel/teams#create", as: :create_team_ree
 
-    get "team/:subdomain", to: "login_register_funnel/teams#show", as: :show_team_ree
+    get "team/:team_subomain", to: "login_register_funnel/teams#show", as: :show_team_ree
     get :choose_team, to: "login_register_funnel/teams#index", as: :list_teams
   end
 
