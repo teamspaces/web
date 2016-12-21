@@ -29,7 +29,7 @@ Rails.application.routes.draw do
 
   get :choose_login_method, to: "login_register_funnel/choose_login_method#index", as: :choose_login_method
 
-  get :provide_email_addresss, to: "login_register_funnel/review_email_address#new", as: :provide_email_address
+  get :provide_email_addresss, to: "login_register_funnel/review_email_address#new", as: :new_review_email_address
   post :review_email_address, to: "login_register_funnel/review_email_address#review", as: :review_email_address
 
   get :email_login, to: "login_register_funnel/email_login#new", as: :new_email_login
