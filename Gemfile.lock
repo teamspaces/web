@@ -69,6 +69,7 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    cliver (0.3.2)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
     concurrent-ruby (1.0.2)
@@ -188,6 +189,10 @@ GEM
       rake (>= 0.8.1)
     pg (0.18.4)
     pkg-config (1.1.7)
+    poltergeist (1.12.0)
+      capybara (~> 2.1)
+      cliver (~> 0.3.1)
+      websocket-driver (>= 0.2.0)
     puma (3.6.0)
     pundit (1.1.0)
       activesupport (>= 3.0.0)
@@ -321,6 +326,7 @@ DEPENDENCIES
   omniauth-slack!
   passenger
   pg
+  poltergeist
   puma
   pundit
   rails (~> 5.0.0)

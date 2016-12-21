@@ -37,8 +37,9 @@ group :test do
   gem "minitest-rails-capybara"
   gem "mocha"
   gem "shoulda-context"
-  gem 'shoulda', '~> 3.5'
-  gem 'shoulda-matchers', '~> 2.0'
+  gem "shoulda", "~> 3.5"
+  gem "shoulda-matchers", "~> 2.0"
+  gem "poltergeist"
 end
 
 group :development, :test do
