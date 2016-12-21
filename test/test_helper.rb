@@ -8,7 +8,7 @@ require 'shoulda/context'
 require 'capybara/poltergeist'
 require "shared/test_helpers/slack/identity"
 
-Capybara.javascript_driver = :poltergeist
+Capybara.default_driver = :poltergeist
 
 class ActiveSupport::TestCase
   fixtures :all
