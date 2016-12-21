@@ -20,43 +20,35 @@ RUN apt-get update -qq && apt-get install -y \
 # Use latest version of nodejs
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
 
-# Install other dependencies
+ENV PHANTOM_JS_VERSION=2.1.1
+ENV PHANTOM_JS_APT_DEPENDENCIES \
+  libicu-dev libfontconfig1-dev libjpeg-dev libfreetype6
+
+ENV RAILS_APT_DEPENDENCIES \
+  imagemagick
+
+ENV NODEJS_APT_DEPENDENCIES \
+  nodejs
+
+# Install apt dependencies
 RUN apt-get update -qq && apt-get install -y \
-    imagemagick \
-    nodejs \
+    ${RAILS_APT_DEPENDENCIES} \
+    ${NODEJS_APT_DEPENDENCIES} \
+    ${PHANTOM_JS_APT_DEPENDENCIES} \
   && rm -rf /var/lib/apt/lists/*
 
-# Install gulp
+# Install PhantomJS
+WORKDIR /tmp
+RUN wget -q http://cnpmjs.org/mirrors/phantomjs/phantomjs-${PHANTOM_JS_VERSION}-linux-x86_64.tar.bz2 -O phantomjs.tar.bz2 \
+  && tar xjf phantomjs.tar.bz2 \
+  && rm -rf phantomjs.tar.bz2 \
+  && mv phantomjs-* phantomjs \
+  && mv /tmp/phantomjs/bin/phantomjs /usr/local/bin/phantomjs \
+  && rm -rf /tmp/phantomjs
+
+# Install Gulp
 RUN npm install gulp -g \
   && npm cache clean
-
-# https://hub.docker.com/r/wernight/phantomjs/~/dockerfile/
-
-RUN apt-get update \
- && apt-get install -y --no-install-recommends \
-        ca-certificates \
-        bzip2 \
-        libfontconfig \
- && apt-get clean \
- && rm -rf /var/lib/apt/lists/*
-
-RUN set -x  \
-    # Install official PhantomJS release
- && apt-get update \
- && apt-get install -y --no-install-recommends \
-        curl \
- && mkdir /tmp/phantomjs \
- && curl -L https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2 \
-        | tar -xj --strip-components=1 -C /tmp/phantomjs \
- && mv /tmp/phantomjs/bin/phantomjs /usr/local/bin \
-    # Install dumb-init (to handle PID 1 correctly).
-    # https://github.com/Yelp/dumb-init
- && curl -Lo /tmp/dumb-init.deb https://github.com/Yelp/dumb-init/releases/download/v1.1.3/dumb-init_1.1.3_amd64.deb \
- && dpkg -i /tmp/dumb-init.deb \
-    # Clean up
- && apt-get purge --auto-remove -y \
-        curl \
- && apt-get clean \
 
 # Setup SSH and remove Host Checking
 RUN ssh-keygen -t rsa -N "" -f /root/.ssh/id_rsa && \
@@ -67,5 +59,3 @@ RUN mkdir $APP_HOME
 WORKDIR $APP_HOME
 
 ADD . $APP_HOME
-
-
