@@ -3,6 +3,7 @@ ulf: &default
   first_name: Ulf
   last_name: Bürgman
   allow_email_login: true
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
 
 sven:
   <<: *default
@@ -29,7 +30,6 @@ without_team:
   first_name: Katharina
   last_name: Gaalen
   email: katharinagaalen@nl.com
-  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
 
 slack_user_milad:
   <<: *default

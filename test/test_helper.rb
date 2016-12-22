@@ -37,6 +37,10 @@ class ActionDispatch::IntegrationTest
     sign_in user
     user
   end
+
+  def submit_form
+    find('input[name="commit"]').click
+  end
 end
 
 
