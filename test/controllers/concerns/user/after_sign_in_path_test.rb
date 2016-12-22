@@ -5,7 +5,7 @@ describe User::AfterSignInPath, :controller do
   context "user without teams" do
     it "redirects to create team" do
       sign_in users(:without_team)
-      get new_user_session_path
+      get choose_login_method_path
 
       assert_redirected_to new_team_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
     end
@@ -19,7 +19,7 @@ describe User::AfterSignInPath, :controller do
     context "on team subdomain" do
       it "redirects to team without authentication token" do
         sign_in user_with_one_team
-        get new_user_session_url(subdomain: team.subdomain)
+        get choose_login_method_url(subdomain: team.subdomain)
 
         assert_redirected_to team_url(subdomain: team.subdomain)
       end
@@ -29,7 +29,7 @@ describe User::AfterSignInPath, :controller do
       it "redirects to team with authentication token" do
         GenerateLoginToken.expects(:call).with(user: user_with_one_team).returns(auth_token)
         sign_in user_with_one_team
-        get new_user_session_path
+        get choose_login_method_path
 
         assert_redirected_to team_url(subdomain: team.subdomain, auth_token: auth_token)
       end
@@ -43,7 +43,7 @@ describe User::AfterSignInPath, :controller do
     context "on team subdomain" do
       it "redirects to team without authentication token" do
         sign_in user_with_several_teams
-        get new_user_session_url(subdomain: team.subdomain)
+        get choose_login_method_url(subdomain: team.subdomain)
 
         assert_redirected_to team_url(subdomain: team.subdomain)
       end
@@ -52,7 +52,7 @@ describe User::AfterSignInPath, :controller do
     context "other than team subdomain" do
       it "redirects to teams" do
         sign_in users(:with_several_teams)
-        get new_user_session_path
+        get choose_login_method_path
 
         assert_redirected_to teams_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
       end

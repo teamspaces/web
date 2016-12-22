@@ -6,7 +6,7 @@ describe User::AfterSignInPath::AcceptTeamInvitation, :controller do
   let(:not_invitee) { users(:lars) }
 
   def set_invitation_cookie(token)
-    get user_session_path, params: { invitation_token: token }
+    get choose_login_method_path, params: { invitation_token: token }
   end
 
   describe "#accept_team_invitation" do

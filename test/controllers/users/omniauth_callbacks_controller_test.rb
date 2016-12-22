@@ -84,9 +84,9 @@ describe Users::OmniauthCallbacksController do
         get user_slack_omniauth_callback_url
       end
 
-      it "redirects to new session path with alert" do
+      it "redirects to landing url with alert" do
         assert_equal I18n.t("users.omniauth_callbacks.failed_login_using_slack"), flash[:alert]
-        assert_redirected_to new_user_session_path
+        assert_redirected_to landing_path
       end
     end
   end
