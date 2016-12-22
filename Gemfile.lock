@@ -319,7 +319,6 @@ DEPENDENCIES
   jwt
   listen
   lograge
-  minitest-rails
   minitest-rails-capybara
   mocha
   mongoid

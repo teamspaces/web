@@ -33,7 +33,6 @@ gem "skylight"
 # gem "redis", "~> 3.0"
 
 group :test do
-  gem "minitest-rails"
   gem "minitest-rails-capybara"
   gem "mocha"
   gem "shoulda-context"
