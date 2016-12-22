@@ -33,8 +33,6 @@ class ActionDispatch::IntegrationTest
     Capybara.default_host = "http://www.example.com"
     Capybara.use_default_driver
     Capybara.always_include_port = false
-    #default_url_options[:host] = nil
-    #default_url_options[:port] = nil
     Capybara.reset_sessions!
   end
 

@@ -15,6 +15,6 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_out_path_for(_resource)
-    landing_path
+    landing_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
   end
 end
