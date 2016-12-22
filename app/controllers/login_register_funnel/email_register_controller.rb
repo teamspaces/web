@@ -3,6 +3,7 @@ class LoginRegisterFunnel::EmailRegisterController < LoginRegisterFunnelControll
 
   def new
     @email_register_form = LoginRegisterFunnel::EmailRegisterForm.new(email: users_reviewed_email_address)
+    @existing_slack_user_with_same_email =  User.find_by(email: users_reviewed_email_address, allow_email_login: false)
   end
 
   def create

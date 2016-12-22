@@ -6,6 +6,12 @@
 
     <div class="card-content">
 
+      <% if @existing_slack_user_with_same_email.present? %>
+        <%= link_to "Login with your Slack Account", user_slack_omniauth_authorize_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], state: :login) %>
+
+        <p>Or</p>
+      <% end %>
+
       <p>Register with your email address: <b><%= @email_register_form.email %></b></p>
 
       <%= form_for(@email_register_form, url: email_register_path) do |f| %>
