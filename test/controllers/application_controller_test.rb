@@ -8,7 +8,7 @@ describe ApplicationController do
   context "not signed in" do
     it "redirects" do
         get spaces_team_url
-        assert_redirected_to new_user_session_path
+        assert_redirected_to landing_url(subdomain:  ENV["DEFAULT_SUBDOMAIN"])
     end
   end
 

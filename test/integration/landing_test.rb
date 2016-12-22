@@ -2,8 +2,10 @@ require "test_helper"
 
 describe "Landing", :integration do
 
-  it "gets home" do
+  it "has links for sign in, create team" do
      visit '/landing'
-     assert_link "Create Team with Slack"
+
+     assert_link "Sign In"
+     assert_link "or create Team"
   end
 end

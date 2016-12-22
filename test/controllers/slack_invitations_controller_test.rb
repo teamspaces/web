@@ -28,7 +28,7 @@ describe SlackInvitationsController do
         get subject_url, params: valid_params
 
         assert_equal I18n.t("invitation.slack.successfully_sent"), flash[:notice]
-        assert_redirected_to invitations_url
+        assert_redirected_to invitations_path
       end
     end
   end

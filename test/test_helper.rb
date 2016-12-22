@@ -7,12 +7,6 @@ require "shoulda/context"
 require "capybara/poltergeist"
 require "shared/test_helpers/slack/identity"
 
-Capybara.configure do |config|
-  config.default_driver = :poltergeist
-  config.app_host = "http://#{ENV["DEFAULT_SUBDOMAIN"]}.lvh.me"
-  config.always_include_port = true
-end
-
 class ActiveSupport::TestCase
   fixtures :all
 end
@@ -25,16 +19,23 @@ class ActionDispatch::IntegrationTest
   include Capybara::DSL
   include Capybara::Assertions
 
-  before(:each) do
-   default_url_options[:host] = "lvh.me"
-   default_url_options[:port] = Capybara.current_session.server.port
+  setup do
+    Capybara.default_driver = :poltergeist
+    Capybara.app_host = "http://#{ENV["DEFAULT_SUBDOMAIN"]}.lvh.me"
+    Capybara.default_host = "#{ENV["DEFAULT_SUBDOMAIN"]}.lvh.me"
+    Capybara.always_include_port = true
   end
 
   # Reset sessions and driver between tests
   # Use super wherever this method is redefined in your individual test classes
   def teardown
-    Capybara.reset_sessions!
+    Capybara.app_host = nil
+    Capybara.default_host = "http://www.example.com"
     Capybara.use_default_driver
+    Capybara.always_include_port = false
+    #default_url_options[:host] = nil
+    #default_url_options[:port] = nil
+    Capybara.reset_sessions!
   end
 
   def sign_in_user

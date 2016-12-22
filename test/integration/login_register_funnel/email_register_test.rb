@@ -1,6 +1,7 @@
 require "test_helper"
 
 describe "Email Register", :integration do
+   let(:url_options) { { domain: "lvh.me", port: Capybara.current_session.server.port } }
 
   def step_through_email_register_funnel_with(user_attributes)
     visit "/"
@@ -40,18 +41,20 @@ describe "Email Register", :integration do
       fill_in("Subdomain", with: "siberiandeer")
       submit_form
 
-      assert current_url.include? team_url(subdomain: "siberiandeer")
+      assert current_url.include? team_url({subdomain: "siberiandeer"}.merge(url_options))
     end
   end
 
   describe "invalid user attributes" do
     let(:invalid_user_attributes) do
-      { email: "anna_moser@gmail.com", password: "secret",
+      { email: "sophia_hausler@gmail.com", password: "secret",
         first_name: nil, last_name: nil }
     end
 
-    it "shows error messages" do
+    it "prevent's registration and shows error messages" do
       step_through_email_register_funnel_with(invalid_user_attributes)
+
+      assert current_url.include? new_email_register_path
 
       assert_text "First name can't be blank"
       assert_text "Last name can't be blank"

@@ -4,6 +4,7 @@ describe "Email Login", :integration do
   let(:email_user) { users(:ulf) }
   let(:user_with_several_teams) { users(:with_several_teams) }
   let(:user_without_team) { users(:without_team) }
+  let(:url_options) { { domain: "lvh.me", port: Capybara.current_session.server.port } }
 
   def step_through_email_login_funnel_with(email, password)
     visit "/"
@@ -30,7 +31,7 @@ describe "Email Login", :integration do
       it "signs user into team subdomain" do
         step_through_email_login_funnel_as(email_user)
 
-        assert current_url.include? team_url(subdomain: email_user.teams.first.subdomain)
+        assert current_url.include? team_url({subdomain: email_user.teams.first.subdomain}.merge(url_options))
       end
     end
 
@@ -41,7 +42,7 @@ describe "Email Login", :integration do
         assert current_url.include? list_teams_path
         click_on("Show", match: :first)
 
-        assert current_url.include? team_url(subdomain: email_user.teams.first.subdomain)
+        assert current_url.include? team_url({subdomain: email_user.teams.first.subdomain}.merge(url_options))
       end
     end
 
@@ -55,7 +56,7 @@ describe "Email Login", :integration do
         fill_in("Subdomain", with: "digitalauction")
         submit_form
 
-        assert current_url.include? team_url(subdomain: "digitalauction")
+        assert current_url.include? team_url({subdomain: "digitalauction"}.merge(url_options))
       end
     end
   end
