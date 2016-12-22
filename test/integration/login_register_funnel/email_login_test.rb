@@ -6,9 +6,14 @@ describe "Email Login", :integration do
   let(:user_without_team) { users(:without_team) }
   let(:url_options) { { domain: "lvh.me", port: Capybara.current_session.server.port } }
 
-  def step_through_email_login_funnel_with(email, password)
+  def step_through_email_login_funnel_with(email, password, create_team)
     visit "/"
-    click_on "Sign In"
+
+    if create_team
+      click_on "or create Team"
+    else
+      click_on "Sign In"
+    end
 
     assert current_url.include? choose_login_method_path
     click_on "Sign in with email"
@@ -23,8 +28,8 @@ describe "Email Login", :integration do
   end
 
   describe "valid user authentication" do
-    def step_through_email_login_funnel_as(user)
-      step_through_email_login_funnel_with(user.email, "password")
+    def step_through_email_login_funnel_as(user, create_team=false)
+      step_through_email_login_funnel_with(user.email, "password", create_team)
     end
 
     context "user has one team" do
@@ -57,6 +62,21 @@ describe "Email Login", :integration do
         submit_form
 
         assert current_url.include? team_url({subdomain: "digitalauction"}.merge(url_options))
+      end
+    end
+
+    context "user clicked on create" do
+      it "let's user create a team" do
+        create_team = true
+        step_through_email_login_funnel_as(user_with_several_teams, create_team)
+
+        assert current_url.include? new_team_ree_path
+
+        fill_in("Name", with: "Boston Law")
+        fill_in("Subdomain", with: "bostonlaw")
+        submit_form
+
+        assert current_url.include? team_url({subdomain: "bostonlaw"}.merge(url_options))
       end
     end
   end

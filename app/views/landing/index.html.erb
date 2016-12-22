@@ -2,8 +2,8 @@
 
 <% if !user_signed_in? %>
 
-  <p><%= link_to "Sign In", choose_login_method_path(after_sign_in_action: :sign_in) %></p>
+  <p><%= link_to "Sign In", choose_login_method_path %></p>
 
-  <%= link_to "or create Team", choose_login_method_path(after_sign_in_action: :create_team) %>
+  <%= link_to "or create Team", choose_login_method_path(create_team: true) %>
 
 <% end %>
