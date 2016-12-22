@@ -1,11 +1,10 @@
-ENV['RAILS_ENV'] ||= 'test'
-require File.expand_path('../../config/environment', __FILE__)
-require 'rails/test_help'
-require 'minitest/rails'
-require 'minitest/rails/capybara'
-require 'mocha/mini_test'
-require 'shoulda/context'
-require 'capybara/poltergeist'
+ENV["RAILS_ENV"] ||= "test"
+require File.expand_path("../../config/environment", __FILE__)
+require "rails/test_help"
+require "minitest/rails/capybara"
+require "mocha/mini_test"
+require "shoulda/context"
+require "capybara/poltergeist"
 require "shared/test_helpers/slack/identity"
 
 Capybara.configure do |config|
@@ -23,8 +22,8 @@ end
 
 class ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
-  # Make the Capybara DSL available in all integration tests
   include Capybara::DSL
+  include Capybara::Assertions
 
   # Reset sessions and driver between tests
   # Use super wherever this method is redefined in your individual test classes
