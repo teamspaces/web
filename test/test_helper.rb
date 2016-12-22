@@ -10,7 +10,7 @@ require "shared/test_helpers/slack/identity"
 
 Capybara.configure do |config|
   config.default_driver = :poltergeist
-  config.app_host = "http://lvh.me"
+  config.app_host = "http://#{ENV["DEFAULT_SUBDOMAIN"]}.lvh.me"
   config.always_include_port = true
 end
 
