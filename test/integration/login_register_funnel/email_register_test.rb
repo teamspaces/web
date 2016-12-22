@@ -4,6 +4,11 @@ describe "Email Register", :integration do
    let(:url_options) { { domain: "lvh.me", port: Capybara.current_session.server.port } }
 
   def step_through_email_register_funnel_with(user_attributes)
+    proceed_to_register_form(user_attributes)
+    fill_in_register_form(user_attributes)
+  end
+
+  def proceed_to_register_form(user_attributes)
     visit "/"
     click_on "or create Team"
 
@@ -13,7 +18,9 @@ describe "Email Register", :integration do
     assert current_url.include? new_review_email_address_path
     fill_in("Email", with: user_attributes[:email])
     click_on "This is my email"
+  end
 
+  def fill_in_register_form(user_attributes)
     assert current_url.include? new_email_register_path
 
     fill_in("First name", with: user_attributes[:first_name])
@@ -58,6 +65,16 @@ describe "Email Register", :integration do
 
       assert_text "First name can't be blank"
       assert_text "Last name can't be blank"
+    end
+  end
+
+  describe "email already exists for slack account" do
+    let(:slack_user) { users(:slack_user_milad) }
+
+    it "shows the option to sign in with slack" do
+      proceed_to_register_form({email: slack_user.email})
+
+      assert_link "Login with your Slack Account"
     end
   end
 end
