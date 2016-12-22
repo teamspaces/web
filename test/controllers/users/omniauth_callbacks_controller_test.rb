@@ -27,7 +27,6 @@ describe Users::OmniauthCallbacksController do
     let(:previous_url) { "team.spaces.is" }
     before(:each) do
       stub_omniauth_params_with({team_id: team.id}.stringify_keys)
-      subject.any_instance.stubs(:current_user).returns(team.users.first)
       subject.any_instance.stubs(:previous_url).returns(previous_url)
       stub_slack_identity_with(TestHelpers::Slack.identity(:existing_user))
     end
@@ -69,12 +68,8 @@ describe Users::OmniauthCallbacksController do
         get user_slack_omniauth_callback_url
       end
 
-      it "signs in user" do
-        assert_equal slack_user, @controller.current_user
-      end
-
-      it "redirects to after_sign_in_path" do
-        assert_redirected_to(@controller.after_sign_in_path_for(slack_user))
+      it "redirects to sign_in_path_for user" do
+        assert_redirected_to(@controller.sign_in_path_for(slack_user))
       end
     end
 
@@ -84,9 +79,9 @@ describe Users::OmniauthCallbacksController do
         get user_slack_omniauth_callback_url
       end
 
-      it "redirects to new session path with alert" do
+      it "redirects to slack register url with alert" do
         assert_equal I18n.t("users.omniauth_callbacks.failed_login_using_slack"), flash[:alert]
-        assert_redirected_to new_user_session_path
+        assert_redirected_to slack_register_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
       end
     end
   end
@@ -101,13 +96,9 @@ describe Users::OmniauthCallbacksController do
         get user_slack_omniauth_callback_url
       end
 
-      it "signs in user" do
-        assert_equal slack_user, @controller.current_user
-      end
-
       it "redirects to after_sign_in_path, with alert" do
         assert_equal I18n.t("users.omniauth_callbacks.slack.register_failed_as_user_already_exists"), flash[:alert]
-        assert_redirected_to(@controller.after_sign_in_path_for(slack_user))
+        assert_redirected_to(@controller.sign_in_path_for(slack_user))
       end
     end
 
@@ -122,16 +113,10 @@ describe Users::OmniauthCallbacksController do
         end
       end
 
-      it "signs in user" do
-        get user_slack_omniauth_callback_url
-
-        assert @controller.current_user
-      end
-
       it "redirects to after_sign_in_path for user" do
         get user_slack_omniauth_callback_url
 
-        assert_redirected_to(@controller.after_sign_in_path_for(@controller.current_user))
+        assert_redirected_to(@controller.sign_in_path_for(User.last))
       end
     end
   end
