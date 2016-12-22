@@ -20,13 +20,33 @@ RUN apt-get update -qq && apt-get install -y \
 # Use latest version of nodejs
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
 
-# Install other dependencies
+ENV PHANTOM_JS_VERSION=2.1.1
+ENV PHANTOM_JS_APT_DEPENDENCIES \
+  libicu-dev libfontconfig1-dev libjpeg-dev libfreetype6
+
+ENV RAILS_APT_DEPENDENCIES \
+  imagemagick
+
+ENV NODEJS_APT_DEPENDENCIES \
+  nodejs
+
+# Install apt dependencies
 RUN apt-get update -qq && apt-get install -y \
-    imagemagick \
-    nodejs \
+    ${RAILS_APT_DEPENDENCIES} \
+    ${NODEJS_APT_DEPENDENCIES} \
+    ${PHANTOM_JS_APT_DEPENDENCIES} \
   && rm -rf /var/lib/apt/lists/*
 
-# Install gulp
+# Install PhantomJS
+WORKDIR /tmp
+RUN wget -q http://cnpmjs.org/mirrors/phantomjs/phantomjs-${PHANTOM_JS_VERSION}-linux-x86_64.tar.bz2 -O phantomjs.tar.bz2 \
+  && tar xjf phantomjs.tar.bz2 \
+  && rm -rf phantomjs.tar.bz2 \
+  && mv phantomjs-* phantomjs \
+  && mv /tmp/phantomjs/bin/phantomjs /usr/local/bin/phantomjs \
+  && rm -rf /tmp/phantomjs
+
+# Install Gulp
 RUN npm install gulp -g \
   && npm cache clean
 
