@@ -8,7 +8,11 @@ require 'shoulda/context'
 require 'capybara/poltergeist'
 require "shared/test_helpers/slack/identity"
 
-Capybara.default_driver = :poltergeist
+Capybara.configure do |config|
+  config.default_driver = :poltergeist
+  config.app_host = "http://lvh.me"
+  config.always_include_port = true
+end
 
 class ActiveSupport::TestCase
   fixtures :all
