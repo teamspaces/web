@@ -30,7 +30,7 @@ describe "Email Login", :integration do
       it "signs user into team subdomain" do
         step_through_email_login_funnel_as(email_user)
 
-        assert current_url.include? team_url(subdomain: email_user.teams.first.subdomain, host: "lvh.me", port: Capybara.current_session.server.port)
+        assert current_url.include? team_url(subdomain: email_user.teams.first.subdomain)
       end
     end
 
@@ -41,7 +41,7 @@ describe "Email Login", :integration do
         assert current_url.include? list_teams_path
         click_on("Show", match: :first)
 
-        assert current_url.include? team_url(subdomain: email_user.teams.first.subdomain, host: "lvh.me", port: Capybara.current_session.server.port)
+        assert current_url.include? team_url(subdomain: email_user.teams.first.subdomain)
       end
     end
 
@@ -55,7 +55,7 @@ describe "Email Login", :integration do
         fill_in("Subdomain", with: "digitalauction")
         submit_form
 
-        assert current_url.include? team_url(subdomain: "digitalauction", host: "lvh.me", port: Capybara.current_session.server.port)
+        assert current_url.include? team_url(subdomain: "digitalauction")
       end
     end
   end
