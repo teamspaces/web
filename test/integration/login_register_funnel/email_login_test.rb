@@ -84,7 +84,7 @@ describe "Email Login", :integration do
   describe "invalid user authentication" do
     context "provided wrong password" do
       it "shows error messages" do
-        step_through_email_login_funnel_with(email_user.email, "invalid_password")
+        step_through_email_login_funnel_with(email_user.email, "invalid_password", false)
 
         assert current_url.include? new_email_login_path
         assert_text "translation missing: en.users.login.errors.wrong_password"

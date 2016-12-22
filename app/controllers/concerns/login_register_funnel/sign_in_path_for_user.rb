@@ -1,4 +1,5 @@
 module LoginRegisterFunnel::SignInPathForUser
+  include LoginRegisterFunnel::SharedUserInformation
   extend ActiveSupport::Concern
 
   def sign_in_path_for(user)

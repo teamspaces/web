@@ -44,10 +44,10 @@ describe LoginRegisterFunnel::TeamsController do
         assert_nil @controller.current_user
       end
 
-      it "redirects to user sign in path" do
+      it "redirects user to team path" do
         post_valid_team_attributes
 
-        assert_redirected_to @controller.sign_in_path_for(user)
+        assert response.redirect_url.include? team_url(subdomain: "baincompany")
       end
     end
 
