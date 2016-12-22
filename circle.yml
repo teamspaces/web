@@ -1,4 +1,6 @@
 machine:
+  pre:
+    - sudo curl --output /usr/local/bin/phantomjs https://s3.amazonaws.com/circle-downloads/phantomjs-2.1.1
   environment:
     ACTION_MAILER_HOST: 'www.spaces.is'
     ACTION_MAILER_PORT: 5510
