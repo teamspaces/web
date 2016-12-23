@@ -44,7 +44,7 @@ describe "Email Login", :integration do
       it "let's user choose team" do
         step_through_email_login_funnel_as(user_with_several_teams)
 
-        assert current_url.include? list_teams_path
+        assert current_url.include? login_register_funnel_list_teams_path
         click_on("Show", match: :first)
 
         assert current_url.include? team_url({subdomain: email_user.teams.first.subdomain}.merge(url_options))

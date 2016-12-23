@@ -12,7 +12,7 @@ module LoginRegisterFunnel::SignInPathForUser
       when 1
         team_url(subdomain: user.teams.first.subdomain, auth_token: GenerateLoginToken.call(user: user))
       else
-        list_teams_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], auth_token: GenerateLoginToken.call(user: user))
+        login_register_funnel_list_teams_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], auth_token: GenerateLoginToken.call(user: user))
       end
     end
   end

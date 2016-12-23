@@ -81,7 +81,7 @@ describe LoginRegisterFunnel::TeamsController do
   describe "#index" do
     before(:each) do
       sign_in(user)
-      get list_teams_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
+      get login_register_funnel_list_teams_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
     end
 
     it { assert_response :success }
