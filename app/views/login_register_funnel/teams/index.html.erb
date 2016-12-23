@@ -18,7 +18,7 @@
           <% @teams.each do |team| %>
             <tr>
               <td><%= team.name %></td>
-              <td><%= link_to 'Show', show_team_ree_path(team.subdomain) %></td>
+              <td><%= link_to 'Show', show_team_subdomain_path(team.subdomain) %></td>
             </tr>
           <% end %>
         </tbody>

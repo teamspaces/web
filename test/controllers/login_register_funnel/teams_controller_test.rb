@@ -7,7 +7,7 @@ describe LoginRegisterFunnel::TeamsController do
     context "user signed in" do
       it "works" do
         sign_in(user)
-        get new_team_ree_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
+        get login_register_funnel_new_team_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
 
         assert_response :success
       end
@@ -15,7 +15,7 @@ describe LoginRegisterFunnel::TeamsController do
 
     context "user not signed in" do
       it "redirects" do
-        get new_team_ree_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
+        get login_register_funnel_new_team_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
 
         assert_redirected_to landing_path
       end
@@ -29,7 +29,7 @@ describe LoginRegisterFunnel::TeamsController do
       def post_valid_team_attributes
         valid_team_attributes = { create_team_for_user_form: { name: "bain ltd", subdomain: "baincompany" } }
 
-        post create_team_ree_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]), params: valid_team_attributes
+        post login_register_funnel_create_team_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]), params: valid_team_attributes
       end
 
       it "creates team" do
@@ -55,7 +55,7 @@ describe LoginRegisterFunnel::TeamsController do
       def post_invalid_team_attributes
         invalid_team_attributes = { create_team_for_user_form: { name: "Turkey Travel", subdomain: "-" } }
 
-        post create_team_ree_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]), params: invalid_team_attributes
+        post login_register_funnel_create_team_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]), params: invalid_team_attributes
       end
 
       it "renders new, includes error messages" do
@@ -72,7 +72,7 @@ describe LoginRegisterFunnel::TeamsController do
 
     it "redirects and signs user into team subdomain" do
       sign_in(user)
-      get show_team_ree_url(team_subomain: team_subdomain, subdomain: ENV["DEFAULT_SUBDOMAIN"])
+      get show_team_subdomain_url(team_subomain: team_subdomain, subdomain: ENV["DEFAULT_SUBDOMAIN"])
 
       assert response.redirect_url.include?(team_url(subdomain: team_subdomain))
     end

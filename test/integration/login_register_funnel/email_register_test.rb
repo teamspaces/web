@@ -42,7 +42,7 @@ describe "Email Register", :integration do
         step_through_email_register_funnel_with(valid_user_attributes)
       end
 
-      assert current_url.include? new_team_ree_path
+      assert current_url.include? login_register_funnel_new_team_path
 
       fill_in("Name", with: "Siberian Deer")
       fill_in("Subdomain", with: "siberiandeer")
