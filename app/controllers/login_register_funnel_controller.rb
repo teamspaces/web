@@ -9,6 +9,15 @@ class LoginRegisterFunnelController < ApplicationController
   private
 
     def redirect_if_user_already_signed_in
-      #TODO
+      if current_user
+        user = current_user
+
+        sign_out_user_from_default_subdomain(user)
+        return redirect_to sign_in_path_for(user)
+      end
+    end
+
+    def sign_out_user_from_default_subdomain(user)
+      sign_out(user)
     end
 end
