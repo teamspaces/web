@@ -19,7 +19,7 @@
           <% @teams.each do |team| %>
             <tr>
               <td><%= team.name %></td>
-              <td><%= link_to 'Show', team_url(subdomain: team.subdomain) %></td>
+              <td><%= link_to 'Show', sign_in_into_team_path(team_subdomain: team.subdomain), target: "_blank" %></td>
               <td><%= link_to 'Edit', edit_team_url(subdomain: team.subdomain) %></td>
               <td><%= link_to 'Destroy', team_url(subdomain: team.subdomain), method: :delete, data: { confirm: 'Are you sure?' } %></td>
             </tr>
@@ -30,7 +30,6 @@
       <%= link_to 'New Team', new_team_path, class: 'button button-primary' %>
 
       <div class="card-actions">
-        
       </div>
     </div>
   </div>
