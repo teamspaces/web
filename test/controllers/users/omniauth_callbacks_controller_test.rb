@@ -122,18 +122,18 @@ describe Users::OmniauthCallbacksController do
   end
 
   describe "accept invitation" do
-    before(:each) { stub_omniauth_state_param_with("register") }
     let(:slack_user) { users(:slack_user_milad) }
     let(:slack_user_invitation) { invitations(:slack_user_milad_invitation) }
 
     before(:each) do
+      stub_omniauth_state_param_with("register")
       stub_slack_identity_with(TestHelpers::Slack.identity(:existing_user))
       Users::OmniauthCallbacksController.any_instance
                                         .stubs(:invitation_token_cookie)
                                         .returns(slack_user_invitation.token)
     end
 
-    it "user get's added as team member to host team" do
+    it "adds user as team member to host team" do
       get user_slack_omniauth_callback_url
 
       assert_includes slack_user.teams, slack_user_invitation.team
