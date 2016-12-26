@@ -12,9 +12,13 @@ Rails.application.routes.draw do
     get 'slack_invitation', to: 'slack_invitations#create', as: :create_slack_invitation
 
     get :edit, to: 'teams#edit', as: :edit_team
-    get '', to: 'teams#show', as: :team
     patch '', to: 'teams#update'
     delete '', to: 'teams#destroy'
+
+    resources :teams, only: [:show, :update, :destroy]
+
+    # get '', to: 'teams#show', as: :team
+    get '', to: "root_subdomain#index", as: :root_subdomain
   end
 
   resources :teams, only: [:index, :new, :create]

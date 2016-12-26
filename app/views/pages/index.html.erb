@@ -1,24 +1,6 @@
 <% content_for :body_class, 'body-space' %>
 
-<aside class="space-sidebar">
-  <h3><%= link_to @space.name, space_pages_path(@space) %></h3>
-
-  <ul>
-    <li class="space-sidebar-active">
-      <a href="#">Test Page</a>
-    </li>
-
-    <% @pages.each do |page| %>
-    <li>
-      <%= link_to page.title, page %>
-    </li>
-    <% end %>
-
-    <li>
-      <%= link_to '+ Add Page', new_space_page_path(@space) %>
-    </li>
-  </ul>
-</aside>
+<%= render 'sidebar', space: @space, pages: @pages %>
 
 <main class="space-page">
   <%= notice %>
