@@ -18,7 +18,7 @@ module LoginRegisterFunnel::UserAcceptInvitationPath
         sign_in_path_for(user)
       end
     else
-      t("invitation_does_not_exist")
+      flash[:notice] = t("invitation_does_not_exist")
       sign_in_path_for(user)
     end
   end
