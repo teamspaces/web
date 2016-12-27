@@ -29,7 +29,7 @@ en:
 
   invitation:
     errors:
-      does_not_exist: Invitation does not exists
+      does_not_exist: Invitation does not exist
       already_used: Invitation was already used
     slack:
       text: "Hi %{invitee_first_name}, %{host_first_name} invited you to collaborate on Spaces <%{url}|Join>"

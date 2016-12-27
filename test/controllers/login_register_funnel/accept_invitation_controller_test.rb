@@ -6,7 +6,7 @@ describe LoginRegisterFunnel::AcceptInvitationController do
     describe "valid invitation" do
       let(:valid_invitation) { invitations(:jonas_at_spaces) }
 
-      it "sets invitation token cookie" do
+      it "sets invitation-token cookie" do
         get accept_invitation_url(valid_invitation.token, subdomain: ENV["DEFAULT_SUBDOMAIN"])
 
         assert_equal valid_invitation.token, @controller.invitation_token_cookie
@@ -61,7 +61,7 @@ describe LoginRegisterFunnel::AcceptInvitationController do
           get accept_invitation_url(invalid_invitation_token, subdomain: ENV["DEFAULT_SUBDOMAIN"])
 
           assert_redirected_to landing_path
-          assert_equal flash[:notice], "Invitation does not exists"
+          assert_equal flash[:notice], "Invitation does not exist"
         end
       end
 
