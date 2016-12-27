@@ -12,7 +12,7 @@ describe LoginRegisterFunnel::EmailRegisterController do
 
   describe "#new" do
     context "user completed review email address step" do
-      it "works" do
+      it "responds successfully" do
         complete_preceding_email_review_step("email@spaces.is")
         get new_email_register_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
 
@@ -47,7 +47,7 @@ describe LoginRegisterFunnel::EmailRegisterController do
         end
       end
 
-      it "redirects to sign in path" do
+      it "redirects user to sign in path" do
         post_valid_user_attributes
 
         assert_redirected_to @controller.sign_in_path_for(User.last)

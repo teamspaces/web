@@ -5,7 +5,7 @@ describe LoginRegisterFunnel::TeamsController do
 
   describe "#new" do
     context "user signed in" do
-      it "works" do
+      it "responds successfully" do
         sign_in(user)
         get login_register_funnel_new_team_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
 
@@ -14,7 +14,7 @@ describe LoginRegisterFunnel::TeamsController do
     end
 
     context "user not signed in" do
-      it "redirects" do
+      it "redirects to landing path" do
         get login_register_funnel_new_team_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
 
         assert_redirected_to landing_path
@@ -79,11 +79,11 @@ describe LoginRegisterFunnel::TeamsController do
   end
 
   describe "#index" do
-    before(:each) do
+    it "responds successfully" do
       sign_in(user)
       get login_register_funnel_list_teams_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
-    end
 
-    it { assert_response :success }
+      assert_response :success
+    end
   end
 end

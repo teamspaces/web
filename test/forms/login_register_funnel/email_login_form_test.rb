@@ -12,11 +12,13 @@ describe LoginRegisterFunnel::EmailLoginForm, :model do
       let(:email_user) { users(:without_team) }
 
       context "valid" do
-        it { assert subject.new(email: email_user.email, password: "password").valid? }
+        it "returns true" do
+          assert subject.new(email: email_user.email, password: "password").valid?
+        end
       end
 
       context "invalid" do
-        it "includes error message" do
+        it "returns false, includes error message" do
           form = subject.new(email: email_user.email, password: "wrong")
 
           refute form.valid?

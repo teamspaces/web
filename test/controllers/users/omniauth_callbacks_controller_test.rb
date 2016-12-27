@@ -52,7 +52,7 @@ describe Users::OmniauthCallbacksController do
       end
 
       it "redirects back with alert" do
-        assert_equal I18n.t("users.omniauth_callbacks.slack_button.failed_to_save_team_authentication"), flash[:alert]
+        assert_equal "Failed to connect team to Slack. Please try again", flash[:alert]
         assert_redirected_to previous_url
       end
     end
@@ -80,7 +80,7 @@ describe Users::OmniauthCallbacksController do
       end
 
       it "redirects to slack register url with alert" do
-        assert_equal I18n.t("users.omniauth_callbacks.failed_login_using_slack"), flash[:alert]
+        assert_equal "Login failed. Please register first with your Slack Account", flash[:alert]
         assert_redirected_to slack_register_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
       end
     end
@@ -91,13 +91,11 @@ describe Users::OmniauthCallbacksController do
 
     describe "user already exists" do
       let(:slack_user) { users(:slack_user_milad) }
-      before(:each) do
+
+      it "redirects to sign_in_path for user" do
         stub_slack_identity_with(TestHelpers::Slack.identity(:existing_user))
         get user_slack_omniauth_callback_url
-      end
 
-      it "redirects to after_sign_in_path, with alert" do
-        assert_equal I18n.t("users.omniauth_callbacks.slack.register_failed_as_user_already_exists"), flash[:alert]
         assert_redirected_to(@controller.sign_in_path_for(slack_user))
       end
     end

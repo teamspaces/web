@@ -12,7 +12,7 @@ describe LoginRegisterFunnel::EmailLoginController do
 
   describe "#new" do
     context "user completed review email address step" do
-      it "works" do
+      it "responds successfully" do
         complete_preceding_email_review_step("email@spaces.is")
         get new_email_login_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
 
@@ -46,7 +46,7 @@ describe LoginRegisterFunnel::EmailLoginController do
         post email_login_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]), params: build_params({ email: email_user.email, password: "wrong" })
 
         errors = @controller.instance_variable_get(:@email_login_form).errors.full_messages
-        assert_includes errors, I18n.t("users.login.errors.wrong_password")
+        assert_includes errors, "The password you have entered is invalid"
         assert_response :success
       end
     end

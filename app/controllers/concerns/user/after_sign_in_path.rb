@@ -17,7 +17,7 @@ module User::AfterSignInPath
       end
     else
       if request_with_team_subdomain?
-        team_path
+        root_subdomain_path
       else
         teams_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
       end

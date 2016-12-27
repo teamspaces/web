@@ -25,12 +25,6 @@ with_several_teams:
  first_name: Maja
  last_name: Lundgren
 
-without_team:
-  <<: *default
-  first_name: Katharina
-  last_name: Gaalen
-  email: katharinagaalen@nl.com
-
 slack_user_milad:
   <<: *default
   first_name: Milad
@@ -42,3 +36,28 @@ slack_user_emil:
   first_name: Emil
   last_name: Danesi
   allow_email_login: false
+
+without_team:
+  <<: *default
+  first_name: Katharina
+  last_name: Gaalen
+  email: katharinagaalen@nl.com
+
+without_space:
+  <<: *default
+  first_name: Hassan
+  last_name: Without Space
+  email: hassan.without-space@spaces.is
+
+with_one_space:
+  <<: *default
+  first_name: Erik
+  last_name: With One Space
+  email: erik.with-one-space@spaces.is
+
+with_two_spaces:
+  <<: *default
+  first_name: Madeleine
+  last_name: With Two Spaces
+  email: madeleien.with-two-spaces@spaces.is
+
