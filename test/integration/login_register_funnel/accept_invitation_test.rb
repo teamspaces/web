@@ -1,7 +1,7 @@
 require "test_helper"
 
 describe "Accept Invitation", :integration do
-  let(:url_options) { { domain: "lvh.me", port: Capybara.current_session.server.port } }
+  include TestHelpers::SubdomainHelper
 
   describe "slack invitation" do
     let(:slack_invitation) { invitations(:slack_user_spaces_invitation) }
