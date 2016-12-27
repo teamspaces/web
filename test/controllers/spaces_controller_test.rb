@@ -14,7 +14,7 @@ describe SpacesController do
   # TODO: Test all methods
   describe "all other methods" do
     it "need testing" do
-      # skip
+      skip
     end
   end
 end
