@@ -3,8 +3,10 @@ require 'test_helper'
 describe User::AfterSignInPath, :controller do
 
   describe "user without teams" do
+    let(:user_without_team) { users(:without_team) }
+
     it "redirects to create team" do
-      sign_in users(:without_team)
+      sign_in user_without_team
       get new_user_session_path
 
       assert_redirected_to new_team_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
