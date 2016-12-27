@@ -2,12 +2,13 @@ machine:
   pre:
     - sudo curl --output /usr/local/bin/phantomjs https://s3.amazonaws.com/circle-downloads/phantomjs-2.1.1
   environment:
-    ACTION_MAILER_HOST: 'www.spaces.is'
+    CI: "true"
+    ACTION_MAILER_HOST: "www.spaces.is"
     ACTION_MAILER_PORT: 5510
-    ACTION_MAILER_DEFAULT_FROM: '[DEV] <Team Spaces> hello@spaces.is'
-    COLLAB_SERVICE_JWT_SECRET: 'secret-jwt-token-123'
-    USER_AUTH_JWT_SECRET: 'user-auth-jwt-token-123'
-    DEFAULT_SUBDOMAIN: 'what'
+    ACTION_MAILER_DEFAULT_FROM: "[DEV] Team Spaces <hello@spaces.is>"
+    COLLAB_SERVICE_JWT_SECRET: "secret-jwt-token-123"
+    USER_AUTH_JWT_SECRET: "user-auth-jwt-token-123"
+    DEFAULT_SUBDOMAIN: "what"
 
 deployment:
   production:

@@ -1,6 +1,6 @@
 require "database_cleaner"
 
-DatabaseCleaner[:active_record].strategy = :transaction
+DatabaseCleaner[:active_record].strategy = ENV["CI"] ? :truncation : :transaction
 DatabaseCleaner[:mongoid].strategy = :truncation
 
 class ActiveRecord::Base
