@@ -14,6 +14,8 @@ require "support/omniauth"
 
 require "shared/test_helpers/slack/identity"
 
+require "test_helpers/subdomain_helper"
+
 class ActiveSupport::TestCase
   fixtures :all
 end

@@ -1,10 +1,11 @@
 require "test_helper"
 
 describe "Email Login", :integration do
+  include TestHelpers::SubdomainHelper
+
   let(:email_user) { users(:ulf) }
   let(:user_with_several_teams) { users(:with_several_teams) }
   let(:user_without_team) { users(:without_team) }
-  let(:url_options) { { domain: "lvh.me", port: Capybara.current_session.server.port } }
 
   def step_through_email_login_funnel_with(email, password, create_team)
     visit "/"

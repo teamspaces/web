@@ -1,7 +1,7 @@
 require "test_helper"
 
 describe "Email Register", :integration do
-   let(:url_options) { { domain: "lvh.me", port: Capybara.current_session.server.port } }
+  include TestHelpers::SubdomainHelper
 
   def step_through_email_register_funnel_with(user_attributes)
     proceed_to_register_form(user_attributes)
