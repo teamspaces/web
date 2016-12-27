@@ -8,41 +8,57 @@ describe InvitationDecorator, :model do
 
   describe "#slack_invitation?" do
     context "slack_invitation" do
-      it { assert slack_invitation.slack_invitation? }
+      it "returns true" do
+        assert_equal true, slack_invitation.slack_invitation?
+      end
     end
 
     context "email_invitation" do
-      it { refute email_invitation.slack_invitation? }
+      it "returns false" do
+        assert_equal false, email_invitation.slack_invitation?
+      end
     end
   end
 
   describe "#email_invitation?" do
     context "email_invitation" do
-      it { assert email_invitation.email_invitation? }
+      it "returns true" do
+        assert_equal true, email_invitation.email_invitation?
+      end
     end
 
     context "slack_invitation" do
-      it { refute slack_invitation.email_invitation? }
+      it "returns false" do
+        assert_equal false, slack_invitation.email_invitation?
+      end
     end
   end
 
   describe "#already_accepted?" do
     context "accepted invitation" do
-      it { assert accepted_invitation.already_accepted? }
+      it "returns true" do
+        assert_equal true, accepted_invitation.already_accepted?
+      end
     end
 
     context "open invitation" do
-      it { refute email_invitation.already_accepted? }
+      it "returns false" do
+        assert_equal false, email_invitation.already_accepted?
+      end
     end
   end
 
   describe "#accepting_user_is_already_registered_using_email?" do
     context "accepting user is already registered using email" do
-      it { assert email_invitation.accepting_user_is_already_registered_using_email? }
+      it "returns true" do
+        assert_equal true, email_invitation.accepting_user_is_already_registered_using_email?
+      end
     end
 
     context "accepting user is not yet registered using email" do
-      it { refute slack_invitation.accepting_user_is_already_registered_using_email? }
+      it "returns false" do
+        assert_equal false, slack_invitation.accepting_user_is_already_registered_using_email?
+      end
     end
   end
 end

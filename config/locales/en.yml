@@ -28,6 +28,9 @@ en:
       does_not_match_invited_email: doesn't match invited email
 
   invitation:
+    errors:
+      does_not_exist: Invitation does not exists
+      already_used: Invitation was already used
     slack:
       text: "Hi %{invitee_first_name}, %{host_first_name} invited you to collaborate on Spaces <%{url}|Join>"
       successfully_sent: Slack Invitation was successfully sent
