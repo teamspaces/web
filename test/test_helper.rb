@@ -2,26 +2,17 @@ ENV["RAILS_ENV"] ||= "test"
 require File.expand_path("../../config/environment", __FILE__)
 
 require "rails/test_help"
-require "minitest/reporters"
 require "minitest/rails/capybara"
 require "mocha/mini_test"
 require "shoulda/context"
-require "capybara/poltergeist"
-require "database_cleaner"
-require "shared/test_helpers/slack/identity"
 
+require "support/minitest_reporters"
+require "support/poltergeist"
 require "support/subdomains"
+require "support/database_cleaner"
+require "support/omniauth"
 
-Minitest::Reporters.use!
-
-Capybara.configure do |config|
-  config.default_driver = :poltergeist
-  config.javascript_driver = :poltergeist
-  config.default_max_wait_time = 10
-end
-
-DatabaseCleaner[:active_record].strategy = :truncation
-DatabaseCleaner[:mongoid].strategy = :truncation
+require "shared/test_helpers/slack/identity"
 
 class ActiveSupport::TestCase
   fixtures :all
@@ -46,7 +37,3 @@ class ActionDispatch::IntegrationTest
     DatabaseCleaner.clean
   end
 end
-
-# Fake OmniAuth requests
-# https://github.com/intridea/omniauth/wiki/Integration-Testing
-OmniAuth.config.test_mode = true
