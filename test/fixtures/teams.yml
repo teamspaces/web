@@ -5,3 +5,15 @@ spaces:
 power_rangers:
   name: Power Rangers
   subdomain: power
+
+without_space:
+  name: Without Space
+  subdomain: without-space
+
+with_one_space:
+  name: With One Space
+  subdomain: with-one-space
+
+with_two_spaces:
+  name: With Two Spaces
+  subdomain: with-two-spaces

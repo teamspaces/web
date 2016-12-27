@@ -5,3 +5,15 @@ spaces:
 power_rangers:
   team: power_rangers
   name: Developers
+
+with_one_space:
+  team: with_one_space
+  name: With One Space
+
+with_two_spaces_1:
+  team: with_two_spaces
+  name: With Two Spaces 1
+
+with_two_spaces_2:
+  team: with_two_spaces
+  name: With Two Spaces 2
