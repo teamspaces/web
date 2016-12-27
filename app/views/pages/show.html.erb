@@ -1,24 +1,4 @@
 <% content_for :body_class, 'body-space' %>
-
 <%= render 'sidebar', space: @page.space, pages: @page.space.pages %>
-
-<main class="space-page">
-  <%= notice %>
-
-  <h1><%= @page.title %></h1>
-  <%= sanitize @page.contents %>
-</main>
-
-<ul class="space-actions">
-  <li class="space-actions-members">
-    <a href="#">Members</a>
-  </li>
-
-  <li class="space-actions-edit">
-    <%= link_to 'Edit Space', edit_page_path(@page) %>
-  </li>
-
-  <li class="space-actions-share">
-    <a href="#">Share</a>
-  </li>
-</ul>
+<%= render 'page_contents', page: @page, notice: notice %>
+<%= render 'actions', page: @page %>
