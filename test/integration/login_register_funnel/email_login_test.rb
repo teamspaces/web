@@ -33,7 +33,7 @@ describe "Email Login", :integration do
       step_through_email_login_funnel_with(user.email, "password", create_team)
     end
 
-    context "user has one team" do
+    describe "user has one team" do
       it "signs user into team subdomain" do
         step_through_email_login_funnel_as(email_user)
 
@@ -41,7 +41,7 @@ describe "Email Login", :integration do
       end
     end
 
-    context "user has several teams" do
+    describe "user has several teams" do
       it "let's user choose team, and redirects to this team" do
         step_through_email_login_funnel_as(user_with_several_teams)
 
@@ -52,7 +52,7 @@ describe "Email Login", :integration do
       end
     end
 
-    context "user has no teams" do
+    describe "user has no teams" do
       it "let's user create a team, and redirects to this team" do
         step_through_email_login_funnel_as(user_without_team)
 
@@ -66,7 +66,7 @@ describe "Email Login", :integration do
       end
     end
 
-    context "user clicked on create team on the landing page" do
+    describe "user clicked on create team on the landing page" do
       it "let's user create team, and redirects to this team" do
         create_team = true
         step_through_email_login_funnel_as(user_with_several_teams, create_team)
@@ -85,7 +85,7 @@ describe "Email Login", :integration do
   describe "invalid user authentication" do
     let(:email_user) { users(:ulf) }
 
-    context "provided wrong password" do
+    describe "provided wrong password" do
       it "shows error messages" do
         step_through_email_login_funnel_with(email_user.email, "invalid_password", false)
 
