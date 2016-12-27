@@ -45,7 +45,7 @@ describe User::AfterSignInPath, :controller do
         sign_in user_with_several_teams
         get new_user_session_url(subdomain: team.subdomain)
 
-        assert_redirected_to team_url(subdomain: team.subdomain)
+        assert_redirected_to root_subdomain_url(subdomain: team.subdomain)
       end
     end
 
