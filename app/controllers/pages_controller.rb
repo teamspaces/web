@@ -3,9 +3,9 @@ class PagesController < SubdomainBaseController
   before_action :set_space, only: [:index, :new, :create]
   layout 'client'
 
-  # TODO: Move this into
-  # EditorSettingsHashPresenter.new(user_id: current_user.id, ...)
+  helper_method :editor_settings
   def editor_settings(user_id, collection, document_id)
+    # Refactor: # EditorSettingsHashPresenter.new(user_id: current_user.id, ...)
     payload = {
       exp: (Time.now.to_i + 60),
       user_id: user_id,
@@ -22,12 +22,6 @@ class PagesController < SubdomainBaseController
       page_content_url: page_content_url(@page.page_content),
       csrf_token: form_authenticity_token,
     }.to_json.html_safe
-  end
-  helper_method :editor_settings
-
-  # TODO: Move this into a decorator
-  def current_page?(page)
-    @page == page
   end
 
   # GET /pages
