@@ -3,10 +3,6 @@ require "test_helper"
 describe "Email Login", :integration do
   include TestHelpers::SubdomainHelper
 
-  let(:email_user) { users(:ulf) }
-  let(:user_with_several_teams) { users(:with_several_teams) }
-  let(:user_without_team) { users(:without_team) }
-
   def step_through_email_login_funnel_with(email, password, create_team)
     visit "/"
 
@@ -29,6 +25,10 @@ describe "Email Login", :integration do
   end
 
   describe "valid user authentication" do
+    let(:email_user) { users(:ulf) }
+    let(:user_with_several_teams) { users(:with_several_teams) }
+    let(:user_without_team) { users(:without_team) }
+
     def step_through_email_login_funnel_as(user, create_team=false)
       step_through_email_login_funnel_with(user.email, "password", create_team)
     end
@@ -83,6 +83,11 @@ describe "Email Login", :integration do
   end
 
   describe "invalid user authentication" do
+
+  let(:email_user) { users(:ulf) }
+  let(:user_with_several_teams) { users(:with_several_teams) }
+  let(:user_without_team) { users(:without_team) }
+
     context "provided wrong password" do
       it "shows error messages" do
         step_through_email_login_funnel_with(email_user.email, "invalid_password", false)
