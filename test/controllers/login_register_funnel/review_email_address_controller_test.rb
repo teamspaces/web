@@ -7,9 +7,11 @@ describe LoginRegisterFunnel::ReviewEmailAddressController do
   end
 
   describe "#new" do
-    before(:each) { get new_review_email_address_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]) }
+    it "responds successfully" do
+      get new_review_email_address_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
 
-    it { assert_response :success }
+      assert_response :success
+    end
   end
 
   describe "#review" do

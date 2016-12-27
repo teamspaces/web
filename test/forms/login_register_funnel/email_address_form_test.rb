@@ -9,12 +9,14 @@ describe LoginRegisterFunnel::EmailAddressForm, :model do
     describe "format of email" do
       subject { LoginRegisterFunnel::EmailAddressForm }
 
-      context "valid" do
-        it { assert subject.new(email: "valid@email.com").valid? }
+      context "valid email" do
+        it "is valid" do
+          assert subject.new(email: "valid@email.com").valid?
+        end
       end
 
-      context "invalid" do
-        it "includes error message" do
+      context "invalid email" do
+        it "is not valid, includes error message" do
           form = subject.new(email: "invalid_email.com")
 
           refute form.valid?

@@ -6,19 +6,27 @@ describe UserDecorator, :model do
 
   describe "#login_using_email?" do
     context "email user" do
-      it { assert email_user.login_using_email? }
+      it "returns true" do
+        assert_equal true, email_user.login_using_email?
+      end
     end
     context "slack user" do
-      it { refute slack_user.login_using_email? }
+      it "returns false" do
+        assert_equal false, slack_user.login_using_email?
+      end
     end
   end
 
   describe "#login_using_slack?" do
     context "slack user" do
-      it { assert slack_user.login_using_slack? }
+      it "returns true" do
+        assert_equal true, slack_user.login_using_slack?
+      end
     end
     context "email user" do
-      it { refute email_user.login_using_slack? }
+      it "returns false" do
+        assert_equal false, email_user.login_using_slack?
+      end
     end
   end
 end
