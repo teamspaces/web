@@ -1,6 +1,7 @@
 class SubdomainBaseController < ApplicationController
   before_action :check_team_membership
 
+  helper_method :current_team
   def current_team
     Team.find_by(subdomain: request.subdomain)
   end

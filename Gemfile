@@ -33,7 +33,6 @@ gem "skylight"
 # gem "redis", "~> 3.0"
 
 group :test do
-  gem "minitest-rails-capybara"
   gem "mocha"
   gem "shoulda-context"
   gem "shoulda", "~> 3.5"
@@ -42,6 +41,7 @@ group :test do
 end
 
 group :development, :test do
+  gem "minitest-rails-capybara"
   gem "byebug"
   gem "awesome_print"
 end

@@ -27,3 +27,18 @@ maja_at_power:
   team: power_rangers
   user: with_several_teams
   role: member
+
+hassan_at_without_space:
+  team: without_space
+  user: without_space
+  role: primary_owner
+
+erik_at_with_one_space:
+  team: with_one_space
+  user: with_one_space
+  role: primary_owner
+
+madeleine_at_with_two_spaces:
+  team: with_two_spaces
+  user: with_two_spaces
+  role: primary_owner

@@ -3,9 +3,9 @@ class PagesController < SubdomainBaseController
   before_action :set_space, only: [:index, :new, :create]
   layout 'client'
 
-  # TODO: Move this into
-  # EditorSettingsHashPresenter.new(user_id: current_user.id, ...)
+  helper_method :editor_settings
   def editor_settings(user_id, collection, document_id)
+    # Refactor: # EditorSettingsHashPresenter.new(user_id: current_user.id, ...)
     payload = {
       exp: (Time.now.to_i + 60),
       user_id: user_id,
@@ -23,7 +23,6 @@ class PagesController < SubdomainBaseController
       csrf_token: form_authenticity_token,
     }.to_json.html_safe
   end
-  helper_method :editor_settings
 
   # GET /pages
   # GET /pages.json
@@ -57,7 +56,7 @@ class PagesController < SubdomainBaseController
 
     respond_to do |format|
       if @page.save
-        format.html { redirect_to @page, notice: 'Page was successfully created.' }
+        format.html { redirect_to @page }
         format.json { render :show, status: :created, location: @page }
       else
         format.html { render :new }
@@ -73,7 +72,7 @@ class PagesController < SubdomainBaseController
 
     respond_to do |format|
       if @page.update(page_params)
-        format.html { redirect_to [@page], notice: 'Page was successfully updated.' }
+        format.html { redirect_to @page }
         format.json { render :show, status: :ok, location: @page }
       else
         format.html { render :edit }
