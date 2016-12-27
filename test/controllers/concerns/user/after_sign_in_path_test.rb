@@ -38,14 +38,14 @@ describe User::AfterSignInPath, :controller do
 
   describe "user with several teams" do
     let(:user_with_several_teams) { users(:with_several_teams) }
-    let(:team) { user_with_several_teams.teams.first }
 
     context "on team subdomain" do
       it "redirects to team without authentication token" do
+        user_team = user_with_several_teams.teams.first
         sign_in user_with_several_teams
-        get new_user_session_url(subdomain: team.subdomain)
+        get new_user_session_url(subdomain: user_team.subdomain)
 
-        assert_redirected_to root_subdomain_url(subdomain: team.subdomain)
+        assert_redirected_to root_subdomain_url(subdomain: user_team.subdomain)
       end
     end
 
