@@ -6,7 +6,7 @@ describe LoginRegisterFunnel::SignInPathForUser, :controller do
     get choose_login_method_url(subdomain:  ENV["DEFAULT_SUBDOMAIN"])
   end
 
-  context "user clicked on create team" do
+  describe "user clicked on create team" do
     let(:user_with_several_teams) { users(:with_several_teams) }
 
     it "returns create team url" do
@@ -17,7 +17,7 @@ describe LoginRegisterFunnel::SignInPathForUser, :controller do
     end
   end
 
-  context "user without a team" do
+  describe "user without a team" do
     let(:user_without_team) { users(:without_team) }
 
     it "returns create team url" do
@@ -38,7 +38,7 @@ describe LoginRegisterFunnel::SignInPathForUser, :controller do
     end
   end
 
-  context "user with several teams" do
+  describe "user with several teams" do
     let(:user_with_several_teams) { users(:with_several_teams) }
 
     it "returns team list url" do
