@@ -26,7 +26,7 @@ describe "Accept Invitation", :integration do
         fill_in("Last name", with: "Mustermann")
         fill_in("Password", with: "password")
         fill_in("Password confirmation", with: "password")
-        submit_form
+        find('input[name="commit"]').click
 
         assert current_url.include? team_url({subdomain: email_invitation_new.team.subdomain}.merge(url_options))
         assert_includes email_invitation_new.team.users.map(&:email), email_invitation_new.email
