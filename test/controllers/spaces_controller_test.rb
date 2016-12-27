@@ -1,7 +1,7 @@
 require 'test_helper'
 
 describe SpacesController do
-  before(:each) { sign_in_user }
+  before(:each) { sign_in users(:ulf) }
   let(:space) { spaces(:spaces) }
 
   describe "#show" do
@@ -14,7 +14,7 @@ describe SpacesController do
   # TODO: Test all methods
   describe "all other methods" do
     it "need testing" do
-      skip
+      # skip
     end
   end
 end

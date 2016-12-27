@@ -4,7 +4,7 @@ describe PageContentsController do
   let(:team) { teams(:spaces) }
   let(:page_content) { page_contents(:default) }
 
-  before(:each) { sign_in_user }
+  before(:each) { sign_in users(:ulf) }
 
   describe "#show" do
     it "responds successfully" do
