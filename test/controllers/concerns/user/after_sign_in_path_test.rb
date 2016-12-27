@@ -11,7 +11,7 @@ describe User::AfterSignInPath, :controller do
     end
   end
 
-  context "user with team" do
+  describe "user with team" do
     let(:user_with_one_team) { users(:lars) }
     let(:team) { user_with_one_team.teams.first }
     let(:auth_token) { "encoded"}
@@ -36,7 +36,7 @@ describe User::AfterSignInPath, :controller do
     end
   end
 
-  context "user with several teams" do
+  describe "user with several teams" do
     let(:user_with_several_teams) { users(:with_several_teams) }
     let(:team) { user_with_several_teams.teams.first }
 
