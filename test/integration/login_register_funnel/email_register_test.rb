@@ -28,7 +28,7 @@ describe "Email Register", :integration do
     fill_in("Password", with: user_attributes[:password])
     fill_in("Password confirmation", with: user_attributes[:password])
 
-    submit_form
+    find('input[name="commit"]').click
   end
 
   describe "valid user attributes" do
@@ -46,7 +46,7 @@ describe "Email Register", :integration do
 
       fill_in("Name", with: "Siberian Deer")
       fill_in("Subdomain", with: "siberiandeer")
-      submit_form
+      find('input[name="commit"]').click
 
       assert current_url.include? team_url({subdomain: "siberiandeer"}.merge(url_options))
     end

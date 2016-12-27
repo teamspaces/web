@@ -59,7 +59,7 @@ describe "Email Login", :integration do
 
         fill_in("Name", with: "Digital Auction")
         fill_in("Subdomain", with: "digitalauction")
-        submit_form
+        find('input[name="commit"]').click
 
         assert current_url.include? team_url({subdomain: "digitalauction"}.merge(url_options))
       end
@@ -74,7 +74,7 @@ describe "Email Login", :integration do
 
         fill_in("Name", with: "Boston Law")
         fill_in("Subdomain", with: "bostonlaw")
-        submit_form
+        find('input[name="commit"]').click
 
         assert current_url.include? team_url({subdomain: "bostonlaw"}.merge(url_options))
       end
