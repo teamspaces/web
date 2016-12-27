@@ -13,6 +13,12 @@ en:
         moment. Please try again, and if it does not work you can always sign up
         using your email or get in contact with us and we will help you get
         started.
+      failed_login_using_slack_user_non_existent: Login failed. Please register first with your Slack Account
+      slack_button:
+        failed_to_save_team_authentication: Failed to connect team to Slack. Please try again
+    login:
+      errors:
+        wrong_password: The password you have entered is invalid
   errors:
     messages:
       reserved_name: cannot be a reserved name

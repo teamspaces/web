@@ -37,7 +37,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if result.success?
       redirect_to sign_in_path_for(result.user)
     else
-      redirect_to slack_register_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]), alert: t(".failed_login_using_slack")
+      redirect_to slack_register_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]), alert: t(".failed_login_using_slack_user_non_existent")
     end
   end
 

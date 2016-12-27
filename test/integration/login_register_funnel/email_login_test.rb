@@ -41,7 +41,7 @@ describe "Email Login", :integration do
     end
 
     context "user has several teams" do
-      it "let's user choose team" do
+      it "let's user choose team, and redirects to this team" do
         step_through_email_login_funnel_as(user_with_several_teams)
 
         assert current_url.include? login_register_funnel_list_teams_path
@@ -52,7 +52,7 @@ describe "Email Login", :integration do
     end
 
     context "user has no teams" do
-      it "let's user create a team" do
+      it "let's user create a team, and redirects to this team" do
         step_through_email_login_funnel_as(user_without_team)
 
         assert current_url.include? login_register_funnel_new_team_path
@@ -65,8 +65,8 @@ describe "Email Login", :integration do
       end
     end
 
-    context "user clicked on create" do
-      it "let's user create a team" do
+    context "user clicked on create team on the landing page" do
+      it "let's user create team, and redirects to this team" do
         create_team = true
         step_through_email_login_funnel_as(user_with_several_teams, create_team)
 
@@ -87,7 +87,7 @@ describe "Email Login", :integration do
         step_through_email_login_funnel_with(email_user.email, "invalid_password", false)
 
         assert current_url.include? new_email_login_path
-        assert_text "translation missing: en.users.login.errors.wrong_password"
+        assert_text "The password you have entered is invalid"
       end
     end
   end
