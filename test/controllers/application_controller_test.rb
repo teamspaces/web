@@ -14,7 +14,7 @@ describe ApplicationController do
 
   context "signed in" do
     it "shows content" do
-      sign_in_user
+      sign_in users(:ulf)
 
       get spaces_team_url
       assert_response :success
@@ -23,7 +23,7 @@ describe ApplicationController do
 
   describe "#after_sign_out_path_for" do
     it "redirects to landing page" do
-      sign_in_user
+      sign_in users(:ulf)
       delete destroy_user_session_path
 
       assert_redirected_to landing_path
