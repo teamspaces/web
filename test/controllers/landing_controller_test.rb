@@ -1,7 +1,7 @@
 require "test_helper"
 
 describe LandingController do
-  before(:each) { sign_in_user }
+  before(:each) { sign_in users(:ulf) }
 
   describe "#index" do
     it "works" do
