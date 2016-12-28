@@ -23,6 +23,19 @@ end
 class ActiveSupport::IntegrationTest
 end
 
+class Capybara::Rails::TestCase
+  setup do
+    Capybara.reset!
+    DatabaseCleaner.start
+  end
+
+  teardown do
+    Capybara.reset!
+    Capybara.use_default_driver
+    DatabaseCleaner.clean
+  end
+end
+
 class ActionDispatch::IntegrationTest
   #include Capybara::DSL
   #include Capybara::Assertions
