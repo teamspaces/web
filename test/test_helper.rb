@@ -18,9 +18,13 @@ require "test_helpers/subdomain_helper"
 
 class ActiveSupport::TestCase
   fixtures :all
+
+
 end
 
 class Capybara::Rails::TestCase
+
+  self.use_transactional_fixtures = false
 
   setup do
     Capybara.reset!
@@ -32,6 +36,7 @@ class Capybara::Rails::TestCase
     Capybara.use_default_driver
     DatabaseCleaner.clean
   end
+
 end
 
 class ActionDispatch::IntegrationTest
