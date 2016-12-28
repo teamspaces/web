@@ -1,11 +1,12 @@
 require "test_helper"
 
 describe User::AcceptInvitation, :model do
-  let(:user) { users(:without_team) }
-  let(:invitation) { invitations(:katharina_at_power_rangers) }
   subject { User::AcceptInvitation }
 
-  context "valid token" do
+  describe "valid token" do
+    let(:user) { users(:without_team) }
+    let(:invitation) { invitations(:katharina_at_power_rangers) }
+
     it "works" do
       assert subject.call(user: user, invitation: invitation).success?
     end

@@ -1,19 +1,19 @@
 require 'test_helper'
 
 describe User::AfterSignInPath::AcceptTeamInvitation, :controller do
-  let(:invitation) { invitations(:katharina_at_power_rangers) }
-  let(:email_invitee) { users(:without_team) }
-  let(:not_invitee) { users(:lars) }
 
   def set_invitation_cookie(token)
     get user_session_path, params: { invitation_token: token }
   end
 
   describe "#accept_team_invitation" do
+    let(:invitation) { invitations(:katharina_at_power_rangers) }
+
     describe "invitation exists" do
       before(:each) { set_invitation_cookie(invitation.token) }
 
       describe "user is invitee" do
+        let(:email_invitee) { users(:without_team) }
         before(:each) { @controller.sign_in(email_invitee) }
 
         it "accepts invitation" do
@@ -29,6 +29,8 @@ describe User::AfterSignInPath::AcceptTeamInvitation, :controller do
       end
 
       describe "user is not invitee" do
+        let(:not_invitee) { users(:lars) }
+
         before(:each) do
           @controller.sign_in(not_invitee)
           @controller.accept_team_invitation
