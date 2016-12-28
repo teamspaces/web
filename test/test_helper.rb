@@ -20,10 +20,8 @@ class ActiveSupport::TestCase
   fixtures :all
 end
 
-class ActiveSupport::IntegrationTest
-end
-
 class Capybara::Rails::TestCase
+
   setup do
     Capybara.reset!
     DatabaseCleaner.start
@@ -40,6 +38,7 @@ class ActionDispatch::IntegrationTest
   #include Capybara::DSL
   #include Capybara::Assertions
   include Devise::Test::IntegrationHelpers
+
 
   #setup do
   #  Capybara.reset!
