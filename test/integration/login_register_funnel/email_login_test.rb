@@ -1,6 +1,6 @@
 require "test_helper"
 
-describe "Email Login", :integration do
+describe "Email Login", :capybara do
   include TestHelpers::SubdomainHelper
 
   def step_through_email_login_funnel_with(email, password, create_team)

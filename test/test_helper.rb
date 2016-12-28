@@ -24,18 +24,18 @@ class ActiveSupport::IntegrationTest
 end
 
 class ActionDispatch::IntegrationTest
-  include Capybara::DSL
-  include Capybara::Assertions
+  #include Capybara::DSL
+  #include Capybara::Assertions
   include Devise::Test::IntegrationHelpers
 
-  setup do
-    Capybara.reset!
-    DatabaseCleaner.start
-  end
+  #setup do
+  #  Capybara.reset!
+  #  DatabaseCleaner.start
+  #end
 
-  teardown do
-    Capybara.reset!
-    Capybara.use_default_driver
-    DatabaseCleaner.clean
-  end
+  #teardown do
+  #  Capybara.reset!
+  #  Capybara.use_default_driver
+  #  DatabaseCleaner.clean
+  #end
 end

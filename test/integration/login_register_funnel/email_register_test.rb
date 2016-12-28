@@ -1,6 +1,6 @@
 require "test_helper"
 
-describe "Email Register", :integration do
+describe "Email Register", :capybara do
   include TestHelpers::SubdomainHelper
 
   def step_through_email_register_funnel_with(user_attributes)
