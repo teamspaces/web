@@ -28,12 +28,12 @@ class ActionDispatch::IntegrationTest
   include Capybara::Assertions
   include Devise::Test::IntegrationHelpers
 
-  def setup
+  setup do
     Capybara.reset!
     DatabaseCleaner.start
   end
 
-  def teardown
+  teardown do
     Capybara.reset!
     Capybara.use_default_driver
     DatabaseCleaner.clean
