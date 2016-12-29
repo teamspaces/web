@@ -1,7 +1,6 @@
 require 'test_helper'
 
 describe User::AfterSignInPath, :controller do
-
   describe "user without teams" do
     let(:user_without_team) { users(:without_team) }
 
@@ -16,10 +15,11 @@ describe User::AfterSignInPath, :controller do
   describe "user with team" do
     let(:user_with_one_team) { users(:lars) }
     let(:team) { user_with_one_team.teams.first }
-    let(:auth_token) { "encoded"}
+    let(:auth_token) { "encoded" }
 
     describe "on team subdomain" do
       it "redirects to team without authentication token" do
+
         sign_in user_with_one_team
         get new_user_session_url(subdomain: team.subdomain)
 
