@@ -6,7 +6,7 @@ class InvitationDecorator < Draper::Decorator
   end
 
   def email_invitation?
-    object.email && !slack_invitation?
+    object.email.present? && !slack_invitation?
   end
 
   def already_accepted?
@@ -14,7 +14,6 @@ class InvitationDecorator < Draper::Decorator
   end
 
   def accepting_user_is_already_registered_using_email?
-    object.email && User.find_by(email: object.email,
-                                 allow_email_login: true).present?
+    object.email.present? && User.find_for_authentication(email: object.email).present?
   end
 end

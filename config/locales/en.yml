@@ -35,8 +35,10 @@ en:
 
   invitation:
     errors:
-      does_not_exist: Invitation does not exist
-      already_used: Invitation was already used
+      does_not_exist: Unfortunately your invitation was withdrawn
+      already_used: |
+        This invitation was already used. Please continue with the
+        normal Login or ask for a new invitation
     slack:
       text: "Hi %{invitee_first_name}, %{host_first_name} invited you to collaborate on Spaces <%{url}|Join>"
       successfully_sent: Slack Invitation was successfully sent
