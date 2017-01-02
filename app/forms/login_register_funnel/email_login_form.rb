@@ -12,7 +12,7 @@ class LoginRegisterFunnel::EmailLoginForm
   validate :email_password_combination
 
   def user
-    @user ||= User.find_by(email: email)
+    @user ||= User.find_for_authentication(email: email)
   end
 
   private

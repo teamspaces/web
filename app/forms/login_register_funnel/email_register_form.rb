@@ -25,7 +25,8 @@ class LoginRegisterFunnel::EmailRegisterForm
                        password: password,
                        password_confirmation: password_confirmation,
                        first_name: first_name,
-                       last_name: last_name)
+                       last_name: last_name,
+                       allow_email_login: true)
   end
 
   def save

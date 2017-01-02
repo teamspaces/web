@@ -52,7 +52,7 @@ describe Users::OmniauthCallbacksController do
       end
 
       it "redirects back with alert" do
-        assert_equal "Failed to connect team to Slack. Please try again", flash[:alert]
+        assert_match "Failed to connect team to Slack. Please try again", flash[:alert]
         assert_redirected_to previous_url
       end
     end
@@ -80,7 +80,7 @@ describe Users::OmniauthCallbacksController do
       end
 
       it "redirects to slack register url with alert" do
-        assert_equal "Login failed. Please register first with your Slack Account", flash[:alert]
+        assert_match "Login failed. Please register first with your Slack Account", flash[:alert]
         assert_redirected_to slack_register_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
       end
     end
