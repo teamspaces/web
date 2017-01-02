@@ -6,7 +6,7 @@ describe ApplicationController do
   let(:spaces_team_url) { team_url(subdomain: team.subdomain) }
 
   context "not signed in" do
-    it "redirects" do
+    it "redirects to landing_url" do
         get spaces_team_url
         assert_redirected_to landing_url(subdomain:  ENV["DEFAULT_SUBDOMAIN"])
     end

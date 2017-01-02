@@ -13,7 +13,7 @@ class LoginRegisterFunnel::TeamsController < LoginRegisterFunnelController
     if @team_form.save
       redirect_to team_url(subdomain: @team_form.team.subdomain, auth_token: GenerateLoginToken.call(user: current_user))
 
-      sign_out_user_from_default_subdomain
+      sign_out_user_from_default_subdomain(current_user)
     else
       render :new
     end
@@ -24,7 +24,7 @@ class LoginRegisterFunnel::TeamsController < LoginRegisterFunnelController
 
     redirect_to team_url(subdomain: team.subdomain, auth_token: GenerateLoginToken.call(user: current_user))
 
-    sign_out_user_from_default_subdomain
+    sign_out_user_from_default_subdomain(current_user)
   end
 
   def index
@@ -32,10 +32,6 @@ class LoginRegisterFunnel::TeamsController < LoginRegisterFunnelController
   end
 
   private
-
-    def sign_out_user_from_default_subdomain
-      sign_out(current_user)
-    end
 
     def create_team_for_user_form_params
       params.require(:create_team_for_user_form).permit(:name, :subdomain)

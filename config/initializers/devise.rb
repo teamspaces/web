@@ -8,7 +8,7 @@ Devise.setup do |config|
   # by default. You can change it below and use your own secret key.
   # config.secret_key = 'aa70a96d1e84e570de235e4a12394f89cfeadaaccaf7f5657c6122e7dcbd4908583f9349c8551fd68ea881a2bfd315d0d1b22d7550f6efd49d725448f902ceba'
 
-  #if user is not authenticated, redirect to custom path instead of new_user_session_path
+  #if user is not authenticated, redirect to root_url instead of new_user_session_path
   config.warden do |manager|
     manager.failure_app = CustomWardenFailure
   end

@@ -1,4 +1,5 @@
 require "database_cleaner"
 
-DatabaseCleaner[:active_record].strategy = :deletion
+DatabaseCleaner.clean_with(:truncation)
+DatabaseCleaner[:active_record].strategy = :truncation
 DatabaseCleaner[:mongoid].strategy = :truncation
