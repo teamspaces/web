@@ -14,10 +14,10 @@ describe LoginRegisterFunnel::TeamsController do
     end
 
     context "user not signed in" do
-      it "redirects to landing path" do
+      it "redirects to landing_url" do
         get login_register_funnel_new_team_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
 
-        assert_redirected_to landing_path
+        assert_redirected_to landing_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
       end
     end
   end
