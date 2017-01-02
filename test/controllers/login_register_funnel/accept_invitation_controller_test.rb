@@ -25,7 +25,7 @@ describe LoginRegisterFunnel::AcceptInvitationController do
       describe "email invitation" do
         let(:email_invitation) { invitations(:jonas_at_spaces) }
 
-        it "sets invited email adrress as reviewed during login register funnel" do
+        it "sets invited email address as reviewed during login register funnel" do
           get accept_invitation_url(email_invitation.token, subdomain: ENV["DEFAULT_SUBDOMAIN"])
 
           assert_equal email_invitation.email, @controller.users_reviewed_email_address
