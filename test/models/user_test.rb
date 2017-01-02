@@ -10,24 +10,36 @@ describe User do
   should validate_presence_of(:password)
   should validate_presence_of(:email)
 
-  describe "email validations" do
-    let(:user_with_email_login) { users(:lars) }
+  describe "email uniqueness validations" do
 
-    it "allows only one user to use email for email login" do
-      another_user_with_email_login = User.new(email: user_with_email_login.email)
+    context "email users with same email" do
+      it "is invalid" do
+        email_user = users(:lars)
+        email_user_with_same_email = User.create(email: email_user.email,
+                                                 allow_email_login: true)
 
-      refute another_user_with_email_login.save
-      assert_includes another_user_with_email_login.errors.messages[:email], "has already been taken"
+        assert_includes email_user_with_same_email.errors.messages[:email], "has already been taken"
+      end
     end
 
-    it "allows same email for users without email login" do
-      user_with_same_email_attributes = { email: user_with_email_login.email,
-                                          password: "secret",
-                                          allow_email_login: false }
+    context "slack users with same email" do
+      it "is valid" do
+        slack_user = users(:slack_user_milad)
+        slack_user_with_same_email = User.create(email: slack_user.email,
+                                                 allow_email_login: false)
 
-      another_user_without_email_login = User.new(user_with_same_email_attributes)
-      assert another_user_without_email_login.save
-      assert User.new(user_with_same_email_attributes).save
+        assert_empty slack_user_with_same_email.errors.messages[:email]
+      end
+    end
+
+    context "slack and email user with same email" do
+      it "is valid" do
+        slack_user = users(:slack_user_milad)
+        email_user_with_same_email = User.create(email: slack_user.email,
+                                                 allow_email_login: true)
+
+        assert_empty email_user_with_same_email.errors.messages[:email]
+      end
     end
   end
 
