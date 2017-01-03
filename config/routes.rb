@@ -15,8 +15,6 @@ Rails.application.routes.draw do
     get "/", to: "root_subdomain#index", as: :root_subdomain
   end
 
-  resources :teams, only: [:index, :new, :create]
-
   devise_for :users,
              skip: [:sessions],
              controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
