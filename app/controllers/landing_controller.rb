@@ -3,4 +3,8 @@ class LandingController < ApplicationController
 
   def index
   end
+
+  def blank
+    render plain: '<meta name="robots" content="noindex">'
+  end
 end

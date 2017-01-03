@@ -30,5 +30,5 @@ Rails.application.routes.draw do
 
   get :landing, to: "landing#index", as: :landing
 
-  root "landing#index"
+  root "landing#blank"
 end
