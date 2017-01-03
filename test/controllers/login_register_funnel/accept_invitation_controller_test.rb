@@ -60,7 +60,7 @@ describe LoginRegisterFunnel::AcceptInvitationController do
         it "redirects to landing path with notice" do
           get accept_invitation_url(invalid_invitation_token, subdomain: ENV["DEFAULT_SUBDOMAIN"])
 
-          assert_redirected_to landing_path
+          assert_redirected_to root_path
           assert_equal "Unfortunately your invitation was withdrawn", flash[:notice]
         end
       end
@@ -71,7 +71,7 @@ describe LoginRegisterFunnel::AcceptInvitationController do
         it "redirects to landing path with notice" do
           get accept_invitation_url(accepted_invitation.token, subdomain: ENV["DEFAULT_SUBDOMAIN"])
 
-          assert_redirected_to landing_path
+          assert_redirected_to root_path
           assert_match "This invitation was already used. Please continue with", flash[:notice]
         end
       end

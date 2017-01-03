@@ -17,11 +17,11 @@ class LoginRegisterFunnel::AcceptInvitationController < LoginRegisterFunnelContr
   private
 
     def redirect_with_invalid_invitation_notice
-      redirect_to landing_path, notice: t("invitation.errors.does_not_exist")
+      redirect_to root_path, notice: t("invitation.errors.does_not_exist")
     end
 
     def redirect_with_already_used_notice
-      redirect_to landing_path, notice: t("invitation.errors.already_used")
+      redirect_to root_path, notice: t("invitation.errors.already_used")
     end
 
     def email_login_or_register_path(invitation)
