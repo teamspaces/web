@@ -1,12 +1,14 @@
 require "test_helper"
 
-describe User::FindUserWithSlackIdentity do
+describe User::FindUserWithSlackIdentity, :model do
 
   subject { User::FindUserWithSlackIdentity }
 
   context "existent" do
 
     it "returns user" do
+      slack_user = users(:slack_user_milad)
+
       result = subject.call(slack_identity: TestHelpers::Slack.identity(:existing_user))
 
       assert result.success?
