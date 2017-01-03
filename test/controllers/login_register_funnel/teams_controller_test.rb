@@ -58,10 +58,15 @@ describe LoginRegisterFunnel::TeamsController do
         post login_register_funnel_create_team_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]), params: invalid_team_attributes
       end
 
-      it "renders new, includes error messages" do
+      it "does not create team" do
+        assert_difference -> { Team.count }, 0 do
+          post_invalid_team_attributes
+        end
+      end
+
+      it "responds" do
         post_invalid_team_attributes
 
-        assert controller.instance_variable_get(:@team_form).errors.present?
         assert_response :success
       end
     end
