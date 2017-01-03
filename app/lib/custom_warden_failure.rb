@@ -1,6 +1,6 @@
 class CustomWardenFailure < Devise::FailureApp
   def redirect_url
-    landing_url(subdomain:  ENV["DEFAULT_SUBDOMAIN"])
+    root_url(subdomain:  ENV["DEFAULT_SUBDOMAIN"])
   end
 
   # You need to override respond to eliminate recall

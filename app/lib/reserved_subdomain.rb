@@ -1,6 +1,6 @@
 class ReservedSubdomain
 
-  def matches?(request)
+  def self.matches?(request)
     !self.reserved_names.include?(request.subdomain)
   end
 
