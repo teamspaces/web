@@ -7,7 +7,7 @@ describe "Email Login", :capybara do
     let(:email_user) { users(:with_two_spaces) }
 
     it "signs in user and shows team page" do
-      visit "/"
+      visit "/landing"
       click_on "Sign In"
       click_on "Sign in with email"
 

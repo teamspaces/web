@@ -12,7 +12,7 @@ describe "Email Register", :capybara do
     end
 
     it "creates user, lets user create a team and redirects to team page" do
-      visit "/"
+      visit "/landing"
       click_on "or create Team"
 
       click_on "Sign in with email"
