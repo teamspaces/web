@@ -19,7 +19,7 @@ require "test_helpers/subdomain_helper"
 
 class ActiveSupport::TestCase
   fixtures :all
-  self.use_transactional_fixtures = false
+  self.use_transactional_tests = false
 end
 
 class Capybara::Rails::TestCase
