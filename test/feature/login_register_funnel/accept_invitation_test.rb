@@ -5,7 +5,7 @@ describe "Accept Invitation", :capybara do
 
   describe "email invitation" do
     describe "invited user is not yet registered" do
-      let(:email_invitation_new) { invitations(:jonas_at_spaces) }
+      let(:invi) { invitations(:katharina_at_power_rangers) }
 
       it "user gets to register, automatically accepts invitation and gets redirects to team" do
         visit "/accept_invitation/#{email_invitation_new.token}"
