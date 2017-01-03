@@ -48,12 +48,13 @@ with_two_spaces:
   last_name: With Two Spaces
   email: madeleien.with-two-spaces@spaces.is
 
-slack_user_milad:
+slack_user_milad: &slack_user_milad
   <<: *default
   first_name: Milad
   last_name: Marzano
+  allow_email_login: false
 
 slack_user_emil:
-  <<: *default
+  <<: *slack_user_milad
   first_name: Emil
   last_name: Danesi
