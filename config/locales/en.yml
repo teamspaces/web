@@ -34,6 +34,11 @@ en:
       does_not_match_invited_email: doesn't match invited email
 
   invitation:
+    errors:
+      does_not_exist: Unfortunately your invitation was withdrawn
+      already_used: |
+        This invitation was already used. Please continue with the
+        normal login or ask for a new invitation
     slack:
       text: "Hi %{invitee_first_name}, %{host_first_name} invited you to collaborate on Spaces <%{url}|Join>"
       successfully_sent: Slack Invitation was successfully sent

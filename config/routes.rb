@@ -43,6 +43,8 @@ Rails.application.routes.draw do
     get :slack_login, to: "login_register_funnel/slack_login_register#login", as: :slack_login
     get :slack_register, to: "login_register_funnel/slack_login_register#register", as: :slack_register
 
+    get "accept_invitation/:invitation_token", to: "login_register_funnel/accept_invitation#new", as: :accept_invitation
+
     get :create_team, to: "login_register_funnel/teams#new", as: :login_register_funnel_new_team
     post :create_team, to: "login_register_funnel/teams#create", as: :login_register_funnel_create_team
 
