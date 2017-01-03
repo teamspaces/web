@@ -31,7 +31,7 @@ describe LoginRegisterFunnel::AcceptInvitationController do
           assert_equal email_invitation.email, session[:users_reviewed_email_address]
         end
 
-        context "email is already registered" do
+        describe "email is already registered" do
           let(:email_invitation_already_registered) { invitations(:katharina_at_power_rangers) }
 
           it "redirects to email login path" do
@@ -41,7 +41,7 @@ describe LoginRegisterFunnel::AcceptInvitationController do
           end
         end
 
-        context "email is new" do
+        describe "email is new" do
           let(:email_invitation_is_new) { invitations(:jonas_at_spaces) }
 
           it "redirects to email register path" do
