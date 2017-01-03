@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  constraints !ReservedSubdomain do
+  constraints ReservedSubdomain do
     resources :spaces do
       resources :pages, only: [:index, :new, :create]
     end
