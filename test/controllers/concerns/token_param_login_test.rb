@@ -6,7 +6,7 @@ describe TokenParamLogin, :controller do
   describe "#token_authentication_requested?" do
     context "valid" do
       it "signs in user" do
-        get landing_url(auth_token: GenerateLoginToken.call(user: user))
+        get root_url(auth_token: GenerateLoginToken.call(user: user))
 
         assert_equal user, controller.current_user
       end
