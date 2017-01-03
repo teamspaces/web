@@ -27,7 +27,6 @@ describe Users::OmniauthCallbacksController do
     let(:previous_url) { "team.spaces.is" }
     before(:each) do
       stub_omniauth_params_with({team_id: team.id}.stringify_keys)
-      subject.any_instance.stubs(:current_user).returns(team.users.first)
       subject.any_instance.stubs(:previous_url).returns(previous_url)
       stub_slack_identity_with(TestHelpers::Slack.identity(:existing_user))
     end
@@ -53,7 +52,7 @@ describe Users::OmniauthCallbacksController do
       end
 
       it "redirects back with alert" do
-        assert_equal I18n.t("users.omniauth_callbacks.slack_button.failed_to_save_team_authentication"), flash[:alert]
+        assert_match "Failed to connect team to Slack. Please try again", flash[:alert]
         assert_redirected_to previous_url
       end
     end
@@ -69,12 +68,8 @@ describe Users::OmniauthCallbacksController do
         get user_slack_omniauth_callback_url
       end
 
-      it "signs in user" do
-        assert_equal slack_user, @controller.current_user
-      end
-
-      it "redirects to after_sign_in_path" do
-        assert_redirected_to(@controller.after_sign_in_path_for(slack_user))
+      it "redirects to sign_in_path_for user" do
+        assert_redirected_to(@controller.sign_in_path_for(slack_user))
       end
     end
 
@@ -84,9 +79,9 @@ describe Users::OmniauthCallbacksController do
         get user_slack_omniauth_callback_url
       end
 
-      it "redirects to new session path with alert" do
-        assert_equal I18n.t("users.omniauth_callbacks.failed_login_using_slack"), flash[:alert]
-        assert_redirected_to new_user_session_path
+      it "redirects to slack register url with alert" do
+        assert_match "Login failed. Please register first with your Slack Account", flash[:alert]
+        assert_redirected_to slack_register_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
       end
     end
   end
@@ -96,18 +91,12 @@ describe Users::OmniauthCallbacksController do
 
     describe "user already exists" do
       let(:slack_user) { users(:slack_user_milad) }
-      before(:each) do
+
+      it "redirects to sign_in_path for user" do
         stub_slack_identity_with(TestHelpers::Slack.identity(:existing_user))
         get user_slack_omniauth_callback_url
-      end
 
-      it "signs in user" do
-        assert_equal slack_user, @controller.current_user
-      end
-
-      it "redirects to after_sign_in_path, with alert" do
-        assert_equal I18n.t("users.omniauth_callbacks.slack.register_failed_as_user_already_exists"), flash[:alert]
-        assert_redirected_to(@controller.after_sign_in_path_for(slack_user))
+        assert_redirected_to(@controller.sign_in_path_for(slack_user))
       end
     end
 
@@ -122,17 +111,28 @@ describe Users::OmniauthCallbacksController do
         end
       end
 
-      it "signs in user" do
-        get user_slack_omniauth_callback_url
-
-        assert @controller.current_user
-      end
-
       it "redirects to after_sign_in_path for user" do
         get user_slack_omniauth_callback_url
 
-        assert_redirected_to(@controller.after_sign_in_path_for(@controller.current_user))
+        assert_redirected_to(@controller.sign_in_path_for(User.last))
       end
+    end
+  end
+
+  describe "user accepts invitation" do
+    let(:slack_user) { users(:slack_user_milad) }
+    let(:slack_user_invitation) { invitations(:slack_user_milad_invitation) }
+
+    it "adds user as team member to host team" do
+      stub_omniauth_state_param_with("register")
+      stub_slack_identity_with(TestHelpers::Slack.identity(:existing_user))
+      Users::OmniauthCallbacksController.any_instance
+                                        .stubs(:invitation_token_cookie)
+                                        .returns(slack_user_invitation.token)
+
+      get user_slack_omniauth_callback_url
+
+      assert_includes slack_user.teams, slack_user_invitation.team
     end
   end
 end

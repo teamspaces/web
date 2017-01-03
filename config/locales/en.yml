@@ -13,6 +13,18 @@ en:
         moment. Please try again, and if it does not work you can always sign up
         using your email or get in contact with us and we will help you get
         started.
+      register_using_slack_failed_as_user_already_exists: |
+        Your Account is already registered, Please continue
+      login_using_slack_failed_as_user_non_existent: |
+        Login failed. Please register first with your Slack Account
+      slack_button:
+        failed_to_save_team_authentication: |
+          Failed to connect team to Slack. Please try again,
+          and if it does not work you can always get in contact with us
+          and we will help you get started.
+    login:
+      errors:
+        wrong_password: The password you have entered is invalid
   errors:
     messages:
       reserved_name: cannot be a reserved name
@@ -22,8 +34,18 @@ en:
       does_not_match_invited_email: doesn't match invited email
 
   invitation:
+    errors:
+      does_not_exist: Unfortunately your invitation was withdrawn
+      already_used: |
+        This invitation was already used. Please continue with the
+        normal login or ask for a new invitation
     slack:
       text: "Hi %{invitee_first_name}, %{host_first_name} invited you to collaborate on Spaces <%{url}|Join>"
       successfully_sent: Slack Invitation was successfully sent
       failure_create: Slack Invitation could not be created
+  helpers:
+    submit:
+      create_team_for_user_form:
+        create: "Create Team"
+        update: "Update Team"
 

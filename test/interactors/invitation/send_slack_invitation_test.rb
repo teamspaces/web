@@ -1,13 +1,16 @@
 require "test_helper"
 
 describe Invitation::SendSlackInvitation, :model do
+  include Rails.application.routes.url_helpers
+
   subject { Invitation::SendSlackInvitation }
   let(:invitation) { invitations(:slack_user_milad_invitation) }
 
-  it "sends invitation as slack message" do
+  it "sends invitation as slack message with link to accept_invitation path" do
     subject.any_instance.stubs(:client).returns(client_mock = mock)
     client_mock.expects(:chat_postMessage).with() do |message|
       message[:text].include? "Hi Milad, Lars invited you to collaborate on Spaces"
+      message[:text].include? accept_invitation_path(invitation.token)
     end
 
     result = subject.call(invitation: invitation)

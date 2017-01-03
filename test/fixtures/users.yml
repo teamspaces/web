@@ -1,8 +1,9 @@
 ulf: &default
   email: $LABEL@spaces.is
-  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
   first_name: Ulf
   last_name: Bürgman
+  allow_email_login: true
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
 
 sven:
   <<: *default
@@ -23,6 +24,18 @@ with_several_teams:
  <<: *default
  first_name: Maja
  last_name: Lundgren
+
+slack_user_milad:
+  <<: *default
+  first_name: Milad
+  last_name: Marzano
+  allow_email_login: false
+
+slack_user_emil:
+  <<: *default
+  first_name: Emil
+  last_name: Danesi
+  allow_email_login: false
 
 without_team:
   <<: *default
@@ -47,14 +60,3 @@ with_two_spaces:
   first_name: Madeleine
   last_name: With Two Spaces
   email: madeleien.with-two-spaces@spaces.is
-
-slack_user_milad: &slack_user_milad
-  <<: *default
-  first_name: Milad
-  last_name: Marzano
-  allow_email_login: false
-
-slack_user_emil:
-  <<: *slack_user_milad
-  first_name: Emil
-  last_name: Danesi
