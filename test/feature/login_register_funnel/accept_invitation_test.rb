@@ -4,7 +4,7 @@ describe "Accept Invitation", :capybara do
   include TestHelpers::SubdomainHelper
 
   describe "email invitation" do
-    context "invited user is not yet registered" do
+    describe "invited user is not yet registered" do
       let(:email_invitation_new) { invitations(:jonas_at_spaces) }
 
       it "user gets to register, automatically accepts invitation and gets redirects to team" do
