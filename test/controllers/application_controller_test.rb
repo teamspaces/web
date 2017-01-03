@@ -7,8 +7,8 @@ describe ApplicationController do
 
   context "not signed in" do
     it "redirects to root_url" do
-        get spaces_team_url
-        assert_redirected_to root_url(subdomain:  ENV["DEFAULT_SUBDOMAIN"])
+      get spaces_team_url
+      assert_redirected_to root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
     end
   end
 
