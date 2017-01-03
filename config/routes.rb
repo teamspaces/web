@@ -15,8 +15,6 @@ Rails.application.routes.draw do
     get "/", to: "root_subdomain#index", as: :root_subdomain
   end
 
-  resources :teams, only: [:index, :new, :create]
-
   devise_for :users,
              skip: [:sessions],
              controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
@@ -50,9 +48,9 @@ Rails.application.routes.draw do
 
     get "team/:team_subomain", to: "login_register_funnel/teams#show", as: :show_team_subdomain
     get :choose_team, to: "login_register_funnel/teams#index", as: :login_register_funnel_list_teams
-  end
 
-  get :landing, to: "landing#index", as: :landing
+    get :landing, to: "landing#index", as: :landing
+  end
 
   root "landing#blank"
 end

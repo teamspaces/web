@@ -2,15 +2,6 @@ require 'test_helper'
 
 describe User::AfterSignInPath, :controller do
 
-  context "user without teams" do
-    it "redirects to create team" do
-      sign_in users(:without_team)
-      get new_user_session_path
-
-      assert_redirected_to new_team_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
-    end
-  end
-
   context "user with team" do
     let(:user_with_one_team) { users(:lars) }
     let(:team) { user_with_one_team.teams.first }
@@ -46,15 +37,6 @@ describe User::AfterSignInPath, :controller do
         get new_user_session_url(subdomain: team.subdomain)
 
         assert_redirected_to root_subdomain_url(subdomain: team.subdomain)
-      end
-    end
-
-    context "other than team subdomain" do
-      it "redirects to teams" do
-        sign_in users(:with_several_teams)
-        get new_user_session_path
-
-        assert_redirected_to teams_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
       end
     end
   end
