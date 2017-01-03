@@ -52,7 +52,5 @@ Rails.application.routes.draw do
     get :choose_team, to: "login_register_funnel/teams#index", as: :login_register_funnel_list_teams
   end
 
-  get :landing, to: "landing#index", as: :landing
-
   root "landing#index"
 end
