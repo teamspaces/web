@@ -9,7 +9,7 @@ describe LoginRegisterFunnel::AcceptInvitationController do
       it "sets invitation-token cookie" do
         get accept_invitation_url(valid_invitation.token, subdomain: ENV["DEFAULT_SUBDOMAIN"])
 
-        assert_equal valid_invitation.token, @controller.invitation_token_cookie
+        assert cookies[:invitation_token]
       end
 
       describe "slack invitation" do
@@ -28,7 +28,7 @@ describe LoginRegisterFunnel::AcceptInvitationController do
         it "sets invited email address as reviewed during login register funnel" do
           get accept_invitation_url(email_invitation.token, subdomain: ENV["DEFAULT_SUBDOMAIN"])
 
-          assert_equal email_invitation.email, @controller.users_reviewed_email_address
+          assert_equal email_invitation.email, session[:users_reviewed_email_address]
         end
 
         context "email is already registered" do

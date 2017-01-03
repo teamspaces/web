@@ -7,7 +7,7 @@ describe "Accept Invitation", :capybara do
     context "invited user is not yet registered" do
       let(:email_invitation_new) { invitations(:jonas_at_spaces) }
 
-      it "user registers, automatically accepts invitation and gets redirects to team" do
+      it "user gets to register, automatically accepts invitation and gets redirects to team" do
         visit "/accept_invitation/#{email_invitation_new.token}"
 
         fill_in("First name", with: "Max")
