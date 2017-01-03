@@ -1,0 +1,32 @@
+<main>
+  <div class="card">
+    <header>
+      <h1>Choose your team</h1>
+    </header>
+
+    <div class="card-content">
+
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @teams.each do |team| %>
+            <tr>
+              <td><%= team.name %></td>
+              <td><%= link_to 'Show', show_team_subdomain_path(team.subdomain) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <div class="card-actions">
+
+      </div>
+    </div>
+  </div>
+</main>

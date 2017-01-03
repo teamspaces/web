@@ -1,11 +1,12 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+  include LoginRegisterFunnel::SignInPathForUser
 
   STATE_PARAM = "state".freeze
   LOGIN_STATE = "login".freeze
   REGISTER_STATE = "register".freeze
 
   def slack_button
-    team = current_user.teams.find(omniauth_params["team_id"])
+    team = Team.find(omniauth_params["team_id"])
 
     result = TeamAuthentication::CreateSlackAuthentication.call(team: team,
                                                                 team_uid: slack_identity.team.id,
@@ -34,11 +35,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     result = User::FindUserWithSlackIdentity.call(slack_identity: slack_identity)
 
     if result.success?
-
-      sign_in(result.user)
-      redirect_to after_sign_in_path_for(result.user)
+      redirect_to sign_in_path_for(result.user)
     else
-      redirect_to new_user_session_path, alert: t(".failed_login_using_slack")
+      redirect_to slack_register_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]), alert: t(".login_using_slack_failed_as_user_non_existent")
     end
   end
 
@@ -46,18 +45,14 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     login_result = User::FindUserWithSlackIdentity.call(slack_identity: slack_identity)
 
     if login_result.success?
-
-      sign_in(login_result.user)
-      redirect_to after_sign_in_path_for(login_result.user), alert: t(".register_failed_as_user_already_exists")
+      redirect_to sign_in_path_for(login_result.user), alert: t(".register_using_slack_failed_as_user_already_exists")
     else
       result = User::CreateUserFromSlackIdentity.call(slack_identity: slack_identity, token: token)
 
       if result.success?
-
-        sign_in(result.user)
-        redirect_to after_sign_in_path_for(result.user)
+        redirect_to sign_in_path_for(result.user)
       else
-        redirect_to register_path, alert: t(".failed_register_using_slack")
+        redirect_to root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]), alert: t(".failed_register_using_slack")
       end
     end
   end

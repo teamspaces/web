@@ -1,0 +1,49 @@
+<main>
+  <div class="card">
+    <header>
+      <h1><b>3/3</b> | Register with your email address</h1>
+    </header>
+
+    <div class="card-content">
+
+      <% if @existing_slack_user_with_same_email.present? %>
+        <%= link_to "Login with your Slack Account", user_slack_omniauth_authorize_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], state: :login) %>
+
+        <p>Or</p>
+      <% end %>
+
+      <p>Register with your email address: <b><%= @email_register_form.email %></b></p>
+
+      <%= form_for(@email_register_form, url: email_register_path) do |f| %>
+
+        <% if @email_register_form.errors.any? %>
+          <div id="error_explanation">
+            <ul>
+            <% @email_register_form.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <%= f.hidden_field :email %>
+
+        <%= f.text_field :first_name, placeholder: :first_name %>
+        <%= f.text_field :last_name, placeholder: :last_name %>
+
+        <hr>
+
+        <%= f.password_field :password, autocomplete: "off", placeholder: :password %>
+
+        <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: :password_confirmation %>
+
+        <%= submit_tag 'Create my account' %>
+
+      <% end %>
+
+      <div class="card-actions">
+        <%= link_to "Back", new_review_email_address_path %>
+      </div>
+    </div>
+  </div>
+</main>

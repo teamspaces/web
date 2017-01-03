@@ -44,6 +44,7 @@ end
 group :development, :test do
   gem "minitest-rails-capybara"
   gem "minitest-reporters"
+  gem "minitest-around"
   gem "byebug"
   gem "awesome_print"
 end

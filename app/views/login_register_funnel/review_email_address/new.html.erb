@@ -1,0 +1,32 @@
+<main>
+  <div class="card">
+    <header>
+      <h1><b>2/3</b> | Please type in your email address</h1>
+    </header>
+
+    <div class="card-content">
+
+      <%= form_for(@email_address_form, url: review_email_address_path) do |f| %>
+
+        <% if @email_address_form.errors.any? %>
+          <div id="error_explanation">
+            <ul>
+            <% @email_address_form.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <%= f.text_field :email, placeholder: "Email" %>
+
+        <%= f.submit 'This is my email' %>
+
+      <% end %>
+
+      <div class="card-actions">
+        <%= link_to "Back", choose_login_method_path %>
+      </div>
+    </div>
+  </div>
+</main>

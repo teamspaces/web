@@ -3,6 +3,7 @@ require File.expand_path("../../config/environment", __FILE__)
 
 require "rails/test_help"
 require "minitest/rails/capybara"
+require "minitest/around/spec"
 require "mocha/mini_test"
 require "shoulda/context"
 
@@ -14,26 +15,48 @@ require "support/omniauth"
 
 require "shared/test_helpers/slack/identity"
 
+require "test_helpers/subdomain_helper"
+
 class ActiveSupport::TestCase
   fixtures :all
+  self.use_transactional_tests = false
 end
 
-class ActiveSupport::IntegrationTest
-end
-
-class ActionDispatch::IntegrationTest
-  include Capybara::DSL
-  include Capybara::Assertions
-  include Devise::Test::IntegrationHelpers
-
-  def setup
+class Capybara::Rails::TestCase
+  before do
     Capybara.reset!
     DatabaseCleaner.start
   end
 
-  def teardown
+  after do
     Capybara.reset!
     Capybara.use_default_driver
+    DatabaseCleaner.clean
+  end
+
+  # Saves a screenshot to the rails tmp folder.
+  # Very useful when debugging. Call it before the offending line.
+  #
+  # Example:
+  #     click_on "Sign In"
+  #     screenshot
+  #     click_on "This non-existing link"
+  #
+  def screenshot
+    name = Time.now.getutc
+    path = Rails.root.join("tmp/#{name}.png")
+    save_screenshot(path)
+  end
+end
+
+class ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
+  before do
+    DatabaseCleaner.start
+  end
+
+  after do
     DatabaseCleaner.clean
   end
 end
