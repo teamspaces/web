@@ -5,6 +5,6 @@ class LandingController < ApplicationController
   end
 
   def blank
-    render plain: '<html><head><meta name="robots" content="noindex"></head><body></body></html>'
+    render html: '<html><head><meta name="robots" content="noindex"></head><body></body></html>'.html_safe
   end
 end
