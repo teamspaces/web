@@ -14,6 +14,13 @@ describe "Email Login", :capybara do
       fill_in("Email", with: email_user.email)
       click_on "This is my email"
 
+      # enters wrong password
+      fill_in("Password", with: "wrong_password")
+      click_on "Login with my account"
+
+      assert_content "The password you have entered is invalid"
+
+      # enters correct password
       fill_in("Password", with: "password")
       click_on "Login with my account"
 
