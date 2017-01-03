@@ -3,4 +3,8 @@ class LandingController < ApplicationController
 
   def index
   end
+
+  def blank
+    render html: '<html><head><meta name="robots" content="noindex"></head><body></body></html>'.html_safe
+  end
 end
