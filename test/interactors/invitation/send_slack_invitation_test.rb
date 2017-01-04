@@ -11,6 +11,7 @@ describe Invitation::SendSlackInvitation, :model do
     client_mock.expects(:chat_postMessage).with() do |message|
       message[:text].include? "Hi Milad, Lars invited you to collaborate on Spaces"
       message[:text].include? accept_invitation_path(invitation.token)
+      message[:icon_url] == "https://what.spaces.is/assets/images/slack_avatars/SpaceShip.png"
     end
 
     result = subject.call(invitation: invitation)
