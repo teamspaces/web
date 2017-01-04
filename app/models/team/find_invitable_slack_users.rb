@@ -16,10 +16,14 @@ class Team::FindInvitableSlackUsers
       team_authentication = @team.team_authentication
 
       begin
-        Slack::Web::Client.new(token: team_authentication&.token).users_list.members
+        Slack::Web::Client.new(token: team_authentication.token).users_list.members
       rescue Slack::Web::Api::Error => exception
-        Rails.logger.error("Team::FindInvitableSlackUsers#all_slack_members failed (team.id=#{@team.id}) with (#{exception.class}=#{exception.message})")
-        Raven.capture_exception(exception, extra: { team_id: @team.id })
+        if exception.message == "token_revoked"
+          team_authentication.destroy
+        else
+          Rails.logger.error("Team::FindInvitableSlackUsers#all_slack_members failed (team.id=#{@team.id}) with (#{exception.class}=#{exception.message})")
+          Raven.capture_exception(exception, extra: { team_id: @team.id })
+        end
 
         []
       end

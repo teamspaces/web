@@ -20,5 +20,15 @@ describe Team::FindInvitableSlackUsers, :model do
 
       assert_equal [invitable_slack_user], invitable_slack_users
     end
+
+    context "team authentication token was revoked" do
+      it "deletes team authentication" do
+        Slack::Web::Client.stubs(:new).raises(Slack::Web::Api::Error, "token_revoked")
+
+        assert_difference -> {  TeamAuthentication.count }, -1 do
+          Team::FindInvitableSlackUsers.new(team).all
+        end
+      end
+    end
   end
 end
