@@ -16,7 +16,7 @@ class Invitation::SendSlackInvitation
                               text: invitation_text,
                               as_user: false,
                               username: "Spaces",
-                              icon_url: url_to_image("SpaceShip.png"))
+                              icon_url: application_icon_url)
     rescue Slack::Web::Api::Error => exception
       Rails.logger.error("Invitation::SendSlackInvitation#send_invitation failed with (#{exception.class}=#{exception.message})")
       Raven.capture_exception(exception)
@@ -31,6 +31,11 @@ class Invitation::SendSlackInvitation
       I18n.t('invitation.slack.text', invitee_first_name: invitation.first_name,
                                       host_first_name: invitation.user.first_name,
                                       url: invitation_url)
+    end
+
+    def application_icon_url
+      URI.join(root_url(subdomain:  ENV["DEFAULT_SUBDOMAIN"]),
+               "assets", "images", "icons", "space_ship.png").to_s
     end
 
     def client
