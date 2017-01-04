@@ -1,6 +1,27 @@
+dependencies:
+  cache_directories:
+    - ~/rvm_binaries
+
 machine:
+
+  post:
+    - |
+      if [[ -e ~/rvm_binaries/ruby-2.3.3.tar.bz2 ]]
+      then
+        rvm mount ~/rvm_binaries/ruby-2.3.3.tar.bz2
+      else
+        mkdir -p ~/rvm_binaries
+        rvm install 2.3.3
+        cd ~/rvm_binaries && rvm prepare 2.3.3
+      fi
+    - rvm --default use 2.3.3
+
+  timezone:
+    Europe/Stockholm
+
   pre:
     - sudo curl --output /usr/local/bin/phantomjs https://s3.amazonaws.com/circle-downloads/phantomjs-2.1.1
+
   environment:
     ACTION_MAILER_HOST: 'www.spaces.is'
     ACTION_MAILER_PORT: 5510
