@@ -30,10 +30,6 @@ machine:
     USER_AUTH_JWT_SECRET: 'user-auth-jwt-token-123'
     DEFAULT_SUBDOMAIN: 'what'
 
-test:
-  override:
-    - bundle exec rails test
-
 deployment:
   production:
     branch: master
