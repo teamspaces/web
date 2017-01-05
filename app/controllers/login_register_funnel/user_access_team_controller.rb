@@ -1,4 +1,5 @@
 class LoginRegisterFunnel::UserAccessTeamController < LoginRegisterFunnelController
+  #login_into_team
   include SignedInUsersCookie
 
   def new
@@ -11,8 +12,9 @@ class LoginRegisterFunnel::UserAccessTeamController < LoginRegisterFunnelControl
       if user.login_using_slack?
         redirect_to user_slack_omniauth_authorize_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], state: :login)
       elsif user.login_using_email?
-        set_users_reviewed_email_address(user.email)
-        new_email_login_path
+        set_users_reviewed_email_address(current_user.email)
+
+        redirect_to new_email_login_path
       end
     end
   end

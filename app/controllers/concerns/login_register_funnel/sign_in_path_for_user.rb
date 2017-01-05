@@ -4,7 +4,7 @@ module LoginRegisterFunnel::SignInPathForUser
   include SignedInUsersCookie
   extend ActiveSupport::Concern
 
-  def sign_in_path_for(user)
+  def sign_in_path_for(user, team=nil)
     add_to_signed_in_users_cookie(user)
     return user_accept_invitation_path(user) if invitation_token_cookie.present?
 
@@ -22,3 +22,7 @@ module LoginRegisterFunnel::SignInPathForUser
     end
   end
 end
+
+
+#if on team subdomain direct da hin
+# oder wenn team
