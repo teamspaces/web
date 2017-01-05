@@ -1,11 +1,11 @@
 module LoginRegisterFunnel::SignInPathForUser
   include LoginRegisterFunnel::SharedUserInformation
   include LoginRegisterFunnel::UserAcceptInvitationPath
-  include SignedInUsersCookie
   extend ActiveSupport::Concern
 
   def sign_in_path_for(user, team_to_redirect_to=nil)
-    add_to_signed_in_users_cookie(user)
+    DeviceUsersCookie.new(cookies).add(user)
+
     return user_accept_invitation_path(user) if invitation_token_cookie.present?
 
     team_to_redirect_to = Team.find_by(subdomain: request.subdomain) if on_users_team_subdomain?(user)
