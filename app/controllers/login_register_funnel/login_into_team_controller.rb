@@ -1,4 +1,4 @@
-class LoginRegisterFunnel::UserAccessTeamController < LoginRegisterFunnelController
+class LoginRegisterFunnel::LoginIntoTeamController < LoginRegisterFunnelController
   #login_into_team
 
   def new

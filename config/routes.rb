@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   constraints ReservedSubdomain do
+    get :login_into_team, to: "login_register_funnel/login_into_team#new", as: :login_into_team
+
     resources :spaces do
       resources :pages, only: [:index, :new, :create]
     end
@@ -11,9 +13,6 @@ Rails.application.routes.draw do
 
     resources :invitations, only: [:index, :create, :destroy]
     get "slack_invitation", to: "slack_invitations#create", as: :create_slack_invitation
-
-    #login into team
-    get :access_team, to: "login_register_funnel/user_access_team#new", as: :access_team
 
     get "/", to: "root_subdomain#index", as: :root_subdomain
   end

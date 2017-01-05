@@ -2,7 +2,7 @@ class LandingController < ApplicationController
   skip_before_action :authenticate_user!
 
   def index
-    @teams = DeviceUsersCookie.new(cookies).teams
+
   end
 
   def blank
