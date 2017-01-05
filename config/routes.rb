@@ -23,14 +23,15 @@ Rails.application.routes.draw do
     delete :logout, to: "devise/sessions#destroy", as: :destroy_user_session
   end
 
+  #login into team
+  get :access_team, to: "login_register_funnel/user_access_team#new", as: :access_team
+
   constraints subdomain: ENV["DEFAULT_SUBDOMAIN"] do
     get :choose_login_method, to: "login_register_funnel/choose_login_method#index", as: :choose_login_method
 
     get :provide_email_addresss, to: "login_register_funnel/review_email_address#new", as: :new_review_email_address
     post :review_email_address, to: "login_register_funnel/review_email_address#review", as: :review_email_address
 
-    get :email_login, to: "login_register_funnel/email_login#new", as: :new_email_login
-    post :email_login, to: "login_register_funnel/email_login#create", as: :email_login
 
     get :email_register, to: "login_register_funnel/email_register#new", as: :new_email_register
     post :email_register, to: "login_register_funnel/email_register#create", as: :email_register
@@ -46,6 +47,9 @@ Rails.application.routes.draw do
     get "team/:team_subomain", to: "login_register_funnel/teams#show", as: :show_team_subdomain
     get :choose_team, to: "login_register_funnel/teams#index", as: :login_register_funnel_list_teams
   end
+
+  get :email_login, to: "login_register_funnel/email_login#new", as: :new_email_login
+  post :email_login, to: "login_register_funnel/email_login#create", as: :email_login
 
   get :temporary_landing, to: "landing#index", path: "/landing"
 

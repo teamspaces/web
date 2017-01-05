@@ -1,5 +1,11 @@
 <h1>Landing#index</h1>
 
+<% @teams.each do |team| %>
+
+  <%= link_to team.name, access_team_url(subdomain: team.subdomain), target: "blank" %>
+
+<% end %>
+
 <% if !user_signed_in? %>
 
   <p><%= link_to "Sign In", choose_login_method_path %></p>
