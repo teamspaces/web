@@ -10,7 +10,7 @@ class LoginRegisterFunnel::UserAccessTeamController < LoginRegisterFunnelControl
       user = current_team.users.find_by(id: signed_in_users_cookie_users)&.decorate
 
       if user.login_using_slack?
-        redirect_to user_slack_omniauth_authorize_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], state: :login)
+        redirect_to user_slack_omniauth_authorize_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], state: :login, team_id: current_team.id)
       elsif user.login_using_email?
         set_users_reviewed_email_address(current_user.email)
 
