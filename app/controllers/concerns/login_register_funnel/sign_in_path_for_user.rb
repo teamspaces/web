@@ -10,9 +10,9 @@ module LoginRegisterFunnel::SignInPathForUser
 
     if user_clicked_on_create_team
       login_register_funnel_new_team_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], auth_token: GenerateLoginToken.call(user: user))
+    elsif on_team_subdomain_of_user(user)
+      team_path(auth_token: GenerateLoginToken.call(user: user))
     else
-      #if on team subdomain direct login
-
       case user.teams.count
       when 0
         login_register_funnel_new_team_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], auth_token: GenerateLoginToken.call(user: user))
@@ -23,4 +23,10 @@ module LoginRegisterFunnel::SignInPathForUser
       end
     end
   end
+
+  private
+
+    def on_team_subdomain_of_user(user)
+      user.teams.find_by(subdomain: request.subdomain).present?
+    end
 end
