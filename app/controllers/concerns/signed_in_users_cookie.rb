@@ -3,13 +3,13 @@ module SignedInUsersCookie
 
   def add_to_signed_in_users_cookie(user)
     if cookies[:signed_in_user_ids]
-      ids = cookies[:signed_in_user_ids]
+      ids = JSON.parse(cookies[:signed_in_user_ids])
       ids << user.id
     else
-      ids = [user.id].to_json
+      ids = [user.id]
     end
 
-    cookies[:signed_in_user_ids] = { value: ids, domain: :all,  tld_length: 2}
+    cookies[:signed_in_user_ids] = { value: ids.to_set.to_a.to_json, domain: :all,  tld_length: 2}
   end
 
   def remove_form_signed_in_users_cookie(user)
@@ -26,7 +26,7 @@ module SignedInUsersCookie
 
     if ids
       JSON.parse(ids).each do |id|
-        users << User.find(id)
+        users << User.find_by(id: id)
       end
     end
 
