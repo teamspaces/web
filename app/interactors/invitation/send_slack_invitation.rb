@@ -34,7 +34,7 @@ class Invitation::SendSlackInvitation
     end
 
     def application_icon_url
-      "#{root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])}assets/images/icons/space_ship.png"
+      asset_url("assets/images/icons/space_ship.png", host: root_url(subdomain: ENV['DEFAULT_SUBDOMAIN']))
     end
 
     def client
