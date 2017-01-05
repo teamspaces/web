@@ -15,10 +15,10 @@ describe LoginRegisterFunnel::AcceptInvitationController do
       describe "slack invitation" do
         let(:slack_invitation) { invitations(:slack_user_spaces_invitation) }
 
-        it "redirects to slack register path" do
+        it "redirects to slack-omniauth-register url" do
           get accept_invitation_url(slack_invitation.token, subdomain: ENV["DEFAULT_SUBDOMAIN"])
 
-          assert_redirected_to slack_register_path
+          assert_redirected_to user_slack_omniauth_authorize_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], state: :register)
         end
       end
 
