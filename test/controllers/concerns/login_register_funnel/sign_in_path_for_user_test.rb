@@ -6,6 +6,10 @@ describe LoginRegisterFunnel::SignInPathForUser, :controller do
     get choose_login_method_url(subdomain:  ENV["DEFAULT_SUBDOMAIN"])
   end
 
+  it "sets cookies" do
+
+  end
+
   describe "user clicked on create team" do
     let(:user_with_several_teams) { users(:with_several_teams) }
 
