@@ -6,29 +6,36 @@ module LoginRegisterFunnel::SignInPathForUser
   def sign_in_path_for(user, team_to_redirect_to=nil)
     DeviceUsersCookie.new(cookies).add(user)
 
-    return user_accept_invitation_path(user) if invitation_token_cookie.present?
-
-    team_to_redirect_to = Team.find_by(subdomain: request.subdomain) if on_users_team_subdomain?(user)
-
-    if user_clicked_on_create_team
-      login_register_funnel_new_team_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], auth_token: GenerateLoginToken.call(user: user))
-    elsif team_to_redirect_to
-      team_url(subdomain: team_to_redirect_to.subdomain, auth_token: GenerateLoginToken.call(user: user))
-    else
-      case user.teams.count
-      when 0
-        login_register_funnel_new_team_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], auth_token: GenerateLoginToken.call(user: user))
-      when 1
-        team_url(subdomain: user.teams.first.subdomain, auth_token: GenerateLoginToken.call(user: user))
-      else
-        login_register_funnel_list_teams_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], auth_token: GenerateLoginToken.call(user: user))
-      end
-    end
+    case
+      when invitation_token_cookie.present? then user_accept_invitation_path(user)
+      when user_clicked_on_create_team then team_creation_path(user)
+      when team_to_redirect_to.present? then team_to_redirect_to_path(user, team_to_redirect_to)
+      when user_subdomain_team(user).present? then team_to_redirect_to_path(user, user_subdomain_team(user))
+      else path_depending_on_user_teams_count(user) end
   end
 
   private
 
-    def on_users_team_subdomain?(user)
-      user.teams.find_by(subdomain: request.subdomain).present?
+    def user_subdomain_team(user)
+      user.teams.find_by(subdomain: request.subdomain)
+    end
+
+    def team_creation_path(user)
+      login_register_funnel_new_team_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], auth_token: GenerateLoginToken.call(user: user))
+    end
+
+    def team_to_redirect_to_path(user, team)
+      team_url(subdomain: team.subdomain, auth_token: GenerateLoginToken.call(user: user))
+    end
+
+    def path_depending_on_user_teams_count(user)
+      case user.teams.count
+        when 0
+          team_creation_path(user)
+        when 1
+          team_to_redirect_to_path(user, user.teams.first)
+        else
+          login_register_funnel_list_teams_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], auth_token: GenerateLoginToken.call(user: user))
+      end
     end
 end

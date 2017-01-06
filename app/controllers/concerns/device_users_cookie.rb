@@ -5,7 +5,6 @@ class DeviceUsersCookie
 
   def initialize(cookies)
     @cookies = cookies
-
     @user_ids = @cookies[COOKIE_NAME].present? ? JSON.parse(@cookies[COOKIE_NAME]) : []
   end
 
@@ -30,6 +29,6 @@ class DeviceUsersCookie
   private
 
     def save(user_ids)
-      @cookies[COOKIE_NAME] = { value: user_ids.to_json, domain: COOKIE_DOMAIN,  tld_length: 2}
+      @cookies[COOKIE_NAME] = { value: user_ids.to_json, domain: COOKIE_DOMAIN,  tld_length: 2 }
     end
 end
