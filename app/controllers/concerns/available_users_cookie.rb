@@ -1,4 +1,4 @@
-class DeviceUsersCookie
+class AvailableUsersCookie
 
   COOKIE_NAME = :device_user_ids
   COOKIE_DOMAIN = :all
@@ -19,16 +19,16 @@ class DeviceUsersCookie
   end
 
   def users
-    @user_ids.map { |user_id| User.find_by(id: user_id) }.compact
+    User.where(id: @user_ids)
   end
 
   def teams
-    users.map(&:teams).flatten.uniq
+    Team.joins(:users).where("users.id": @user_ids).distinct
   end
 
   private
 
     def save(user_ids)
-      @cookies[COOKIE_NAME] = { value: user_ids.to_json, domain: COOKIE_DOMAIN,  tld_length: 2 }
+      @cookies.signed[COOKIE_NAME] = { value: user_ids.to_json, domain: COOKIE_DOMAIN,  tld_length: 2 }
     end
 end

@@ -24,7 +24,7 @@ class LoginRegisterFunnel::LoginIntoTeamController < LoginRegisterFunnelControll
     end
 
     def user_trying_to_login_on_team_subdomain
-      subdomain_team.users.find_by(id: DeviceUsersCookie.new(cookies).users)&.decorate
+      subdomain_team.users.find_by(id: AvailableUsersCookie.new(cookies).users)&.decorate
     end
 
     def team_slack_login_path(team)

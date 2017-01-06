@@ -1,5 +1,5 @@
 <ul>
-  <% DeviceUsersCookie.new(cookies).teams.each do |team| %>
+  <% available_teams.each do |team| %>
 
     <li>
       <%= link_to team.name, login_into_team_url(subdomain: team.subdomain), target: "blank" %>

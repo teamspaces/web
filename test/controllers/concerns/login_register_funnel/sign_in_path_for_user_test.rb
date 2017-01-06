@@ -8,7 +8,7 @@ describe LoginRegisterFunnel::SignInPathForUser, :controller do
 
   it "adds user to device users" do
     user = users(:ulf)
-    DeviceUsersCookie.any_instance.expects(:add).with(user)
+    AvailableUsersCookie.any_instance.expects(:add).with(user)
 
     @controller.sign_in_path_for(user)
   end

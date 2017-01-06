@@ -4,21 +4,16 @@ module LoginRegisterFunnel::SignInPathForUser
   extend ActiveSupport::Concern
 
   def sign_in_path_for(user, team_to_redirect_to=nil)
-    DeviceUsersCookie.new(cookies).add(user)
+    AvailableUsersCookie.new(cookies).add(user)
 
     case
       when invitation_token_cookie.present? then user_accept_invitation_path(user)
       when user_clicked_on_create_team then team_creation_path(user)
       when team_to_redirect_to.present? then team_to_redirect_to_path(user, team_to_redirect_to)
-      when user_subdomain_team(user).present? then team_to_redirect_to_path(user, user_subdomain_team(user))
       else path_depending_on_user_teams_count(user) end
   end
 
   private
-
-    def user_subdomain_team(user)
-      user.teams.find_by(subdomain: request.subdomain)
-    end
 
     def team_creation_path(user)
       login_register_funnel_new_team_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], auth_token: GenerateLoginToken.call(user: user))

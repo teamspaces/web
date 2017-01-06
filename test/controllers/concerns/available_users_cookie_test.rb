@@ -1,8 +1,8 @@
 require 'test_helper'
 
-describe DeviceUsersCookie, :model do
+describe AvailableUsersCookie, :model do
 
-  let(:subject) { DeviceUsersCookie.new({}) }
+  let(:subject) { AvailableUsersCookie.new({}) }
   let(:email_user) { users(:ulf) }
   let(:slack_user) { users(:slack_user_milad) }
   let(:cookie_with_email_and_slack_user) do

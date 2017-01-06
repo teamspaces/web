@@ -11,7 +11,7 @@ class LoginRegisterFunnel::EmailLoginController < LoginRegisterFunnelController
     if @email_login_form.valid?
       user = @email_login_form.user
 
-      redirect_to sign_in_path_for(user)
+      redirect_to sign_in_path_for(user, team_to_redirect_to)
     else
       render :new
     end
@@ -21,5 +21,9 @@ class LoginRegisterFunnel::EmailLoginController < LoginRegisterFunnelController
 
     def email_login_form_params
       params.require(:login_register_funnel_email_login_form).permit(:email, :password)
+    end
+
+    def team_to_redirect_to
+      Team.find_by(id: request.subdomain)
     end
 end
