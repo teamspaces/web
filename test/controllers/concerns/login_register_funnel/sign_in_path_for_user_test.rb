@@ -6,8 +6,11 @@ describe LoginRegisterFunnel::SignInPathForUser, :controller do
     get choose_login_method_url(subdomain:  ENV["DEFAULT_SUBDOMAIN"])
   end
 
-  it "sets cookies" do
+  it "adds user to device users" do
+    user = users(:ulf)
+    DeviceUsersCookie.any_instance.expects(:add).with(user)
 
+    @controller.sign_in_path_for(user)
   end
 
   describe "user clicked on create team" do
