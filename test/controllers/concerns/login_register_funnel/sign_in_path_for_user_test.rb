@@ -17,6 +17,28 @@ describe LoginRegisterFunnel::SignInPathForUser, :controller do
     end
   end
 
+  describe "team to redirect" do
+    it "redirects to team" do
+      user = users(:lars)
+      team = user.teams.first
+      url = @controller.sign_in_path_for(user, team)
+
+      assert url.include? team_url(subdomain: team.subdomain)
+    end
+  end
+
+  describe "on team subdomain" do
+    it "redirects to team" do
+      user = users(:lars)
+      team = user.teams.first
+      get new_email_login_url(subdomain: team)
+
+      url = @controller.sign_in_path_for(user, team)
+
+      assert url.include? team_url(subdomain: team.subdomain)
+    end
+  end
+
   describe "user without a team" do
     let(:user_without_team) { users(:without_team) }
 
