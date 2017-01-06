@@ -1,5 +1,7 @@
 class LoginRegisterFunnel::LoginIntoTeamController < LoginRegisterFunnelController
 
+  skip_before_action :redirect_if_user_already_signed_in
+
   def new
     return redirect_to(team_path) if already_signed_in_on_team_subdomain?
 
