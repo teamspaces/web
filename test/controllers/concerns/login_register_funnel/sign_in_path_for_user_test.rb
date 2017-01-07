@@ -8,9 +8,13 @@ describe LoginRegisterFunnel::SignInPathForUser, :controller do
 
   describe "user clicked on create team" do
     let(:user_with_several_teams) { users(:with_several_teams) }
+    before(:each) do
+      LoginRegisterFunnel::SharedUserInformation.any_instance
+                                                .stubs(:user_wants_to_create_team?)
+                                                .returns(true)
+    end
 
     it "returns create team url" do
-      @controller.set_user_clicked_on_create_team(true)
       url = @controller.sign_in_path_for(user_with_several_teams)
 
       assert url.include? login_register_funnel_new_team_url
