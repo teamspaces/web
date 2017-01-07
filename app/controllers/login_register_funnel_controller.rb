@@ -1,5 +1,4 @@
 class LoginRegisterFunnelController < ApplicationController
-  include LoginRegisterFunnel::SharedUserInformation
   include LoginRegisterFunnel::SignInPathForUser
 
   skip_before_action :authenticate_user!
@@ -18,5 +17,13 @@ class LoginRegisterFunnelController < ApplicationController
 
     def sign_out_user_from_default_subdomain(user)
       sign_out(user)
+    end
+
+    def shared_user_info
+      @shared_user_info ||= LoginRegisterFunnel::SharedUserInformation.new(session)
+    end
+
+    def redirect_unless_user_completed_review_email_address_step
+      redirect_to choose_login_method_path unless shared_user_info.reviewed_email_address.present?
     end
 end

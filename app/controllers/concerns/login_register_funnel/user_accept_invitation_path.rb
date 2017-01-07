@@ -2,8 +2,8 @@ module LoginRegisterFunnel::UserAcceptInvitationPath
   extend ActiveSupport::Concern
 
   def user_accept_invitation_path(user)
-    invitation = Invitation.find_by(token: invitation_token_cookie)
-    delete_invitation_token_cookie
+    invitation = invitation_cookie.invitation
+    invitation_cookie.delete
 
     if invitation.present?
       policy = User::AcceptInvitationPolicy.new(user, invitation)
@@ -22,4 +22,10 @@ module LoginRegisterFunnel::UserAcceptInvitationPath
       sign_in_path_for(user)
     end
   end
+
+  private
+
+    def invitation_cookie
+      @invitation_cookie ||= LoginRegisterFunnel::InvitationCookie.new(cookies)
+    end
 end

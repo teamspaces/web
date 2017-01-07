@@ -9,7 +9,7 @@ class LoginRegisterFunnel::ReviewEmailAddressController < LoginRegisterFunnelCon
 
     if @email_address_form.valid?
       existing_email_user = User.find_for_authentication(email: @email_address_form.email)&.decorate
-      set_users_reviewed_email_address(@email_address_form.email)
+      shared_user_info.reviewed_email_address = @email_address_form.email
 
       if existing_email_user
         redirect_to new_email_login_path
