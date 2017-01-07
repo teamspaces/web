@@ -9,7 +9,7 @@ class LoginRegisterFunnel::AcceptInvitationController < LoginRegisterFunnelContr
     LoginRegisterFunnel::InvitationCookie.new(cookies).save(invitation)
 
     redirect_to case
-      when invitation.slack_invitation? then slack_register_path
+      when invitation.slack_invitation? then user_slack_omniauth_authorize_url(state: :register)
       when invitation.email_invitation? then email_login_or_register_path(invitation)
     end
   end
