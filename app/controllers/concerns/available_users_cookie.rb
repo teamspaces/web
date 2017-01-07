@@ -5,7 +5,9 @@ class AvailableUsersCookie
 
   def initialize(cookies)
     @cookies = cookies
-    @user_ids = @cookies[COOKIE_NAME].present? ? JSON.parse(@cookies[COOKIE_NAME]) : []
+
+    invitation_cookie = @cookies.signed[COOKIE_NAME]
+    @user_ids = invitation_cookie.present? ? JSON.parse(invitation_cookie) : []
   end
 
   def add(user)
