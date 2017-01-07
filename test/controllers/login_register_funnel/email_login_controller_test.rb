@@ -3,7 +3,9 @@ require "test_helper"
 describe LoginRegisterFunnel::EmailLoginController do
 
   def complete_preceding_email_review_step(email)
-    post review_email_address_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]), params: { login_register_funnel_email_address_form: { email: email } }
+    LoginRegisterFunnel::SharedUserInformation.any_instance
+                                              .stubs(:reviewed_email_address)
+                                              .returns(email)
   end
 
   def build_params(user_identification)
