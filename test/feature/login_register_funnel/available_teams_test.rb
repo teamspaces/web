@@ -7,7 +7,6 @@ describe "Available Teams", :capybara do
     let(:email_user) { users(:with_several_teams) }
 
     it "redirects to available team and let's user sign in" do
-
       # sign in into spaces teams
       visit "/landing"
       click_on "Sign In"
