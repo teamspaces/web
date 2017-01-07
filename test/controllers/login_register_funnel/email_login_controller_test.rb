@@ -41,7 +41,7 @@ describe LoginRegisterFunnel::EmailLoginController do
       end
 
       context "user signs in from team subdomain" do
-        it "signs in user for subdomain team" do
+        it "signs user in into subdomain team" do
           subdomain_team = email_user.teams.last
           post email_login_url(subdomain: subdomain_team.subdomain), params: build_params({ email: email_user.email, password: "password" })
 
