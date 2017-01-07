@@ -2,9 +2,9 @@ class LoginRegisterFunnel::ChooseLoginMethodController < LoginRegisterFunnelCont
 
   def index
     if params[:create_team]
-      set_user_clicked_on_create_team(true)
+      shared_user_info.user_wants_to_create_team = true
     else
-      set_user_clicked_on_create_team(false)
+      shared_user_info.user_wants_to_create_team = false
     end
   end
 end

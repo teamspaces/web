@@ -1,22 +1,21 @@
 module LoginRegisterFunnel::SignInPathForUser
-  include LoginRegisterFunnel::SharedUserInformation
   include LoginRegisterFunnel::UserAcceptInvitationPath
   extend ActiveSupport::Concern
 
   def sign_in_path_for(user)
-    return user_accept_invitation_path(user) if invitation_token_cookie.present?
+    shared_user_info = LoginRegisterFunnel::SharedUserInformation.new(session)
+    sign_in_path_helper = UserSignInPathHelper.new(user, self)
 
-    if user_clicked_on_create_team
-      login_register_funnel_new_team_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], auth_token: GenerateLoginToken.call(user: user))
-    else
-      case user.teams.count
-      when 0
-        login_register_funnel_new_team_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], auth_token: GenerateLoginToken.call(user: user))
-      when 1
-        team_url(subdomain: user.teams.first.subdomain, auth_token: GenerateLoginToken.call(user: user))
-      else
-        login_register_funnel_list_teams_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], auth_token: GenerateLoginToken.call(user: user))
-      end
+    case
+      when invitation_present? then user_accept_invitation_path(user)
+      when shared_user_info.user_wants_to_create_team? then sign_in_path_helper.create_team_url
+      else sign_in_path_helper.url_depending_on_user_teams_count
     end
   end
+
+  private
+
+    def invitation_present?
+      LoginRegisterFunnel::InvitationCookie.new(cookies).invitation.present?
+    end
 end

@@ -1,9 +1,9 @@
 class LoginRegisterFunnel::EmailRegisterController < LoginRegisterFunnelController
-  before_action :check_user_completed_review_email_address_step
+  before_action :redirect_unless_user_completed_review_email_address_step
 
   def new
-    @email_register_form = LoginRegisterFunnel::EmailRegisterForm.new(email: users_reviewed_email_address)
-    @existing_slack_user_with_same_email =  User.find_by(email: users_reviewed_email_address, allow_email_login: false)
+    @email_register_form = LoginRegisterFunnel::EmailRegisterForm.new(email: shared_user_info.reviewed_email_address)
+    @existing_slack_user_with_same_email = User.find_by(email: shared_user_info.reviewed_email_address, allow_email_login: false)
   end
 
   def create
