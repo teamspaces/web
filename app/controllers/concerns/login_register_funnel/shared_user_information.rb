@@ -12,11 +12,11 @@ class LoginRegisterFunnel::SharedUserInformation
     @session[:users_reviewed_email_address]
   end
 
-  def user_wants_to_create_team=(boolean)
-    @session[:user_wants_to_create_team_after_sign_in] = boolean
+  def team_creation_requested=(boolean)
+    @session[:user_team_creation_requested] = boolean
   end
 
-  def user_wants_to_create_team?
-    @session[:user_wants_to_create_team_after_sign_in]
+  def team_creation_requested?
+    @session[:user_team_creation_requested]
   end
 end
