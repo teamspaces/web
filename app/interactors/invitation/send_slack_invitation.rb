@@ -1,4 +1,5 @@
 class Invitation::SendSlackInvitation
+  include ActionView::Helpers::AssetUrlHelper
   include Interactor
 
   attr_reader :invitation
@@ -33,8 +34,7 @@ class Invitation::SendSlackInvitation
     end
 
     def application_icon_url
-      ActionView::Helpers::AssetUrlHelper.asset_url("assets/images/icons/space_ship.png",
-                                                    host: root_url(subdomain: ENV['DEFAULT_SUBDOMAIN']))
+      asset_url("assets/images/icons/space_ship.png", host: ActionController::Base.asset_host)
     end
 
     def client
