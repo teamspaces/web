@@ -10,7 +10,7 @@ describe LoginRegisterFunnel::SignInPathForUser, :controller do
     let(:user_with_several_teams) { users(:with_several_teams) }
     before(:each) do
       LoginRegisterFunnel::SharedUserInformation.any_instance
-                                                .stubs(:user_wants_to_create_team?)
+                                                .stubs(:team_creation_requested?)
                                                 .returns(true)
     end
 

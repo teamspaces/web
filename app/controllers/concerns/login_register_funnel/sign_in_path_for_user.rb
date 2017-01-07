@@ -8,7 +8,7 @@ module LoginRegisterFunnel::SignInPathForUser
 
     case
       when invitation_present? then user_accept_invitation_path(user)
-      when shared_user_info.user_wants_to_create_team? then sign_in_path_helper.create_team_url
+      when shared_user_info.team_creation_requested? then sign_in_path_helper.create_team_url
       else sign_in_path_helper.url_depending_on_user_teams_count
     end
   end
