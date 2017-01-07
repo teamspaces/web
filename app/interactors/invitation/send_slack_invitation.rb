@@ -1,6 +1,6 @@
 class Invitation::SendSlackInvitation
-  include ActionView::Helpers::AssetUrlHelper
   include Interactor
+  include RouteHelper
 
   attr_reader :invitation
 
