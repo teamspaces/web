@@ -10,7 +10,7 @@ class LoginRegisterFunnel::EmailLoginController < LoginRegisterFunnelController
 
     if @email_login_form.valid?
       user = @email_login_form.user
-      team_to_redirect_to = on_team_subdomain? : subdomain_team : nil
+      team_to_redirect_to = on_team_subdomain? ? subdomain_team : nil
 
       redirect_to sign_in_path_for(user, team_to_redirect_to)
     else
