@@ -6,47 +6,44 @@ describe LoginRegisterFunnel::SignInPathForUser, :controller do
     get choose_login_method_url(subdomain:  ENV["DEFAULT_SUBDOMAIN"])
   end
 
-  it "adds user to device users" do
-    user = users(:ulf)
+  let(:user) { users(:with_several_teams) }
+  let(:user_team) { user.teams.first }
+
+  it "adds user to available users on sign in" do
     AvailableUsersCookie.any_instance.expects(:add).with(user)
 
     @controller.sign_in_path_for(user)
   end
 
-  describe "user clicked on create team" do
-    let(:user_with_several_teams) { users(:with_several_teams) }
-    before(:each) do
+  describe "user requestes team creation" do
+    it "returns create team url" do
       LoginRegisterFunnel::SharedUserInformation.any_instance
                                                 .stubs(:team_creation_requested?)
                                                 .returns(true)
-    end
 
-    it "returns create team url" do
-      url = @controller.sign_in_path_for(user_with_several_teams)
+      url = @controller.sign_in_path_for(user)
 
       assert url.include? login_register_funnel_new_team_url
     end
   end
 
-  describe "team to redirect" do
-    it "redirects to team" do
-      user = users(:lars)
-      team = user.teams.first
-      url = @controller.sign_in_path_for(user, team)
+  describe "team redirection requested" do
+    context "user is team member" do
+      it "redirects to team" do
+        url = @controller.sign_in_path_for(user, user_team)
 
-      assert url.include? team_url(subdomain: team.subdomain)
+        assert url.include? team_url(subdomain: user_team.subdomain)
+      end
     end
-  end
 
-  describe "on team subdomain" do
-    it "redirects to team" do
-      user = users(:lars)
-      team = user.teams.first
-      get new_email_login_url(subdomain: team)
+    context "user is not team member" do
+      it "does not redirect to team" do
+        not_users_team = teams(:with_one_space)
 
-      url = @controller.sign_in_path_for(user, team)
+        url = @controller.sign_in_path_for(user, not_users_team)
 
-      assert url.include? team_url(subdomain: team.subdomain)
+        refute url.include? team_url(subdomain: not_users_team.subdomain)
+      end
     end
   end
 

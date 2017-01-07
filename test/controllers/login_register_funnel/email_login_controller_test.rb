@@ -30,14 +30,23 @@ describe LoginRegisterFunnel::EmailLoginController do
   end
 
   describe "#create" do
-    let(:email_user) { users(:without_team) }
+    let(:email_user) { users(:with_several_teams) }
     before(:each) { complete_preceding_email_review_step(email_user.email) }
 
-    context "valid username, password" do
+    describe "valid username, password" do
       it "finds user and redirects to sign in path" do
         post email_login_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]), params: build_params({ email: email_user.email, password: "password" })
 
         assert_redirected_to @controller.sign_in_path_for(email_user)
+      end
+
+      context "user signs in from team subdomain" do
+        it "signs in user for subdomain team" do
+          subdomain_team = email_user.teams.last
+          post email_login_url(subdomain: subdomain_team.subdomain, params: build_params({ email: email_user.email, password: "password" })
+
+          assert_redirected_to @controller.sign_in_path_for(email_user, subdomain_team)
+        end
       end
     end
 
