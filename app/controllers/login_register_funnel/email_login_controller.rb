@@ -1,8 +1,8 @@
 class LoginRegisterFunnel::EmailLoginController < LoginRegisterFunnelController
-  before_action :check_user_completed_review_email_address_step
+  before_action :redirect_unless_user_completed_review_email_address_step
 
   def new
-    @email_login_form = LoginRegisterFunnel::EmailLoginForm.new(email: users_reviewed_email_address)
+    @email_login_form = LoginRegisterFunnel::EmailLoginForm.new(email: shared_user_info.reviewed_email_address)
   end
 
   def create

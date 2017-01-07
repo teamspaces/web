@@ -6,7 +6,7 @@ class LoginRegisterFunnel::AcceptInvitationController < LoginRegisterFunnelContr
     return redirect_with_invalid_invitation_notice unless invitation.present?
     return redirect_with_already_used_notice if invitation.already_accepted?
 
-    set_invitation_token_cookie(invitation.token)
+    LoginRegisterFunnel::InvitationCookie.new(cookies).save(invitation)
 
     redirect_to case
       when invitation.slack_invitation? then user_slack_omniauth_authorize_url(state: :register)
@@ -25,7 +25,7 @@ class LoginRegisterFunnel::AcceptInvitationController < LoginRegisterFunnelContr
     end
 
     def email_login_or_register_path(invitation)
-      set_users_reviewed_email_address(invitation.email)
+      shared_user_info.reviewed_email_address = invitation.email
 
       case
         when invitation.accepting_user_is_already_registered_using_email? then new_email_login_path
