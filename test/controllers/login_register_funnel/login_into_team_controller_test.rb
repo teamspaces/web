@@ -30,7 +30,7 @@ describe LoginRegisterFunnel::LoginIntoTeamController, :controller do
         let(:slack_user) { users(:slack_user_milad) }
         let(:team) { slack_user.teams.first }
 
-        it "redirects to slack login, with team_id param" do
+        it "redirects to slack login, with team to login set in callback" do
           AvailableUsersCookie.any_instance.stubs(:users).returns([slack_user])
           get login_into_team_url(subdomain: team.subdomain)
 

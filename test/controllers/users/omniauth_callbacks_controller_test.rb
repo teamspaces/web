@@ -68,17 +68,17 @@ describe Users::OmniauthCallbacksController do
       end
 
       it "redirects to sign_in_path_for user" do
-        stub_omniauth_params_with({state: "login"}.with_indifferent_access)
         get user_slack_omniauth_callback_url
+
         assert_redirected_to(@controller.sign_in_path_for(slack_user))
       end
 
-      context "team id in params" do
-        let(:team) { slack_user.teams.first }
-
-        it "redirects to team id" do
+      describe "team redirection requested" do
+        it "redirects to sign_in_path_for users team" do
+          team = slack_user.teams.first
           stub_omniauth_params_with({state: "login", team_id: team.id}.with_indifferent_access)
           get user_slack_omniauth_callback_url
+
           assert_redirected_to(@controller.sign_in_path_for(slack_user, team))
         end
       end
