@@ -1,69 +1,68 @@
 require "test_helper"
 
-describe "Select Team On Landing", :capybara do
+describe "Available Teams", :capybara do
   include TestHelpers::SubdomainHelper
 
-  describe "select team on landing page" do
+  describe "shown availables teams on default subdomain" do
     let(:email_user) { users(:with_several_teams) }
 
-    it "list teams on landing, can select team, signs in into team" do
+    it "redirects to available team and let's user sign in" do
+
+      # sign in into spaces teams
       visit "/landing"
       click_on "Sign In"
       click_on "Sign in with email"
-
+      # provide email
       fill_in("Email", with: email_user.email)
       click_on "This is my email"
-
-      # enters correct password
+      # provide password
       fill_in("Password", with: "password")
       click_on "Login with my account"
-
-      # select team
+      # select spaces team
       find("a[href='#{show_team_subdomain_path(teams(:spaces).subdomain)}']").click
 
+      # assert signed in into spaces team
       assert_content "sign out"
       assert_content email_user.email
       assert_content "Spaces Organization"
       assert_content "Team"
 
-      # visit default-subdomain landing
+      # go back to landing on default domain
       visit "/landing"
 
-      # list links to teams
+      # assert links to available teams are displayed
       assert_content "Spaces Organization"
       assert_content "Power Rangers"
 
-      # open spaces organization
+      # click on available spaces team
       click_on "Spaces Organization"
+      # spaces subdomain opens in new tab
       switch_to_window(windows.last)
 
-      # already logged in
+      # assert user automatically signed in into spaces team
       assert_content "sign out"
       assert_content email_user.email
       assert_content "Spaces Organization"
       assert_content "Team"
 
-      # visit default-subdomain landing
+      # go back to landing on default domain
       visit "/landing"
 
-      # list links to teams
-      assert_content "Spaces Organization"
-      assert_content "Power Rangers"
-
-      # open power rangers team
+      # select power-rangers team from available teams
       click_on "Power Rangers"
+      # power-rangers subdomain opens in new tab
       switch_to_window(windows.last)
 
-      # not signed in, needs to input password first
+      # not signed in yet into power-rangers subdomain
+      # user needs to provide password
       fill_in("Password", with: "password")
       click_on "Login with my account"
 
-      # sees power rangers content
+      # assert signed in into power-rangers team
       assert_content "sign out"
       assert_content email_user.email
       assert_content "Power Rangers"
       assert_content "Team"
-
     end
   end
 end
