@@ -17,6 +17,6 @@ class LoginRegisterFunnel::SharedUserInformation
   end
 
   def team_creation_requested?
-    @session[:user_team_creation_requested]
+    !! @session[:user_team_creation_requested]
   end
 end
