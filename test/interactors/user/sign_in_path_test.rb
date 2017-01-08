@@ -3,7 +3,7 @@ require "test_helper"
 describe User::SignInPath, :controller do
 
   let(:user) { users(:sven) }
-  let(:controller) { get root_url; @controller }
+  let(:controller) { get root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]); @controller }
   let(:sign_in_path_helper) { UserSignInPathHelper.new(user, controller) }
   let(:shared_user_information) { LoginRegisterFunnel::SharedUserInformation }
   let(:invitation_cookie_mock) { InvitationCookieMock.new(invitations(:jonas_at_spaces)) }
