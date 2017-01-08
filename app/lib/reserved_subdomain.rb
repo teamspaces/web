@@ -11,6 +11,15 @@ class ReservedSubdomain
   private
 
     def self.reserved_names
-      %w(www ftp mail pop smtp admin ssl sftp what)
+      %w(admin api assets
+         cdn
+         develop developer developers docs documentation
+         ftp
+         image images
+         javascript js
+         mail marketing
+         pop private public
+         services sftp smtp ssl status stylesheet stylesheets
+         what www)
     end
 end
