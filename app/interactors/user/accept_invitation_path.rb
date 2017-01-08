@@ -8,11 +8,7 @@ class User::AcceptInvitationPath
     @invitation = invitation_cookie.invitation
                   invitation_cookie.delete
 
-    context.path = decide_path
-  end
-
-  def decide_path
-    @invitation.present? ? invitation_path : non_existing_invitation_path
+    context.path = invitation_path
   end
 
   def invitation_path
@@ -27,20 +23,7 @@ class User::AcceptInvitationPath
     end
   end
 
-  def non_existing_invitation_path
-    add_flash_message("invitation_does_not_exist")
-    user_sign_in_path
-  end
-
   private
-
-    def add_flash_message(translation_lookup)
-      @controller.flash[:notice] = I18n.t(translation_lookup)
-    end
-
-    def user_sign_in_path(options)
-      User::SignInPath.call({ user: @user, controller: @controller }.merge(options.to_h)).path
-    end
 
     def user_accept_invitation_policy
       @user_accept_invitation_policy ||= User::AcceptInvitationPolicy.new(@user, @invitation)
@@ -48,5 +31,13 @@ class User::AcceptInvitationPath
 
     def invitation_cookie
       @invitation_cookie ||= LoginRegisterFunnel::InvitationCookie.new(@controller.send(:cookies))
+    end
+
+    def add_flash_message(translation_lookup)
+      @controller.flash[:notice] = I18n.t(translation_lookup)
+    end
+
+    def user_sign_in_path(options=nil)
+      User::SignInPath.call({ user: @user, controller: @controller }.merge(options.to_h)).path
     end
 end

@@ -20,16 +20,8 @@ class User::SignInPath
 
   private
 
-    def user_accept_invitation_path
-      User::AcceptInvitationPath.call(user: @user, controller: @controller).path
-    end
-
     def invitation_present?
       invitation_cookie.invitation.present?
-    end
-
-    def invitation_cookie
-      @invitation_cookie ||= LoginRegisterFunnel::InvitationCookie.new(@controller.send(:cookies))
     end
 
     def team_redirection_requested?
@@ -40,11 +32,19 @@ class User::SignInPath
       shared_user_info.team_creation_requested?
     end
 
+    def invitation_cookie
+      @invitation_cookie ||= LoginRegisterFunnel::InvitationCookie.new(@controller.send(:cookies))
+    end
+
     def shared_user_info
       @shared_user_info ||= LoginRegisterFunnel::SharedUserInformation.new(@controller.session)
     end
 
     def sign_in_path_helper
       @sign_in_path_helper ||= UserSignInPathHelper.new(@user, @controller)
+    end
+
+    def user_accept_invitation_path
+      User::AcceptInvitationPath.call(user: @user, controller: @controller).path
     end
 end
