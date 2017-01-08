@@ -10,7 +10,7 @@ class LoginRegisterFunnelController < ApplicationController
         user = current_user
 
         sign_out_user_from_default_subdomain(user)
-        return redirect_to sign_in_path_for(user)
+        return redirect_to sign_in_path_for(user: user)
       end
     end
 

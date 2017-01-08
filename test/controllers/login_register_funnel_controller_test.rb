@@ -12,21 +12,17 @@ describe LoginRegisterFunnelController do
 
   describe "user already signed in" do
     let(:user) { users(:lars) }
-    before(:each) { sign_in user }
+    before(:each) do
+      sign_in user
+      get choose_login_method_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
+    end
 
     it "signs out from default subdomain" do
-      get choose_login_method_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
-
       assert_nil @controller.current_user
     end
 
     it "redirects to sign in path for user" do
-      sign_in_path = "sign_in_path"
-      LoginRegisterFunnelController.any_instance.stubs(:sign_in_path_for)
-                                      .returns(sign_in_path)
-      get choose_login_method_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
-
-      assert response.redirect_url.include? sign_in_path
+      assert_redirected_to User::SignInPath.call(user: user, controller: @controller).path
     end
   end
 end

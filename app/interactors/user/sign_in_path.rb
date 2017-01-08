@@ -9,7 +9,6 @@ class User::SignInPath
     context.path = decide_path
   end
 
-
   def decide_path
     case
       when invitation_present? then user_accept_invitation_path

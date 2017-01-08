@@ -69,7 +69,7 @@ describe Users::OmniauthCallbacksController do
       end
 
       it "redirects to sign_in_path_for user" do
-        assert_redirected_to(@controller.sign_in_path_for(slack_user))
+        assert_redirected_to User::SignInPath.call(user: slack_user, controller: @controller).path
       end
     end
 
@@ -96,7 +96,7 @@ describe Users::OmniauthCallbacksController do
         stub_slack_identity_with(TestHelpers::Slack.identity(:existing_user))
         get user_slack_omniauth_callback_url
 
-        assert_redirected_to(@controller.sign_in_path_for(slack_user))
+        assert_redirected_to User::SignInPath.call(user: slack_user, controller: @controller).path
       end
     end
 
@@ -114,7 +114,7 @@ describe Users::OmniauthCallbacksController do
       it "redirects to after_sign_in_path for user" do
         get user_slack_omniauth_callback_url
 
-        assert_redirected_to(@controller.sign_in_path_for(User.last))
+        assert_redirected_to User::SignInPath.call(user: User.last, controller: @controller).path
       end
     end
   end

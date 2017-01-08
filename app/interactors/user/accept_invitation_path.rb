@@ -12,10 +12,10 @@ class User::AcceptInvitationPath
   end
 
   def decide_path
-    @invitation.present? ? accept_invitation_path : non_existing_invitation_path
+    @invitation.present? ? invitation_path : non_existing_invitation_path
   end
 
-  def accept_invitation_path
+  def invitation_path
     if user_accept_invitation_policy.matching?
       User::AcceptInvitation.call(user: @user, invitation: @invitation)
 

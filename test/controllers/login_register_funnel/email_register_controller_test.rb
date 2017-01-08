@@ -50,7 +50,7 @@ describe LoginRegisterFunnel::EmailRegisterController do
       it "redirects user to sign in path" do
         post_valid_user_attributes
 
-        assert_redirected_to @controller.sign_in_path_for(User.last)
+        assert_redirected_to User::SignInPath.call(user: User.last, controller: @controller).path
       end
     end
 
