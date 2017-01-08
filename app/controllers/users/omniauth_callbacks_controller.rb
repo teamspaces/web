@@ -1,5 +1,4 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  include LoginRegisterFunnel::SignInPathForUser
 
   STATE_PARAM = "state".freeze
   LOGIN_STATE = "login".freeze
@@ -58,6 +57,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   private
+
+    def sign_in_path_for(user)
+      User::SignInPath.call(user: user, controller: self).path
+    end
 
     def slack_identity
       request.env["omniauth.auth"].extra.identity

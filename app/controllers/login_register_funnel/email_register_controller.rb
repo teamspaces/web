@@ -12,7 +12,7 @@ class LoginRegisterFunnel::EmailRegisterController < LoginRegisterFunnelControll
     if @email_register_form.save
       user = @email_register_form.user
 
-      redirect_to sign_in_path_for(user)
+      redirect_to User::SignInPath.call(user: user, controller: self).path
     else
       render :new
     end
