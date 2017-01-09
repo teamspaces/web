@@ -20,10 +20,10 @@ describe User::AcceptInvitationPath, :controller do
   end
 
   describe "user is invited" do
-    it "user gets added to host team" do
-      subject.call(user: invited_user, controller: controller)
+    it "accepts invitation" do
+      User::AcceptInvitation.expects(:call).with(user: invited_user, invitation: invitation)
 
-      assert_includes invited_user.teams, invitation.team
+      subject.call(user: invited_user, controller: controller)
     end
 
     it "returns invitation team sign in path" do
@@ -35,10 +35,10 @@ describe User::AcceptInvitationPath, :controller do
   end
 
   describe "user is not invited" do
-    it "user does not get added to host team" do
-      subject.call(user: invited_user, controller: controller)
+    it "does not accept invitation" do
+      User::AcceptInvitation.expects(:call).never
 
-      refute_includes not_invited_user.teams, invitation.team
+      subject.call(user: not_invited_user, controller: controller)
     end
 
     it "returns user sign in path" do
