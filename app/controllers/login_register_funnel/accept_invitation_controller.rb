@@ -1,4 +1,4 @@
-class LoginRegisterFunnel::AcceptInvitationController < LoginRegisterFunnelController
+class LoginRegisterFunnel::AcceptInvitationController < LoginRegisterFunnel::BaseController
 
   def new
     invitation = Invitation.find_by(token: params[:invitation_token])&.decorate

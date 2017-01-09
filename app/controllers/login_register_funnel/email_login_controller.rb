@@ -1,4 +1,4 @@
-class LoginRegisterFunnel::EmailLoginController < LoginRegisterFunnelController
+class LoginRegisterFunnel::EmailLoginController < LoginRegisterFunnel::BaseController
   before_action :redirect_unless_user_completed_review_email_address_step
 
   def new

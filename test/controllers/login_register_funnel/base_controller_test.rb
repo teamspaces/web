@@ -1,6 +1,6 @@
 require "test_helper"
 
-describe LoginRegisterFunnelController do
+describe LoginRegisterFunnel::BaseController do
 
   describe "user tries to authenticate" do
     it "works" do

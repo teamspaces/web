@@ -1,4 +1,4 @@
-class LoginRegisterFunnelController < ApplicationController
+class LoginRegisterFunnel::BaseController < ApplicationController
 
   skip_before_action :authenticate_user!
   before_action :redirect_if_user_already_signed_in
