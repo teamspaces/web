@@ -8,8 +8,10 @@ class LoginRegisterFunnel::LoginIntoTeamController < LoginRegisterFunnelControll
     user = user_trying_to_login_on_team_subdomain
 
     redirect_to case
-      when user.login_using_slack? then team_slack_login_path(subdomain_team)
-      when user.login_using_email? then team_email_login_path(user)
+      when user.login_using_slack? then team_slack_login_path_for(team: subdomain_team)
+      when user.login_using_email?
+        complete_login_register_funnel_review_email_address_step_for(user: user)
+        new_email_login_path
     end
   end
 
@@ -23,13 +25,11 @@ class LoginRegisterFunnel::LoginIntoTeamController < LoginRegisterFunnelControll
       subdomain_team.users.find_by(id: AvailableUsersCookie.new(cookies).users)&.decorate
     end
 
-    def team_slack_login_path(team)
+    def team_slack_login_path(team:)
       user_slack_omniauth_authorize_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], state: :login, team_id: team.id)
     end
 
-    def team_email_login_path(user)
+    def complete_login_register_funnel_review_email_address_step_for(user:)
       shared_user_info.reviewed_email_address = user.email
-
-      new_email_login_path
     end
 end
