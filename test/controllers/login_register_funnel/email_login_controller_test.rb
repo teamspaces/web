@@ -37,7 +37,7 @@ describe LoginRegisterFunnel::EmailLoginController do
       it "finds user and redirects to sign in path" do
         post email_login_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]), params: build_params({ email: email_user.email, password: "password" })
 
-        assert_redirected_to @controller.sign_in_path_for(email_user)
+        assert_redirected_to User::SignInPath.call(user: email_user, controller: @controller).path
       end
     end
 

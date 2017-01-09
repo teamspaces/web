@@ -8,6 +8,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate_user!
 
+  def sign_in_path_for(options)
+    User::SignInPath.call({ controller: self }.merge(options.to_h)).path
+  end
+
   def after_sign_out_path_for(_resource)
     root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
   end

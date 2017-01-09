@@ -69,7 +69,7 @@ describe Users::OmniauthCallbacksController do
       end
 
       it "redirects to sign_in_path_for user" do
-        assert_redirected_to(@controller.sign_in_path_for(slack_user))
+        assert_redirected_to User::SignInPath.call(user: slack_user, controller: @controller).path
       end
     end
 
@@ -96,7 +96,7 @@ describe Users::OmniauthCallbacksController do
         stub_slack_identity_with(TestHelpers::Slack.identity(:existing_user))
         get user_slack_omniauth_callback_url
 
-        assert_redirected_to(@controller.sign_in_path_for(slack_user))
+        assert_redirected_to User::SignInPath.call(user: slack_user, controller: @controller).path
       end
     end
 
@@ -114,7 +114,7 @@ describe Users::OmniauthCallbacksController do
       it "redirects to after_sign_in_path for user" do
         get user_slack_omniauth_callback_url
 
-        assert_redirected_to(@controller.sign_in_path_for(User.last))
+        assert_redirected_to User::SignInPath.call(user: User.last, controller: @controller).path
       end
     end
   end
@@ -122,12 +122,12 @@ describe Users::OmniauthCallbacksController do
   describe "user accepts invitation" do
     let(:slack_user) { users(:slack_user_milad) }
     let(:slack_user_invitation) { invitations(:slack_user_milad_invitation) }
+    let(:invitation_cookie_mock) { InvitationCookieMock.new(slack_user_invitation) }
 
     it "adds user as team member to host team" do
       stub_omniauth_state_param_with("register")
       stub_slack_identity_with(TestHelpers::Slack.identity(:existing_user))
-      LoginRegisterFunnel::InvitationCookie.any_instance.stubs(:invitation)
-                                                        .returns(slack_user_invitation)
+      LoginRegisterFunnel::InvitationCookie.stubs(:new).returns(invitation_cookie_mock)
 
       get user_slack_omniauth_callback_url
 
