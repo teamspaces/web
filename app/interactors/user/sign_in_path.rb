@@ -13,7 +13,7 @@ class User::SignInPath
     case
       when invitation_present? then user_accept_invitation_path
       when team_creation_requested? then sign_in_path_helper.create_team_url
-      when team_redirection_requested? then sign_in_path_helper.team_url(@team_to_redirect_to)
+      when redirect_to_team? then sign_in_path_helper.team_url(@team_to_redirect_to)
       else sign_in_path_helper.url_depending_on_user_teams_count
     end
   end
@@ -24,12 +24,16 @@ class User::SignInPath
       invitation_cookie.invitation.present?
     end
 
-    def team_redirection_requested?
-      @team_to_redirect_to.present?
-    end
-
     def team_creation_requested?
       shared_user_info.team_creation_requested?
+    end
+
+    def redirect_to_team?
+      @team_to_redirect_to.present? && team_policy_allows_user_access?(@team_to_redirect_to)
+    end
+
+    def team_policy_allows_user_access?(team)
+      TeamPolicy.new(DefaultContext.new(@user, team), team).allowed_to_access?
     end
 
     def invitation_cookie

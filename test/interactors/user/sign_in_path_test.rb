@@ -27,15 +27,25 @@ describe User::SignInPath, :controller do
   end
 
   describe "team redirection requested" do
-    it "returns team url" do
-      team_to_redirect_to = user.teams.last
-      path = subject(team_to_redirect_to: team_to_redirect_to).path
 
-      assert_equal sign_in_path_helper.team_url(team_to_redirect_to), path
+    context "user is allowed to access team" do
+      let(:user_team) { user.teams.last }
+
+      it "returns team url" do
+        path = subject(team_to_redirect_to: user_team).path
+
+        assert_equal sign_in_path_helper.team_url(user_team), path
+      end
     end
 
-    it "is not allowed" do
-      assert false
+    context "user is not allowed to access team" do
+      let(:external_team) { teams(:with_two_spaces) }
+
+      it "does not return team url" do
+        path = subject(team_to_redirect_to: external_team).path
+
+        assert_not_equal sign_in_path_helper.team_url(external_team), path
+      end
     end
   end
 
