@@ -79,9 +79,8 @@ describe Users::OmniauthCallbacksController do
           stub_omniauth_params_with({state: "login", team_id: team.id}.with_indifferent_access)
           get user_slack_omniauth_callback_url
 
-          #yeah
-
-          assert_redirected_to(@controller.sign_in_path_for(slack_user, team))
+          assert_redirected_to User::SignInPath.call(user: slack_user,
+                                                     team_to_redirect_to: team, controller: @controller).path
         end
       end
     end
