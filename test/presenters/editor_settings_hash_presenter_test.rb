@@ -31,7 +31,7 @@ describe EditorSettingsHashPresenter, :model do
       assert_not_nil hash[:document_id]
       assert_instance_of String, hash[:document_id]
 
-      assert_match /ws\:\/\/.*.token=.*/, hash[:collab_url]
+      assert_match /#{ENV["COLLAB_SERVICE_URL"]}.*.token=.*/, hash[:collab_url]
 
       assert_equal "fake_page_content_url", hash[:page_content_url]
       assert_equal "fake_token", hash[:csrf_token]
