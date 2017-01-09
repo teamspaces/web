@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
 
   def sign_in_path_for(options)
-    available_users.add(options.user)
+    available_users.add(options[:user])
 
     User::SignInUrlDecider.call({ controller: self }.merge(options.to_h)).path
   end
