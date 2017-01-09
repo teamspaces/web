@@ -46,7 +46,7 @@ class User::SignInPath
     end
 
     def shared_user_info
-      @shared_user_info ||= LoginRegisterFunnel::SharedUserInformation.new(@controller.session)
+      @shared_user_info ||= LoginRegisterFunnel::BaseController::SharedUserInformation.new(@controller.session)
     end
 
     def sign_in_url_for_user

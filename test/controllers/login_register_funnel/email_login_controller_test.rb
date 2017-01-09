@@ -3,7 +3,7 @@ require "test_helper"
 describe LoginRegisterFunnel::EmailLoginController do
 
   def complete_preceding_email_review_step(email)
-    LoginRegisterFunnel::SharedUserInformation.any_instance
+    LoginRegisterFunnel::BaseController::SharedUserInformation.any_instance
                                               .stubs(:reviewed_email_address)
                                               .returns(email)
   end
