@@ -36,7 +36,7 @@ class EditorSettingsHashPresenter
     end
 
     def format_expires_in
-      Time.now.to_i + @expires_in
+      Time.now.to_i + @expires_in.to_i.seconds
     end
 
     def format_document_id
