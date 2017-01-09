@@ -25,7 +25,7 @@ class LoginRegisterFunnel::LoginIntoTeamController < LoginRegisterFunnel::BaseCo
       subdomain_team.users.find_by(id: AvailableUsersCookie.new(cookies).users)&.decorate
     end
 
-    def team_slack_login_path(team:)
+    def team_slack_login_path_for(team:)
       user_slack_omniauth_authorize_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], state: :login, team_id: team.id)
     end
 

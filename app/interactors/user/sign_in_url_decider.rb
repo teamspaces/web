@@ -1,4 +1,4 @@
-class User::SignInPath
+class User::SignInUrlDecider
   include Interactor
 
   def call
@@ -6,12 +6,7 @@ class User::SignInPath
     @controller = context.controller
     @team_to_redirect_to = context.team_to_redirect_to
 
-    add_user_to_available_users
     context.path = decide_path
-  end
-
-  def add_user_to_available_users
-    LoginRegisterFunnel::BaseController::AvailableUsersCookie.new(@controller.send(:cookies)).add(@user)
   end
 
   def decide_path

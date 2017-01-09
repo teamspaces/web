@@ -1,13 +1,13 @@
 require "test_helper"
 
-describe User::SignInPath, :controller do
+describe User::SignInUrlDecider, :controller do
 
   let(:user) { users(:sven) }
   let(:controller) { get root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]); @controller }
   let(:sign_in_url_for_user) { SignInUrlForUser.new(user, controller) }
   let(:shared_user_information) { LoginRegisterFunnel::BaseController::SharedUserInformation }
   let(:invitation_cookie_mock) { InvitationCookieMock.new(invitations(:jonas_at_spaces)) }
-  def subject(options=nil); User::SignInPath.call({ user: user, controller: controller }.merge(options.to_h)) end
+  def subject(options=nil); User::SignInUrlDecider.call({ user: user, controller: controller }.merge(options.to_h)) end
 
   describe "invitation present" do
     it "returns accept invitation path" do

@@ -22,7 +22,7 @@ describe LoginRegisterFunnel::BaseController do
     end
 
     it "redirects to sign in path for user" do
-      assert_redirected_to User::SignInPath.call(user: user, controller: @controller).path
+      assert_redirected_to User::SignInUrlDecider.call(user: user, controller: @controller).path
     end
   end
 end

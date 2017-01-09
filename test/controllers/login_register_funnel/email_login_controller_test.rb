@@ -39,7 +39,7 @@ describe LoginRegisterFunnel::EmailLoginController do
       it "finds user and redirects to sign in path" do
         post email_login_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]), params: build_params({ email: email_user.email, password: "password" })
 
-        assert_redirected_to User::SignInPath.call(user: email_user, controller: @controller).path
+        assert_redirected_to User::SignInUrlDecider.call(user: email_user, controller: @controller).path
       end
 
       context "user signs in from team subdomain" do
@@ -47,7 +47,7 @@ describe LoginRegisterFunnel::EmailLoginController do
           subdomain_team = email_user.teams.last
           post email_login_url(subdomain: subdomain_team.subdomain), params: build_params({ email: email_user.email, password: "password" })
 
-          assert_redirected_to User::SignInPath.call(user: email_user, team_to_redirect_to: subdomain_team, controller: @controller).path
+          assert_redirected_to User::SignInUrlDecider.call(user: email_user, team_to_redirect_to: subdomain_team, controller: @controller).path
         end
       end
     end

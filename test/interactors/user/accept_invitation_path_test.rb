@@ -9,7 +9,7 @@ describe User::AcceptInvitationPath, :controller do
   let(:controller) { get root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]); @controller }
   let(:invitation_cookie_mock) { InvitationCookieMock.new(invitation) }
   before(:each) do
-    User::SignInPath.any_instance.stubs(:call); User::SignInPath.any_instance.stubs(:path)
+    User::SignInUrlDecider.any_instance.stubs(:call); User::SignInUrlDecider.any_instance.stubs(:path)
     LoginRegisterFunnel::BaseController::InvitationCookie.stubs(:new).returns(invitation_cookie_mock)
   end
 

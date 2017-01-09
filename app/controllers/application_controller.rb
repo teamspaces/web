@@ -9,7 +9,9 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
 
   def sign_in_path_for(options)
-    User::SignInPath.call({ controller: self }.merge(options.to_h)).path
+    available_users.add(options.user)
+
+    User::SignInUrlDecider.call({ controller: self }.merge(options.to_h)).path
   end
 
   def after_sign_out_path_for(_resource)
@@ -22,5 +24,9 @@ class ApplicationController < ActionController::Base
 
   def subdomain_team
     Team.find_by(subdomain: request.subdomain)
+  end
+
+  def available_users
+    available_users ||= LoginRegisterFunnel::BaseController::AvailableUsersCookie.new(cookies)
   end
 end

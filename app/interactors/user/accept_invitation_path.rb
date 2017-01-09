@@ -38,6 +38,6 @@ class User::AcceptInvitationPath
     end
 
     def user_sign_in_path(options=nil)
-      User::SignInPath.call({ user: @user, controller: @controller }.merge(options.to_h)).path
+      User::SignInUrlDecider.call({ user: @user, controller: @controller }.merge(options.to_h)).path
     end
 end
