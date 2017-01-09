@@ -17,9 +17,9 @@ class User::SignInPath
   def decide_path
     case
       when invitation_present? then user_accept_invitation_path
-      when team_creation_requested? then sign_in_path_helper.create_team_url
-      when redirect_to_team? then sign_in_path_helper.team_url(@team_to_redirect_to)
-      else sign_in_path_helper.url_depending_on_user_teams_count
+      when team_creation_requested? then sign_in_url_for_user.create_team_url
+      when redirect_to_team? then sign_in_url_for_user.team_url(@team_to_redirect_to)
+      else sign_in_url_for_user.url_depending_on_user_teams_count
     end
   end
 
@@ -49,8 +49,8 @@ class User::SignInPath
       @shared_user_info ||= LoginRegisterFunnel::SharedUserInformation.new(@controller.session)
     end
 
-    def sign_in_path_helper
-      @sign_in_path_helper ||= UserSignInPathHelper.new(@user, @controller)
+    def sign_in_url_for_user
+      @sign_in_url_for_user ||= SignInUrlForUser.new(@user, @controller)
     end
 
     def user_accept_invitation_path
