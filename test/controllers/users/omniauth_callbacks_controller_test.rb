@@ -139,7 +139,7 @@ describe Users::OmniauthCallbacksController do
     it "adds user as team member to host team" do
       stub_omniauth_state_param_with("register")
       stub_slack_identity_with(TestHelpers::Slack.identity(:existing_user))
-      LoginRegisterFunnel::InvitationCookie.stubs(:new).returns(invitation_cookie_mock)
+      LoginRegisterFunnel::BaseController::InvitationCookie.stubs(:new).returns(invitation_cookie_mock)
 
       get user_slack_omniauth_callback_url
 

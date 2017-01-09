@@ -30,7 +30,7 @@ class User::AcceptInvitationPath
     end
 
     def invitation_cookie
-      @invitation_cookie ||= LoginRegisterFunnel::InvitationCookie.new(@controller.send(:cookies))
+      @invitation_cookie ||= LoginRegisterFunnel::BaseController::InvitationCookie.new(@controller.send(:cookies))
     end
 
     def add_flash_message(translation_lookup)

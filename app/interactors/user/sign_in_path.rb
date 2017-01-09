@@ -42,7 +42,7 @@ class User::SignInPath
     end
 
     def invitation_cookie
-      @invitation_cookie ||= LoginRegisterFunnel::InvitationCookie.new(@controller.send(:cookies))
+      @invitation_cookie ||= LoginRegisterFunnel::BaseController::InvitationCookie.new(@controller.send(:cookies))
     end
 
     def shared_user_info

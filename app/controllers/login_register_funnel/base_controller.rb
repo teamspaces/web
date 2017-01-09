@@ -19,7 +19,7 @@ class LoginRegisterFunnel::BaseController < ApplicationController
     end
 
     def shared_user_info
-      @shared_user_info ||= LoginRegisterFunnel::SharedUserInformation.new(session)
+      @shared_user_info ||= LoginRegisterFunnel::BaseController::SharedUserInformation.new(session)
     end
 
     def redirect_unless_user_completed_review_email_address_step
