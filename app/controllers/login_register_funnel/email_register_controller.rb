@@ -10,9 +10,8 @@ class LoginRegisterFunnel::EmailRegisterController < LoginRegisterFunnelControll
     @email_register_form = LoginRegisterFunnel::EmailRegisterForm.new(email_register_form_params.to_h)
 
     if @email_register_form.save
-      user = @email_register_form.user
 
-      redirect_to sign_in_path_for(user)
+      redirect_to sign_in_path_for(user: @email_register_form.user)
     else
       render :new
     end

@@ -19,12 +19,9 @@ class UserSignInPathHelper
 
   def url_depending_on_user_teams_count
     case @user.teams.count
-      when 0
-        create_team_url
-      when 1
-        team_url(@user.teams.first)
-      else
-        choose_team_url
-      end
+      when 0 then create_team_url
+      when 1 then team_url(@user.teams.first)
+      else choose_team_url
+    end
   end
 end
