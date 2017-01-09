@@ -17,6 +17,6 @@
 
 <script>
   $(function(){
-    Spaces.Editor.init("#page-editor", <%= editor_settings(current_user.id, 'collab_pages', @page.id) %>);
+    Spaces.Editor.init("#page-editor", <%= editor_settings %>);
   });
 </script>
