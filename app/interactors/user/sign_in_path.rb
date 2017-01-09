@@ -11,7 +11,7 @@ class User::SignInPath
   end
 
   def add_user_to_available_users
-    AvailableUsersCookie.new(@controller.send(:cookies)).add(@user)
+    LoginRegisterFunnel::BaseController::AvailableUsersCookie.new(@controller.send(:cookies)).add(@user)
   end
 
   def decide_path

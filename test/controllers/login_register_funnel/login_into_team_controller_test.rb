@@ -19,7 +19,7 @@ describe LoginRegisterFunnel::LoginIntoTeamController, :controller do
         let(:email_user) { users(:ulf) }
 
         it "redirects to email login" do
-          AvailableUsersCookie.any_instance.stubs(:users).returns([email_user])
+          LoginRegisterFunnel::BaseController::AvailableUsersCookie.any_instance.stubs(:users).returns([email_user])
           get login_into_team_url(subdomain: email_user.teams.first.subdomain)
 
           assert_redirected_to new_email_login_path
@@ -31,7 +31,7 @@ describe LoginRegisterFunnel::LoginIntoTeamController, :controller do
         let(:team) { slack_user.teams.first }
 
         it "redirects to slack login, with team to login set in callback" do
-          AvailableUsersCookie.any_instance.stubs(:users).returns([slack_user])
+          LoginRegisterFunnel::BaseController::AvailableUsersCookie.any_instance.stubs(:users).returns([slack_user])
           get login_into_team_url(subdomain: team.subdomain)
 
           assert_redirected_to user_slack_omniauth_authorize_url(subdomain: ENV["DEFAULT_SUBDOMAIN"],
