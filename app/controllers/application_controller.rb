@@ -15,4 +15,12 @@ class ApplicationController < ActionController::Base
   def after_sign_out_path_for(_resource)
     root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
   end
+
+  def on_team_subdomain?
+    subdomain_team.present?
+  end
+
+  def subdomain_team
+    Team.find_by(subdomain: request.subdomain)
+  end
 end

@@ -16,11 +16,7 @@ class LoginRegisterFunnel::LoginIntoTeamController < LoginRegisterFunnelControll
   private
 
     def already_signed_in_on_team_subdomain?
-      current_user.present?
-    end
-
-    def subdomain_team
-      Team.find_by(subdomain: request.subdomain)
+      user_signed_in?
     end
 
     def user_trying_to_login_on_team_subdomain

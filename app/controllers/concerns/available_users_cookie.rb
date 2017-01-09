@@ -31,6 +31,8 @@ class AvailableUsersCookie
   private
 
     def save(user_ids)
-      @cookies.signed[COOKIE_NAME] = { value: user_ids.to_json, domain: COOKIE_DOMAIN,  tld_length: 2 }
+      @cookies.signed[COOKIE_NAME] = { value: user_ids.to_json,
+                                       domain: COOKIE_DOMAIN,
+                                       tld_length: 2 }
     end
 end

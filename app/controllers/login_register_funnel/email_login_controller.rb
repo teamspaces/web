@@ -23,12 +23,4 @@ class LoginRegisterFunnel::EmailLoginController < LoginRegisterFunnelController
     def email_login_form_params
       params.require(:login_register_funnel_email_login_form).permit(:email, :password)
     end
-
-    def on_team_subdomain?
-      subdomain_team.present?
-    end
-
-    def subdomain_team
-      Team.find_by(subdomain: request.subdomain)
-    end
 end
