@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  include Shrine::AvatarUploader[:avatar]
+
   devise :database_authenticatable, :recoverable, :rememberable,
          :registerable, :trackable, :custom_validatable,
          :omniauthable, omniauth_providers: [:slack, :slack_button]

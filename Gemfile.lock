@@ -85,6 +85,7 @@ GEM
       railties (>= 4.1.0, < 5.1)
       responders
       warden (~> 1.2.3)
+    down (2.3.8)
     draper (3.0.0.pre1)
       actionpack (~> 5.0)
       activemodel (~> 5.0)
@@ -263,6 +264,8 @@ GEM
     shoulda-context (1.2.1)
     shoulda-matchers (2.8.0)
       activesupport (>= 3.0.0)
+    shrine (2.5.0)
+      down (>= 2.3.6)
     sidekiq (4.2.6)
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
@@ -348,6 +351,7 @@ DEPENDENCIES
   shoulda (~> 3.5)
   shoulda-context
   shoulda-matchers (~> 2.0)
+  shrine
   sidekiq
   skylight
   slack-ruby-client
