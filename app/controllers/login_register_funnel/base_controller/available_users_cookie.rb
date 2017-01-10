@@ -6,8 +6,8 @@ class LoginRegisterFunnel::BaseController::AvailableUsersCookie
   def initialize(cookies)
     @cookies = cookies
 
-    @user_ids = case available_user_cookie_exisiting_and_valid?
-      then JSON.parse(available_user_cookie)
+    @user_ids = case available_users_cookie_exisiting_and_valid?
+      then JSON.parse(available_users_cookie)
       else []
     end
   end
@@ -38,7 +38,7 @@ class LoginRegisterFunnel::BaseController::AvailableUsersCookie
                                        tld_length: 2 }
     end
 
-    def available_user_cookie_exisiting_and_valid?
+    def available_users_cookie_exisiting_and_valid?
       integer_array_schema = { type: "array",
                                items: {
                                  type: "integer"
@@ -47,7 +47,7 @@ class LoginRegisterFunnel::BaseController::AvailableUsersCookie
       JSON::Validator.validate(integer_array_schema, available_user_cookie)
     end
 
-    def available_user_cookie
+    def available_users_cookie
       @cookies.signed[COOKIE_NAME]
     end
 end
