@@ -5,7 +5,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   REGISTER_STATE = "register".freeze
 
   def slack_button
-    team = Team.find(omniauth_params["team_id"]&.to_i)
+    team = Team.find(omniauth_params["team_id"].to_i)
 
     result = TeamAuthentication::CreateSlackAuthentication.call(team: team,
                                                                 team_uid: slack_identity.team.id,

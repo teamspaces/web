@@ -74,7 +74,7 @@ describe Users::OmniauthCallbacksController do
       end
 
       describe "team redirection requested" do
-        it "redirects to sign_in_url_for users team" do
+        it "redirects to sign_in_url_for users with team redirection" do
           team = slack_user.teams.first
           stub_omniauth_params_with({state: "login", team_id: team.id}.with_indifferent_access)
           get user_slack_omniauth_callback_url

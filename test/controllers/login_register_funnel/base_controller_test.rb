@@ -21,8 +21,8 @@ describe LoginRegisterFunnel::BaseController do
       assert_nil @controller.current_user
     end
 
-    it "redirects to sign in path for user" do
-      assert_redirected_to User::SignInUrlDecider.call(user: user, controller: @controller).url
+    it "redirects to sign in url for user" do
+      assert_redirected_to @controller.sign_in_url_for(user: user)
     end
   end
 end
