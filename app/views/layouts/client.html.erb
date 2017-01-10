@@ -32,7 +32,7 @@
 
             <p>
               <% if user_signed_in? %>
-              <%= current_user.first_name %>,
+              <%= link_to current_user.first_name, user_path %>,
 
 
                 <%= link_to("sign out", destroy_user_session_path, method: :delete) %>
