@@ -32,13 +32,13 @@ class UsersController < SubdomainBaseController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-   # authorize @user, :destroy?
-#
- #   @user.destroy
-  #  respond_to do |format|
-   #   format.html { redirect_to }
-    #  format.json { head :no_content }
-    #end
+    authorize @user, :destroy?
+
+    @user.destroy
+    respond_to do |format|
+      format.html { redirect_to root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]) }
+      format.json { head :no_content }
+    end
   end
 
   private
@@ -49,6 +49,17 @@ class UsersController < SubdomainBaseController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
+      case
+        when @user.login_using_email? then email_user_params
+        when @user.login_using_slack? then slack_user_params
+      end
+    end
+
+    def slack_user_params
+      params.require(:user).permit(:first_name, :last_name)
+    end
+
+    def email_user_params
       params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
     end
 end
