@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
     resource :team, only: [:show, :edit, :update, :destroy]
 
-    resources :users, except: [:index]
+    resource :user, except: [:index]
 
     resources :pages, only: [:show, :edit, :update, :destroy]
     resources :page_contents, only: [:show, :update]
