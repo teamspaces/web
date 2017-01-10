@@ -26,11 +26,12 @@ describe User::AcceptInvitationUrl, :controller do
       subject.call(user: invited_user, controller: controller)
     end
 
-    it "returns invitation team sign in url" do
-      subject.any_instance.expects(:user_sign_in_url_decider)
-                          .with(team_to_redirect_to: invitation.team).returns(true)
+    it "returns sign in url for invitation team" do
+      url = subject.call(user: invited_user, controller: controller).url
 
-      subject.call(user: invited_user, controller: controller)
+      assert_equal User::SignInUrlDecider.call(user: invited_user,
+                                               team_to_redirect_to: invitation.team,
+                                               controller: controller).url, url
     end
   end
 
@@ -41,10 +42,11 @@ describe User::AcceptInvitationUrl, :controller do
       subject.call(user: not_invited_user, controller: controller)
     end
 
-    it "returns user sign in path" do
-      subject.any_instance.expects(:user_sign_in_path).with(nil)
+    it "returns user sign in url" do
+      url = subject.call(user: not_invited_user, controller: controller).url
 
-      subject.call(user: not_invited_user, controller: controller)
+      assert_equal User::SignInUrlDecider.call(user: not_invited_user,
+                                               controller: controller).url, url
     end
   end
 end

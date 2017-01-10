@@ -70,7 +70,7 @@ describe Users::OmniauthCallbacksController do
       it "redirects to sign_in_url_for user" do
         get user_slack_omniauth_callback_url
 
-        assert_redirected_to User::SignInUrlDecider.call(user: slack_user, controller: @controller).path
+        assert_redirected_to @controller.sign_in_url_for(user: slack_user)
       end
 
       describe "team redirection requested" do
@@ -79,8 +79,7 @@ describe Users::OmniauthCallbacksController do
           stub_omniauth_params_with({state: "login", team_id: team.id}.with_indifferent_access)
           get user_slack_omniauth_callback_url
 
-          assert_redirected_to User::SignInUrlDecider.call(user: slack_user,
-                                                     team_to_redirect_to: team, controller: @controller).path
+          assert_redirected_to @controller.sign_in_url_for(user: slack_user, team_to_redirect_to: team)
         end
       end
     end
@@ -104,11 +103,11 @@ describe Users::OmniauthCallbacksController do
     describe "user already exists" do
       let(:slack_user) { users(:slack_user_milad) }
 
-      it "redirects to sign_in_path for user" do
+      it "redirects to sign_in_url_for user" do
         stub_slack_identity_with(TestHelpers::Slack.identity(:existing_user))
         get user_slack_omniauth_callback_url
 
-        assert_redirected_to User::SignInUrlDecider.call(user: slack_user, controller: @controller).path
+        assert_redirected_to @controller.sign_in_url_for(user: slack_user)
       end
     end
 
@@ -123,10 +122,10 @@ describe Users::OmniauthCallbacksController do
         end
       end
 
-      it "redirects to after_sign_in_path for user" do
+      it "redirects to sign_in_url_for user" do
         get user_slack_omniauth_callback_url
 
-        assert_redirected_to User::SignInUrlDecider.call(user: User.last, controller: @controller).path
+        assert_redirected_to @controller.sign_in_url_for(user: User.last)
       end
     end
   end

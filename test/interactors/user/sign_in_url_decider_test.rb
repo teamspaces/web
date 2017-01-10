@@ -10,11 +10,11 @@ describe User::SignInUrlDecider, :controller do
   def subject(options=nil); User::SignInUrlDecider.call({ user: user, controller: controller }.merge(options.to_h)) end
 
   describe "invitation present" do
-    it "returns accept invitation path" do
+    it "returns accept invitation url" do
       LoginRegisterFunnel::BaseController::InvitationCookie.stubs(:new).returns(invitation_cookie_mock)
 
-      accept_invitation_path = User::AcceptInvitationPath.call(user: user, controller: controller).path
-      assert_equal accept_invitation_path, subject.path
+      accept_invitation_url = User::AcceptInvitationUrl.call(user: user, controller: controller).url
+      assert_equal accept_invitation_url, subject.url
     end
   end
 
@@ -22,19 +22,18 @@ describe User::SignInUrlDecider, :controller do
     it "returns team creation url" do
       shared_user_information.any_instance.stubs(:team_creation_requested?).returns(true)
 
-      assert_equal sign_in_url_for_user.create_team_url, subject.path
+      assert_equal sign_in_url_for_user.create_team_url, subject.url
     end
   end
 
   describe "team redirection requested" do
-
     context "user is allowed to access team" do
       let(:user_team) { user.teams.last }
 
       it "returns team url" do
-        path = subject(team_to_redirect_to: user_team).path
+        url = subject(team_to_redirect_to: user_team).url
 
-        assert_equal sign_in_url_for_user.team_url(user_team), path
+        assert_equal sign_in_url_for_user.team_url(user_team), url
       end
     end
 
@@ -42,16 +41,16 @@ describe User::SignInUrlDecider, :controller do
       let(:external_team) { teams(:with_two_spaces) }
 
       it "does not return team url" do
-        path = subject(team_to_redirect_to: external_team).path
+        url = subject(team_to_redirect_to: external_team).url
 
-        assert_not_equal sign_in_url_for_user.team_url(external_team), path
+        assert_not_equal sign_in_url_for_user.team_url(external_team), url
       end
     end
   end
 
-  describe "sign in path for user" do
+  describe "sign in url for user" do
     it "returns url depending on users count" do
-      assert_equal sign_in_url_for_user.url_depending_on_user_teams_count, subject.path
+      assert_equal sign_in_url_for_user.url_depending_on_user_teams_count, subject.url
     end
   end
 end
