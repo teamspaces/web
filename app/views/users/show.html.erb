@@ -10,9 +10,7 @@
       <p>First name: <a><%= @user.first_name %></a></p>
       <p>Last name: <a><%= @user.last_name %></a></p>
 
-      <% if @user.login_using_email? %>
-        <p>Email: <a><%= @user.email %></a></p>
-      <% end %>
+      <p>Email: <a><%= @user.email %></a></p>
 
       <div class="card-actions">
         <%= link_to 'Edit', edit_user_path(@user) %>
