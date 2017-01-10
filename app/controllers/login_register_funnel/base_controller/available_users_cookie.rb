@@ -1,13 +1,15 @@
 class LoginRegisterFunnel::BaseController::AvailableUsersCookie
 
-  COOKIE_NAME = :device_user_ids
+  COOKIE_NAME = :available_user_ids
   COOKIE_DOMAIN = :all
 
   def initialize(cookies)
     @cookies = cookies
 
-    invitation_cookie = @cookies.signed[COOKIE_NAME]
-    @user_ids = invitation_cookie.present? ? JSON.parse(invitation_cookie) : []
+    @user_ids = case available_user_cookie_exisiting_and_valid?
+      then JSON.parse(available_user_cookie)
+      else []
+    end
   end
 
   def add(user)
@@ -34,5 +36,18 @@ class LoginRegisterFunnel::BaseController::AvailableUsersCookie
       @cookies.signed[COOKIE_NAME] = { value: user_ids.to_json,
                                        domain: COOKIE_DOMAIN,
                                        tld_length: 2 }
+    end
+
+    def available_user_cookie_exisiting_and_valid?
+      integer_array_schema = { type: "array",
+                               items: {
+                                 type: "integer"
+                              } }
+
+      JSON::Validator.validate(integer_array_schema, available_user_cookie)
+    end
+
+    def available_user_cookie
+      @cookies.signed[COOKIE_NAME]
     end
 end
