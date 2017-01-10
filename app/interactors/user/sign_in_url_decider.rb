@@ -49,6 +49,6 @@ class User::SignInUrlDecider
     end
 
     def user_accept_invitation_url
-      User::AcceptInvitationPath.call(user: @user, controller: @controller).url
+      User::AcceptInvitationUrl.call(user: @user, controller: @controller).url
     end
 end

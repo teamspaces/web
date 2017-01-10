@@ -1,15 +1,15 @@
 require "test_helper"
 
-describe User::AcceptInvitationPath, :controller do
+describe User::AcceptInvitationUrl, :controller do
 
-  subject { User::AcceptInvitationPath }
+  subject { User::AcceptInvitationUrl }
   let(:invitation) { invitations(:slack_user_milad_invitation) }
   let(:invited_user) { users(:slack_user_milad) }
   let(:not_invited_user) { users(:ulf) }
   let(:controller) { get root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]); @controller }
   let(:invitation_cookie_mock) { InvitationCookieMock.new(invitation) }
   before(:each) do
-    User::SignInUrlDecider.any_instance.stubs(:call); User::SignInUrlDecider.any_instance.stubs(:path)
+    User::SignInUrlDecider.any_instance.stubs(:call); User::SignInUrlDecider.any_instance.stubs(:url)
     LoginRegisterFunnel::BaseController::InvitationCookie.stubs(:new).returns(invitation_cookie_mock)
   end
 
@@ -26,8 +26,8 @@ describe User::AcceptInvitationPath, :controller do
       subject.call(user: invited_user, controller: controller)
     end
 
-    it "returns invitation team sign in path" do
-      subject.any_instance.expects(:user_sign_in_path)
+    it "returns invitation team sign in url" do
+      subject.any_instance.expects(:user_sign_in_url_decider)
                           .with(team_to_redirect_to: invitation.team).returns(true)
 
       subject.call(user: invited_user, controller: controller)
