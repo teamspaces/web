@@ -1,8 +1,8 @@
 require "test_helper"
 
-describe User::AcceptInvitationUrl, :controller do
+describe User::AcceptInvitationURL, :controller do
 
-  subject { User::AcceptInvitationUrl }
+  subject { User::AcceptInvitationURL }
   let(:invitation) { invitations(:slack_user_milad_invitation) }
   let(:invited_user) { users(:slack_user_milad) }
   let(:not_invited_user) { users(:ulf) }

@@ -13,7 +13,7 @@ describe User::SignInUrlDecider, :controller do
     it "returns accept invitation url" do
       LoginRegisterFunnel::BaseController::InvitationCookie.stubs(:new).returns(invitation_cookie_mock)
 
-      accept_invitation_url = User::AcceptInvitationUrl.call(user: user, controller: controller).url
+      accept_invitation_url = User::AcceptInvitationURL.call(user: user, controller: controller).url
       assert_equal accept_invitation_url, subject.url
     end
   end

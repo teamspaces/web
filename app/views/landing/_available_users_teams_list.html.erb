@@ -1,9 +1,0 @@
-<ul>
-  <% available_users.teams.each do |team| %>
-
-    <li>
-      <%= link_to team.name, login_into_team_url(subdomain: team.subdomain), target: "blank" %>
-    </li>
-
-  <% end %>
-</ul>

@@ -29,10 +29,10 @@ class User::SignInUrlDecider
     end
 
     def redirect_to_team?
-      @team_to_redirect_to.present? && team_policy_allows_user_access?(@team_to_redirect_to)
+      @team_to_redirect_to.present? && user_access_allowed?(@team_to_redirect_to)
     end
 
-    def team_policy_allows_user_access?(team)
+    def user_access_allowed?(team)
       TeamPolicy.new(DefaultContext.new(@user, team), team).allowed_to_access?
     end
 
@@ -49,6 +49,6 @@ class User::SignInUrlDecider
     end
 
     def user_accept_invitation_url
-      User::AcceptInvitationUrl.call(user: @user, controller: @controller).url
+      User::AcceptInvitationURL.call(user: @user, controller: @controller).url
     end
 end

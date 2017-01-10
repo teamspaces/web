@@ -34,7 +34,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     result = User::FindUserWithSlackIdentity.call(slack_identity: slack_identity)
 
     if result.success?
-      team_to_redirect_to = Team.find_by(id: omniauth_params["team_id"]&.to_i)
+      team_to_redirect_to = Team.find_by(id: omniauth_params["team_id"].to_i) if omniauth_params["team_id"]
 
       redirect_to sign_in_url_for(user: result.user, team_to_redirect_to: team_to_redirect_to)
     else

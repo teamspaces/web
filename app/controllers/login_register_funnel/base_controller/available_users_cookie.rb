@@ -6,14 +6,11 @@ class LoginRegisterFunnel::BaseController::AvailableUsersCookie
   def initialize(cookies)
     @cookies = cookies
 
-    @user_ids = case available_users_cookie_exisiting_and_valid?
-      when true then JSON.parse(available_users_cookie)
-      else []
-    end
+    @user_ids = available_users_cookie_exisiting_and_valid? ? JSON.parse(available_users_cookie) : []
   end
 
   def add(user)
-    @user_ids << user.id if !@user_ids.include? user.id
+    @user_ids << user.id unless @user_ids.include? user.id
     save(@user_ids)
   end
 
