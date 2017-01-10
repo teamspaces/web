@@ -1,4 +1,22 @@
-<%= @user.inspect %>
+<main>
+  <div class="card">
+    <header>
+      <h1>Account</h1>
+    </header>
 
+    <div class="card-content">
+      <%= notice %>
 
-<p> Pegaito</p>
+      <p>First name: <a><%= @user.first_name %></a></p>
+      <p>Last name: <a><%= @user.last_name %></a></p>
+
+      <% if @user.login_using_email? %>
+        <p>Email: <a><%= @user.email %></a></p>
+      <% end %>
+
+      <div class="card-actions">
+        <%= link_to 'Edit', edit_user_path(@user) %>
+      </div>
+    </div>
+  </div>
+</main>
