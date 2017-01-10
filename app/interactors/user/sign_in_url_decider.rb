@@ -45,7 +45,7 @@ class User::SignInUrlDecider
     end
 
     def sign_in_url_for_user
-      @sign_in_url_for_user ||= SignInUrlForUser.new(@user, @controller)
+      @sign_in_url_for_user ||= LoginRegisterFunnel::BaseController::SignInUrlForUser.new(@user, @controller)
     end
 
     def user_accept_invitation_url

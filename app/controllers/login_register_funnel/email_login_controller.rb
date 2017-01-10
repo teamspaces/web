@@ -12,7 +12,7 @@ class LoginRegisterFunnel::EmailLoginController < LoginRegisterFunnel::BaseContr
       team_to_redirect_to = on_team_subdomain? ? subdomain_team : nil
 
       redirect_to sign_in_url_for(user: @email_login_form.user,
-                                   team_to_redirect_to: team_to_redirect_to)
+                                  team_to_redirect_to: team_to_redirect_to)
     else
       render :new
     end

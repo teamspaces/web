@@ -1,4 +1,4 @@
-class SignInUrlForUser
+class LoginRegisterFunnel::BaseController::SignInUrlForUser
 
   def initialize(user, controller)
     @user = user

@@ -26,6 +26,8 @@ class ApplicationController < ActionController::Base
     Team.find_by(subdomain: request.subdomain)
   end
 
+  helper_method :available_users
+
   def available_users
     available_users ||= LoginRegisterFunnel::BaseController::AvailableUsersCookie.new(cookies)
   end
