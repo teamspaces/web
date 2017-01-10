@@ -8,9 +8,9 @@ class UserPolicy
     @user = user
   end
 
-  def allowed?
-    user == default_context_user
+  def is_owner?
+    default_context_user == user
   end
 
-   alias_methods :allowed?, [:read?, :show?, :new?, :edit?, :create?, :update?, :destroy?]
+   alias_methods :is_owner?, [:read?, :show?, :new?, :edit?, :create?, :update?, :destroy?]
 end
