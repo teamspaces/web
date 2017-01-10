@@ -1,13 +1,10 @@
 require 'test_helper'
 
-describe LoginRegisterFunnel::BaseController::AvailableUsersCookie, :model do
+describe LoginRegisterFunnel::BaseController::AvailableUsersCookie, :controller do
   let(:email_user) { users(:ulf) }
   let(:slack_user) { users(:slack_user_milad) }
-  let(:available_users_cookie) do
-    cookie = {}
-    cookie.stubs(:signed).returns(cookie)
-    LoginRegisterFunnel::BaseController::AvailableUsersCookie.new(cookie)
-  end
+  let(:controller) { get root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]); @controller }
+  let(:available_users_cookie) { LoginRegisterFunnel::BaseController::AvailableUsersCookie.new(controller.send(:cookies)) }
   let(:cookie_with_email_and_slack_user) do
     device_users_cookie = available_users_cookie
     device_users_cookie.add(email_user)
