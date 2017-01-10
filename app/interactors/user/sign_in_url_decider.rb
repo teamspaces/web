@@ -12,8 +12,8 @@ class User::SignInUrlDecider
   def decide_url
     case
       when invitation_present? then user_accept_invitation_url
-      when team_creation_requested? then sign_in_url_for_user.create_team_url
       when redirect_to_team? then sign_in_url_for_user.team_url(@team_to_redirect_to)
+      when team_creation_requested? then sign_in_url_for_user.create_team_url
       else sign_in_url_for_user.url_depending_on_user_teams_count
     end
   end
