@@ -1,4 +1,4 @@
-class User::AcceptInvitationPath
+class User::AcceptInvitationUrl
   include Interactor
 
   def call
@@ -8,18 +8,18 @@ class User::AcceptInvitationPath
     @invitation = invitation_cookie.invitation
                   invitation_cookie.delete
 
-    context.path = invitation_path
+    context.url = accept_invitation_url
   end
 
-  def invitation_path
+  def accept_invitation_url
     if user_accept_invitation_policy.matching?
       User::AcceptInvitation.call(user: @user, invitation: @invitation)
 
       add_flash_message("successfully_accepted_invitation")
-      user_sign_in_path(team_to_redirect_to: @invitation.team)
+      user_sign_in_url_decider(team_to_redirect_to: @invitation.team).url
     else
       add_flash_message("invitation_does_not_match_user")
-      user_sign_in_path
+      user_sign_in_url_decider.url
     end
   end
 
@@ -37,7 +37,7 @@ class User::AcceptInvitationPath
       @controller.flash[:notice] = I18n.t(translation_lookup)
     end
 
-    def user_sign_in_path(options=nil)
-      User::SignInUrlDecider.call({ user: @user, controller: @controller }.merge(options.to_h)).path
+    def user_sign_in_url_decider(options=nil)
+      User::SignInUrlDecider.call({ user: @user, controller: @controller }.merge(options.to_h))
     end
 end

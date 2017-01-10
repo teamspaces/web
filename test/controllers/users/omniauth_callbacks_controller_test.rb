@@ -67,14 +67,14 @@ describe Users::OmniauthCallbacksController do
         stub_slack_identity_with(TestHelpers::Slack.identity(:existing_user))
       end
 
-      it "redirects to sign_in_path_for user" do
+      it "redirects to sign_in_url_for user" do
         get user_slack_omniauth_callback_url
 
         assert_redirected_to User::SignInUrlDecider.call(user: slack_user, controller: @controller).path
       end
 
       describe "team redirection requested" do
-        it "redirects to sign_in_path_for users team" do
+        it "redirects to sign_in_url_for users team" do
           team = slack_user.teams.first
           stub_omniauth_params_with({state: "login", team_id: team.id}.with_indifferent_access)
           get user_slack_omniauth_callback_url

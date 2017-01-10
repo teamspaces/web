@@ -8,10 +8,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate_user!
 
-  def sign_in_path_for(options)
+  def sign_in_url_for(options)
     available_users.add(options[:user])
 
-    User::SignInUrlDecider.call({ controller: self }.merge(options.to_h)).path
+    User::SignInUrlDecider.call({ controller: self }.merge(options.to_h)).url
   end
 
   def after_sign_out_path_for(_resource)
