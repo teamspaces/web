@@ -30,6 +30,8 @@ describe User::CreateUserFromSlackIdentity, :model do
     result = subject.call(slack_identity: TestHelpers::Slack.identity(:unknown_user), token: 'secret')
 
     assert_equal "slack", result.user.avatar.metadata["source"]
+
+    assert result.user.slack_avatar?
   end
 
   describe "#rollback" do
