@@ -47,6 +47,7 @@ class User::CreateUserFromSlackIdentity
 
     def attach_avatar
       result = User::AttachSlackAvatar.call(user: user, slack_identity: slack_identity)
+      User::AttachGeneratedAvatar.call(user: user) unless result.success?
     end
 
     def uid
