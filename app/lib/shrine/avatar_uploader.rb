@@ -3,6 +3,7 @@ class Shrine::AvatarUploader < Shrine
 
   include ImageProcessing::MiniMagick
   plugin :recache
+  plugin :default_url
   plugin :processing
   plugin :versions   # enable Shrine to handle a hash of files
   plugin :delete_raw # delete processed files after uploading
@@ -30,6 +31,10 @@ class Shrine::AvatarUploader < Shrine
 
   #    {large: size_500, medium: size_300}
   #  end
+  end
+
+  Attacher.default_url do |options|
+    "/#{name}/missing.jpg"
   end
 
   add_metadata :source do |io, context|
