@@ -1,6 +1,6 @@
 require "test_helper"
 
-describe LoginRegisterFunnelController do
+describe LoginRegisterFunnel::BaseController do
 
   describe "user tries to authenticate" do
     it "works" do
@@ -21,8 +21,8 @@ describe LoginRegisterFunnelController do
       assert_nil @controller.current_user
     end
 
-    it "redirects to sign in path for user" do
-      assert_redirected_to User::SignInPath.call(user: user, controller: @controller).path
+    it "redirects to sign in url for user" do
+      assert_redirected_to @controller.sign_in_url_for(user: user)
     end
   end
 end

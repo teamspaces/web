@@ -65,11 +65,22 @@ describe Users::OmniauthCallbacksController do
       let(:slack_user) { users(:slack_user_milad) }
       before(:each) do
         stub_slack_identity_with(TestHelpers::Slack.identity(:existing_user))
-        get user_slack_omniauth_callback_url
       end
 
-      it "redirects to sign_in_path_for user" do
-        assert_redirected_to User::SignInPath.call(user: slack_user, controller: @controller).path
+      it "redirects to sign_in_url_for user" do
+        get user_slack_omniauth_callback_url
+
+        assert_redirected_to @controller.sign_in_url_for(user: slack_user)
+      end
+
+      describe "team redirection requested" do
+        it "redirects to sign_in_url_for users with team redirection" do
+          team = slack_user.teams.first
+          stub_omniauth_params_with({state: "login", team_id: team.id}.with_indifferent_access)
+          get user_slack_omniauth_callback_url
+
+          assert_redirected_to @controller.sign_in_url_for(user: slack_user, team_to_redirect_to: team)
+        end
       end
     end
 
@@ -92,11 +103,11 @@ describe Users::OmniauthCallbacksController do
     describe "user already exists" do
       let(:slack_user) { users(:slack_user_milad) }
 
-      it "redirects to sign_in_path for user" do
+      it "redirects to sign_in_url_for user" do
         stub_slack_identity_with(TestHelpers::Slack.identity(:existing_user))
         get user_slack_omniauth_callback_url
 
-        assert_redirected_to User::SignInPath.call(user: slack_user, controller: @controller).path
+        assert_redirected_to @controller.sign_in_url_for(user: slack_user)
       end
     end
 
@@ -111,10 +122,10 @@ describe Users::OmniauthCallbacksController do
         end
       end
 
-      it "redirects to after_sign_in_path for user" do
+      it "redirects to sign_in_url_for user" do
         get user_slack_omniauth_callback_url
 
-        assert_redirected_to User::SignInPath.call(user: User.last, controller: @controller).path
+        assert_redirected_to @controller.sign_in_url_for(user: User.last)
       end
     end
   end
@@ -127,7 +138,7 @@ describe Users::OmniauthCallbacksController do
     it "adds user as team member to host team" do
       stub_omniauth_state_param_with("register")
       stub_slack_identity_with(TestHelpers::Slack.identity(:existing_user))
-      LoginRegisterFunnel::InvitationCookie.stubs(:new).returns(invitation_cookie_mock)
+      LoginRegisterFunnel::BaseController::InvitationCookie.stubs(:new).returns(invitation_cookie_mock)
 
       get user_slack_omniauth_callback_url
 

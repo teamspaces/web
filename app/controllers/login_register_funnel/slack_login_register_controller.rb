@@ -1,4 +1,4 @@
-class LoginRegisterFunnel::SlackLoginRegisterController < LoginRegisterFunnelController
+class LoginRegisterFunnel::SlackLoginRegisterController < LoginRegisterFunnel::BaseController
 
   def login
   end

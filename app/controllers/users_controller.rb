@@ -5,10 +5,6 @@ class UsersController < SubdomainBaseController
   # GET /users/1
   # GET /users/1.json
   def show
-
-
-
-
     authorize @user, :show?
   end
 
@@ -30,18 +26,6 @@ class UsersController < SubdomainBaseController
         format.html { render :edit }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
-    end
-  end
-
-  # DELETE /users/1
-  # DELETE /users/1.json
-  def destroy
-    authorize @user, :destroy?
-
-    @user.destroy
-    respond_to do |format|
-      format.html { redirect_to root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]) }
-      format.json { head :no_content }
     end
   end
 

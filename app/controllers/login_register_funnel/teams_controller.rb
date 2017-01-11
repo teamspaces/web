@@ -1,4 +1,4 @@
-class LoginRegisterFunnel::TeamsController < LoginRegisterFunnelController
+class LoginRegisterFunnel::TeamsController < LoginRegisterFunnel::BaseController
   skip_before_action :redirect_if_user_already_signed_in
   before_action :authenticate_user!
 
@@ -22,7 +22,7 @@ class LoginRegisterFunnel::TeamsController < LoginRegisterFunnelController
   def show
     team = current_user.teams.find_by(subdomain: params[:team_subomain])
 
-    redirect_to team_url(subdomain: team.subdomain, auth_token: GenerateLoginToken.call(user: current_user))
+    redirect_to spaces_url(subdomain: team.subdomain, auth_token: GenerateLoginToken.call(user: current_user))
 
     sign_out_user_from_default_subdomain(current_user)
   end

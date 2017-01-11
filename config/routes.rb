@@ -1,12 +1,14 @@
 Rails.application.routes.draw do
   constraints ReservedSubdomain do
+    get :login_into_team, to: "login_register_funnel/login_into_team#new", as: :login_into_team
+
     resources :spaces do
       resources :pages, only: [:index, :new, :create]
     end
 
     resource :team, only: [:show, :edit, :update, :destroy]
 
-    resource :user, except: [:index]
+    resource :user, except: [:index, :destroy]
 
     resources :pages, only: [:show, :edit, :update, :destroy]
     resources :page_contents, only: [:show, :update]
@@ -31,9 +33,6 @@ Rails.application.routes.draw do
     get :provide_email_addresss, to: "login_register_funnel/review_email_address#new", as: :new_review_email_address
     post :review_email_address, to: "login_register_funnel/review_email_address#review", as: :review_email_address
 
-    get :email_login, to: "login_register_funnel/email_login#new", as: :new_email_login
-    post :email_login, to: "login_register_funnel/email_login#create", as: :email_login
-
     get :email_register, to: "login_register_funnel/email_register#new", as: :new_email_register
     post :email_register, to: "login_register_funnel/email_register#create", as: :email_register
 
@@ -48,6 +47,10 @@ Rails.application.routes.draw do
     get "team/:team_subomain", to: "login_register_funnel/teams#show", as: :show_team_subdomain
     get :choose_team, to: "login_register_funnel/teams#index", as: :login_register_funnel_list_teams
   end
+
+  get :email_login, to: "login_register_funnel/email_login#new", as: :new_email_login
+  post :email_login, to: "login_register_funnel/email_login#create", as: :email_login
+
 
   get :temporary_landing, to: "landing#index", path: "/landing"
 

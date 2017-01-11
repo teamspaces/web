@@ -3,7 +3,7 @@ class SubdomainBaseController < ApplicationController
 
   helper_method :current_team
   def current_team
-    Team.find_by(subdomain: request.subdomain)
+    subdomain_team
   end
 
   private

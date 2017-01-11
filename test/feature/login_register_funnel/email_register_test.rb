@@ -55,7 +55,7 @@ describe "Email Register", :capybara do
 
       assert_content "sign out"
       assert_content user_attributes[:email]
-      assert_content "Team"
+      assert_content "Spaces"
     end
   end
 end

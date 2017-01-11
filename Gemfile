@@ -22,6 +22,7 @@ gem "pundit"
 gem 'omniauth-slack', git: 'https://github.com/teamspaces/omniauth-slack.git', branch: 'auth-hash-fixes'
 gem "httparty"
 gem "jwt"
+gem "json-schema"
 
 gem 'draper', "~> 3.0.0.pre1"
 

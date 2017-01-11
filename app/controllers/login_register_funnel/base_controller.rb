@@ -1,4 +1,4 @@
-class LoginRegisterFunnelController < ApplicationController
+class LoginRegisterFunnel::BaseController < ApplicationController
 
   skip_before_action :authenticate_user!
   before_action :redirect_if_user_already_signed_in
@@ -10,7 +10,7 @@ class LoginRegisterFunnelController < ApplicationController
         user = current_user
 
         sign_out_user_from_default_subdomain(user)
-        return redirect_to sign_in_path_for(user: user)
+        return redirect_to sign_in_url_for(user: user)
       end
     end
 
@@ -19,7 +19,7 @@ class LoginRegisterFunnelController < ApplicationController
     end
 
     def shared_user_info
-      @shared_user_info ||= LoginRegisterFunnel::SharedUserInformation.new(session)
+      @shared_user_info ||= SharedUserInformation.new(session)
     end
 
     def redirect_unless_user_completed_review_email_address_step

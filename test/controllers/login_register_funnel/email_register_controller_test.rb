@@ -3,7 +3,9 @@ require "test_helper"
 describe LoginRegisterFunnel::EmailRegisterController do
 
   def complete_preceding_email_review_step(email)
-    post review_email_address_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]), params: { login_register_funnel_email_address_form: { email: email } }
+    LoginRegisterFunnel::BaseController::SharedUserInformation.any_instance
+                                              .stubs(:reviewed_email_address)
+                                              .returns(email)
   end
 
   def build_params(user_attributes)
@@ -47,10 +49,10 @@ describe LoginRegisterFunnel::EmailRegisterController do
         end
       end
 
-      it "redirects user to sign in path" do
+      it "redirects to sign_in_url_for user" do
         post_valid_user_attributes
 
-        assert_redirected_to User::SignInPath.call(user: User.last, controller: @controller).path
+        assert_redirected_to @controller.sign_in_url_for(user: User.last)
       end
     end
 
