@@ -7,7 +7,7 @@ class Shrine::AvatarUploader < Shrine
   plugin :versions   # enable Shrine to handle a hash of files
   plugin :delete_raw # delete processed files after uploading
   plugin :add_metadata
-  plugin :cached_attachment_data
+  plugin :cached_attachment_data # enables caching the form
   plugin :determine_mime_type # determines MIME type from file content
 
   process(:store) do |io, context|
