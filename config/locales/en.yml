@@ -46,6 +46,8 @@ en:
   helpers:
     submit:
       create_team_for_user_form:
-        create: "Create Team"
-        update: "Update Team"
-
+        create: Create Team
+        update: Update Team
+      user:
+        update_password: Update Password
+        update_personal_info: Update Personal Info

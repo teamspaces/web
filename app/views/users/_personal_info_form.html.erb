@@ -1,0 +1,28 @@
+<%= form_for(user, url: user_path) do |f| %>
+  <% if user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this account from being saved:</h2>
+
+      <ul>
+      <% user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.label :first_name %>
+  <%= f.text_field :first_name %>
+
+  <%= f.label :last_name %>
+  <%= f.text_field :last_name %>
+
+  <% if @user.login_using_email? %>
+
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+
+  <% end %>
+
+  <%= f.submit t("helpers.submit.user.update_personal_info") %>
+<% end %>
