@@ -60,18 +60,4 @@ describe UsersController do
       end
     end
   end
-
-  describe "#destroy" do
-    it "deletes the user" do
-      assert_difference -> { User.count }, -1 do
-        delete user_url(subdomain: team.subdomain)
-      end
-    end
-
-    it "redirects to the default subdomain root url" do
-      delete user_url(subdomain: team.subdomain)
-
-      assert_redirected_to root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
-    end
-  end
 end

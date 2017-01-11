@@ -29,18 +29,6 @@ class UsersController < SubdomainBaseController
     end
   end
 
-  # DELETE /users/1
-  # DELETE /users/1.json
-  def destroy
-    authorize @user, :destroy?
-
-    @user.destroy
-    respond_to do |format|
-      format.html { redirect_to root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]) }
-      format.json { head :no_content }
-    end
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
