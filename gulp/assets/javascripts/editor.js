@@ -90,9 +90,9 @@
 
     Editor.prototype.onPageSubcribe = function(error){
         if (error) {
-            this.debug("Disabling editor, page subscribe failed with error:");
-            this.debug(error);
-            this.disableEditor();
+            base.debug("Disabling editor, page subscribe failed with error:");
+            base.debug(error);
+            base.disableEditor();
             return false;
         }
 
