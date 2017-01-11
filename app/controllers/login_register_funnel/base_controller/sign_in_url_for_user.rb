@@ -9,8 +9,8 @@ class LoginRegisterFunnel::BaseController::SignInUrlForUser
     @controller.login_register_funnel_new_team_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], auth_token: GenerateLoginToken.call(user: @user))
   end
 
-  def team_url(team)
-    @controller.team_url(subdomain: team.subdomain, auth_token: GenerateLoginToken.call(user: @user))
+  def team_spaces_url(team)
+    @controller.spaces_url(subdomain: team.subdomain, auth_token: GenerateLoginToken.call(user: @user))
   end
 
   def choose_team_url
@@ -20,7 +20,7 @@ class LoginRegisterFunnel::BaseController::SignInUrlForUser
   def url_depending_on_user_teams_count
     case @user.teams.count
       when 0 then create_team_url
-      when 1 then team_url(@user.teams.first)
+      when 1 then team_spaces_url(@user.teams.first)
       else choose_team_url
     end
   end
