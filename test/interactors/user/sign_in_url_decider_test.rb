@@ -30,20 +30,20 @@ describe User::SignInUrlDecider, :controller do
     context "user is allowed to access team" do
       let(:user_team) { user.teams.last }
 
-      it "returns team url" do
+      it "returns team spaces url" do
         url = subject(team_to_redirect_to: user_team).url
 
-        assert_equal sign_in_url_for_user.team_url(user_team), url
+        assert_equal sign_in_url_for_user.team_spaces_url(user_team), url
       end
     end
 
     context "user is not allowed to access team" do
       let(:external_team) { teams(:with_two_spaces) }
 
-      it "does not return team url" do
+      it "does not return team spaces url" do
         url = subject(team_to_redirect_to: external_team).url
 
-        assert_not_equal sign_in_url_for_user.team_url(external_team), url
+        assert_not_equal sign_in_url_for_user.team_spaces_url(external_team), url
       end
     end
   end
