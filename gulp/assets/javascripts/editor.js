@@ -122,7 +122,7 @@
             // We don't have access to this document
             if (error.code == 403) {
                 base.editor.disable();
-                base.debug("Access denied:" + error.message);
+                base.debug("Disabling editor, access denied: " + error.message);
             } else {
                 // What else do we want to handle? And how?
                 base.debug("Unhandled error:" + error);
