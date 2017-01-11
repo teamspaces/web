@@ -2,6 +2,7 @@ class Shrine::AvatarUploader < Shrine
   # plugins and uploading logic
 
   include ImageProcessing::MiniMagick
+  plugin :recache
   plugin :processing
   plugin :versions   # enable Shrine to handle a hash of files
   plugin :delete_raw # delete processed files after uploading
@@ -15,6 +16,18 @@ class Shrine::AvatarUploader < Shrine
     size_100 = resize_to_limit(size_300,  100, 100)
 
     {original: io, large: size_500, medium: size_300, small: size_100}
+
+  #  case context[:phase]
+  #  when :recache
+  #    size_100 = resize_to_limit(original, 100, 100)
+#
+ #     {original: io, small: size_100}
+ #   when :store
+ #     size_500 = resize_to_limit!(original, 500, 500)
+ #     size_300 = resize_to_limit(size_500,  300, 300)
+
+  #    {large: size_500, medium: size_300}
+  #  end
   end
 
   add_metadata :custom do |io, context|
