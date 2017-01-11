@@ -1,4 +1,5 @@
 module User::AvatarHasSource
+  #move to something like User::Avatar::HasSource
   extend ActiveSupport::Concern
 
   class Avatar

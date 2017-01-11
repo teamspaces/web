@@ -19,6 +19,7 @@ class UsersController < SubdomainBaseController
     authorize @user, :update?
 
     respond_to do |format|
+      # use a form here
       if @user.update(user_params)
         format.html { redirect_to user_path }
         format.json { render :show, status: :ok, location: @user }

@@ -20,6 +20,8 @@ class Shrine::AvatarUploader < Shrine
 
     {original: io, large: size_500, medium: size_300, small: size_100}
 
+# ussee recachhhhhhee!!!
+
   #  case context[:phase]
   #  when :recache
   #    size_100 = resize_to_limit(original, 100, 100)
@@ -33,6 +35,7 @@ class Shrine::AvatarUploader < Shrine
   #  end
   end
 
+# add real mising to app
   Attacher.default_url do |options|
     "/#{name}/missing.jpg"
   end

@@ -4,10 +4,12 @@ class User::AttachGeneratedAvatar
   def call
     @user = context.user
 
+    #rename
     generate_and_attach_avatar_to_user
   end
 
   def generate_and_attach_avatar_to_user
+    #code with less file interaction?
     file = Tempfile.new("avatar_temp.png", encoding: "ascii-8bit")
     file.write(Avatarly.generate_avatar(@user.name))
 
