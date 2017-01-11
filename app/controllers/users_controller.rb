@@ -5,15 +5,7 @@ class UsersController < SubdomainBaseController
   # GET /users/1
   # GET /users/1.json
   def show
-      img = Avatarly.generate_avatar(@user.name)
-  t = Tempfile.new("test_temp.png",  :encoding => 'ascii-8bit')
-  t.write(img)
 
-  t.close
-  @user.avatar = File.new(t)
-  @user.save
-
-  t.delete
 
 
 
