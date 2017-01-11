@@ -25,13 +25,16 @@ gem "jwt"
 
 gem 'draper', "~> 3.0.0.pre1"
 
+
 gem "image_processing"
 gem "mini_magick", ">= 4.3.5"
 gem "shrine"
+gem "avatarly"
 
 gem "slack-ruby-client"
 gem "sentry-raven"
 gem "skylight"
+gem "aws-sdk"
 
 
 
