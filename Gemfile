@@ -24,6 +24,9 @@ gem "httparty"
 gem "jwt"
 
 gem 'draper', "~> 3.0.0.pre1"
+
+gem "image_processing"
+gem "mini_magick", ">= 4.3.5"
 gem "shrine"
 
 gem "slack-ruby-client"

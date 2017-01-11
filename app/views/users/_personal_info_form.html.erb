@@ -24,5 +24,8 @@
 
   <% end %>
 
+  <%= f.hidden_field :avatar, value: f.object.cached_avatar_data %>
+  <%= f.file_field :avatar %>
+
   <%= f.submit t("helpers.submit.user.update_personal_info") %>
 <% end %>
