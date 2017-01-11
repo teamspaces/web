@@ -1,5 +1,7 @@
 <h1>Landing#index</h1>
 
+<%= render "available_teams" %>
+
 <% if !user_signed_in? %>
 
   <p><%= link_to "Sign In", choose_login_method_path %></p>

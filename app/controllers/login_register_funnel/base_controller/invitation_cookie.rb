@@ -1,4 +1,4 @@
-class LoginRegisterFunnel::InvitationCookie
+class LoginRegisterFunnel::BaseController::InvitationCookie
 
   COOKIE_NAME = :invitation_token
 

@@ -1,4 +1,4 @@
-class LoginRegisterFunnel::ChooseLoginMethodController < LoginRegisterFunnelController
+class LoginRegisterFunnel::ChooseLoginMethodController < LoginRegisterFunnel::BaseController
 
   def index
     if params[:create_team]

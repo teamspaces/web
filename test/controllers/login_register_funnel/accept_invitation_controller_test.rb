@@ -6,10 +6,12 @@ describe LoginRegisterFunnel::AcceptInvitationController do
     describe "valid invitation" do
       let(:valid_invitation) { invitations(:jonas_at_spaces) }
 
-      it "sets invitation-token cookie" do
-        get accept_invitation_url(valid_invitation.token, subdomain: ENV["DEFAULT_SUBDOMAIN"])
+      it "saves invitation cookie" do
+        LoginRegisterFunnel::BaseController::InvitationCookie.any_instance
+                                                             .expects(:save)
+                                                             .with(valid_invitation)
 
-        assert cookies["invitation_token"]
+        get accept_invitation_url(valid_invitation.token, subdomain: ENV["DEFAULT_SUBDOMAIN"])
       end
 
       describe "slack invitation" do

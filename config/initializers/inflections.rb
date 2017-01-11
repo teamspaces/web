@@ -14,4 +14,5 @@
 ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym 'HTTP'
   inflect.acronym 'UID'
+  inflect.acronym 'URL'
 end

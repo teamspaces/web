@@ -1,4 +1,4 @@
-class LoginRegisterFunnel::SharedUserInformation
+class LoginRegisterFunnel::BaseController::SharedUserInformation
 
   def initialize(session)
     @session = session

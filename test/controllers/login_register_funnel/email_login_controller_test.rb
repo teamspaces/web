@@ -3,7 +3,9 @@ require "test_helper"
 describe LoginRegisterFunnel::EmailLoginController do
 
   def complete_preceding_email_review_step(email)
-    post review_email_address_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]), params: { login_register_funnel_email_address_form: { email: email } }
+    LoginRegisterFunnel::BaseController::SharedUserInformation.any_instance
+                                              .stubs(:reviewed_email_address)
+                                              .returns(email)
   end
 
   def build_params(user_identification)
@@ -30,14 +32,23 @@ describe LoginRegisterFunnel::EmailLoginController do
   end
 
   describe "#create" do
-    let(:email_user) { users(:without_team) }
+    let(:email_user) { users(:with_several_teams) }
     before(:each) { complete_preceding_email_review_step(email_user.email) }
 
-    context "valid username, password" do
-      it "finds user and redirects to sign in path" do
+    describe "valid username, password" do
+      it "redirects to sign in url for user" do
         post email_login_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]), params: build_params({ email: email_user.email, password: "password" })
 
-        assert_redirected_to User::SignInPath.call(user: email_user, controller: @controller).path
+        assert_redirected_to @controller.sign_in_url_for(user: email_user)
+      end
+
+      context "user signs in from team subdomain" do
+        it "redirects to sign in url for user with team redirection" do
+          subdomain_team = email_user.teams.last
+          post email_login_url(subdomain: subdomain_team.subdomain), params: build_params({ email: email_user.email, password: "password" })
+
+          assert_redirected_to @controller.sign_in_url_for(user: email_user, team_to_redirect_to: subdomain_team)
+        end
       end
     end
 

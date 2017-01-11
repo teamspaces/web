@@ -1,4 +1,4 @@
-class LoginRegisterFunnel::ReviewEmailAddressController < LoginRegisterFunnelController
+class LoginRegisterFunnel::ReviewEmailAddressController < LoginRegisterFunnel::BaseController
 
   def new
     @email_address_form = LoginRegisterFunnel::EmailAddressForm.new

@@ -1,4 +1,4 @@
-class LoginRegisterFunnel::TeamsController < LoginRegisterFunnelController
+class LoginRegisterFunnel::TeamsController < LoginRegisterFunnel::BaseController
   skip_before_action :redirect_if_user_already_signed_in
   before_action :authenticate_user!
 
