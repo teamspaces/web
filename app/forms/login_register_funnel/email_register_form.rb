@@ -34,6 +34,8 @@ class LoginRegisterFunnel::EmailRegisterForm
   end
 
   def persist!
+    User::AttachGeneratedAvatar.call(user: user)
+
     user.save
   end
 
