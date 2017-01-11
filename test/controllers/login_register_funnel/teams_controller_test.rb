@@ -79,7 +79,7 @@ describe LoginRegisterFunnel::TeamsController do
       sign_in(user)
       get show_team_subdomain_url(team_subomain: team_subdomain, subdomain: ENV["DEFAULT_SUBDOMAIN"])
 
-      assert response.redirect_url.include?(team_url(subdomain: team_subdomain))
+      assert response.redirect_url.include?(spaces_url(subdomain: team_subdomain))
     end
   end
 
