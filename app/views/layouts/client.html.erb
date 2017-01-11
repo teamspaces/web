@@ -22,7 +22,9 @@
       <div class="topbar-left">
         <div class="topbar-account">
           <div class="topbar-account-toggle">
-            <%= image_tag '/assets/images/topbar/default-team-avatar.png', alt: 'Teamname' %>
+
+
+            <%= image_tag current_user.avatar_url(:small), alt: 'Teamname' %>
 
             <% if current_team %>
                 <h3>

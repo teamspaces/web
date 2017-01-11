@@ -12,7 +12,7 @@
 
       <p>Email: <a><%= @user.email %></a></p>
 
-      <img src="<%= @user.avatar_url %>">
+      <%= image_tag @user.avatar_url(:medium) %>
 
       <div class="card-actions">
         <%= link_to 'Edit', edit_user_path %>

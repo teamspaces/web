@@ -24,7 +24,10 @@
 
   <% end %>
 
-  <%= f.hidden_field :avatar, value: f.object.cached_avatar_data %>
+  <%= image_tag user.avatar_url(:medium) %>
+
+  <%= f.label :avatar %>
+  <%= f.hidden_field :avatar, value: user.cached_avatar_data %>
   <%= f.file_field :avatar %>
 
   <%= f.submit t("helpers.submit.user.update_personal_info") %>

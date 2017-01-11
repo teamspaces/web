@@ -20,7 +20,7 @@ class UsersController < SubdomainBaseController
 
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to @user }
+        format.html { redirect_to user_path }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit }
