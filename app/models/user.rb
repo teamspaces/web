@@ -12,6 +12,16 @@ class User < ApplicationRecord
 
   after_commit :send_pending_notifications
 
+  before_update :update_generated_avatar, if: :generated_avatar_and_name_changed?
+
+  def update_generated_avatar
+    User::AttachGeneratedAvatar.call(user: self)
+  end
+
+  def generated_avatar_and_name_changed?
+    generated_avatar? && (first_name_changed? || last_name_changed?)
+  end
+
   def name=(name)
     names = name.to_s.split(" ", 2)
     self.first_name = names.first
