@@ -26,7 +26,7 @@ Shrine.plugin :activerecord
 Shrine.plugin :cached_attachment_data # for forms
 #Shrine.plugin :rack_file # for non-Rails apps
 
-Shrine.plugin :background_helpers
+Shrine.plugin :backgrounding
 
 Shrine::Attacher.promote { |data| PromoteJob.perform_later(data) }
 Shrine::Attacher.delete { |data| DeleteJob.perform_later(data) }

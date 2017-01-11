@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  include User::AvatarHasSource
   include Shrine::AvatarUploader[:avatar]
 
   devise :database_authenticatable, :recoverable, :rememberable,
@@ -10,28 +11,6 @@ class User < ApplicationRecord
   has_many :teams, through: :team_members
 
   after_commit :send_pending_notifications
-
-  before_create :generate_avatar
-
-def ghost
-  uz = User.first;
-  attacher = Shrine::AvatarUploader::Attacher.new(uz, :avatar);
-  attacher.context[:source] = "hello";
-  attacher.assign(open("https://scontent.cdninstagram.com/3D.2"));
-  uz.save;
-
-  uz.avatar.metadata
-end
-
-  def generate_avatar
-    attacher = Shrine::AvatarUploader::Attacher.new(self, :avatar)
-    img = Avatarly.generate_avatar(self.name)
-    temp_file = Tempfile.new("avatar_temp.png", encoding: "ascii-8bit")
-    temp_file.write(img)
-    attacher.assign(temp_file)
-    temp_file.close
-    temp_file.delete
-  end
 
   def name=(name)
     names = name.to_s.split(" ", 2)
