@@ -41,8 +41,7 @@ describe "Available Teams", :capybara do
       # assert user automatically signed in into spaces team
       assert_content "sign out"
       assert_content email_user.email
-      assert_content "Spaces Organization"
-      assert_content "Team"
+      assert_content "Spaces"
 
       # go back to landing on default domain
       visit "/landing"
@@ -60,8 +59,7 @@ describe "Available Teams", :capybara do
       # assert signed in into power-rangers team
       assert_content "sign out"
       assert_content email_user.email
-      assert_content "Power Rangers"
-      assert_content "Team"
+      assert_content "Spaces"
     end
   end
 end
