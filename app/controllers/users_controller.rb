@@ -5,11 +5,9 @@ class UsersController < SubdomainBaseController
   # GET /users/1
   # GET /users/1.json
   def show
-      img = Emerly.generate_avatar("HELLO")
-
-  t = Tempfile.new("test_temp.jpg",  :encoding => 'ascii-8bit')
-  #img = img.force_encoding "ASCII-8BIT"
-  t.write(img.to_blob { self.format = "jpg" })
+      img = Avatarly.generate_avatar(@user.name)
+  t = Tempfile.new("test_temp.png",  :encoding => 'ascii-8bit')
+  t.write(img)
 
   t.close
   @user.avatar = File.new(t)
