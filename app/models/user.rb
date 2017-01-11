@@ -13,6 +13,16 @@ class User < ApplicationRecord
 
   before_create :generate_avatar
 
+def ghost
+  uz = User.first;
+  attacher = Shrine::AvatarUploader::Attacher.new(uz, :avatar);
+  attacher.context[:source] = "hello";
+  attacher.assign(open("https://scontent.cdninstagram.com/3D.2"));
+  uz.save;
+
+  uz.avatar.metadata
+end
+
   def generate_avatar
     attacher = Shrine::AvatarUploader::Attacher.new(self, :avatar)
     img = Avatarly.generate_avatar(self.name)

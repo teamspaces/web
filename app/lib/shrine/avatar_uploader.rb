@@ -30,7 +30,7 @@ class Shrine::AvatarUploader < Shrine
   #  end
   end
 
-  add_metadata :custom do |io, context|
-    true
+  add_metadata :source do |io, context|
+    context[:source]
   end
 end
