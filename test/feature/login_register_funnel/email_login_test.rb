@@ -25,8 +25,8 @@ describe "Email Login", :capybara do
       click_on "Login with my account"
 
       assert_content "sign out"
-      assert_content email_user.email
-      assert_content "Team"
+      assert_content email_user.first_name
+      assert_content "Spaces"
     end
   end
 end

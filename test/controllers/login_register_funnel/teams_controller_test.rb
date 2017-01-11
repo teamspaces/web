@@ -75,11 +75,11 @@ describe LoginRegisterFunnel::TeamsController do
   describe "#show" do
     let(:team_subdomain) { user.teams.first.subdomain }
 
-    it "redirects and signs user into team subdomain" do
+    it "redirects to team spaces, user gets signed in on team subdomain" do
       sign_in(user)
       get show_team_subdomain_url(team_subomain: team_subdomain, subdomain: ENV["DEFAULT_SUBDOMAIN"])
 
-      assert response.redirect_url.include?(team_url(subdomain: team_subdomain))
+      assert response.redirect_url.include?(spaces_url(subdomain: team_subdomain))
     end
   end
 
