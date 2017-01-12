@@ -23,6 +23,15 @@ module User::AvatarHasSource
   end
 
   def avatar_source
-    avatar.metadata["source"]
+    if avatar
+        if avatar.is_a?(Hash)
+          avatar[:original].metadata["source"]
+        else
+               # if avatar.metadata
+          avatar.metadata["source"]
+
+        end
+
+    end
   end
 end

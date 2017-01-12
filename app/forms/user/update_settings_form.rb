@@ -18,9 +18,9 @@ class User::UpdateSettingsForm
 
   def initialize(user, params={})
     @user = user
+    user.avatar_attacher.context[:source] = "slack" if params[:avatar]
     params.each { |name,value| user.send("#{name}=", value) }
     self.attributes.each { |name, value| send("#{name}=", user.send(name)) }
-    User::AttachUploadedAvatar.call(user: user, file: user.avatar) if params[:avatar]
   end
 
   def cached_avatar_data

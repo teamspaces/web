@@ -12,11 +12,15 @@ require "support/poltergeist"
 require "support/subdomains"
 require "support/database_cleaner"
 require "support/omniauth"
+require "support/sidekiq"
 
 require "shared/test_helpers/slack/identity"
 
 require "test_helpers/subdomain_helper"
 require "test_helpers/invitation_cookie_mock"
+
+require "sidekiq/testing"
+Sidekiq::Testing.inline!
 
 class ActiveSupport::TestCase
   fixtures :all
@@ -60,4 +64,11 @@ class ActionDispatch::IntegrationTest
   after do
     DatabaseCleaner.clean
   end
+end
+
+
+class Shrine::AvatarUploader
+  #def process(io, context)
+  #  { original: io, large: io, medium: io, small: io }
+  #end
 end

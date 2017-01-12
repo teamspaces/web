@@ -23,5 +23,6 @@ class User::AttachGeneratedAvatar
     attacher = Shrine::AvatarUploader::Attacher.new(@user, :avatar)
     attacher.context[:source] = User::Avatar::Source::GENERATED
     attacher.assign(file)
+    attacher._promote
   end
 end
