@@ -70,7 +70,7 @@
     }
 
     Editor.prototype.setupEditor = function(){
-        this.editor = new Quill(this.attach_to, { theme: "snow" });
+        this.editor = new Quill(this.attach_to, { theme: "snow", placeholder: "Start writing here..." });
     }
 
     Editor.prototype.enableEditor = function(){
