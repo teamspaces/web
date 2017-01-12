@@ -1,10 +1,11 @@
 class Shrine::AvatarUploader < Shrine
   plugin :recache
-  plugin :default_url
-  plugin :processing
-  plugin :versions   # enable Shrine to handle a hash of files
+  plugin :versions # save different avatar versions
   plugin :delete_raw # delete processed files after uploading
+  plugin :processing
+  plugin :default_url
   plugin :add_metadata
+  plugin :pretty_location # structures images in subfoldes eg. user/48/avatar/large-434.png
   plugin :cached_attachment_data # enables caching the form
   plugin :determine_mime_type # determines MIME type from file content
   plugin :validation_helpers, default_messages: {
@@ -28,9 +29,6 @@ class Shrine::AvatarUploader < Shrine
      context[:source]
   end
 
-  #file storage path
-
-# add real mising to app
   Attacher.default_url do |options|
     "default_avatar.png"
   end
