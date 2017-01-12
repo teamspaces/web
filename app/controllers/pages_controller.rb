@@ -19,6 +19,10 @@ class PagesController < SubdomainBaseController
   def index
     @pages = policy_scope(Page).all
     authorize @pages, :index?
+
+    if @pages.count.positive?
+      redirect_to @pages.first
+    end
   end
 
   # GET /pages/1
