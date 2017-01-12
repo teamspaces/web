@@ -1,6 +1,9 @@
-spaces:
+spaces: &default
   team: spaces
   name: Spaces
+
+without_pages:
+  <<: *default
 
 power_rangers:
   team: power_rangers
