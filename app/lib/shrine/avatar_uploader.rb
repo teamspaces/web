@@ -13,32 +13,25 @@ class Shrine::AvatarUploader < Shrine
   opts[:processor] = AvatarThumbnailsGenerator
 
   Attacher.validate do
-    validate_mime_type_inclusion %w[image/jpeg image/png image/gif]
+    validate_mime_type_inclusion %w[image/jpg image/jpeg image/png image/gif]
     validate_max_size 3*1024*1024, message: "is too large (max is 3 MB)"
   end
 
+  def process(io, context)
+  #process(:store) do |io, context|
+  case context[:phase]
+    when :store
+      original = io.download
 
-  process(:store) do |io, context|
+      size_500 = resize_to_limit!(original, 500, 500)
+      size_300 = resize_to_limit(size_500,  300, 300)
+      size_100 = resize_to_limit(size_300,  100, 100)
 
-
-          original = io.download
-
-    size_500 = resize_to_limit!(original, 500, 500)
-    size_300 = resize_to_limit(size_500,  300, 300)
-    size_100 = resize_to_limit(size_300,  100, 100)
-
-      {original: io,
-     large: size_500,
-     medium: size_300,
-     small: size_100}
-
-    #opts[:processor].call(io, context)
-
-
-
-
-
-
+      { original: io,
+        large: size_500,
+        medium: size_300,
+        small: size_100 }
+    end
   end
 
   add_metadata :source do |io, context|
