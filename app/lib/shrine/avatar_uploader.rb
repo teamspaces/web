@@ -45,6 +45,8 @@ class Shrine::AvatarUploader < Shrine
      context[:source]
   end
 
+  #file storage path
+
 # add real mising to app
   Attacher.default_url do |options|
     "/#{name}/missing.jpg"

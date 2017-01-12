@@ -6,6 +6,7 @@ describe User::AttachGeneratedAvatar, :model do
   it "assigns generated avatar" do
     User::AttachGeneratedAvatar.call(user: user)
 
+    assert user.save
     assert user.avatar.present?
     assert user.generated_avatar?
   end

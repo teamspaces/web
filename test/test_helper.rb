@@ -19,9 +19,6 @@ require "shared/test_helpers/slack/identity"
 require "test_helpers/subdomain_helper"
 require "test_helpers/invitation_cookie_mock"
 
-require "sidekiq/testing"
-Sidekiq::Testing.inline!
-
 class ActiveSupport::TestCase
   fixtures :all
   self.use_transactional_tests = false
@@ -64,11 +61,4 @@ class ActionDispatch::IntegrationTest
   after do
     DatabaseCleaner.clean
   end
-end
-
-
-class Shrine::AvatarUploader
-  #def process(io, context)
-  #  { original: io, large: io, medium: io, small: io }
-  #end
 end
