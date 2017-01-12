@@ -5,7 +5,7 @@ describe User::CreateUserFromSlackIdentity, :model do
   subject { User::CreateUserFromSlackIdentity }
 
   describe "#call" do
-    it "creates user with authentication" do
+    it "creates user with authentication and avatar" do
       result = subject.call(slack_identity: TestHelpers::Slack.identity(:unknown_user), token: 'secret')
       assert result.success?
 
@@ -16,6 +16,9 @@ describe User::CreateUserFromSlackIdentity, :model do
       assert authentication.uid
       assert_equal "slack", authentication.provider
       assert_equal "secret", authentication.token_secret
+
+      assert user.avatar.present?
+      assert user.slack_avatar?
     end
 
     it "does not allow user to login with email" do
@@ -24,15 +27,6 @@ describe User::CreateUserFromSlackIdentity, :model do
 
       refute result.user.allow_email_login
     end
-  end
-
-  it "saves avatar" do
-    result = subject.call(slack_identity: TestHelpers::Slack.identity(:unknown_user), token: 'secret')
-    user = result.user
-    user.reload
-
-    assert user.slack_avatar?
-    assert_equal [:original, :large, :medium, :small], user.avatar.keys
   end
 
   describe "#rollback" do
