@@ -17,25 +17,11 @@ class User::UpdateSettingsForm
   validate :validate_user
 
 
-  def initialize(user, attri={})
+  def initialize(user, params={})
     @user = user
-    attri.each { |name,value| user.send("#{name}=", value) }
+    params.each { |name,value| user.send("#{name}=", value) }
     self.attributes.each { |name, value| send("#{name}=", user.send(name)) }
-    if attri[:avatar]
-      attacher = Shrine::AvatarUploader::Attacher.new(@user, :avatar)
-      attacher.context[:source] = User::Avatar::Source::UPLOADED
-      attacher.assign(avatar)
-    end
-
-    debugger
-  end
-
-  def update_generated_avatar
-    User::AttachGeneratedAvatar.call(user: self)
-  end
-
-  def generated_avatar_and_name_changed?
-    generated_avatar? && (first_name_changed? || last_name_changed?)
+    User::AttachUploadedAvatar.call(user: user, file: params[:avatar]) if params[:avatar]
   end
 
   def cached_avatar_data
@@ -46,19 +32,34 @@ class User::UpdateSettingsForm
     user.avatar_url(opt)
   end
 
-  def validate_user
-    user.valid?
-    user.errors.each do |attribute, message|
-      self.errors.add(attribute, message)
-    end
-    user.valid?
-  end
-
   def save
-    valid? && persist!
+    if valid?
+      update_generated_avatar if has_generated_avatar_and_name_changed?
+      persist!
+    end
+      false
+    end
   end
 
-  def persist!
-    user.save
-  end
+  private
+
+    def persist!
+      user.save
+    end
+
+    def update_generated_avatar
+      User::AttachGeneratedAvatar.call(user: user)
+    end
+
+    def has_generated_avatar_and_name_changed?
+      user.generated_avatar? && (user.first_name_changed? || user.last_name_changed?)
+    end
+
+    def validate_user
+      user.valid?
+      user.errors.each do |attribute, message|
+        self.errors.add(attribute, message)
+      end
+      user.valid?
+    end
 end
