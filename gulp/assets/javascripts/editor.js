@@ -14,22 +14,6 @@
     var contentsChanged = false;
     var calledSaveAt = 0.0;
 
-    /* https://quilljs.com/docs/configuration/ */
-    var editorOptions = {
-        theme: "snow",
-        placeholder: "Start writing here...",
-        modules: {
-            toolbar: [
-                [{ header: [1, 2, 3, false] }],
-                ["bold", "italic", "underline", "strike"],
-                [{ "list": "ordered"}, { "list": "bullet" }],
-                ["link"],
-                ["code-block"],
-                ["clean"]
-            ]
-        }
-    };
-
     Editor.prototype.init = function(attachTo, options) {
         this.attachTo = attachTo;
         this.options = options;
@@ -86,7 +70,23 @@
     }
 
     Editor.prototype.setupEditor = function(){
-        this.editor = new Quill(this.attachTo, this.editorOptions);
+        /* https://quilljs.com/docs/configuration/ */
+        var editorOptions = {
+            theme: "snow",
+            placeholder: "Start writing here...",
+            modules: {
+                toolbar: [
+                    [{ header: [1, 2, 3, false] }],
+                    ["bold", "italic", "underline", "strike"],
+                    [{ "list": "ordered"}, { "list": "bullet" }],
+                    ["link"],
+                    ["code-block"],
+                    ["clean"]
+                ]
+            }
+        };
+
+        this.editor = new Quill(this.attachTo, editorOptions);
     }
 
     Editor.prototype.enableEditor = function(){
