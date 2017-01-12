@@ -21,8 +21,8 @@ class UsersController < SubdomainBaseController
     @update_settings_form = User::UpdateSettingsForm.new(@user, user_params)
 
     respond_to do |format|
-      # use a form here
       if @update_settings_form.save
+        bypass_sign_in(@update_settings_form.user)
         format.html { redirect_to user_path }
         format.json { render :show, status: :ok, location: @user }
       else
