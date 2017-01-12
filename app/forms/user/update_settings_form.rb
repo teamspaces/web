@@ -16,7 +16,6 @@ class User::UpdateSettingsForm
 
   validate :validate_user
 
-
   def initialize(user, params={})
     @user = user
     params.each { |name,value| user.send("#{name}=", value) }
