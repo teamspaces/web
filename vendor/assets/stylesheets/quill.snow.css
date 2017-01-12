@@ -479,6 +479,9 @@
   content: '';
   display: table;
 }
+.ql-snow .ql-formats button {
+  margin: 0;
+}
 .ql-snow .ql-toolbar.snow,
 .ql-snow .ql-stroke {
   fill: none;
