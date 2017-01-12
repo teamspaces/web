@@ -21,7 +21,7 @@ class User::UpdateSettingsForm
     @user = user
     params.each { |name,value| user.send("#{name}=", value) }
     self.attributes.each { |name, value| send("#{name}=", user.send(name)) }
-    User::AttachUploadedAvatar.call(user: user, file: params[:avatar]) if params[:avatar]
+    User::AttachUploadedAvatar.call(user: user, file: user.avatar) if params[:avatar]
   end
 
   def cached_avatar_data
@@ -36,7 +36,7 @@ class User::UpdateSettingsForm
     if valid?
       update_generated_avatar if has_generated_avatar_and_name_changed?
       persist!
-    end
+    else
       false
     end
   end
