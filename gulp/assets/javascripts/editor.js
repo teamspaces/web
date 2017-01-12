@@ -1,11 +1,11 @@
 (function(){
-    const ShareDB = require('sharedb/lib/client');
-    const RichText = require('rich-text');
-    const Quill = require('quill');
+    const ShareDB = require("sharedb/lib/client");
+    const RichText = require("rich-text");
+    const Quill = require("quill");
 
     var Editor = function(){};
 
-    var attach_to;
+    var attachTo;
     var options;
     var webSocket;
     var shareDBConnection;
@@ -14,8 +14,24 @@
     var contentsChanged = false;
     var calledSaveAt = 0.0;
 
-    Editor.prototype.init = function(attach_to, options) {
-        this.attach_to = attach_to;
+    /* https://quilljs.com/docs/configuration/ */
+    var editorOptions = {
+        theme: "snow",
+        placeholder: "Start writing here...",
+        modules: {
+            toolbar: [
+                [{ header: [1, 2, 3, false] }],
+                ["bold", "italic", "underline", "strike"],
+                [{ "list": "ordered"}, { "list": "bullet" }],
+                ["link"],
+                ["code-block"],
+                ["clean"]
+            ]
+        }
+    };
+
+    Editor.prototype.init = function(attachTo, options) {
+        this.attachTo = attachTo;
         this.options = options;
 
         this.registerOT();
@@ -70,7 +86,7 @@
     }
 
     Editor.prototype.setupEditor = function(){
-        this.editor = new Quill(this.attach_to, { theme: "snow", placeholder: "Start writing here..." });
+        this.editor = new Quill(this.attachTo, this.editorOptions);
     }
 
     Editor.prototype.enableEditor = function(){
@@ -100,8 +116,8 @@
         base.editor.setContents(base.page.data);
 
         // Changes made in the editor
-        base.editor.on('text-change', function(delta, oldDelta, source) {
-            if (source !== 'user') return;
+        base.editor.on("text-change", function(delta, oldDelta, source) {
+            if (source !== "user") return;
             base.page.submitOp(delta, {source: base.editor});
 
             // Trigger auto-save
@@ -109,13 +125,13 @@
         });
 
         // Update editor with new deltas coming from collab
-        base.page.on('op', function(op, source) {
+        base.page.on("op", function(op, source) {
             if (source === base.editor) return;
             base.editor.updateContents(op);
         });
 
         // Caused by network errors or eg. jwt token expired
-        base.page.on('error', function(error) {
+        base.page.on("error", function(error) {
             base.debug(error.code);
             base.debug(error.message);
 
@@ -132,7 +148,7 @@
 
     Editor.prototype.stillTyping = function() {
         var currentTime = window.performance.now();
-        if (currentTime - base.calledSaveAt < 900) {
+        if (currentTime - base.calledSaveAt < 450) {
             return true;
         }
 
@@ -140,7 +156,7 @@
     }
 
     Editor.prototype.editorHTMLContents = function() {
-        return $(base.attach_to + " .ql-editor").html();
+        return $(base.attachTo + " .ql-editor").html();
     }
 
     Editor.prototype.save = function() {
