@@ -32,6 +32,6 @@ class Shrine::AvatarUploader < Shrine
 
 # add real mising to app
   Attacher.default_url do |options|
-    "/#{name}/missing.jpg"
+    "default_avatar.png"
   end
 end

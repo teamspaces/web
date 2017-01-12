@@ -17,8 +17,8 @@ describe User::CreateUserFromSlackIdentity, :model do
       assert_equal "slack", authentication.provider
       assert_equal "secret", authentication.token_secret
 
-      assert user.avatar.present?
-      assert user.slack_avatar?
+      assert result.user.avatar.present?
+      assert result.user.slack_avatar?
     end
 
     it "does not allow user to login with email" do
