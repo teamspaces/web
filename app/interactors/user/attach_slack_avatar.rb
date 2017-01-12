@@ -19,9 +19,8 @@ class User::AttachSlackAvatar
 
   #rename
   def attach_slack_avatar_to_user(size)
-    attacher = Shrine::AvatarUploader::Attacher.new(@user, :avatar)
-    attacher.context[:source] = User::Avatar::Source::SLACK
-    attacher.assign(open(@slack_identity.user[size]))
+    @user.avatar_attacher.context[:source] = User::Avatar::Source::SLACK
+    @user.avatar_attacher.assign(open(@slack_identity.user[size]))
   end
 
   private
