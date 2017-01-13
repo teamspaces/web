@@ -50,9 +50,8 @@ describe LoginRegisterFunnel::EmailRegisterForm, :model do
 
     it "generates a user avatar" do
       subject.save
-      user = subject.user
 
-      assert user.generated_avatar?
+      assert subject.user.generated_avatar?
     end
   end
 end

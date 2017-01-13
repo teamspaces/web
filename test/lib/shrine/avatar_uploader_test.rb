@@ -4,6 +4,12 @@ describe Shrine::AvatarUploader, :model do
   let(:user) { users(:lars) }
 
   describe "background processing" do
+    let(:avatar_versions_mock) do
+      avatar_versions_mock = mock
+      avatar_versions_mock.stubs(:versions).returns({})
+      avatar_versions_mock
+    end
+
     it "creates different versions of avatar" do
       image = FakeIO.new("img_content", filename: "image.png")
       cached = Shrine::AvatarUploader.new(:cache).upload(image)
@@ -11,7 +17,7 @@ describe Shrine::AvatarUploader, :model do
 
       User::Avatar::VersionsGenerator.expects(:call)
                                      .with(io: cached)
-                                     .returns({})
+                                     .returns(avatar_versions_mock)
 
       uploader.process(cached, phase: :store)
     end

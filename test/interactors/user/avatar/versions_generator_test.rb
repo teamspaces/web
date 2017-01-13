@@ -1,13 +1,13 @@
 require "test_helper"
 
-describe User::Avatar::VersionsGenerator, :model do
+describe "User::Avatar::VersionsGenerato", :model do
 
   describe "#call" do
     it "generates different avatar versions" do
       image = FakeIO.new(Avatarly.generate_avatar("E"))
       cached = Shrine::AvatarUploader.new(:cache).upload(image)
 
-      versions = User::Avatar::VersionsGenerator.call(io: cached)
+      versions = User::Avatar::VersionsGenerator.call(io: cached).versions
 
       assert versions[:medium].present?
       assert versions[:large].present?
