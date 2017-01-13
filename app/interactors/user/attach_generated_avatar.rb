@@ -4,10 +4,10 @@ class User::AttachGeneratedAvatar
   def call
     @user = context.user
 
-    attach_generated_avatar_to_user
+    attach_avatar
   end
 
-  def attach_generated_avatar_to_user
+  def attach_avatar
     generated_avatar = FakeIO.new(Avatarly.generate_avatar(@user.name))
 
     @user.avatar_attacher.context[:source] = User::Avatar::Source::GENERATED
