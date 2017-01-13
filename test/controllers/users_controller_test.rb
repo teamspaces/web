@@ -34,6 +34,16 @@ describe UsersController do
         assert_equal "secret", user.password
       end
 
+      describe "password changes" do
+        it "keeps user signed in" do
+          user_params = { first_name: "Lisa", password: "new_secret", password_confirmation: "new_secret"}
+          patch user_url(subdomain: team.subdomain), params: { user_update_settings_form: user_params }
+
+          get team_path(subdomain: team.subdomain)
+          assert_equal user, @controller.current_user
+        end
+      end
+
       describe "slack user" do
         let(:slack_user) { users(:slack_user_milad) }
 
