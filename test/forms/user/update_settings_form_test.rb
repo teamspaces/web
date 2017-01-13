@@ -3,6 +3,14 @@ require "test_helper"
 describe User::UpdateSettingsForm, :model do
   let(:user) { users(:lars) }
 
+  describe "name changes" do
+    context "has generated avatar" do
+      it "updates avatar" do
+
+      end
+    end
+  end
+
   describe "validations" do
     subject { User::UpdateSettingsForm }
 

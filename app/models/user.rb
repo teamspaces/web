@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  include User::AvatarHasSource
+  include User::Avatar::HasSource
   include Shrine::AvatarUploader[:avatar]
 
   devise :database_authenticatable, :recoverable, :rememberable,
