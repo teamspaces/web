@@ -5,27 +5,26 @@ class User::AttachSlackAvatar
     @user = context.user
     @slack_identity = context.slack_identity
 
-    #rename
-    find_highest_resolution_slack_avatar_and_attach_to_user
+    attach_avatar
   end
 
-  #rename
-  def find_highest_resolution_slack_avatar_and_attach_to_user
-    size = highest_resolution_size_available
-    context.fail! unless size
+  def attach_avatar
+    avatar_url = slack_avatar_url
 
-    attach_slack_avatar_to_user(size)
-  end
-
-  #rename
-  def attach_slack_avatar_to_user(size)
     @user.avatar_attacher.context[:source] = User::Avatar::Source::SLACK
-    @user.avatar_attacher.assign(open(@slack_identity.user[size]))
+    @user.avatar_attacher.assign(open(avatar_url))
   end
 
   private
-  #rename
-    def highest_resolution_size_available
+
+    def slack_avatar_url
+      avatar_size = biggest_avatar_size_available
+      context.fail! unless avatar_size
+
+      @slack_identity.user[avatar_size]
+    end
+
+    def biggest_avatar_size_available
       available_avatar_sizes = [:image_1024, :image_512, :image_192, :image_72, :image_48, :image_32, :image_24]
       available_avatar_sizes.find { |size| @slack_identity.user[size].present? }
     end
