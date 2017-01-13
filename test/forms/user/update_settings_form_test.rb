@@ -53,7 +53,7 @@ describe User::UpdateSettingsForm, :model do
 
     describe "avatar uploaded" do
       it "attaches avatar as uploaded" do
-        form = subject.new(user, avatar: File.read("test/test_helpers/files/test_avatar_image.jpg"))
+        form = subject.new(user, avatar: FakeIO.new(File.read("test/test_helpers/files/test_avatar_image.jpg")))
 
         assert form.save
         assert user.uploaded_avatar?
