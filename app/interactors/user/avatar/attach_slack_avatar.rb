@@ -1,4 +1,4 @@
-class User::AttachSlackAvatar
+class User::Avatar::AttachSlackAvatar
   include Interactor
 
   def call

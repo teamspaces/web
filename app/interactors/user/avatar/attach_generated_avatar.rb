@@ -1,4 +1,4 @@
-class User::AttachGeneratedAvatar
+class User::Avatar::AttachGeneratedAvatar
   include Interactor
 
   def call

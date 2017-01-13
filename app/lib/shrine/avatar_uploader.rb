@@ -21,7 +21,7 @@ class Shrine::AvatarUploader < Shrine
   def process(io, context)
     case context[:phase]
       when :store
-        AvatarThumbnailsGenerator.call(io: io).versions
+        User::Avatar::VersionsGenerator.call(io: io).versions
     end
   end
 

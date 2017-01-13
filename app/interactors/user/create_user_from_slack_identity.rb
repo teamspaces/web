@@ -44,10 +44,10 @@ class User::CreateUserFromSlackIdentity
     end
 
     def add_avatar(user)
-      attach_slack_avatar = User::AttachSlackAvatar.call(user: user, slack_identity: slack_identity)
+      attach_slack_avatar = User::Avatar::AttachSlackAvatar.call(user: user, slack_identity: slack_identity)
 
       if attach_slack_avatar.failure?
-        User::AttachGeneratedAvatar.call(user: user)
+        User::Avatar::AttachGeneratedAvatar.call(user: user)
       end
     end
 

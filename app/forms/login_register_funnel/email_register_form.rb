@@ -34,7 +34,7 @@ class LoginRegisterFunnel::EmailRegisterForm
   end
 
   def attach_avatar
-    User::AttachGeneratedAvatar.call(user: user).success?
+    User::Avatar::AttachGeneratedAvatar.call(user: user).success?
   end
 
   def persist!

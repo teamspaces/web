@@ -47,7 +47,7 @@ class User::UpdateSettingsForm
     end
 
     def update_generated_avatar
-      User::AttachGeneratedAvatar.call(user: user)
+      User::Avatar::AttachGeneratedAvatar.call(user: user)
     end
 
     def has_generated_avatar_and_name_changed?
