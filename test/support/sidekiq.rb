@@ -1,2 +1,2 @@
-#require "sidekiq/testing"
-#Sidekiq::Testing.inline!
+require "sidekiq/testing"
+Sidekiq::Testing.fake!
