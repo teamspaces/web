@@ -1,19 +1,10 @@
 require "test_helper"
 
 describe User::UpdateSettingsForm, :model do
+  subject { User::UpdateSettingsForm }
   let(:user) { users(:lars) }
 
-  describe "name changes" do
-    context "has generated avatar" do
-      it "updates avatar" do
-
-      end
-    end
-  end
-
   describe "validations" do
-    subject { User::UpdateSettingsForm }
-
     describe "password" do
       it "validates presence" do
         form = subject.new(user, password: "", password_confirmation: "")
@@ -61,6 +52,31 @@ describe User::UpdateSettingsForm, :model do
 
         form.valid?
         assert_includes form.errors[:email], "is invalid"
+      end
+    end
+  end
+
+  describe "#save" do
+    it "updates user attributes" do
+      form = subject.new(user, last_name: "La Fuente")
+
+      assert form.save
+      assert_equal "La Fuente", user.last_name
+    end
+
+    describe "name changes" do
+      let(:user_with_generated_avatar) do
+        User::Avatar::AttachGeneratedAvatar.call(user: user)
+        user
+      end
+
+      context "user has generated avatar" do
+        it "updates avatar" do
+          User::Avatar::AttachGeneratedAvatar.expects(:call)
+                                             .with(user: user_with_generated_avatar)
+
+          subject.new(user_with_generated_avatar, first_name: "Martinez").save
+        end
       end
     end
   end
