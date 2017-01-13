@@ -5,15 +5,15 @@ describe Shrine::AvatarUploader, :model do
 
   describe "background processing" do
     it "creates different versions of avatar" do
-      image = FakeIO.new(Avatarly.generate_avatar("E"))
+      image = FakeIO.new("img_content", filename: "image.png")
       cached = Shrine::AvatarUploader.new(:cache).upload(image)
       uploader = Shrine::AvatarUploader.new(:store)
-      processed = uploader.process(cached, phase: :store)
 
-      assert processed[:medium].present?
-      assert processed[:large].present?
-      assert processed[:small].present?
-      assert processed[:original].present?
+      User::Avatar::VersionsGenerator.expects(:call)
+                                     .with(io: cached)
+                                     .returns({})
+
+      uploader.process(cached, phase: :store)
     end
   end
 
