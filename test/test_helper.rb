@@ -13,6 +13,7 @@ require "support/subdomains"
 require "support/database_cleaner"
 require "support/omniauth"
 require "support/sidekiq"
+require "support/webmock"
 
 require "shared/test_helpers/slack/identity"
 

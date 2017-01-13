@@ -46,6 +46,7 @@ group :test do
   gem "shoulda-matchers", "~> 2.0"
   gem "poltergeist"
   gem "database_cleaner"
+  gem "webmock"
 end
 
 group :development, :test do
