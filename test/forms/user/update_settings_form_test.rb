@@ -1,10 +1,14 @@
 require "test_helper"
 
 describe User::UpdateSettingsForm, :model do
-  subject { User::UpdateSettingsForm }
   let(:user) { users(:lars) }
+  subject { User::UpdateSettingsForm.new(user, {})}
+
+  should validate_presence_of(:first_name)
+  should validate_presence_of(:last_name)
 
   describe "validations" do
+    subject { User::UpdateSettingsForm }
     describe "password" do
       it "validates presence" do
         form = subject.new(user, password: "", password_confirmation: "")
@@ -18,24 +22,6 @@ describe User::UpdateSettingsForm, :model do
 
         form.valid?
         assert_includes form.errors[:password_confirmation], "doesn't match Password"
-      end
-    end
-
-    describe "first_name" do
-      it "validates presence" do
-        form = subject.new(user, first_name: "")
-        form.valid?
-
-        assert_includes form.errors[:first_name], "can't be blank"
-      end
-    end
-
-    describe "last_name" do
-      it "validates presence" do
-        form = subject.new(user, last_name: "")
-        form.valid?
-
-        assert_includes form.errors[:last_name], "can't be blank"
       end
     end
 
@@ -57,11 +43,21 @@ describe User::UpdateSettingsForm, :model do
   end
 
   describe "#save" do
+    subject { User::UpdateSettingsForm }
     it "updates user attributes" do
       form = subject.new(user, last_name: "La Fuente")
 
       assert form.save
       assert_equal "La Fuente", user.last_name
+    end
+
+    describe "avatar uploaded" do
+      it "attaches avatar as uploaded" do
+        form = subject.new(user, avatar: File.read("test/test_helpers/files/test_avatar_image.jpg"))
+
+        assert form.save
+        assert user.uploaded_avatar?
+      end
     end
 
     describe "name changes" do

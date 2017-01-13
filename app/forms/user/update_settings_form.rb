@@ -19,16 +19,9 @@ class User::UpdateSettingsForm
   def initialize(user, params={})
     @user = user
     @user.avatar_attacher.context[:source] = User::Avatar::Source::UPLOADED if params[:avatar]
+
     params.each { |name,value| user.send("#{name}=", value) }
     self.attributes.each { |name, value| send("#{name}=", user.send(name)) }
-  end
-
-  def cached_avatar_data
-    user.cached_avatar_data
-  end
-
-  def avatar_url(opt)
-    user.avatar_url(opt)
   end
 
   def save
@@ -38,6 +31,14 @@ class User::UpdateSettingsForm
     else
       false
     end
+  end
+
+  def cached_avatar_data
+    user.cached_avatar_data
+  end
+
+  def avatar_url(opt)
+    user.avatar_url(opt)
   end
 
   private
