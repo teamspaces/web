@@ -4,6 +4,12 @@ describe User::CreateUserFromSlackIdentity, :model do
 
   subject { User::CreateUserFromSlackIdentity }
 
+  before(:each) do
+    stub_request(:get, "https://avatars.slack-edge.com/2016-11-13/webmock_avatar_image_192.jpg").
+    to_return(status: 200, headers: {},
+              body: File.read("test/test_helpers/files/test_avatar_image.jpg"))
+  end
+
   describe "#call" do
     it "creates user with authentication and avatar" do
       result = subject.call(slack_identity: TestHelpers::Slack.identity(:unknown_user), token: 'secret')
