@@ -3,8 +3,6 @@ require "shrine/storage/file_system"
 require "image_processing/mini_magick"
 require "shrine/storage/s3"
 
-
-
 Shrine.storages = case ENV["STORAGE_MEDIUM"]
 when "s3"
   s3_options = {
