@@ -1,7 +1,7 @@
 require "forwardable"
 require "stringio"
 
-class FakeIO
+class Shrine::FakeIO
   attr_reader :original_filename, :content_type
 
   def initialize(content, filename: nil, content_type: nil)

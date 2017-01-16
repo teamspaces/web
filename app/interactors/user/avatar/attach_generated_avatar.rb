@@ -17,6 +17,6 @@ class User::Avatar::AttachGeneratedAvatar
   private
 
     def generated_avatar_image
-      FakeIO.new(Avatarly.generate_avatar(@user.name, { size: UserAvatar::SIZES.max }), filename: "avatar.png")
+      Shrine::FakeIO.new(Avatarly.generate_avatar(@user.name, { size: UserAvatar::SIZES.max }), filename: "avatar.png")
     end
 end
