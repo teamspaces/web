@@ -24,7 +24,7 @@
 
   <% end %>
 
-  <%= image_tag user.avatar_url(:medium) %>
+  <%= image_tag user.avatar_url(:image_192) %>
 
   <%= f.label :avatar %>
   <%= f.hidden_field :avatar, value: user.cached_avatar_data %>

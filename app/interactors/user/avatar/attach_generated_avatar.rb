@@ -17,6 +17,6 @@ class User::Avatar::AttachGeneratedAvatar
   private
 
     def generated_avatar_image
-      FakeIO.new(Avatarly.generate_avatar(@user.name))
+      FakeIO.new(Avatarly.generate_avatar(@user.name, { size: 1024 }))
     end
 end

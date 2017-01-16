@@ -1,11 +1,11 @@
 class UserAvatarUploader < Shrine
+  plugin :logging
   plugin :recache
   plugin :versions # save different avatar versions
   plugin :delete_raw # delete processed files after uploading
   plugin :processing
   plugin :default_url
   plugin :add_metadata
-  plugin :pretty_location # structures images in subfoldes eg. user/48/avatar/large-434.png
   plugin :cached_attachment_data # enables caching the form
   plugin :determine_mime_type # determines MIME type from file content
   plugin :validation_helpers, default_messages: {
@@ -16,6 +16,14 @@ class UserAvatarUploader < Shrine
   Attacher.validate do
     validate_mime_type_inclusion %w[image/jpeg image/jpg image/png image/gif]
     validate_max_size 3*1024*1024
+  end
+
+  def generate_location(io, context)
+    type  = "user_avatar"
+    version = context[:version] if context[:version]
+    name  = super # the default unique identifier
+
+    [type, version, name].compact.join("/")
   end
 
   def process(io, context)
