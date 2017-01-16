@@ -8,6 +8,6 @@ describe User::Avatar::AttachGeneratedAvatar, :model do
 
     assert user.save
     assert user.avatar.present?
-    assert user.generated_avatar?
+    assert UserAvatar.new(user).generated_avatar?
   end
 end

@@ -52,7 +52,7 @@ class User::UpdateSettingsForm
     end
 
     def has_generated_avatar_and_name_changed?
-      user.generated_avatar? && (user.first_name_changed? || user.last_name_changed?)
+      UserAvatar.new(user).generated_avatar? && (user.first_name_changed? || user.last_name_changed?)
     end
 
     def validate_user

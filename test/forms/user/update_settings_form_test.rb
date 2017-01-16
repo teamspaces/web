@@ -56,7 +56,7 @@ describe User::UpdateSettingsForm, :model do
         form = subject.new(user, avatar: FakeIO.new(File.read("test/test_helpers/files/test_avatar_image.jpg")))
 
         assert form.save
-        assert user.uploaded_avatar?
+        assert UserAvatar.new(user).uploaded_avatar?
       end
     end
 

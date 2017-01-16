@@ -13,6 +13,6 @@ describe User::Avatar::AttachSlackAvatar, :model do
 
     assert user.save
     assert user.avatar.present?
-    assert user.slack_avatar?
+    assert UserAvatar.new(user).slack_avatar?
   end
 end
