@@ -6,7 +6,7 @@ describe SlackInvitationsController do
 
   before(:each) do
     sign_in user
-    stub_request(:post, "https://slack.com/api/chat.postMessage").to_return(:status => 200, :body => "", :headers => {})
+    Invitation::SendInvitation.stubs(:call).returns(true)
   end
 
   describe "#create" do
