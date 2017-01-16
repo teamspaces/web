@@ -36,7 +36,7 @@ class UserAvatarUploader < Shrine
   end
 
   add_metadata :source do |io, context|
-     context[:source]
+    context[:source] || context[:record][:avatar_data]["metadata"]["source"]
   end
 
   Attacher.default_url do |options|
