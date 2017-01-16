@@ -10,11 +10,12 @@ class User::Avatar::VersionsGenerator
 
   def generate_versions
     original = @io.download
+    versions = {}
 
-    size_500 = resize_to_limit!(original, 500, 500)
-    size_300 = resize_to_limit(size_500,  300, 300)
-    size_100 = resize_to_limit(size_300,  100, 100)
+    [1024, 192, 72, 48, 32, 24].each do |size|
+      versions["image_#{size}".to_sym] = resize_to_fill!(original, size, size)
+    end
 
-    { original: @io, large: size_500, medium: size_300, small: size_100 }
+    versions
   end
 end
