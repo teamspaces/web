@@ -112,7 +112,7 @@ ActiveRecord::Schema.define(version: 20170110231216) do
     t.string   "first_name"
     t.string   "last_name"
     t.boolean  "allow_email_login",      default: true
-    t.text     "avatar_data"
+    t.json     "avatar_data"
     t.index ["email"], name: "index_users_on_email", using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
