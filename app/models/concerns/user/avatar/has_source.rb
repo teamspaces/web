@@ -4,7 +4,7 @@ class User
     class Source
       GENERATED = "generated"
       SLACK     = "slack"
-      UPLOADED  = "uploded"
+      UPLOADED  = "uploaded"
     end
 
     module HasSource

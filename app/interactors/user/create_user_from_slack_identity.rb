@@ -16,7 +16,7 @@ class User::CreateUserFromSlackIdentity
 
   def create_user_with_authentication
     @user = initialize_user_from_slack
-    authentication = slack_authentication_for(user)
+    authentication = build_slack_authentication_for(user)
     add_avatar(user)
 
     unless user.valid?
@@ -39,7 +39,7 @@ class User::CreateUserFromSlackIdentity
                allow_email_login: false)
     end
 
-    def slack_authentication_for(user)
+    def build_slack_authentication_for(user)
       user.authentications.build(provider: :slack, uid: uid, token_secret: token)
     end
 

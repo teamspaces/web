@@ -1,6 +1,6 @@
 require "test_helper"
 
-describe Shrine::AvatarUploader, :model do
+describe UserAvatarUploader, :model do
   let(:user) { users(:lars) }
 
   describe "background processing" do

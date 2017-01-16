@@ -1,4 +1,4 @@
-class Shrine::AvatarUploader < Shrine
+class UserAvatarUploader < Shrine
   plugin :recache
   plugin :versions # save different avatar versions
   plugin :delete_raw # delete processed files after uploading
