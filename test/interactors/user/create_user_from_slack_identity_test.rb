@@ -3,14 +3,12 @@ require "test_helper"
 describe User::CreateUserFromSlackIdentity, :model do
 
   subject { User::CreateUserFromSlackIdentity }
-
-  before(:each) do
-    stub_request(:get, "https://avatars.slack-edge.com/2016-11-13/webmock_avatar_image_192.jpg").
-    to_return(status: 200, headers: {}, body: File.read("test/test_helpers/files/test_avatar_image.jpg"))
-  end
+  before(:each) { User::Avatar::AttachSlackAvatar.stubs(:call).returns(true) }
 
   describe "#call" do
     it "creates user with authentication and avatar" do
+      User::Avatar::AttachSlackAvatar.expects(:call)
+
       result = subject.call(slack_identity: TestHelpers::Slack.identity(:unknown_user), token: 'secret')
       assert result.success?
 
@@ -23,7 +21,6 @@ describe User::CreateUserFromSlackIdentity, :model do
       assert_equal "secret", authentication.token_secret
 
       assert result.user.avatar.present?
-      assert UserAvatar.new(result.user).slack_avatar?
     end
 
     it "does not allow user to login with email" do

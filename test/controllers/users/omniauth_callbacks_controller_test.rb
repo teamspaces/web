@@ -2,12 +2,7 @@ require "test_helper"
 
 describe Users::OmniauthCallbacksController do
   subject { Users::OmniauthCallbacksController }
-  before(:each) do
-    stub_request(:get, "https://avatars.slack-edge.com/2016-11-13/webmock_avatar_image_192.jpg").
-    to_return(status: 200, headers: {}, body: File.read("test/test_helpers/files/test_avatar_image.jpg"))
-
-    subject.any_instance.stubs(:token).returns("token")
-  end
+  before(:each) { User::Avatar::AttachSlackAvatar.stubs(:call).returns(true) }
 
   def stub_slack_identity_with(identity)
     Users::OmniauthCallbacksController.any_instance

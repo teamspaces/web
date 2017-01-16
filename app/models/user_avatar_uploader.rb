@@ -6,6 +6,8 @@ class UserAvatarUploader < Shrine
   plugin :processing
   plugin :default_url
   plugin :add_metadata
+  plugin :remove_invalid
+  plugin :delete_promoted
   plugin :cached_attachment_data # enables caching the form
   plugin :determine_mime_type # determines MIME type from file content
   plugin :validation_helpers, default_messages: {
