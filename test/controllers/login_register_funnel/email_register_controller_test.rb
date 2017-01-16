@@ -12,6 +12,14 @@ describe LoginRegisterFunnel::EmailRegisterController do
     { login_register_funnel_email_register_form: user_attributes }
   end
 
+  before(:each) do
+    interator_mock = mock
+    interator_mock.stubs(:success?).returns(true)
+
+    User::Avatar::AttachGeneratedAvatar.stubs(:call)
+                                       .returns(interator_mock)
+  end
+
   describe "#new" do
     context "user completed review email address step" do
       it "responds successfully" do

@@ -4,7 +4,10 @@ describe SlackInvitationsController do
   let(:user) { users(:lars) }
   let(:team) { teams(:spaces) }
 
-  before(:each) { sign_in user }
+  before(:each) do
+    sign_in user
+    Invitation::SendInvitation.stubs(:call).returns(true)
+  end
 
   describe "#create" do
     let(:subject_url) { create_slack_invitation_url(subdomain: team.subdomain) }

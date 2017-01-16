@@ -3,9 +3,22 @@ require "test_helper"
 describe User::CreateUserFromSlackIdentity, :model do
 
   subject { User::CreateUserFromSlackIdentity }
+  let(:attach_slack_avatar_mock) do
+    avatar_mock = mock
+    avatar_mock.stubs(:success?).returns(true)
+    avatar_mock.stubs(:failure?).returns(false)
+    avatar_mock
+  end
+  before(:each) do
+    User::Avatar::AttachSlackAvatar.stubs(:call)
+                                   .returns(attach_slack_avatar_mock)
+  end
 
   describe "#call" do
-    it "creates user with authentication" do
+    it "creates user with authentication and avatar" do
+      User::Avatar::AttachSlackAvatar.expects(:call)
+                                     .returns(attach_slack_avatar_mock)
+
       result = subject.call(slack_identity: TestHelpers::Slack.identity(:unknown_user), token: 'secret')
       assert result.success?
 
@@ -23,16 +36,6 @@ describe User::CreateUserFromSlackIdentity, :model do
       assert result.success?
 
       refute result.user.allow_email_login
-    end
-  end
-
-  describe "#rollback" do
-    it "destroys created user" do
-      result = subject.call(slack_identity: TestHelpers::Slack.identity(:unknown_user), token: 'secret')
-
-      assert_difference -> { User.count }, -1 do
-        result.rollback!
-      end
     end
   end
 end
