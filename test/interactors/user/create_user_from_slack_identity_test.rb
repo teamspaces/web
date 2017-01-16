@@ -38,14 +38,4 @@ describe User::CreateUserFromSlackIdentity, :model do
       refute result.user.allow_email_login
     end
   end
-
-  describe "#rollback" do
-    it "destroys created user" do
-      result = subject.call(slack_identity: TestHelpers::Slack.identity(:unknown_user), token: 'secret')
-
-      assert_difference -> { User.count }, -1 do
-        result.rollback!
-      end
-    end
-  end
 end
