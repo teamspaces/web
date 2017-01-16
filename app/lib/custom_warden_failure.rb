@@ -1,9 +1,10 @@
 class CustomWardenFailure < Devise::FailureApp
   def redirect_url
     if on_team_subdomain?
+      debugger
       user = user_trying_to_login_on_team_subdomain
 
-      redirect_to case
+      case
         when user.nil? then root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
         when user.login_using_slack? then team_slack_login_path_for(team: subdomain_team)
         when user.login_using_email?
@@ -11,7 +12,7 @@ class CustomWardenFailure < Devise::FailureApp
           new_email_login_path
         end
     else
-      redirect_to root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
+      root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
     end
   end
 
