@@ -1,33 +1,27 @@
 class User::CreateUserFromSlackIdentity
   include Interactor
 
-  attr_reader :token, :slack_identity, :user
+  attr_reader :token, :slack_identity
 
   def call
     @token = context.token
     @slack_identity = context.slack_identity
 
-    if create_user_with_authentication
+    user = initialize_user_from_slack_identity
+    if user.save
       context.user = user
     else
+      Rails.logger.error("User::CreateUserFromSlackIdentity#create_user_with_authentication failed to create user (user.email=#{user.email}, user.first_name=#{user.first_name}, user.last_name=#{user.last_name}) with authentication: (authentication.uid=#{authentication.uid}) erros: (#{user.errors.full_messages})")
       context.fail!
     end
   end
 
-  def create_user_with_authentication
-    @user = initialize_user_from_slack
-    authentication = build_slack_authentication_for(user)
-    attach_avatar_to(user)
+  def initialize_user_from_slack_identity
+    user = initialize_user_from_slack
+           build_slack_authentication_for(user)
+           attach_avatar_to(user)
 
-    unless user.valid?
-      Rails.logger.error("User::CreateUserFromSlackIdentity#create_user_with_authentication failed to create user (user.email=#{user.email}, user.first_name=#{user.first_name}, user.last_name=#{user.last_name}) with authentication: (authentication.uid=#{authentication.uid}) erros: (#{user.errors.full_messages})")
-    end
-
-    user.save
-  end
-
-  def rollback
-    user.destroy
+    user
   end
 
   private
