@@ -3,13 +3,15 @@ class User::UpdateSettingsForm
   include Virtus.model
 
   attr_reader :user
+  delegate :cached_avatar_data, to: :user
+  delegate :avatar_url, to: :user
 
   attribute :email, String
   attribute :first_name, String
   attribute :last_name, String
   attribute :password, String
-  attribute :avatar
   attribute :password_confirmation, String
+  attribute :avatar
 
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -31,14 +33,6 @@ class User::UpdateSettingsForm
     else
       false
     end
-  end
-
-  def cached_avatar_data
-    user.cached_avatar_data
-  end
-
-  def avatar_url(opt)
-    user.avatar_url(opt)
   end
 
   private

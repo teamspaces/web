@@ -13,8 +13,7 @@ describe LoginRegisterFunnel::EmailRegisterController do
   end
 
   before(:each) do
-    interator_mock = mock
-    interator_mock.stubs(:success?).returns(true)
+    interator_mock = mock; interator_mock.stubs(:success?).returns(true)
     User::Avatar::AttachGeneratedAvatar.stubs(:call).returns(interator_mock)
   end
 

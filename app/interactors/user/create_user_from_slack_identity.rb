@@ -17,7 +17,7 @@ class User::CreateUserFromSlackIdentity
   def create_user_with_authentication
     @user = initialize_user_from_slack
     authentication = build_slack_authentication_for(user)
-    add_avatar(user)
+    attach_avatar_to(user)
 
     unless user.valid?
       Rails.logger.error("User::CreateUserFromSlackIdentity#create_user_with_authentication failed to create user (user.email=#{user.email}, user.first_name=#{user.first_name}, user.last_name=#{user.last_name}) with authentication: (authentication.uid=#{authentication.uid}) erros: (#{user.errors.full_messages})")
@@ -43,7 +43,7 @@ class User::CreateUserFromSlackIdentity
       user.authentications.build(provider: :slack, uid: uid, token_secret: token)
     end
 
-    def add_avatar(user)
+    def attach_avatar_to(user)
       attach_slack_avatar = User::Avatar::AttachSlackAvatar.call(user: user, slack_identity: slack_identity)
 
       if attach_slack_avatar.failure?

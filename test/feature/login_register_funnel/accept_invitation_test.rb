@@ -4,8 +4,7 @@ describe "Accept Invitation", :capybara do
   include TestHelpers::SubdomainHelper
 
   before(:each) do
-    interactor_mock = mock
-    interactor_mock.stubs(:success?).returns(true)
+    interactor_mock = mock; interactor_mock.stubs(:success?).returns(true)
     User::Avatar::AttachGeneratedAvatar.stubs(:call).returns(interactor_mock)
   end
 
