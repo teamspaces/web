@@ -1,6 +1,5 @@
 class UserAvatarUploader < Shrine
   plugin :logging
-  plugin :recache
   plugin :versions # save different avatar versions
   plugin :delete_raw # delete processed files after uploading
   plugin :processing
@@ -31,7 +30,7 @@ class UserAvatarUploader < Shrine
   def process(io, context)
     case context[:phase]
       when :store
-        User::Avatar::VersionsGenerator.call(io: io).versions
+        ImageVersionsGenerator.call(io: io, sizes: UserAvatar::SIZES).versions
     end
   end
 

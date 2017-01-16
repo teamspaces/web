@@ -1,9 +1,10 @@
-class User::Avatar::VersionsGenerator
+class ImageVersionsGenerator
   include ImageProcessing::MiniMagick
   include Interactor
 
   def call
     @io = context.io
+    @sizes = context.sizes
 
     context.versions = generate_versions
   end
@@ -12,7 +13,7 @@ class User::Avatar::VersionsGenerator
     original = @io.download
     versions = {}
 
-    UserAvatar::SIZES.each do |size|
+    @sizes.each do |size|
       versions["image_#{size}".to_sym] = resize_to_fill(original, size, size)
     end
 

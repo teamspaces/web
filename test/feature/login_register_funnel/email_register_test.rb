@@ -6,7 +6,9 @@ describe "Email Register", :capybara do
   before(:each) do
     interactor_mock = mock
     interactor_mock.stubs(:success?).returns(true)
-    User::Avatar::AttachGeneratedAvatar.stubs(:call).returns(interactor_mock)
+
+    User::Avatar::AttachGeneratedAvatar.stubs(:call)
+                                       .returns(interactor_mock)
   end
 
   describe "register with email address" do

@@ -4,7 +4,10 @@ describe Users::OmniauthCallbacksController do
   subject { Users::OmniauthCallbacksController }
   before(:each) do
     subject.any_instance.stubs(:token).returns("token")
-    interactor_mock = mock; interactor_mock.stubs(:success?).returns(true); interactor_mock.stubs(:failure?).returns(false)
+
+    interactor_mock = mock
+    interactor_mock.stubs(:success?).returns(true)
+    interactor_mock.stubs(:failure?).returns(false)
     User::Avatar::AttachSlackAvatar.stubs(:call).returns(interactor_mock)
   end
 
