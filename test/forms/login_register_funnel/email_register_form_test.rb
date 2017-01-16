@@ -55,9 +55,11 @@ describe LoginRegisterFunnel::EmailRegisterForm, :model do
     end
 
     it "generates a user avatar" do
-      subject.save
+      interator_mock = mock
+      interator_mock.stubs(:success?).returns(true)
+      User::Avatar::AttachGeneratedAvatar.expects(:call).returns(interator_mock)
 
-      assert UserAvatar.new(subject.user).generated_avatar?
+      subject.save
     end
   end
 end

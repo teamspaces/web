@@ -3,6 +3,12 @@ require "test_helper"
 describe "Email Register", :capybara do
   include TestHelpers::SubdomainHelper
 
+  before(:each) do
+    interactor_mock = mock
+    interactor_mock.stubs(:success?).returns(true)
+    User::Avatar::AttachGeneratedAvatar.stubs(:call).returns(interactor_mock)
+  end
+
   describe "register with email address" do
     let(:user_attributes) do
       { email: "anna_moser@gmail.com",
