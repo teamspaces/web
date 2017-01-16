@@ -2,7 +2,13 @@ require "test_helper"
 
 describe Users::OmniauthCallbacksController do
   subject { Users::OmniauthCallbacksController }
-  before(:each) { User::Avatar::AttachSlackAvatar.stubs(:call).returns(true) }
+  before(:each) do
+    subject.any_instance.stubs(:token).returns("token")
+    interactor_mock = mock
+    interactor_mock.stubs(:success?).returns(true)
+    interactor_mock.stubs(:failure?).returns(false)
+    User::Avatar::AttachSlackAvatar.stubs(:call).returns(interactor_mock)
+  end
 
   def stub_slack_identity_with(identity)
     Users::OmniauthCallbacksController.any_instance
