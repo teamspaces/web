@@ -13,8 +13,10 @@ class ImageVersionsGenerator
     original = @io.download
     versions = {}
 
+    jpg_version = convert!(original, "jpg")
+
     @sizes.each do |size|
-      versions["image_#{size}".to_sym] = resize_to_fill(original, size, size)
+      versions["image_#{size}".to_sym] = resize_to_fill(jpg_version, size, size)
     end
 
     versions
