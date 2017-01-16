@@ -2,12 +2,8 @@ require "test_helper"
 
 describe LoginRegisterFunnel::EmailRegisterForm, :model do
   subject { LoginRegisterFunnel::EmailRegisterForm.new }
-
-  before(:each) do
-    interator_mock = mock
-    interator_mock.stubs(:success?).returns(true)
-    User::Avatar::AttachGeneratedAvatar.stubs(:call).returns(interator_mock)
-  end
+  let(:attach_generated_avatar_mock) { interator_mock = mock; interator_mock.stubs(:success?).returns(true); interator_mock }
+  before(:each) { User::Avatar::AttachGeneratedAvatar.stubs(:call).returns(attach_generated_avatar_mock) }
 
   should validate_presence_of(:email)
   should validate_presence_of(:first_name)
@@ -55,9 +51,7 @@ describe LoginRegisterFunnel::EmailRegisterForm, :model do
     end
 
     it "generates a user avatar" do
-      interator_mock = mock
-      interator_mock.stubs(:success?).returns(true)
-      User::Avatar::AttachGeneratedAvatar.expects(:call).returns(interator_mock)
+      User::Avatar::AttachGeneratedAvatar.expects(:call).returns(attach_generated_avatar_mock)
 
       subject.save
     end

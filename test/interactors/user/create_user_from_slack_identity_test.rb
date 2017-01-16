@@ -3,14 +3,8 @@ require "test_helper"
 describe User::CreateUserFromSlackIdentity, :model do
 
   subject { User::CreateUserFromSlackIdentity }
-  let(:attach_slack_avatar_mock) do
-    interactor_mock = mock
-    interactor_mock.stubs(:success?).returns(true)
-    interactor_mock.stubs(:failure?).returns(false)
-    interactor_mock
-  end
+  let(:attach_slack_avatar_mock) { m = mock; m.stubs(:success?).returns(true); m.stubs(:failure?).returns(false); m }
   before(:each) { User::Avatar::AttachSlackAvatar.stubs(:call).returns(attach_slack_avatar_mock) }
-
 
   describe "#call" do
     it "creates user with authentication and avatar" do
