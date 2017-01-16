@@ -3,11 +3,18 @@ require "test_helper"
 describe User::CreateUserFromSlackIdentity, :model do
 
   subject { User::CreateUserFromSlackIdentity }
-  before(:each) { User::Avatar::AttachSlackAvatar.stubs(:call).returns(true) }
+  let(:attach_slack_avatar_mock) do
+    interactor_mock = mock
+    interactor_mock.stubs(:success?).returns(true)
+    interactor_mock.stubs(:failure?).returns(false)
+    interactor_mock
+  end
+  before(:each) { User::Avatar::AttachSlackAvatar.stubs(:call).returns(attach_slack_avatar_mock) }
+
 
   describe "#call" do
     it "creates user with authentication and avatar" do
-      User::Avatar::AttachSlackAvatar.expects(:call)
+      User::Avatar::AttachSlackAvatar.expects(:call).returns(attach_slack_avatar_mock)
 
       result = subject.call(slack_identity: TestHelpers::Slack.identity(:unknown_user), token: 'secret')
       assert result.success?
@@ -19,8 +26,6 @@ describe User::CreateUserFromSlackIdentity, :model do
       assert authentication.uid
       assert_equal "slack", authentication.provider
       assert_equal "secret", authentication.token_secret
-
-      assert result.user.avatar.present?
     end
 
     it "does not allow user to login with email" do

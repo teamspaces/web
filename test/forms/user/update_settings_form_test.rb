@@ -51,15 +51,6 @@ describe User::UpdateSettingsForm, :model do
       assert_equal "La Fuente", user.last_name
     end
 
-    describe "avatar uploaded" do
-      it "attaches avatar as uploaded" do
-        form = subject.new(user, avatar: FakeIO.new(File.read("test/test_helpers/files/test_avatar_image.jpg")))
-
-        assert form.save
-        assert UserAvatar.new(user).uploaded_avatar?
-      end
-    end
-
     describe "name changes" do
       let(:user_with_generated_avatar) do
         User::Avatar::AttachGeneratedAvatar.call(user: user)
@@ -70,6 +61,7 @@ describe User::UpdateSettingsForm, :model do
         it "updates avatar" do
           User::Avatar::AttachGeneratedAvatar.expects(:call)
                                              .with(user: user_with_generated_avatar)
+                                             .returns(true)
 
           subject.new(user_with_generated_avatar, first_name: "Martinez").save
         end
