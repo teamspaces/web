@@ -34,16 +34,41 @@ describe CreateTeamForUserForm, :model do
     end
   end
 
-  it "creates team" do
-    subject.save
+  describe "save" do
+    it "creates team" do
+      subject.save
 
-    assert team_name, subject.team.name
-    assert team_subdomain, subject.team.subdomain
-  end
+      assert team_name, subject.team.name
+      assert team_subdomain, subject.team.subdomain
+    end
 
-  it "creates first team member" do
-    CreateTeamMemberForNewTeam.expects(:call)
+    it "creates first team member" do
+      CreateTeamMemberForNewTeam.expects(:call)
 
-    subject.save
+      subject.save
+    end
+
+    describe "team logo" do
+      context "logo was uploaded" do
+        let(:uploaded_logo_file) { "uploaded_logo_file" }
+
+        it "attaches uploaded logo" do
+          Team::Logo::AttachUploadedLogo.expects(:call)
+                                        .with(has_entry(:file, uploaded_logo_file))
+                                        .returns(true)
+
+          subject.logo = uploaded_logo_file
+        end
+      end
+
+      context "logo was not uploaded" do
+        it "attaches generated logo" do
+          Team::Logo::AttachGeneratedLogo.expects(:call)
+                                         .returns(true)
+
+          subject.save
+        end
+      end
+    end
   end
 end

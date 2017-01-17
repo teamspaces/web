@@ -15,6 +15,3 @@ class Team::Logo::AttachUploadedLogo
       @team.logo_attacher.assign(@file)
     end
 end
-
-
-
