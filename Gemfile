@@ -6,7 +6,9 @@ gem "pg"
 gem "mongoid"
 gem "puma"
 gem "sidekiq"
-gem "thor-rails"
+
+gem "thor"
+gem "terminal-table"
 
 gem "envied"
 gem "lograge"
@@ -35,7 +37,6 @@ gem "avatarly"
 
 gem "slack-ruby-client"
 gem "sentry-raven"
-gem "skylight"
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 3.0"
@@ -67,4 +68,5 @@ end
 group :production do
   gem "passenger"
   gem "rails_12factor"
+  gem "skylight"
 end
