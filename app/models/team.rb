@@ -1,4 +1,6 @@
 class Team < ApplicationRecord
+  include TeamLogoUploader[:logo]
+
   has_many :spaces, dependent: :destroy
   has_many :pages, through: :spaces, dependent: :destroy
   has_many :invitations, dependent: :destroy
