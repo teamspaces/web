@@ -10,3 +10,4 @@ npm-debug.log
 /.bundle
 node_modules/
 public/assets/
+public/uploads/

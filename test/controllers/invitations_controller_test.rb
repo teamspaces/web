@@ -9,8 +9,10 @@ describe InvitationsController do
 
   describe "#index" do
     it "renders the :index view" do
-       get team_invitations_url
-       assert_response :success
+      Team::FindInvitableSlackUsers.any_instance.stubs(:all).returns([])
+
+      get team_invitations_url
+      assert_response :success
     end
   end
 

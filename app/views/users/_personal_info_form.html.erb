@@ -1,4 +1,4 @@
-<%= form_for(user, url: user_path) do |f| %>
+<%= form_for(user, url: user_path, method: :patch) do |f| %>
   <% if user.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(user.errors.count, "error") %> prohibited this account from being saved:</h2>
@@ -23,6 +23,12 @@
     <%= f.text_field :email %>
 
   <% end %>
+
+  <%= image_tag user.avatar_url(:image_192) %>
+
+  <%= f.label :avatar %>
+  <%= f.hidden_field :avatar, value: user.cached_avatar_data %>
+  <%= f.file_field :avatar %>
 
   <%= f.submit t("helpers.submit.user.update_personal_info") %>
 <% end %>

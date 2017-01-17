@@ -14,6 +14,7 @@ gem "jbuilder"
 gem "jquery-rails"
 gem "sass-rails"
 gem "uglifier"
+gem "aws-sdk"
 
 gem "inflorm"
 gem "interactor-rails", "~> 2.0"
@@ -25,6 +26,11 @@ gem "jwt"
 gem "json-schema"
 
 gem 'draper', "~> 3.0.0.pre1"
+
+gem "image_processing"
+gem "mini_magick", ">= 4.3.5"
+gem "shrine"
+gem "avatarly"
 
 gem "slack-ruby-client"
 gem "sentry-raven"
@@ -40,6 +46,7 @@ group :test do
   gem "shoulda-matchers", "~> 2.0"
   gem "poltergeist"
   gem "database_cleaner"
+  gem "webmock"
 end
 
 group :development, :test do

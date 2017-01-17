@@ -3,6 +3,14 @@ require "test_helper"
 describe "Accept Invitation", :capybara do
   include TestHelpers::SubdomainHelper
 
+  before(:each) do
+    interactor_mock = mock
+    interactor_mock.stubs(:success?).returns(true)
+
+    User::Avatar::AttachGeneratedAvatar.stubs(:call)
+                                       .returns(interactor_mock)
+  end
+
   describe "email invitation" do
     describe "invited user is not yet registered" do
       let(:email_invitation_new) { invitations(:jonas_at_spaces) }
