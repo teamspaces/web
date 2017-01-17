@@ -6,6 +6,7 @@ gem "pg"
 gem "mongoid"
 gem "puma"
 gem "sidekiq"
+gem "thor-rails"
 
 gem "envied"
 gem "lograge"
