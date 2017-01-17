@@ -8,7 +8,7 @@ class Image
     source == Source::GENERATED
   end
 
-  def slack?
+  def from_slack?
     source == Source::SLACK
   end
 
