@@ -32,4 +32,8 @@ class LoginRegisterFunnel::LoginIntoTeamController < LoginRegisterFunnel::BaseCo
     def complete_login_register_funnel_review_email_address_step_for(user:)
       shared_user_info.reviewed_email_address = user.email
     end
+
+    def team_to_redirect_to
+      @team_to_redirect_to ||= params[:team_to_redirect_to_subdomain].present? ? Team.find_by(subdomain: params[:team_to_redirect_to_subdomain]) : nil
+    end
 end
