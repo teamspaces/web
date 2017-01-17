@@ -2,7 +2,7 @@
   <% available_users.teams.where.not(id: current_team).find_each do |team| %>
 
     <li>
-      <%= link_to team.name, login_into_team_path(team_to_redirect_to_subdomain: team.subdomain), target: "_blank" %>
+      <%= link_to team.name, login_into_users_team_path(team_to_redirect_to_subdomain: team.subdomain), target: "_blank" %>
     </li>
 
   <% end %>

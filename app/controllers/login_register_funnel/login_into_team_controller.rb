@@ -1,8 +1,9 @@
 class LoginRegisterFunnel::LoginIntoTeamController < LoginRegisterFunnel::BaseController
 
+  before_action :authenticate_user!, only: [:on_another_user_subdomain]
   skip_before_action :redirect_if_user_already_signed_in
 
-  def new
+  def already_on_subdomain
     return redirect_to(root_subdomain_path) if already_signed_in_on_team_subdomain?
 
     user = user_trying_to_login_on_team_subdomain
@@ -12,6 +13,20 @@ class LoginRegisterFunnel::LoginIntoTeamController < LoginRegisterFunnel::BaseCo
       when user.login_using_email?
         complete_login_register_funnel_review_email_address_step_for(user: user)
         new_email_login_path
+    end
+  end
+
+  def on_another_user_subdomain
+    #if team_to_redirect_to belongs to user
+    #then sign in with jwt token
+    #else redirect to subdomain and figure out a way to sign in
+    #end
+    if current_user.teams.exists?(team_to_redirect_to)
+      sign_in_url_for_user = LoginRegisterFunnel::BaseController::SignInUrlForUser.new(user: current_user, controller: self)
+
+      redirect_to sign_in_url_for_user.team_spaces_url(team_to_redirect_to)
+    else
+      redirect_to login_into_team_url(subdomain: team_to_redirect_to.subdomain)
     end
   end
 
