@@ -8,7 +8,7 @@ module CLI
       def generate
         i = 0
 
-        Team.where(logo_data: nil).find_each do |team|
+        Team.where("logo_data = 'null'").find_each do |team|
           Team::Logo::AttachGeneratedLogo.call(team: team)
           team.save
           i += 1
