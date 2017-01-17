@@ -16,5 +16,13 @@
         <%= link_to 'Destroy', team_path, method: :delete, data: { confirm: 'Are you sure?' } %>
       </div>
     </div>
+
+    <header>
+      <h1>Available Teams</h1>
+    </header>
+
+    <div class="card-content">
+      <%= render "available_teams" %>
+    </div>
   </div>
 </main>
