@@ -25,8 +25,7 @@ class CreateTeamForUserForm
   end
 
   def logo=(uploaded_file)
-    @team.logo_attacher.context[:source] = Image::Source::UPLOADED
-    @team.logo_attacher.assign(uploaded_file)
+    Team::Logo::AttachUploadedLogo(team: @team, file: uploaded_file)
   end
 
   def save
