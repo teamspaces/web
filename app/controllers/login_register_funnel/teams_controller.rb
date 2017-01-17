@@ -34,6 +34,6 @@ class LoginRegisterFunnel::TeamsController < LoginRegisterFunnel::BaseController
   private
 
     def create_team_for_user_form_params
-      params.require(:create_team_for_user_form).permit(:name, :subdomain)
+      params.require(:create_team_for_user_form).permit(:name, :subdomain, :logo)
     end
 end

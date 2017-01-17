@@ -93,7 +93,7 @@ ActiveRecord::Schema.define(version: 20170116160535) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "subdomain"
-    t.json     "logo_data"
+    t.text     "logo_data"
     t.index ["subdomain"], name: "index_teams_on_subdomain", using: :btree
   end
 
