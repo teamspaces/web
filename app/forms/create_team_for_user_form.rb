@@ -50,6 +50,7 @@ class CreateTeamForUserForm
 
     def persist!
       @team.assign_attributes(name: name, subdomain: subdomain)
+      Team::Logo::AttachGeneratedLogo.call(team: team) unless @team.logo.present?
       @team.save
 
       CreateTeamMemberForNewTeam.call(user: user, team: @team)
