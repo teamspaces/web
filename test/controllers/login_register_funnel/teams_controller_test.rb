@@ -40,7 +40,7 @@ describe LoginRegisterFunnel::TeamsController do
 
       it "creates team, with uploaded logo" do
         Team::Logo::AttachUploadedLogo.expects(:call)
-                                      .with(has_entry(:file, uploaded_logo_file)
+                                      .with(has_entry(:file, uploaded_logo_file))
                                       .returns(true)
 
         assert_difference -> { Team.count }, 1 do

@@ -61,7 +61,7 @@ describe CreateTeamForUserForm, :model do
         end
       end
 
-      context "logo was not uploaded" do
+      context "no logo was uploaded" do
         it "attaches generated logo" do
           Team::Logo::AttachGeneratedLogo.expects(:call)
                                          .returns(true)
