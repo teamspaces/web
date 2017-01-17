@@ -10,7 +10,7 @@ class Team::Logo::AttachGeneratedLogo
   def attach_logo
     logo_image = generated_logo_image
 
-    @team.logo_attacher.context[:source] = TeamLogo::Source::GENERATED
+    @team.logo_attacher.context[:source] = Image::Source::GENERATED
     @team.logo_attacher.assign(logo_image)
   end
 

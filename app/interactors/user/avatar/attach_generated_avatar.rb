@@ -10,7 +10,7 @@ class User::Avatar::AttachGeneratedAvatar
   def attach_avatar
     avatar_image = generated_avatar_image
 
-    @user.avatar_attacher.context[:source] = UserAvatar::Source::GENERATED
+    @user.avatar_attacher.context[:source] = Image::Source::GENERATED
     @user.avatar_attacher.assign(avatar_image)
   end
 

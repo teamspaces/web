@@ -20,7 +20,7 @@ class User::UpdateSettingsForm
 
   def initialize(user, params={})
     @user = user
-    @user.avatar_attacher.context[:source] = UserAvatar::Source::UPLOADED if params[:avatar].present?
+    @user.avatar_attacher.context[:source] = Image::Source::UPLOADED if params[:avatar].present?
 
     params.each { |name,value| user.send("#{name}=", value) }
     self.attributes.each { |name, value| send("#{name}=", user.send(name)) }
@@ -46,7 +46,7 @@ class User::UpdateSettingsForm
     end
 
     def has_generated_avatar_and_name_changed?
-      UserAvatar.new(user).generated_avatar? && (user.first_name_changed? || user.last_name_changed?)
+      Image.new(user.avatar).generated? && (user.first_name_changed? || user.last_name_changed?)
     end
 
     def validate_user
