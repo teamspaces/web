@@ -14,7 +14,7 @@ module CLI
           i += 1
         end
 
-        puts "Generated logos for #{i} teams"
+        puts "Successfully generated logos for #{i} teams"
       end
 
     end
