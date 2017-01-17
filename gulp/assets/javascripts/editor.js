@@ -75,6 +75,7 @@
             theme: "snow",
             placeholder: "Start writing here...",
             modules: {
+                syntax: true,
                 toolbar: [
                     [{ header: [1, 2, 3, false] }],
                     ["bold", "italic", "underline", "strike"],
