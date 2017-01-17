@@ -6,6 +6,11 @@ describe CreateTeamForUserForm, :model do
   let(:user) { users(:lars) }
   let(:existing_team) { teams(:spaces) }
 
+  before(:each) do
+    Team::Logo::AttachGeneratedLogo.stubs(:call).returns(true)
+    Team::Logo::AttachUploadedLogo.stubs(:call).returns(true)
+  end
+
   subject do
    CreateTeamForUserForm.new(name: team_name, user: user,
                              subdomain: team_subdomain)

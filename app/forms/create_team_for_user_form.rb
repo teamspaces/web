@@ -25,7 +25,7 @@ class CreateTeamForUserForm
   end
 
   def logo=(uploaded_file)
-    Team::Logo::AttachUploadedLogo(team: @team, file: uploaded_file)
+    Team::Logo::AttachUploadedLogo.call(team: @team, file: uploaded_file)
   end
 
   def save

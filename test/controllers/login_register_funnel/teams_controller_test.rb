@@ -3,6 +3,11 @@ require "test_helper"
 describe LoginRegisterFunnel::TeamsController do
   let(:user) { users(:with_several_teams) }
 
+  before(:each) do
+    Team::Logo::AttachGeneratedLogo.stubs(:call).returns(true)
+    Team::Logo::AttachUploadedLogo.stubs(:call).returns(true)
+  end
+
   describe "#new" do
     context "user signed in" do
       it "responds successfully" do
@@ -24,15 +29,20 @@ describe LoginRegisterFunnel::TeamsController do
 
   describe "#create" do
     before(:each) { sign_in(user) }
+    let(:uploaded_logo_file) { "uploaded_logo_file" }
 
     describe "valid team attributes" do
       def post_valid_team_attributes
-        valid_team_attributes = { create_team_for_user_form: { name: "bain ltd", subdomain: "baincompany" } }
+        valid_team_attributes = { create_team_for_user_form: { name: "bain ltd", subdomain: "baincompany", logo: uploaded_logo_file } }
 
         post login_register_funnel_create_team_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]), params: valid_team_attributes
       end
 
-      it "creates team" do
+      it "creates team, with uploaded logo" do
+        Team::Logo::AttachUploadedLogo.expects(:call)
+                                      .with(file: uploaded_logo_file)
+                                      .returns(true)
+
         assert_difference -> { Team.count }, 1 do
           post_valid_team_attributes
         end
