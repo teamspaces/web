@@ -2,6 +2,7 @@
   <% available_users.teams.each do |team| %>
 
     <li>
+      <%= image_tag team.logo_url(:image_72) %>
       <%= link_to team.name, login_into_team_url(subdomain: team.subdomain), target: "blank" %>
     </li>
 

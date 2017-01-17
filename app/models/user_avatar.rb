@@ -1,4 +1,4 @@
-class UserAvatar < SimpleDelegator
+class UserAvatar
 
   SIZES = [1024, 192, 72, 48, 32, 24]
 

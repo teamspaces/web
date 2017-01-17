@@ -6,7 +6,6 @@ class TeamLogoUploader < Shrine
   plugin :default_url
   plugin :add_metadata
   plugin :remove_invalid
-  #plugin :delete_promoted
   plugin :cached_attachment_data # enables caching the form
   plugin :determine_mime_type # determines MIME type from file content
   plugin :validation_helpers, default_messages: {
@@ -39,6 +38,6 @@ class TeamLogoUploader < Shrine
   end
 
   Attacher.default_url do |options|
-    "default_avatar.png"
+    "default_logo.jpg"
   end
 end
