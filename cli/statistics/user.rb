@@ -1,8 +1,4 @@
-require "thor"
-require "terminal-table"
-
-ENV["RAILS_ENV"] = ENV["RAILS_ENV"] || "development"
-require File.expand_path("../../config/environment.rb", __FILE__)
+require_relative "../cli_helper"
 
 module CLI
   module Statistics
@@ -39,4 +35,4 @@ module CLI
   end
 end
 
-CLI::User.start(ARGV)
+CLI::Statistics::User.start(ARGV)
