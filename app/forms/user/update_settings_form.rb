@@ -34,7 +34,7 @@ class User::UpdateSettingsForm
 
   def save
     if valid?
-      attach_generated_avatar if has_generated_avatar_and_name_changed? || reset_avatar
+      attach_generated_avatar if (reset_avatar || has_generated_avatar_and_name_changed?)
       persist!
     else
       false
