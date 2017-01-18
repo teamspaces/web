@@ -1,3 +1,5 @@
+<!-- This partial is shown on a team subdomain -->
+
 <ul>
   <% available_users.teams.where.not(id: current_team).find_each do |team| %>
 
