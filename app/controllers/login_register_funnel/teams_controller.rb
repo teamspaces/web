@@ -3,12 +3,12 @@ class LoginRegisterFunnel::TeamsController < LoginRegisterFunnel::BaseController
   before_action :authenticate_user!
 
   def new
-    @team_form = CreateTeamForUserForm.new
+    @team_form = Team::CreateTeamForUserForm.new
   end
 
   def create
-    @team_form = CreateTeamForUserForm.new(create_team_for_user_form_params.to_h
-                                           .merge(user: current_user))
+    @team_form = Team::CreateTeamForUserForm.new(create_team_for_user_form_params.to_h
+                                                 .merge(user: current_user))
 
     if @team_form.save
       redirect_to team_url(subdomain: @team_form.team.subdomain, auth_token: GenerateLoginToken.call(user: current_user))

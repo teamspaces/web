@@ -1,4 +1,4 @@
-class CreateTeamForUserForm
+class Team::CreateTeamForUserForm
   include ActiveModel::Model
   include ActiveModel::Conversion
   include Virtus.model
