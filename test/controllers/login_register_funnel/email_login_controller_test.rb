@@ -6,6 +6,8 @@ describe LoginRegisterFunnel::EmailLoginController do
     LoginRegisterFunnel::BaseController::SharedUserInformation.any_instance
                                               .stubs(:reviewed_email_address)
                                               .returns(email)
+
+    GenerateLoginToken.stubs(:call).returns("user_login_token")
   end
 
   def build_params(user_identification)
