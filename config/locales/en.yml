@@ -48,7 +48,7 @@ en:
       failure_create: Slack Invitation could not be created
   helpers:
     submit:
-      create_team_for_user_form:
+      team_create_team_for_user_form:
         create: Create Team
         update: Update Team
       user:
