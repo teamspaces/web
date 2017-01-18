@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   constraints ReservedSubdomain do
-    get :login_into_team, to: "login_register_funnel/login_into_team#already_on_subdomain", as: :login_into_team
-    get "login_into_team/:team_to_redirect_to_subdomain", to: "login_register_funnel/login_into_team#on_another_user_subdomain", as: :login_into_users_team
+    get :login_into_team, to: "login_register_funnel/login_into_team#login_on_subdomain_uncertain_if_user_authenticated", as: :login_into_team
+    get "login_into_team/:team_to_redirect_to_subdomain", to: "login_register_funnel/login_into_team#login_to_subdomain_for_authenticated_user", as: :login_into_users_team
 
     resources :spaces do
       resources :pages, only: [:index, :new, :create]
