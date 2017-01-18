@@ -6,8 +6,8 @@ class Team::UpdateTeamForm
   attr_reader :team
   delegate :cached_logo_data, to: :team
   delegate :logo_url, to: :team
-  delegate :model_name, to: :team #commit button / update team
-  delegate :persisted?, to: :team #determines if update or create
+  delegate :model_name, to: :team
+  delegate :persisted?, to: :team
 
   attribute :name, String
   attribute :logo
