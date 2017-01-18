@@ -22,10 +22,13 @@ class User::UpdateSettingsForm
 
   def initialize(user, params={})
     @user = user
-    @user.avatar_attacher.context[:source] = UserAvatar::Source::UPLOADED if params[:avatar].present?
 
-    params.each { |name,value| user.send("#{name}=", value) }
-    self.attributes.each { |name, value| send("#{name}=", user.send(name)) }
+    super(user.attributes)
+    super(params)
+  end
+
+  def avatar=(uploaded_file)
+    User::Avatar::AttachUploadedAvatar.call(user: @user, file: uploaded_file)
   end
 
   def save
@@ -52,6 +55,8 @@ class User::UpdateSettingsForm
     end
 
     def validate_user
+      self.attributes.each { |name, value| send("#{name}=", user.send(name)) }
+
       user.valid?
       user.errors.each do |attribute, message|
         self.errors.add(attribute, message)
