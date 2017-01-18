@@ -2,7 +2,7 @@ require "test_helper"
 
 describe LoginRegisterFunnel::LoginIntoTeamController, :controller do
 
-  describe "#new" do
+  describe "#login_on_subdomain_uncertain_if_user_authenticated" do
     describe "user already signed in on team subdomain" do
       let(:user) { users(:lars) }
       before(:each) { sign_in(user) }
@@ -37,6 +37,28 @@ describe LoginRegisterFunnel::LoginIntoTeamController, :controller do
           assert_redirected_to user_slack_omniauth_authorize_url(subdomain: ENV["DEFAULT_SUBDOMAIN"],
                                                                  state: :login, team_id: team.id)
         end
+      end
+    end
+  end
+
+  describe "#login_to_subdomain_for_authenticated_user" do
+    describe "authenticated user" do
+      context "user has access to team" do
+        it "signs user in into team subdomain" do
+
+        end
+      end
+
+      context "user has no access to team" do
+        it "redirects to subdomain, no auto login" do
+
+        end
+      end
+    end
+
+    describe "user not authenticated" do
+      it "redirects to default subdomain root" do
+
       end
     end
   end
