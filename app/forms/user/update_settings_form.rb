@@ -5,6 +5,8 @@ class User::UpdateSettingsForm
   attr_reader :user
   delegate :cached_avatar_data, to: :user
   delegate :avatar_url, to: :user
+  delegate :model_name, to: :user
+  delegate :persisted?, to: :user
 
   attribute :email, String
   attribute :first_name, String
