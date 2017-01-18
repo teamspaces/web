@@ -32,6 +32,9 @@ class User::UpdateSettingsForm
   end
 
   def save
+    user.assign_attributes(email: email, first_name: first_name, last_name: last_name,
+                           password: password, password_confirmation: password_confirmation)
+
     if valid?
       update_generated_avatar if has_generated_avatar_and_name_changed?
       persist!
@@ -55,12 +58,11 @@ class User::UpdateSettingsForm
     end
 
     def validate_user
-      self.attributes.each { |name, value| send("#{name}=", user.send(name)) }
-
       user.valid?
       user.errors.each do |attribute, message|
         self.errors.add(attribute, message)
       end
-      user.valid?
+
+      user.errors.any?
     end
 end
