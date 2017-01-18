@@ -3,8 +3,6 @@ class User::UpdateSettingsForm
   include Virtus.model
 
   attr_reader :user
-  delegate :cached_avatar_data, to: :user
-  delegate :avatar_url, to: :user
   delegate :model_name, to: :user
   delegate :persisted?, to: :user
 

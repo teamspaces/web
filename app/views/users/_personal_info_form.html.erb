@@ -1,10 +1,10 @@
-<%= form_for(user) do |f| %>
-  <% if user.errors.any? %>
+<%= form_for(form) do |f| %>
+  <% if form.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(user.errors.count, "error") %> prohibited this account from being saved:</h2>
+      <h2><%= pluralize(form.errors.count, "error") %> prohibited this account from being saved:</h2>
 
       <ul>
-      <% user.errors.full_messages.each do |message| %>
+      <% form.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -24,13 +24,13 @@
 
   <% end %>
 
-  <%= image_tag user.avatar_url(:image_192) %>
+  <%= image_tag form.user.avatar_url(:image_192) %>
 
   <%= f.label :avatar %>
-  <%= f.hidden_field :avatar, value: user.cached_avatar_data %>
+  <%= f.hidden_field :avatar, value: form.user.cached_avatar_data %>
   <%= f.file_field :avatar %>
 
-  <%= link_to("Remove avatar", user_path(user: { reset_avatar: true}), :method => :patch) unless UserAvatar.new(user.user).generated_avatar? %>
+  <%= link_to("Remove avatar", user_path(user: { reset_avatar: true}), method: :patch) unless UserAvatar.new(form.user).generated_avatar? %>
 
   <%= f.submit t("helpers.submit.user.update_personal_info") %>
 <% end %>

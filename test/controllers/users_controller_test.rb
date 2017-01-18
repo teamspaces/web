@@ -76,7 +76,7 @@ describe UsersController do
                                            .with(user: user)
                                            .returns(true)
 
-        patch user_url(subdomain: team.subdomain), params: { user: reset_avatar: true }
+        patch user_url(subdomain: team.subdomain), params: { user: { reset_avatar: true } }
       end
     end
   end
