@@ -11,14 +11,14 @@ describe User::UpdateSettingsForm, :model do
     subject { User::UpdateSettingsForm }
     describe "password" do
       it "validates presence" do
-        form = subject.new(user, password: "", password_confirmation: "")
+        form = subject.new(user, { password: "", password_confirmation: ""})
         form.valid?
 
         assert_includes form.errors[:password], "can't be blank"
       end
 
       it "validates confirmation" do
-        form = subject.new(user, password: "dos", password_confirmation: "uno")
+        form = subject.new(user, { password: "dos", password_confirmation: "uno"})
 
         form.valid?
         assert_includes form.errors[:password_confirmation], "doesn't match Password"

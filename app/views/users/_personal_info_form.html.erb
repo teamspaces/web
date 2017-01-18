@@ -30,7 +30,7 @@
   <%= f.hidden_field :avatar, value: user.cached_avatar_data %>
   <%= f.file_field :avatar %>
 
-  <%= link_to("Remove avatar", user_path(user_update_settings_form: { avatar: nil}), :method => :patch) %>
+  <%= link_to("Remove avatar", user_path(user: { reset_avatar: true}), :method => :patch) unless UserAvatar.new(user.user).generated_avatar? %>
 
   <%= f.submit t("helpers.submit.user.update_personal_info") %>
 <% end %>

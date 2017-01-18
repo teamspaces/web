@@ -13,6 +13,7 @@ class User::UpdateSettingsForm
   attribute :last_name, String
   attribute :password, String
   attribute :password_confirmation, String
+  attribute :reset_avatar, Boolean, default: false
   attribute :avatar
 
   validates :first_name, presence: true
@@ -32,11 +33,8 @@ class User::UpdateSettingsForm
   end
 
   def save
-    user.assign_attributes(email: email, first_name: first_name, last_name: last_name,
-                           password: password, password_confirmation: password_confirmation)
-
     if valid?
-      update_generated_avatar if has_generated_avatar_and_name_changed?
+      attach_generated_avatar if has_generated_avatar_and_name_changed? || reset_avatar
       persist!
     else
       false
@@ -49,7 +47,7 @@ class User::UpdateSettingsForm
       user.save
     end
 
-    def update_generated_avatar
+    def attach_generated_avatar
       User::Avatar::AttachGeneratedAvatar.call(user: user)
     end
 
@@ -58,6 +56,9 @@ class User::UpdateSettingsForm
     end
 
     def validate_user
+      user.assign_attributes(email: email, first_name: first_name, last_name: last_name,
+                             password: password, password_confirmation: password_confirmation)
+
       user.valid?
       user.errors.each do |attribute, message|
         self.errors.add(attribute, message)
