@@ -22,7 +22,7 @@ class LoginRegisterFunnel::LoginIntoTeamController < LoginRegisterFunnel::BaseCo
     #else redirect to subdomain and figure out a way to sign in
     #end
     if current_user.teams.exists?(team_to_redirect_to)
-      sign_in_url_for_user = LoginRegisterFunnel::BaseController::SignInUrlForUser.new(user: current_user, controller: self)
+      sign_in_url_for_user = LoginRegisterFunnel::BaseController::SignInUrlForUser.new(current_user, self)
 
       redirect_to sign_in_url_for_user.team_spaces_url(team_to_redirect_to)
     else
