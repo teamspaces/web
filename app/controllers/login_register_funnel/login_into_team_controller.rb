@@ -30,11 +30,20 @@ class LoginRegisterFunnel::LoginIntoTeamController < LoginRegisterFunnel::BaseCo
     end
   end
 
-  # point to this method, with :
-  # you are already signed in on a subdomain
-  #
+  # point to this method, from a team-subdomain => user is already is signed in.
+  # For the above method, the team-to-login is the subdomain-team:
+  #    example: login_into_team_url(subdomain: team_to_login.subdomain)
+  # In this method, the team-to-login is not the subdomain-team, its passed as param:
+  #    example: login_into_users_team_path(team_to_login_subdomain)
+  # So when this method is executed, there is a current user and the team-to-login is in the params
+  #   if the current user has access to the team he wants to login
+  #         redirect him to this team with a login token
+  #   if the current user has no access
+  #         (but maybe one of his two other accounts)
+  #         send him to the method above (send him to the subdomain without login-token)
 
   def login_to_subdomain_for_authenticated_user
+    # is team_member? should be done with policy
     if current_user.teams.exists?(team_to_redirect_to)
       sign_in_url_for_user = LoginRegisterFunnel::BaseController::SignInUrlForUser.new(current_user, self)
 
