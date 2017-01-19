@@ -7,10 +7,10 @@ describe LoginRegisterFunnel::LoginIntoTeamController, :controller do
       let(:user) { users(:lars) }
       before(:each) { sign_in(user) }
 
-      it "redirects to team path" do
+      it "redirects to root subdomain path" do
         get login_into_team_url(subdomain: user.teams.first.subdomain)
 
-        assert_redirected_to team_path
+        assert_redirected_to root_subdomain_path
       end
     end
 
