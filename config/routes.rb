@@ -8,10 +8,10 @@ Rails.application.routes.draw do
 
     resource :team, only: [:show, :edit, :update, :destroy]
 
-    resource :user, except: [:index, :destroy] do
-      resource :avatar, only: [:destroy], controller: "user/avatar"
+    resource :user, except: [:index, :destroy]
+    namespace :user do
+      resource :avatar, only: [:destroy]
     end
-
 
     resources :pages, only: [:show, :edit, :update, :destroy]
     resources :page_contents, only: [:show, :update]

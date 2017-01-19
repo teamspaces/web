@@ -1,6 +1,6 @@
 require 'test_helper'
 
-describe User::AvatarController do
+describe User::AvatarsController do
   let(:user) { users(:with_one_space) }
   let(:team) { user.teams.first }
 

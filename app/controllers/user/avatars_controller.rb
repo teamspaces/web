@@ -1,4 +1,4 @@
-class User::AvatarController < SubdomainBaseController
+class User::AvatarsController < SubdomainBaseController
   before_action :set_user
 
   # DELETE /user/avatar
