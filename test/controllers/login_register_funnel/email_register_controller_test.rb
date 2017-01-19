@@ -18,6 +18,8 @@ describe LoginRegisterFunnel::EmailRegisterController do
 
     User::Avatar::AttachGeneratedAvatar.stubs(:call)
                                        .returns(interator_mock)
+
+    GenerateLoginToken.stubs(:call).returns("user_login_token")
   end
 
   describe "#new" do
