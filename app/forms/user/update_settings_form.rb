@@ -1,4 +1,5 @@
 class User::UpdateSettingsForm
+  include FormHelpers::Errors
   include ActiveModel::Model
   include Virtus.model
 
@@ -56,11 +57,8 @@ class User::UpdateSettingsForm
       user.assign_attributes(email: email, first_name: first_name, last_name: last_name,
                              password: password, password_confirmation: password_confirmation)
 
-      user.valid?
-      user.errors.each do |attribute, message|
-        self.errors.add(attribute, message)
-      end
+      add_errors_from(user)
 
-      user.errors.any?
+      user.valid?
     end
 end
