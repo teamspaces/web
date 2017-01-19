@@ -9,6 +9,8 @@ describe "Email Register", :capybara do
 
     User::Avatar::AttachGeneratedAvatar.stubs(:call)
                                        .returns(interactor_mock)
+
+    Team::Logo::AttachGeneratedLogo.stubs(:call).returns(true)
   end
 
   describe "register with email address" do

@@ -19,6 +19,12 @@ else # default to 'local'
     store: Shrine::Storage::FileSystem.new("public", prefix: "uploads/store") }
 end
 
+if ENV["STORAGE_MEDIUM"] == "local"
+  # delete cached files older than 3 days
+  file_system = Shrine.storages[:cache]
+  file_system.clear!(older_than: Time.now - 3*24*60*60)
+end
+
 Shrine.plugin :activerecord
 Shrine.plugin :cached_attachment_data # cache forms
 Shrine.plugin :backgrounding

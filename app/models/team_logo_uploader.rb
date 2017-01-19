@@ -1,4 +1,4 @@
-class UserAvatarUploader < Shrine
+class TeamLogoUploader < Shrine
   plugin :logging
   plugin :versions # save different avatar versions
   plugin :delete_raw # delete processed files after uploading
@@ -19,7 +19,7 @@ class UserAvatarUploader < Shrine
   end
 
   def generate_location(io, context)
-    type  = "user_avatar"
+    type  = "team_logo"
     version = context[:version] if context[:version]
     name  = super # the default unique identifier
 
@@ -29,15 +29,15 @@ class UserAvatarUploader < Shrine
   def process(io, context)
     case context[:phase]
       when :store
-        ImageVersionsGenerator.call(io: io, sizes: UserAvatar::SIZES).versions
+        ImageVersionsGenerator.call(io: io, sizes: TeamLogo::SIZES).versions
     end
   end
 
   add_metadata :source do |io, context|
-    context[:source] || context[:record][:avatar_data]["metadata"]["source"]
+    context[:source] || context[:record][:logo_data]["metadata"]["source"]
   end
 
   Attacher.default_url do |options|
-    "default_avatar.png"
+    "default_logo.jpg"
   end
 end
