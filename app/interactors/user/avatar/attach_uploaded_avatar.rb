@@ -9,7 +9,7 @@ class User::Avatar::AttachUploadedAvatar
   end
 
   def attach_uploaded_avatar
-    @user.avatar_attacher.context[:source] = UserAvatar::Source::UPLOADED
+    @user.avatar_attacher.context[:source] = Image::Source::UPLOADED
     @user.avatar_attacher.assign(@file)
   end
 end
