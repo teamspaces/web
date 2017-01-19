@@ -1,4 +1,4 @@
-<%= form_for(team) do |f| %>
+<%= form_for(team, url: url) do |f| %>
   <% if team.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(team.errors.count, "error") %> prohibited this team from being saved:</h2>
@@ -14,19 +14,14 @@
   <%= f.label :name %>
   <%= f.text_field :name %>
 
-  <%= image_tag team.logo_url(:image_192) %>
-
-  <%= f.label :logo %>
-  <%= f.hidden_field :logo, value: team.cached_logo_data %>
-  <%= f.file_field :logo %>
+  <%= f.label :subdomain %>
+  <%= f.text_field :subdomain %>
 
   <%= image_tag team.logo_url(:image_192)  if team.cached_logo_data %>
 
   <%= f.label :logo %>
   <%= f.hidden_field :logo, value: team.cached_logo_data %>
   <%= f.file_field :logo %>
-
-  <%= link_to("remove logo", team_logo_path, method: :delete) %>
 
   <%= f.submit %>
 <% end %>

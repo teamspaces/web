@@ -1,6 +1,6 @@
 require "test_helper"
 
-describe CreateTeamForUserForm, :model do
+describe Team::CreateTeamForUserForm, :model do
   let(:team_name) { "nasa" }
   let(:team_subdomain) { "worldwide"}
   let(:user) { users(:lars) }
@@ -12,8 +12,8 @@ describe CreateTeamForUserForm, :model do
   end
 
   subject do
-   CreateTeamForUserForm.new(name: team_name, user: user,
-                             subdomain: team_subdomain)
+    Team::CreateTeamForUserForm.new(name: team_name, user: user,
+                                    subdomain: team_subdomain)
   end
 
   describe "validations" do
