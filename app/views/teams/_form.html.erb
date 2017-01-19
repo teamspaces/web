@@ -23,5 +23,7 @@
   <%= f.hidden_field :logo, value: team.cached_logo_data %>
   <%= f.file_field :logo %>
 
+  <%= link_to("remove logo", team_logo_path, method: :delete) %>
+
   <%= f.submit %>
 <% end %>

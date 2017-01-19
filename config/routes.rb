@@ -7,6 +7,9 @@ Rails.application.routes.draw do
     end
 
     resource :team, only: [:show, :edit, :update, :destroy]
+    namespace :team do
+      resource :logo, only: [:destroy]
+    end
 
     resource :user, except: [:index, :destroy]
     namespace :user do
