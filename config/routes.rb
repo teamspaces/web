@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     resource :team, only: [:show, :edit, :update, :destroy]
 
     resource :user, except: [:index, :destroy] do
-      resource :avatar, only: [:destroy], controller: "User::AvatarController"
+      resource :avatar, only: [:destroy], controller: "user/avatar_controller"
     end
 
 
