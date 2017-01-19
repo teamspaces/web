@@ -30,7 +30,7 @@
   <%= f.hidden_field :avatar, value: form.user.cached_avatar_data %>
   <%= f.file_field :avatar %>
 
-  <%= link_to(t("helpers.submit.user.reset_avatar"), user_avatar_path, method: :delete) unless Image.new(form.user.avatar).generated? %>
+  <%= link_to(t("helpers.submit.user.reset_avatar"), user_avatar_path, method: :delete, data: { confirm: 'Are you sure?' }) unless Image.new(form.user.avatar).generated? %>
 
   <%= f.submit t("helpers.submit.user.update_personal_info") %>
 <% end %>
