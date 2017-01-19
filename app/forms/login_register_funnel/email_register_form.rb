@@ -1,4 +1,5 @@
 class LoginRegisterFunnel::EmailRegisterForm
+  include FormHelpers::Errors
   include ActiveModel::Model
   include Virtus.model
 
@@ -44,10 +45,8 @@ class LoginRegisterFunnel::EmailRegisterForm
  private
 
   def validate_user
-    user.valid?
-    user.errors.each do |attribute, message|
-      self.errors.add(attribute, message)
-    end
+    add_errors_from(user)
+
     user.valid?
   end
 end

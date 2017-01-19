@@ -1,7 +1,6 @@
 class CreateTeamForUserForm
   include ActiveModel::Model
   include ActiveModel::Conversion
-  include FormHelpers::Errors
   include Virtus.model
 
   attr_reader :team
