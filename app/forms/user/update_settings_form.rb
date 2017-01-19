@@ -1,10 +1,11 @@
 class User::UpdateSettingsForm
+  include FormHelpers::Errors
   include ActiveModel::Model
   include Virtus.model
 
   attr_reader :user
-  delegate :cached_avatar_data, to: :user
-  delegate :avatar_url, to: :user
+  delegate :model_name, to: :user
+  delegate :persisted?, to: :user
 
   attribute :email, String
   attribute :first_name, String
@@ -20,10 +21,13 @@ class User::UpdateSettingsForm
 
   def initialize(user, params={})
     @user = user
-    @user.avatar_attacher.context[:source] = Image::Source::UPLOADED if params[:avatar].present?
 
-    params.each { |name,value| user.send("#{name}=", value) }
-    self.attributes.each { |name, value| send("#{name}=", user.send(name)) }
+    super(user.attributes)
+    super(params)
+  end
+
+  def avatar=(uploaded_file)
+    User::Avatar::AttachUploadedAvatar.call(user: @user, file: uploaded_file)
   end
 
   def save
@@ -50,10 +54,11 @@ class User::UpdateSettingsForm
     end
 
     def validate_user
-      user.valid?
-      user.errors.each do |attribute, message|
-        self.errors.add(attribute, message)
-      end
+      user.assign_attributes(email: email, first_name: first_name, last_name: last_name,
+                             password: password, password_confirmation: password_confirmation)
+
+      add_errors_from(user)
+
       user.valid?
     end
 end

@@ -47,10 +47,10 @@ class UsersController < SubdomainBaseController
     end
 
     def slack_user_params
-      params.require(:user_update_settings_form).permit(:first_name, :last_name, :avatar)
+      params.require(:user).permit(:first_name, :last_name, :avatar)
     end
 
     def email_user_params
-      params.require(:user_update_settings_form).permit(:first_name, :last_name, :avatar, :email, :password, :password_confirmation)
+      params.require(:user).permit(:first_name, :last_name, :avatar, :email, :password, :password_confirmation)
     end
 end

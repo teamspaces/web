@@ -54,3 +54,4 @@ en:
       user:
         update_password: Update Password
         update_personal_info: Update Personal Info
+        reset_avatar: Remove avatar

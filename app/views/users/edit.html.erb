@@ -7,9 +7,9 @@
     <div class="card-content">
       <%= notice %>
 
-      <%= render "personal_info_form", user: @update_settings_form %>
+      <%= render "personal_info_form", form: @update_settings_form %>
 
-      <%= render "password_form", user: @update_settings_form if @user.login_using_email? %>
+      <%= render "password_form", form: @update_settings_form if @user.login_using_email? %>
 
 
       <div class="card-actions">
