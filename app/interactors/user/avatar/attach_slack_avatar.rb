@@ -11,7 +11,7 @@ class User::Avatar::AttachSlackAvatar
   def attach_avatar
     avatar_url = slack_avatar_url
 
-    @user.avatar_attacher.context[:source] = UserAvatar::Source::SLACK
+    @user.avatar_attacher.context[:source] = Image::Source::SLACK
     @user.avatar_attacher.assign(open(avatar_url))
   end
 

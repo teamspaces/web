@@ -9,6 +9,8 @@ describe Users::OmniauthCallbacksController do
     interactor_mock.stubs(:success?).returns(true)
     interactor_mock.stubs(:failure?).returns(false)
     User::Avatar::AttachSlackAvatar.stubs(:call).returns(interactor_mock)
+
+    GenerateLoginToken.stubs(:call).returns("user_login_token")
   end
 
   def stub_slack_identity_with(identity)

@@ -7,7 +7,11 @@ describe User::SignInUrlDecider, :controller do
   let(:sign_in_url_for_user) { LoginRegisterFunnel::BaseController::SignInUrlForUser.new(user, controller) }
   let(:shared_user_information) { LoginRegisterFunnel::BaseController::SharedUserInformation }
   let(:invitation_cookie_mock) { InvitationCookieMock.new(invitations(:jonas_at_spaces)) }
-  def subject(options=nil); User::SignInUrlDecider.call({ user: user, controller: controller }.merge(options.to_h)) end
+  before(:each) { GenerateLoginToken.stubs(:call).returns("user_login_token") }
+
+  def subject(options=nil)
+    User::SignInUrlDecider.call({ user: user, controller: controller }.merge(options.to_h))
+  end
 
   describe "invitation present" do
     it "returns accept invitation url" do
