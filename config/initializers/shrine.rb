@@ -12,8 +12,8 @@ when "s3"
     bucket:            ENV["S3_FILES_BUCKET"]
   }
 
-  { cache: Shrine::Storage::S3.new(prefix: "cache", upload_options: {acl: "public-read", cache_control: "public, max-age=2592000"}, **s3_options),
-    store: Shrine::Storage::S3.new(prefix: "store", upload_options: {acl: "public-read", cache_control: "public, max-age=2592000"}, **s3_options) }
+  { cache: Shrine::Storage::S3.new(prefix: "cache", upload_options: { acl: "public-read", cache_control: "public, max-age=#{30.days}" }, **s3_options),
+    store: Shrine::Storage::S3.new(prefix: "store", upload_options: { acl: "public-read", cache_control: "public, max-age=#{30.days}" }, **s3_options) }
 else # default to 'local'
   { cache: Shrine::Storage::FileSystem.new("public", prefix: "uploads/cache"),
     store: Shrine::Storage::FileSystem.new("public", prefix: "uploads/store") }
