@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
   constraints ReservedSubdomain do
-    get :login_into_team, to: "login_register_funnel/login_into_team#new", as: :login_into_team
-
     resources :spaces do
       resources :pages, only: [:index, :new, :create]
     end
