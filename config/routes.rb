@@ -8,7 +8,9 @@ Rails.application.routes.draw do
 
     resource :team, only: [:show, :edit, :update, :destroy]
 
-    resource :user, except: [:index, :destroy]
+    resource :user, except: [:index, :destroy] do
+      resource :avatar, only: [:destroy], controller: :user_avatar
+    end
 
     resources :pages, only: [:show, :edit, :update, :destroy]
     resources :page_contents, only: [:show, :update]
