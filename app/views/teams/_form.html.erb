@@ -1,10 +1,10 @@
-<%= form_for(team) do |f| %>
-  <% if team.errors.any? %>
+<%= form_for(form) do |f| %>
+  <% if form.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(team.errors.count, "error") %> prohibited this team from being saved:</h2>
+      <h2><%= pluralize(form.errors.count, "error") %> prohibited this team from being saved:</h2>
 
       <ul>
-      <% team.errors.full_messages.each do |message| %>
+      <% form.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -14,13 +14,13 @@
   <%= f.label :name %>
   <%= f.text_field :name %>
 
-  <%= image_tag team.logo_url(:image_192) %>
+  <%= image_tag form.logo_url(:image_192) %>
 
   <%= f.label :logo %>
-  <%= f.hidden_field :logo, value: team.cached_logo_data %>
+  <%= f.hidden_field :logo, value: form.cached_logo_data %>
   <%= f.file_field :logo %>
 
-  <%= link_to(t("helpers.submit.team.reset_logo"), team_logo_path, method: :delete, data: { confirm: t("helpers.confirm_delete") }) unless Image.new(team.team.logo).generated? %>
+  <%= link_to(t("helpers.submit.team.reset_logo"), team_logo_path, method: :delete, data: { confirm: t("helpers.confirm_delete") }) unless Image.new(form.team.logo).generated? %>
 
   <%= f.submit %>
 <% end %>
