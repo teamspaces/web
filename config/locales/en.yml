@@ -47,6 +47,7 @@ en:
       successfully_sent: Slack Invitation was successfully sent
       failure_create: Slack Invitation could not be created
   helpers:
+    confirm_delete: Are you sure?
     submit:
       team_create_team_for_user_form:
         create: Create Team
