@@ -20,8 +20,6 @@
   <%= f.hidden_field :logo, value: team.cached_logo_data %>
   <%= f.file_field :logo %>
 
-  <%= image_tag team.logo_url(:image_192)  if team.cached_logo_data %>
-
   <%= link_to(t("helpers.submit.team.reset_logo"), team_logo_path, method: :delete, data: { confirm: t("helpers.confirm_delete") }) unless Image.new(team.team.logo).generated? %>
 
   <%= f.submit %>
