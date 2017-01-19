@@ -69,15 +69,5 @@ describe UsersController do
         assert_not_equal "Anna", user.first_name
       end
     end
-
-    context "reset avatar" do
-      it "generates a new user avatar" do
-        User::Avatar::AttachGeneratedAvatar.expects(:call)
-                                           .with(user: user)
-                                           .returns(true)
-
-        patch user_url(subdomain: team.subdomain), params: { user: { reset_avatar: true } }
-      end
-    end
   end
 end

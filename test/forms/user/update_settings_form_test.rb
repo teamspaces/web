@@ -66,16 +66,6 @@ describe User::UpdateSettingsForm, :model do
           subject.new(user_with_generated_avatar, first_name: "Martinez").save
         end
       end
-
-      context "avatar reset" do
-        it "generates a new user avatar" do
-          User::Avatar::AttachGeneratedAvatar.expects(:call)
-                                             .with(user: user)
-                                             .returns(true)
-
-          subject.new(user, reset_avatar: true).save
-        end
-      end
     end
   end
 end
