@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
     get :email_confirmation, to: "email_confirmation#new", as: :new_email_confirmation
     post :email_confirmation_resend, to: "email_confirmation#resend", as: :resend_email_confirmation
+    post :email_confirmation_update, to: "email_confirmation#update_email", as: :update_email_confirmation
 
     resources :spaces do
       resources :pages, only: [:index, :new, :create]
