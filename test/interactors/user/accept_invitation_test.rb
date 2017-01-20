@@ -16,11 +16,19 @@ describe User::AcceptInvitation, :model do
       end
     end
 
-    it "saves user as invitee " do
+    it "saves user as invitee" do
       subject.call(user: user, invitation: invitation)
 
       invitation.reload
       assert_equal user, invitation.invitee
+    end
+
+    context "is email invitation" do
+      it "confirms invited user's email" do
+        subject.call(user: user, invitation: invitation)
+
+        assert user.confirmed?
+      end
     end
   end
 end
