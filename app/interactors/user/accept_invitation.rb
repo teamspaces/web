@@ -5,10 +5,11 @@ class User::AcceptInvitation
 
   def call
     @user = context.user
-    @invitation = context.invitation
+    @invitation = context.invitation.decorate
 
     accept_team_invitation
     mark_invitation_as_accepted
+    confirm_email
   end
 
   def accept_team_invitation
@@ -18,5 +19,9 @@ class User::AcceptInvitation
   def mark_invitation_as_accepted
     invitation.invitee_user_id = user.id
     invitation.save
+  end
+
+  def confirm_email
+    @user.confirm if @invitation.email_invitation?
   end
 end

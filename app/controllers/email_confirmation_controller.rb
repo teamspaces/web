@@ -13,7 +13,7 @@ class EmailConfirmationController < SubdomainBaseController
   end
 
   def update_email
-    @update_email_form = EmailConfirmation::UpdateEmailForm.new(current_user, email_params)
+    @update_email_form = EmailConfirmation::UpdateEmailForm.new(current_user, email_params.to_h)
 
     if @update_email_form.save
       redirect_to new_email_confirmation_path
