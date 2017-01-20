@@ -61,3 +61,11 @@ with_two_spaces:
   first_name: Madeleine
   last_name: With Two Spaces
   email: madeleien.with-two-spaces@spaces.is
+
+email_not_yet_confirmed:
+  <<: *default
+  confirmed_at:
+
+with_unconfirmed_email:
+  <<: *default
+  unconfirmed_email: unconfirmed_email@nl.com
