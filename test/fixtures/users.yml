@@ -4,6 +4,7 @@ ulf: &default
   last_name: Bürgman
   allow_email_login: true
   encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  confirmed_at: 2015-01-01 01:01:01
 
 sven:
   <<: *default
