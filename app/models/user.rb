@@ -22,7 +22,7 @@ class User < ApplicationRecord
   end
 
   def confirmation_required?
-    allow_email_login
+    allow_email_login && super
   end
 
   def postpone_email_change?

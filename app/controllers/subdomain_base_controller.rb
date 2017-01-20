@@ -1,6 +1,5 @@
 class SubdomainBaseController < ApplicationController
-  before_action :check_team_membership
-  before_action :redirect_unfocomfirmed_users
+  before_action :check_team_membership, :check_confirmed_email
 
   helper_method :current_team
   def current_team
@@ -15,8 +14,8 @@ class SubdomainBaseController < ApplicationController
       end
     end
 
-    def redirect_unfocomfirmed_users
-      redirect_to root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]) if (confirmation_required? && !current_user.confirmed?) # pending_reconfirmation? wenn email geupdated
+    def check_confirmed_email
+      debugger
     end
 
     def pundit_user
