@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   constraints ReservedSubdomain do
     get :login_into_team, to: "login_register_funnel/login_into_team#new", as: :login_into_team
 
+    get :email_confirmation, to: "email_confirmation#new", as: :new_email_confirmation
+
     resources :spaces do
       resources :pages, only: [:index, :new, :create]
     end
@@ -39,8 +41,6 @@ Rails.application.routes.draw do
 
     get :email_register, to: "login_register_funnel/email_register#new", as: :new_email_register
     post :email_register, to: "login_register_funnel/email_register#create", as: :email_register
-
-    get :email_confirmation, to: "login_register_funnel/email_confirmation#new", as: :new_email_confirmation
 
     get :slack_login, to: "login_register_funnel/slack_login_register#login", as: :slack_login
     get :slack_register, to: "login_register_funnel/slack_login_register#register", as: :slack_register
