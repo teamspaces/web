@@ -11,7 +11,9 @@ class LoginRegisterFunnel::EmailRegisterController < LoginRegisterFunnel::BaseCo
 
     if @email_register_form.save
 
-      redirect_to sign_in_url_for(user: @email_register_form.user)
+      redirect_to new_email_confirmation_path
+
+      #sign_in_url_for(user: @email_register_form.user)
     else
       render :new
     end

@@ -1,0 +1,21 @@
+<main>
+  <div class="card">
+    <header>
+      <h1><b>3/3</b> | Email Confirmation</h1>
+    </header>
+
+    <div class="card-content">
+
+      <p>We've sent you an email. Please check your inbox and confirm your email-address</p>
+
+      <%= link_to "Resend Confirmation", new_review_email_address_path %>
+
+      <p>Change email:</p>
+
+      <%= email_field_tag "email" %>
+
+      <%= submit_tag "change_email" %>
+
+    </div>
+  </div>
+</main>

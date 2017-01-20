@@ -40,6 +40,8 @@ Rails.application.routes.draw do
     get :email_register, to: "login_register_funnel/email_register#new", as: :new_email_register
     post :email_register, to: "login_register_funnel/email_register#create", as: :email_register
 
+    get :email_confirmation, to: "login_register_funnel/email_confirmation#new", as: :new_email_confirmation
+
     get :slack_login, to: "login_register_funnel/slack_login_register#login", as: :slack_login
     get :slack_register, to: "login_register_funnel/slack_login_register#register", as: :slack_register
 
