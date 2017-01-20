@@ -2,7 +2,7 @@ class User < ApplicationRecord
   include UserAvatarUploader[:avatar]
 
   devise :database_authenticatable, :recoverable, :rememberable,
-         :registerable, :trackable, :custom_validatable,
+         :registerable, :trackable, :custom_validatable, :confirmable,
          :omniauthable, omniauth_providers: [:slack, :slack_button]
 
   has_many :authentications, dependent: :destroy
@@ -19,6 +19,18 @@ class User < ApplicationRecord
 
   def name
     "#{first_name} #{last_name}"
+  end
+
+  def confirmation_required?
+    allow_email_login
+  end
+
+  def postpone_email_change?
+    allow_email_login && super
+  end
+
+  def reconfirmation_required?
+    allow_email_login && super
   end
 
   # Devise: custom scoping to email login
