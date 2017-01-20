@@ -1,0 +1,24 @@
+<main>
+  <div class="card">
+    <header>
+      <h1><%= @user.first_name %> we've sent you an email</h1>
+    </header>
+
+    <div class="card-content">
+
+      <%= @user.email %>
+
+      <p><b>To continue</b>, please check your <i><%= @user.unconfirmed_email || @user.email %></i> inbox and confirm your email-address by clicking on the link in our mail</p>
+
+
+      <%= link_to "Plese send me the confirmation again", user_email_confirmation_path, method: :post %>
+
+      <hr>
+
+      <p> I'm not using <%= @user.unconfirmed_email || @user.email %>. Please update my account's email address and send the confirmation to the following email-address:</p>
+
+      <%= render "update_email_form", form: @update_email_form, url: user_email_confirmation_path %>
+
+    </div>
+  </div>
+</main>

@@ -16,17 +16,13 @@ class EmailConfirmation::UpdateEmailForm
   end
 
   def save
-    valid? && persist! #&& send_email_confirmation
+    valid? && persist!
   end
 
   private
 
     def persist!
       user.save
-    end
-
-    def send_email_confirmation
-      user.send_confirmation_instructions
     end
 
     def validate_user

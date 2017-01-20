@@ -19,8 +19,13 @@
 
   <% if @user.login_using_email? %>
 
+    <hr>
+    <p>In case you change you're email-address, we will send you a confirmation mail. Like this we assure it's yours</p>
+
     <%= f.label :email %>
     <%= f.text_field :email %>
+
+    <hr>
 
   <% end %>
 
