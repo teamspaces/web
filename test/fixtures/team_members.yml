@@ -23,6 +23,16 @@ maja_at_spaces:
   user: with_several_teams
   role: member
 
+with_unconfirmed_email_at_spaces:
+  team: spaces
+  user: with_unconfirmed_email
+  role: member
+
+email_not_yet_confirmed_at_spaces:
+  team: spaces
+  user: email_not_yet_confirmed
+  role: member
+
 maja_at_power:
   team: power_rangers
   user: with_several_teams
