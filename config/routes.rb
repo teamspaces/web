@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     get :login_into_team, to: "login_register_funnel/login_into_team#new", as: :login_into_team
 
     get :email_confirmation, to: "email_confirmation#new", as: :new_email_confirmation
+    post :email_confirmation_resend, to: "email_confirmation#resend", as: :resend_email_confirmation
 
     resources :spaces do
       resources :pages, only: [:index, :new, :create]
@@ -26,8 +27,7 @@ Rails.application.routes.draw do
 
   devise_for :users,
              skip: [:sessions],
-             controllers: { omniauth_callbacks: "users/omniauth_callbacks",
-                            confirmations: "user/email_confirmations" }
+             controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
 
   devise_scope :user do
     delete :logout, to: "devise/sessions#destroy", as: :destroy_user_session

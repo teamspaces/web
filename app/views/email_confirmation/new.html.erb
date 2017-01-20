@@ -1,20 +1,21 @@
 <main>
   <div class="card">
     <header>
-      <h1><b>3/3</b> | Email Confirmation</h1>
+      <h1>We've sent you an email</h1>
     </header>
 
     <div class="card-content">
 
-      <p>We've sent you an email. Please check your inbox and confirm your email-address</p>
+      <p>To continue, please check your inbox and confirm your email-address by clicking on the link</p>
 
-      <%= link_to "Resend Confirmation", new_review_email_address_path %>
+
+      <%= link_to "Resend Confirmation", resend_email_confirmation_path, method: :post %>
 
       <p>Change email:</p>
 
       <%= email_field_tag "email" %>
 
-      <%= submit_tag "change_email" %>
+      <%= submit_tag :update_email_address %>
 
     </div>
   </div>

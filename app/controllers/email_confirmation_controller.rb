@@ -6,6 +6,15 @@ class EmailConfirmationController < SubdomainBaseController
 
   end
 
+  def resend
+    current_user.send_confirmation_instructions
+
+    redirect_to new_email_confirmation_path
+  end
+
+  def update_email
+
+  end
 
   private
 
