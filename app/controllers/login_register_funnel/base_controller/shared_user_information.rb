@@ -19,4 +19,9 @@ class LoginRegisterFunnel::BaseController::SharedUserInformation
   def team_creation_requested?
     !! @session[:user_team_creation_requested]
   end
+
+  def clear
+    @session[:users_reviewed_email_address] = nil
+    @session[:user_team_creation_requested] = nil
+  end
 end

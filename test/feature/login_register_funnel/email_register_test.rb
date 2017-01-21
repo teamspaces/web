@@ -63,6 +63,10 @@ describe "Email Register", :capybara do
       fill_in("Subdomain", with: "deanandanders")
       find('input[name="commit"]').click
 
+      link = ActionMailer::Base.deliveries.last.body.raw_source.match(/href="(?<url>.+?)">/)[:url]
+      relative_link = URI.parse(link).path + "?" + URI.parse(link).query
+      visit relative_link
+
       assert_content "sign out"
       assert_content user_attributes[:email]
       assert_content "Spaces"
