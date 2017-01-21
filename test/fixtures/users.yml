@@ -64,6 +64,7 @@ with_two_spaces:
 
 email_not_yet_confirmed:
   <<: *default
+  confirmation_token: 23skokoi9hunun89h8h
   confirmed_at:
 
 with_unconfirmed_email:
