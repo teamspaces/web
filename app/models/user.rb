@@ -35,7 +35,15 @@ class User < ApplicationRecord
   end
 
   def postpone_email_change?
-    allow_email_login && email_confirmed_once? && super
+    if allow_email_login
+      if unconfirmed_email.present?
+        return true
+      else
+        return email_confirmed_once? && super
+      end
+    else
+      false
+    end
   end
 
   def reconfirmation_required?

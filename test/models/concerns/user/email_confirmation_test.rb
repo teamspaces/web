@@ -81,6 +81,23 @@ describe User::EmailConfirmation, :model do
             assert_nil user_with_unconfirmed_email.unconfirmed_email
           end
         end
+
+        describe "has new unconfirmed email" do
+          let(:user_with_new_unconfirmed_email){users(:with_new_unconfirmed_email)}
+          before(:each) do
+            user_with_new_unconfirmed_email.email = "updated_email@amsterdam.com"
+            user_with_new_unconfirmed_email.save
+          end
+
+          it "returns true" do
+            assert user_with_new_unconfirmed_email.email_confirmation_required?
+          end
+
+          it "does postpone email update" do
+            assert_equal "with_new_unconfirmed_email@spaces.is", user_with_new_unconfirmed_email.email
+            assert_equal "updated_email@amsterdam.com", user_with_new_unconfirmed_email.unconfirmed_email
+          end
+        end
       end
 
       describe "slack user" do

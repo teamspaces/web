@@ -66,3 +66,9 @@ with_unconfirmed_email:
   <<: *default
   confirmation_token: 23skokoi9hunun89h8h
   confirmed_at:
+
+with_new_unconfirmed_email:
+  <<: *default
+  confirmation_token: s352123alienh8
+  confirmed_at:
+  unconfirmed_email: new_unconfirmed_address@buisness.com
