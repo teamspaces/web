@@ -33,7 +33,7 @@ describe User::EmailConfirmationsController do
     end
 
     it "redirects to email confirmation page" do
-      get new_user_email_confirmation_url(team: team)
+      post user_email_confirmation_url(subdomain: team.subdomain)
 
       assert_redirected_to new_user_email_confirmation_path
     end
@@ -50,7 +50,7 @@ describe User::EmailConfirmationsController do
       it "sends email confirmation" do
         user_with_unconfirmed_email.expects(:send_confirmation_instructions).once
 
-        patch user_email_confirmation_url(subdomain: team.subdomain), params: { user: { email: "new_email@nl.com" } }
+        patch user_email_confirmation_url(subdomain: team.subdomain), params: { user: { email: "hello@nl.com" } }
       end
     end
 
