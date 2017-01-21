@@ -5,8 +5,8 @@ class User
       confirmation_required? || pending_reconfirmation?
     end
 
-    def email_confirmed_once?
-      confirmed? && !pending_reconfirmation?
+    def main_email_unconfirmed?
+      confirmed_at.nil? && unconfirmed_email.nil?
     end
 
     def confirmation_required?
@@ -14,15 +14,7 @@ class User
     end
 
     def postpone_email_change?
-      if allow_email_login
-        if unconfirmed_email.present?
-          return true
-        else
-          return email_confirmed_once? && super
-        end
-      else
-        false
-      end
+      allow_email_login && !main_email_unconfirmed? && super
     end
 
     def reconfirmation_required?
