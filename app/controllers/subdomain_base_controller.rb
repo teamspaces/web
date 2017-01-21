@@ -15,13 +15,9 @@ class SubdomainBaseController < ApplicationController
     end
 
     def check_confirmed_email
-      if user_email_confirmation_required?
+      if current_user.email_confirmation_required?
         redirect_to new_user_email_confirmation_path
       end
-    end
-
-    def user_email_confirmation_required?
-      current_user.confirmation_required? || current_user.pending_reconfirmation?
     end
 
     def pundit_user

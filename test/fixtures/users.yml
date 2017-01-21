@@ -26,17 +26,17 @@ with_several_teams:
  first_name: Maja
  last_name: Lundgren
 
-slack_user_milad:
+slack_user_milad: &slack_user_milad
   <<: *default
   first_name: Milad
   last_name: Marzano
   allow_email_login: false
+  confirmed_at:
 
 slack_user_emil:
-  <<: *default
+  <<: *slack_user_milad
   first_name: Emil
   last_name: Danesi
-  allow_email_login: false
 
 without_team:
   <<: *default

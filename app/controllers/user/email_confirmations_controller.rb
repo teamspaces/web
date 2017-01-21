@@ -33,7 +33,7 @@ class User::EmailConfirmationsController < SubdomainBaseController
     end
 
     def check_if_email_confirmation_open
-      unless user_email_confirmation_required?
+      unless current_user.email_confirmation_required?
         redirect_to root_subdomain_path
       end
     end

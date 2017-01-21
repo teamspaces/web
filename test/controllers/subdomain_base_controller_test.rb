@@ -44,7 +44,7 @@ describe SubdomainBaseController do
 
         get team_url(subdomain: user_not_yet_confirmed_email.teams.first.subdomain)
 
-        assert_redirected_to new_email_confirmation_path
+        assert_redirected_to new_user_email_confirmation_path
       end
     end
 
@@ -56,7 +56,7 @@ describe SubdomainBaseController do
 
         get team_url(subdomain: user_with_unconfirmed_email.teams.first.subdomain)
 
-        assert_redirected_to new_email_confirmation_path
+        assert_redirected_to new_user_email_confirmation_path
       end
     end
   end

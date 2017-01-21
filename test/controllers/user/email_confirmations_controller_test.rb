@@ -41,8 +41,6 @@ describe User::EmailConfirmationsController do
 
   describe "#update" do
     context "valid attributes" do
-      #context user already has valid attributes
-
       it "updates email" do
         patch user_email_confirmation_url(subdomain: team.subdomain), params: { user: { email: "new_email@nl.com" } }
 
