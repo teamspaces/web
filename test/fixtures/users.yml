@@ -62,12 +62,7 @@ with_two_spaces:
   last_name: With Two Spaces
   email: madeleien.with-two-spaces@spaces.is
 
-email_not_yet_confirmed:
+with_unconfirmed_email:
   <<: *default
   confirmation_token: 23skokoi9hunun89h8h
   confirmed_at:
-
-with_unconfirmed_email:
-  <<: *default
-  confirmation_token: sj8ndhw7323nuuui123
-  unconfirmed_email: unconfirmed_email@nl.com

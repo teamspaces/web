@@ -36,20 +36,8 @@ describe SubdomainBaseController do
       end
     end
 
-    context "user did not confirmed email" do
-      let(:user_not_yet_confirmed_email) { users(:email_not_yet_confirmed) }
-
-      it "redirects to email confirmation page" do
-        sign_in user_not_yet_confirmed_email
-
-        get team_url(subdomain: user_not_yet_confirmed_email.teams.first.subdomain)
-
-        assert_redirected_to new_user_email_confirmation_path
-      end
-    end
-
-    context "user has new unconfirmed email" do
-      let(:user_with_unconfirmed_email){ users(:with_unconfirmed_email) }
+    context "user has to confirm email" do
+      let(:user_with_unconfirmed_email) { users(:with_unconfirmed_email) }
 
       it "redirects to email confirmation page" do
         sign_in user_with_unconfirmed_email

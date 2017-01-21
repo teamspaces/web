@@ -4,17 +4,17 @@ describe Users::ConfirmationsController do
 
   describe "#show" do
     describe "valid confirmation token" do
-      let(:user_without_confirmed_email) { users(:email_not_yet_confirmed) }
-      before(:each) { get user_confirmation_url(confirmation_token: user_without_confirmed_email.confirmation_token) }
+      let(:user_with_unconfirmed_email) { users(:with_unconfirmed_email) }
+      before(:each) { get user_confirmation_url(confirmation_token: user_with_unconfirmed_email.confirmation_token) }
 
       it "confirms email" do
-        user_without_confirmed_email.reload
+        user_with_unconfirmed_email.reload
 
-        assert user_without_confirmed_email.confirmed?
+        assert user_with_unconfirmed_email.confirmed?
       end
 
       it "redirect_to sign in url for user" do
-        assert_redirected_to @controller.sign_in_url_for(user: user_without_confirmed_email)
+        assert_redirected_to @controller.sign_in_url_for(user: user_with_unconfirmed_email)
       end
     end
 

@@ -1,9 +1,9 @@
 require 'test_helper'
 
 describe User::EmailConfirmationsController do
-  let(:user_email_not_yet_confirmed) { users(:email_not_yet_confirmed) }
-  let(:team) { user_email_not_yet_confirmed.teams.first }
-  before(:each) { sign_in user_email_not_yet_confirmed }
+  let(:user_with_unconfirmed_email) { users(:with_unconfirmed_email) }
+  let(:team) { user_with_unconfirmed_email.teams.first }
+  before(:each) { sign_in user_with_unconfirmed_email }
 
   describe "user already confirmed" do
     let(:user_with_confirmed_email) { users(:ulf) }
@@ -27,7 +27,7 @@ describe User::EmailConfirmationsController do
 
   describe "#create" do
     it "sends email confirmation mail" do
-      user_email_not_yet_confirmed.expects(:send_confirmation_instructions).once
+      user_with_unconfirmed_email.expects(:send_confirmation_instructions).once
 
       post user_email_confirmation_url(subdomain: team.subdomain)
     end
@@ -44,11 +44,11 @@ describe User::EmailConfirmationsController do
       it "updates email" do
         patch user_email_confirmation_url(subdomain: team.subdomain), params: { user: { email: "new_email@nl.com" } }
 
-        assert_equal "new_email@nl.com", user_email_not_yet_confirmed.email
+        assert_equal "new_email@nl.com", user_with_unconfirmed_email.email
       end
 
       it "sends email confirmation" do
-        user_email_not_yet_confirmed.expects(:send_confirmation_instructions).once
+        user_with_unconfirmed_email.expects(:send_confirmation_instructions).once
 
         patch user_email_confirmation_url(subdomain: team.subdomain), params: { user: { email: "new_email@nl.com" } }
       end
