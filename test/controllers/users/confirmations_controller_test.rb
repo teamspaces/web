@@ -19,16 +19,10 @@ describe Users::ConfirmationsController do
     end
 
     describe "invalid confirmation token" do
-      context "already confirmed" do
+      it "redirects to root url" do
+        get user_confirmation_url(confirmation_token: "invalid_token")
 
-      end
-
-      context "not existent" do
-
-      end
-
-      context "invalid to old" do
-
+        assert_redirected_to root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
       end
     end
   end

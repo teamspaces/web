@@ -69,4 +69,5 @@ email_not_yet_confirmed:
 
 with_unconfirmed_email:
   <<: *default
+  confirmation_token: sj8ndhw7323nuuui123
   unconfirmed_email: unconfirmed_email@nl.com

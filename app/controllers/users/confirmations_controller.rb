@@ -6,8 +6,9 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
     if @user.errors.empty?
       redirect_to sign_in_url_for(user: @user)
     else
-      #respond_with_navigational(resource.errors, status: :unprocessable_entity){ render :new }
+      flash[:notice] = @user.errors.full_messages.to_sentence
+
+      redirect_to root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
     end
   end
-
 end
