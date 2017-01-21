@@ -2,9 +2,6 @@ class User
   module EmailConfirmation
     extend ActiveSupport::Concern
 
-    included do
-      after_commit :send_on_create_confirmation_instructions, on: :update, if: :email_changed_before_ever_confirmed?
-    end
 
     def email_confirmation_required?
       confirmation_required? || pending_reconfirmation?
