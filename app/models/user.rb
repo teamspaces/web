@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   include UserAvatarUploader[:avatar]
-  include User::EmailConfirmation
+  prepend User::EmailConfirmation
 
   devise :database_authenticatable, :recoverable, :rememberable,
          :registerable, :trackable, :custom_validatable, :confirmable,
@@ -20,34 +20,6 @@ class User < ApplicationRecord
 
   def name
     "#{first_name} #{last_name}"
-  end
-
-  def email_confirmation_required?
-    confirmation_required? || pending_reconfirmation?
-  end
-
-  def email_confirmed_once?
-    confirmed? && !pending_reconfirmation?
-  end
-
-  def confirmation_required?
-    allow_email_login && super
-  end
-
-  def postpone_email_change?
-    if allow_email_login
-      if unconfirmed_email.present?
-        return true
-      else
-        return email_confirmed_once? && super
-      end
-    else
-      false
-    end
-  end
-
-  def reconfirmation_required?
-    allow_email_login && super
   end
 
   # Devise: custom scoping to email login
