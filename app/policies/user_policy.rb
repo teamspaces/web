@@ -12,5 +12,9 @@ class UserPolicy
     default_context_user == user
   end
 
+  def email_confirmations_fulfilled?
+    @user.email_confirmation_required?
+  end
+
    alias_methods :is_owner?, [:read?, :show?, :new?, :edit?, :create?, :update?, :destroy?]
 end

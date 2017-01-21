@@ -15,7 +15,7 @@ class SubdomainBaseController < ApplicationController
     end
 
     def check_confirmed_email
-      if current_user.email_confirmation_required?
+      if UserPolicy.new(pundit_user, current_user).email_confirmations_fulfilled?
         redirect_to new_user_email_confirmation_path
       end
     end
