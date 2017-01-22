@@ -11,7 +11,7 @@ class LoginRegisterFunnel::TeamsController < LoginRegisterFunnel::BaseController
                                                  .merge(user: current_user))
 
     if @team_form.save
-      redirect_to team_url(subdomain: @team_form.team.subdomain, auth_token: GenerateLoginToken.call(user: current_user))
+      redirect_to sign_in_url_for(user: current_user, team_to_redirect_to: @team_form.team)
 
       sign_out_user_from_default_subdomain(current_user)
     else
@@ -22,7 +22,7 @@ class LoginRegisterFunnel::TeamsController < LoginRegisterFunnel::BaseController
   def show
     team = current_user.teams.find_by(subdomain: params[:team_subomain])
 
-    redirect_to spaces_url(subdomain: team.subdomain, auth_token: GenerateLoginToken.call(user: current_user))
+    redirect_to sign_in_url_for(user: current_user, team_to_redirect_to: team)
 
     sign_out_user_from_default_subdomain(current_user)
   end
