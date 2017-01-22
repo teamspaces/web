@@ -7,7 +7,6 @@ class User::SignInUrlDecider
     @team_to_redirect_to = context.team_to_redirect_to
 
     context.url = decide_url
-    shared_user_info.clear
   end
 
   def decide_url
