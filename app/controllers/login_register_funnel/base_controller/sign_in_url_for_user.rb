@@ -10,7 +10,7 @@ class LoginRegisterFunnel::BaseController::SignInUrlForUser
   end
 
   def team_url(team)
-    @controller.team_url(subdomain: team.subdomain, auth_token: GenerateLoginToken.call(user: user))
+    @controller.team_url(subdomain: team.subdomain, auth_token: GenerateLoginToken.call(user: @user))
   end
 
   def team_spaces_url(team)
