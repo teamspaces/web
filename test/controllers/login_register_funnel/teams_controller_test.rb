@@ -55,7 +55,7 @@ describe LoginRegisterFunnel::TeamsController do
         assert_nil @controller.current_user
       end
 
-      it "redirects to sign_in_url for user after team creation" do
+      it "redirects to sign_in_url for user and created team" do
         post_valid_team_attributes
 
         assert_redirected_to @controller.sign_in_url_for(user: user, created_team_to_redirect_to: Team.last)
@@ -86,7 +86,7 @@ describe LoginRegisterFunnel::TeamsController do
   describe "#show" do
     let(:team) { user.teams.first }
 
-    it "redirects sign_in_url for user's team" do
+    it "redirects to sign_in_url for user and team" do
       sign_in(user)
       get show_team_subdomain_url(team_subomain: team.subdomain, subdomain: ENV["DEFAULT_SUBDOMAIN"])
 

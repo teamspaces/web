@@ -6,7 +6,7 @@ class LoginRegisterFunnel::AcceptInvitationController < LoginRegisterFunnel::Bas
     return redirect_with_invalid_invitation_notice unless invitation.present?
     return redirect_with_already_used_notice if invitation.already_accepted?
 
-    LoginRegisterFunnel::BaseController::InvitationCookie.new(cookies).save(invitation)
+    InvitationCookie.new(cookies).save(invitation)
 
     redirect_to case
       when invitation.slack_invitation? then user_slack_omniauth_authorize_url(state: :register)
