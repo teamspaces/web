@@ -6,6 +6,7 @@ describe LoginRegisterFunnel::TeamsController do
   before(:each) do
     Team::Logo::AttachGeneratedLogo.stubs(:call).returns(true)
     Team::Logo::AttachUploadedLogo.stubs(:call).returns(true)
+    GenerateLoginToken.stubs(:call).returns("user_login_token")
   end
 
   describe "#new" do
@@ -54,10 +55,10 @@ describe LoginRegisterFunnel::TeamsController do
         assert_nil @controller.current_user
       end
 
-      it "redirects user to team path" do
+      it "redirects to sign_in_url for user after team creation" do
         post_valid_team_attributes
 
-        assert response.redirect_url.include? team_url(subdomain: "baincompany")
+        assert_redirected_to @controller.sign_in_url_for(user: user, created_team_to_redirect_to: Team.last)
       end
     end
 
@@ -83,13 +84,13 @@ describe LoginRegisterFunnel::TeamsController do
   end
 
   describe "#show" do
-    let(:team_subdomain) { user.teams.first.subdomain }
+    let(:team) { user.teams.first }
 
-    it "redirects to team spaces, user gets signed in on team subdomain" do
+    it "redirects sign_in_url for user's team" do
       sign_in(user)
-      get show_team_subdomain_url(team_subomain: team_subdomain, subdomain: ENV["DEFAULT_SUBDOMAIN"])
+      get show_team_subdomain_url(team_subomain: team.subdomain, subdomain: ENV["DEFAULT_SUBDOMAIN"])
 
-      assert response.redirect_url.include?(spaces_url(subdomain: team_subdomain))
+      assert_redirected_to @controller.sign_in_url_for(user: user, team_to_redirect_to: team)
     end
   end
 

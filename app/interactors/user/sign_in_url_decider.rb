@@ -33,6 +33,7 @@ class User::SignInUrlDecider
 
     def grant_team_creation
       shared_user_info.team_creation_requested = false
+      true
     end
 
     def redirect_to_team?
