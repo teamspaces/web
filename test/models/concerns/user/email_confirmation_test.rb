@@ -4,117 +4,78 @@ describe User::EmailConfirmation, :model do
 
   describe "#email_confirmation_required?" do
     describe "email user" do
-      let(:user_with_unconfirmed_email) { users(:with_unconfirmed_email) }
-      let(:user_with_confirmed_email) { users(:ulf) }
-
-      context "email not confirmed" do
+      context "with unconfirmed mail" do
         it "returns true" do
-          assert user_with_unconfirmed_email.email_confirmation_required?
+          assert users(:with_unconfirmed_email).email_confirmation_required?
         end
       end
 
-      context "email confirmed" do
+      context "with new unconfirmed mail" do
+        it "returns true" do
+          assert users(:with_new_unconfirmed_email).email_confirmation_required?
+        end
+      end
+
+      context "with confirmed mail" do
         it "returns false" do
-          refute user_with_confirmed_email.email_confirmation_required?
+          refute users(:ulf).email_confirmation_required?
         end
       end
     end
 
     describe "slack user" do
-      let(:slack_user) { users(:slack_user_milad) }
-
       it "returns false" do
-        refute slack_user.email_confirmation_required?
+        refute users(:slack_user_milad).email_confirmation_required?
+      end
+    end
+  end
+
+  describe "sends email confirmation instructions" do
+    describe "email user" do
+      context "on creation" do
+        it "sends email confirmation instructions" do
+          User.any_instance.expects(:send_confirmation_instructions).once
+
+          User.create(email: "email_user@nl.com", password: "secure", allow_email_login: true)
+        end
+      end
+
+      describe "on update" do
+        context "confirmed email" do
+          it "sends email confirmation instructions" do
+            User.any_instance.expects(:send_confirmation_instructions).once
+
+            users(:ulf).update(email: "updated@email.com")
+          end
+        end
+
+        context "not confirmed email" do
+          it "sends email confirmation  instructions" do
+            User.any_instance.expects(:send_confirmation_instructions).once
+
+            users(:with_unconfirmed_email).update(email: "updated@email.com")
+          end
+        end
       end
     end
 
-    describe "on creation" do
-      context "email user" do
-        it "returns true" do
-          email_user = User.create(email: "email_user@nl.com", allow_email_login: true)
+    describe "slack user" do
+      it "does not send email confirmation instructions" do
+        User.any_instance.expects(:send_confirmation_instructions).never
 
-          assert email_user.email_confirmation_required?
-        end
-      end
-
-      context "slack user" do
-        it "returns false" do
-          slack_user = User.create(email: "slack_user@nl.com", allow_email_login: false)
-
-          refute slack_user.email_confirmation_required?
-        end
+        User.create(email: "email_user@nl.com", allow_email_login: false)
       end
     end
+  end
 
-    describe "on update" do
-      describe "email user" do
-        describe "has already email confirmed" do
-          let(:user_with_confirmed_email) { users(:ulf) }
-          before(:each) do
-            user_with_confirmed_email.email = "updated_email@amsterdam.com"
-            user_with_confirmed_email.save
-          end
+  describe "it pospones email update" do
+    describe "email user" do
 
-          it "returns true" do
-            assert user_with_confirmed_email.email_confirmation_required?
-          end
+    end
 
-          it "postpones email update" do
-            assert_equal "ulf@spaces.is", user_with_confirmed_email.email
-            assert_equal "updated_email@amsterdam.com", user_with_confirmed_email.unconfirmed_email
-          end
-        end
+    describe "slack user" do
+      it "does not pospone email update" do
 
-        describe "email not yet confirmed" do
-          let(:user_with_unconfirmed_email) { users(:with_unconfirmed_email) }
-          before(:each) do
-            user_with_unconfirmed_email.email = "updated_email@amsterdam.com"
-            user_with_unconfirmed_email.save
-          end
-
-          it "returns true" do
-            assert user_with_unconfirmed_email.email_confirmation_required?
-          end
-
-          it "does not postpone email update" do
-            assert_equal "updated_email@amsterdam.com", user_with_unconfirmed_email.email
-            assert_nil user_with_unconfirmed_email.unconfirmed_email
-          end
-        end
-
-        describe "has new unconfirmed email" do
-          let(:user_with_new_unconfirmed_email){users(:with_new_unconfirmed_email)}
-          before(:each) do
-            user_with_new_unconfirmed_email.email = "updated_email@amsterdam.com"
-            user_with_new_unconfirmed_email.save
-          end
-
-          it "returns true" do
-            assert user_with_new_unconfirmed_email.email_confirmation_required?
-          end
-
-          it "does postpone email update" do
-            assert_equal "with_new_unconfirmed_email@spaces.is", user_with_new_unconfirmed_email.email
-            assert_equal "updated_email@amsterdam.com", user_with_new_unconfirmed_email.unconfirmed_email
-          end
-        end
-      end
-
-      describe "slack user" do
-        let(:slack_user) { users(:slack_user_milad) }
-        before(:each) do
-          slack_user.email = "updated_email@amsterdam.com"
-          slack_user.save
-        end
-
-        it "returns false" do
-          refute slack_user.email_confirmation_required?
-        end
-
-        it "does not postpone email update" do
-          assert_equal "updated_email@amsterdam.com", slack_user.email
-          assert_nil slack_user.unconfirmed_email
-        end
       end
     end
   end
