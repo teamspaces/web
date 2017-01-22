@@ -70,12 +70,37 @@ describe User::EmailConfirmation, :model do
 
   describe "it pospones email update" do
     describe "email user" do
+      context "with confirmed email" do
+        it "does postpone email update" do
+          users(:ulf).update(email: "new_email@ne.es")
 
+          assert_equal "new_email@ne.es", users(:ulf).unconfirmed_email
+        end
+      end
+
+      context "with new unconfirmed email" do
+        it "does postpone email update" do
+          users(:with_new_unconfirmed_email).update(email: "new_email@ne.es")
+
+          assert_equal "new_email@ne.es", users(:with_new_unconfirmed_email).unconfirmed_email
+        end
+      end
+
+      context "with unconfirmed email" do
+        it "does not postpone email update" do
+          users(:with_unconfirmed_email).update(email: "new_email@ne.es")
+
+          assert_equal "new_email@ne.es", users(:with_unconfirmed_email).email
+        end
+      end
     end
 
     describe "slack user" do
       it "does not pospone email update" do
+        users(:slack_user_milad).update(email: "new_address@slack.com")
+        users(:slack_user_milad).reload
 
+        assert_equal "new_address@slack.com", users(:slack_user_milad).email
       end
     end
   end
