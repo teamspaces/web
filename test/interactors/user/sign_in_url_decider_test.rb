@@ -34,7 +34,7 @@ describe User::SignInUrlDecider, :controller do
     end
 
     it "grants team creation request" do
-      shared_user_information.any_instance.expects(:grant_team_creation_request).once
+      shared_user_information.any_instance.expects(:grant_team_creation_request).returns(true)
 
       assert_equal sign_in_url_for_user.create_team_url, subject.url
     end
