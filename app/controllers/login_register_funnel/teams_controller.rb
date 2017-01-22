@@ -11,7 +11,7 @@ class LoginRegisterFunnel::TeamsController < LoginRegisterFunnel::BaseController
                                                  .merge(user: current_user))
 
     if @team_form.save
-      redirect_to sign_in_url_for(user: current_user, team_to_redirect_to: @team_form.team)
+      redirect_to sign_in_url_for(user: current_user, created_team_to_redirect_to: @team_form.team)
 
       sign_out_user_from_default_subdomain(current_user)
     else
