@@ -1,7 +1,5 @@
 class User
   module EmailConfirmation
-    extend ActiveSupport::Concern
-
 
     def email_confirmation_required?
       confirmation_required? || pending_reconfirmation?

@@ -1,15 +1,14 @@
 class CustomDeviseMailer < Devise::Mailer
-  helper :application # gives access to all helpers defined within `application_helper`.
-  include Devise::Controllers::UrlHelpers # Optional. eg. `confirmation_url`
-  default template_path: 'devise/mailer' # to make sure that your mailer uses the devise views
+  include Devise::Controllers::UrlHelpers
 
+  helper :application
+  default template_path: "devise/mailer" # use the devise views
 
   def confirmation_instructions(record, token, options={})
-    if record.pending_reconfirmation?
-      options[:template_name] = "reconfirmation_instructions"
-    else
-      options[:template_name] = "confirmation_instructions"
-    end
+      confirmation_template = "confirmation_instructions"
+    reconfirmation_template = "reconfirmation_instructions"
+
+    options[:template_name] = record.pending_reconfirmation? ? reconfirmation_template : confirmation_template
 
     super
   end

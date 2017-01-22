@@ -6,14 +6,14 @@
 
     <div class="card-content">
 
-      <p><b>To continue</b>, please check your <i><%= @user.unconfirmed_email || @user.email %></i> inbox and confirm your email-address by clicking on the link in our mail</p>
+      <p><b>To continue</b>, please check your <i><%= @user.email_to_confirm %></i> inbox and confirm your email-address by clicking on the link in our mail</p>
 
 
       <%= link_to "Plese send me the confirmation again", user_email_confirmation_path, method: :post %>
 
       <hr>
 
-      <p> I'm not using <%= @user.unconfirmed_email || @user.email %>. Please update my account's email address and send the confirmation to the following email-address:</p>
+      <p> I'm not using <%= @user.email_to_confirm %>. Please update my account's email address and send the confirmation to the following email-address:</p>
 
       <%= render "update_email_form", form: @update_email_form, url: user_email_confirmation_path %>
 

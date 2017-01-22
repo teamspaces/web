@@ -1,5 +1,5 @@
 class SubdomainBaseController < ApplicationController
-  before_action :check_team_membership, :check_confirmed_email
+  before_action :check_team_membership, :check_email_confirmation
 
   helper_method :current_team
   def current_team
@@ -14,7 +14,7 @@ class SubdomainBaseController < ApplicationController
       end
     end
 
-    def check_confirmed_email
+    def check_email_confirmation
       if UserPolicy.new(pundit_user, current_user).email_confirmations_fulfilled?
         redirect_to new_user_email_confirmation_path
       end
