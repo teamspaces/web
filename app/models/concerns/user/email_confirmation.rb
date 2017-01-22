@@ -10,7 +10,16 @@ class User
     end
 
     def email_changed_before_ever_confirmed?
-      email_changed? && !email_confirmed_ever?
+      allow_email_login && email_changed? && !email_confirmed_ever?
+    end
+
+    def send_new_on_create_confirmation_instructions
+      reload
+
+      self.confirmation_token = nil
+      generate_confirmation_token!
+
+      send_on_create_confirmation_instructions
     end
 
     # overwrite devise confirmable

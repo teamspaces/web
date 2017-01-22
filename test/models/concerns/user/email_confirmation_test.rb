@@ -30,6 +30,22 @@ describe User::EmailConfirmation, :model do
     end
   end
 
+  describe "email gets updated before ever confirmed" do
+    it "sends email confirmation instructions, with new confirmation token" do
+      user = users(:with_unconfirmed_email)
+      old_confirmation_token = user.confirmation_token
+
+      CustomDeviseMailer.expects(:confirmation_instructions)
+                        .with { |user, token| token != old_confirmation_token }
+                        .returns(mailer_mock = mock).once
+
+      mailer_mock.stubs(:deliver_later).returns(true)
+
+      user.update(email: "updated@email.com")
+      assert_not_equal old_confirmation_token, user.confirmation_token
+    end
+  end
+
   describe "sends email confirmation instructions" do
     describe "email user" do
       context "on creation" do

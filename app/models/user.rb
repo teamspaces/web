@@ -12,7 +12,7 @@ class User < ApplicationRecord
 
   after_commit :send_pending_notifications
 
-  after_update :send_on_create_confirmation_instructions, if: :email_changed_before_ever_confirmed?
+  after_update :send_new_on_create_confirmation_instructions, if: :email_changed_before_ever_confirmed?
 
   def name=(name)
     names = name.to_s.split(" ", 2)
