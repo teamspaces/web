@@ -67,13 +67,5 @@ describe User::UpdateSettingsForm, :model do
         end
       end
     end
-
-    describe "email changes" do
-      it "sends email confirmation mail" do
-        User.any_instance.expects(:send_confirmation_instructions).once
-
-        subject.new(user, email: "que_pasa@nl.com").save
-      end
-    end
   end
 end

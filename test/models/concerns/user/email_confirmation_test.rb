@@ -66,7 +66,7 @@ describe User::EmailConfirmation, :model do
         end
 
         context "not confirmed email" do
-          it "sends email confirmation  instructions" do
+          it "sends email confirmation instructions" do
             User.any_instance.expects(:send_confirmation_instructions).once
 
             users(:with_unconfirmed_email).update(email: "updated@email.com")
