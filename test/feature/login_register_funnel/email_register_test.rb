@@ -13,6 +13,12 @@ describe "Email Register", :capybara do
     Team::Logo::AttachGeneratedLogo.stubs(:call).returns(true)
   end
 
+  def find_link_in_mail(mail)
+    link = mail.body.raw_source.match(/href="(?<url>.+?)">/)[:url]
+    relative_link = URI.parse(link).path + "?" + URI.parse(link).query
+    relative_link
+  end
+
   describe "register with email address" do
     let(:user_attributes) do
       { email: "anna_moser@gmail.com",
@@ -63,9 +69,8 @@ describe "Email Register", :capybara do
       fill_in("Subdomain", with: "deanandanders")
       find('input[name="commit"]').click
 
-      link = ActionMailer::Base.deliveries.last.body.raw_source.match(/href="(?<url>.+?)">/)[:url]
-      relative_link = URI.parse(link).path + "?" + URI.parse(link).query
-      visit relative_link
+      confirm_email_link = find_link_in_mail(ActionMailer::Base.deliveries.last)
+      visit confirm_email_link
 
       assert_content "sign out"
       assert_content user_attributes[:email]

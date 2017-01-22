@@ -5,18 +5,6 @@ describe User::EmailConfirmationsController do
   let(:team) { user_with_unconfirmed_email.teams.first }
   before(:each) { sign_in user_with_unconfirmed_email }
 
-  describe "user already confirmed" do
-    let(:user_with_confirmed_email) { users(:ulf) }
-
-    it "redirects to root" do
-      sign_in user_with_confirmed_email
-
-      get new_user_email_confirmation_url(subdomain: user_with_confirmed_email.teams.first.subdomain)
-
-      assert_redirected_to root_subdomain_url
-    end
-  end
-
   describe "#new" do
     it "works" do
       get new_user_email_confirmation_url(subdomain: team.subdomain)
@@ -59,6 +47,20 @@ describe User::EmailConfirmationsController do
         patch user_email_confirmation_url(subdomain: team.subdomain), params: { user: { email: "invalid" } }
 
         assert_response :success
+      end
+    end
+  end
+
+  describe "check_for_open_email_confirmation" do
+    context "user already confirmed email" do
+      let(:user_with_confirmed_email) { users(:ulf) }
+
+      it "redirects to root_subdomain_url" do
+        sign_in user_with_confirmed_email
+
+        get new_user_email_confirmation_url(subdomain: user_with_confirmed_email.teams.first.subdomain)
+
+        assert_redirected_to root_subdomain_url
       end
     end
   end

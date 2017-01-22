@@ -5,10 +5,7 @@ class CustomDeviseMailer < Devise::Mailer
   default template_path: "devise/mailer" # use the devise views
 
   def confirmation_instructions(record, token, options={})
-      confirmation_template = "confirmation_instructions"
-    reconfirmation_template = "reconfirmation_instructions"
-
-    options[:template_name] = record.pending_reconfirmation? ? reconfirmation_template : confirmation_template
+    options[:template_name] = record.pending_reconfirmation? ? "reconfirmation_instructions" : "confirmation_instructions"
 
     super
   end

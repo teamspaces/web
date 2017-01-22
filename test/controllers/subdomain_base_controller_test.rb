@@ -25,21 +25,19 @@ describe SubdomainBaseController do
     end
   end
 
-  describe "confirmed email check" do
+  describe "#check_email_confirmation" do
     context "user confirmed email" do
       it "allows access" do
-        sign_in spaces_user
-
         get team_url(subdomain: spaces_team.subdomain)
 
         assert_response :success
       end
     end
 
-    context "user has to confirm email" do
+    context "user needs to confirm email" do
       let(:user_with_unconfirmed_email) { users(:with_unconfirmed_email) }
 
-      it "redirects to email confirmation page" do
+      it "redirects to new_user_email_confirmation_path" do
         sign_in user_with_unconfirmed_email
 
         get team_url(subdomain: user_with_unconfirmed_email.teams.first.subdomain)
