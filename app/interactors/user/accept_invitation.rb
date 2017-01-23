@@ -17,10 +17,10 @@ class User::AcceptInvitation
   private
 
     def add_invited_user_to_team_members
-      invitation.team.members.create(user: invited_user, role: TeamMember::Roles::MEMBER)
+      invitation.team.members.new(user: invited_user, role: TeamMember::Roles::MEMBER).save
     end
 
     def save_invitation_invited_user
-      invitation.update(invited_user: invited_user)
+      invitation.assign_attributes(invited_user: invited_user).save
     end
 end
