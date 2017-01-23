@@ -1,12 +1,30 @@
 class Invitation < ApplicationRecord
   belongs_to :team
-  has_one :invitee, class_name: "User", primary_key: "invitee_user_id", foreign_key: "id"
 
-  scope :used, -> { where.not(invitee_user_id: nil) }
-  scope :unused, -> { where(invitee_user_id: nil) }
+  has_one :invited_by_user, class_name: "User", primary_key: "invited_by_user_id", foreign_key: "id"
+  has_one :invited_user, class_name: "User", primary_key: "invited_user_id", foreign_key: "id"
+
+  scope :used, -> { where.not(invited_user_id: nil) }
+  scope :unused, -> { where(invited_user_id: nil) }
 
   validates :token, uniqueness: true
   before_create :generate_token
+
+  def slack_invitation?
+    slack_user_id.present?
+  end
+
+  def email_invitation?
+    email.present? && !slack_invitation?
+  end
+
+  def already_accepted?
+    invitee_user_id.present?
+  end
+
+  def accepting_user_is_already_registered_using_email?
+    email.present? && User.find_for_authentication(email: email).present?
+  end
 
   private
 

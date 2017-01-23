@@ -6,7 +6,7 @@
   <body>
     <h1>Hi <%= @invitation.first_name %>,</h1>
     <p>
-      <%= "#{@user.first_name} invited you to join the #{@invitation.team.name}-Team in Spaces" %>
+      <%= "#{@invitation.invited_by_user.first_name} invited you to join the #{@invitation.team.name}-Team in Spaces" %>
     </p>
    <%= link_to "thx, Join now", @invitation_url %>
   </body>

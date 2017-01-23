@@ -2,6 +2,7 @@
 
 jonas_at_spaces: &default
   team: spaces
+  invited_by_user: lars
   first_name: Jonas
   last_name: Klemt
   email: jonasklemt@gmail.com
@@ -36,4 +37,4 @@ slack_user_spaces_invitation:
 accepted_invitation:
   <<: *default
   token: w89s98ji88787
-  invitee_user_id: <%= ActiveRecord::FixtureSet.identify(:lars) %>
+  invited_user_id: <%= ActiveRecord::FixtureSet.identify(:lars) %>

@@ -6,7 +6,6 @@ describe User do
   should have_many(:authentications).dependent(:destroy)
   should have_many(:team_members).dependent(:destroy)
   should have_many(:teams).through(:team_members)
-  should have_one(:accepted_invitation).class_name("Invitation").dependent(:destroy)
 
   should validate_presence_of(:password)
   should validate_presence_of(:email)
