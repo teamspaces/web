@@ -5,7 +5,6 @@ describe Invitation do
   let(:user)  { users(:lars) }
 
   should belong_to(:team)
-  should belong_to(:user)
   should have_one(:invitee).class_name("User")
 
   should validate_uniqueness_of(:token)

@@ -5,6 +5,7 @@ describe Invitation::SendSlackInvitation, :model do
 
   subject { Invitation::SendSlackInvitation }
   let(:invitation) { invitations(:slack_user_milad_invitation) }
+  let(:user) { users(:ulf) }
 
   it "sends invitation as slack message with link to accept_invitation path" do
     subject.any_instance.stubs(:client).returns(client_mock = mock)
@@ -14,7 +15,7 @@ describe Invitation::SendSlackInvitation, :model do
       message[:icon_url].include? "/assets/images/icons/space_ship.png"
     end
 
-    result = subject.call(invitation: invitation)
+    result = subject.call(invitation: invitation, user: user)
     assert result.success?
   end
 end
