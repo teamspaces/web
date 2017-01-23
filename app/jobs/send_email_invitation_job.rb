@@ -1,6 +1,6 @@
 class SendEmailInvitationJob < ActiveJob::Base
 
-  def perform(invitation_id)
+  def perform(invitation_id, user_id)
     invitation = Invitation.find_by(id: invitation_id)
     return unless invitation;
 
