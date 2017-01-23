@@ -5,12 +5,13 @@ describe InvitationsController do
   let(:team) { teams(:spaces) }
   let(:team_invitations_url) { invitations_url(subdomain: team.subdomain) }
 
-  before(:each) { sign_in user }
+  before(:each) do
+    Team::FindInvitableSlackUsers.any_instance.stubs(:all).returns([])
+    sign_in user
+  end
 
   describe "#index" do
     it "renders the :index view" do
-      Team::FindInvitableSlackUsers.any_instance.stubs(:all).returns([])
-
       get team_invitations_url
       assert_response :success
     end
