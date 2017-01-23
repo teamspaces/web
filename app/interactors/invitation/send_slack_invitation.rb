@@ -6,6 +6,7 @@ class Invitation::SendSlackInvitation
 
   def call
     @invitation = context.invitation
+    @user = context.user
 
     send_invitation
   end
@@ -29,7 +30,7 @@ class Invitation::SendSlackInvitation
       invitation_url = accept_invitation_url(invitation.token, subdomain: ENV["DEFAULT_SUBDOMAIN"])
 
       I18n.t('invitation.slack.text', invitee_first_name: invitation.first_name,
-                                      host_first_name: invitation.user.first_name,
+                                      host_first_name: @user.first_name,
                                       url: invitation_url)
     end
 
