@@ -8,6 +8,6 @@ describe SendSlackInvitationJob, :model do
   it "sends invitation as slack message" do
     Invitation::SendSlackInvitation.expects(:call).with(invitation: invitation, user: user)
 
-    subject.perform_now(invitation.id)
+    subject.perform_now(invitation.id, user.id)
   end
 end
