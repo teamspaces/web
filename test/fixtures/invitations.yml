@@ -2,7 +2,6 @@
 
 jonas_at_spaces: &default
   team: spaces
-  user: lars
   first_name: Jonas
   last_name: Klemt
   email: jonasklemt@gmail.com

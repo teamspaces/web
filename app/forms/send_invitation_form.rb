@@ -19,7 +19,7 @@ class SendInvitationForm
   validate :email_one_invitation_per_team
 
   def save
-    valid? && persist!
+    valid? && persist! && send!
   end
 
   private
@@ -33,7 +33,9 @@ class SendInvitationForm
     def persist!
       @invitation = Invitation.create(email: email, first_name: first_name,
                                       team: team, last_name: last_name)
+    end
 
+    def send!
       Invitation::SendInvitation.call(invitation: @invitation, user: user)
     end
 end
