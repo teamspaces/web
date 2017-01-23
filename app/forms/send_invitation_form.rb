@@ -31,11 +31,11 @@ class SendInvitationForm
     end
 
     def persist!
-      @invitation = Invitation.create(email: email, first_name: first_name,
-                                      team: team, last_name: last_name)
+      @invitation = Invitation.create(email: email, team: team, user: user,
+                                      first_name: first_name, last_name: last_name)
     end
 
     def send!
-      Invitation::SendInvitation.call(invitation: @invitation, user: user)
+      Invitation::SendInvitation.call(invitation: @invitation)
     end
 end

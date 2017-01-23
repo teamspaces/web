@@ -4,11 +4,10 @@ describe InvitationMailer do
   include Rails.application.routes.url_helpers
 
   let(:invitation) { invitations(:jonas_at_spaces) }
-  let(:user) { users(:ulf) }
 
   describe "team invitation" do
     it "includes link with link to accept invitation path" do
-      mail = InvitationMailer.join_team(invitation, user)
+      mail = InvitationMailer.join_team(invitation)
 
       html_body = mail.message.html_part.body.decoded
       text_body = mail.message.text_part.body.decoded
