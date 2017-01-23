@@ -9,6 +9,8 @@ class User < ApplicationRecord
   has_many :team_members, dependent: :destroy
   has_many :teams, through: :team_members
 
+  has_one :accepted_invitation, class_name: "Invitation", primary_key: "id", foreign_key: "invitee_user_id",  dependent: :destroy
+
   after_commit :send_pending_notifications
 
   def name=(name)
