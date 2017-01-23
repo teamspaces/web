@@ -1,20 +1,17 @@
 class InvitationsController < SubdomainBaseController
   before_action :set_invitation, only: [:destroy]
+  before_action :set_team, :find_invitable_slack_users, only: [:index, :create]
   layout 'client'
 
   # GET /invitations
   # GET /invitations.json
   def index
-    @team = current_team.decorate
     @invitation_form = SendInvitationForm.new
-
-    @slack_users_to_invite = Team::FindInvitableSlackUsers.new(@team).all if @team.connected_to_slack?
   end
 
   # POST /invitations
   # POST /invitations.json
   def create
-    @team = current_team
     @invitation_form = SendInvitationForm.new(send_invitation_form_params.to_h
                                               .merge(team: @team, user: current_user))
 
@@ -23,7 +20,7 @@ class InvitationsController < SubdomainBaseController
         format.html { redirect_to invitations_path, notice: 'Invitation was successfully created.' }
         format.json { render :show, status: :created, location: @invitation_form.invitation }
       else
-        format.html { redirect_to invitations_path, notice: t("invitation.email.failure") }
+        format.html { render :index }
         format.json { render json: @invitation_form.errors, status: :unprocessable_entity }
       end
     end
@@ -42,6 +39,14 @@ class InvitationsController < SubdomainBaseController
   end
 
   private
+
+    def set_team
+      @team = current_team.decorate
+    end
+
+    def find_invitable_slack_users
+      @slack_users_to_invite = Team::FindInvitableSlackUsers.new(@team).all if @team.connected_to_slack?
+    end
 
     def set_invitation
       @invitation = Invitation.find(params[:id])

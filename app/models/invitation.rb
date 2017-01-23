@@ -1,6 +1,5 @@
 class Invitation < ApplicationRecord
   belongs_to :team
-  belongs_to :user
   has_one :invitee, class_name: "User", primary_key: "invitee_user_id", foreign_key: "id"
 
   scope :used, -> { where.not(invitee_user_id: nil) }
