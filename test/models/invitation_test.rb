@@ -2,7 +2,6 @@ require "test_helper"
 
 describe Invitation do
   let(:team) { teams(:spaces) }
-  let(:user)  { users(:lars) }
 
   should belong_to(:team)
   should have_one(:invitee).class_name("User")
@@ -11,7 +10,7 @@ describe Invitation do
 
   describe "#create" do
     it "generates token" do
-      invitation = team.invitations.create(user: user, email: "n@web.com")
+      invitation = team.invitations.create(email: "n@web.com")
       assert invitation.token
     end
   end
