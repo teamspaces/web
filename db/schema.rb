@@ -28,13 +28,14 @@ ActiveRecord::Schema.define(version: 20170123112959) do
 
   create_table "invitations", force: :cascade do |t|
     t.integer  "team_id"
-    t.integer  "invitee_user_id"
+    t.integer  "invited_by_user_id"
+    t.integer  "invited_user_id"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
     t.string   "token"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
     t.string   "slack_user_id"
     t.index ["team_id"], name: "index_invitations_on_team_id", using: :btree
   end
@@ -118,7 +119,6 @@ ActiveRecord::Schema.define(version: 20170123112959) do
 
   add_foreign_key "authentications", "users", on_delete: :cascade
   add_foreign_key "invitations", "teams"
-  add_foreign_key "invitations", "users", column: "invitee_user_id"
   add_foreign_key "page_contents", "pages", on_delete: :cascade
   add_foreign_key "pages", "spaces", on_delete: :cascade
   add_foreign_key "spaces", "teams", on_delete: :cascade

@@ -1,6 +1,8 @@
 class RemoveUserIdReferenceFromInvitations < ActiveRecord::Migration[5.0]
   def change
-    remove_reference :invitations, :user, foreign_key: true
-    add_foreign_key :invitations, :users, column: :invitee_user_id
+    remove_foreign_key :invitations, :users
+    remove_index :invitations, name: "index_invitations_on_user_id"
+    rename_column :invitations, :user_id, :invited_by_user_id
+    rename_column :invitations, :invitee_user_id, :invited_user_id
   end
 end
