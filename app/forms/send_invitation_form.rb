@@ -31,9 +31,8 @@ class SendInvitationForm
     end
 
     def persist!
-      @invitation = Invitation.new(to_h.except(:team, :user, :invitee))
-      @invitation.team = team
-      @invitation.save
+      @invitation = Invitation.create(email: email, first_name: first_name,
+                                      team: team, last_name: last_name)
 
       Invitation::SendInvitation.call(invitation: @invitation, user: user)
     end
