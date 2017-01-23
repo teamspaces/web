@@ -28,8 +28,8 @@ class Invitation::SendSlackInvitation
     def invitation_text
       invitation_url = accept_invitation_url(invitation.token, subdomain: ENV["DEFAULT_SUBDOMAIN"])
 
-      I18n.t('invitation.slack.text', invitee_first_name: invitation.first_name,
-                                      host_first_name: invitation.user.first_name,
+      I18n.t('invitation.slack.text', invited_user_first_name: invitation.first_name,
+                                      invited_by_user_first_name: invitation.user.first_name,
                                       url: invitation_url)
     end
 
