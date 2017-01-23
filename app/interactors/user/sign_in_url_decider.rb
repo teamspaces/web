@@ -16,7 +16,7 @@ class User::SignInUrlDecider
       when invitation_present? then user_accept_invitation_url
       when redirect_to_team? then sign_in_url_for_user.team_spaces_url(@team_to_redirect_to)
       when redirect_to_created_team? then sign_in_url_for_user.team_url(@created_team_to_redirect_to)
-      when team_creation_requested? && grant_team_creation_request then sign_in_url_for_user.create_team_url
+      when team_creation_requested? then sign_in_url_for_user.create_team_url
       else sign_in_url_for_user.url_depending_on_user_teams_count
     end
   end
@@ -29,10 +29,6 @@ class User::SignInUrlDecider
 
     def team_creation_requested?
       shared_user_info.team_creation_requested?
-    end
-
-    def grant_team_creation_request
-      shared_user_info.grant_team_creation_request
     end
 
     def redirect_to_team?

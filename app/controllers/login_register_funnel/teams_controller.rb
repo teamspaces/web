@@ -3,6 +3,8 @@ class LoginRegisterFunnel::TeamsController < LoginRegisterFunnel::BaseController
   before_action :authenticate_user!
 
   def new
+    shared_user_info.team_creation_started!
+
     @team_form = Team::CreateTeamForUserForm.new
   end
 

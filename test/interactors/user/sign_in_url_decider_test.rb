@@ -23,18 +23,10 @@ describe User::SignInUrlDecider, :controller do
   end
 
   describe "team creation requested" do
-    before(:each) do
+    it "returns team creation url" do
       shared_user_information.any_instance
                              .stubs(:team_creation_requested?)
                              .returns(true)
-    end
-
-    it "returns team creation url" do
-      assert_equal sign_in_url_for_user.create_team_url, subject.url
-    end
-
-    it "grants team creation request" do
-      shared_user_information.any_instance.expects(:grant_team_creation_request).returns(true)
 
       assert_equal sign_in_url_for_user.create_team_url, subject.url
     end

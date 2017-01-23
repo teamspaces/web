@@ -11,7 +11,9 @@ describe LoginRegisterFunnel::TeamsController do
 
   describe "#new" do
     context "user signed in" do
-      it "responds successfully" do
+      it "responds successfully, starts team creation" do
+        LoginRegisterFunnel::BaseController::SharedUserInformation.any_instance
+                                                                  .expects(:team_creation_started!)
         sign_in(user)
         get login_register_funnel_new_team_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
 
