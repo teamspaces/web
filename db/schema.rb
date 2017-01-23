@@ -123,6 +123,7 @@ ActiveRecord::Schema.define(version: 20170123112959) do
 
   add_foreign_key "authentications", "users", on_delete: :cascade
   add_foreign_key "invitations", "teams"
+  add_foreign_key "invitations", "users", column: "invitee_user_id"
   add_foreign_key "page_contents", "pages", on_delete: :cascade
   add_foreign_key "pages", "spaces", on_delete: :cascade
   add_foreign_key "spaces", "teams", on_delete: :cascade
