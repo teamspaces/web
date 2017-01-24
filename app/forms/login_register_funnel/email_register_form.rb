@@ -42,6 +42,8 @@ class LoginRegisterFunnel::EmailRegisterForm
 
   def persist!
     user.save
+
+    Team::CreateTeamMember.call(team: team, user: user) if team
   end
 
  private
