@@ -4,7 +4,7 @@ class User::ConfirmationsController < Devise::ConfirmationsController
     @user = User.confirm_by_token(params[:confirmation_token])
 
     if @user.errors.empty?
-      redirect_to sign_in_url_for(user: @user)
+      redirect_to sign_in_url_for(user: @user, created_team_to_redirect_to: @user.recently_created_team)
     else
       flash[:notice] = @user.errors.full_messages.to_sentence
 
