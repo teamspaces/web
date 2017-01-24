@@ -3,7 +3,7 @@ class Team::CreateTeamMember
 
   def call
     context.team_member = context.user.team_members.new(team: context.team,
-                                                        role: Roles::MEMBER)
+                                                        role: TeamMember::Roles::MEMBER)
     context.fail! unless context.team_member.save
   end
 end
