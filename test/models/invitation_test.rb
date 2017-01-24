@@ -10,14 +10,14 @@ describe Invitation do
   let(:unused_invitation) { slack_invitation }
 
   should belong_to(:team)
-  should have_one(:invited_by_user).class_name("User")
-  should have_one(:invited_user).class_name("User")
+  should belong_to(:invited_by_user).class_name("User")
+  should belong_to(:invited_user).class_name("User")
 
   should validate_uniqueness_of(:token)
 
   describe "#create" do
     it "generates token" do
-      invitation = team.invitations.create(user: user, email: "n@web.com")
+      invitation = team.invitations.create(invited_by_user: user, email: "n@web.com")
       assert invitation.token
     end
   end
