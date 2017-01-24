@@ -27,7 +27,6 @@ describe User::AcceptInvitation, :model do
       it "confirms invited user's email" do
         subject.call(invited_user: user, invitation: invitation)
 
-        user.reload
         assert user.confirmed?
       end
     end
