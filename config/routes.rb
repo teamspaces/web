@@ -36,17 +36,6 @@ Rails.application.routes.draw do
   end
 
   constraints subdomain: ENV["DEFAULT_SUBDOMAIN"] do
-    get :choose_login_method, to: "login_register_funnel/choose_login_method#index", as: :choose_login_method
-
-    get :provide_email_addresss, to: "login_register_funnel/review_email_address#new", as: :new_review_email_address
-    post :review_email_address, to: "login_register_funnel/review_email_address#review", as: :review_email_address
-
-    get :email_register, to: "login_register_funnel/email_register#new", as: :new_email_register
-    post :email_register, to: "login_register_funnel/email_register#create", as: :email_register
-
-    get :slack_login, to: "login_register_funnel/slack_login_register#login", as: :slack_login
-    get :slack_register, to: "login_register_funnel/slack_login_register#register", as: :slack_register
-
     get "accept_invitation/:invitation_token", to: "login_register_funnel/accept_invitation#new", as: :accept_invitation
 
     get :create_team, to: "login_register_funnel/teams#new", as: :login_register_funnel_new_team
@@ -55,6 +44,18 @@ Rails.application.routes.draw do
     get "team/:team_subomain", to: "login_register_funnel/teams#show", as: :show_team_subdomain
     get :choose_team, to: "login_register_funnel/teams#index", as: :login_register_funnel_list_teams
   end
+
+  get :choose_login_method, to: "login_register_funnel/choose_login_method#index", as: :choose_login_method
+
+  get :provide_email_addresss, to: "login_register_funnel/review_email_address#new", as: :new_review_email_address
+  post :review_email_address, to: "login_register_funnel/review_email_address#review", as: :review_email_address
+
+  get :email_register, to: "login_register_funnel/email_register#new", as: :new_email_register
+  post :email_register, to: "login_register_funnel/email_register#create", as: :email_register
+
+  get :slack_login, to: "login_register_funnel/slack_login_register#login", as: :slack_login
+  get :slack_register, to: "login_register_funnel/slack_login_register#register", as: :slack_register
+
 
   get :email_login, to: "login_register_funnel/email_login#new", as: :new_email_login
   post :email_login, to: "login_register_funnel/email_login#create", as: :email_login
