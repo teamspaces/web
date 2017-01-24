@@ -23,6 +23,8 @@
   <%= f.label :allowed_email_domains %>
   <%= f.text_field :allowed_email_domains %>
 
+  <p>Allow anyone with a certain email address. For example from <code>@spaces.is</code> or <code>marketing@spaces.is</code> To allow email addresses from multiple domains, separate them with commas.</p>
+
   <%= link_to(t("helpers.submit.team.reset_logo"), team_logo_path, method: :delete, data: { confirm: t("helpers.confirm_delete") }) unless Image.new(form.team.logo).generated? %>
 
   <%= f.submit %>
