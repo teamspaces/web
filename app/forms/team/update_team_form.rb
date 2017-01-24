@@ -15,6 +15,7 @@ class Team::UpdateTeamForm
 
   validates :name, presence: true
   validate :valid_logo
+  validate :valid_email_domains
 
   def initialize(team, params={})
     @team = team
@@ -31,7 +32,7 @@ class Team::UpdateTeamForm
     @allowed_email_domains = if email_domains.kind_of?(Array)
       email_domains
     else
-      email_domains.split(",") if email_domains
+      email_domains.split(",").map(&:strip) if email_domains
     end
   end
 
@@ -50,6 +51,10 @@ class Team::UpdateTeamForm
         self.errors.add(:logo, message)
       end
       @team.logo_attacher.errors.any?
+    end
+
+    def valid_email_domains
+      email_domains.all? { |domain| domain.include? "@" }
     end
 
     def persist!
