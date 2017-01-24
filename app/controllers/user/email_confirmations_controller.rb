@@ -3,7 +3,7 @@ class User::EmailConfirmationsController < SubdomainBaseController
   skip_before_action :check_email_confirmation
 
   def new
-    @update_email_form = ::EmailConfirmation::UpdateEmailForm.new(@user)
+    @update_email_form = ::User::UpdateEmailForm.new(@user)
   end
 
   def create
@@ -13,7 +13,7 @@ class User::EmailConfirmationsController < SubdomainBaseController
   end
 
   def update
-    @update_email_form = ::EmailConfirmation::UpdateEmailForm.new(@user, user_params.to_h)
+    @update_email_form = ::User::UpdateEmailForm.new(@user, user_params.to_h)
 
     if @update_email_form.save
       redirect_to new_user_email_confirmation_path

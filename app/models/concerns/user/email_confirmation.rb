@@ -1,5 +1,12 @@
 class User
-  module EmailConfirmation
+  module EmailConfirmable
+
+    extend ActiveSupport::Concern
+
+    included do
+      devise :confirmable
+      after_update :send_new_on_create_confirmation_instructions, if: :email_changed_before_ever_confirmed?
+    end
 
     def email_confirmation_required?
       confirmation_required? || pending_reconfirmation?

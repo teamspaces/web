@@ -8,25 +8,22 @@ sven_at_spaces:
   user: sven
   role: owner
 
-lars_at_spaces:
+lars_at_spaces: &member
   team: spaces
   user: lars
   role: member
 
 slack_user_milad_at_spaces:
-  team: spaces
+  <<: *member
   user: slack_user_milad
-  role: member
 
 maja_at_spaces:
-  team: spaces
+  <<: *member
   user: with_several_teams
-  role: member
 
-with_unconfirmed_email_at_spaces:
-  team: spaces
+with_unconfirmed_email:
+  <<: *member
   user: with_unconfirmed_email
-  role: member
 
 maja_at_power:
   team: power_rangers

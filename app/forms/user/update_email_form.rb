@@ -1,4 +1,4 @@
-class EmailConfirmation::UpdateEmailForm
+class User::UpdateEmailForm
   include FormHelpers::Errors
   include ActiveModel::Model
   include Virtus.model

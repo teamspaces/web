@@ -1,9 +1,9 @@
 class User < ApplicationRecord
   include UserAvatarUploader[:avatar]
-  prepend User::EmailConfirmation
+  include User::EmailConfirmable
 
   devise :database_authenticatable, :recoverable, :rememberable,
-         :registerable, :trackable, :custom_validatable, :confirmable,
+         :registerable, :trackable, :custom_validatable,
          :omniauthable, omniauth_providers: [:slack, :slack_button]
 
   has_many :authentications, dependent: :destroy
@@ -11,8 +11,6 @@ class User < ApplicationRecord
   has_many :teams, through: :team_members
 
   after_commit :send_pending_notifications
-
-  after_update :send_new_on_create_confirmation_instructions, if: :email_changed_before_ever_confirmed?
 
   def name=(name)
     names = name.to_s.split(" ", 2)
