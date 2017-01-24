@@ -5,7 +5,7 @@ describe InvitationPolicy, :model do
   let(:team) { teams(:spaces) }
   let(:team_invitation) { invitations(:jonas_at_spaces) }
   let(:external_invitation) { invitations(:katharina_at_power_rangers) }
-  let(:accepted_invitation) { invitations(:accepted_invitation) }
+  let(:used_invitation) { invitations(:used_invitation) }
   let(:default_context) { DefaultContext.new(user, team) }
 
   describe "#destroy?" do
@@ -21,9 +21,9 @@ describe InvitationPolicy, :model do
       end
     end
 
-    context "invitation already accepted" do
+    context "invitation already used" do
       it "returns false" do
-        refute InvitationPolicy.new(default_context, accepted_invitation).destroy?
+        refute InvitationPolicy.new(default_context, used_invitation).destroy?
       end
     end
   end

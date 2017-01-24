@@ -2,22 +2,18 @@ class Invitation::CreateSlackInvitation
   include Interactor
 
   def call
-    invitation = build_slack_invitation
+    context.invitation = build_slack_invitation
 
-    if invitation.save
-      context.invitation = invitation
-    else
-      context.fail!
-    end
+    context.fail! unless context.invitation.save
   end
 
   private
     def build_slack_invitation
-      Invitation.new(user: context.user,
+      Invitation.new(invited_by_user: context.invited_by_user,
                      team: context.team,
                      first_name: context.first_name,
                      last_name: context.last_name,
                      email: context.email,
-                     slack_user_id: context.slack_user_id)
+                     invited_slack_user_uid: context.invited_slack_user_uid)
     end
 end

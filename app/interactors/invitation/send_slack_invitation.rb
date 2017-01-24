@@ -12,7 +12,7 @@ class Invitation::SendSlackInvitation
 
   def send_invitation
     begin
-      client.chat_postMessage(channel: invitation.slack_user_id,
+      client.chat_postMessage(channel: invitation.invited_slack_user_uid,
                               text: invitation_text,
                               as_user: false,
                               username: "Spaces",
@@ -26,11 +26,13 @@ class Invitation::SendSlackInvitation
 
   private
     def invitation_text
-      invitation_url = accept_invitation_url(invitation.token, subdomain: ENV["DEFAULT_SUBDOMAIN"])
-
-      I18n.t('invitation.slack.text', invitee_first_name: invitation.first_name,
-                                      host_first_name: invitation.user.first_name,
+      I18n.t("invitation.slack.text", invited_user_first_name: invitation.first_name,
+                                      invited_by_user_first_name: invitation.invited_by_user.first_name,
                                       url: invitation_url)
+    end
+
+    def invitation_url
+      accept_invitation_url(invitation.token, subdomain: ENV["DEFAULT_SUBDOMAIN"])
     end
 
     def application_icon_url

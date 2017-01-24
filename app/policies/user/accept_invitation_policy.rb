@@ -7,27 +7,19 @@ class User::AcceptInvitationPolicy
   end
 
   def matching?
-    if slack_invitation?
-      slack_user_id_matches?
-    else
-      email_matches?
-    end
+    invitation.slack_invitation? ? slack_user_uid_matches? : email_matches?
   end
 
   private
 
-    def slack_user_id_matches?
+    def slack_user_uid_matches?
       authentication = user.authentications.find_by(provider: :slack)
 
       authentication &&
-      Slack::Identity::UID.parse(authentication.uid)[:user_id] == invitation.slack_user_id
+      Slack::Identity::UID.parse(authentication.uid)[:user_id] == invitation.invited_slack_user_uid
     end
 
     def email_matches?
       user.email == invitation.email
-    end
-
-    def slack_invitation?
-      invitation.slack_user_id.present?
     end
 end

@@ -2,11 +2,11 @@ require "test_helper"
 
 describe SendInvitationForm, :model do
   let(:existing_invitation) { invitations(:jonas_at_spaces) }
-  subject { SendInvitationForm.new(user: users(:lars), team: teams(:spaces)) }
+  subject { SendInvitationForm.new(invited_by_user: users(:lars), team: teams(:spaces)) }
 
   describe "validations" do
     should validate_presence_of(:team)
-    should validate_presence_of(:user)
+    should validate_presence_of(:invited_by_user)
     should validate_presence_of(:email)
 
     it "validates format of email" do

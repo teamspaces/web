@@ -1,22 +1,27 @@
 class User::AcceptInvitation
   include Interactor
 
-  attr_reader :user, :invitation
+  attr_reader :invited_user, :invitation
 
   def call
-    @user = context.user
+    @invited_user = context.invited_user
     @invitation = context.invitation
 
-    accept_team_invitation
-    mark_invitation_as_accepted
+    context.fail! unless accept_invitation
   end
 
-  def accept_team_invitation
-    invitation.team.members.new(user: user, role: TeamMember::Roles::MEMBER).save
+  def accept_invitation
+    add_invited_user_to_team_members && save_invitation_invited_user
   end
 
-  def mark_invitation_as_accepted
-    invitation.invitee_user_id = user.id
-    invitation.save
-  end
+  private
+
+    def add_invited_user_to_team_members
+      invitation.team.members.new(user: invited_user, role: TeamMember::Roles::MEMBER).save
+    end
+
+    def save_invitation_invited_user
+      invitation.invited_user = invited_user
+      invitation.save
+    end
 end

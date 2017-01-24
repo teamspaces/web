@@ -21,7 +21,7 @@ describe User::AcceptInvitationURL, :controller do
 
   describe "user is invited" do
     it "accepts invitation" do
-      User::AcceptInvitation.expects(:call).with(user: invited_user, invitation: invitation)
+      User::AcceptInvitation.expects(:call).with(invited_user: invited_user, invitation: invitation)
 
       subject.call(user: invited_user, controller: controller)
     end

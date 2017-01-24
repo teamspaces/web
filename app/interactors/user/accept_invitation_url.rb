@@ -13,7 +13,7 @@ class User::AcceptInvitationURL
 
   def accept_invitation_url
     if user_accept_invitation_policy.matching?
-      User::AcceptInvitation.call(user: @user, invitation: @invitation)
+      User::AcceptInvitation.call(invited_user: @user, invitation: @invitation)
 
       add_flash_message("successfully_accepted_invitation")
       user_sign_in_url_decider(user: @user, team_to_redirect_to: @invitation.team).url

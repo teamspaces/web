@@ -1,6 +1,6 @@
 Hi <%= @invitation.first_name %>,
 
-<%= "#{@invitation.user.first_name} invited you to join the #{@invitation.team.name}-Team in Spaces" %>
+<%= "#{@invitation.invited_by_user.first_name} invited you to join the #{@invitation.team.name}-Team in Spaces" %>
 
 thx, Join now
 
