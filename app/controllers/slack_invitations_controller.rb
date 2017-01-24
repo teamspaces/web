@@ -20,6 +20,6 @@ class SlackInvitationsController < SubdomainBaseController
   private
 
     def invitation_params
-      params.permit(:slack_user_id, :email, :first_name, :last_name)
+      params.permit(:invited_slack_user_uid, :email, :first_name, :last_name)
     end
 end

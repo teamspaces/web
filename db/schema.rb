@@ -28,15 +28,15 @@ ActiveRecord::Schema.define(version: 20170123112959) do
 
   create_table "invitations", force: :cascade do |t|
     t.integer  "team_id"
+    t.integer  "invited_by_user_id"
     t.integer  "invited_user_id"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
     t.string   "token"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-    t.string   "slack_user_id"
-    t.integer  "invited_by_user_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.string   "invited_slack_user_uid"
     t.index ["team_id"], name: "index_invitations_on_team_id", using: :btree
   end
 

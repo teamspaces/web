@@ -13,7 +13,7 @@ describe SlackInvitationsController do
     let(:subject_url) { create_slack_invitation_url(subdomain: team.subdomain) }
 
     context "valid" do
-      let(:valid_params) { { slack_user_id: "U908w", email: "gallen@nl.se" } }
+      let(:valid_params) { { invited_slack_user_uid: "U908w", email: "gallen@nl.se" } }
 
        it "creates a slack invitation" do
         assert_difference -> { Invitation.count }, 1 do

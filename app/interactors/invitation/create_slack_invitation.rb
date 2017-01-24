@@ -14,6 +14,6 @@ class Invitation::CreateSlackInvitation
                      first_name: context.first_name,
                      last_name: context.last_name,
                      email: context.email,
-                     slack_user_id: context.slack_user_id)
+                     invited_slack_user_uid: context.invited_slack_user_uid)
     end
 end

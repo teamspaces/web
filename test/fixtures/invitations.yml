@@ -23,7 +23,7 @@ slack_user_milad_invitation:
   team: power_rangers
   token: 093jjkj3294kjji
   email: slack_user_milad@spaces.is
-  slack_user_id: U2ZKLGE49
+  invited_slack_user_uid: U2ZKLGE49
 
 slack_user_spaces_invitation:
   <<: *default
@@ -32,7 +32,7 @@ slack_user_spaces_invitation:
   team: spaces
   token: 093jjkj329sd4kjji
   email: nina_malone@spaces.is
-  slack_user_id: U4919w39
+  invited_slack_user_uid: U4919w39
 
 used_invitation:
   <<: *default

@@ -12,7 +12,7 @@ class Invitation::SendSlackInvitation
 
   def send_invitation
     begin
-      client.chat_postMessage(channel: invitation.slack_user_id,
+      client.chat_postMessage(channel: invitation.invited_slack_user_uid,
                               text: invitation_text,
                               as_user: false,
                               username: "Spaces",

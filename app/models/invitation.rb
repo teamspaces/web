@@ -11,7 +11,7 @@ class Invitation < ApplicationRecord
   before_create :generate_token
 
   def slack_invitation?
-    slack_user_id.present?
+    invited_slack_user_uid.present?
   end
 
   def email_invitation?
