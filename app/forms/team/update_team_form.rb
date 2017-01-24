@@ -11,6 +11,7 @@ class Team::UpdateTeamForm
 
   attribute :name, String
   attribute :logo
+  attribute :allowed_email_domains, String
 
   validates :name, presence: true
   validate :valid_logo
@@ -20,6 +21,18 @@ class Team::UpdateTeamForm
 
     super(@team.attributes)
     super(params)
+  end
+
+  def allowed_email_domains
+    @allowed_email_domains.join(", ")
+  end
+
+  def allowed_email_domains=(email_domains)
+    @allowed_email_domains = if email_domains.kind_of?(Array)
+      email_domains
+    else
+      email_domains.split(",") if email_domains
+    end
   end
 
   def logo=(uploaded_file)
@@ -40,7 +53,7 @@ class Team::UpdateTeamForm
     end
 
     def persist!
-      @team.assign_attributes(name: name)
+      @team.assign_attributes(name: name, allowed_email_domains: @allowed_email_domains)
       @team.save
     end
 

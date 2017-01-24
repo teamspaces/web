@@ -54,6 +54,6 @@ class TeamsController < SubdomainBaseController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def team_params
-      params.require(:team).permit(:name, :logo)
+      params.require(:team).permit(:name, :logo, :allowed_email_domains)
     end
 end
