@@ -1,6 +1,6 @@
 require "test_helper"
 
-describe User::EmailConfirmable, :model do
+describe EmailConfirmable, :model do
 
   describe "#email_confirmation_required?" do
     describe "email user" do

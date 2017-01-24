@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   include UserAvatarUploader[:avatar]
-  include User::EmailConfirmable
+  include EmailConfirmable
 
   devise :database_authenticatable, :recoverable, :rememberable,
          :registerable, :trackable, :custom_validatable,
