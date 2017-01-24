@@ -1,6 +1,6 @@
 class User::EmailConfirmationsController < SubdomainBaseController
   before_action :set_user, :redirect_if_already_confirmed
-  skip_before_action :check_email_confirmation
+  skip_before_action :verify_email_confirmed
 
   def new
     @update_email_form = ::User::UpdateEmailForm.new(@user)

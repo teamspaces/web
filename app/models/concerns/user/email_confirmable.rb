@@ -1,6 +1,5 @@
 class User
   module EmailConfirmable
-
     extend ActiveSupport::Concern
 
     included do
