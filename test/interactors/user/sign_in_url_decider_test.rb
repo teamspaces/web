@@ -24,9 +24,21 @@ describe User::SignInUrlDecider, :controller do
 
   describe "team creation requested" do
     it "returns team creation url" do
-      shared_user_information.any_instance.stubs(:team_creation_requested?).returns(true)
+      shared_user_information.any_instance
+                             .stubs(:team_creation_requested?)
+                             .returns(true)
 
       assert_equal sign_in_url_for_user.create_team_url, subject.url
+    end
+  end
+
+  describe "redirection to created team requested" do
+    let(:created_team) { user.teams.last }
+
+    it "returns team url" do
+      url = subject(created_team_to_redirect_to: created_team).url
+
+      assert_equal sign_in_url_for_user.team_url(created_team), url
     end
   end
 

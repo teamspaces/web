@@ -4,7 +4,9 @@ class User::SignInUrlDecider
   def call
     @user = context.user
     @controller = context.controller
+
     @team_to_redirect_to = context.team_to_redirect_to
+    @created_team_to_redirect_to = context.created_team_to_redirect_to
 
     context.url = decide_url
   end
@@ -13,6 +15,7 @@ class User::SignInUrlDecider
     case
       when invitation_present? then user_accept_invitation_url
       when redirect_to_team? then sign_in_url_for_user.team_spaces_url(@team_to_redirect_to)
+      when redirect_to_created_team? then sign_in_url_for_user.team_url(@created_team_to_redirect_to)
       when team_creation_requested? then sign_in_url_for_user.create_team_url
       else sign_in_url_for_user.url_depending_on_user_teams_count
     end
@@ -30,6 +33,10 @@ class User::SignInUrlDecider
 
     def redirect_to_team?
       @team_to_redirect_to.present? && user_access_allowed?(@team_to_redirect_to)
+    end
+
+    def redirect_to_created_team?
+      @created_team_to_redirect_to.present? && user_access_allowed?(@created_team_to_redirect_to)
     end
 
     def user_access_allowed?(team)
