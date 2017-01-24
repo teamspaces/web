@@ -12,6 +12,8 @@ class TeamsController < SubdomainBaseController
   # GET /teams/1/edit
   def edit
     authorize @team, :edit?
+
+    @team_form = Team::UpdateTeamForm.new(@team)
   end
 
   # PATCH/PUT /teams/1
@@ -19,8 +21,10 @@ class TeamsController < SubdomainBaseController
   def update
     authorize @team, :update?
 
+    @team_form = Team::UpdateTeamForm.new(@team, team_params)
+
     respond_to do |format|
-      if @team.update(team_params)
+      if @team_form.save
         format.html { redirect_to team_url(subdomain: @team.subdomain, auth_token: GenerateLoginToken.call(user: current_user)), notice: 'Team was successfully updated.' }
         format.json { render :show, status: :ok, location: @team }
       else
@@ -50,6 +54,6 @@ class TeamsController < SubdomainBaseController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def team_params
-      params.require(:team).permit(:name, :subdomain)
+      params.require(:team).permit(:name, :logo)
     end
 end

@@ -3,6 +3,8 @@ class User::AvatarsController < SubdomainBaseController
 
   # DELETE /user/avatar
   def destroy
+    authorize @user, :update?
+
     User::Avatar::AttachGeneratedAvatar.call(user: @user)
     @user.save
 
