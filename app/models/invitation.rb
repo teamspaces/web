@@ -19,7 +19,7 @@ class Invitation < ApplicationRecord
   end
 
   def used?
-    invitee_user_id.present?
+    invited_user.present?
   end
 
   def invited_user_is_registered_email_user?
