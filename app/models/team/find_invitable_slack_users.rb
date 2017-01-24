@@ -40,9 +40,9 @@ class Team::FindInvitableSlackUsers
     end
 
     def match_already_invited?
-      invited_user_ids = @team.invitations.map(&:slack_user_id)
+      invited_user_uids = @team.invitations.map(&:invited_slack_user_uid)
 
-      lambda { |x| invited_user_ids.include? x.id }
+      lambda { |x| invited_user_uids.include? x.id }
     end
 
     def match_already_team_member?

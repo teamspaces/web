@@ -43,7 +43,7 @@ en:
         This invitation was already used. Please continue with the
         normal login or ask for a new invitation
     slack:
-      text: "Hi %{invitee_first_name}, %{host_first_name} invited you to collaborate on Spaces <%{url}|Join>"
+      text: "Hi %{invited_user_first_name}, %{invited_by_user_first_name} invited you to collaborate on Spaces <%{url}|Join>"
       successfully_sent: Slack Invitation was successfully sent
       failure_create: Slack Invitation could not be created
   helpers:
