@@ -54,7 +54,11 @@ class Team::UpdateTeamForm
     end
 
     def valid_email_domains
-      email_domains.all? { |domain| domain.include? "@" }
+      have_valid_format = @allowed_email_domains.all? { |domain| domain.include? "@" }
+      have_team_domains = @allowed_email_domains.all? { |domain| !EmailProviderDomains.include?(domain) }
+
+      self.errors.add(:email_domains, I18n.t("user.register.errors.email.not_jessica")) unless have_valid_format
+      self.errors.add(:email_domains, I18n.t("user.register.errors.email.not_afra")) unless have_team_domains
     end
 
     def persist!
