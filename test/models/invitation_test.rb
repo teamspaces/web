@@ -7,6 +7,7 @@ describe Invitation do
   let(:email_invitation) { invitations(:katharina_at_power_rangers) }
   let(:slack_invitation) { invitations(:slack_user_milad_invitation) }
   let(:used_invitation) { invitations(:used_invitation) }
+  let(:unused_invitation) { slack_invitation }
 
   should belong_to(:team)
   should have_one(:invited_by_user).class_name("User")
@@ -22,9 +23,6 @@ describe Invitation do
   end
 
   describe "scopes" do
-    let(:unused_invitation) { invitations(:slack_user_milad_invitation) }
-    let(:used_invitation) { invitations(:accepted_invitation) }
-
     describe "#used" do
       it "works" do
         used_invitations = Invitation.used

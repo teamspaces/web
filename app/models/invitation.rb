@@ -1,8 +1,8 @@
 class Invitation < ApplicationRecord
   belongs_to :team
 
-  has_one :invited_by_user, class_name: "User", primary_key: "invited_by_user_id", foreign_key: "id"
-  has_one :invited_user, class_name: "User", primary_key: "invited_user_id", foreign_key: "id"
+  has_one :invited_by_user, class_name: "User", foreign_key: "invited_by_user_id", primary_key: "id"
+  has_one :invited_user, class_name: "User", foreign_key: "invited_user_id", primary_key: "id"
 
   scope :used, -> { where.not(invited_user_id: nil) }
   scope :unused, -> { where(invited_user_id: nil) }
