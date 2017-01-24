@@ -1,12 +1,14 @@
 class EmailProviderDomains
 
   def self.include?(value)
-    email_provider_domains.include?(value)
+    email_provider_domain_hosts.any? do |email_provider_host|
+      value.ends_with?(email_provider_host)
+    end
   end
 
   private
 
-    def self.email_provider_domains
+    def self.email_provider_domain_hosts
       %w(1033edge.com
         11mail.com
         123.com
