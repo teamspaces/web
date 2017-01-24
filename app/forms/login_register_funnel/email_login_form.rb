@@ -19,7 +19,7 @@ class LoginRegisterFunnel::EmailLoginForm
 
     def email_password_combination
       unless user.try(:valid_password?, password)
-        self.errors[:base] << I18n.t('user.login.errors.wrong_password')
+        self.errors[:base] << I18n.t("user.login.errors.wrong_password")
       end
     end
 end

@@ -25,7 +25,7 @@ describe User::AcceptInvitation, :model do
 
     context "is email invitation" do
       it "confirms invited user's email" do
-        subject.call(user: user, invitation: invitation)
+        subject.call(invited_user: user, invitation: invitation)
 
         assert user.confirmed?
       end
