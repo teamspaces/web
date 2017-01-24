@@ -21,6 +21,7 @@ class User::AcceptInvitation
     end
 
     def save_invitation_invited_user
-      invitation.assign_attributes(invited_user: invited_user).save
+      invitation.invited_user: invited_user
+      invitation.save
     end
 end

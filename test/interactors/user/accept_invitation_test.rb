@@ -20,7 +20,7 @@ describe User::AcceptInvitation, :model do
       subject.call(invited_user: user, invitation: invitation)
 
       invitation.reload
-      assert_equal user, invitation.invitee
+      assert_equal user, invitation.invited_user
     end
   end
 end
