@@ -1,7 +1,7 @@
 require "test_helper"
 
-describe Users::OmniauthCallbacksController do
-  subject { Users::OmniauthCallbacksController }
+describe User::OmniauthCallbacksController do
+  subject { User::OmniauthCallbacksController }
   before(:each) do
     subject.any_instance.stubs(:token).returns("token")
 

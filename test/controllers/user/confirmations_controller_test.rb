@@ -1,6 +1,6 @@
 require "test_helper"
 
-describe Users::ConfirmationsController do
+describe User::ConfirmationsController do
   let(:user_with_unconfirmed_email) { users(:with_unconfirmed_email) }
 
   describe "#show" do

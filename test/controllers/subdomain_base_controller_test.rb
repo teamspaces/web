@@ -7,7 +7,7 @@ describe SubdomainBaseController do
 
   before(:each) { sign_in spaces_user }
 
-  describe "team subdomain check" do
+  describe "verify team membership" do
     context "current_user is member of team" do
       it "shows content" do
         get team_url(subdomain: spaces_team.subdomain)
@@ -25,7 +25,7 @@ describe SubdomainBaseController do
     end
   end
 
-  describe "#check_email_confirmation" do
+  describe "verify email confirmed" do
     context "user confirmed email" do
       it "allows access" do
         get team_url(subdomain: spaces_team.subdomain)

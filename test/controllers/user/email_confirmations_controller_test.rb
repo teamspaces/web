@@ -45,7 +45,7 @@ describe User::EmailConfirmationsController do
     end
   end
 
-  describe "check_for_open_email_confirmation" do
+  describe "#redirect_if_already_confirmed" do
     context "user already confirmed email" do
       let(:user_with_confirmed_email) { users(:ulf) }
 

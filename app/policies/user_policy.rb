@@ -12,7 +12,7 @@ class UserPolicy
     default_context_user == user
   end
 
-  def email_confirmations_fulfilled?
+  def email_verified?
     @user.email_confirmation_required?
   end
 

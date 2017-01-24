@@ -22,16 +22,16 @@ describe UserPolicy, :model do
     end
   end
 
-  describe "#email_confirmations_fulfilled?" do
+  describe "#email_verified?" do
     context "user confirmed email" do
       it "returns true" do
-        assert UserPolicy.new(default_context, user).email_confirmations_fulfilled?
+        assert UserPolicy.new(default_context, user).email_verified?
       end
     end
 
     context "user needs to confirm email" do
       it "returns false" do
-        refute UserPolicy.new(default_context, users(:with_unconfirmed_email)).email_confirmations_fulfilled?
+        refute UserPolicy.new(default_context, users(:with_unconfirmed_email)).email_verified?
       end
     end
   end

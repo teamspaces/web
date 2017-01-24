@@ -1,5 +1,5 @@
 class User::EmailConfirmationsController < SubdomainBaseController
-  before_action :set_user, :check_for_open_email_confirmation
+  before_action :set_user, :redirect_if_already_confirmed
   skip_before_action :check_email_confirmation
 
   def new
@@ -32,7 +32,7 @@ class User::EmailConfirmationsController < SubdomainBaseController
       @user = current_user.decorate
     end
 
-    def check_for_open_email_confirmation
+    def redirect_if_already_confirmed
       unless current_user.email_confirmation_required?
         redirect_to root_subdomain_path
       end

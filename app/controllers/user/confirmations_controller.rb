@@ -1,4 +1,4 @@
-class Users::ConfirmationsController < Devise::ConfirmationsController
+class User::ConfirmationsController < Devise::ConfirmationsController
 
   def show
     @user = User.confirm_by_token(params[:confirmation_token])
