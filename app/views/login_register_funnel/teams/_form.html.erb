@@ -1,0 +1,27 @@
+<%= form_for(team, url: url) do |f| %>
+  <% if team.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(team.errors.count, "error") %> prohibited this team from being saved:</h2>
+
+      <ul>
+      <% team.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.label :subdomain %>
+  <%= f.text_field :subdomain %>
+
+  <%= image_tag team.logo_url(:image_192)  if team.cached_logo_data %>
+
+  <%= f.label :logo %>
+  <%= f.hidden_field :logo, value: team.cached_logo_data %>
+  <%= f.file_field :logo %>
+
+  <%= f.submit %>
+<% end %>
