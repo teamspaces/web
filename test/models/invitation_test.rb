@@ -4,6 +4,10 @@ describe Invitation do
   let(:team) { teams(:spaces) }
   let(:user)  { users(:lars) }
 
+  let(:email_invitation) { invitations(:katharina_at_power_rangers) }
+  let(:slack_invitation) { invitations(:slack_user_milad_invitation) }
+  let(:used_invitation) { invitations(:used_invitation) }
+
   should belong_to(:team)
   should belong_to(:user)
   should have_one(:invitee).class_name("User")
@@ -40,18 +44,14 @@ describe Invitation do
     end
   end
 
-    let(:email_invitation) { invitations(:katharina_at_power_rangers).decorate }
-  let(:slack_invitation) { invitations(:slack_user_milad_invitation).decorate }
-  let(:accepted_invitation) { invitations(:accepted_invitation).decorate }
-
   describe "#slack_invitation?" do
-    describe "slack_invitation" do
+    context "slack_invitation" do
       it "returns true" do
         assert_equal true, slack_invitation.slack_invitation?
       end
     end
 
-    describe "email_invitation" do
+    context "email_invitation" do
       it "returns false" do
         assert_equal false, email_invitation.slack_invitation?
       end
@@ -59,43 +59,43 @@ describe Invitation do
   end
 
   describe "#email_invitation?" do
-    describe "email_invitation" do
+    context "email_invitation" do
       it "returns true" do
         assert_equal true, email_invitation.email_invitation?
       end
     end
 
-    describe "slack_invitation" do
+    context "slack_invitation" do
       it "returns false" do
         assert_equal false, slack_invitation.email_invitation?
       end
     end
   end
 
-  describe "#already_accepted?" do
-    describe "accepted invitation" do
+  describe "#used?" do
+    context "used invitation" do
       it "returns true" do
-        assert_equal true, accepted_invitation.already_accepted?
+        assert_equal true, used_invitation.used?
       end
     end
 
-    describe "open invitation" do
+    context "not used invitation" do
       it "returns false" do
-        assert_equal false, email_invitation.already_accepted?
+        assert_equal false, email_invitation.used?
       end
     end
   end
 
-  describe "#accepting_user_is_already_registered_using_email?" do
-    describe "accepting user is already registered using email" do
+  describe "#invited_user_is_registered_email_user?" do
+    context "invited user is registered email user" do
       it "returns true" do
-        assert_equal true, email_invitation.accepting_user_is_already_registered_using_email?
+        assert_equal true, email_invitation.invited_user_is_registered_email_user?
       end
     end
 
-    describe "accepting user is not yet registered using email" do
+    context "invited user is not registered email user" do
       it "returns false" do
-        assert_equal false, slack_invitation.accepting_user_is_already_registered_using_email?
+        assert_equal false, slack_invitation.invited_user_is_registered_email_user?
       end
     end
   end

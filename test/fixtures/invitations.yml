@@ -34,7 +34,7 @@ slack_user_spaces_invitation:
   email: nina_malone@spaces.is
   slack_user_id: U4919w39
 
-accepted_invitation:
+used_invitation:
   <<: *default
   token: w89s98ji88787
   invited_user_id: <%= ActiveRecord::FixtureSet.identify(:lars) %>
