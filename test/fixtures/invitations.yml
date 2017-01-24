@@ -2,7 +2,7 @@
 
 jonas_at_spaces: &default
   team: spaces
-  invited_by_user: lars
+  invited_by_user_id: <%= ActiveRecord::FixtureSet.identify(:ulf) %>
   first_name: Jonas
   last_name: Klemt
   email: jonasklemt@gmail.com

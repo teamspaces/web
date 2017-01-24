@@ -9,8 +9,8 @@ describe Invitation do
   let(:used_invitation) { invitations(:used_invitation) }
 
   should belong_to(:team)
-  should belong_to(:user)
-  should have_one(:invitee).class_name("User")
+  should have_one(:invited_by_user).class_name("User")
+  should have_one(:invited_user).class_name("User")
 
   should validate_uniqueness_of(:token)
 
