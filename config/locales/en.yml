@@ -25,6 +25,12 @@ en:
     login:
       errors:
         wrong_password: The password you have entered is invalid
+    register:
+      errors:
+        email:
+          not_allowed_domain: |
+            can't be used to register for this team. Please get in contact
+            with the admin of your team
   errors:
     messages:
       reserved_name: cannot be a reserved name

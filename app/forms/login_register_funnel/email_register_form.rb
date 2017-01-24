@@ -21,7 +21,7 @@ class LoginRegisterFunnel::EmailRegisterForm
   validates :password, presence: true
   validates :password_confirmation, presence: true
 
-  validate :validate_user_domain, if: :team
+  validates_with AllowedTeamEmailDomainValidator, if: :team
 
   def user
     @user ||= User.new(email: email,
@@ -38,10 +38,6 @@ class LoginRegisterFunnel::EmailRegisterForm
 
   def attach_avatar
     User::Avatar::AttachGeneratedAvatar.call(user: user).success?
-  end
-
-  def validate_user_domain
-    self.errors.add(:email, 'must be implemented')
   end
 
   def persist!
