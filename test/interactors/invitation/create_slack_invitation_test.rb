@@ -8,7 +8,7 @@ describe Invitation::CreateSlackInvitation, :model do
 
   it "creates slack invitation" do
     assert_difference -> { Invitation.count }, 1 do
-      result = Invitation::CreateSlackInvitation.call({team: team, user: user}.merge(valid_params))
+      result = Invitation::CreateSlackInvitation.call({team: team, invited_by_user: user}.merge(valid_params))
 
       assert result.success?
       assert_equal team, result.invitation.team

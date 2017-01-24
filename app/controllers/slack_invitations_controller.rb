@@ -3,7 +3,7 @@ class SlackInvitationsController < SubdomainBaseController
   # GET /slack_invitation
   def create
     result = Invitation::CreateSlackInvitation.call(invitation_params.to_h
-                                                    .merge({user: current_user,
+                                                    .merge({invited_by_user: current_user,
                                                             team: current_team}))
 
     Invitation::SendInvitation.call(invitation: result.invitation) if result.success?
