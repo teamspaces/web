@@ -25,7 +25,7 @@ describe UserPolicy, :model do
   describe "#email_verified?" do
     context "user confirmed email" do
       it "returns true" do
-        assert UserPolicy.new(default_context, user).email_verified?
+        assert UserPolicy.new(default_context, current_user).email_verified?
       end
     end
 

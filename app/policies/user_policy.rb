@@ -13,7 +13,7 @@ class UserPolicy
   end
 
   def email_verified?
-    @user.email_confirmation_required?
+    !@user.email_confirmation_required?
   end
 
    alias_methods :is_owner?, [:read?, :show?, :new?, :edit?, :create?, :update?, :destroy?]

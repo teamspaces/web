@@ -14,9 +14,9 @@ describe User::OmniauthCallbacksController do
   end
 
   def stub_slack_identity_with(identity)
-    Users::OmniauthCallbacksController.any_instance
-                                      .stubs(:slack_identity)
-                                      .returns(identity)
+    User::OmniauthCallbacksController.any_instance
+                                     .stubs(:slack_identity)
+                                     .returns(identity)
   end
 
   def stub_omniauth_params_with(params)

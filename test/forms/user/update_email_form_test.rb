@@ -20,7 +20,7 @@ describe User::UpdateEmailForm, :model do
       User::UpdateEmailForm.new(user, email: "kiew@gmail.com").save
 
       user.reload
-      assert_equal "kiew@gmail.com", user.email
+      assert_equal "kiew@gmail.com", user.unconfirmed_email
     end
   end
 end
