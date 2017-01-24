@@ -68,10 +68,10 @@ describe LoginRegisterFunnel::AcceptInvitationController do
       end
 
       describe "invitation was already used" do
-        let(:accepted_invitation) { invitations(:accepted_invitation) }
+        let(:used_invitation) { invitations(:used_invitation) }
 
         it "redirects to landing path with notice" do
-          get accept_invitation_url(accepted_invitation.token, subdomain: ENV["DEFAULT_SUBDOMAIN"])
+          get accept_invitation_url(used_invitation.token, subdomain: ENV["DEFAULT_SUBDOMAIN"])
 
           assert_redirected_to root_path
           assert_match "This invitation was already used. Please continue with", flash[:notice]

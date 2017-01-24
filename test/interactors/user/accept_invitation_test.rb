@@ -7,25 +7,25 @@ describe User::AcceptInvitation, :model do
 
   context "valid token" do
     it "works" do
-      assert subject.call(user: user, invitation: invitation).success?
+      assert subject.call(invited_user: user, invitation: invitation).success?
     end
 
     it "adds user as team member" do
       assert_difference ->{ user.teams.count }, 1 do
-        subject.call(user: user, invitation: invitation)
+        subject.call(invited_user: user, invitation: invitation)
       end
     end
 
-    it "saves user as invitee" do
-      subject.call(user: user, invitation: invitation)
+    it "saves user as invited user" do
+      subject.call(invited_user: user, invitation: invitation)
 
       invitation.reload
-      assert_equal user, invitation.invitee
+      assert_equal user, invitation.invited_user
     end
 
     context "is email invitation" do
       it "confirms invited user's email" do
-        subject.call(user: user, invitation: invitation)
+        subject.call(invited_user: user, invitation: invitation)
 
         assert user.confirmed?
       end

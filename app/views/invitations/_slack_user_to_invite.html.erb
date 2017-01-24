@@ -7,7 +7,7 @@
 
 
 <%= link_to "Invite",
-  create_slack_invitation_path(slack_user_id: slack_user.id,
+  create_slack_invitation_path(invited_slack_user_uid: slack_user.id,
                                email: slack_user.profile.email,
                                first_name: slack_user.profile.first_name,
                                last_name: slack_user.profile.last_name) %>

@@ -19,4 +19,8 @@ class LoginRegisterFunnel::BaseController::SharedUserInformation
   def team_creation_requested?
     !! @session[:user_team_creation_requested]
   end
+
+  def start_team_creation!
+    self.team_creation_requested = false
+  end
 end

@@ -7,16 +7,12 @@ class InvitationPolicy
   end
 
   def destroy?
-    owned_by_team? && not_accepted?
+    owned_by_team? && !invitation.used?
   end
 
   private
 
     def owned_by_team?
       team == invitation.team
-    end
-
-    def not_accepted?
-      invitation.invitee.nil?
     end
 end
