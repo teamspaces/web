@@ -2,7 +2,11 @@ module EmailConfirmable
   extend ActiveSupport::Concern
 
   included do
-    after_update :generate_new_confirmation_token, if: :allow_email_login && (:email_changed? || :unconfirmed_email_changed?)
+    after_update :generate_new_confirmation_token, if: :email_to_confirm_changed?
+  end
+
+  def email_to_confirm_changed?
+    allow_email_login && (email_changed? || unconfirmed_email_changed?)
   end
 
   def confirmation_instructions_sent?
@@ -28,6 +32,7 @@ module EmailConfirmable
   def generate_confirmation_token
     super
     self.confirmation_sent_at = nil
+    true
   end
 
   def send_confirmation_instructions(opts={})
