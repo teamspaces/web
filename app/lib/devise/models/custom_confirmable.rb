@@ -252,9 +252,19 @@ module Devise
         end
 
         def postpone_email_change_until_confirmation_and_regenerate_confirmation_token
+          postpone_email_change_until_confirmation
+          regenerate_confirmation_token!
+        end
+
+        #custom method
+        def postpone_email_change_until_confirmation
           @reconfirmation_required = true
           self.unconfirmed_email = self.email
           self.email = self.email_was
+        end
+
+        #custom method
+        def regenerate_confirmation_token!
           self.confirmation_token = nil
           generate_confirmation_token
         end

@@ -22,7 +22,10 @@ class User::UpdateEmailForm
   private
 
     def persist!
+      user.regenerate_confirmation_token!
+      user.postpone_email_change_until_confirmation
       user.save
+      user.send_confirmation_instructions
     end
 
     def validate_user
