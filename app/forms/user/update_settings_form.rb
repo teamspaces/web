@@ -44,7 +44,7 @@ class User::UpdateSettingsForm
     def persist!
       user.postpone_email_change_until_confirmation_and_regenerate_confirmation_token if user.email_changed?
       user.save
-      user.send_reconfirmation_instructions if user.email_changed?
+      user.send_confirmation_instructions if user.email_changed?
     end
 
     def update_generated_avatar

@@ -38,10 +38,10 @@ module Devise
     #   User.find(1).confirmed?    # true/false
     #   User.find(1).send_confirmation_instructions # manually send instructions
     #
-    module Confirmable
+    module CustomConfirmable
       extend ActiveSupport::Concern
 
-      included do
+      #included do
       #  before_create :generate_confirmation_token, if: :confirmation_required?
       #  after_create :skip_reconfirmation_in_callback!, if: :send_confirmation_notification?
       #  if respond_to?(:after_commit) # ActiveRecord
@@ -52,7 +52,7 @@ module Devise
       #    after_update :send_reconfirmation_instructions, if: :reconfirmation_required?
       #  end
       #  before_update :postpone_email_change_until_confirmation_and_regenerate_confirmation_token, if: :postpone_email_change?
-      end
+      #end
 
       def initialize(*args, &block)
         @bypass_confirmation_postpone = false
@@ -108,12 +108,12 @@ module Devise
       end
 
       # Send confirmation instructions by email
-      def send_confirmation_instructions
+      def send_confirmation_instructions(opts={})
         unless @raw_confirmation_token
           generate_confirmation_token!
         end
 
-        opts = pending_reconfirmation? ? { to: unconfirmed_email } : { }
+        opts[:to] = unconfirmed_email if pending_reconfirmation?
         send_devise_notification(:confirmation_instructions, @raw_confirmation_token, opts)
       end
 
