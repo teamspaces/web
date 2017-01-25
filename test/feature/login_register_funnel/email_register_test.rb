@@ -15,8 +15,9 @@ describe "Email Register", :capybara do
 
   def find_link_in_mail(mail)
     link = mail.body.raw_source.match(/href="(?<url>.+?)">/)[:url]
-    relative_link = URI.parse(link).path + "?" + URI.parse(link).query
-    relative_link
+    link
+    #relative_link = URI.parse(link).path + "?" + URI.parse(link).query
+    #relative_link
   end
 
   describe "register with email address" do
