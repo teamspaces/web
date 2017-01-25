@@ -164,6 +164,16 @@ module Devise
         @bypass_confirmation_postpone = true
       end
 
+      #custom
+      def email_confirmation_required?
+        allow_email_login && (!confirmed? || pending_reconfirmation?)
+      end
+
+      #custom
+      def email_confirmed_ever?
+        !(confirmed_at.nil? && unconfirmed_email.nil?)
+      end
+
       protected
 
         # To not require reconfirmation after creating with #save called in a
@@ -253,7 +263,7 @@ module Devise
 
         def postpone_email_change_until_confirmation_and_regenerate_confirmation_token
           postpone_email_change_until_confirmation
-          regenerate_confirmation_token!
+          regenerate_confirmation_token
         end
 
         #custom method
@@ -264,7 +274,7 @@ module Devise
         end
 
         #custom method
-        def regenerate_confirmation_token!
+        def regenerate_confirmation_token
           self.confirmation_token = nil
           generate_confirmation_token
         end

@@ -5,8 +5,6 @@ class User < ApplicationRecord
          :registerable, :trackable, :custom_validatable, :custom_confirmable,
          :omniauthable, omniauth_providers: [:slack, :slack_button]
 
-  include EmailConfirmable
-
   has_many :authentications, dependent: :destroy
   has_many :team_members, dependent: :destroy
   has_many :teams, through: :team_members
