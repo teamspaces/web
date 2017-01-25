@@ -34,15 +34,31 @@ describe SubdomainBaseController do
       end
     end
 
-    context "user needs to confirm email" do
+    describe "user needs to confirm email" do
       let(:user_with_unconfirmed_email) { users(:with_unconfirmed_email) }
+      before(:each) { sign_in user_with_unconfirmed_email }
 
       it "redirects to new_user_email_confirmation_path" do
-        sign_in user_with_unconfirmed_email
-
         get team_url(subdomain: user_with_unconfirmed_email.teams.first.subdomain)
 
         assert_redirected_to new_user_email_confirmation_path
+      end
+
+      context "email confirmation was not yet send" do
+        it "sends email confirmation" do
+          user_with_unconfirmed_email.expects(:send_confirmation_instructions).once
+
+          get team_url(subdomain: user_with_unconfirmed_email.teams.first.subdomain)
+        end
+      end
+
+      context "email confirmation was already send" do
+        it "does not send email confirmation" do
+          user_with_unconfirmed_email.send_confirmation_instructions
+          user_with_unconfirmed_email.expects(:send_confirmation_instructions).never
+
+          get team_url(subdomain: user_with_unconfirmed_email.teams.first.subdomain)
+        end
       end
     end
   end

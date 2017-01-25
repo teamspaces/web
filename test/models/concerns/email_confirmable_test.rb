@@ -45,7 +45,6 @@ describe EmailConfirmable, :model do
 
           assert_equal confirmed_email, user_with_confirmed_email.email
           assert_equal "new_email@ne.es", user_with_confirmed_email.unconfirmed_email
-          assert_nil user_with_confirmed_email.confirmation_sent_at
         end
 
         it "generates new confirmation token" do
@@ -53,6 +52,7 @@ describe EmailConfirmable, :model do
           user_with_confirmed_email.update(email: "new_email@ne.es")
 
           assert_not_equal confirmation_token, user_with_confirmed_email.confirmation_token
+          assert_nil user_with_confirmed_email.confirmation_sent_at
         end
       end
 
@@ -65,7 +65,6 @@ describe EmailConfirmable, :model do
 
           assert_equal confirmed_email, confirmed_user_with_new_unconfirmed_email.email
           assert_equal "new_email@ne.es", confirmed_user_with_new_unconfirmed_email.unconfirmed_email
-          assert_nil confirmed_user_with_new_unconfirmed_email.confirmation_sent_at
         end
 
         it "generates new confirmation token" do
@@ -73,6 +72,7 @@ describe EmailConfirmable, :model do
           confirmed_user_with_new_unconfirmed_email.update(email: "new_email@ne.es")
 
           assert_not_equal confirmation_token, confirmed_user_with_new_unconfirmed_email.confirmation_token
+          assert_nil confirmed_user_with_new_unconfirmed_email.confirmation_sent_at
         end
       end
 
@@ -92,6 +92,7 @@ describe EmailConfirmable, :model do
           user_with_unconfirmed_email.reload
 
           assert_not_equal confirmation_token, user_with_unconfirmed_email.confirmation_token
+          assert_nil user_with_unconfirmed_email.confirmation_sent_at
         end
       end
     end
