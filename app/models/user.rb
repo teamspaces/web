@@ -2,7 +2,7 @@ class User < ApplicationRecord
   include UserAvatarUploader[:avatar]
 
   devise :database_authenticatable, :recoverable, :rememberable,
-         :registerable, :trackable, :custom_validatable, :custom_confirmable,
+         :registerable, :trackable, :custom_validatable,
          :omniauthable, omniauth_providers: [:slack, :slack_button]
 
   has_many :authentications, dependent: :destroy
@@ -10,6 +10,11 @@ class User < ApplicationRecord
   has_many :teams, through: :team_members
 
   after_commit :send_pending_notifications
+
+  def confirmed?
+    !!confirmed_at
+  end
+
 
   def name=(name)
     names = name.to_s.split(" ", 2)

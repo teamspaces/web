@@ -1,4 +1,4 @@
-class User::SetUnconfirmedEmail
+class User::Email::SetUnconfirmed
   include Interactor
 
   def call
