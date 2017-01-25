@@ -34,20 +34,25 @@ module EmailConfirmable
     self.confirmation_sent_at = nil
   end
 
-  def send_confirmation_instructions
-    super
+  def send_confirmation_instructions(opts={})
+    unless @raw_confirmation_token
+      generate_confirmation_token!
+    end
+
+    if opts[:controller]
+      controller = opts[:controller]
+      opts[:redirect_url] = controller.url_for(controller.params
+                                                         .permit!
+                                                         .merge(confirmation_token: confirmation_token))
+      opts.delete(:controller)
+    end
+
+    opts[:to] = unconfirmed_email if pending_reconfirmation?
+    send_devise_notification(:confirmation_instructions, @raw_confirmation_token, opts)
+
     self.confirmation_sent_at = Time.now.utc
     save(validate: false)
   end
-
-  #def send_confirmation_instructions
-  #  unless @raw_confirmation_token
-  #    generate_confirmation_token!
-  #  end
-
-  #  opts = pending_reconfirmation? ? { to: unconfirmed_email } : { }
-  #  send_devise_notification(:confirmation_instructions, @raw_confirmation_token, opts)
-  #end
 
   def confirmation_required?
     allow_email_login && super

@@ -16,7 +16,7 @@ class SubdomainBaseController < ApplicationController
 
     def verify_email_confirmed
       unless UserPolicy.new(pundit_user, current_user).email_verified?
-        current_user.send_confirmation_instructions unless current_user.confirmation_instructions_sent?
+        current_user.send_confirmation_instructions(controller: self) unless current_user.confirmation_instructions_sent?
 
         redirect_to new_user_email_confirmation_path
       end
