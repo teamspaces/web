@@ -15,12 +15,12 @@ class SubdomainBaseController < ApplicationController
     end
 
     def verify_email_confirmed
-      debugger
       unless UserPolicy.new(pundit_user, current_user).email_verified?
-        if current_user.email_confirmation_required? && current_user.confirmation_sent_at.nil?
-           current_user.generate_confirmation_token
-           current_user.send_confirmation_instructions(url_to_redirect_to: url_for(params.permit!.merge(confirmation_token: "hello")))
-        end
+        User::Email::SendConfirmationInstructions.call(user: user)
+        #if current_user.email_confirmation_required? && current_user.confirmation_sent_at.nil?
+        #   current_user.generate_confirmation_token
+        #   current_user.send_confirmation_instructions(url_to_redirect_to: url_for(params.permit!.merge(confirmation_token: "hello")))
+        #end
 
         redirect_to new_user_email_confirmation_path
       end

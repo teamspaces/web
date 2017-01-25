@@ -19,7 +19,7 @@ class User::Email::SetUnconfirmed
 
   def set_email
     @user.confirmation_sent_at = nil
-    @user.confirmation_token = nil
+    @user.confirmation_token = Devise.friendly_token
     @user.confirmed_at = nil
 
     if email_not_yet_confirmed?

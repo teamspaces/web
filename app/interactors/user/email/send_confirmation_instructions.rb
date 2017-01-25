@@ -8,17 +8,12 @@ class User::Email::SendConfirmationInstructions
   end
 
   def send_confirmation_instructions
-    save_confirmation_token_and_sent_time unless already_sent?
+    save_confirmation_token_and_sent_time
 
     send
   end
 
-  def already_sent?
-    @user.confirmation_sent_at.present?
-  end
-
   def save_confirmation_token_and_sent_time
-    @user.confirmation_token = Devise.friendly_token
     @user.confirmation_sent_at = Time.now.utc
     @user.save(validate: false)
   end

@@ -15,7 +15,7 @@ class User::AcceptInvitation
   end
 
   def confirm_email
-    invited_user.confirm if invitation.email_invitation?
+    User::Email::Confirm.call(user: invited_user) if invitation.email_invitation?
     true
   end
 
