@@ -8,6 +8,7 @@ class LoginRegisterFunnel::EmailRegisterController < LoginRegisterFunnel::BaseCo
 
   def create
     @email_register_form = LoginRegisterFunnel::EmailRegisterForm.new(email_register_form_params.to_h)
+    @email_register_form.team = subdomain_team if on_team_subdomain?
 
     if @email_register_form.save
 

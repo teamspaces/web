@@ -5,6 +5,8 @@ class LoginRegisterFunnel::EmailRegisterForm
 
   attr_reader :email
 
+  attribute :team, Team
+
   attribute :email, String
 
   attribute :first_name, String
@@ -19,7 +21,7 @@ class LoginRegisterFunnel::EmailRegisterForm
   validates :password, presence: true
   validates :password_confirmation, presence: true
 
-  validate :validate_user
+  validates_with AllowedTeamEmailDomainValidator, if: :team
 
   def user
     @user ||= User.new(email: email,
@@ -40,6 +42,8 @@ class LoginRegisterFunnel::EmailRegisterForm
 
   def persist!
     user.save
+
+    Team::CreateTeamMember.call(team: team, user: user) if team
   end
 
  private

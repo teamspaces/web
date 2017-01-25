@@ -2,6 +2,7 @@ class Team::UpdateTeamForm
   include ActiveModel::Model
   include ActiveModel::Conversion
   include Virtus.model
+  include AllowedEmailDomains
 
   attr_reader :team
   delegate :cached_logo_data, to: :team
@@ -40,8 +41,7 @@ class Team::UpdateTeamForm
     end
 
     def persist!
-      @team.assign_attributes(name: name)
+      @team.assign_attributes(name: name, allowed_email_domains: @allowed_email_domains)
       @team.save
     end
-
 end
