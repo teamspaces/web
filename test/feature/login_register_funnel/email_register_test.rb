@@ -16,8 +16,6 @@ describe "Email Register", :capybara do
   def find_link_in_mail(mail)
     link = mail.body.raw_source.match(/href="(?<url>.+?)">/)[:url]
     link
-    #relative_link = URI.parse(link).path + "?" + URI.parse(link).query
-    #relative_link
   end
 
   describe "register with email address" do
@@ -73,9 +71,10 @@ describe "Email Register", :capybara do
       confirm_email_link = find_link_in_mail(ActionMailer::Base.deliveries.last)
       visit confirm_email_link
 
+      # confirms email and lands on team-page
       assert_content "sign out"
       assert_content user_attributes[:email]
-      assert_content "Spaces"
+      assert_content "Team"
     end
   end
 end
