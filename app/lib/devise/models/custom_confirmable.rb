@@ -42,7 +42,7 @@ module Devise
       extend ActiveSupport::Concern
 
       included do
-        before_create :generate_confirmation_token, if: :confirmation_required?
+      #  before_create :generate_confirmation_token, if: :confirmation_required?
       #  after_create :skip_reconfirmation_in_callback!, if: :send_confirmation_notification?
       #  if respond_to?(:after_commit) # ActiveRecord
       #    after_commit :send_on_create_confirmation_instructions, on: :create, if: :send_confirmation_notification?

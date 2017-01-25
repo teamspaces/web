@@ -10,7 +10,10 @@ class User::SignInUrlDecider
 
     context.url = decide_url
 
-    user.send_confirmation_instructions if user.email_confirmation_required?
+    if @user.email_confirmation_required? && @user.confirmation_sent_at.nil?
+      @user.generate_confirmation_token
+      @user.send_confirmation_instructions
+    end
   end
 
   def decide_url
