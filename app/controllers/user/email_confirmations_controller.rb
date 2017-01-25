@@ -7,16 +7,16 @@ class User::EmailConfirmationsController < SubdomainBaseController
   end
 
   def create
-    User::Email::SendConfirmationInstructions.call(user: @user, controller: self)
+    User::Email::SendConfirmationInstructions.call(user: current_user, controller: self)
 
     redirect_to new_user_email_confirmation_path
   end
 
   def update
-    @update_email_form = ::User::UpdateEmailForm.new(@user, user_params.to_h)
+    @update_email_form = ::User::UpdateEmailForm.new(current_user, user_params.to_h)
 
     if @update_email_form.save
-      User::Email::SendConfirmationInstructions.call(user: @user, controller: self)
+      User::Email::SendConfirmationInstructions.call(user: current_user, controller: self)
 
       redirect_to new_user_email_confirmation_path
     else
