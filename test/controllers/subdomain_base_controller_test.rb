@@ -46,7 +46,7 @@ describe SubdomainBaseController do
 
       context "email confirmation was not yet send" do
         it "sends email confirmation" do
-          user_with_unconfirmed_email.expects(:send_confirmation_instructions).once
+          User::Email::SendConfirmationInstructions.expects(:call).once
 
           get team_url(subdomain: user_with_unconfirmed_email.teams.first.subdomain)
         end
@@ -55,7 +55,7 @@ describe SubdomainBaseController do
       context "email confirmation was already send" do
         it "does not send email confirmation" do
           user_with_unconfirmed_email.update(confirmation_sent_at: Time.now)
-          user_with_unconfirmed_email.expects(:send_confirmation_instructions).never
+          User::Email::SendConfirmationInstructions.expects(:call).never
 
           get team_url(subdomain: user_with_unconfirmed_email.teams.first.subdomain)
         end

@@ -107,15 +107,16 @@ module Devise
         self.class.reconfirmable && unconfirmed_email.present?
       end
 
+      # USE User::Email::SendConfirmationInstructions
       # Send confirmation instructions by email
-      def send_confirmation_instructions
-        unless @raw_confirmation_token
-          generate_confirmation_token!
-        end
+      # def send_confirmation_instructions
+      #   unless @raw_confirmation_token
+      #     generate_confirmation_token!
+      #   end
 
-        opts = pending_reconfirmation? ? { to: unconfirmed_email } : { }
-        send_devise_notification(:confirmation_instructions, @raw_confirmation_token, opts)
-      end
+      #  opts = pending_reconfirmation? ? { to: unconfirmed_email } : { }
+      #  send_devise_notification(:confirmation_instructions, @raw_confirmation_token, opts)
+      #end
 
       def send_reconfirmation_instructions
         @reconfirmation_required = false

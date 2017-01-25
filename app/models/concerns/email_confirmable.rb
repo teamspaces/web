@@ -35,31 +35,6 @@ module EmailConfirmable
     true
   end
 
-  def send_confirmation_instructions(opts={})
-    unless @raw_confirmation_token
-      generate_confirmation_token!
-    end
-
-    opts[:confirmation_url] = confirmation_url_from_last_controller_action(opts)
-
-    opts[:to] = unconfirmed_email if pending_reconfirmation?
-    send_devise_notification(:confirmation_instructions, @raw_confirmation_token, opts)
-
-    self.confirmation_sent_at = Time.now.utc
-    save(validate: false)
-  end
-
-  def confirmation_url_from_last_controller_action(opts)
-    controller = opts[:controller]
-    opts.delete(:controller)
-
-    if controller.request.get?
-      controller.url_for(controller.params.permit!.merge(confirmation_token: confirmation_token))
-    else
-      controller.root_subdomain_url(subdomain: controller.current_team.subdomain, confirmation_token: confirmation_token)
-    end
-  end
-
   def confirmation_required?
     allow_email_login && super
   end
