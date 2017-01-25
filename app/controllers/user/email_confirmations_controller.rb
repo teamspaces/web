@@ -16,6 +16,8 @@ class User::EmailConfirmationsController < SubdomainBaseController
     @update_email_form = ::User::UpdateEmailForm.new(@user, user_params.to_h)
 
     if @update_email_form.save
+      @user.send_confirmation_instructions(controller: self)
+
       redirect_to new_user_email_confirmation_path
     else
       render :new

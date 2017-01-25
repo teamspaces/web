@@ -2,7 +2,7 @@ module EmailConfirmable
   extend ActiveSupport::Concern
 
   included do
-    after_update :generate_new_confirmation_token, if: :email_changed_before_ever_confirmed?
+    after_update :generate_new_confirmation_token, if: :email_changed_before_ever_confirmed? || :unconfirmed_email_changed?
   end
 
   def confirmation_instructions_sent?
@@ -39,23 +39,24 @@ module EmailConfirmable
       generate_confirmation_token!
     end
 
-    controller = opts[:controller]
-    opts.delete(:controller)
-
-    if controller.request.get?
-      opts[:confirmation_url] = controller.url_for(controller.params
-                                                             .permit!
-                                                             .merge(confirmation_token: confirmation_token))
-    else
-      opts[:confirmation_url] = controller.root_subdomain_url(subdomain: controller.current_team.subdomain,
-                                                              confirmation_token: confirmation_token)
-    end
+    opts[:confirmation_url] = confirmation_url_from_last_controller_action(opts)
 
     opts[:to] = unconfirmed_email if pending_reconfirmation?
     send_devise_notification(:confirmation_instructions, @raw_confirmation_token, opts)
 
     self.confirmation_sent_at = Time.now.utc
     save(validate: false)
+  end
+
+  def confirmation_url_from_last_controller_action(opts)
+    controller = opts[:controller]
+    opts.delete(:controller)
+
+    if controller.request.get?
+      controller.url_for(controller.params.permit!.merge(confirmation_token: confirmation_token))
+    else
+      controller.root_subdomain_url(subdomain: controller.current_team.subdomain, confirmation_token: confirmation_token)
+    end
   end
 
   def confirmation_required?

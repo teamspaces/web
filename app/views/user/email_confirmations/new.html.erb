@@ -13,7 +13,7 @@
 
       <hr>
 
-      <p> I'm not using <%= @user.email_to_confirm %>. Please update my account's email address and send the confirmation to the following email-address:</p>
+      <p> I'm not using <i><%= @user.email_to_confirm %></i>. Please update my account's email address and send the confirmation to the following email-address:</p>
 
       <%= render "update_email_form", form: @update_email_form, url: user_email_confirmation_path %>
 
