@@ -15,7 +15,7 @@ describe User::EmailConfirmationsController do
 
   describe "#create" do
     it "sends email confirmation mail" do
-      user_with_unconfirmed_email.expects(:send_confirmation_instructions).once
+      User::Email::SendConfirmationInstructions.expects(:call).once
 
       post user_email_confirmation_url(subdomain: team.subdomain)
     end
@@ -36,7 +36,7 @@ describe User::EmailConfirmationsController do
       end
 
       it "sends email confirmation mail" do
-        user_with_unconfirmed_email.expects(:send_confirmation_instructions).once
+        User::Email::SendConfirmationInstructions.expects(:call).once
 
         patch user_email_confirmation_url(subdomain: team.subdomain), params: { user: { email: "new_email@nl.com" } }
       end
