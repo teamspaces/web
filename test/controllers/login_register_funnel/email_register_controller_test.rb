@@ -59,6 +59,12 @@ describe LoginRegisterFunnel::EmailRegisterController do
         end
       end
 
+      it "sends email confirmation mail" do
+        User.any_instance.expects(:send_confirmation_instructions).once
+
+        post_valid_user_attributes
+      end
+
       it "redirects to sign_in_url_for user" do
         post_valid_user_attributes
 

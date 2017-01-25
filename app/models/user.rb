@@ -11,6 +11,11 @@ class User < ApplicationRecord
 
   after_commit :send_pending_notifications
 
+  def confirmed?
+    !!confirmed_at
+  end
+
+
   def name=(name)
     names = name.to_s.split(" ", 2)
     self.first_name = names.first

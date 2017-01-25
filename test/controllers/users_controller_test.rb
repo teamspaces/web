@@ -30,7 +30,7 @@ describe UsersController do
 
         assert_equal "Anna", user.first_name
         assert_equal "Betz", user.last_name
-        assert_equal "new@email.com", user.email
+        assert_equal "new@email.com", user.unconfirmed_email
         assert_equal "secret", user.password
       end
 

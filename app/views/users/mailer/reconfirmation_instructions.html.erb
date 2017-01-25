@@ -1,6 +1,6 @@
-<p>Welcome <%= @resource.first_name %>!</p>
+<p>Hi <%= @resource.first_name %>!</p>
 
-<p>Please confirm your account email through the link below:</p>
+<p>Please confirm your new account email through the link below:</p>
 
 <p><%= link_to "Confirm my account", (@custom_confirmation_url || confirmation_url(@resource, confirmation_token: @token)) %></p>
 

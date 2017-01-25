@@ -42,6 +42,7 @@ class User::UpdateSettingsForm
   private
 
     def persist!
+      User::Email::SetUnconfirmed(email: email)
       user.save
     end
 
