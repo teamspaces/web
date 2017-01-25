@@ -9,6 +9,8 @@ class User::SignInUrlDecider
     @created_team_to_redirect_to = context.created_team_to_redirect_to
 
     context.url = decide_url
+
+    user.send_confirmation_instructions if user.email_confirmation_required?
   end
 
   def decide_url

@@ -40,7 +40,6 @@ class LoginRegisterFunnel::EmailRegisterForm
 
   def persist!
     user.save
-    user.send_confirmation_instructions
   end
 
  private
