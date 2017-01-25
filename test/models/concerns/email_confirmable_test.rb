@@ -58,28 +58,51 @@ describe EmailConfirmable, :model do
 
       context "confirmed user, with new unconfirmed email" do
         it "does postpone email update" do
-          users(:with_new_unconfirmed_email).update(email: "new_email@ne.es")
+          confirmed_email = confirmed_user_with_new_unconfirmed_email.email
 
-          assert_equal "new_email@ne.es", users(:with_new_unconfirmed_email).unconfirmed_email
+          confirmed_user_with_new_unconfirmed_email.update(email: "new_email@ne.es")
+          confirmed_user_with_new_unconfirmed_email.reload
+
+          assert_equal confirmed_email, confirmed_user_with_new_unconfirmed_email.email
+          assert_equal "new_email@ne.es", confirmed_user_with_new_unconfirmed_email.unconfirmed_email
+          assert_nil confirmed_user_with_new_unconfirmed_email.confirmation_sent_at
+        end
+
+        it "generates new confirmation token" do
+          confirmation_token = confirmed_user_with_new_unconfirmed_email.confirmation_token
+          confirmed_user_with_new_unconfirmed_email.update(email: "new_email@ne.es")
+
+          assert_not_equal confirmation_token, confirmed_user_with_new_unconfirmed_email.confirmation_token
         end
       end
 
       context "with unconfirmed email" do
         it "does not postpone email update" do
-          users(:with_unconfirmed_email).update(email: "new_email@ne.es")
+          user_with_unconfirmed_email.update(email: "new_email@ne.es")
+          user_with_unconfirmed_email.reload
 
-          assert_equal "new_email@ne.es", users(:with_unconfirmed_email).email
+          assert_equal "new_email@ne.es", user_with_unconfirmed_email.email
+          assert_nil user_with_unconfirmed_email.unconfirmed_email
+        end
+
+        it "genertes new confirmation token" do
+          confirmation_token = user_with_unconfirmed_email.confirmation_token
+
+          user_with_unconfirmed_email.update(email: "new_email@ne.es")
+          user_with_unconfirmed_email.reload
+
+          assert_not_equal confirmation_token, user_with_unconfirmed_email.confirmation_token
         end
       end
     end
 
     describe "slack user" do
       it "does not pospone email update" do
-        users(:slack_user_milad).update(email: "new_address@slack.com")
-        users(:slack_user_milad).reload
+        slack_user.update(email: "new_address@slack.com")
+        slack_user.reload
 
-        assert_equal "new_address@slack.com", users(:slack_user_milad).email
-        assert_nil users(:slack_user_milad).unconfirmed_email
+        assert_equal "new_address@slack.com", slack_user.email
+        assert_nil slack_user.unconfirmed_email
       end
     end
   end
