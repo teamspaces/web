@@ -2,7 +2,7 @@ class User < ApplicationRecord
   include UserAvatarUploader[:avatar]
 
   devise :database_authenticatable, :recoverable, :rememberable,
-         :registerable, :trackable, :custom_validatable, :confirmable,
+         :registerable, :trackable, :custom_validatable, :custom_confirmable,
          :omniauthable, omniauth_providers: [:slack, :slack_button]
 
   include EmailConfirmable

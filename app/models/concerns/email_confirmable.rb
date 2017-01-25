@@ -2,7 +2,11 @@ module EmailConfirmable
   extend ActiveSupport::Concern
 
   included do
-    after_update :send_new_on_create_confirmation_instructions, if: :email_changed_before_ever_confirmed?
+    after_update :generate_new_confirmation_token, if: :email_changed_before_ever_confirmed?
+  end
+
+  def confirmation_instructions_sent?
+    self.confirmation_sent_at.present?
   end
 
   def email_confirmation_required?
@@ -17,16 +21,34 @@ module EmailConfirmable
     allow_email_login && email_changed? && !email_confirmed_ever?
   end
 
-  def send_new_on_create_confirmation_instructions
+  def generate_new_confirmation_token
     reload
 
     self.confirmation_token = nil
     generate_confirmation_token!
-
-    send_on_create_confirmation_instructions
   end
 
   # overwrite devise confirmable
+  def generate_confirmation_token
+    super
+    self.confirmation_sent_at = nil
+  end
+
+  def send_confirmation_instructions
+    super
+    self.confirmation_sent_at = Time.now.utc
+    save(validate: false)
+  end
+
+  #def send_confirmation_instructions
+  #  unless @raw_confirmation_token
+  #    generate_confirmation_token!
+  #  end
+
+  #  opts = pending_reconfirmation? ? { to: unconfirmed_email } : { }
+  #  send_devise_notification(:confirmation_instructions, @raw_confirmation_token, opts)
+  #end
+
   def confirmation_required?
     allow_email_login && super
   end
