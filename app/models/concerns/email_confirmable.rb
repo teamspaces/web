@@ -39,12 +39,16 @@ module EmailConfirmable
       generate_confirmation_token!
     end
 
-    if opts[:controller]
-      controller = opts[:controller]
-      opts[:redirect_url] = controller.url_for(controller.params
-                                                         .permit!
-                                                         .merge(confirmation_token: confirmation_token))
-      opts.delete(:controller)
+    controller = opts[:controller]
+    opts.delete(:controller)
+
+    if controller.request.get?
+      opts[:confirmation_url] = controller.url_for(controller.params
+                                                             .permit!
+                                                             .merge(confirmation_token: confirmation_token))
+    else
+      opts[:confirmation_url] = controller.root_subdomain_url(subdomain: controller.current_team.subdomain,
+                                                              confirmation_token: confirmation_token)
     end
 
     opts[:to] = unconfirmed_email if pending_reconfirmation?

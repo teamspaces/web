@@ -5,7 +5,7 @@ class CustomDeviseMailer < Devise::Mailer
   default template_path: "devise/mailer" # use the devise views
 
   def confirmation_instructions(record, token, options={})
-    @redirect_url = options[:redirect_url] if options[:redirect_url]
+    @confirmation_url = options[:confirmation_url]
 
     options[:template_name] = if record.pending_reconfirmation?
       "reconfirmation_instructions"

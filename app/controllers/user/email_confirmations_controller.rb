@@ -7,7 +7,7 @@ class User::EmailConfirmationsController < SubdomainBaseController
   end
 
   def create
-    @user.send_confirmation_instructions
+    @user.send_confirmation_instructions(controller: self)
 
     redirect_to new_user_email_confirmation_path
   end
