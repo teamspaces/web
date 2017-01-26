@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170126151911) do
+ActiveRecord::Schema.define(version: 20170126175529) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20170126151911) do
     t.string   "two_factored_ip"
     t.integer  "requests",           default: 0
     t.datetime "password_seen_at"
+    t.integer  "team_id"
     t.index ["browser_id"], name: "index_authie_sessions_on_browser_id", using: :btree
     t.index ["token"], name: "index_authie_sessions_on_token", using: :btree
     t.index ["user_id"], name: "index_authie_sessions_on_user_id", using: :btree
