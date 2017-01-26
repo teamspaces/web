@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170123112959) do
+ActiveRecord::Schema.define(version: 20170126151911) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,32 @@ ActiveRecord::Schema.define(version: 20170123112959) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.index ["user_id"], name: "index_authentications_on_user_id", using: :btree
+  end
+
+  create_table "authie_sessions", force: :cascade do |t|
+    t.string   "token"
+    t.string   "browser_id"
+    t.integer  "user_id"
+    t.boolean  "active",             default: true
+    t.text     "data"
+    t.datetime "expires_at"
+    t.datetime "login_at"
+    t.string   "login_ip"
+    t.datetime "last_activity_at"
+    t.string   "last_activity_ip"
+    t.string   "last_activity_path"
+    t.string   "user_agent"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "user_type"
+    t.integer  "parent_id"
+    t.datetime "two_factored_at"
+    t.string   "two_factored_ip"
+    t.integer  "requests",           default: 0
+    t.datetime "password_seen_at"
+    t.index ["browser_id"], name: "index_authie_sessions_on_browser_id", using: :btree
+    t.index ["token"], name: "index_authie_sessions_on_token", using: :btree
+    t.index ["user_id"], name: "index_authie_sessions_on_user_id", using: :btree
   end
 
   create_table "invitations", force: :cascade do |t|
@@ -89,10 +115,11 @@ ActiveRecord::Schema.define(version: 20170123112959) do
 
   create_table "teams", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.string   "subdomain"
     t.jsonb    "logo_data"
+    t.text     "allowed_email_domains", default: [],              array: true
     t.index ["subdomain"], name: "index_teams_on_subdomain", using: :btree
   end
 
@@ -113,6 +140,11 @@ ActiveRecord::Schema.define(version: 20170123112959) do
     t.string   "last_name"
     t.boolean  "allow_email_login",      default: true
     t.jsonb    "avatar_data"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_users_on_email", using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
