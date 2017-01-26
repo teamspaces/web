@@ -36,9 +36,26 @@ class ApplicationController < ActionController::Base
     self.current_user = user
   end
 
-  def authenticate_user!
-    unless logged_in?
-     redirect_to root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], hello: "ASDF"), :alert => "You must login to view this resource"
+  def sign_out
+    logout_from_current_team
+  end
+
+  ### FROM DEVISE
+
+  # def authenticate_#{mapping}!(opts={})
+  #   opts[:scope] = :#{mapping}
+  #   warden.authenticate!(opts) if !devise_controller? || opts.delete(:force)
+  # end
+
+  # https://github.com/plataformatec/devise/blob/master/lib/devise/controllers/helpers.rb
+
+  #logged_in? from authie
+
+  def authenticate_user!(opts={})
+    if (!devise_controller? || opts.delete(:force))
+      unless logged_in?
+       redirect_to root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], hello: "ASDF"), :alert => "You must login to view this resource"
+      end
     end
   end
 
