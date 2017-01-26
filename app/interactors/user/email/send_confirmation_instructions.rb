@@ -9,7 +9,7 @@ class User::Email::SendConfirmationInstructions
   end
 
   def send_mail
-    options = { confirmation_url: confirmation_url_from_last_controller_action }
+    options = { confirmation_url: confirmation_url }
     options[:to] = @user.unconfirmed_email if @user.pending_reconfirmation?
 
     @user.send(:send_devise_notification, :confirmation_instructions, @user.confirmation_token, options)
@@ -22,11 +22,19 @@ class User::Email::SendConfirmationInstructions
 
   private
 
-    def confirmation_url_from_last_controller_action
-      if @controller.request.get?
-        @controller.url_for(@controller.params.permit!.merge(confirmation_token: @user.confirmation_token))
-      else
-        @controller.root_subdomain_url(subdomain: @controller.current_team.subdomain, confirmation_token: @user.confirmation_token)
-      end
+    def confirmation_url
+      requested_url_can_be_redirected_to? ? current_url_with_confirmation_token : root_subdomain_url_with_confirmation_token
+    end
+
+    def current_url_with_confirmation_token
+      @controller.url_for(@controller.params.permit!.merge(confirmation_token: @user.confirmation_token))
+    end
+
+    def root_subdomain_url_with_confirmation_token
+      @controller.root_subdomain_url(subdomain: @controller.current_team.subdomain, confirmation_token: @user.confirmation_token)
+    end
+
+    def requested_url_can_be_redirected_to?
+      @controller.request.get?
     end
 end

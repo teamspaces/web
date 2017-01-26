@@ -17,10 +17,6 @@ module EmailConfirmable
     confirmation_required? || pending_reconfirmation?
   end
 
-  def email_confirmed_ever?
-    !(confirmed_at.nil? && unconfirmed_email.nil?)
-  end
-
   def generate_new_confirmation_token
     reload
 
@@ -41,6 +37,10 @@ module EmailConfirmable
 
   def postpone_email_change?
     allow_email_login && email_confirmed_ever? && super
+  end
+
+  def email_confirmed_ever?
+    !(confirmed_at.nil? && unconfirmed_email.nil?)
   end
 
   def reconfirmation_required?
