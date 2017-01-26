@@ -38,10 +38,26 @@ class ApplicationController < ActionController::Base
 
   def authenticate_user!
     unless logged_in?
-      debugger
      redirect_to root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], hello: "ASDF"), :alert => "You must login to view this resource"
     end
   end
+
+  def logout_from_current_team
+    auth_session.invalidate!
+  end
+
+  def logout_from_all_user_teams_on_device
+    Authie::Session.where(user: current_user, browser_id: auth_session.browser_id).each do |s|
+      s.invalidate!
+    end
+  end
+
+  def logout_from_all_teams_on_device
+    Authie::Session.where(browser_id: auth_session.browser_id).each do |s|
+      s.invalidate!
+    end
+  end
+
 
 
   helper_method :available_users
