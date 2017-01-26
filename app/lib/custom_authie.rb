@@ -1,3 +1,5 @@
+Authie.config.session_inactivity_timeout = 12.months
+
 Authie::Session.class_eval do
 
   def self.start(controller, params = {})

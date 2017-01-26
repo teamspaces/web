@@ -13,36 +13,6 @@ class User < ApplicationRecord
 
   after_commit :send_pending_notifications
 
-  #Authie::Session.class_eval do
-  #  def self.start(controller, params = {})
-  #    cookies = controller.send(:cookies)
-  #    self.where(:browser_id => cookies[:browser_id]).each(&:invalidate!)
-  #    session = self.new(params)
-  #    session.controller = controller
-  #    session.browser_id = cookies[:browser_id]
-  #    session.login_at = Time.now
-  #    session.login_ip = controller.request.ip
-
-
-   #   session.team_id = controller.try(:current_team)&.id
-
-  #    session.save!
-  #    session
-  #  end
-
-    #def touch!
-    #  debugger
-    #end
-
-    #def touch!
-      #self.last_activity_ip = controller.request.ip
-
-        # here save subdomain as well / or team id?
-    #  debugger
-    #end
- # end
-
-
   def name=(name)
     names = name.to_s.split(" ", 2)
     self.first_name = names.first
