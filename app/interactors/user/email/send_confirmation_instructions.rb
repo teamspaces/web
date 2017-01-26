@@ -23,7 +23,7 @@ class User::Email::SendConfirmationInstructions
   private
 
     def confirmation_url
-      requested_url_can_be_redirected_to? ? current_url_with_confirmation_token : root_subdomain_url_with_confirmation_token
+      current_url_is_valid_email_link? ? current_url_with_confirmation_token : root_subdomain_url_with_confirmation_token
     end
 
     def current_url_with_confirmation_token
@@ -34,7 +34,7 @@ class User::Email::SendConfirmationInstructions
       @controller.root_subdomain_url(subdomain: @controller.current_team.subdomain, confirmation_token: @user.confirmation_token)
     end
 
-    def requested_url_can_be_redirected_to?
+    def current_url_is_valid_email_link?
       @controller.request.get?
     end
 end
