@@ -8,6 +8,11 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate_user!
 
+
+
+
+
+
   def sign_in_url_for(options)
     available_users.add(options[:user])
 
