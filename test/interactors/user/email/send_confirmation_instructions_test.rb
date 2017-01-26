@@ -13,10 +13,11 @@ describe User::Email::SendConfirmationInstructions, :controller do
   describe "#call" do
     describe "current_url can be used as email link for confirmation" do
       it "sends confirmation mail, with link to current url" do
-        CustomDeviseMailer.expects(:confirmation_instructions)
-                          .with(unconfirmed_user, unconfirmed_user.confirmation_token,
-                                {confirmation_url: "http://spaces.example.com/team?confirmation_token=#{unconfirmed_user.confirmation_token}"})
-                          .returns(mailer_mock)
+        unconfirmed_user.expects(:send_devise_notification)
+                        .with(:confirmation_instructions,
+                              unconfirmed_user.confirmation_token,
+                              {confirmation_url: "http://spaces.example.com/team?confirmation_token=#{unconfirmed_user.confirmation_token}"})
+                        .returns(true)
 
         get team_url(subdomain: unconfirmed_user.teams.first.subdomain)
       end
@@ -24,10 +25,11 @@ describe User::Email::SendConfirmationInstructions, :controller do
 
     describe "current_url can't be used as email link for confirmation" do
       it "sends confirmation mail, with link to subdomain root url" do
-        CustomDeviseMailer.expects(:confirmation_instructions)
-                          .with(unconfirmed_user, unconfirmed_user.confirmation_token,
-                                {confirmation_url: "http://spaces.example.com/?confirmation_token=#{unconfirmed_user.confirmation_token}"})
-                          .returns(mailer_mock)
+        unconfirmed_user.expects(:send_devise_notification)
+                        .with(:confirmation_instructions,
+                              unconfirmed_user.confirmation_token,
+                              {confirmation_url: "http://spaces.example.com/?confirmation_token=#{unconfirmed_user.confirmation_token}"})
+                        .returns(true)
 
         post user_email_confirmation_url(subdomain: unconfirmed_user.teams.first.subdomain)
       end
