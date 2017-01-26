@@ -55,6 +55,33 @@ end
 class ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
+  def sign_in(user)
+    ApplicationController.any_instance
+                         .stubs(:logged_in?)
+                         .returns(true)
+
+    ApplicationController.any_instance
+                         .stubs(:current_user)
+                         .returns(user)
+
+
+    session_mock = Struct.new(:hello) do
+      def self.invalidate!
+        ApplicationController.any_instance.unstub(:logged_in?)
+        ApplicationController.any_instance.unstub(:current_user)
+      end
+    end
+
+
+    ApplicationController.any_instance
+                         .stubs(:auth_session)
+                         .returns(session_mock)
+  end
+
+  def sign_out(user)
+    #.any_instance
+  end
+
   before do
     DatabaseCleaner.start
   end

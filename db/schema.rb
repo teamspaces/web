@@ -116,11 +116,10 @@ ActiveRecord::Schema.define(version: 20170126175529) do
 
   create_table "teams", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string   "subdomain"
     t.jsonb    "logo_data"
-    t.text     "allowed_email_domains", default: [],              array: true
     t.index ["subdomain"], name: "index_teams_on_subdomain", using: :btree
   end
 
