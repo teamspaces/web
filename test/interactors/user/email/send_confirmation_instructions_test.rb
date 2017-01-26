@@ -16,7 +16,7 @@ describe User::Email::SendConfirmationInstructions, :controller do
         unconfirmed_user.expects(:send_devise_notification)
                         .with(:confirmation_instructions,
                               unconfirmed_user.confirmation_token,
-                              {confirmation_url: "http://spaces.example.com/team?confirmation_token=#{unconfirmed_user.confirmation_token}"})
+                              {:confirmation_url => "http://spaces.example.com/team?confirmation_token=#{unconfirmed_user.confirmation_token}"})
                         .returns(true)
 
         get team_url(subdomain: unconfirmed_user.teams.first.subdomain)
@@ -28,7 +28,7 @@ describe User::Email::SendConfirmationInstructions, :controller do
         unconfirmed_user.expects(:send_devise_notification)
                         .with(:confirmation_instructions,
                               unconfirmed_user.confirmation_token,
-                              {confirmation_url: "http://spaces.example.com/?confirmation_token=#{unconfirmed_user.confirmation_token}"})
+                              {:confirmation_url => "http://spaces.example.com/?confirmation_token=#{unconfirmed_user.confirmation_token}"})
                         .returns(true)
 
         post user_email_confirmation_url(subdomain: unconfirmed_user.teams.first.subdomain)
