@@ -1,6 +1,5 @@
 module Authie
   class ControllerDelegate
-    unloadable
 
     def initialize(controller)
       @controller = controller

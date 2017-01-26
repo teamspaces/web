@@ -38,7 +38,8 @@ class ApplicationController < ActionController::Base
 
   def authenticate_user!
     unless logged_in?
-     redirect_to root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]), :alert => "You must login to view this resource"
+      debugger
+     redirect_to root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], hello: "ASDF"), :alert => "You must login to view this resource"
     end
   end
 

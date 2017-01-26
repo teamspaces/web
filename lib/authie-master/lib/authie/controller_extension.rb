@@ -2,7 +2,6 @@ require 'authie/controller_delegate'
 
 module Authie
   module ControllerExtension
-    unloadable
 
     def self.included(base)
       base.helper_method :logged_in?, :current_user, :auth_session

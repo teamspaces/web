@@ -51,6 +51,12 @@ module Authie
       self.last_activity_at = Time.now
       self.last_activity_ip = controller.request.ip
       self.last_activity_path = controller.request.path
+
+      #TODO AUTHIE
+      self.team_id = controller.try(:current_team)&.id
+      #end
+
+
       self.requests += 1
       self.save!
     end
@@ -207,12 +213,29 @@ module Authie
     # Any other sessions for the browser will be invalidated.
     def self.start(controller, params = {})
       cookies = controller.send(:cookies)
-      self.where(:browser_id => cookies[:browser_id]).each(&:invalidate!)
+
+      #TODDDOOO AUTHIE
+
+      team_id = controller.try(:current_team)&.id
+
+      self.where(browser_id: cookies[:browser_id], team_id: team_id).each(&:invalidate!)
+
+
+      #TODO AUtHIE
+
+
       session = self.new(params)
       session.controller = controller
       session.browser_id = cookies[:browser_id]
       session.login_at = Time.now
       session.login_ip = controller.request.ip
+
+      #TODO
+
+      session.team_id = team_id
+
+      #TODO
+
       session.save!
       session
     end
