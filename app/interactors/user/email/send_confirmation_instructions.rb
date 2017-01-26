@@ -26,15 +26,15 @@ class User::Email::SendConfirmationInstructions
       current_url_is_valid_email_link? ? current_url_with_confirmation_token : root_subdomain_url_with_confirmation_token
     end
 
+    def current_url_is_valid_email_link?
+      @controller.request.get?
+    end
+
     def current_url_with_confirmation_token
       @controller.url_for(@controller.params.permit!.merge(confirmation_token: @user.confirmation_token))
     end
 
     def root_subdomain_url_with_confirmation_token
       @controller.root_subdomain_url(subdomain: @controller.current_team.subdomain, confirmation_token: @user.confirmation_token)
-    end
-
-    def current_url_is_valid_email_link?
-      @controller.request.get?
     end
 end
