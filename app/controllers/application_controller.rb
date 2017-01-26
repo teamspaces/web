@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
     self.current_user = user
   end
 
-  def sign_out
+  def sign_out(user)
     logout_from_current_team
   end
 
