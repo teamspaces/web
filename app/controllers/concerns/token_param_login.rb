@@ -12,8 +12,6 @@ module TokenParamLogin
 
     sign_in(result.user) if result.success?
 
-    debugger
-
     params.delete :auth_token
     redirect_to request.path, params: params
   end

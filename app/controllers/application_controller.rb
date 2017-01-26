@@ -11,8 +11,6 @@ class ApplicationController < ActionController::Base
   def sign_in_url_for(options)
     available_users.add(options[:user])
 
-    debugger
-
     User::SignInUrlDecider.call({ controller: self }.merge(options.to_h)).url
   end
 
@@ -30,14 +28,12 @@ class ApplicationController < ActionController::Base
 
   #overwrite devise
   def sign_in(user)
-    debugger
     self.current_user = user
   end
 
   def authenticate_user!
-    debugger
     unless logged_in?
-     # redirect_to root_url, :alert => "You must login to view this resource"
+     redirect_to root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]), :alert => "You must login to view this resource"
     end
   end
 

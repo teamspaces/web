@@ -9,7 +9,19 @@ class User < ApplicationRecord
   has_many :team_members, dependent: :destroy
   has_many :teams, through: :team_members
 
+  has_many :sessions, :class_name => 'Authie::Session', :foreign_key => 'user_id', :dependent => :destroy
+
   after_commit :send_pending_notifications
+
+    Authie::Session.class_eval do
+    def touch!
+      #self.last_activity_ip = controller.request.ip
+
+        # here save subdomain as well / or team id?
+      debugger
+    end
+  end
+
 
   def name=(name)
     names = name.to_s.split(" ", 2)
