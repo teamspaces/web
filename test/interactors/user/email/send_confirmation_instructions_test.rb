@@ -24,19 +24,6 @@ describe User::Email::SendConfirmationInstructions, :controller do
       end
     end
 
-    describe "current_url can't be used as email link for confirmation" do
-      it "sends confirmation mail, with link to subdomain root url" do
-         post user_email_confirmation_url(subdomain: unconfirmed_user.teams.first.subdomain)
-
-        CustomDeviseMailer.expects(:confirmation_instructions)
-                          .with(unconfirmed_user, unconfirmed_user.confirmation_token,
-                                {confirmation_url: "http://spaces.example.com/?confirmation_token=#{unconfirmed_user.confirmation_token}"})
-                          .returns(mailer_mock)
-
-        assert subject.call(user: unconfirmed_user, controller: @controller).success?
-      end
-    end
-
     it "saves email sent at time" do
       get team_url(subdomain: unconfirmed_user.teams.first.subdomain)
 
