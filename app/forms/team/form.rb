@@ -49,10 +49,17 @@ class Team::Form
       @team.logo_attacher.errors.any?
     end
 
+    def has_generated_logo_and_name_changed?
+       Image.new(@team.logo).generated? && @team.name_changed?
+    end
+
     def persist!
       @team.assign_attributes(name: name, subdomain: subdomain)
-      #has_generated_avatar_and_name_changed?
-      Team::Logo::AttachGeneratedLogo.call(team: team) unless @team.logo.present?
+
+      if @team.logo.blank? || has_generated_logo_and_name_changed?
+        Team::Logo::AttachGeneratedLogo.call(team: team)
+      end
+
       @team.save
     end
 end

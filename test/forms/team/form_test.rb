@@ -2,6 +2,7 @@ require "test_helper"
 
 describe Team::Form, :model do
   let(:existing_team) { teams(:spaces) }
+  let(:generated_logo) { "generated_logo" }
   subject { Team::Form.new }
 
   before(:each) do
@@ -62,14 +63,26 @@ describe Team::Form, :model do
       end
     end
 
-    context "has generated logo, and name changes" do
-      let(:team_with_generated_logo) do
-        User::Avatar::AttachGeneratedAvatar.call(user: user)
-        user
+    describe "has generated logo" do
+      before(:each) do
+        existing_team.stubs(:logo).returns(generated_logo)
+        Image.any_instance.stubs(:generated?).returns(true)
       end
 
-      it "generates a new team logo" do
+      context "team name changes" do
+        it "generates a new logo" do
+          Team::Logo::AttachGeneratedLogo.expects(:call).returns(true)
 
+          Team::Form.new(team: existing_team, params: { name: "new_name" }).save
+        end
+      end
+
+      context "team name does not change" do
+        it "does not generate a new logo" do
+          Team::Logo::AttachGeneratedLogo.expects(:call).never
+
+          Team::Form.new(team: existing_team, params: { name: existing_team.name }).save
+        end
       end
     end
   end
