@@ -6,29 +6,25 @@ module CustomAuthentication
   end
 
   def sign_out(user)
-    logout_from_current_team
+    sign_out_from_subdomain
   end
 
   def authenticate_user!(opts={})
     if !logged_in? && (!devise_controller? || opts.delete(:force))
-      redirect_to root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]), :alert => "You must login to view this resource"
+      redirect_to root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]), alert: t("errors.messages.unauthorized")
     end
   end
 
 
-  def logout_from_current_team
+  def sign_out_from_subdomain
     auth_session.invalidate!
   end
 
-  def logout_from_all_user_teams_on_device
-    Authie::Session.where(user: current_user, browser_id: auth_session.browser_id).each do |s|
-      s.invalidate!
-    end
+  def sign_out_from_users_subdomains
+    Authie::Session.where(user: current_user, browser_id: auth_session.browser_id).each(&:invalidate!)
   end
 
-  def logout_from_all_teams_on_device
-    Authie::Session.where(browser_id: auth_session.browser_id).each do |s|
-      s.invalidate!
-    end
+  def sign_out_from_all_subdomains_in_browser
+    Authie::Session.where(browser_id: auth_session.browser_id).each(&:invalidate!)
   end
 end

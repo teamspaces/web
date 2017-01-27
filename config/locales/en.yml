@@ -32,6 +32,7 @@ en:
       cannot_start_end_with_hypen: cannot start or end with a hyphen
       must_be_alphanumeric_or_hyphen: must be alphanumeric (or hyphen)
       does_not_match_invited_email: doesn't match invited email
+      unauthorized: "To continue, Please sign in or create an account"
     file:
       mime_type_inclusion: "isn't of allowed type (allowed types: %{list})"
       max_size: "is too large (max is %{max} MB)"
