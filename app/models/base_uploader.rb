@@ -18,11 +18,6 @@ class BaseUploader < Shrine
     validate_max_size 8*1024*1024
   end
 
-  def class_field_name
-    #example: Team.logo = team_logo / Space.cover = space_cover
-    "#{context[:record].class.name.underscore}_#{context[:name]}"
-  end
-
   def generate_location(io, context)
     class_field_name = "#{context[:record].class.name.underscore}_#{context[:name]}"
     version = context[:version] if context[:version]
