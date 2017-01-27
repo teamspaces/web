@@ -16,7 +16,7 @@ class SpacesController < SubdomainBaseController
 
   # GET /spaces/new
   def new
-    @space_form = Space::Form.new(space: policy_scope(Space).build, params: space_params)
+    @space_form = Space::Form.new(space: policy_scope(Space).build)
 
     authorize @space_form.space, :new?
   end

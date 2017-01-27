@@ -6,11 +6,13 @@ class Space::Form
   attr_reader :space
   delegate :cached_cover_data, to: :space
   delegate :cover_url, to: :space
+  delegate :id, to: :space
   delegate :model_name, to: :space
   delegate :persisted?, to: :space
 
   attribute :name, String
   attribute :cover
+  attribute :team_id
 
   validates :name, presence: true
   validates :team_id, presence: true
@@ -37,11 +39,11 @@ class Space::Form
       @space.cover_attacher.errors.each do |message|
         self.errors.add(:cover, message)
       end
-      @team.cover_attacher.errors.any?
+      @space.cover_attacher.errors.any?
     end
 
     def persist!
-      @space.assign_attributes(name: name)
+      @space.assign_attributes(name: name, team_id: team_id)
       @space.save
     end
 end
