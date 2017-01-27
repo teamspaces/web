@@ -21,9 +21,7 @@ describe "Available Teams", :capybara do
       find("a[href='#{show_team_subdomain_path(teams(:spaces).subdomain)}']").click
 
       # assert signed in into spaces team
-      assert_content "sign out"
-      assert_content email_user.first_name
-      assert_content "Spaces"
+      assert_content "New Space"
 
       # go back to landing on default domain
       visit "/landing"
