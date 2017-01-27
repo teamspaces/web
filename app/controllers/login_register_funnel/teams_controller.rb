@@ -5,13 +5,13 @@ class LoginRegisterFunnel::TeamsController < LoginRegisterFunnel::BaseController
   def new
     shared_user_info.start_team_creation!
 
-    @team_form = Team::Form.new
+    @team_form = Team::CreateTeamForUserForm.new
   end
 
   def create
-    @team_form = Team::Form.new(params: team_params)
+    @team_form = Team::CreateTeamForUserForm.new(user: current_user, team_params: team_params)
 
-    if @team_form.save && CreateTeamMemberForNewTeam.call(user: current_user, team: @team_form.team).success?
+    if @team_form.save
       redirect_to sign_in_url_for(user: current_user, created_team_to_redirect_to: @team_form.team)
 
       sign_out_user_from_default_subdomain(current_user)
