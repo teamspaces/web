@@ -1,4 +1,4 @@
-class SpaceCoverUploader < BaseUploaders
+class SpaceCoverUploader < BaseUploader
 
   def generate_location(io, context)
     type  = "space_cover"
