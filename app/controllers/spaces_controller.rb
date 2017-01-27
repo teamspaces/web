@@ -16,19 +16,20 @@ class SpacesController < SubdomainBaseController
 
   # GET /spaces/new
   def new
-    @space = policy_scope(Space).build
+    @space = Space::SpaceForm.new(params: space_params)
     authorize @space, :new?
   end
 
   # GET /spaces/1/edit
   def edit
     authorize @space, :edit?
+    Space::SpaceForm.new(space: @space)
   end
 
   # POST /spaces
   # POST /spaces.json
   def create
-    @space = policy_scope(Space).new(space_params)
+    @space = Space::SpaceForm.new(params: space_params)
 
     authorize @space, :create?
 
@@ -46,6 +47,7 @@ class SpacesController < SubdomainBaseController
   # PATCH/PUT /spaces/1
   # PATCH/PUT /spaces/1.json
   def update
+    Space::SpaceForm.new(space: @space, params: space_params)
     authorize @space, :update?
 
     respond_to do |format|
@@ -79,6 +81,6 @@ class SpacesController < SubdomainBaseController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def space_params
-      params.require(:space).permit(:name)
+      params.require(:space).permit(:name, :cover)
     end
 end
