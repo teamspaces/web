@@ -41,10 +41,8 @@ describe LoginRegisterFunnel::TeamsController do
         post login_register_funnel_create_team_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]), params: valid_team_attributes
       end
 
-      it "creates team, with uploaded logo" do
-        Team::Logo::AttachUploadedLogo.expects(:call)
-                                      .with(has_entry(:file, uploaded_logo_file))
-                                      .returns(true)
+      it "creates team, with team member" do
+        CreateTeamMemberForNewTeam.expects(:call)
 
         assert_difference -> { Team.count }, 1 do
           post_valid_team_attributes

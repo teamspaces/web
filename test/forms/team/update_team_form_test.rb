@@ -5,10 +5,6 @@ describe Team::UpdateTeamForm, :model do
   subject { Team::UpdateTeamForm.new(team) }
   before(:each) { Team::Logo::AttachUploadedLogo.stubs(:call).returns(true) }
 
-  describe "validations" do
-    should validate_presence_of(:name)
-  end
-
   describe "save" do
     it "updates team" do
       subject.name = "My Team"
