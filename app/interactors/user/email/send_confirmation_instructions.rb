@@ -23,7 +23,11 @@ class User::Email::SendConfirmationInstructions
   private
 
     def confirmation_url
-      current_url_is_valid_email_link? ? current_url_with_confirmation_token : root_subdomain_url_with_confirmation_token
+      if current_url_is_valid_email_link?
+        current_url_with_confirmation_token
+      else
+        root_subdomain_url_with_confirmation_token
+      end
     end
 
     def current_url_is_valid_email_link?
@@ -31,10 +35,12 @@ class User::Email::SendConfirmationInstructions
     end
 
     def current_url_with_confirmation_token
-      @controller.url_for(@controller.params.permit!.merge(confirmation_token: @user.confirmation_token))
+      @controller.url_for(@controller.params.permit!
+                                     .merge(confirmation_token: @user.confirmation_token))
     end
 
     def root_subdomain_url_with_confirmation_token
-      @controller.root_subdomain_url(subdomain: @controller.current_team.subdomain, confirmation_token: @user.confirmation_token)
+      @controller.root_subdomain_url(subdomain: @controller.current_team.subdomain,
+                                     confirmation_token: @user.confirmation_token)
     end
 end
