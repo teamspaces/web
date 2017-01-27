@@ -30,18 +30,7 @@ class Team::UpdateTeamForm
     valid? && persist!
   end
 
-  private
 
-    def valid_logo
-      @team.logo_attacher.errors.each do |message|
-        self.errors.add(:logo, message)
-      end
-      @team.logo_attacher.errors.any?
-    end
 
-    def persist!
-      @team.assign_attributes(name: name)
-      @team.save
-    end
 
 end
