@@ -1,6 +1,16 @@
-<main class="space-page">
-  <%= notice %>
+<div class="space-page-container">
+  <main class="space-page">
+    <%= notice %>
 
-  <h1><%= page.title %></h1>
-  <%= sanitize page.contents, scrubber: PageContentsScrubber.new %>
-</main>
+    <h1><%= page.title %></h1>
+
+    <div class="space-page-meta">
+      <!-- TODO Add real values here -->
+      2 minute read. Updated 4 days ago.
+    </div>
+
+    <div class="space-page-content">
+      <%= sanitize page.contents, scrubber: PageContentsScrubber.new %>
+    </div>
+  </main>
+</div>

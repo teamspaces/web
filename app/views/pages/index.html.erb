@@ -2,32 +2,16 @@
 
 <%= render 'sidebar', space: @space, pages: @pages %>
 
-<main class="space-page">
-  <%= notice %>
+<div class="space-page-container">
+  <main class="space-page">
+    <%= notice %>
 
-  <h1>Create your first page</h1>
+    <h1><%= @space.name %></h1>
 
-  <p>
-      <%= link_to "Create a blank page", new_space_page_path(@space) %>
-  </p>
+    <p>
+      It's empty in here. Let's add some pages!
+    </p>
 
-  <h2>Or use one of our templates</h2>
-  <p>
-    Just choose from one below and we will have it setup for you in an instant.
-  </p>
-
-  <table>
-    <thead>
-      <tr>
-        <th>Developers</th>
-        <th>Product</th>
-        <th>Company</th>
-      </tr>
-      <tr>
-        <th>Welcome</th>
-        <th>Customer Support</th>
-        <th>Marketing</th>
-      </tr>
-    </thead>
-  </table>
-</main>
+    <%= link_to "Edit space", new_space_page_path(@space), class: 'button button-primary' %>
+  </main>
+</div>

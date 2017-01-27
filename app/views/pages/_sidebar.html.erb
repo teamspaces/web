@@ -1,7 +1,17 @@
 <aside class="space-sidebar">
   <h3><%= link_to space.name, space_pages_path(space) %></h3>
 
-  <ul>
+  <!-- TODO Add link to space members -->
+  <%= link_to(team_path, class: 'space-sidebar-members') do %>
+    <%= image_tag(current_user.avatar_url(:image_48), alt: current_user.first_name) %>
+
+    <!-- TODO Display (0-3) avatars of other users in this space -->
+    <!-- TODO Replace the last avatar with the amount of avatars that aren't visible, e.g. (+12) -->
+
+    <span></span>
+  <% end %>
+
+  <ul class="space-sidebar-pages">
     <% pages.each do |page| %>
       <% if current_page?(page) %>
         <li class="space-sidebar-active">
@@ -13,9 +23,5 @@
         </li>
       <% end %>
     <% end %>
-
-    <li>
-      <%= link_to '+ Add Page', new_space_page_path(space) %>
-    </li>
   </ul>
 </aside>

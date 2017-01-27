@@ -1,13 +1,13 @@
 .card {
   width: 648px;
   background: #fff;
-  box-shadow: 0 0 0 1px #E6E8EB, 0 1px 3px rgba(0,0,0,0.08);
-  border-radius: 5px;
+  border-radius: 6px;
+  border: 1px solid #EBEDF0;
   margin: 0 auto;
 
   header {
     padding: 30px 48px 29px 48px;
-    border-bottom: 1px solid #E6E8EB;
+    border-bottom: 1px solid #EBEDF0;
 
     h1 {
       font-size: 20px;
