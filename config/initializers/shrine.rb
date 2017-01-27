@@ -3,7 +3,10 @@ require "shrine/storage/file_system"
 require "image_processing/mini_magick"
 require "shrine/storage/s3"
 
-class Shrine::Storage::CustomS3 < Shrine::Storage::S3
+# Our uploaded files are public by default. Shrine busts our
+# CDN cache and spends unnecessary time on generating keys
+# without this.
+class Shrine::Storage::PublicS3 < Shrine::Storage::S3
   def url(id, download: nil, public: true, host: self.host, **options)
     super
   end
@@ -18,8 +21,8 @@ when "s3"
     bucket:            ENV["S3_FILES_BUCKET"]
   }
 
-  { cache: Shrine::Storage::CustomS3.new(prefix: "cache", upload_options: { acl: "public-read", cache_control: "public, max-age=#{30.days}" }, **s3_options),
-    store: Shrine::Storage::CustomS3.new(prefix: "store", upload_options: { acl: "public-read", cache_control: "public, max-age=#{30.days}" }, **s3_options) }
+  { cache: Shrine::Storage::PublicS3.new(prefix: "cache", upload_options: { acl: "public-read", cache_control: "public, max-age=#{30.days}" }, **s3_options),
+    store: Shrine::Storage::PublicS3.new(prefix: "store", upload_options: { acl: "public-read", cache_control: "public, max-age=#{30.days}" }, **s3_options) }
 else # default to 'local'
   { cache: Shrine::Storage::FileSystem.new("public", prefix: "uploads/cache"),
     store: Shrine::Storage::FileSystem.new("public", prefix: "uploads/store") }
