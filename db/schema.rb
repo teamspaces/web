@@ -39,15 +39,13 @@ ActiveRecord::Schema.define(version: 20170126175529) do
     t.string   "last_activity_ip"
     t.string   "last_activity_path"
     t.string   "user_agent"
+    t.integer  "requests",           default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "user_type"
     t.integer  "parent_id"
-    t.datetime "two_factored_at"
-    t.string   "two_factored_ip"
-    t.integer  "requests",           default: 0
-    t.datetime "password_seen_at"
     t.integer  "team_id"
+    t.index ["browser_id", "team_id"], name: "index_authie_sessions_on_browser_id_and_team_id", using: :btree
     t.index ["browser_id"], name: "index_authie_sessions_on_browser_id", using: :btree
     t.index ["token"], name: "index_authie_sessions_on_token", using: :btree
     t.index ["user_id"], name: "index_authie_sessions_on_user_id", using: :btree
@@ -140,11 +138,6 @@ ActiveRecord::Schema.define(version: 20170126175529) do
     t.string   "last_name"
     t.boolean  "allow_email_login",      default: true
     t.jsonb    "avatar_data"
-    t.string   "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.string   "unconfirmed_email"
-    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_users_on_email", using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
