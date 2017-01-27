@@ -19,7 +19,7 @@ class Team::Form
   validate :unique_subdomain
   validate :valid_logo
 
-  def initialize(team:, params: {})
+  def initialize(team: Team.new, params: {})
     @team = team
 
     super(team.attributes)
@@ -51,6 +51,7 @@ class Team::Form
 
     def persist!
       @team.assign_attributes(name: name, subdomain: subdomain)
+      #has_generated_avatar_and_name_changed?
       Team::Logo::AttachGeneratedLogo.call(team: team) unless @team.logo.present?
       @team.save
     end
