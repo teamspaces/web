@@ -19,14 +19,7 @@ class Team::CreateTeamForUserForm
   validate :unique_subdomain
   validate :valid_logo
 
-  def initialize(params={})
-    @team = Team.new
-    super
-  end
 
-  def logo=(uploaded_file)
-    Team::Logo::AttachUploadedLogo.call(team: @team, file: uploaded_file)
-  end
 
   def save
     valid? && persist!
@@ -47,11 +40,5 @@ class Team::CreateTeamForUserForm
       end
     end
 
-    def persist!
-      @team.assign_attributes(name: name, subdomain: subdomain)
-      Team::Logo::AttachGeneratedLogo.call(team: team) unless @team.logo.present?
-      @team.save
 
-      CreateTeamMemberForNewTeam.call(user: user, team: @team)
-    end
 end

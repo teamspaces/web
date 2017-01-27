@@ -25,16 +25,17 @@ class Team::Form
   def initialize(team:, params: {})
     @team = team
 
-    super(@team.attributes)
+    super(team.attributes)
     super(params)
   end
 
-
+  def logo=(file)
+    Team::Logo::AttachUploadedLogo.call(team: @team, file: file)
+  end
 
   def save
     valid? && persist!
   end
-
 
   private
 
@@ -51,4 +52,9 @@ class Team::Form
       @team.logo_attacher.errors.any?
     end
 
+    def persist!
+      @team.assign_attributes(name: name, subdomain: subdomain)
+      Team::Logo::AttachGeneratedLogo.call(team: team) unless @team.logo.present?
+      @team.save
+    end
 end

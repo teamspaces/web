@@ -9,6 +9,7 @@ class LoginRegisterFunnel::TeamsController < LoginRegisterFunnel::BaseController
   end
 
   def create
+    CreateTeamMemberForNewTeam.call(user: user, team: @team)
     @team_form = Team::CreateTeamForUserForm.new(create_team_for_user_form_params.to_h
                                                  .merge(user: current_user))
 
