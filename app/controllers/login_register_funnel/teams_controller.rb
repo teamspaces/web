@@ -5,15 +5,13 @@ class LoginRegisterFunnel::TeamsController < LoginRegisterFunnel::BaseController
   def new
     shared_user_info.start_team_creation!
 
-    @team_form = Team::CreateTeamForUserForm.new
+    @team_form = Team::Form.new(team: policy_scope(Team).build)
   end
 
   def create
-    CreateTeamMemberForNewTeam.call(user: user, team: @team)
-    @team_form = Team::CreateTeamForUserForm.new(create_team_for_user_form_params.to_h
-                                                 .merge(user: current_user))
+    @team_form = Team::Form.new(team: policy_scope(Team).build, params: team_params)
 
-    if @team_form.save
+    if @team_form.save && CreateTeamMemberForNewTeam.call(user: user, team: @team_form.team)
       redirect_to sign_in_url_for(user: current_user, created_team_to_redirect_to: @team_form.team)
 
       sign_out_user_from_default_subdomain(current_user)
@@ -36,8 +34,7 @@ class LoginRegisterFunnel::TeamsController < LoginRegisterFunnel::BaseController
 
   private
 
-    def create_team_for_user_form_params
-      params.require(:team_create_team_for_user_form)
-            .permit(:name, :subdomain, :logo)
+    def team_params
+      params.require(:team).permit(:name, :subdomain, :logo).to_h
     end
 end
