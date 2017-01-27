@@ -7,11 +7,16 @@ class User::AcceptInvitation
     @invited_user = context.invited_user
     @invitation = context.invitation
 
-    context.fail! unless accept_invitation
+    context.fail! unless accept_invitation && confirm_email
   end
 
   def accept_invitation
     add_invited_user_to_team_members && save_invitation_invited_user
+  end
+
+  def confirm_email
+    invited_user.confirm if invitation.email_invitation?
+    true
   end
 
   private
