@@ -17,29 +17,31 @@ class SpacesController < SubdomainBaseController
   # GET /spaces/new
   def new
     @space_form = Space::Form.new(space: policy_scope(Space).build, params: space_params)
-    authorize @space, :new?
+
+    authorize @space_form.space, :new?
   end
 
   # GET /spaces/1/edit
   def edit
-    authorize @space, :edit?
-    Space::Form.new(space: @space)
+    @space_form = Space::Form.new(space: @space)
+
+    authorize @space_form.space, :edit?
   end
 
   # POST /spaces
   # POST /spaces.json
   def create
-    @space = Space::Form.new(space: policy_scope(Space).build, params: space_params)
+    @space_form = Space::Form.new(space: policy_scope(Space).build, params: space_params)
 
-    authorize @space, :create?
+    authorize @space_form.space, :create?
 
     respond_to do |format|
-      if @space.save
-        format.html { redirect_to space_pages_path(@space), notice: 'Space was successfully created.' }
-        format.json { render :show, status: :created, location: @space }
+      if @space_form.save
+        format.html { redirect_to space_pages_path(@space_form.space), notice: 'Space was successfully created.' }
+        format.json { render :show, status: :created, location: @space_form.space }
       else
         format.html { render :new }
-        format.json { render json: @space.errors, status: :unprocessable_entity }
+        format.json { render json: @space_form.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -47,16 +49,17 @@ class SpacesController < SubdomainBaseController
   # PATCH/PUT /spaces/1
   # PATCH/PUT /spaces/1.json
   def update
-    Space::Form.new(space: @space, params: space_params)
-    authorize @space, :update?
+    @space_form = Space::Form.new(space: @space, params: space_params)
+
+    authorize @space_form.space, :update?
 
     respond_to do |format|
-      if @space.update(space_params)
-        format.html { redirect_to @space, notice: 'Space was successfully updated.' }
-        format.json { render :show, status: :ok, location: @space }
+      if @space_form.save
+        format.html { redirect_to @space_form.space, notice: 'Space was successfully updated.' }
+        format.json { render :show, status: :ok, location: @space_form.space }
       else
         format.html { render :edit }
-        format.json { render json: @space.errors, status: :unprocessable_entity }
+        format.json { render json: @space_form.errors, status: :unprocessable_entity }
       end
     end
   end
