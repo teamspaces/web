@@ -1,4 +1,4 @@
-module CustomAuthentication
+module SessionAuthentication
 
   #overwrite devise
   def sign_in(user)
