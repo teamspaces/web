@@ -4,6 +4,7 @@ ulf: &default
   last_name: Bürgman
   allow_email_login: true
   encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  confirmed_at: 2015-01-01 01:01:01
 
 sven:
   <<: *default
@@ -25,17 +26,17 @@ with_several_teams:
  first_name: Maja
  last_name: Lundgren
 
-slack_user_milad:
+slack_user_milad: &slack_user_milad
   <<: *default
   first_name: Milad
   last_name: Marzano
   allow_email_login: false
+  confirmed_at:
 
 slack_user_emil:
-  <<: *default
+  <<: *slack_user_milad
   first_name: Emil
   last_name: Danesi
-  allow_email_login: false
 
 without_team:
   <<: *default
@@ -60,3 +61,14 @@ with_two_spaces:
   first_name: Madeleine
   last_name: With Two Spaces
   email: madeleien.with-two-spaces@spaces.is
+
+with_unconfirmed_email:
+  <<: *default
+  confirmation_token: 23skokoi9hunun89h8h
+  confirmed_at:
+
+with_new_unconfirmed_email:
+  <<: *default
+  confirmation_token: s352123alienh8
+  confirmed_at:
+  unconfirmed_email: new_unconfirmed_address@buisness.com

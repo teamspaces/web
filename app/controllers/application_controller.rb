@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   include Pundit
   include HTTPBasicAuthentication
   include TokenParamLogin
+  include EmailConfirmationWithToken
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
