@@ -24,9 +24,7 @@ describe "Accept Invitation", :capybara do
         fill_in("Password confirmation", with: "password")
         find('input[name="commit"]').click
 
-        assert_content "Spaces"
-        assert_content "sign out"
-        assert_content "Max"
+        assert_content "New Space"
       end
     end
   end
