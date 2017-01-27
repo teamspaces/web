@@ -1,9 +1,9 @@
-<%= form_for([@team, space]) do |f| %>
-  <% if space.errors.any? %>
-    <h2><%= pluralize(space.errors.count, "error") %> prohibited this space from being saved:</h2>
+<%= form_for(form) do |f| %>
+  <% if form.errors.any? %>
+    <h2><%= pluralize(form.errors.count, "error") %> prohibited this space from being saved:</h2>
 
     <ul>
-    <% space.errors.full_messages.each do |message| %>
+    <% form.errors.full_messages.each do |message| %>
       <li><%= message %></li>
     <% end %>
     </ul>
@@ -11,6 +11,10 @@
 
   <%= f.label :name %>
   <%= f.text_field :name %>
+
+  <%= f.label :cover %>
+  <%= f.hidden_field :cover, value: form.cached_cover_data %>
+  <%= f.file_field :cover %>
 
   <%= f.submit %>
 <% end %>
