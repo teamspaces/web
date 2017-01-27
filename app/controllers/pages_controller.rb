@@ -3,6 +3,31 @@ class PagesController < SubdomainBaseController
   before_action :set_space, only: [:index, :new, :create]
   layout 'client'
 
+  helper_method :render_hash_tree
+  def render_hash_tree(tree)
+    helpers.content_tag :ul do
+      tree.each_pair do |node, children|
+        if helpers.current_page?(node)
+          content = helpers.link_to(node.title, node, class: "space-sidebar-active")
+        else
+          content = helpers.link_to(node.title, node)
+        end
+        content = helpers.content_tag(:h3, content.html_safe)
+
+        content += render_hash_tree(children) if children.any?
+        helpers.concat helpers.content_tag(:li, content.html_safe)
+
+        if node.root?
+          add_page_link = helpers.link_to('+ Add Page', new_space_page_path(node.space))
+        else
+          add_page_link = helpers.link_to('+ Add Page', new_space_page_path(node.space, parent_id: node.parent_id))
+        end
+
+        helpers.concat helpers.content_tag(:li, add_page_link.html_safe)
+      end
+    end
+  end
+
   helper_method :editor_settings
   def editor_settings
     EditorSettingsHashPresenter
