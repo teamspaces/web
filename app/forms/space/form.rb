@@ -10,12 +10,12 @@ class Space::Form
   delegate :model_name, to: :space
   delegate :persisted?, to: :space
 
+  attribute :team, Team
   attribute :name, String
   attribute :cover
-  attribute :team_id
 
   validates :name, presence: true
-  validates :team_id, presence: true
+  validates :team, presence: true
   validate :valid_cover
 
   def initialize(space:, params: {})
@@ -43,7 +43,7 @@ class Space::Form
     end
 
     def persist!
-      @space.assign_attributes(name: name, team_id: team_id)
+      @space.assign_attributes(name: name, team: team)
       @space.save
     end
 end
