@@ -6,16 +6,13 @@ class Team::Form
   attr_reader :team
   delegate :cached_logo_data, to: :team
   delegate :logo_url, to: :team
-  delegate :id, to: :team
   delegate :model_name, to: :team
   delegate :persisted?, to: :team
 
-  attribute :user, User
   attribute :name, String
   attribute :subdomain, String
   attribute :logo
 
-  validates :user, presence: true
   validates :name, presence: true
   validates :subdomain, presence: true,
                         subdomain: true
@@ -40,7 +37,7 @@ class Team::Form
   private
 
     def unique_subdomain
-      if Team.where(subdomain: subdomain).exists?
+      if Team.where(subdomain: subdomain).where.not(id: team.id).exists?
         errors.add(:subdomain, :taken)
       end
     end
