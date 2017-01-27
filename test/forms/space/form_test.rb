@@ -7,7 +7,7 @@ describe Space::Form, :model do
 
   describe "validations" do
     should validate_presence_of(:name)
-    should validate_presence_of(:team_id)
+    should validate_presence_of(:team)
   end
 
   describe "space cover" do
