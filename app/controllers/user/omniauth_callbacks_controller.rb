@@ -1,4 +1,4 @@
-class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+class User::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   STATE_PARAM = "state".freeze
   LOGIN_STATE = "login".freeze

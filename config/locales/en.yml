@@ -1,6 +1,6 @@
 # http://guides.rubyonrails.org/i18n.html.
 en:
-  users:
+  user:
     omniauth_callbacks:
       # TODO: Move these errors into the models instead.
       # errors[:base] << "This person is invalid because ..."
@@ -54,4 +54,5 @@ en:
       user:
         update_password: Update Password
         update_personal_info: Update Personal Info
+        update_email: Update my email-address
         reset_avatar: Remove avatar
