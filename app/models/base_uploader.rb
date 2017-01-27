@@ -24,6 +24,7 @@ class BaseUploader < Shrine
   end
 
   def generate_location(io, context)
+    class_field_name = "#{context[:record].class.name.underscore}_#{context[:name]}"
     version = context[:version] if context[:version]
     name  = super # the default unique identifier
 
@@ -35,6 +36,6 @@ class BaseUploader < Shrine
   end
 
   Attacher.default_url do |options|
-    "default_#{class_field_name}.jpg"
+    "default_#{context[:record].class.name.underscore}_#{context[:name]}.jpg"
   end
 end
