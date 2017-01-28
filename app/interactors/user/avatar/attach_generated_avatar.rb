@@ -17,7 +17,9 @@ class User::Avatar::AttachGeneratedAvatar
   private
 
     def generated_avatar_image
-      jpg_blob = Avatarly.generate_avatar(@user.name, { size: UserAvatar::SIZES.max, format: "jpg" })
+      jpg_blob = Avatarly.generate_avatar(@user.name, { background_color: "#0099E5",
+                                                        size: UserAvatar::SIZES.max,
+                                                        format: "jpg" })
       Shrine::FakeIO.new(jpg_blob, filename: "avatar.jpg")
     end
 end
