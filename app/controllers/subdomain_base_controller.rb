@@ -10,8 +10,13 @@ class SubdomainBaseController < ApplicationController
 
   helper_method :avatar_users
   def avatar_users
-    @avatar_users ||= current_team.users.order("RANDOM()")
-                                        .limit(AVATAR_USERS_TO_SHOW)
+    @avatar_user_ids ||=
+      user_ids = current_team.users
+                             .limit(100)
+                             .pluck(:id)
+                             .sample(AVATAR_USERS_TO_SHOW)
+
+    @avatar_users ||= User.where(id: @avatar_user_ids).all
   end
 
   helper_method :number_of_unseen_avatars
