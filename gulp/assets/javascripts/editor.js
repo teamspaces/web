@@ -77,11 +77,11 @@
             modules: {
                 syntax: true,
                 toolbar: [
-                    [{ header: [1, 2, 3, false] }],
-                    ["bold", "italic", "underline", "strike"],
-                    [{ "list": "ordered"}, { "list": "bullet" }],
-                    ["link", "code-block"],
-                    ["clean"]
+                  [{ "header": [2, 3, 4, false] }],
+                  ["bold", "italic", "underline", "strike"],
+                  [{ "list": "ordered"}, { "list": "bullet" }],
+                  ["link", "code-block"],
+                  ["clean"]
                 ]
             }
         };

@@ -72,9 +72,7 @@ describe "Email Register", :capybara do
       visit confirm_email_link
 
       # confirms email and lands on team-page
-      assert_content "sign out"
-      assert_content user_attributes[:email]
-      assert_content "Team"
+      assert_content "Invite"
     end
   end
 end

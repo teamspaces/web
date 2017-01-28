@@ -21,9 +21,7 @@ describe "Available Teams", :capybara do
       find("a[href='#{show_team_subdomain_path(teams(:spaces).subdomain)}']").click
 
       # assert signed in into spaces team
-      assert_content "sign out"
-      assert_content email_user.first_name
-      assert_content "Spaces"
+      assert_content "New Space"
 
       # go back to landing on default domain
       visit "/landing"
@@ -38,9 +36,7 @@ describe "Available Teams", :capybara do
       switch_to_window(windows.last)
 
       # assert user automatically signed in into spaces team
-      assert_content "sign out"
-      assert_content email_user.first_name
-      assert_content "Spaces"
+      assert_content "New Space"
 
       # go back to landing on default domain
       visit "/landing"
@@ -56,9 +52,7 @@ describe "Available Teams", :capybara do
       click_on "Login with my account"
 
       # assert signed in into power-rangers team
-      assert_content "sign out"
-      assert_content email_user.first_name
-      assert_content "Spaces"
+      assert_content "New Space"
     end
   end
 end
