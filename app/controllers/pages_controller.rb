@@ -3,6 +3,13 @@ class PagesController < SubdomainBaseController
   before_action :set_space, only: [:index, :new, :create]
   layout 'client'
 
+  helper_method :number_of_words_to_minutes_reading
+  def number_of_words_to_minutes_reading(number_of_words)
+    reading_speed = 300
+    minutes = (number_of_words / reading_speed).floor
+    [minutes, 1].max
+  end
+
   helper_method :editor_settings
   def editor_settings
     EditorSettingsHashPresenter

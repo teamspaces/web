@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   include HTTPBasicAuthentication
   include TokenParamLogin
   include SessionAuthentication
+  include EmailConfirmationWithToken
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.

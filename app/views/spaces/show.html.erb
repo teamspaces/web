@@ -7,6 +7,8 @@
     <div class="card-content">
       <%= notice %>
 
+      <%= image_tag @space.cover_url(:image_450) %>
+
       <div>
         <%= link_to "View #{@space.name}", space_pages_path(@space), class: 'button button-primary' %>
 
