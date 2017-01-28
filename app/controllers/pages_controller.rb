@@ -1,6 +1,7 @@
 class PagesController < SubdomainBaseController
   before_action :set_page, only: [:show, :edit, :update, :destroy]
   before_action :set_space, only: [:index, :new, :create]
+  before_action :set_parent, only: [:new, :create]
   layout 'client'
 
   helper_method :number_of_words_to_minutes_reading
@@ -40,7 +41,7 @@ class PagesController < SubdomainBaseController
 
   # GET /pages/new
   def new
-    @page = policy_scope(Page).build
+    @page = policy_scope(Page).build(parent: @parent)
     authorize @page, :new?
   end
 
@@ -104,9 +105,13 @@ class PagesController < SubdomainBaseController
       @space = Space.find(params[:space_id])
     end
 
+    def set_parent
+      @parent = @space.pages.find_by(id: params[:parent_id])
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def page_params
-      params.require(:page).permit(:title)
+      params.require(:page).permit(:title, :parent_id)
     end
 
     def pundit_user
