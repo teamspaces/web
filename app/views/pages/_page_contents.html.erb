@@ -5,8 +5,7 @@
     <h1><%= page.title %></h1>
 
     <div class="space-page-meta">
-      <!-- TODO Add real values here -->
-      2 minute read. Updated 4 days ago.
+      <%= minutes_to_read_in_words(page.contents) %> minute read. Updated <%= time_ago_in_words(page.updated_at) %> ago.
     </div>
 
     <div class="space-page-content">
