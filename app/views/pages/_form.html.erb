@@ -13,8 +13,7 @@
 
   <%= f.label :title %>
   <%= f.text_field :title %>
-
-  <div id="page-editor" class="space-page-content"></div>
+  <%= f.hidden_field :parent_id %>
 
   <%= f.submit %>
 <% end %>

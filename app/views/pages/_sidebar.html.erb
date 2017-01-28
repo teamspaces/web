@@ -13,7 +13,7 @@
   <span class="space-sidebar-members-add"></span>
 <% end %>
 
-  <ul class="space-sidebar-pages">
+  <!-- <ul class="space-sidebar-pages">
     <% pages.each do |page| %>
       <% if current_page?(page) %>
         <li class="space-sidebar-active">
@@ -25,5 +25,9 @@
         </li>
       <% end %>
     <% end %>
+  </ul> -->
+
+  <ul class="space-sidebar-pages">
+    <%= render "page_tree", page_tree: space.pages.hash_tree(limit_depth: 10) %>
   </ul>
 </aside>
