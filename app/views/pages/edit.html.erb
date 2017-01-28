@@ -47,6 +47,11 @@
 
 <div class="edit-toolbar">
   <%= link_to 'New page', new_space_page_path(@page.space), class: 'edit-toolbar-new-page' %>
+
+  <div class="edit-toolbar-status">
+    <!-- TODO Toggle between Saving... and Saved -->
+    Saved
+  </div>
 </div>
 
 <script>

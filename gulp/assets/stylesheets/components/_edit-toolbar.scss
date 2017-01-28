@@ -49,3 +49,13 @@
     background-image: url(../assets/images/space/new-page-icon-on.svg);
   }
 }
+
+.edit-toolbar-status {
+  display: inline-block;
+  position: absolute;
+  right: 115px;
+  top: 0;
+  font-size: 13px;
+  line-height: 60px;
+  color: #bfbfbf;
+}
