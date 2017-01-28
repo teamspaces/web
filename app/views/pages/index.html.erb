@@ -1,6 +1,9 @@
 <% content_for :body_class, 'body-space' %>
 
-<%= render 'sidebar', space: @space, pages: @pages %>
+<%= render 'sidebar', space: @space,
+                      pages: @pages,
+                      avatar_users: avatar_users,
+                      show_unseen: number_of_unseen_avatars %>
 
 <div class="space-page-container">
   <main class="space-page">
