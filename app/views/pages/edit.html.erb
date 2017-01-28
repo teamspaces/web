@@ -1,20 +1,53 @@
-<main>
-  <div class="card card-editor">
-    <header>
-      <h1>Edit Page</h1>
-    </header>
+<% content_for :body_class, 'body-space body-space-edit' %>
 
-    <div class="card-content">
-      <%= render 'form', page: @page %>
+<aside class="space-sidebar space-sidebar-edit">
+  <h3>
+    <%= link_to edit_space_path(@page.space) do %>
+      <%= @page.space.name %><span></span>
+    <% end %>
+  </h3>
 
-      <div class="card-actions">
-        <%= link_to 'Back', @page %> | 
-        <%= link_to '+ Add Page', new_space_page_path(@page.space) %> | 
-        <%= link_to 'Destroy', @page, method: :delete, data: { confirm: 'Are you sure?' } %>
-      </div>
-    </div>
-  </div>
-</main>
+  <%= link_to(team_path, class: "avatars") do %>
+    <% avatar_users.each do |user| %>
+        <%= image_tag(user.avatar_url(:image_48), alt: user.name) %>
+    <% end %>
+
+    <% if number_of_unseen_avatars.positive? %>
+        <span class="avatars-overflow">+<%= number_of_unseen_avatars %></span>
+    <% end %>
+
+    <span class="avatars-add"></span>
+  <% end %>
+
+  <ul class="space-sidebar-pages">
+    <% @page.space.pages.each do |page| %>
+        <!-- TODO current_page is not working here? -->
+        <li <% if current_page?(page) %> class="space-sidebar-active" <% end %>>
+          <%= link_to page.title, edit_page_path(page) %>
+
+          <div class="space-sidebar-edit-actions">
+            <!-- TODO Implement reorder with drag and drop -->
+            <span class="space-sidebar-move"></span>
+
+            <%= link_to '', page, class: 'space-sidebar-remove', method: :delete, data: { confirm: 'Are you sure?' } %>
+
+            <!-- TODO This link should add a subpage to this page -->
+            <%= link_to '', new_space_page_path(@page.space), class: 'space-sidebar-add-subpage' %>
+          </div>
+        </li>
+    <% end %>
+  </ul>
+</aside>
+
+<div class="space-page-container">
+  <main class="space-page space-page-edit">
+    <%= render 'form', page: @page %>
+  </main>
+</div>
+
+<div class="edit-toolbar">
+  <%= link_to 'New page', new_space_page_path(@page.space), class: 'edit-toolbar-new-page' %>
+</div>
 
 <script>
   $(function(){

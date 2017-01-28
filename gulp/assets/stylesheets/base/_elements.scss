@@ -186,7 +186,7 @@ input[type=text], input[type=password], input[type=email] {
   margin: 12px 0 0 0;
 }
 
-input[type=submit], button {
+input[type=submit] {
   display: inline-block;
   width: auto;
   font-size: 13px;
@@ -195,15 +195,16 @@ input[type=submit], button {
   background: $color-primary;
   color: #fff;
   margin: 48px 0 0 0;
-  padding: 14px 24px;
+  padding: 9px 24px;
   text-align: center;
-  border-radius: 5px;
+  border-radius: 6px;
   border: 0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
   cursor: pointer;
-  transition: all 0.5s;
+  transition: all 0.3s;
 
   &:hover, &:active, &:focus {
-    opacity: 0.6;
+    opacity: 0.8;
     color: #fff;
     outline: 0;
   }

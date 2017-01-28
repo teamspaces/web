@@ -36,39 +36,9 @@
       opacity: 0.6;
     }
   }
-}
 
-
-
-/**
- * Members widget
- */
-.space-sidebar-members {
-  @include clearfix;
-  display: block;
-  padding: 18px 0 24px 0;
-  transition: all 0.3s;
-
-  &:hover, &:active, &:focus {
-    opacity: 0.6;
-  }
-
-  img, span {
-    display: block;
-    float: left;
-    width: 24px;
-    height: 24px;
-    border-radius: 12px;
-    margin-right: 6px;
-  }
-
-  img {
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12);
-  }
-
-  .space-sidebar-members-add {
-    border: 1px dotted #A1AAB3;
-    background: url(../assets/images/space/add-member-icon.svg) no-repeat center center;
+  .avatars {
+    padding: 18px 0 24px 0;
   }
 }
 
@@ -88,7 +58,7 @@
     padding: 0;
   }
 
-  li a {
+  li > a:first-child {
     display: block;
     color: $color-text-secondary;
     font-size: 14px;
@@ -109,7 +79,7 @@
     }
   }
 
-  .space-sidebar-active a, li a:hover, li a:active, li a:focus {
+  li.space-sidebar-active > a:first-child, li a:hover, li a:active, li a:focus {
     color: $color-primary;
     text-decoration: none;
   }
@@ -120,4 +90,81 @@
     padding: 0 0 0 18px;
     list-style: none;
   }
+}
+
+
+
+/**
+ * Edit sidebar
+ */
+.space-sidebar.space-sidebar-edit {
+  padding-top: 42px;
+
+  &:hover, &:active, &:focus {
+    h3 span, .space-sidebar-edit-actions {
+      opacity: 1;
+      top: 0;
+    }
+  }
+
+  h3 {
+    position: relative;
+  }
+
+  h3 span {
+    display: block;
+    position: absolute;
+    top: 5px;
+    right: -12px;
+    height: 24px;
+    width: 42px;
+    padding: 0 12px;
+    background: #F5F7FA url(../assets/images/space/settings-icon.svg) no-repeat center center;
+    opacity: 0;
+    transition: all 0.4s;
+  }
+
+  li {
+    position: relative;
+  }
+}
+
+.space-sidebar-edit-actions {
+  position: absolute;
+  top: 5px;
+  right: -6px;
+  opacity: 0;
+  transition: all 0.4s;
+
+  span, a {
+    display: block;
+    float: left;
+    height: 36px;
+    width: 30px;
+    padding: 0 6px;
+    background-color: #F5F7FA;
+    background-position: center center;
+    background-repeat: no-repeat;
+    transition: all 0.2s;
+
+    &:hover, &:active, &:focus {
+      text-decoration: none;
+      opacity: 0.6;
+    }
+  }
+}
+
+.space-sidebar-move {
+  background-image: url(../assets/images/space/move-icon.svg);
+  cursor: move;
+}
+
+.space-sidebar-remove {
+  background-image: url(../assets/images/space/remove-icon.svg);
+  width: 27px;
+}
+
+.space-sidebar-add-subpage {
+  background-image: url(../assets/images/space/add-subpage-icon.svg);
+  width: 31px;
 }

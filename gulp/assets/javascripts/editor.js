@@ -73,7 +73,7 @@
         /* https://quilljs.com/docs/configuration/ */
         var editorOptions = {
             theme: "snow",
-            placeholder: "Start writing here...",
+            placeholder: "And write something awesome here...",
             modules: {
                 syntax: true,
                 toolbar: [
