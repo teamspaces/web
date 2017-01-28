@@ -13,7 +13,7 @@ class ImageVersionsGenerator
     original = @io.download
     versions = {}
 
-    jpg_version = convert!(original, "jpg")
+    jpg_version = convert!(original, "jpg") { |img| img.flatten }
 
     @sizes.each do |width, height|
       height = width if height.nil?
