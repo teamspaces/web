@@ -18,7 +18,7 @@ describe LoginRegisterFunnel::BaseController do
     end
 
     it "signs out from default subdomain" do
-      assert_nil @controller.current_user
+      assert_nil @controller.send(:current_user)
     end
 
     it "redirects to sign in url for user" do

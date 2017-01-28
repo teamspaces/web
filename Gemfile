@@ -22,6 +22,7 @@ gem "aws-sdk"
 gem "inflorm"
 gem "interactor-rails", "~> 2.0"
 gem "devise"
+gem "authie", "~> 2.0"
 gem "pundit"
 gem 'omniauth-slack', git: 'https://github.com/teamspaces/omniauth-slack.git', branch: 'auth-hash-fixes'
 gem "httparty"

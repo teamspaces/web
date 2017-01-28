@@ -26,6 +26,30 @@ ActiveRecord::Schema.define(version: 20170128004333) do
     t.index ["user_id"], name: "index_authentications_on_user_id", using: :btree
   end
 
+  create_table "authie_sessions", force: :cascade do |t|
+    t.string   "token"
+    t.string   "browser_id"
+    t.integer  "user_id"
+    t.boolean  "active",             default: true
+    t.datetime "expires_at"
+    t.datetime "login_at"
+    t.string   "login_ip"
+    t.datetime "last_activity_at"
+    t.string   "last_activity_ip"
+    t.string   "last_activity_path"
+    t.string   "user_agent"
+    t.integer  "requests",           default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "user_type"
+    t.integer  "parent_id"
+    t.integer  "team_id"
+    t.index ["browser_id", "team_id"], name: "index_authie_sessions_on_browser_id_and_team_id", using: :btree
+    t.index ["browser_id"], name: "index_authie_sessions_on_browser_id", using: :btree
+    t.index ["token"], name: "index_authie_sessions_on_token", using: :btree
+    t.index ["user_id"], name: "index_authie_sessions_on_user_id", using: :btree
+  end
+
   create_table "invitations", force: :cascade do |t|
     t.integer  "team_id"
     t.integer  "invited_by_user_id"
