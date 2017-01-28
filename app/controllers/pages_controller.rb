@@ -6,7 +6,7 @@ class PagesController < SubdomainBaseController
   helper_method :minutes_to_read_in_words
   def minutes_to_read_in_words(text)
     reading_speed = 300
-    words = text.split.size
+    words = text.to_s.split.size
     minutes = (words / reading_speed).floor
 
     minutes < 1 ? 1 : minutes
