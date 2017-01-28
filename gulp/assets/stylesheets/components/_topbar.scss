@@ -35,7 +35,7 @@ input.topbar-search {
   float: left;
   background: #fff;
   width: 300px;
-  width: calc(100% - 350px);
+  width: calc(100% - 450px);
   height: 60px;
   padding: 22px 30px;
   margin: 0;
@@ -51,15 +51,15 @@ input.topbar-search {
   }
 
   &::-webkit-input-placeholder {
-    color: #A6A6A6;
+    color: #b2b2b2;
   }
 
   &::-moz-placeholder {
-    color: #A6A6A6;
+    color: #b2b2b2;
   }
 
   &:-ms-input-placeholder {
-    color: #A6A6A6;
+    color: #b2b2b2;
   }
 }
 
@@ -105,9 +105,20 @@ nav {
  * Spaces navigation
  */
 .topbar-spaces {
-  background: transparent url(../assets/images/topbar/spaces-thumb@2x.png) no-repeat 24px center;
   background-size: 30px 30px;
-  padding: 0 24px 0 72px;
+  padding: 0 30px;
+
+  span {
+    display: inline-block;;
+    width: 45px;
+    height: 30px;
+    border-radius: 4px;
+    background: transparent url(../assets/images/topbar/temp-space-thumb.png) no-repeat center center;
+    background-size: cover;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+    margin: -1px 18px 0 0;
+    vertical-align: middle;
+  }
 }
 
 
@@ -116,14 +127,15 @@ nav {
  * Team navigation
  */
 .topbar-team {
-  padding: 0 24px 0 24px;
+  padding: 0 30px;
 
   img {
     display: inline-block;
     width: 30px;
     height: 30px;
-    margin: 0 18px 0 0;
+    margin: -1px 18px 0 0;
     border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12);
   }
 }
 
@@ -133,12 +145,14 @@ nav {
  * Account navigation
  */
 .topbar-account {
-  padding: 0 30px 0 24px;
+  padding: 0 30px 0 30px;
 
   img {
     display: inline-block;
     width: 30px;
     height: 30px;
     border-radius: 15px;
+    margin-top: -1px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12);
   }
 }

@@ -29,7 +29,9 @@
       <nav>
         <ul>
           <li>
-            <%= link_to 'Spaces', spaces_path, class: 'topbar-spaces' %>
+            <%= link_to(spaces_path, class: 'topbar-spaces') do %>
+              <span></span>Spaces
+            <% end %>
           </li>
 
           <li>

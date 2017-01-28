@@ -62,6 +62,10 @@
     margin-right: 6px;
   }
 
+  img {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+  }
+
   .space-sidebar-members-add {
     border: 1px dotted #A1AAB3;
     background: url(../assets/images/space/add-member-icon.svg) no-repeat center center;
