@@ -72,7 +72,7 @@ describe "Email Register", :capybara do
       visit confirm_email_link
 
       # confirms email and lands on team-page
-      assert_content "New Space"
+      assert_content "Invite"
     end
   end
 end
