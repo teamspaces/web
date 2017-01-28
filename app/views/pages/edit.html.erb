@@ -9,6 +9,7 @@
 
       <div class="card-actions">
         <%= link_to 'Back', @page %> | 
+        <%= link_to '+ Add Page', new_space_page_path(@page.space) %> | 
         <%= link_to 'Destroy', @page, method: :delete, data: { confirm: 'Are you sure?' } %>
       </div>
     </div>

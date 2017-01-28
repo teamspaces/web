@@ -2,86 +2,27 @@
  * Topbar
  */
 .topbar {
+  @include clearfix;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 100;
   width: 100%;
   background: #fff;
-  box-shadow: 0 1px 0 #E6E8EB, 0 0 5px rgba(0,0,0,0.08);
+  border-bottom: 1px solid #EBEDF0;
 }
 
-
-
-/**
- * Topbar containers
- */
-.topbar-left, .topbar-center, .topbar-right {
-  float: left;
-}
-
-.topbar-center {
-  width: 648px;
-}
-
-.topbar-left, .topbar-right {
-  width: calc(50% - 324px);
-}
-
-// Right column contains floated elements
-.topbar-right {
-  @include clearfix;
-}
-
-
-/**
- * Account & team navigation
- */
-.topbar-account {
-
-}
-
-.topbar-account-toggle {
-  padding: 18px 24px 15px 18px;
-
-  img {
-    float: left;
-    width: 36px;
-    height: 36px;
-    border-radius: 5px;
-    box-shadow: 0 0 0 1px #E6EAF0;
-    margin-right: 16px;
+.body-space {
+  .topbar {
+    border-bottom: 0;
   }
 
-  h3 {
-    font-size: 16px;
-    line-height: 18px;
-    font-weight: 400;
-    color: $color-text-secondary;
-    margin: 3px 0 0 0;
-
-    a {
-      color: $color-text-primary;
-      transition: all 0.3s;
-
-      &:hover, &:active, &:focus {
-        opacity: 0.6;
-        color: $color-text-primary;
-        text-decoration: none;
-      }
-    }
+  input.topbar-search {
+    width: 301px;
+    height: auto;
+    border-right: 1px solid #EBEDF0;
+    border-bottom: 1px solid #EBEDF0;
   }
-
-  p {
-    font-size: 13px;
-    line-height: 18px;
-    color: $color-text-faded;
-    margin: 0;
-  }
-}
-
-.topbar-account-content {
-
 }
 
 
@@ -89,42 +30,71 @@
 /**
  * Search
  */
-.topbar-search {
-  padding: 12px 0;
+input.topbar-search {
+  display: block;
+  float: left;
+  background: #fff;
+  width: 300px;
+  width: calc(100% - 350px);
+  height: 60px;
+  padding: 22px 30px;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  font-size: 14px;
+  line-height: 16px;
+  color: $color-text-primary;
+  transition: all 0.3s;
 
-  input {
-    display: block;
-    width: 100%;
-    height: 48px;
-    list-style: none;
-    background: #fff url(../assets/images/topbar/search-inactive.svg) no-repeat 16px 16px;
-    background-size: 16px 16px;
-    border: 0;
-    border-radius: 5px;
-    font-size: 13px;
-    line-height: 16px;
-    color: $color-text-primary;
-    padding: 16px 32px 16px 48px;
-    box-shadow: 0 0 0 1px #E6E8EB, 0 1px 3px rgba(0,0,0,0.04);
+  &:hover, &:focus {
+    outline: none;
+  }
+
+  &::-webkit-input-placeholder {
+    color: #A6A6A6;
+  }
+
+  &::-moz-placeholder {
+    color: #A6A6A6;
+  }
+
+  &:-ms-input-placeholder {
+    color: #A6A6A6;
+  }
+}
+
+
+
+/**
+ * Navigation container
+ */
+nav {
+  @include clearfix;
+  float: right;
+
+  ul {
     margin: 0;
-    transition: all 0.5s;
+    padding: 0;
+    list-style: none;
+  }
 
-    &:hover, &:focus {
-      outline: none;
-      background-image: url(../assets/images/topbar/search-active.svg);
-      box-shadow: 0 0 0 1px #E6E8EB, 0 1px 3px rgba(0,0,0,0.04), 0 7px 25px rgba(0,0,0,0.12);
-    }
+  li {
+    float: left;
+  }
 
-    &::-webkit-input-placeholder {
-      color: #9EA1A6;
-    }
+  a {
+    display: block;
+    font-size: 13px;
+    line-height: 60px;
+    color: $color-text-secondary;
+    text-decoration: none;
+    transition: all 0.3s;
+    vertical-align: middle;
 
-    &::-moz-placeholder {
-      color: #9EA1A6;
-    }
-
-    &:-ms-input-placeholder {
-      color: #9EA1A6;
+    &:hover, &:active, &:focus {
+      color: $color-text-secondary;
+      text-decoration: none;
+      opacity: 0.6;
     }
   }
 }
@@ -135,38 +105,40 @@
  * Spaces navigation
  */
 .topbar-spaces {
-  float: left;
-  margin-left: 40px;
-}
-
-.topbar-spaces-toggle {
-  display: block;
-  background: transparent url(../assets/images/topbar/spaces-icon.svg) no-repeat 20px center;
-  background-size: 20px 20px;
-  padding: 0 20px 0 58px;
-  font-size: 13px;
-  line-height: 72px;
-  color: $color-text-secondary;
-  transition: all 0.5s;
-
-  &:hover, &:active, &:focus {
-    color: $color-text-faded;
-    text-decoration: none;
-    opacity: 0.6;
-  }
-}
-
-.topbar-spaces-content {
-
+  background: transparent url(../assets/images/topbar/spaces-thumb@2x.png) no-repeat 24px center;
+  background-size: 30px 30px;
+  padding: 0 24px 0 72px;
 }
 
 
 
 /**
- * Invite button
+ * Team navigation
  */
-.topbar .button {
-  float: right;
-  margin-top: 18px;
-  margin-right: 18px;
+.topbar-team {
+  padding: 0 24px 0 24px;
+
+  img {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin: 0 18px 0 0;
+    border-radius: 4px;
+  }
+}
+
+
+
+/**
+ * Account navigation
+ */
+.topbar-account {
+  padding: 0 30px 0 24px;
+
+  img {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+  }
 }

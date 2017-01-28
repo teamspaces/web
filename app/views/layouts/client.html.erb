@@ -24,50 +24,23 @@
 
   <body class="<%= content_for :body_class %>">
     <header class="topbar">
-      <div class="topbar-left">
-        <div class="topbar-account">
-          <div class="topbar-account-toggle">
-            <%= image_tag current_team.logo_url(:image_72), alt: current_team.name %>
+      <input type="text" placeholder="Search" class="topbar-search" tabindex="1">
 
-            <% if current_team %>
-                <h3>
-                  <%= link_to current_team.name, root_subdomain_path %>
-                </h3>
-            <% end %>
+      <nav>
+        <ul>
+          <li>
+            <%= link_to 'Spaces', spaces_path, class: 'topbar-spaces' %>
+          </li>
 
-            <p>
-              <% if user_signed_in? %>
-              <%= link_to current_user.first_name, user_path %>,
+          <li>
+            <%= link_to image_tag(current_team.logo_url(:image_72), alt: current_team.name) + 'Team', team_url(subdomain: current_team.subdomain), class: 'topbar-team' %>
+          </li>
 
-
-                <%= link_to("sign out", destroy_user_session_path, method: :delete) %>
-              <% end %>
-            </p>
-          </div>
-
-          <div class="topbar-account-content">
-
-          </div>
-        </div>
-      </div>
-
-      <div class="topbar-center">
-        <div class="topbar-search">
-          <input type="text" placeholder="Search">
-        </div>
-      </div>
-
-      <div class="topbar-right">
-        <div class="topbar-spaces">
-          <%= link_to 'Spaces', spaces_path, class: 'topbar-spaces-toggle' %>
-
-          <div class="topbar-spaces-content">
-
-          </div>
-        </div>
-
-        <%= link_to 'Invite', invitations_path, class: 'button button-small button-primary' %>
-      </div>
+          <li>
+            <%= link_to image_tag(current_user.avatar_url(:image_72), alt: current_user.first_name), edit_user_path, class: 'topbar-account' %>
+          </li>
+        </ul>
+      </nav>
     </header>
 
     <% if notice %>

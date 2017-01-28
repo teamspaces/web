@@ -24,9 +24,7 @@ describe "Email Login", :capybara do
       fill_in("Password", with: "password")
       click_on "Login with my account"
 
-      assert_content "sign out"
-      assert_content email_user.first_name
-      assert_content "Spaces"
+      assert_content "New Space"
     end
   end
 end
