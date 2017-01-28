@@ -4,14 +4,17 @@ class LoginRegisterFunnel::BaseController::AvailableUsersCookie
     @cookies = cookies
   end
 
+  def available_user_ids
+    @available_user_ids ||= Authie::Session.where(browser_id: @cookies[:browser_id], active: true)
+                                           .select(:user_id)
+                                           .distinct
+  end
+
   def users
-    User.where(id: Authie::Session.where(browser_id: @cookies[:browser_id], active: true)
-                                  .select(:user_id)
-                                  .distinct)
+    User.where(id: available_user_ids)
   end
 
   def teams
-    Team.where(id: Authie::Session.where(browser_id: @cookies[:browser_id], active: true)
-                                  .select(:team_id))
+    Team.joins(:users).where(users: {id: available_user_ids})
   end
 end
