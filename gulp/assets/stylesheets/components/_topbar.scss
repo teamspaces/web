@@ -19,6 +19,7 @@
 
   input.topbar-search {
     width: 301px;
+    height: auto;
     border-right: 1px solid #EBEDF0;
     border-bottom: 1px solid #EBEDF0;
   }
@@ -115,7 +116,7 @@ nav {
  * Team navigation
  */
 .topbar-team {
-  padding: 0 24px;
+  padding: 0 24px 0 24px;
 
   img {
     display: inline-block;
@@ -132,7 +133,7 @@ nav {
  * Account navigation
  */
 .topbar-account {
-  padding: 0 24px;
+  padding: 0 30px 0 24px;
 
   img {
     display: inline-block;
