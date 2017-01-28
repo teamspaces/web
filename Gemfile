@@ -35,6 +35,7 @@ gem "image_processing"
 gem "mini_magick", ">= 4.3.5"
 gem "shrine"
 gem "avatarly"
+gem "closure_tree"
 
 gem "slack-ruby-client"
 gem "sentry-raven"

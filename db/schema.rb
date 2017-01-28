@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170128004333) do
+ActiveRecord::Schema.define(version: 20170128005001) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,12 +73,22 @@ ActiveRecord::Schema.define(version: 20170128004333) do
     t.index ["page_id"], name: "index_page_contents_on_page_id", using: :btree
   end
 
+  create_table "page_hierarchies", id: false, force: :cascade do |t|
+    t.integer "ancestor_id",   null: false
+    t.integer "descendant_id", null: false
+    t.integer "generations",   null: false
+    t.index ["ancestor_id", "descendant_id", "generations"], name: "page_anc_desc_idx", unique: true, using: :btree
+    t.index ["descendant_id"], name: "page_desc_idx", using: :btree
+  end
+
   create_table "pages", force: :cascade do |t|
     t.integer  "space_id"
     t.string   "title"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.integer  "word_count", default: 0
+    t.integer  "parent_id"
+    t.integer  "sort_order"
     t.index ["space_id"], name: "index_pages_on_space_id", using: :btree
   end
 
