@@ -25,6 +25,15 @@ describe Team::Form, :model do
       refute subject.save
       assert subject.errors[:subdomain]
     end
+
+    it "validates attached logo" do
+      Shrine::Attacher.any_instance
+                      .stubs(:errors)
+                      .returns(ActiveModel::Errors.new(subject).tap { |errors| errors.add(:logo, :invalid) })
+
+      refute subject.save
+      assert subject.errors[:logo].present?
+    end
   end
 
   describe "#save" do
