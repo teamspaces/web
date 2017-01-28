@@ -54,7 +54,7 @@ describe LoginRegisterFunnel::TeamsController do
       it "signs user out from default subdomain" do
         post_valid_team_attributes
 
-        assert_nil @controller.current_user
+        assert_nil @controller.send(:current_user)
       end
 
       it "redirects to sign_in_url for user and created team" do

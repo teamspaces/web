@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   include Pundit
   include HTTPBasicAuthentication
   include TokenParamLogin
+  include SessionAuthentication
   include EmailConfirmationWithToken
 
   # Prevent CSRF attacks by raising an exception.
