@@ -17,7 +17,7 @@ class Team::Form
   validates :subdomain, presence: true,
                         subdomain: true
   validate :unique_subdomain
-  validate :valid_logo
+  validates :logo, attached_image: true
 
   def initialize(team: Team.new, params: {})
     @team = team
@@ -40,13 +40,6 @@ class Team::Form
       if Team.where(subdomain: subdomain).where.not(id: team.id).exists?
         errors.add(:subdomain, :taken)
       end
-    end
-
-    def valid_logo
-      @team.logo_attacher.errors.each do |message|
-        self.errors.add(:logo, message)
-      end
-      @team.logo_attacher.errors.any?
     end
 
     def has_generated_logo_and_name_changed?
