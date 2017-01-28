@@ -5,7 +5,6 @@ class CreateAuthieSessions < ActiveRecord::Migration
       t.string :token, :browser_id
       t.integer :user_id
       t.boolean :active, :default => true
-      t.text :data
       t.datetime :expires_at
       t.datetime :login_at
       t.string :login_ip

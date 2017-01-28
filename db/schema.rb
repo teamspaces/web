@@ -31,7 +31,6 @@ ActiveRecord::Schema.define(version: 20170128004333) do
     t.string   "browser_id"
     t.integer  "user_id"
     t.boolean  "active",             default: true
-    t.text     "data"
     t.datetime "expires_at"
     t.datetime "login_at"
     t.string   "login_ip"

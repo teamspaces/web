@@ -2,6 +2,9 @@ Authie.config.session_inactivity_timeout = 12.months
 
 Authie::Session.class_eval do
 
+  # this field was removed from the Authie migration
+  attr_accessor :data
+
   def self.start(controller, params = {})
     cookies = controller.send(:cookies)
     current_team_id = controller.try(:current_team)&.id
