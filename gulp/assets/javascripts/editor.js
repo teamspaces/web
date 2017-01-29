@@ -80,7 +80,7 @@
                   [{ "header": [2, 3, 4, false] }],
                   ["bold", "italic", "underline", "strike"],
                   [{ "list": "ordered"}, { "list": "bullet" }],
-                  ["link", "image", "code-block"],
+                  ["link", "code-block"],
                   ["clean"]
                 ]
             }
