@@ -26,4 +26,10 @@ describe AvailableUsersQuery, :controller do
       assert false
     end
   end
+
+  describe "#team_user" do
+    it "returns the available user who is member of the team" do
+
+    end
+  end
 end
