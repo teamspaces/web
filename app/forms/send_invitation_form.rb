@@ -20,7 +20,7 @@ class SendInvitationForm
   validates :invited_by_user, presence: true
   validate :email_one_invitation_per_team
 
-  def initialize(team:, invited_by_user:, params: {})
+  def initialize(team: nil, invited_by_user: nil, params: {})
     @team = team
     @invited_by_user = invited_by_user
 

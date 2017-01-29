@@ -25,7 +25,6 @@ describe InvitationsController do
     end
 
     context "with invalid attributes" do
-
       it "does not create the invitation" do
         assert_difference -> { Invitation.count }, 0 do
           post team_invitations_url, params: { invitation: { email: "invalid_email"} }
