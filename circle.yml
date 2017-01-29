@@ -30,6 +30,7 @@ machine:
     USER_AUTH_JWT_SECRET: 'user-auth-jwt-token-123'
     DEFAULT_SUBDOMAIN: 'what'
     STORAGE_MEDIUM: 'local'
+    NESTED_PAGE_LIMIT: 5
 
 deployment:
   production:
