@@ -112,17 +112,17 @@ nav {
 .topbar-spaces {
   padding: 0 15px;
 
-  span {
-    display: inline-block;;
-    width: 45px;
-    height: 30px;
-    border-radius: 6px;
-    background: transparent url(../assets/images/topbar/temp-space-thumb.png) no-repeat center center;
-    background-size: cover;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12);
-    margin: -1px 15px 0 0;
-    vertical-align: middle;
-  }
+  // span {
+  //   display: inline-block;;
+  //   width: 45px;
+  //   height: 30px;
+  //   border-radius: 6px;
+  //   background: transparent url(../assets/images/topbar/temp-space-thumb.png) no-repeat center center;
+  //   background-size: cover;
+  //   box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+  //   margin: -1px 15px 0 0;
+  //   vertical-align: middle;
+  // }
 }
 
 
@@ -135,9 +135,9 @@ nav {
 
   img {
     display: inline-block;
-    width: 30px;
-    height: 30px;
-    margin: -1px 15px 0 0;
+    width: 36px;
+    height: 36px;
+    margin: -1px 30px 0 0;
     border-radius: 6px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12);
   }
