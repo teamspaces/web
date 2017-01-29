@@ -31,8 +31,7 @@
 
             <%= link_to '', page, class: 'space-sidebar-remove', method: :delete, data: { confirm: 'Are you sure?' } %>
 
-            <!-- TODO This link should add a subpage to this page -->
-            <%= link_to '', new_space_page_path(@page.space), class: 'space-sidebar-add-subpage' %>
+            <%= link_to '', new_space_page_path(@page.space, parent_id: @page.id), class: 'space-sidebar-add-subpage' %>
           </div>
         </li>
     <% end %>

@@ -13,3 +13,8 @@ marketing:
 power_rangers:
   space: power_rangers
   title: Power Rangers
+
+with_parent:
+  space: power_rangers
+  title: Power Rangers
+  parent: spaces

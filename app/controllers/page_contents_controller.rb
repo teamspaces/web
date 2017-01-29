@@ -25,7 +25,7 @@ class PageContentsController < SubdomainBaseController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def page_content_params
-      params.require(:page_content).permit(:contents)
+      params.require(:page_content).permit(:contents).to_h
     end
 
     def set_page_content

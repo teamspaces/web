@@ -13,6 +13,8 @@
 
   <%= f.text_field :title, placeholder: 'Give your page a name' %>
 
+  <%= f.hidden_field :parent_id %>
+
   <div id="page-editor" class="space-page-content"></div>
 
   <%= f.submit 'Done' %>
