@@ -12,7 +12,7 @@ class AvailableUsersQuery
     Team.joins(:users).where(users: {id: available_user_ids})
   end
 
-  def available_user_member_of_team(team)
+  def user_signed_in_on_another_subdomain(team)
     users.joins(:teams).where(teams: {id: team.id}).limit(1).first
   end
 
