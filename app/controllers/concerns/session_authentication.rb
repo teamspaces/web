@@ -11,7 +11,11 @@ module SessionAuthentication
 
   def authenticate_user!(opts={})
     if !logged_in? && (!devise_controller? || opts.delete(:force))
-      redirect_to root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]), alert: t("errors.messages.unauthorized")
+      if on_team_subdomain? && available_users.teams.include?(current_team)
+        sign_in(available_users.team_user(current_team))
+      else
+        redirect_to root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]), alert: t("errors.messages.unauthorized")
+      end
     end
   end
 

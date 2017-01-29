@@ -12,6 +12,10 @@ class LoginRegisterFunnel::BaseController::AvailableUsersCookie
     Team.joins(:users).where(users: {id: available_user_ids})
   end
 
+  def team_user(team)
+    users.joins(:teams).where(teams: {id: team.id}).limit(1).first
+  end
+
   private
 
     def available_user_ids
