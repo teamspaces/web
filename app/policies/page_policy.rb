@@ -27,6 +27,11 @@ class PagePolicy
   private
 
     def allow_nesting?
-      (page.parent.depth + 1) <= ENV["NESTED_PAGE_LIMIT"].to_i
+      page_depth <= ENV["NESTED_PAGE_LIMIT"].to_i
+    end
+
+    def page_depth
+      return 1 unless page.parent
+      page.parent.depth + 1
     end
 end

@@ -6,6 +6,7 @@ describe PagePolicy, :model do
   let(:team_space) { spaces(:spaces) }
   let(:external_space) { spaces(:power_rangers) }
   let(:team_page) { pages(:spaces) }
+  let(:nested_page) { pages(:max_nested_page) }
   let(:external_page) { pages(:power_rangers) }
   let(:page_policy_context) { PagePolicy::Context.new(user, team, team_space) }
 
@@ -23,6 +24,23 @@ describe PagePolicy, :model do
         not_team_space_page_policy_context = PagePolicy::Context.new(user, team, external_space)
 
         refute PagePolicy.new(not_team_space_page_policy_context, team_space.pages).index?
+      end
+    end
+  end
+
+  describe "#create?" do
+    it "is true" do
+      assert_equal true,
+        PagePolicy.new(page_policy_context, team_page).create?
+    end
+
+    context "reached nested page limit" do
+      it "is false" do
+        page = pages(:with_parent)
+        page.stubs(:depth).returns(ENV["NESTED_PAGE_LIMIT"])
+
+        assert_equal false,
+          PagePolicy.new(page_policy_context, page).create?
       end
     end
   end
