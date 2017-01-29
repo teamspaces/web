@@ -18,7 +18,7 @@ class UsersController < SubdomainBaseController
   # PATCH/PUT /users/1.json
   def update
     authorize @user, :update?
-    @update_settings_form = User::UpdateSettingsForm.new(user: @user, params: user_params)
+    @update_settings_form = User::UpdateSettingsForm.new(user: @user, attributes: user_params)
 
     respond_to do |format|
       if @update_settings_form.save

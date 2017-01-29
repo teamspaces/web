@@ -14,7 +14,7 @@ class InvitationsController < SubdomainBaseController
   def create
     @invitation_form = SendInvitationForm.new(team: @team,
                                               invited_by_user: current_user,
-                                              params: invitation_params)
+                                              attributes: invitation_params)
 
     respond_to do |format|
       if @invitation_form.save

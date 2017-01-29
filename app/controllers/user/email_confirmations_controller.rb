@@ -13,7 +13,7 @@ class User::EmailConfirmationsController < SubdomainBaseController
   end
 
   def update
-    @update_email_form = ::User::UpdateEmailForm.new(user: current_user, params: user_params)
+    @update_email_form = ::User::UpdateEmailForm.new(user: current_user, attributes: user_params)
 
     if @update_email_form.save
       User::Email::SendConfirmationInstructions.call(user: current_user, controller: self)
