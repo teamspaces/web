@@ -58,8 +58,8 @@ class PagesController < SubdomainBaseController
 
     respond_to do |format|
       if @page.save
-        format.html { redirect_to @page }
-        format.json { render :show, status: :created, location: @page }
+        format.html { redirect_to edit_page_path(@page) }
+        format.json { render :show, status: :created, location: edit_page_path(@page) }
       else
         format.html { render :new }
         format.json { render json: @page.errors, status: :unprocessable_entity }
