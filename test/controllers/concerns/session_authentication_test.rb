@@ -15,7 +15,7 @@ describe SessionAuthentication, :controller do
   describe "#sign_out" do
     it "signs out user" do
       AvailableUsersQuery.any_instance
-                         .expexts(:sign_out)
+                         .expects(:sign_out)
                          .with(user)
 
       controller.sign_out(user)
@@ -46,7 +46,7 @@ describe SessionAuthentication, :controller do
                            .stubs(:user_signed_in_on_another_subdomain)
                            .returns(user)
 
-        controller.expexts(:sign_in).with(user)
+        controller.expects(:sign_in).with(user)
 
         controller.authenticate_user!
 

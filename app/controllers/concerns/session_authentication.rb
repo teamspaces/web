@@ -23,7 +23,7 @@ module SessionAuthentication
 
     def sign_in_user_if_signed_in_on_another_subdomain
       if on_team_subdomain?
-        if available_user = available_users.user_signed_in_on_another_subdomain(current_team))
+        if available_user = available_users.user_signed_in_on_another_subdomain(current_team)
           sign_in(available_user)
         end
       end
