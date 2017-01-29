@@ -3,7 +3,7 @@ require "test_helper"
 describe Team::CreateTeamForUserForm, :model do
   let(:user) { users(:lars) }
   let(:team_params) { { name: "netherlands", subdomain: "netherlands"} }
-  subject { Team::CreateTeamForUserForm.new(user: user, team_params: team_params) }
+  subject { Team::CreateTeamForUserForm.new(user: user, attributes: team_params) }
   before(:each) { Team::Logo::AttachGeneratedLogo.stubs(:call).returns(true) }
 
   describe "#save" do

@@ -19,11 +19,11 @@ class Team::Form
   validate :unique_subdomain
   validates :logo, attached_image: true
 
-  def initialize(team: Team.new, params: {})
+  def initialize(team: Team.new, attributes: {})
     @team = team
 
     super(team.attributes)
-    super(params)
+    super(attributes)
   end
 
   def logo=(file)

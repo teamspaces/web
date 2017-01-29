@@ -1,9 +1,9 @@
 class Team::CreateTeamForUserForm < Team::Form
 
-  def initialize(user: nil, team_params: {})
+  def initialize(user: nil, attributes: {})
     @user = user
 
-    super(params: team_params)
+    super(attributes: attributes)
   end
 
   def save

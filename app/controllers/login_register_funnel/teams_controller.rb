@@ -9,7 +9,7 @@ class LoginRegisterFunnel::TeamsController < LoginRegisterFunnel::BaseController
   end
 
   def create
-    @team_form = Team::CreateTeamForUserForm.new(user: current_user, team_params: team_params)
+    @team_form = Team::CreateTeamForUserForm.new(user: current_user, attributes: team_params)
 
     if @team_form.save
       redirect_to sign_in_url_for(user: current_user, created_team_to_redirect_to: @team_form.team)

@@ -40,14 +40,14 @@ describe Team::Form, :model do
     context "new team" do
       it "creates a team" do
         assert_difference -> { Team.count }, 1 do
-          Team::Form.new(params: { name: "airbnb", subdomain: "airbnb" }).save
+          Team::Form.new(attributes: { name: "airbnb", subdomain: "airbnb" }).save
         end
       end
     end
 
     context "existing_team" do
       it "updates the team" do
-        Team::Form.new(team: existing_team, params: { name: "updated_name"}).save
+        Team::Form.new(team: existing_team, attributes: { name: "updated_name"}).save
         existing_team.reload
 
         assert_equal "updated_name", existing_team.name
@@ -68,7 +68,7 @@ describe Team::Form, :model do
       it "generates a team logo" do
         Team::Logo::AttachGeneratedLogo.expects(:call).returns(true)
 
-        Team::Form.new(params: { name: "huelsta", subdomain: "huelsta" }).save
+        Team::Form.new(attributes: { name: "huelsta", subdomain: "huelsta" }).save
       end
     end
 
@@ -82,7 +82,7 @@ describe Team::Form, :model do
         it "generates a new logo" do
           Team::Logo::AttachGeneratedLogo.expects(:call).returns(true)
 
-          Team::Form.new(team: existing_team, params: { name: "new_name" }).save
+          Team::Form.new(team: existing_team, attributes: { name: "new_name" }).save
         end
       end
 
@@ -90,7 +90,7 @@ describe Team::Form, :model do
         it "does not generate a new logo" do
           Team::Logo::AttachGeneratedLogo.expects(:call).never
 
-          Team::Form.new(team: existing_team, params: { name: existing_team.name }).save
+          Team::Form.new(team: existing_team, attributes: { name: existing_team.name }).save
         end
       end
     end

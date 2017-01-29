@@ -21,7 +21,7 @@ class TeamsController < SubdomainBaseController
   def update
     authorize @team, :update?
 
-    @team_form = Team::Form.new(team: @team, params: team_params)
+    @team_form = Team::Form.new(team: @team, attributes: team_params)
 
     respond_to do |format|
       if @team_form.save
