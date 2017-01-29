@@ -149,8 +149,14 @@ nav {
  * Account navigation
  */
 .topbar-account {
+  display: block;
   float: right;
   padding: 12px 30px;
+  transition: all 0.3s;
+
+  &:hover, &:active, &:focus {
+    opacity: 0.6;
+  }
 
   img {
     display: inline-block;
