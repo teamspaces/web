@@ -34,7 +34,7 @@ describe User::UpdateSettingsForm, :model do
       end
 
       it "validates format" do
-        form = subject.new(user: user, params: { email: "non_valid" })
+        form = subject.new(user: user, params: { email: "non_valid" })
 
         form.valid?
         assert_includes form.errors[:email], "is invalid"
