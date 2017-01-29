@@ -11,8 +11,12 @@ module SessionAuthentication
     sign_out_user
   end
 
+  def user_signed_in?
+    logged_in?
+  and
+
   def authenticate_user!(opts={})
-    if !logged_in? && (!devise_controller? || opts.delete(:force))
+    if !user_signed_in? && (!devise_controller? || opts.delete(:force))
       if (available_user = available_user_signed_in_on_another_subdomain) && on_team_subdomain?
         sign_in(available_user)
       else

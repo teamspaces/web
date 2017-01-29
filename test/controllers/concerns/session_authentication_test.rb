@@ -1,17 +1,22 @@
 require 'test_helper'
 
 describe SessionAuthentication, :controller do
-  let(:unconfirmed_user) { users(:with_unconfirmed_email) }
+  let(:user) { users(:lars) }
+  let(:controller) { get root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]); @controller }
 
   describe "#sign_in" do
     it "signs in user" do
+      controller.sign_in(user)
 
+      assert controller.user_signed_in?
     end
   end
 
   describe "#sign_out" do
     it "signs out user" do
+      controller.sign_out(user)
 
+      refute controller.user_signed_in?
     end
   end
 
@@ -37,18 +42,21 @@ describe SessionAuthentication, :controller do
   describe "#sign_out_from_subdomain" do
     it "invalidates session" do
 
+      controller.sign_out_from_subdomain
     end
   end
 
   describe "#sign_out_user" do
     it "signs out current user" do
 
+      controller.sign_out_user
     end
   end
 
   describe "#sign_out_users" do
     it "signs out all available users" do
 
+      controller.sign_out_users
     end
   end
 end
