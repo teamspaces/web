@@ -1,10 +1,10 @@
-<%= form_for(invitation_form, url: invitations_path) do |f| %>
-  <% if invitation_form.errors.any? %>
+<%= form_for(form) do |f| %>
+  <% if form.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(invitation_form.errors.count, "error") %> prohibited this invitation from being send:</h2>
+      <h2><%= pluralize(form.errors.count, "error") %> prohibited this invitation from being send:</h2>
 
       <ul>
-      <% invitation_form.errors.full_messages.each do |message| %>
+      <% form.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -12,7 +12,7 @@
   <% end %>
 
   <%= f.label :email %>
-  <%= f.text_field :email %>
+  <%= f.email_field :email %>
 
   <%= f.label :first_name %>
   <%= f.text_field :first_name, placeholder: "Optional" %>

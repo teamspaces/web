@@ -19,11 +19,11 @@ class User::UpdateSettingsForm
 
   validate :validate_user
 
-  def initialize(user, params={})
+  def initialize(user:, attributes: {})
     @user = user
 
     super(user.attributes)
-    super(params)
+    super(attributes)
   end
 
   def avatar=(uploaded_file)

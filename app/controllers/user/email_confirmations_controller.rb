@@ -3,7 +3,7 @@ class User::EmailConfirmationsController < SubdomainBaseController
   skip_before_action :verify_email_confirmed
 
   def new
-    @update_email_form = ::User::UpdateEmailForm.new(@user)
+    @update_email_form = ::User::UpdateEmailForm.new(user: @user)
   end
 
   def create
@@ -13,7 +13,7 @@ class User::EmailConfirmationsController < SubdomainBaseController
   end
 
   def update
-    @update_email_form = ::User::UpdateEmailForm.new(current_user, user_params.to_h)
+    @update_email_form = ::User::UpdateEmailForm.new(user: current_user, attributes: user_params)
 
     if @update_email_form.save
       User::Email::SendConfirmationInstructions.call(user: current_user, controller: self)
@@ -27,7 +27,7 @@ class User::EmailConfirmationsController < SubdomainBaseController
   private
 
     def user_params
-      params.require(:user).permit(:email)
+      params.require(:user).permit(:email).to_h
     end
 
     def set_user

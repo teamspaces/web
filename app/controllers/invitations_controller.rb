@@ -12,8 +12,9 @@ class InvitationsController < SubdomainBaseController
   # POST /invitations
   # POST /invitations.json
   def create
-    @invitation_form = SendInvitationForm.new(send_invitation_form_params.to_h
-                                              .merge(team: @team, invited_by_user: current_user))
+    @invitation_form = SendInvitationForm.new(team: @team,
+                                              invited_by_user: current_user,
+                                              attributes: invitation_params)
 
     respond_to do |format|
       if @invitation_form.save
@@ -52,7 +53,7 @@ class InvitationsController < SubdomainBaseController
       @invitation = Invitation.find(params[:id])
     end
 
-    def send_invitation_form_params
-      params.require(:send_invitation_form).permit(:email, :first_name, :last_name)
+    def invitation_params
+      params.require(:invitation).permit(:email, :first_name, :last_name).to_h
     end
 end

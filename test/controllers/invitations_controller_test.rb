@@ -20,17 +20,14 @@ describe InvitationsController do
   describe "#create" do
     it "creates an invitation" do
       assert_difference -> { Invitation.count }, 1 do
-        params = { send_invitation_form: { email: "gallen@nl.se"} }
-        post team_invitations_url, params: params
+        post team_invitations_url, params: { invitation: { email: "gallen@nl.se"} }
       end
     end
 
     context "with invalid attributes" do
-
       it "does not create the invitation" do
         assert_difference -> { Invitation.count }, 0 do
-          params = { send_invitation_form: { email: "invalid_email"} }
-          post team_invitations_url, params: params
+          post team_invitations_url, params: { invitation: { email: "invalid_email"} }
         end
       end
     end
