@@ -7,7 +7,7 @@
     <% end %>
   </h3>
 
-  <%= link_to(team_path, class: "avatars") do %>
+  <%= link_to(invitations_path, class: "avatars") do %>
     <% avatar_users.each do |user| %>
         <%= image_tag(user.avatar_url(:image_48), alt: user.name) %>
     <% end %>
