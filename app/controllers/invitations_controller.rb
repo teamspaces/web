@@ -54,6 +54,6 @@ class InvitationsController < SubdomainBaseController
     end
 
     def invitation_params
-      params.require(:send_invitation_form).permit(:email, :first_name, :last_name).to_h
+      params.require(:invitation).permit(:email, :first_name, :last_name).to_h
     end
 end
