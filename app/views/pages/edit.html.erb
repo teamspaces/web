@@ -20,21 +20,7 @@
   <% end %>
 
   <ul class="space-sidebar-pages">
-    <% @page.space.pages.each do |page| %>
-        <!-- TODO current_page is not working here? -->
-        <li <% if current_page?(page) %> class="space-sidebar-active" <% end %>>
-          <%= link_to page.title, edit_page_path(page) %>
-
-          <div class="space-sidebar-edit-actions">
-            <!-- TODO Implement reorder with drag and drop -->
-            <span class="space-sidebar-move"></span>
-
-            <%= link_to '', page, class: 'space-sidebar-remove', method: :delete, data: { confirm: 'Are you sure?' } %>
-
-            <%= link_to '', new_space_page_path(@page.space, parent_id: @page.id), class: 'space-sidebar-add-subpage' %>
-          </div>
-        </li>
-    <% end %>
+    <%= render "page_tree", page_tree: @page.space.pages.hash_tree %>
   </ul>
 </aside>
 
