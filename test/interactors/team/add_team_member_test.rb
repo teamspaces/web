@@ -1,13 +1,15 @@
 require "test_helper"
 
-describe CreateTeamMemberForNewTeam, :model do
+describe Team::AddTeamMember, :model do
   let(:user) { users(:without_team) }
   let(:team) { teams(:spaces) }
   let(:primary_role) { TeamMember::Roles::PRIMARY_OWNER }
 
-  it "creates team_member as primary owner associated to user" do
+  it "creates a team_member" do
     assert_difference -> { TeamMember.count }, 1 do
-      result = CreateTeamMemberForNewTeam.call(team: team, user: user)
+      result = CreateTeamMemberForNewTeam.call(team: team,
+                                               user: user,
+                                               role: primary_role)
 
       assert result.success?
       assert_equal user, result.team_member.user

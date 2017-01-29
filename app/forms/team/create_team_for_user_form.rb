@@ -7,6 +7,8 @@ class Team::CreateTeamForUserForm < Team::Form
   end
 
   def save
-    super && CreateTeamMemberForNewTeam.call(user: @user, team: @team).success?
+    super && Team::AddTeamMember.call(role: TeamMember::Roles::PRIMARY_OWNER,
+                                      team: @team,
+                                      user: @user).success?
   end
 end
