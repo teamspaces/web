@@ -22,8 +22,6 @@ describe AvailableUsersQuery, :controller do
       user_with_several_teams.teams.each do |team|
         assert_includes available_users_cookie.teams, team
       end
-
-      assert false
     end
   end
 

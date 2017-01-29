@@ -47,7 +47,8 @@ describe "Available Teams", :capybara do
       switch_to_window(windows.last)
 
       # assert signed in into power-rangers team
-      assert_content "New Space"
+      assert_content "Power Rangers"
+      assert_content "Edit"
     end
   end
 end
