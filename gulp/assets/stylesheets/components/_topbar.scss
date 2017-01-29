@@ -39,13 +39,13 @@
 input.topbar-search {
   display: block;
   float: right;
-  background: #fff url(../assets/images/topbar/search-icon.svg) no-repeat 0 center;
-  width: 210px;
-  height: 60px;
-  padding: 22px 0 22px 36px;
-  margin: 0;
-  border: 0;
-  border-radius: 0;
+  background: #fff url(../assets/images/topbar/search-icon.svg) no-repeat 12px center;
+  width: 204px;
+  height: 42px;
+  padding: 13px 0 13px 45px;
+  margin: 9px 0 0 0;
+  border: 1px solid #E6E8EB;
+  border-radius: 21px;
   font-size: 14px;
   line-height: 16px;
   color: $color-text-primary;
@@ -112,17 +112,17 @@ nav {
 .topbar-spaces {
   padding: 0 15px;
 
-  span {
-    display: inline-block;;
-    width: 45px;
-    height: 30px;
-    border-radius: 6px;
-    background: transparent url(../assets/images/topbar/temp-space-thumb.png) no-repeat center center;
-    background-size: cover;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12);
-    margin: -1px 15px 0 0;
-    vertical-align: middle;
-  }
+  // span {
+  //   display: inline-block;;
+  //   width: 45px;
+  //   height: 30px;
+  //   border-radius: 6px;
+  //   background: transparent url(../assets/images/topbar/temp-space-thumb.png) no-repeat center center;
+  //   background-size: cover;
+  //   box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+  //   margin: -1px 15px 0 0;
+  //   vertical-align: middle;
+  // }
 }
 
 
@@ -135,9 +135,9 @@ nav {
 
   img {
     display: inline-block;
-    width: 30px;
-    height: 30px;
-    margin: -1px 15px 0 0;
+    width: 36px;
+    height: 36px;
+    margin: -1px 30px 0 0;
     border-radius: 6px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12);
   }
@@ -149,14 +149,20 @@ nav {
  * Account navigation
  */
 .topbar-account {
+  display: block;
   float: right;
-  padding: 15px 30px;
+  padding: 12px 30px;
+  transition: all 0.3s;
+
+  &:hover, &:active, &:focus {
+    opacity: 0.6;
+  }
 
   img {
     display: inline-block;
-    width: 30px;
-    height: 30px;
-    border-radius: 15px;
+    width: 36px;
+    height: 36px;
+    border-radius: 18px;
     margin-top: -1px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12);
   }
