@@ -7,9 +7,9 @@ describe Team::AddTeamMember, :model do
 
   it "creates a team_member" do
     assert_difference -> { TeamMember.count }, 1 do
-      result = CreateTeamMemberForNewTeam.call(team: team,
-                                               user: user,
-                                               role: primary_role)
+      result = Team::AddTeamMember.call(team: team,
+                                        user: user,
+                                        role: primary_role)
 
       assert result.success?
       assert_equal user, result.team_member.user
