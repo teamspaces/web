@@ -12,7 +12,7 @@ class AvailableUsersQuery
     Team.joins(:users).where(users: {id: available_user_ids})
   end
 
-  def team_user(team)
+  def available_user_member_of_team(team)
     users.joins(:teams).where(teams: {id: team.id}).limit(1).first
   end
 

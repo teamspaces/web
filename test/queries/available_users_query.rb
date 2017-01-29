@@ -27,7 +27,7 @@ describe AvailableUsersQuery, :controller do
     end
   end
 
-  describe "#team_user" do
+  describe "#available_user_member_of_team" do
     it "returns the available user who is member of the team" do
 
     end
