@@ -7,9 +7,12 @@
     <div class="card-content">
       <%= render 'form', page: @page %>
 
+      <div id="page-editor" class="space-page-content"></div>
+
       <div class="card-actions">
         <%= link_to 'Back', @page %> | 
-        <%= link_to '+ Add Page', new_space_page_path(@page.space) %> | 
+        <%= link_to 'New Root Page', new_space_page_path(@page.space) %> |
+        <%= link_to 'New Nested Page', new_space_page_path(@page.space, parent_id: @page.id) %> |
         <%= link_to 'Destroy', @page, method: :delete, data: { confirm: 'Are you sure?' } %>
       </div>
     </div>
