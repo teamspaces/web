@@ -19,9 +19,26 @@
 
   input.topbar-search {
     width: 301px;
-    height: auto;
+    height: 61px;
     border-right: 1px solid #EBEDF0;
     border-bottom: 1px solid #EBEDF0;
+    background-color: #F5F7FA;
+
+    &:hover, &:focus {
+      background-color: #fff;
+    }
+
+    &::-webkit-input-placeholder {
+      color: #9CA5AE;
+    }
+
+    &::-moz-placeholder {
+      color: #9CA5AE;
+    }
+
+    &:-ms-input-placeholder {
+      color: #9CA5AE;
+    }
   }
 }
 
@@ -39,11 +56,11 @@
 input.topbar-search {
   display: block;
   float: left;
-  background: #fff;
+  background: #fff url(../assets/images/topbar/search-icon.svg) no-repeat 30px center;
   width: 300px;
   width: calc(100% - 450px);
   height: 60px;
-  padding: 22px 30px;
+  padding: 22px 30px 22px 64px;
   margin: 0;
   border: 0;
   border-radius: 0;
