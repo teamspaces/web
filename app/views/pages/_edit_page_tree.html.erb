@@ -5,7 +5,7 @@
         <div class="space-sidebar-edit-actions">
             <span class="space-sidebar-move"></span>
             <%= link_to "", page, method: :delete, class: "space-sidebar-remove", data: { confirm: "Are you sure?" } %>
-            <%= link_to "", new_space_page_path(@page.space, parent_id: @page.id), class: "space-sidebar-add-subpage" %>
+            <%= link_to "", new_space_page_path(page.space, parent_id: page.id), class: "space-sidebar-add-subpage" %>
         </div>
 
         <% if page_tree.size.positive? %>
