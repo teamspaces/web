@@ -13,7 +13,7 @@ module SessionAuthentication
 
   def user_signed_in?
     logged_in?
-  and
+  end
 
   def authenticate_user!(opts={})
     if !user_signed_in? && (!devise_controller? || opts.delete(:force))
