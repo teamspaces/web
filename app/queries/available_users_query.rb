@@ -16,6 +16,14 @@ class AvailableUsersQuery
     users.joins(:teams).where(teams: {id: team.id}).limit(1).first
   end
 
+  def sign_out(user)
+    Authie::Session.where(user: user, browser_id: @cookies[:browser_id]).each(&:invalidate!)
+  end
+
+  def sign_out_all
+    Authie::Session.where(browser_id: @cookies[:browser_id]).each(&:invalidate!)
+  end
+
   private
 
     def available_user_ids

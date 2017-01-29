@@ -8,7 +8,7 @@ module SessionAuthentication
   end
 
   def sign_out(resource_or_scope = nil)
-    sign_out_from_users_subdomains
+    sign_out_user
   end
 
   def authenticate_user!(opts={})
@@ -26,12 +26,12 @@ module SessionAuthentication
     auth_session.invalidate!
   end
 
-  def sign_out_from_users_subdomains
-    Authie::Session.where(user: current_user, browser_id: auth_session.browser_id).each(&:invalidate!)
+  def sign_out_user
+    available_users.sign_out(current_user)
   end
 
-  def sign_out_from_all_subdomains_in_browser
-    Authie::Session.where(browser_id: auth_session.browser_id).each(&:invalidate!)
+  def sign_out_users
+    available_users.sign_out_all
   end
 
   private
