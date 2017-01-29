@@ -110,17 +110,17 @@ nav {
  * Spaces navigation
  */
 .topbar-spaces {
-  padding: 0 18px;
+  padding: 0 15px;
 
   span {
     display: inline-block;;
-    width: 30px;
+    width: 45px;
     height: 30px;
-    border-radius: 15px;
+    border-radius: 6px;
     background: transparent url(../assets/images/topbar/temp-space-thumb.png) no-repeat center center;
     background-size: cover;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12);
-    margin: -1px 16px 0 0;
+    margin: -1px 15px 0 0;
     vertical-align: middle;
   }
 }
@@ -131,13 +131,13 @@ nav {
  * Team navigation
  */
 .topbar-team {
-  padding: 0 18px 0 30px;
+  padding: 0 15px 0 30px;
 
   img {
     display: inline-block;
     width: 30px;
     height: 30px;
-    margin: -1px 16px 0 0;
+    margin: -1px 15px 0 0;
     border-radius: 6px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12);
   }
