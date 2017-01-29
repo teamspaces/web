@@ -8,7 +8,7 @@ describe User::UpdateEmailForm, :model do
 
   describe "validations" do
     it "validates email format" do
-      form = User::UpdateEmailForm.new(user: user, params: { email: "non_valid" })
+      form = User::UpdateEmailForm.new(user: user, attributes: { email: "non_valid" })
 
       form.valid?
       assert_includes form.errors[:email], "is invalid"
@@ -17,7 +17,7 @@ describe User::UpdateEmailForm, :model do
 
   describe "#save" do
     it "updates user email" do
-      User::UpdateEmailForm.new(user: user, params: { email: "kiew@gmail.com" }).save
+      User::UpdateEmailForm.new(user: user, attributes: { email: "kiew@gmail.com" }).save
 
       user.reload
       assert_equal "kiew@gmail.com", user.unconfirmed_email
