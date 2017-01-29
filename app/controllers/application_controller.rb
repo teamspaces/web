@@ -29,6 +29,6 @@ class ApplicationController < ActionController::Base
   helper_method :available_users
 
   def available_users
-    @available_users ||= LoginRegisterFunnel::BaseController::AvailableUsersCookie.new(cookies)
+    @available_users ||= AvailableUsersQuery.new(cookies)
   end
 end

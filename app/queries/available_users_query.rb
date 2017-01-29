@@ -1,4 +1,4 @@
-class LoginRegisterFunnel::BaseController::AvailableUsersCookie
+class AvailableUsersQuery
 
   def initialize(cookies)
     @cookies = cookies
@@ -23,4 +23,5 @@ class LoginRegisterFunnel::BaseController::AvailableUsersCookie
                                              .select(:user_id)
                                              .distinct
     end
+
 end
