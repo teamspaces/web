@@ -5,6 +5,8 @@ class SendInvitationForm
 
   attr_reader :invitation
 
+  delegate :model_name, to: Invitation
+
   attribute :team, Team
   attribute :invited_by_user, User
 
