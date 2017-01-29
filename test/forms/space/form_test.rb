@@ -8,6 +8,15 @@ describe Space::Form, :model do
   describe "validations" do
     should validate_presence_of(:name)
     should validate_presence_of(:team_id)
+
+    it "validates attached cover" do
+      Shrine::Attacher.any_instance
+                      .stubs(:errors)
+                      .returns(ActiveModel::Errors.new(subject).tap { |errors| errors.add(:cover, :invalid) })
+
+      refute subject.save
+      assert subject.errors[:cover].present?
+    end
   end
 
   describe "space cover" do

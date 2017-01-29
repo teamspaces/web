@@ -36,16 +36,12 @@ describe LoginRegisterFunnel::TeamsController do
 
     describe "valid team attributes" do
       def post_valid_team_attributes
-        valid_team_attributes = { team_create_team_for_user_form: { name: "bain ltd", subdomain: "baincompany", logo: uploaded_logo_file } }
+        valid_team_attributes = { team: { name: "bain ltd", subdomain: "baincompany", logo: uploaded_logo_file } }
 
         post login_register_funnel_create_team_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]), params: valid_team_attributes
       end
 
-      it "creates team, with uploaded logo" do
-        Team::Logo::AttachUploadedLogo.expects(:call)
-                                      .with(has_entry(:file, uploaded_logo_file))
-                                      .returns(true)
-
+      it "creates a team" do
         assert_difference -> { Team.count }, 1 do
           post_valid_team_attributes
         end
@@ -66,7 +62,7 @@ describe LoginRegisterFunnel::TeamsController do
 
     describe "invalid team attributes" do
       def post_invalid_team_attributes
-        invalid_team_attributes = { team_create_team_for_user_form: { name: "Turkey Travel", subdomain: "-" } }
+        invalid_team_attributes = { team: { name: "Turkey Travel", subdomain: "-" } }
 
         post login_register_funnel_create_team_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]), params: invalid_team_attributes
       end

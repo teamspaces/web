@@ -16,7 +16,7 @@ class Space::Form
 
   validates :name, presence: true
   validates :team_id, presence: true
-  validate :valid_cover
+  validates :cover, attached_image: true
 
   def initialize(space:, params: {})
     @space = space
@@ -34,13 +34,6 @@ class Space::Form
   end
 
   private
-
-    def valid_cover
-      @space.cover_attacher.errors.each do |message|
-        self.errors.add(:cover, message)
-      end
-      @space.cover_attacher.errors.any?
-    end
 
     def persist!
       @space.assign_attributes(name: name, team_id: team_id)

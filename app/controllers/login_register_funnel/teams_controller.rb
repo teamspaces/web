@@ -9,8 +9,7 @@ class LoginRegisterFunnel::TeamsController < LoginRegisterFunnel::BaseController
   end
 
   def create
-    @team_form = Team::CreateTeamForUserForm.new(create_team_for_user_form_params.to_h
-                                                 .merge(user: current_user))
+    @team_form = Team::CreateTeamForUserForm.new(user: current_user, attributes: team_params)
 
     if @team_form.save
       redirect_to sign_in_url_for(user: current_user, created_team_to_redirect_to: @team_form.team)
@@ -35,8 +34,7 @@ class LoginRegisterFunnel::TeamsController < LoginRegisterFunnel::BaseController
 
   private
 
-    def create_team_for_user_form_params
-      params.require(:team_create_team_for_user_form)
-            .permit(:name, :subdomain, :logo)
+    def team_params
+      params.require(:team).permit(:name, :subdomain, :logo).to_h
     end
 end
