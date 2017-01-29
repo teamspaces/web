@@ -17,12 +17,7 @@ module SessionAuthentication
 
   def authenticate_user!(opts={})
     if !user_signed_in? && (!devise_controller? || opts.delete(:force))
-      if on_team_subdomain? &&
-         (available_user = available_users.user_signed_in_on_another_subdomain(current_team))
-        sign_in(available_user)
-      else
-        redirect_to root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]), alert: t("errors.messages.unauthorized")
-      end
+      sign_in_user_if_signed_in_on_another_subdomain || redirect_unauthorized
     end
   end
 
@@ -37,4 +32,18 @@ module SessionAuthentication
   def sign_out_users
     available_users.sign_out_all
   end
+
+  private
+
+    def sign_in_user_if_signed_in_on_another_subdomain
+      if on_team_subdomain?
+        if available_user = available_users.user_signed_in_on_another_subdomain(current_team))
+          sign_in(available_user)
+        end
+      end
+    end
+
+    def redirect_unauthorized
+      redirect_to root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]), alert: t("errors.messages.unauthorized")
+    end
 end
