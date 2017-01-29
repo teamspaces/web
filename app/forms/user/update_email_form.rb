@@ -9,7 +9,7 @@ class User::UpdateEmailForm
 
   validate :validate_user
 
-  def initialize(user, params={})
+  def initialize(user:, params: {})
     @user = user
 
     super(params)
