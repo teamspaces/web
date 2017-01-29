@@ -17,5 +17,16 @@ class PagePolicy
     team == page.team
   end
 
-  alias_methods :team_page?, [:show?, :new?, :edit?, :create?, :update?, :destroy?]
+  alias_methods :team_page?, [:show?, :new?, :edit?, :update?, :destroy?]
+
+  def create?
+    team_page? &&
+      allow_nesting?
+  end
+
+  private
+
+    def allow_nesting?
+      (page.parent.depth + 1) <= ENV["NESTED_PAGE_LIMIT"].to_i
+    end
 end
