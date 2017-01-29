@@ -48,7 +48,7 @@ describe PagesController do
       assert_difference "Page.count" do
         params = { page: { title: "Sunday Steak" } }
         post space_pages_url(space, subdomain: team.subdomain, params: params)
-        assert_redirected_to page_url(space.pages.reload.last, subdomain: team.subdomain)
+        assert_redirected_to edit_page_url(Page.last, subdomain: team.subdomain)
       end
     end
   end
