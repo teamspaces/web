@@ -14,49 +14,44 @@ describe SessionAuthentication, :controller do
 
   describe "#sign_out" do
     it "signs out user" do
-      controller.sign_out(user)
+      AvailableUsersQuery.any_instance
+                         .expexts(:sign_out)
+                         .with(user)
 
-      refute controller.user_signed_in?
+      controller.sign_out(user)
     end
   end
 
   describe "#authenticate_user!" do
     context "user is signed in" do
       it "does nothing" do
+        controller.sign_in(user)
+        controller.authenticate_user!
+
+        assert_response :success
       end
     end
 
     context "user not signed in" do
-      it "redirects to landing" do
+      it "redirects to root_url" do
+        controller.authenticate_user!
 
+        assert_redirected_to root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
       end
     end
 
     context "user is signed in on another subdomain" do
       it "signs in user" do
+        AvailableUsersQuery.any_instance
+                           .stubs(:user_signed_in_on_another_subdomain)
+                           .returns(user)
 
+        controller.expexts(:sign_in).with(user)
+
+        controller.authenticate_user!
+
+        assert_response :success
       end
-    end
-  end
-
-  describe "#sign_out_from_subdomain" do
-    it "invalidates session" do
-
-      controller.sign_out_from_subdomain
-    end
-  end
-
-  describe "#sign_out_user" do
-    it "signs out current user" do
-
-      controller.sign_out_user
-    end
-  end
-
-  describe "#sign_out_users" do
-    it "signs out all available users" do
-
-      controller.sign_out_users
     end
   end
 end
