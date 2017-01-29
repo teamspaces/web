@@ -1,7 +1,9 @@
 module SessionAuthentication
 
   #overwrite devise
-  def sign_in(user)
+  def sign_in(resource_or_scope, *args)
+    user = args.last || resource_or_scope
+
     self.current_user = user
   end
 
