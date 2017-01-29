@@ -1,6 +1,6 @@
 module SessionAuthentication
 
-  #overwrite devise
+  #overwrite devise methods
   def sign_in(resource_or_scope, *args)
     user = args.last || resource_or_scope
 
@@ -8,7 +8,7 @@ module SessionAuthentication
   end
 
   def sign_out(resource_or_scope = nil)
-    sign_out_user
+    available_users.sign_out(current_user)
   end
 
   def user_signed_in?
@@ -19,18 +19,6 @@ module SessionAuthentication
     if !user_signed_in? && (!devise_controller? || opts.delete(:force))
       sign_in_user_if_signed_in_on_another_subdomain || redirect_unauthorized
     end
-  end
-
-  def sign_out_from_subdomain
-    auth_session.invalidate!
-  end
-
-  def sign_out_user
-    available_users.sign_out(current_user)
-  end
-
-  def sign_out_users
-    available_users.sign_out_all
   end
 
   private

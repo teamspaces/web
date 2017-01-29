@@ -20,10 +20,6 @@ class AvailableUsersQuery
     active_browser_sessions.where(user: user).each(&:invalidate!)
   end
 
-  def sign_out_all
-    active_browser_sessions.each(&:invalidate!)
-  end
-
   private
 
     def available_user_ids
