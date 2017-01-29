@@ -1,19 +1,19 @@
 <aside class="space-sidebar">
-    <h3><%= link_to space.name, space_pages_path(space) %></h3>
+  <h3><%= link_to space.name, space_pages_path(space) %></h3>
 
-    <%= link_to(team_path, class: "space-sidebar-members") do %>
-        <% avatar_users.each do |user| %>
-            <%= image_tag(user.avatar_url(:image_48), alt: user.name) %>
-        <% end %>
-
-        <% if show_unseen.positive? %>
-            <span class="space-sidebar-members-overflow">+<%= show_unseen %></span>
-        <% end %>
-
-        <span class="space-sidebar-members-add"></span>
+  <%= link_to(invitations_path, class: "avatars") do %>
+    <% avatar_users.each do |user| %>
+        <%= image_tag(user.avatar_url(:image_48), alt: user.name) %>
     <% end %>
 
-    <ul class="space-sidebar-pages">
-        <%= render "page_tree", page_tree: space.pages.hash_tree %>
-    </ul>
+    <% if show_unseen.positive? %>
+        <span class="avatars-overflow">+<%= show_unseen %></span>
+    <% end %>
+
+    <span class="avatars-add"></span>
+  <% end %>
+
+  <ul class="space-sidebar-pages">
+    <%= render "page_tree", page_tree: space.pages.hash_tree %>
+  </ul>
 </aside>

@@ -1,23 +1,43 @@
-<main>
-  <div class="card card-editor">
-    <header>
-      <h1>Edit Page</h1>
-    </header>
+<% content_for :body_class, 'body-space body-space-edit' %>
 
-    <div class="card-content">
-      <%= render 'form', page: @page %>
+<aside class="space-sidebar space-sidebar-edit">
+  <h3>
+    <%= link_to edit_space_path(@page.space) do %>
+      <%= @page.space.name %><span></span>
+    <% end %>
+  </h3>
 
-      <div id="page-editor" class="space-page-content"></div>
+  <%= link_to(invitations_path, class: "avatars") do %>
+    <% avatar_users.each do |user| %>
+        <%= image_tag(user.avatar_url(:image_48), alt: user.name) %>
+    <% end %>
 
-      <div class="card-actions">
-        <%= link_to 'Back', @page %> | 
-        <%= link_to 'New Root Page', new_space_page_path(@page.space) %> |
-        <%= link_to 'New Nested Page', new_space_page_path(@page.space, parent_id: @page.id) %> |
-        <%= link_to 'Destroy', @page, method: :delete, data: { confirm: 'Are you sure?' } %>
-      </div>
-    </div>
-  </div>
-</main>
+    <% if number_of_unseen_avatars.positive? %>
+        <span class="avatars-overflow">+<%= number_of_unseen_avatars %></span>
+    <% end %>
+
+    <span class="avatars-add"></span>
+  <% end %>
+
+  <ul class="space-sidebar-pages">
+    <%= render "edit_page_tree", page_tree: @page.space.pages.hash_tree %>
+  </ul>
+</aside>
+
+<div class="space-page-container">
+  <main class="space-page space-page-edit">
+    <%= render 'form', page: @page %>
+  </main>
+</div>
+
+<div class="edit-toolbar">
+  <%= link_to 'New page', new_space_page_path(@page.space), class: 'edit-toolbar-new-page' %>
+
+  <!-- TODO: Toggle between Saving... and Saved -->
+  <!-- <div class="edit-toolbar-status">
+    Saved
+  </div> -->
+</div>
 
 <script>
   $(function(){

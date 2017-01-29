@@ -2,6 +2,8 @@
   padding: 0 108px 0 408px;
 }
 
+
+
 /**
  * Page
  */
@@ -39,4 +41,57 @@
       margin-top: 12px;
     }
   }
+
+  // Style images
+  img {
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+  }
+}
+
+
+
+/**
+ * Edit page
+ */
+.space-page.space-page-edit {
+  padding-top: 60px;
+  padding-bottom: 120px;
+
+  input[type=text] {
+    font-size: 34px;
+    font-weight: 300;
+    line-height: 48px;
+    color: $color-title;
+    margin-top: 0;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    border-radius: 0;
+
+    &:hover, &:focus {
+      outline: none;
+    }
+
+    &::-webkit-input-placeholder {
+      color: #999;
+    }
+
+    &::-moz-placeholder {
+      color: #999;
+    }
+
+    &:-ms-input-placeholder {
+      color: #999;
+    }
+  }
+
+  .ql-editor.ql-blank::before {
+    font-style: normal;
+    color: #999;
+  }
+}
+
+#page-editor {
+  position: relative;
 }
