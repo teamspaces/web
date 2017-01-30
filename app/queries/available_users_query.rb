@@ -23,6 +23,6 @@ class AvailableUsersQuery
     end
 
     def active_browser_sessions
-      Authie::Session.where(browser_id: @browser_id, active: true)
+      Authie::Session.active.where(browser_id: @browser_id)
     end
 end

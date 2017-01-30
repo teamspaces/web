@@ -3,10 +3,12 @@ Authie::Session.class_eval do
   # this field was removed from the Authie migration
   attr_accessor :data
 
+  scope :active, -> { where(active: true) }
+
   def self.sign_out(user:,browser_id:)
-    self.where(user: user,
-               browser_id: browser_id,
-               active: true).find_each(&:invalidate!)
+    self.active
+        .where(user: user, browser_id: browser_id)
+        .find_each(&:invalidate!)
   end
 
   def self.start(controller, params = {})
