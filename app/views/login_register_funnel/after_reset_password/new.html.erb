@@ -1,0 +1,16 @@
+<main>
+  <div class="card">
+    <header>
+      <h1><%= @user.first_name %> we've sent you an email</h1>
+    </header>
+
+    <div class="card-content">
+
+      <p><b>To continue</b>, please check your <i><%= @user.email %></i> inbox and update your password by clicking on the link in our mail</p>
+
+
+      <%= link_to "Take me back", root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]) %>
+
+    </div>
+  </div>
+</main>

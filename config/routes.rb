@@ -28,7 +28,8 @@ Rails.application.routes.draw do
 
   devise_for :users,
              skip: [:sessions],
-             controllers: { omniauth_callbacks: "user/omniauth_callbacks" }
+             controllers: { omniauth_callbacks: "user/omniauth_callbacks",
+                            passwords: 'user/passwords' }
 
   devise_scope :user do
     delete :logout, to: "devise/sessions#destroy", as: :destroy_user_session
@@ -58,6 +59,10 @@ Rails.application.routes.draw do
   get :email_login, to: "login_register_funnel/email_login#new", as: :new_email_login
   post :email_login, to: "login_register_funnel/email_login#create", as: :email_login
 
+
+  namespace :login_register_funnel do
+    resources :after_reset_password, only: [:new]
+  end
 
   get :temporary_landing, to: "landing#index", path: "/landing"
 
