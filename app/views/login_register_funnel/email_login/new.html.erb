@@ -28,6 +28,10 @@
 
       <% end %>
 
+      <p><%= link_to "Forgot my password", password_path(@email_login_form.user, user: { email: @email_login_form.email}), method: :post  %></p>
+
+
+
       <div class="card-actions">
         <%= link_to "Back", new_review_email_address_path %>
       </div>
