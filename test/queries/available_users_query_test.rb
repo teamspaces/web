@@ -4,7 +4,7 @@ describe AvailableUsersQuery, :controller do
   let(:default_user) { users(:ulf) }
   let(:user_with_several_teams){ users(:with_several_teams) }
   let(:controller) { get root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]); @controller }
-  let(:available_users) { AvailableUsersQuery.new(controller.send(:cookies)) }
+  let(:available_users) { AvailableUsersQuery.new(controller.send(:cookies)[:browser_id]) }
 
   describe "#users" do
     it "returns all users with an active session" do

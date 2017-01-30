@@ -3,6 +3,12 @@ Authie::Session.class_eval do
   # this field was removed from the Authie migration
   attr_accessor :data
 
+  def self.sign_out(user:,browser_id:)
+    self.where(user: user,
+               browser_id: browser_id,
+               active: true).find_each(&:invalidate!)
+  end
+
   def self.start(controller, params = {})
     cookies = controller.send(:cookies)
     current_team_id = controller.try(:current_team)&.id

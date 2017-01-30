@@ -16,10 +16,6 @@ class AvailableUsersQuery
     users.joins(:teams).where(teams: { id: team.id }).limit(1).first
   end
 
-  def sign_out(user)
-    active_browser_sessions.where(user: user).find_each(&:invalidate!)
-  end
-
   private
 
     def available_user_ids
