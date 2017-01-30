@@ -29,9 +29,7 @@ describe "Reset Password", :capybara do
       fill_in("Password", with: "new_password")
       fill_in("Password confirmation", with: "new_password")
 
-      click_on "Change my password and sign me in"
-
-      refute true
+      assert_content "Change my password and sign me in"
 
     end
   end
