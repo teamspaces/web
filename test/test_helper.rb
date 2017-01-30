@@ -17,6 +17,7 @@ require "support/webmock"
 
 require "shared/test_helpers/slack/identity"
 
+require "test_helpers/mail_helper"
 require "test_helpers/subdomain_helper"
 require "test_helpers/invitation_cookie_mock"
 

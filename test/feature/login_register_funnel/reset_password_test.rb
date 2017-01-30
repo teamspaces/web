@@ -2,15 +2,7 @@ require "test_helper"
 
 describe "Reset Password", :capybara do
   include TestHelpers::SubdomainHelper
-
-  def mail_content(mail)
-    mail.body.raw_source
-  end
-
-  def find_link_in_mail(mail)
-    link = mail_content(mail).match(/href="(?<url>.+?)">/)[:url]
-    link
-  end
+  include TestHelpers::MailHelper
 
   describe "reset password of email user" do
     let(:email_user) { users(:with_two_spaces) }

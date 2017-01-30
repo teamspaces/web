@@ -2,6 +2,7 @@ require "test_helper"
 
 describe "Email Register", :capybara do
   include TestHelpers::SubdomainHelper
+  include TestHelpers::MailHelper
 
   before(:each) do
     interactor_mock = mock
@@ -11,11 +12,6 @@ describe "Email Register", :capybara do
                                        .returns(interactor_mock)
 
     Team::Logo::AttachGeneratedLogo.stubs(:call).returns(true)
-  end
-
-  def find_link_in_mail(mail)
-    link = mail.body.raw_source.match(/href="(?<url>.+?)">/)[:url]
-    link
   end
 
   describe "register with email address" do
