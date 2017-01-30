@@ -12,6 +12,7 @@ describe "Reset Password", :capybara do
     let(:email_user) { users(:with_two_spaces) }
 
     it "let's user reset the password" do
+      puts "hello1"
       visit "/landing"
       click_on "Sign In"
       click_on "Sign in with email"
@@ -19,11 +20,18 @@ describe "Reset Password", :capybara do
       fill_in("Email", with: email_user.email)
       click_on "This is my email"
 
+      puts "hello3"
+
       click_on "I Forgot my password, I want to reset it"
 
       assert_content "Madeleine we've sent you an email"
 
+      puts "hello4"
+
       change_password_link = find_link_in_mail(ActionMailer::Base.deliveries.last)
+
+      puts "hellos"
+      puts change_password_link
       visit change_password_link
 
       fill_in("Password", with: "new_password")
