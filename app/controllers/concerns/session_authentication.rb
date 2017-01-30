@@ -10,6 +10,10 @@ module SessionAuthentication
                              browser_id: cookies[:browser_id])
   end
 
+  def sign_out_from_subdomain
+    auth_session.invalidate!
+  end
+
   def user_signed_in?
     logged_in?
   end
@@ -26,9 +30,7 @@ module SessionAuthentication
       if on_team_subdomain?
         available_user = available_users.user_signed_in_on_another_subdomain(current_team)
 
-        if available_user
-          sign_in(available_user)
-        end
+        sign_in(available_user) if available_user
       end
     end
 
