@@ -13,11 +13,10 @@ describe SessionAuthentication, :controller do
   end
 
   describe "#sign_out" do
-    it "signs out user" do
+    it "signs out user current user" do
       Authie::Session.expects(:sign_out)
-                     .with(has_entry(user: user))
 
-      controller.sign_out(user)
+      controller.sign_out
     end
   end
 
@@ -33,23 +32,27 @@ describe SessionAuthentication, :controller do
 
     context "user not signed in" do
       it "redirects to root_url" do
-        controller.authenticate_user!
+        controller.expects(:redirect_unauthorized).returns(true)
 
-        assert_redirected_to root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
+        controller.authenticate_user!
       end
     end
 
     context "user is signed in on another subdomain" do
-      it "signs in user" do
-        AvailableUsersQuery.any_instance
-                           .stubs(:user_signed_in_on_another_subdomain)
-                           .returns(user)
+      context "on team subdomain" do
+        it "signs in user" do
+          AvailableUsersQuery.any_instance
+                             .stubs(:user_signed_in_on_another_subdomain)
+                             .returns(user)
 
-        controller.expects(:sign_in).with(user)
+          controller.expects(:sign_in).with(user)
 
-        controller.authenticate_user!
+          controller.authenticate_user!
+        end
+      end
 
-        assert_response :success
+      context "on default subdomain" do
+
       end
     end
   end
