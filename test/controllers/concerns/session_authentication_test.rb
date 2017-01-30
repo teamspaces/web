@@ -39,20 +39,22 @@ describe SessionAuthentication, :controller do
     end
 
     context "user is signed in on another subdomain" do
-      context "on team subdomain" do
+      describe "on team subdomain" do
+        before(:each) do
+          controller.stubs(:current_team).returns(teams(:power_rangers))
+          controller.stubs(:subdomain_team).returns(teams(:power_rangers))
+        end
+
         it "signs in user" do
           AvailableUsersQuery.any_instance
                              .stubs(:user_signed_in_on_another_subdomain)
                              .returns(user)
 
-          controller.expects(:sign_in).with(user)
+          controller.expects(:sign_in).returns(true)
 
           controller.authenticate_user!
+          assert_response :success
         end
-      end
-
-      context "on default subdomain" do
-
       end
     end
   end
