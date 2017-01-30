@@ -4,6 +4,8 @@
       <h1>Change Your Password</h1>
     </header>
 
+    <%= resource.inspect %>
+
     <div class="card-content">
       <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
         <%= devise_error_messages! %>
