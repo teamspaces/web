@@ -4,7 +4,7 @@ class CustomDeviseMailerPreview < ActionMailer::Preview
   end
 
   def reset_password_instructions
-    CustomDeviseMailer.reset_password_instructions(User.last, "fake_token",, {})
+    CustomDeviseMailer.reset_password_instructions(User.last, "fake_token", {})
   end
 
   def password_change
