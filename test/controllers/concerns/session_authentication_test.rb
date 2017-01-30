@@ -14,9 +14,8 @@ describe SessionAuthentication, :controller do
 
   describe "#sign_out" do
     it "signs out user" do
-      AvailableUsersQuery.any_instance
-                         .expects(:sign_out)
-                         .with(user)
+      Authie::Session.expects(:sign_out)
+                     .with(has_entry(user: user))
 
       controller.sign_out(user)
     end
