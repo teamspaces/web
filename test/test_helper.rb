@@ -29,6 +29,7 @@ class Capybara::Rails::TestCase
   before do
     Capybara.reset!
     DatabaseCleaner.start
+    ActionMailer::Base.default_url_options = { domain: "lvh.me", port: Capybara.current_session.server.port }
   end
 
   after do
