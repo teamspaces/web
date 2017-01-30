@@ -29,8 +29,8 @@
       <% end %>
 
       <div class="card-actions">
-        <p><%= link_to "I Forgot my password, I want to reset it", password_path(@email_login_form.user, user: { email: @email_login_form.email}), method: :post  %>
-
+        <p>
+          <%= link_to "I Forgot my password, I want to reset it", password_path(@email_login_form.user, user: { email: @email_login_form.email}), method: :post  %>
         </p>
 
         <%= link_to "Back", new_review_email_address_path %>
