@@ -15,7 +15,7 @@ class LoginRegisterFunnel::BaseController < ApplicationController
     end
 
     def sign_out_user_from_default_subdomain(user)
-      sign_out_from_subdomain
+      auth_session.invalidate!
     end
 
     def shared_user_info

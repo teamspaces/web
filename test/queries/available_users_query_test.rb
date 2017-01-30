@@ -25,14 +25,34 @@ describe AvailableUsersQuery, :controller do
     end
   end
 
-  describe "#available_user_member_of_team" do
+  describe "#user_signed_in_on_another_subdomain" do
     let(:user_with_several_teams_team) { teams(:power_rangers) }
 
-    it "returns the available user who is member of the team" do
-      controller.sign_in(default_user)
-      controller.sign_in(user_with_several_teams)
+    context "team user is signed in on another team subdomain" do
+      it "returns the team user" do
+        controller.sign_in(default_user)
+        controller.sign_in(user_with_several_teams)
 
-      assert_equal user_with_several_teams, available_users.available_user_member_of_team(user_with_several_teams_team)
+        assert_equal user_with_several_teams, available_users.user_signed_in_on_another_subdomain(user_with_several_teams_team)
+      end
+    end
+
+    context "there is no team user signed in on another team subdomain" do
+      it "returns nil" do
+        assert_nil available_users.user_signed_in_on_another_subdomain(user_with_several_teams_team)
+      end
+    end
+  end
+
+  describe "#sign out" do
+    it "invalidates all user session on the device" do
+      controller.sign_in(default_user)
+
+      Authie::Session.where(user: default_user, active: true).each do |session|
+        session.expects(:invalidate!)
+      end
+
+      controller.sign_out(default_user)
     end
   end
 end
