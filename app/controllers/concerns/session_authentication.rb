@@ -5,7 +5,7 @@ module SessionAuthentication
     self.current_user = user
   end
 
-  def sign_out(resource_or_scope = nil)
+  def sign_out(_resource_or_scope = nil)
     available_users.sign_out(current_user)
   end
 
@@ -23,7 +23,9 @@ module SessionAuthentication
 
     def sign_in_user_if_signed_in_on_another_subdomain
       if on_team_subdomain?
-        if available_user = available_users.user_signed_in_on_another_subdomain(current_team)
+        available_user = available_users.user_signed_in_on_another_subdomain(current_team)
+
+        if available_user
           sign_in(available_user)
         end
       end
