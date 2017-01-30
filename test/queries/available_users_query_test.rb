@@ -4,6 +4,7 @@ describe AvailableUsersQuery, :model do
   let(:email_user) { users(:lars) }
   let(:slack_user) { users(:slack_user_milad) }
   let(:with_one_space) { users(:with_one_space) }
+  let(:with_several_teams) { users(:with_several_teams) }
   before(:each) {  Authie::Session.delete_all }
 
   subject { AvailableUsersQuery.new(1) }
@@ -43,7 +44,7 @@ describe AvailableUsersQuery, :model do
       create_session(user: with_one_space)
       create_session(user: team_members(:maja_at_power).user, active: false)
 
-      [email_user.email_user, with_one_space.teams].flatten.each do |team|
+      [email_user.teams, with_one_space.teams].flatten.each do |team|
         assert_includes subject.teams, team
       end
 
@@ -52,8 +53,14 @@ describe AvailableUsersQuery, :model do
   end
 
   describe "#user_signed_in_on_another_subdomain" do
-    it "returns the team user who is already signed in on another team subdomain" do
+    let(:first_users_team) { teams(:spaces) }
+    let(:second_users_team) { teams(:power_rangers) }
 
+    it "returns the team-user who is already signed in on another team subdomain" do
+      create_session(user: with_several_teams, team_id: first_users_team.id)
+      create_session(user: with_one_space)
+
+      assert_equal with_several_teams, subject.user_signed_in_on_another_subdomain(second_users_team)
     end
   end
 end
