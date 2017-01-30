@@ -17,9 +17,20 @@
     border-bottom: 0;
 
     nav {
+      position: relative;
       width: 301px;
       background: #F5F7FA;
       border-right: 1px solid #EBEDF0;
+
+      &:after {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        left: 30px;
+        width: 270px;
+        height: 1px;
+        background: #EBEDF0;
+      }
     }
   }
 
@@ -43,7 +54,7 @@ input.topbar-search {
   width: 204px;
   height: 42px;
   padding: 13px 0 13px 45px;
-  margin: 9px 0 0 0;
+  margin: 15px 0 0 0;
   border: 1px solid #E6E8EB;
   border-radius: 21px;
   font-size: 14px;
@@ -90,7 +101,7 @@ nav {
   a {
     display: block;
     font-size: 14px;
-    line-height: 60px;
+    line-height: 72px;
     color: $color-text-secondary;
     text-decoration: none;
     transition: all 0.3s;
@@ -151,7 +162,7 @@ nav {
 .topbar-account {
   display: block;
   float: right;
-  padding: 12px 30px;
+  padding: 18px 30px;
   transition: all 0.3s;
 
   &:hover, &:active, &:focus {
