@@ -5,7 +5,7 @@ describe "Reset Password", :capybara do
 
   def find_link_in_mail(mail)
     link = mail.body.raw_source.match(/href="(?<url>.+?)">/)[:url]
-    URI(link).relative
+    URI(link).path
   end
 
   describe "reset password of email user" do
