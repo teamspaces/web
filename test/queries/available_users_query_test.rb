@@ -19,21 +19,21 @@ describe AvailableUsersQuery, :model do
       create_session(user: slack_user,     browser_id: 1)
       create_session(user: with_one_space, browser_id: 2)
 
-      assert subject.users.length == 2
+      assert_equal [email_user, slack_user], subject.users
     end
 
     it "only returns user with an active session" do
       create_session(user: email_user, active: true)
       create_session(user: slack_user, active: false)
 
-      assert subject.users.length == 1
+      assert_equal [email_user], subject.users
     end
 
     it "returns distinct users" do
       create_session(user: email_user, team_id: 1)
       create_session(user: email_user, team_id: 2)
 
-      assert subject.users.length == 1
+      assert_equal [email_user], subject.users
     end
   end
 
@@ -43,7 +43,11 @@ describe AvailableUsersQuery, :model do
       create_session(user: with_one_space)
       create_session(user: team_members(:maja_at_power).user, active: false)
 
-      subject.teams
+      [email_user.email_user, with_one_space.teams].flatten.each do |team|
+        assert_includes subject.teams, team
+      end
+
+      assert_not_includes subject.teams, teams(:power_rangers)
     end
   end
 
