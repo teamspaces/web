@@ -41,8 +41,9 @@ describe SessionAuthentication, :controller do
     context "user is signed in on another subdomain" do
       describe "on team subdomain" do
         before(:each) do
-          controller.stubs(:current_team).returns(teams(:power_rangers))
-          controller.stubs(:subdomain_team).returns(teams(:power_rangers))
+          subdomain_team = teams(:power_rangers)
+          controller.stubs(:current_team).returns(subdomain_team)
+          controller.stubs(:subdomain_team).returns(subdomain_team)
         end
 
         it "signs in user" do
