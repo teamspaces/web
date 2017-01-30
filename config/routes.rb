@@ -61,7 +61,7 @@ Rails.application.routes.draw do
 
 
   namespace :login_register_funnel do
-    resources :after_reset_password, only: [:new]
+    resources :after_sent_reset_password_instructions, only: [:new]
   end
 
   get :temporary_landing, to: "landing#index", path: "/landing"

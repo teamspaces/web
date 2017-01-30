@@ -1,4 +1,4 @@
-class LoginRegisterFunnel::AfterResetPasswordController < LoginRegisterFunnel::BaseController
+class LoginRegisterFunnel::AfterSentResetPasswordInstructionsController < LoginRegisterFunnel::BaseController
   before_action :redirect_unless_user_completed_review_email_address_step, :set_user
 
   def new
