@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   devise_for :users,
              skip: [:sessions],
              controllers: { omniauth_callbacks: "user/omniauth_callbacks",
-                            passwords: 'user/passwords' }
+                            passwords: "user/passwords" }
 
   devise_scope :user do
     delete :logout, to: "devise/sessions#destroy", as: :destroy_user_session
