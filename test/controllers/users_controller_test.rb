@@ -6,13 +6,6 @@ describe UsersController do
 
   before(:each) { sign_in user }
 
-  describe "#show" do
-    it "works" do
-      get user_url(subdomain: team.subdomain)
-      assert_response :success
-    end
-  end
-
   describe "#edit" do
     it "works" do
       get edit_user_url(subdomain: team.subdomain)

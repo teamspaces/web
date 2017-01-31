@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       resource :logo, only: [:destroy]
     end
 
-    resource :user, except: [:index, :destroy]
+    resource :user, only: [:edit, :update]
     namespace :user do
       resource :avatar, only: [:destroy]
       resource :email_confirmation, only: [:new, :create, :update]
