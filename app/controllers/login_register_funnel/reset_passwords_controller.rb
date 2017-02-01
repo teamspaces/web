@@ -9,6 +9,8 @@ class LoginRegisterFunnel::ResetPasswordsController < LoginRegisterFunnel::BaseC
     @password_reset_form = LoginRegisterFunnel::PasswordResetForm.new(password_reset_form_params)
 
     if @password_reset_form.send_reset_password_instructions
+      shared_user_info.reviewed_email_address = @password_reset_form.email
+
       redirect_to login_register_funnel_reset_password_path
     else
       render :new
