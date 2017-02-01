@@ -1,6 +1,6 @@
 class AvailableUsersQuery
 
-  def initialize(browser_id)
+  def initialize(browser_id:)
     @browser_id = browser_id
   end
 

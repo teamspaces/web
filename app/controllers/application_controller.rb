@@ -29,6 +29,6 @@ class ApplicationController < ActionController::Base
   helper_method :available_users
 
   def available_users
-    @available_users ||= AvailableUsersQuery.new(cookies[:browser_id])
+    @available_users ||= AvailableUsersQuery.new(browser_id: cookies[:browser_id])
   end
 end

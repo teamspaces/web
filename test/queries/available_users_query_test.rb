@@ -7,7 +7,7 @@ describe AvailableUsersQuery, :model do
   let(:with_several_teams) { users(:with_several_teams) }
   before(:each) {  Authie::Session.delete_all }
 
-  subject { AvailableUsersQuery.new(1) }
+  subject { AvailableUsersQuery.new(browser_id: 1) }
 
   def create_session(browser_id: 1, team_id: 1, user:, active: true)
     Authie::Session.create(browser_id: browser_id, team_id: team_id, user: user, active: active)
