@@ -1,0 +1,34 @@
+<main>
+  <div class="card">
+    <header>
+      <h1>Reset my password</h1>
+    </header>
+
+    <div class="card-content">
+      <p>We would like to send you an email with the instructions on how to reset your password<p>
+
+
+      <%= form_for(@email_address_form, url: review_email_address_path) do |f| %>
+
+        <% if @email_address_form.errors.any? %>
+          <div id="error_explanation">
+            <ul>
+            <% @email_address_form.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <%= f.text_field :email, placeholder: "Email" %>
+
+        <%= f.submit "This is my email, send me the instructions please" %>
+
+      <% end %>
+
+      <div class="card-actions">
+         <%= link_to "Take me back", root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]) %>
+      </div>
+    </div>
+  </div>
+</main>
