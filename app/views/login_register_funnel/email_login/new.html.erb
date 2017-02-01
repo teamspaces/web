@@ -30,7 +30,7 @@
 
       <div class="card-actions">
         <p>
-          <%= link_to "I Forgot my password, I want to reset it", new_login_register_funnel_send_reset_password_instructions_path(email: @email_login_form.email)  %>
+          <%= link_to "I Forgot my password, I want to reset it", new_login_register_funnel_reset_password_path(email: @email_login_form.email)  %>
         </p>
 
         <%= link_to "Back", new_review_email_address_path %>

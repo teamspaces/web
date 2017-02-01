@@ -8,12 +8,12 @@
       <p>We would like to send you an email with the instructions on how to reset your password<p>
 
 
-      <%= form_for(@email_address_form, url: login_register_funnel_send_reset_password_instructions_path) do |f| %>
+      <%= form_for(@password_reset_form, url: login_register_funnel_reset_password_path) do |f| %>
 
-        <% if @email_address_form.errors.any? %>
+        <% if @password_reset_form.errors.any? %>
           <div id="error_explanation">
             <ul>
-            <% @email_address_form.errors.full_messages.each do |message| %>
+            <% @password_reset_form.errors.full_messages.each do |message| %>
               <li><%= message %></li>
             <% end %>
             </ul>

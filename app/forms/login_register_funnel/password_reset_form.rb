@@ -9,6 +9,11 @@ class LoginRegisterFunnel::PasswordResetForm
   validates :email, presence: true
   validate :validate_user_email, if: :email
 
+
+  def send_reset_password_instructions
+    valid? && user.send_reset_password_instructions
+  end
+
   private
 
     def validate_user_email
