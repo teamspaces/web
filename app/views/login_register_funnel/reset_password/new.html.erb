@@ -8,7 +8,7 @@
       <p>We would like to send you an email with the instructions on how to reset your password<p>
 
 
-      <%= form_for(@email_address_form, url: review_email_address_path) do |f| %>
+      <%= form_for(@email_address_form, url: login_register_funnel_send_reset_password_instructions_path) do |f| %>
 
         <% if @email_address_form.errors.any? %>
           <div id="error_explanation">
