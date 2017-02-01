@@ -3,7 +3,6 @@ class LoginRegisterFunnel::EmailLoginForm
   include Virtus.model
 
   attr_reader :email
-  attr_reader :user
 
   attribute :email, String
   attribute :password, String

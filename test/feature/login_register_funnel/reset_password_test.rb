@@ -17,6 +17,10 @@ describe "Reset Password", :capybara do
 
       click_on "I Forgot my password, I want to reset it"
 
+      # email input
+      assert_content "We would like to send you an email"
+      click_on "This is my email, send me the instructions please"
+
       assert_content "Madeleine we've sent you an email"
 
       # user recieves reset password instructions per mail

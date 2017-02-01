@@ -1,7 +1,6 @@
 require "test_helper"
 
 describe LoginRegisterFunnel::EmailLoginController do
-  let(:email_user) { users(:with_several_teams) }
 
   def complete_preceding_email_review_step(email)
     LoginRegisterFunnel::BaseController::SharedUserInformation.any_instance
@@ -18,7 +17,7 @@ describe LoginRegisterFunnel::EmailLoginController do
   describe "#new" do
     context "user completed review email address step" do
       it "responds successfully" do
-        complete_preceding_email_review_step(email_user.email)
+        complete_preceding_email_review_step("email@spaces.is")
         get new_email_login_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
 
         assert_response :success
@@ -35,6 +34,7 @@ describe LoginRegisterFunnel::EmailLoginController do
   end
 
   describe "#create" do
+    let(:email_user) { users(:with_several_teams) }
     before(:each) { complete_preceding_email_review_step(email_user.email) }
 
     describe "valid username, password" do
