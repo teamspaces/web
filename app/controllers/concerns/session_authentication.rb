@@ -1,30 +1,40 @@
 module SessionAuthentication
 
-  #overwrite devise
+  #overwrite devise methods
   def sign_in(user)
     self.current_user = user
   end
 
-  def sign_out(user)
-    sign_out_from_users_subdomains(user)
+  def sign_out(_resource_or_scope = nil)
+    Authie::Session.sign_out(user: current_user,
+                             browser_id: cookies[:browser_id])
   end
-
-  def authenticate_user!(opts={})
-    if !logged_in? && (!devise_controller? || opts.delete(:force))
-      redirect_to root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]), alert: t("errors.messages.unauthorized")
-    end
-  end
-
 
   def sign_out_from_subdomain
     auth_session.invalidate!
   end
 
-  def sign_out_from_users_subdomains(user)
-    Authie::Session.where(user: user, browser_id: auth_session.browser_id).each(&:invalidate!)
+  def user_signed_in?
+    logged_in?
   end
 
-  def sign_out_from_all_subdomains_in_browser
-    Authie::Session.where(browser_id: auth_session.browser_id).each(&:invalidate!)
+  def authenticate_user!(opts={})
+    if !user_signed_in? && (!devise_controller? || opts.delete(:force))
+      sign_in_user_if_signed_in_on_another_subdomain || redirect_unauthorized
+    end
   end
+
+  private
+
+    def sign_in_user_if_signed_in_on_another_subdomain
+      if on_team_subdomain?
+        available_user = available_users.user_signed_in_on_another_subdomain(current_team)
+
+        sign_in(available_user) if available_user
+      end
+    end
+
+    def redirect_unauthorized
+      redirect_to root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]), alert: t("errors.messages.unauthorized")
+    end
 end

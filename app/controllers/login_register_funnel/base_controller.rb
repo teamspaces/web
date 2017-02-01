@@ -9,13 +9,9 @@ class LoginRegisterFunnel::BaseController < ApplicationController
       if current_user
         user = current_user
 
-        sign_out_user_from_default_subdomain(user)
+        sign_out_from_subdomain
         return redirect_to sign_in_url_for(user: user)
       end
-    end
-
-    def sign_out_user_from_default_subdomain(user)
-      sign_out_from_subdomain
     end
 
     def shared_user_info

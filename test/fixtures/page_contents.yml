@@ -7,3 +7,7 @@ default: &default
 onboarding:
   <<: *default
   page: onboarding
+
+power_rangers:
+  <<: *default
+  page: power_rangers
