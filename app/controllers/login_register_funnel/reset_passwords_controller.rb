@@ -23,7 +23,7 @@ class LoginRegisterFunnel::ResetPasswordsController < LoginRegisterFunnel::BaseC
   private
 
     def password_reset_form_params
-      params.require(:login_register_funnel_password_reset_form).permit(:email)
+      params.require(:login_register_funnel_password_reset_form).permit(:email).to_h
     end
 
     def set_user
