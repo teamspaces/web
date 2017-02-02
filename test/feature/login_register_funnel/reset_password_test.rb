@@ -18,6 +18,10 @@ describe "Reset Password", :capybara do
 
       # email input
       assert_content "We would like to send you an email"
+
+      CustomDeviseMailer.expects(:reset_password_instructions)
+                        .with(has_entry(user))
+
       click_on "This is my email, send me the instructions please"
 
       assert_content "Madeleine we've sent you an email"
