@@ -50,6 +50,7 @@ class Team::FindSlackUsers
     end
 
     def match_already_invited?
+      #only open invitations
       invited_user_uids = @team.invitations.map(&:invited_slack_user_uid)
 
       lambda { |x| invited_user_uids.include? x.id }
