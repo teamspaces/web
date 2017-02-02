@@ -29,7 +29,7 @@
 
 
       <% if @team.connected_to_slack? %>
-        <% @slack_users_to_invite.each do |slack_user| %>
+        <% @slack_users_to_invite.all.each do |slack_user| %>
           <%= render "slack_user_to_invite", slack_user: slack_user %>
         <% end %>
       <% else %>

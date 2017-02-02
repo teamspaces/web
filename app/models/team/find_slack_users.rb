@@ -3,11 +3,21 @@ class Team::FindSlackUsers
     @team = team
   end
 
+  def invitable
+    all - already_invited - already_team_members
+  end
+
+  def already_invited
+    all.select(&match_already_invited?)
+  end
+
+  def already_team_members
+    all.select(&match_already_team_member?)
+  end
+
   def all
     all_slack_members.reject(&match_bot?)
                      .reject(&match_deleted?)
-                     #.reject(&match_already_invited?)
-                     #.reject(&match_already_team_member?)
   end
 
   private
