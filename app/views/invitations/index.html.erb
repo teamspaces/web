@@ -35,15 +35,15 @@
           <%= render "slack_user_to_invite", slack_user: slack_user %>
         <% end %>
 
-        <h1>Already Invited</h1>
+        <h1>With open invitation</h1>
 
-        <% @slack_team_users.already_invited.each do |slack_user| %>
+        <% @slack_team_users.with_open_invitation.each do |slack_user| %>
           <%= render "slack_user_to_invite", slack_user: slack_user %>
         <% end %>
 
-        <h1>Team Members</h1>
+        <h1>With accepted invitation</h1>
 
-        <% @slack_team_users.already_team_members.each do |slack_user| %>
+        <% @slack_team_users.with_accepted_invitation.each do |slack_user| %>
           <%= render "slack_user_to_invite", slack_user: slack_user %>
         <% end %>
 

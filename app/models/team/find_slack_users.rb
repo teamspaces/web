@@ -4,20 +4,21 @@ class Team::FindSlackUsers
   end
 
   def invitable
-    all - already_invited - already_team_members
+    all - with_open_invitation - with_accepted_invitation
   end
 
-  def already_invited
-    all.select(&match_already_invited?)
+  def with_open_invitation
+    all.select(&match_with_open_invitation?)
   end
 
-  def already_team_members
-    all.select(&match_already_team_member?)
+  def with_accepted_invitation
+    all.select(&match_with_accepted_invitation?)
   end
 
   def all
     all_slack_members.reject(&match_bot?)
                      .reject(&match_deleted?)
+                     .reject(&match_already_team_member?)
   end
 
   private
@@ -49,9 +50,14 @@ class Team::FindSlackUsers
       lambda { |x| x.deleted == true }
     end
 
-    def match_already_invited?
-      #only open invitations
-      invited_user_uids = @team.invitations.map(&:invited_slack_user_uid)
+    def match_with_open_invitation?
+      invited_user_uids = @team.invitations.unused.map(&:invited_slack_user_uid)
+
+      lambda { |x| invited_user_uids.include? x.id }
+    end
+
+    def match_with_accepted_invitation?
+      invited_user_uids = @team.invitations.used.map(&:invited_slack_user_uid)
 
       lambda { |x| invited_user_uids.include? x.id }
     end
