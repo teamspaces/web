@@ -8,9 +8,15 @@
  * Page
  */
 .space-page {
-  max-width: 800px;
+  max-width: 684px;
   margin: 0 auto;
   padding: 120px 24px 60px 0;
+}
+
+@media (min-width: 1350px) {
+  .space-page {
+    max-width: 732px;
+  }
 }
 
 

@@ -11,8 +11,6 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
 
   def sign_in_url_for(options)
-    available_users.add(options[:user])
-
     User::SignInUrlDecider.call({ controller: self }.merge(options.to_h)).url
   end
 
@@ -31,6 +29,6 @@ class ApplicationController < ActionController::Base
   helper_method :available_users
 
   def available_users
-    available_users ||= LoginRegisterFunnel::BaseController::AvailableUsersCookie.new(cookies)
+    @available_users ||= AvailableUsersQuery.new(browser_id: cookies[:browser_id])
   end
 end

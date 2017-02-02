@@ -3,7 +3,18 @@ default: &default
   contents: Here is some snappy text <br> with a rowbreak.
   byte_size: 42
 
-
 onboarding:
   <<: *default
   page: onboarding
+
+marketing:
+  <<: *default
+  page: marketing
+
+power_rangers:
+  <<: *default
+  page: power_rangers
+
+with_parent:
+  <<: *default
+  page: with_parent

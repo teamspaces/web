@@ -6,7 +6,7 @@ describe "Available Teams", :capybara do
   describe "shown availables teams on default subdomain" do
     let(:email_user) { users(:with_several_teams) }
 
-    it "redirects to available team and let's user sign in" do
+    it "signs in and redirects" do
       # sign in into spaces teams
       visit "/landing"
       click_on "Sign In"
@@ -46,13 +46,9 @@ describe "Available Teams", :capybara do
       # power-rangers subdomain opens in new tab
       switch_to_window(windows.last)
 
-      # not signed in yet into power-rangers subdomain
-      # user needs to provide password
-      fill_in("Password", with: "password")
-      click_on "Login with my account"
-
       # assert signed in into power-rangers team
-      assert_content "New Space"
+      assert_content "Power Rangers"
+      assert_content "Edit"
     end
   end
 end

@@ -3,7 +3,7 @@
 
     <li>
       <%= image_tag team.logo_url(:image_32) %>
-      <%= link_to team.name, login_into_team_url(subdomain: team.subdomain), target: "blank" %>
+      <%= link_to team.name, root_subdomain_url(subdomain: team.subdomain), target: "blank" %>
     </li>
 
   <% end %>
