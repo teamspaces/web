@@ -15,7 +15,7 @@ describe LoginRegisterFunnel::PasswordResetForm, :model do
           subject.email = "invalid@eami"
 
           refute subject.valid?
-          assert_includes subject.errors[:email], "no user found wsith that email"
+          assert_includes subject.errors[:email], "no associated account was found"
         end
       end
 
@@ -24,7 +24,7 @@ describe LoginRegisterFunnel::PasswordResetForm, :model do
           subject.email = slack_user.email
 
           refute subject.valid?
-          assert_includes subject.errors[:email], "please sign up swith ..."
+          assert_includes subject.errors[:email], "belongs to an account with that you can sign in without providing a password.\nPlease try to sign in again with this email, you will get further options.\n"
         end
       end
     end

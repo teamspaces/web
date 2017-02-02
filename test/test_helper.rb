@@ -17,7 +17,6 @@ require "support/webmock"
 
 require "shared/test_helpers/slack/identity"
 
-require "test_helpers/mail_helper"
 require "test_helpers/subdomain_helper"
 require "test_helpers/invitation_cookie_mock"
 
@@ -30,7 +29,6 @@ class Capybara::Rails::TestCase
   before do
     Capybara.reset!
     DatabaseCleaner.start
-    ActionMailer::Base.default_url_options = { domain: "lvh.me", port: Capybara.current_session.server.port }
   end
 
   after do

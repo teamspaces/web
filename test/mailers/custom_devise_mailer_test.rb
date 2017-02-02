@@ -32,7 +32,7 @@ describe CustomDeviseMailer do
         html_body = mail.message.body.decoded
 
         assert_includes html_body, user.first_name
-        assert_includes html_body, "a lo oest"
+        assert_includes html_body, "/users/password/edit?reset_password_token=fake_token"
       end
     end
 

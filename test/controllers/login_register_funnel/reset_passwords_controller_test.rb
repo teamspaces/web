@@ -21,7 +21,7 @@ describe LoginRegisterFunnel::ResetPasswordsController do
   describe "#create" do
     context "email of existing email user" do
       it "works" do
-        assert_difference 'ActionMailer::Base.deliveries.size', +1 do
+        assert_difference 'ActionMailer::Base.deliveries.size', 1 do
           post login_register_funnel_reset_password_path, params: { login_register_funnel_password_reset_form: { email: user.email } }
 
           assert_redirected_to login_register_funnel_reset_password_path
