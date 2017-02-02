@@ -1,31 +1,47 @@
 require "test_helper"
 
 describe CustomDeviseMailer do
+  let(:user) { users(:lars) }
 
   describe "#confirmation_instructions" do
     let(:options) { { confirmation_url: "http://what.lvh.me/users/confirmation?confirmation_token=fake_token"} }
 
-    context "confirmation instructions" do
-      let(:user_with_unconfirmed_email) { users(:with_unconfirmed_email) }
-
+    describe "confirmation instructions" do
       it "works" do
-        mail = CustomDeviseMailer.confirmation_instructions(user_with_unconfirmed_email, "fake_token", options)
+        mail = CustomDeviseMailer.confirmation_instructions(user, "fake_token", options)
         html_body = mail.message.body.decoded
 
-        assert_includes html_body, user_with_unconfirmed_email.first_name
+        assert_includes html_body, user.first_name
         assert_includes html_body, "users/confirmation?confirmation_token=fake_token"
       end
     end
 
-    context "reconfirmation instructions" do
-      let(:user_with_new_unconfirmed_email) { users(:with_new_unconfirmed_email) }
-
+    describe "reconfirmation instructions" do
       it "works" do
-        mail = CustomDeviseMailer.confirmation_instructions(user_with_new_unconfirmed_email, "fake_token", options)
+        mail = CustomDeviseMailer.confirmation_instructions(user, "fake_token", options)
         html_body = mail.message.body.decoded
 
-        assert_includes html_body, user_with_unconfirmed_email.first_name
+        assert_includes html_body, user.first_name
         assert_includes html_body, "users/confirmation?confirmation_token=fake_token"
+      end
+    end
+
+    describe "#reset_password_instructions" do
+      it "works" do
+        mail = CustomDeviseMailer.reset_password_instructions(user, "fake_token", options)
+        html_body = mail.message.body.decoded
+
+        assert_includes html_body, user.first_name
+        assert_includes html_body, "/users/password/edit?reset_password_token=fake_token"
+      end
+    end
+
+    describe "#password_change" do
+      it "works" do
+        mail = CustomDeviseMailer.password_change(user, options)
+        html_body = mail.message.body.decoded
+
+        assert_includes html_body, user.first_name
       end
     end
   end

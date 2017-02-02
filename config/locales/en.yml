@@ -25,6 +25,13 @@ en:
     login:
       errors:
         wrong_password: The password you have entered is invalid
+    password_reset:
+      email:
+        errors:
+          not_found: no associated account was found
+          not_allowed_for_email_authentication: |
+            belongs to an account with that you can sign in without providing a password.
+            Please try to sign in again with this email, you will get further options.
   errors:
     messages:
       reserved_name: cannot be a reserved name
