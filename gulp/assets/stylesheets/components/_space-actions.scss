@@ -1,43 +1,32 @@
 .space-actions {
-  display: inline-block;
-  background: #fff;
-  border: 1px solid #EBEDF0;
-  border-radius: 6px;
   margin: 0;
   padding: 0;
   list-style: none;
   position: fixed;
-  bottom: 30px;
+  bottom: 15px;
   right: 30px;
   z-index: 10;
 
   li {
     display: block;
-    padding: 0 18px;
+    margin-bottom: 15px;
   }
 
   a {
     display: block;
-    font-size: 13px;
-    line-height: 18px;
-    padding: 15px 12px 15px 48px;
-    text-decoration: none;
-    color: #8A9199;
+    width: 60px;
+    height: 60px;
+    background: #fff;
+    border: 1px solid #EBEDF0;
+    border-radius: 30px;
     cursor: pointer;
     transition: all 0.3s;
     background-repeat: no-repeat;
-    background-position: 12px center;
-    border-bottom: 1px solid #EBEDF0;
+    background-position: center center;
 
     &:hover, &:active, &:focus {
-      color: #8A9199;
-      text-decoration: none;
       opacity: 0.6;
     }
-  }
-
-  li:last-child a {
-    border: 0;
   }
 
   .space-actions-edit a {
