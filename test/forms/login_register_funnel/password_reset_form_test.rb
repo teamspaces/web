@@ -32,7 +32,7 @@ describe LoginRegisterFunnel::PasswordResetForm, :model do
 
   describe "#send_reset_password_instructions" do
     it "sends password reset instructions to user" do
-      email_user.expects(:send_reset_password_instructions)
+      User.any_instance.expects(:send_reset_password_instructions)
 
       subject.email = email_user.email
       assert subject.send_reset_password_instructions
