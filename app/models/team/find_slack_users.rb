@@ -15,13 +15,13 @@ class Team::FindSlackUsers
     all.select(&match_with_accepted_invitation?)
   end
 
-  def all
-    @all ||= all_slack_members.reject(&match_bot?)
-                              .reject(&match_deleted?)
-                              .reject(&match_already_team_member?)
-  end
-
   private
+
+    def all
+      @all ||= all_slack_members.reject(&match_bot?)
+                                .reject(&match_deleted?)
+                                .reject(&match_already_team_member?)
+    end
 
     def all_slack_members
       team_authentication = @team.team_authentication
