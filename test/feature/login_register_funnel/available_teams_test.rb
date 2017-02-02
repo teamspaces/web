@@ -49,7 +49,6 @@ describe "Available Teams", :capybara do
       # assert signed in into power-rangers team
       assert_content "Power Rangers"
       assert_content "Team"
-      assert_content "minute read"
     end
   end
 end
