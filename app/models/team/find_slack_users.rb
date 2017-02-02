@@ -16,9 +16,9 @@ class Team::FindSlackUsers
   end
 
   def all
-    all_slack_members.reject(&match_bot?)
-                     .reject(&match_deleted?)
-                     .reject(&match_already_team_member?)
+    @all ||= all_slack_members.reject(&match_bot?)
+                              .reject(&match_deleted?)
+                              .reject(&match_already_team_member?)
   end
 
   private
@@ -27,7 +27,7 @@ class Team::FindSlackUsers
       team_authentication = @team.team_authentication
 
       begin
-        Slack::Web::Client.new(token: team_authentication.token).users_list.members
+        CustomSlackClient.new(token: team_authentication.token).users_list.members
       rescue Slack::Web::Api::Error => exception
         if exception.message == "token_revoked"
           team_authentication.destroy
