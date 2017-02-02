@@ -20,8 +20,8 @@ describe "Reset Password", :capybara do
       assert_content "We would like to send you an email"
 
       CustomDeviseMailer.expects(:reset_password_instructions)
-                        .with(includes(email_user))
-                        .returns(true)
+                        .returns(email_mock = mock)
+      email_mock.expects(:deliver_later)
 
       click_on "This is my email, send me the instructions please"
 
