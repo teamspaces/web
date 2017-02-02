@@ -30,7 +30,7 @@ en:
         errors:
           not_found: no associated account was found
           not_allowed_for_email_authentication: |
-            belongs to an account with that you can sign in without a password.
+            belongs to an account with that you can sign in without providing a password.
             Please try to sign in again with this email, you will get further options.
   errors:
     messages:
