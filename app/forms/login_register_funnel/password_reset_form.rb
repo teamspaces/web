@@ -20,12 +20,12 @@ class LoginRegisterFunnel::PasswordResetForm
       @user = user_allowed_for_email_authentication
 
       unless @user
-        not_email_user = user_not_allowed_for_email_authentication
+        user_not_allowed_to_authenticate_with_email = user_not_allowed_for_email_authentication
 
-        if not_email_user
-          errors.add(:email, "please sign up with ...")
+        if user_not_allowed_to_authenticate_with_email
+          errors.add(:email, t("user.password_reset.email.errors.not_allowed_for_email_authentication"))
         else
-          errors.add(:email, "no user found with that email")
+          errors.add(:email, t("user.password_reset.email.errors.not_found"))
         end
       end
     end
