@@ -1,4 +1,4 @@
-class Team::FindInvitableSlackUsers
+class Team::FindSlackUsers
   def initialize(team)
     @team = team
   end
@@ -6,8 +6,8 @@ class Team::FindInvitableSlackUsers
   def all
     all_slack_members.reject(&match_bot?)
                      .reject(&match_deleted?)
-                     .reject(&match_already_invited?)
-                     .reject(&match_already_team_member?)
+                     #.reject(&match_already_invited?)
+                     #.reject(&match_already_team_member?)
   end
 
   private

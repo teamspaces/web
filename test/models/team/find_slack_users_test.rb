@@ -1,6 +1,6 @@
 require "test_helper"
 
-describe Team::FindInvitableSlackUsers, :model do
+describe Team::FindSlackUsers, :model do
   subject { Team::FindInvitableSlackUsers }
   let(:team) { teams(:spaces) }
 
@@ -16,7 +16,7 @@ describe Team::FindInvitableSlackUsers, :model do
                       already_invited_slack_user, already_team_member_slack_user]
       subject.any_instance.stubs(:all_slack_members).returns(slack_users)
 
-      invitable_slack_users = Team::FindInvitableSlackUsers.new(team).all
+      invitable_slack_users = Team::FindSlackUsers.new(team).all
 
       assert_equal [invitable_slack_user], invitable_slack_users
     end
@@ -26,7 +26,7 @@ describe Team::FindInvitableSlackUsers, :model do
         Slack::Web::Client.stubs(:new).raises(Slack::Web::Api::Error, "token_revoked")
 
         assert_difference -> {  TeamAuthentication.count }, -1 do
-          Team::FindInvitableSlackUsers.new(team).all
+          Team::FindSlackUsers.new(team).all
         end
       end
     end

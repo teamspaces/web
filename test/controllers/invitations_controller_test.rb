@@ -6,7 +6,7 @@ describe InvitationsController do
   let(:team_invitations_url) { invitations_url(subdomain: team.subdomain) }
 
   before(:each) do
-    Team::FindInvitableSlackUsers.any_instance.stubs(:all).returns([])
+    Team::FindSlackUsers.any_instance.stubs(:all).returns([])
     sign_in user
   end
 
