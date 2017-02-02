@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170128005001) do
+ActiveRecord::Schema.define(version: 20170202165558) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 20170128005001) do
     t.string   "token_secret"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_authentications_on_deleted_at", using: :btree
     t.index ["user_id"], name: "index_authentications_on_user_id", using: :btree
   end
 
@@ -61,6 +63,8 @@ ActiveRecord::Schema.define(version: 20170128005001) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.string   "invited_slack_user_uid"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_invitations_on_deleted_at", using: :btree
     t.index ["team_id"], name: "index_invitations_on_team_id", using: :btree
   end
 
@@ -70,14 +74,18 @@ ActiveRecord::Schema.define(version: 20170128005001) do
     t.integer  "byte_size",  default: 0
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_page_contents_on_deleted_at", using: :btree
     t.index ["page_id"], name: "index_page_contents_on_page_id", using: :btree
   end
 
   create_table "page_hierarchies", id: false, force: :cascade do |t|
-    t.integer "ancestor_id",   null: false
-    t.integer "descendant_id", null: false
-    t.integer "generations",   null: false
+    t.integer  "ancestor_id",   null: false
+    t.integer  "descendant_id", null: false
+    t.integer  "generations",   null: false
+    t.datetime "deleted_at"
     t.index ["ancestor_id", "descendant_id", "generations"], name: "page_anc_desc_idx", unique: true, using: :btree
+    t.index ["deleted_at"], name: "index_page_hierarchies_on_deleted_at", using: :btree
     t.index ["descendant_id"], name: "page_desc_idx", using: :btree
   end
 
@@ -89,15 +97,29 @@ ActiveRecord::Schema.define(version: 20170128005001) do
     t.integer  "word_count", default: 0
     t.integer  "parent_id"
     t.integer  "sort_order"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_pages_on_deleted_at", using: :btree
     t.index ["space_id"], name: "index_pages_on_space_id", using: :btree
+  end
+
+  create_table "space_members", force: :cascade do |t|
+    t.integer  "team_member_id"
+    t.integer  "space_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["space_id"], name: "index_space_members_on_space_id", using: :btree
+    t.index ["team_member_id"], name: "index_space_members_on_team_member_id", using: :btree
   end
 
   create_table "spaces", force: :cascade do |t|
     t.integer  "team_id"
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.jsonb    "cover_data"
+    t.datetime "deleted_at"
+    t.boolean  "access_control"
+    t.index ["deleted_at"], name: "index_spaces_on_deleted_at", using: :btree
     t.index ["team_id"], name: "index_spaces_on_team_id", using: :btree
   end
 
@@ -109,6 +131,8 @@ ActiveRecord::Schema.define(version: 20170128005001) do
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.string   "team_uid"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_team_authentications_on_deleted_at", using: :btree
     t.index ["team_id", "provider"], name: "index_team_authentications_on_team_id_and_provider", using: :btree
     t.index ["team_id"], name: "index_team_authentications_on_team_id", using: :btree
   end
@@ -119,6 +143,8 @@ ActiveRecord::Schema.define(version: 20170128005001) do
     t.string   "role"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_team_members_on_deleted_at", using: :btree
     t.index ["team_id"], name: "index_team_members_on_team_id", using: :btree
     t.index ["user_id"], name: "index_team_members_on_user_id", using: :btree
   end
@@ -129,6 +155,8 @@ ActiveRecord::Schema.define(version: 20170128005001) do
     t.datetime "updated_at", null: false
     t.string   "subdomain"
     t.jsonb    "logo_data"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_teams_on_deleted_at", using: :btree
     t.index ["subdomain"], name: "index_teams_on_subdomain", using: :btree
   end
 
@@ -153,7 +181,9 @@ ActiveRecord::Schema.define(version: 20170128005001) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
+    t.datetime "deleted_at"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
+    t.index ["deleted_at"], name: "index_users_on_deleted_at", using: :btree
     t.index ["email"], name: "index_users_on_email", using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
@@ -162,6 +192,8 @@ ActiveRecord::Schema.define(version: 20170128005001) do
   add_foreign_key "invitations", "teams"
   add_foreign_key "page_contents", "pages", on_delete: :cascade
   add_foreign_key "pages", "spaces", on_delete: :cascade
+  add_foreign_key "space_members", "spaces"
+  add_foreign_key "space_members", "team_members"
   add_foreign_key "spaces", "teams", on_delete: :cascade
   add_foreign_key "team_authentications", "teams"
   add_foreign_key "team_members", "teams", on_delete: :cascade
