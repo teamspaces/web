@@ -3,7 +3,7 @@ class Team::FindSlackUsers
     @team = team
   end
 
-  def invitable
+  def without_invitation
     all - with_open_invitation - with_accepted_invitation
   end
 

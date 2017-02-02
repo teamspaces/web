@@ -30,22 +30,7 @@
 
       <% if @team.connected_to_slack? %>
 
-      <h1>Invitavle</h1>
-        <% @slack_team_users.invitable.each do |slack_user| %>
-          <%= render "slack_user_to_invite", slack_user: slack_user %>
-        <% end %>
-
-        <h1>With open invitation</h1>
-
-        <% @slack_team_users.with_open_invitation.each do |slack_user| %>
-          <%= render "slack_user_to_invite", slack_user: slack_user %>
-        <% end %>
-
-        <h1>With accepted invitation</h1>
-
-        <% @slack_team_users.with_accepted_invitation.each do |slack_user| %>
-          <%= render "slack_user_to_invite", slack_user: slack_user %>
-        <% end %>
+        <%= render "slack_users", slack_users: @slack_team_users %>
 
       <% else %>
         <%= link_to "Add Slack Team-Members", user_slack_button_omniauth_authorize_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], team_id: @team.id) %>

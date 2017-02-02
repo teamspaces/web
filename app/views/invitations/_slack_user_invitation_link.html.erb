@@ -1,15 +1,5 @@
-<hr>
-
-<%= image_tag slack_user.profile.image_192 %>
-
-
-<p><%= slack_user.real_name %></p>
-
-
-<%= link_to "Invite",
+<%= link_to button_text,
   create_slack_invitation_path(invited_slack_user_uid: slack_user.id,
                                email: slack_user.profile.email,
                                first_name: slack_user.profile.first_name,
                                last_name: slack_user.profile.last_name) %>
-
-</hr>
