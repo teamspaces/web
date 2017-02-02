@@ -7,6 +7,10 @@ onboarding:
   <<: *default
   page: onboarding
 
+marketing:
+  <<: *default
+  page: marketing
+
 power_rangers:
   <<: *default
   page: power_rangers
