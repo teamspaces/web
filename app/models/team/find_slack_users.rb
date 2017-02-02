@@ -27,7 +27,7 @@ class Team::FindSlackUsers
       team_authentication = @team.team_authentication
 
       begin
-        CustomSlackClient.new(token: team_authentication.token).users_list.members
+        CachingSlackClient.new(token: team_authentication.token).users_list.members
       rescue Slack::Web::Api::Error => exception
         if exception.message == "token_revoked"
           team_authentication.destroy
