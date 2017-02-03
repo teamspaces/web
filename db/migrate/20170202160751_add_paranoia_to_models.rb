@@ -24,9 +24,6 @@ class AddParanoiaToModels < ActiveRecord::Migration[5.0]
     add_column :pages, :deleted_at, :datetime
     add_index :pages, :deleted_at
 
-    add_column :page_hierarchies, :deleted_at, :datetime
-    add_index :page_hierarchies, :deleted_at
-
     add_column :page_contents, :deleted_at, :datetime
     add_index :page_contents, :deleted_at
   end
