@@ -83,9 +83,7 @@ ActiveRecord::Schema.define(version: 20170202165558) do
     t.integer  "ancestor_id",   null: false
     t.integer  "descendant_id", null: false
     t.integer  "generations",   null: false
-    t.datetime "deleted_at"
     t.index ["ancestor_id", "descendant_id", "generations"], name: "page_anc_desc_idx", unique: true, using: :btree
-    t.index ["deleted_at"], name: "index_page_hierarchies_on_deleted_at", using: :btree
     t.index ["descendant_id"], name: "page_desc_idx", using: :btree
   end
 
