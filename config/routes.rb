@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
     resources :spaces do
       resources :pages, only: [:index, :new, :create]
+      resource :access_control, only: [:create, :destroy]
     end
 
     resource :team, only: [:show, :edit, :update, :destroy]
