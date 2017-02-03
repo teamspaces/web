@@ -5,8 +5,16 @@ class Page < ApplicationRecord
   include HasOnePageContent
 
   has_closure_tree order: "sort_order"
+  after_restore :append_to_root
 
   belongs_to :space
   has_one :team, through: :space
   validates :space, presence: true
+
+
+  private
+
+    def append_to_root
+      update(parent_id: nil)
+    end
 end
