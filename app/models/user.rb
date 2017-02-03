@@ -14,6 +14,9 @@ class User < ApplicationRecord
   has_many :teams, through: :team_members
   has_many :sessions, class_name: "Authie::Session", foreign_key: "user_id", dependent: :destroy
 
+  alias_method :disable, :destroy
+  alias_method :disabled?, :paranoia_destroyed?
+
   after_commit :send_pending_notifications
 
   def name=(name)

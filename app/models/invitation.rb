@@ -12,6 +12,10 @@ class Invitation < ApplicationRecord
   validates :token, uniqueness: true
   before_create :generate_token
 
+  def destroy
+    used? ? super : really_destroy!
+  end
+
   def slack_invitation?
     invited_slack_user_uid.present?
   end

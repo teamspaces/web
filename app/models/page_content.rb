@@ -6,6 +6,8 @@ class PageContent < ApplicationRecord
 
   after_save :update_word_count
 
+  alias_method :archived?, :paranoia_destroyed?
+
   private
 
     def update_word_count

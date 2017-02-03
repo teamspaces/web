@@ -21,4 +21,7 @@ class Team < ApplicationRecord
   def primary_owner
     self.members.find_by(role: TeamMember::Roles::PRIMARY_OWNER)
   end
+
+  alias_method :disable, :destroy
+  alias_method :disabled?, :paranoia_destroyed?
 end

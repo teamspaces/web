@@ -11,6 +11,7 @@ class Page < ApplicationRecord
   has_one :team, through: :space
   validates :space, presence: true
 
+  alias_method :archived?, :paranoia_destroyed?
 
   private
 
