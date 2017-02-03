@@ -4,6 +4,7 @@ describe User do
   let(:user) { users(:ulf) }
 
   should have_many(:authentications).dependent(:destroy)
+  should have_many(:sessions).dependent(:destroy)
   should have_many(:team_members).dependent(:destroy)
   should have_many(:teams).through(:team_members)
 
