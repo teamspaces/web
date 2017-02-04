@@ -12,4 +12,11 @@ class SpaceDecorator < Draper::Decorator
 
     @avatar_users ||= User.where(id: @avatar_user_ids).all
   end
+
+
+  def number_of_unseen_avatars
+    @number_of_unseen_avatars ||=
+      [(users.count - AVATAR_USERS_TO_SHOW), 0].max
+  end
+
 end

@@ -12,7 +12,7 @@
         <%= image_tag(user.avatar_url(:image_48), alt: user.name) %>
     <% end %>
 
-    <% if number_of_unseen_avatars.positive? %>
+    <% if @page.space.decorate.number_of_unseen_avatars.positive? %>
         <span class="avatars-overflow">+<%= number_of_unseen_avatars %></span>
     <% end %>
 

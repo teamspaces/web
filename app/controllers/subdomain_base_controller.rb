@@ -1,18 +1,9 @@
 class SubdomainBaseController < ApplicationController
   before_action :verify_team_membership, :verify_email_confirmed
 
-  AVATAR_USERS_TO_SHOW = 3
-
   helper_method :current_team
   def current_team
     subdomain_team
-  end
-
-
-  helper_method :number_of_unseen_avatars
-  def number_of_unseen_avatars
-    @number_of_unseen_avatars ||=
-      [(current_team.users.count - AVATAR_USERS_TO_SHOW), 0].max
   end
 
   private

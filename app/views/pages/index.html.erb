@@ -3,7 +3,7 @@
 <%= render 'sidebar', space: @space,
                       pages: @pages,
                       avatar_users: @space.avatar_users,
-                      show_unseen: number_of_unseen_avatars %>
+                      show_unseen: @space.number_of_unseen_avatars %>
 
 <div class="space-page-container">
   <main class="space-page">
