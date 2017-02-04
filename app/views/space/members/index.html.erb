@@ -8,8 +8,8 @@
       <%= notice %>
 
 
-      <%= link_to "Make privat", space_access_control_path, method: :post %>
-      <%= link_to "Make public", space_access_control_path, method: :delete %>
+      <%= link_to "Make privat", space_access_control_path(@space), method: :post %>
+      <%= link_to "Make public", space_access_control_path(@space), method: :delete %>
 
       <% if @space.access_control %>
 
@@ -17,7 +17,7 @@
 
       <% end %>
 
-      <%= link_to 'New Space', new_space_path, class: 'button button-primary' %>
+      <%= link_to 'Continue', space_path(@space), class: 'button button-primary' %>
     </div>
   </div>
 </main>

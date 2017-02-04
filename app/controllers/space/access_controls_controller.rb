@@ -7,7 +7,7 @@ class Space::AccessControlsController < SubdomainBaseController
 
     @space.update(access_control: true)
 
-    redirect_to space_members_path
+    redirect_to space_members_path(@space)
   end
 
   # DELETE /spaces/:space_id/access_control
@@ -16,7 +16,7 @@ class Space::AccessControlsController < SubdomainBaseController
 
     @space.update(access_control: false)
 
-    redirect_to space_members_path
+    redirect_to space_members_path(@space)
   end
 
   private
