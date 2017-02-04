@@ -13,6 +13,7 @@ class Space::Form
   attribute :name, String
   attribute :cover
   attribute :team_id
+  attribute :access_control, Boolean, default: false
 
   validates :name, presence: true
   validates :team_id, presence: true
@@ -36,7 +37,7 @@ class Space::Form
   private
 
     def persist!
-      @space.assign_attributes(name: name, team_id: team_id)
+      @space.assign_attributes(name: name, team_id: team_id, access_control: access_control)
       @space.save
     end
 end

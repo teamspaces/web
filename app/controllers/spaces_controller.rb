@@ -84,6 +84,6 @@ class SpacesController < SubdomainBaseController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def space_params
-      params.require(:space).permit(:name, :cover).to_h
+      params.require(:space).permit(:name, :cover, :access_control).to_h
     end
 end
