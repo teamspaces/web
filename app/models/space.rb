@@ -4,4 +4,12 @@ class Space < ApplicationRecord
   has_many :pages, dependent: :destroy
   belongs_to :team
   validates :team, presence: true
+
+  def users
+    if access_control
+      team.users
+    else
+      team.users
+    end
+  end
 end

@@ -8,16 +8,6 @@ class SubdomainBaseController < ApplicationController
     subdomain_team
   end
 
-  helper_method :avatar_users
-  def avatar_users
-    @avatar_user_ids ||=
-      user_ids = current_team.users
-                             .limit(100)
-                             .pluck(:id)
-                             .sample(AVATAR_USERS_TO_SHOW)
-
-    @avatar_users ||= User.where(id: @avatar_user_ids).all
-  end
 
   helper_method :number_of_unseen_avatars
   def number_of_unseen_avatars

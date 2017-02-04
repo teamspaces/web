@@ -1,7 +1,7 @@
 <% content_for :body_class, 'body-space' %>
 <%= render 'sidebar', space: @page.space,
                       pages: @page.space.pages,
-                      avatar_users: avatar_users,
+                      avatar_users: @space.avatar_users,
                       show_unseen: number_of_unseen_avatars %>
 <%= render 'page_contents', page: @page, notice: notice %>
 <%= render 'actions', page: @page %>

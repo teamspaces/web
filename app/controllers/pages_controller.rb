@@ -102,7 +102,7 @@ class PagesController < SubdomainBaseController
     end
 
     def set_space
-      @space = Space.find(params[:space_id])
+      @space = Space.find(params[:space_id]).decorate
     end
 
     def set_parent
