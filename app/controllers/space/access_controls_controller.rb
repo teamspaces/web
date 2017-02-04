@@ -5,23 +5,23 @@ class Space::AccessControlsController < SubdomainBaseController
   def create
     authorize @space, :update?
 
-    space.update(access_control: true)
+    @space.update(access_control: true)
 
-    redirect_to space_path
+    redirect_to space_members_path
   end
 
   # DELETE /spaces/:space_id/access_control
   def destroy
     authorize @space, :update?
 
-    space.update(access_control: false)
+    @space.update(access_control: false)
 
-    redirect_to space_path
+    redirect_to space_members_path
   end
 
   private
 
     def set_space
-      @space = Space.find(params[:id])
+      @space = Space.find(params[:space_id])
     end
 end

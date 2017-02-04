@@ -1,0 +1,23 @@
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Auth-Method</th>
+      <th>Space-Member</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% team_members.each do |member| %>
+      <% user = member.user.decorate %>
+
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.auth_method %></td>
+        <td><%= member.decorate.space_member?(space) %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

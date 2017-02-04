@@ -4,7 +4,8 @@ Rails.application.routes.draw do
 
     resources :spaces do
       resources :pages, only: [:index, :new, :create]
-      resource :access_control, only: [:create, :destroy]
+      resource :access_control, only: [:create, :destroy], controller: "space/access_controls"
+      resources :members, controller: "space/members"
       resources :invitations
     end
 
