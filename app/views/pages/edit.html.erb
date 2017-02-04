@@ -13,7 +13,7 @@
     <% end %>
 
     <% if @page.space.decorate.number_of_unseen_avatars.positive? %>
-        <span class="avatars-overflow">+<%= number_of_unseen_avatars %></span>
+        <span class="avatars-overflow">+<%= @page.space.decorate.number_of_unseen_avatars %></span>
     <% end %>
 
     <span class="avatars-add"></span>
