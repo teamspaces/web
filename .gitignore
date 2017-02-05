@@ -11,3 +11,6 @@ npm-debug.log
 node_modules/
 public/assets/
 public/uploads/
+public/stylesheets/
+public/images/
+public/javascripts/

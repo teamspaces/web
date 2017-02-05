@@ -64,18 +64,18 @@
     font-size: 13px;
     line-height: 18px;
     padding: 9px 18px;
-    background: url(../assets/images/space/page-bullet-icon.svg) no-repeat left center;
+    background: url(../images/space/page-bullet-icon.svg) no-repeat left center;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     transition: all 0.3s;
 
     &.space-sidebar-pages-closed {
-      background-image: url(../assets/images/space/page-closed-icon.svg);
+      background-image: url(../images/space/page-closed-icon.svg);
     }
 
     &.space-sidebar-pages-open {
-      background-image: url(../assets/images/space/page-open-icon.svg);
+      background-image: url(../images/space/page-open-icon.svg);
     }
   }
 
@@ -119,7 +119,7 @@
     height: 24px;
     width: 42px;
     padding: 0 12px;
-    background: #F5F7FA url(../assets/images/space/settings-icon.svg) no-repeat center center;
+    background: #F5F7FA url(../images/space/settings-icon.svg) no-repeat center center;
     opacity: 0;
     transition: all 0.4s;
   }
@@ -155,17 +155,17 @@
 }
 
 .space-sidebar-move {
-  background-image: url(../assets/images/space/move-icon.svg);
+  background-image: url(../images/space/move-icon.svg);
   cursor: move;
   display: none !important; // Remove this once we've implemented sorting
 }
 
 .space-sidebar-remove {
-  background-image: url(../assets/images/space/remove-icon.svg);
+  background-image: url(../images/space/remove-icon.svg);
   width: 27px;
 }
 
 .space-sidebar-add-subpage {
-  background-image: url(../assets/images/space/add-subpage-icon.svg);
+  background-image: url(../images/space/add-subpage-icon.svg);
   width: 31px;
 }
