@@ -1,7 +1,12 @@
 class Space::Invitations::EmailController < SubdomainBaseController
   before_action :set_invitation, only: [:destroy]
+  before_action :set_space
   before_action :set_team, :find_invitable_slack_users, only: [:index, :create]
   layout 'client'
+
+  def new
+    @invitation_form = SendInvitationForm.new
+  end
 
   # GET /invitations
   # GET /invitations.json
@@ -40,6 +45,10 @@ class Space::Invitations::EmailController < SubdomainBaseController
   end
 
   private
+
+    def set_space
+      @space = Space.find_by(id: params[:space_id])
+    end
 
     def set_team
       @team = current_team.decorate

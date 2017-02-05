@@ -14,6 +14,14 @@
       <p>Space Users</p>
       <%= render "space_users", space_users: @space.users.decorate %>
 
+      <p>Add Other Space Users</p>
+      <%= render "team_users", team_users: [@space.team.users.decorate - @space.users.decorate].flatten %>
+
+      <%= link_to "Add email invitation", new_space_invitations_email_path(@space) %>
+
+      <%= link_to "Add slack invitation", new_space_invitations_slack_path(@space) %>
+
+
       <%= link_to 'Continue', space_path(@space), class: 'button button-primary' %>
     </div>
   </div>

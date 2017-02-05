@@ -8,8 +8,8 @@ Rails.application.routes.draw do
       resource :access_control, only: [:create, :destroy], controller: "space/access_controls"
       resources :members, controller: "space/members"
       namespace :invitations do
-        resources :email, controller: "space/invitations/email"
-        resources :slack, controller: "space/invitations/slack"
+        resources :email, controller: "/space/invitations/email"
+        resources :slack, controller: "/space/invitations/slack"
       end
     end
 
