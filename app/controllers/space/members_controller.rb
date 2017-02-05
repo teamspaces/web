@@ -6,8 +6,8 @@ class Space::MembersController < SubdomainBaseController
 
   # GET /spaces/:space_id/members
   def index
-    @space_users = @space.users.decorate
-    @team_users = @space.team.users.decorate
+    @space_team_members = @space.team_members
+    @team_members = @space.team.members
   end
 
   # POST /spaces/:space_id/members
@@ -45,7 +45,7 @@ class Space::MembersController < SubdomainBaseController
     end
 
     def set_space_member
-      @space_member = SpaceMember.find(params[:id])
+      @space_member = SpaceMember.find_by(space: @space, team_member_id: params[:id])
     end
 
     def space_member_params

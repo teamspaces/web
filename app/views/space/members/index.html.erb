@@ -11,11 +11,8 @@
       <%= link_to "Make privat", space_access_control_path(@space), method: :post %>
       <%= link_to "Make public", space_access_control_path(@space), method: :delete %>
 
-      <p>Space Users</p>
-      <%= render "space_users", space_users: @space_users %>
-
-      <p>Add Other Space Users</p>
-      <%= render "team_users", team_users: [@team_users - @space_users].flatten %>
+      <p>Space Members</p>
+      <%= render "space_members", space_team_members: @space_team_members,team_members: @team_members %>
 
       <p>Invitations</p>
       <%= link_to "Add email invitation", new_space_invitations_email_path(@space) %>
