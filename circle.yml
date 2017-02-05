@@ -4,6 +4,9 @@ dependencies:
 
 machine:
 
+  node:
+    version: 7.5.0
+
   post:
     - |
       if [[ -e ~/rvm_binaries/ruby-2.3.3.tar.bz2 ]]
