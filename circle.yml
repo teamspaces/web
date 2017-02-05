@@ -1,15 +1,14 @@
 dependencies:
   cache_directories:
     - ~/rvm_binaries
+  override:
+    - bundle install
+    - yarn install
 
 machine:
 
   node:
     version: 7.5.0
-
-  dependencies:
-    - bundle install
-    - yarn install
 
   post:
     - |
