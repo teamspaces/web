@@ -11,11 +11,8 @@
       <%= link_to "Make privat", space_access_control_path(@space), method: :post %>
       <%= link_to "Make public", space_access_control_path(@space), method: :delete %>
 
-      <% if @space.access_control %>
-
-      <%= render 'team_members', team_members: @space.team.members, space: @space %>
-
-      <% end %>
+      <p>Space Users</p>
+      <%= render "space_users", space_users: @space.users.decorate %>
 
       <%= link_to 'Continue', space_path(@space), class: 'button button-primary' %>
     </div>
