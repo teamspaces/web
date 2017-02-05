@@ -27,7 +27,7 @@
         <td><%= user.name %></td>
         <td><%= user.email %></td>
         <td><%= user.auth_method %></td>
-        <td>Add</td>
+        <td><%= link_to "Add", space_members_path(@space, space_member: { team_member_id: member.id}), method: :post %></td>
       </tr>
     <% end %>
   </tbody>
