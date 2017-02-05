@@ -7,9 +7,11 @@ Rails.application.routes.draw do
 
       resource :access_control, only: [:create, :destroy], controller: "space/access_controls"
       resources :members, only: [:index, :create, :destroy], controller: "space/members"
+      resource :invitations, only: [:destroy], controller: "space/invitations"
+
       namespace :invitations do
-        resources :email, controller: "/space/invitations/email"
-        resources :slack, controller: "/space/invitations/slack"
+        resources :email, only: [:new, :create], controller: "/space/invitations/email"
+        resources :slack, only: [:new, :create], controller: "/space/invitations/slack"
       end
     end
 

@@ -1,0 +1,24 @@
+<%= form_for(form, url: space_invitations_email_index_path) do |f| %>
+  <% if form.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(form.errors.count, "error") %> prohibited this invitation from being send:</h2>
+
+      <ul>
+      <% form.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.label :email %>
+  <%= f.email_field :email %>
+
+  <%= f.label :first_name %>
+  <%= f.text_field :first_name, placeholder: "Optional" %>
+
+  <%= f.label :last_name %>
+  <%= f.text_field :last_name, placeholder: "Optional" %>
+
+  <%= f.submit "Create Invitation" %>
+<% end %>
