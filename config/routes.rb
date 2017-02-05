@@ -6,7 +6,7 @@ Rails.application.routes.draw do
       resources :pages, only: [:index, :new, :create]
 
       resource :access_control, only: [:create, :destroy], controller: "space/access_controls"
-      resources :members, controller: "space/members"
+      resources :members, only: [:index, :create, :destroy], controller: "space/members"
       namespace :invitations do
         resources :email, controller: "/space/invitations/email"
         resources :slack, controller: "/space/invitations/slack"

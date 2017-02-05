@@ -11,7 +11,7 @@ class Space::Invitations::EmailController < SubdomainBaseController
   # GET /invitations
   # GET /invitations.json
   def index
-    @invitation_form = SendInvitationForm.new
+    @unused_space_email_invitations = @team.invitations.unused
   end
 
   # POST /invitations

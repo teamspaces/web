@@ -12,11 +12,12 @@
       <%= link_to "Make public", space_access_control_path(@space), method: :delete %>
 
       <p>Space Users</p>
-      <%= render "space_users", space_users: @space.users.decorate %>
+      <%= render "space_users", space_users: @space_users %>
 
       <p>Add Other Space Users</p>
-      <%= render "team_users", team_users: [@space.team.users.decorate - @space.users.decorate].flatten %>
+      <%= render "team_users", team_users: [@team_users - @space_users].flatten %>
 
+      <p>Invitations</p>
       <%= link_to "Add email invitation", new_space_invitations_email_path(@space) %>
 
       <%= link_to "Add slack invitation", new_space_invitations_slack_path(@space) %>

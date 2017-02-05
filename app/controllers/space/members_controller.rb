@@ -1,84 +1,54 @@
 class Space::MembersController < SubdomainBaseController
   before_action :set_space
+  before_action :set_space_member, only: :destroy
+
   layout 'client'
 
-  # GET /spaces
-  # GET /spaces.json
+  # GET /spaces/:space_id/members
   def index
-    @spaces = policy_scope(Space)
+    @space_users = @space.users.decorate
+    @team_users = @space.team.users.decorate
   end
 
-  # GET /spaces/1
-  # GET /spaces/1.json
-  def show
-    authorize @space, :show?
-  end
-
-  # GET /spaces/new
-  def new
-    @space_form = Space::Form.new(space: policy_scope(Space).build)
-
-    authorize @space_form.space, :new?
-  end
-
-  # GET /spaces/1/edit
-  def edit
-    @space_form = Space::Form.new(space: @space)
-
-    authorize @space_form.space, :edit?
-  end
-
-  # POST /spaces
-  # POST /spaces.json
+  # POST /spaces/:space_id/members
   def create
-    @space_form = Space::Form.new(space: policy_scope(Space).build, params: space_params)
+    @space_member = SpaceMember.new(space: @space, team_member_id: space_member_params[:team_member_id])
 
-    authorize @space_form.space, :create?
+    authorize @space_member, :create?
 
     respond_to do |format|
-      if @space_form.save
-        format.html { redirect_to space_pages_path(@space_form.space), notice: 'Space was successfully created.' }
-        format.json { render :show, status: :created, location: @space_form.space }
+      if @space_member.save
+        format.html { redirect_to space_members_path(@space) }
+        format.json { render :show, status: :created, location: @space_member }
       else
         format.html { render :new }
-        format.json { render json: @space_form.errors, status: :unprocessable_entity }
+        format.json { render json: @space_member.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # PATCH/PUT /spaces/1
-  # PATCH/PUT /spaces/1.json
-  def update
-    @space_form = Space::Form.new(space: @space, params: space_params)
-
-    authorize @space_form.space, :update?
-
-    respond_to do |format|
-      if @space_form.save
-        format.html { redirect_to @space_form.space, notice: 'Space was successfully updated.' }
-        format.json { render :show, status: :ok, location: @space_form.space }
-      else
-        format.html { render :edit }
-        format.json { render json: @space_form.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /spaces/1
-  # DELETE /spaces/1.json
+  # DELETE /spaces/:space_id/members/:id
   def destroy
-    authorize @space, :destroy?
+    authorize @space_member, :destroy?
 
-    @space.destroy
+    @space_member.destroy
     respond_to do |format|
-      format.html { redirect_to spaces_url(@space.team), notice: 'Space was successfully destroyed.' }
+      format.html { redirect_to space_members_path(@space) }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_space
       @space = Space.find(params[:space_id])
+    end
+
+    def set_space_member
+      @space_member = SpaceMember.find(params[:id])
+    end
+
+    def space_member_params
+      params.require(:space_member).permit(:team_member_id).to_h
     end
 end
