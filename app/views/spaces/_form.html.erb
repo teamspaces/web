@@ -16,11 +16,12 @@
   <%= f.hidden_field :cover, value: form.cached_cover_data %>
   <%= f.file_field :cover %>
 
-
-  <%= f.label "Team Space" %>
-  <%= f.radio_button :access_control, false %>
-  <%= f.label "Private Space" %>
-  <%= f.radio_button :access_control, true %>
+  <% unless form.persisted? %>
+    <%= f.label "Team Space" %>
+    <%= f.radio_button :access_control, false %>
+    <%= f.label "Private Space" %>
+    <%= f.radio_button :access_control, true %>
+  <% end %>
 
   <%= f.submit %>
 <% end %>

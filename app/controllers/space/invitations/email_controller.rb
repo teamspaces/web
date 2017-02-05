@@ -1,29 +1,24 @@
 class Space::Invitations::EmailController < SubdomainBaseController
-  before_action :set_invitation, only: [:destroy]
   before_action :set_space
-  before_action :set_team, :find_invitable_slack_users, only: [:index, :create]
+  before_action :set_invitation, only: [:destroy]
+
   layout 'client'
 
+  #GET /spaces/:space_id/invitations/new
   def new
     @invitation_form = SendInvitationForm.new
   end
 
-  # GET /invitations
-  # GET /invitations.json
-  def index
-    @unused_space_email_invitations = @team.invitations.unused
-  end
-
-  # POST /invitations
-  # POST /invitations.json
+  # POST /spaces/:space_id/invitations
   def create
-    @invitation_form = SendInvitationForm.new(team: @team,
+    @invitation_form = SendInvitationForm.new(team: current_team,
+                                              space: @space,
                                               invited_by_user: current_user,
                                               attributes: invitation_params)
 
     respond_to do |format|
       if @invitation_form.save
-        format.html { redirect_to invitations_path, notice: 'Invitation was successfully created.' }
+        format.html { redirect_to space_members_path(@space), notice: 'Invitation was successfully created.' }
         format.json { render :show, status: :created, location: @invitation_form.invitation }
       else
         format.html { render :index }
@@ -48,14 +43,6 @@ class Space::Invitations::EmailController < SubdomainBaseController
 
     def set_space
       @space = Space.find_by(id: params[:space_id])
-    end
-
-    def set_team
-      @team = current_team.decorate
-    end
-
-    def find_invitable_slack_users
-      @slack_users_to_invite = Team::FindInvitableSlackUsers.new(@team).all if @team.connected_to_slack?
     end
 
     def set_invitation
