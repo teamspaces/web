@@ -15,7 +15,7 @@
     "babel-polyfill": "^6.22.0",
     "babel-preset-es2017": "^6.22.0",
     "css-loader": "^0.26.1",
-    "extract-text-webpack-plugin": "^2.0.0",
+    "extract-text-webpack-plugin": "^2.0.0-rc.3",
     "image-webpack-loader": "^3.2.0",
     "node-sass": "^4.5.0",
     "sass-loader": "^4.1.1",
