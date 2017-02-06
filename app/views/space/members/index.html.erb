@@ -7,6 +7,7 @@
     <div class="card-content">
       <%= notice %>
 
+      <%= @space.access_control %>
 
       <%= link_to "Make privat", space_access_control_path(@space), method: :post %>
       <%= link_to "Make public", space_access_control_path(@space), method: :delete %>
@@ -23,7 +24,7 @@
       <%= link_to "Add slack invitation", new_space_invitations_slack_path(@space) %>
 
 
-      <%= link_to 'Continue', space_path(@space), class: 'button button-primary' %>
+      <%= link_to 'Continue', space_pages_path(@space), class: 'button button-primary' %>
     </div>
   </div>
 </main>

@@ -16,6 +16,6 @@ class Space::AccessControl::Add
 
     def add_space_member
       team_member = @initiating_user.team_members.find_by(team: @space.team)
-      SpaceMember.create(space: space, team_member: team_member)
+      SpaceMember.find_or_create_by(space: @space, team_member: team_member)
     end
 end

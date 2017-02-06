@@ -31,7 +31,7 @@ class SpacesController < SubdomainBaseController
   # POST /spaces
   # POST /spaces.json
   def create
-    @space_form = Space::Form.new(space: policy_scope(Space).build, params: space_params)
+    @space_form = Space::Form.new(space: policy_scope(Space).build, user: current_user, params: space_params)
 
     authorize @space_form.space, :create?
 
@@ -49,13 +49,13 @@ class SpacesController < SubdomainBaseController
   # PATCH/PUT /spaces/1
   # PATCH/PUT /spaces/1.json
   def update
-    @space_form = Space::Form.new(space: @space, params: space_params)
+    @space_form = Space::Form.new(space: @space, user: current_user, params: space_params)
 
     authorize @space_form.space, :update?
 
     respond_to do |format|
       if @space_form.save
-        format.html { redirect_to @space_form.space, notice: 'Space was successfully updated.' }
+        format.html { redirect_to space_pages_path(@space_form.space), notice: 'Space was successfully updated.' }
         format.json { render :show, status: :ok, location: @space_form.space }
       else
         format.html { render :edit }

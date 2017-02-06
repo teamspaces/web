@@ -10,7 +10,7 @@ class Space::AccessControl::Remove
   private
 
     def remove_access_control
-      @space.update(access_control: true)
+      @space.update(access_control: false)
     end
 
     def remove_space_members

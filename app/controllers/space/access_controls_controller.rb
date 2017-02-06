@@ -5,7 +5,7 @@ class Space::AccessControlsController < SubdomainBaseController
   def create
     authorize @space, :update?
 
-    Space::AccessControl::Add.call(space: space, initiating_user: user)
+    Space::AccessControl::Add.call(space: @space, initiating_user: current_user)
 
     redirect_to space_members_path(@space)
   end
@@ -14,7 +14,7 @@ class Space::AccessControlsController < SubdomainBaseController
   def destroy
     authorize @space, :update?
 
-    Space::AccessControl::Remove.call(space: space)
+    Space::AccessControl::Remove.call(space: @space)
 
     redirect_to space_members_path(@space)
   end

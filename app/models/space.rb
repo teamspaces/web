@@ -17,6 +17,6 @@ class Space < ApplicationRecord
 
   def users
     User.joins(:team_members)
-        .where(team_members: { id: team_members })
+        .where(team_members: { id: team_members.pluck(:id) })
   end
 end
