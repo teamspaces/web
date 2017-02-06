@@ -37,7 +37,13 @@ class SpacesController < SubdomainBaseController
 
     respond_to do |format|
       if @space_form.save
-        format.html { redirect_to space_pages_path(@space_form.space), notice: 'Space was successfully created.' }
+        format.html do
+          if @space_form.space.access_control
+            redirect_to space_members_path(@space_form.space)
+          else
+            redirect_to space_pages_path(@space_form.space), notice: 'Space was successfully created.'
+          end
+        end
         format.json { render :show, status: :created, location: @space_form.space }
       else
         format.html { render :new }

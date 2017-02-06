@@ -1,6 +1,6 @@
 class Invitation < ApplicationRecord
   belongs_to :team
-  belongs_to :space
+  belongs_to :space, optional: true
 
   belongs_to :invited_by_user, class_name: "User", foreign_key: "invited_by_user_id", primary_key: "id"
   belongs_to :invited_user, class_name: "User", foreign_key: "invited_user_id", primary_key: "id", optional: true
