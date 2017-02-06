@@ -1,10 +1,9 @@
 class Space::InvitationsController < SubdomainBaseController
-  before_action :set_space
-  before_action :set_space_member, only: :destroy
+  before_action :set_space, :set_invitation
 
   layout 'client'
 
-  # DELETE /spaces/:space_id/members/:id
+  # DELETE /spaces/:space_id/invitations/:id
   def destroy
     authorize @space_member, :destroy?
 
@@ -21,11 +20,7 @@ class Space::InvitationsController < SubdomainBaseController
       @space = Space.find(params[:space_id])
     end
 
-    def set_space_member
-      @space_member = SpaceMember.find_by(space: @space, team_member_id: params[:id])
-    end
-
-    def space_member_params
-      params.require(:space_member).permit(:team_member_id).to_h
+    def set_invitation
+      @invitation = Invitation.find(params[:id])
     end
 end
