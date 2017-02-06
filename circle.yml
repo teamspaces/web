@@ -1,11 +1,13 @@
 dependencies:
 
   cache_directories:
-    - ~/rvm_binaries
+  - ~/rvm_binaries
 
   override:
-    - bundle install
     - yarn install
+    - bundle install
+    - yarn global add webpack
+    - webpack
 
 machine:
 
