@@ -1,8 +1,21 @@
 dependencies:
+
   cache_directories:
-    - ~/rvm_binaries
+  - ~/rvm_binaries
+  - node_modules
+  - vendor/bundle
+
+  override:
+    - yarn install
+    - yarn add --force node-sass # Because it breaks every now and then...
+    - bundle install --path=vendor/bundle --jobs 20 --retry 20
+    - yarn global add webpack
+    - webpack
 
 machine:
+
+  node:
+    version: 7.5.0
 
   post:
     - |
@@ -23,6 +36,7 @@ machine:
     - sudo curl --output /usr/local/bin/phantomjs https://s3.amazonaws.com/circle-downloads/phantomjs-2.1.1
 
   environment:
+    RAILS_ENV: test
     ACTION_MAILER_HOST: 'www.spaces.is'
     ACTION_MAILER_PORT: 5510
     ACTION_MAILER_DEFAULT_FROM: '[DEV] <Team Spaces> hello@spaces.is'

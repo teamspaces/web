@@ -40,13 +40,13 @@
   line-height: 60px;
   padding: 0 30px 0 65px;
   color: $color-text-secondary;
-  background: url(../assets/images/space/new-page-icon.svg) no-repeat 30px center;
+  background: url(../images/space/new-page-icon.svg) no-repeat 30px center;
   transition: all 0.2s;
 
   &:hover, &:active, &:focus {
     text-decoration: none;
     color: $color-primary;
-    background-image: url(../assets/images/space/new-page-icon-on.svg);
+    background-image: url(../images/space/new-page-icon-on.svg);
   }
 }
 

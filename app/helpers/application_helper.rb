@@ -1,3 +1,3 @@
 module ApplicationHelper
-  include Gulp::ViewHelper
+  include Webpack::ViewHelper
 end
