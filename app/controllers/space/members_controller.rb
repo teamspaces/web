@@ -8,6 +8,7 @@ class Space::MembersController < SubdomainBaseController
   def index
     @space_team_members = @space.team_members
     @team_members = @space.team.members
+    @space_invitations = @space.invitations
   end
 
   # POST /spaces/:space_id/members

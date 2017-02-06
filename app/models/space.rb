@@ -2,6 +2,7 @@ class Space < ApplicationRecord
   include SpaceCoverUploader[:cover]
 
   belongs_to :team
+  has_many :invitations
   has_many :pages, dependent: :destroy
   has_many :space_members, dependent: :destroy
   validates :team, presence: true

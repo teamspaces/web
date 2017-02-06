@@ -14,6 +14,9 @@
       <p>Space Members</p>
       <%= render "space_members", space_team_members: @space_team_members,team_members: @team_members %>
 
+      <p>Send Invitations</p>
+      <%= render "invitations", invitations: @space_invitations.unused %>
+
       <p>Invitations</p>
       <%= link_to "Add email invitation", new_space_invitations_email_path(@space) %>
 
