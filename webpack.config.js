@@ -1,6 +1,7 @@
 const fs = require('fs');
 const webpack = require("webpack");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 const prod = process.argv.indexOf('-p') !== -1;
 const css_output_template = prod ? "/stylesheets/[name]-[hash].css" : "/stylesheets/[name].css";
@@ -77,6 +78,9 @@ module.exports = {
 
   plugins: [
     new ExtractTextPlugin(css_output_template),
+    new CopyWebpackPlugin([
+        { from: "images/static", to: "images/static" }
+    ]),
 
     function() {
       // delete previous outputs

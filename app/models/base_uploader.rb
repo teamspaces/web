@@ -31,6 +31,6 @@ class BaseUploader < Shrine
   end
 
   Attacher.default_url do |options|
-    "default_#{context[:record].class.name.underscore}_#{context[:name]}.jpg"
+    "static/default_#{context[:record].class.name.underscore}_#{context[:name]}.jpg"
   end
 end
