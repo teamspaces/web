@@ -16,7 +16,7 @@ class Space::MembersController < SubdomainBaseController
 
     respond_to do |format|
       format.html { redirect_to space_members_path(@space) }
-      format.json { render :show, status: :created, location: @space_member }
+      format.json { render :show, status: :created }
     end
   end
 

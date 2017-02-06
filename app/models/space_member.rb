@@ -1,6 +1,4 @@
 class SpaceMember < ApplicationRecord
-  include HasRole
-
   belongs_to :space
   belongs_to :team_member
 
