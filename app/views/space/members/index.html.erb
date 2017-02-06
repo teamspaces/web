@@ -7,8 +7,6 @@
     <div class="card-content">
       <%= notice %>
 
-      <%= @space.access_control %>
-
       <%= link_to "Make privat", space_access_control_path(@space), method: :post %>
       <%= link_to "Make public", space_access_control_path(@space), method: :delete %>
 
