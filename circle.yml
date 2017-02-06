@@ -2,10 +2,12 @@ dependencies:
 
   cache_directories:
   - ~/rvm_binaries
+  - ./node_modules
+  - ./vendor/bundle
 
   override:
     - yarn install
-    - bundle install
+    - bundle install -j4 --path=vendor/bundle
     - yarn global add webpack
     - webpack
 
