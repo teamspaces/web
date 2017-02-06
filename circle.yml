@@ -13,11 +13,6 @@ dependencies:
 
 machine:
 
-  services:
-    - postgres
-    - mongodb
-    - redis
-
   node:
     version: 7.5.0
 
