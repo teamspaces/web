@@ -1,6 +1,5 @@
 class Space::MembersController < SubdomainBaseController
   before_action :set_space
-  before_action :set_space_member, only: :destroy
 
   layout 'client'
 
@@ -13,26 +12,18 @@ class Space::MembersController < SubdomainBaseController
 
   # POST /spaces/:space_id/members
   def create
-    @space_member = SpaceMember.new(space: @space, team_member_id: space_member_params[:team_member_id])
-
-    authorize @space_member, :create?
+    Space::Members::Add.call(space: @space, user: User.find(space_member_params[:user_id]))
 
     respond_to do |format|
-      if @space_member.save
-        format.html { redirect_to space_members_path(@space) }
-        format.json { render :show, status: :created, location: @space_member }
-      else
-        format.html { render :new }
-        format.json { render json: @space_member.errors, status: :unprocessable_entity }
-      end
+      format.html { redirect_to space_members_path(@space) }
+      format.json { render :show, status: :created, location: @space_member }
     end
   end
 
   # DELETE /spaces/:space_id/members/:id
   def destroy
-    authorize @space_member, :destroy?
+    Space::Members::Remove.call(space: @space, user: User.find(params[:id]))
 
-    @space_member.destroy
     respond_to do |format|
       format.html { redirect_to space_members_path(@space) }
       format.json { head :no_content }
@@ -45,11 +36,7 @@ class Space::MembersController < SubdomainBaseController
       @space = Space.find(params[:space_id])
     end
 
-    def set_space_member
-      @space_member = SpaceMember.find_by(space: @space, team_member_id: params[:id])
-    end
-
     def space_member_params
-      params.require(:space_member).permit(:team_member_id).to_h
+      params.require(:space_member).permit(:user_id).to_h
     end
 end

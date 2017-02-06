@@ -16,7 +16,7 @@
         <td><%= user.name %></td>
         <td><%= user.email %></td>
         <td><%= user.auth_method %></td>
-        <td><%= link_to "Remove", space_member_path(@space, member), method: :delete %></td>
+        <td><%= link_to "Remove", space_member_path(@space, user), method: :delete %></td>
       </tr>
     <% end %>
 
@@ -27,7 +27,7 @@
         <td><%= user.name %></td>
         <td><%= user.email %></td>
         <td><%= user.auth_method %></td>
-        <td><%= link_to "Add", space_members_path(@space, space_member: { team_member_id: member.id}), method: :post %></td>
+        <td><%= link_to "Add", space_members_path(@space, space_member: { user_id: user.id}), method: :post %></td>
       </tr>
     <% end %>
   </tbody>
