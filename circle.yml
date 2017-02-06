@@ -2,8 +2,8 @@ dependencies:
 
   cache_directories:
   - ~/rvm_binaries
-  - ./node_modules
-  - ./vendor/bundle
+  - node_modules
+  - vendor/bundle
 
   override:
     - yarn install
