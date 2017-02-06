@@ -5,9 +5,9 @@ class Space::InvitationsController < SubdomainBaseController
 
   # DELETE /spaces/:space_id/invitations/:id
   def destroy
-    authorize @space_member, :destroy?
+    authorize @invitation, :destroy?
 
-    @space_member.destroy
+    @invitation.destroy
     respond_to do |format|
       format.html { redirect_to space_members_path(@space) }
       format.json { head :no_content }

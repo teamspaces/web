@@ -10,7 +10,7 @@
     <% invitations.each do |invitation| %>
       <tr>
         <td><%= invitation.email %></td>
-        <td><%= link_to 'Destroy', invitation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Destroy', space_invitation_path(@space,invitation), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
