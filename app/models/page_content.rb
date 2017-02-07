@@ -1,4 +1,6 @@
 class PageContent < ApplicationRecord
+  acts_as_paranoid
+
   belongs_to :page
   validates :page, presence: true
 

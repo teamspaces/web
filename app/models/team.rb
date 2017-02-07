@@ -1,4 +1,6 @@
 class Team < ApplicationRecord
+  acts_as_paranoid
+
   include TeamLogoUploader[:logo]
 
   has_many :spaces, dependent: :destroy

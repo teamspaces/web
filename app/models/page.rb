@@ -1,4 +1,6 @@
 class Page < ApplicationRecord
+  acts_as_paranoid
+
   include HasOneCollabPage
   include HasOnePageContent
 
