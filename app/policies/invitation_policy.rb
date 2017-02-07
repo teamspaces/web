@@ -10,6 +10,10 @@ class InvitationPolicy
     owned_by_team? && !invitation.used?
   end
 
+  def send?
+    owned_by_team?
+  end
+
   private
 
     def owned_by_team?

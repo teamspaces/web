@@ -11,7 +11,7 @@
         <thead>
           <tr>
             <th>Email</th>
-            <th colspan="3"></th>
+            <th colspan="4"></th>
           </tr>
         </thead>
 
@@ -19,7 +19,8 @@
           <% @team.invitations.unused.each do |invitation| %>
             <tr>
               <td><%= invitation.email %></td>
-              <td><%= link_to 'Destroy', invitation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <td><%= link_to "Destroy", invitation, method: :delete, data: { confirm: "Are you sure?" } %></td>
+              <td><%= link_to "Resend", send_invitation_path(invitation) %></td>
             </tr>
           <% end %>
         </tbody>
