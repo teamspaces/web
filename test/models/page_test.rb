@@ -6,9 +6,10 @@ describe Page do
 
   should belong_to(:space)
   should validate_presence_of(:space)
+  should have_one(:page_content).dependent(:destroy)
 
   before(:each) do
-    Page.rebuild! # Needed to avoid advisory_lock issues with closure_tree 
+    Page.rebuild! # Needed to avoid advisory_lock issues with closure_tree
   end
 
   it "has one collab_page" do

@@ -1,5 +1,5 @@
 class PageContent < ApplicationRecord
-  belongs_to :page, dependent: :destroy
+  belongs_to :page
   validates :page, presence: true
 
   after_save :update_word_count
