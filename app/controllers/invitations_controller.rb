@@ -46,7 +46,7 @@ class InvitationsController < SubdomainBaseController
     Invitation::SendInvitation.call(invitation: @invitation)
 
     respond_to do |format|
-      format.html { redirect_to invitations_path, notice: 'Invitation was successfully sent' }
+      format.html { redirect_to invitations_path, notice: "Invitation was successfully sent" }
       format.json { head :no_content }
     end
   end

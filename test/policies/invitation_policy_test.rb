@@ -27,4 +27,18 @@ describe InvitationPolicy, :model do
       end
     end
   end
+
+  describe "#send?" do
+    context "team invitation" do
+      it "returns true" do
+        assert InvitationPolicy.new(default_context, team_invitation).send?
+      end
+    end
+
+    context "invitation belongs to another team" do
+      it "returns false" do
+        refute InvitationPolicy.new(default_context, external_invitation).send?
+      end
+    end
+  end
 end
