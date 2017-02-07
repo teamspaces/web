@@ -45,15 +45,13 @@ RUN \
   # Yarn
   && yarn install --production \
   # Compile our assets
-  && RAILS_ENV=$RAILS_ENV webpack \
+  && RAILS_ENV=$RAILS_ENV webpack -p \
   # Disable bundler from installing documentation
   && echo 'gem: --no-rdoc --no-ri' >> /.gemrc \
   && echo 'gem: --no-document' >> ~/.gemrc \
   # Install application gems (with retry)
   && (bundle install --no-cache --clean --jobs 20 --retry 20 --without development test --with production \
     || (sleep 10 && bundle install --no-cache --clean --jobs 20 --retry 20 --without development test --with production)) \
-  # Precompile Rails assets.
-  && RAILS_ENV=$RAILS_ENV SECRET_KEY_BASE=$SECRET_KEY_BASE DATABASE_URL=$DATABASE_URL bundle exec rake assets:precompile \
   # Clean caches
   && yarn cache clean
 
