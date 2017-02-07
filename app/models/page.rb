@@ -15,7 +15,9 @@ class Page < ApplicationRecord
   private
 
     def restore_parent
-      parent.restore(recursive: true) if parent
+      Page.with_deleted
+          .find(parent_id)
+          .restore(recursive: true) if parent_id
 
       rebuild!
     end
