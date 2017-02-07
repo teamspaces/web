@@ -4,7 +4,7 @@ describe PageDecorator, :model do
 
   describe "#title_with_fallback" do
     context "space with title" do
-      let(:page_with_title) { page(:marketing) }
+      let(:page_with_title) { pages(:marketing) }
 
       it "returns page title" do
         assert_equal page_with_title.title, page_with_title.decorate.title_with_fallback
