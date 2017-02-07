@@ -1,6 +1,6 @@
 <% page_tree.map do |page, page_tree| %>
     <li>
-        <%= link_to(page.title, page) %>
+        <%= link_to((page.title || "Untitled"), page) %>
 
         <% if page_tree.size.positive? %>
             <ul>
