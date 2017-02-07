@@ -1,5 +1,5 @@
 class InvitationsController < SubdomainBaseController
-  before_action :set_invitation, only: [:destroy, :send]
+  before_action :set_invitation, only: [:destroy, :resend]
   before_action :set_team, :find_invitable_slack_users, only: [:index, :create]
   layout 'client'
 
@@ -40,7 +40,7 @@ class InvitationsController < SubdomainBaseController
   end
 
   # GET /invitations/1/send
-  def send
+  def resend
     authorize @invitation, :send?
 
     Invitation::SendInvitation.call(invitation: @invitation)

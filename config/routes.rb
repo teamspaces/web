@@ -22,7 +22,7 @@ Rails.application.routes.draw do
 
     resources :invitations, only: [:index, :create, :destroy] do
       member do
-        get :send
+        get :send, to: "invitations#resend"
       end
     end
     get "slack_invitation", to: "slack_invitations#create", as: :create_slack_invitation
