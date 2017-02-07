@@ -40,16 +40,15 @@ describe Page do
 
   describe "#after restore" do
     let(:page_with_parent) { pages(:with_parent) }
-    let(:parent_page) { page_with_parent.parent}
+    let(:parent_page) { page_with_parent.parent }
 
     it "restores parents and rebuilds tree" do
       page_with_parent.destroy
       parent_page.destroy
 
-      parent_page.expects(:restore).with(recursive: true)
-      parent_page.expects(:rebuild!)
-
       page_with_parent.restore(recursive: true)
+
+      assert_nil parent_page.reload.deleted_at
     end
   end
 end
