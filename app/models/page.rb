@@ -10,17 +10,12 @@ class Page < ApplicationRecord
   has_one :team, through: :space
   validates :space, presence: true
 
-  after_restore :append_to_root
+  after_restore :restore_parent
 
   private
 
-    def append_to_root
-      node = self
-
-      while node.parent
-        node.parent.restore
-        node = node.parent
-      end
+    def restore_parent
+      node.parent.restore if node.parent
 
       Page.rebuild!
     end
