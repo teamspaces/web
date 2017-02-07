@@ -1,6 +1,6 @@
 <% page_tree.map do |page, page_tree| %>
     <li>
-        <%= link_to((page.title || "Untitled"), page) %>
+        <%= link_to(page.decorate.title_with_fallback, page) %>
 
         <% if page_tree.size.positive? %>
             <ul>

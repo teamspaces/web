@@ -1,6 +1,6 @@
 <% page_tree.map do |page, page_tree| %>
     <li>
-        <%= link_to((page.title || "Untitled"), edit_page_path(page)) %>
+        <%= link_to(page.decorate.title_with_fallback, edit_page_path(page)) %>
 
         <div class="space-sidebar-edit-actions">
             <span class="space-sidebar-move"></span>
