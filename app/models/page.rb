@@ -15,8 +15,8 @@ class Page < ApplicationRecord
   private
 
     def restore_parent
-      node.parent.restore if node.parent
+      parent.restore(recursive: true) if parent
 
-      Page.rebuild!
+      rebuild!
     end
 end
