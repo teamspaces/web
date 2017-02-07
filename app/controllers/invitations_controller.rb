@@ -1,5 +1,5 @@
 class InvitationsController < SubdomainBaseController
-  before_action :set_invitation, only: [:destroy]
+  before_action :set_invitation, only: [:destroy, :send]
   before_action :set_team, :find_invitable_slack_users, only: [:index, :create]
   layout 'client'
 
@@ -35,6 +35,18 @@ class InvitationsController < SubdomainBaseController
     @invitation.destroy
     respond_to do |format|
       format.html { redirect_to invitations_path, notice: 'Invitation was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
+  # GET /invitations/1/send
+  def send
+    authorize @invitation, :send?
+
+    Invitation::SendInvitation.call(invitation: @invitation)
+
+    respond_to do |format|
+      format.html { redirect_to invitations_path, notice: 'Invitation was successfully sent' }
       format.json { head :no_content }
     end
   end
