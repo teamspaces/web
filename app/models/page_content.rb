@@ -1,8 +1,12 @@
 class PageContent < ApplicationRecord
-  belongs_to :page, dependent: :destroy
+  acts_as_paranoid
+
+  belongs_to :page
   validates :page, presence: true
 
   after_save :update_word_count
+
+  alias_method :archived?, :paranoia_destroyed?
 
   private
 

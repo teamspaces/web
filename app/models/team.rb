@@ -1,4 +1,6 @@
 class Team < ApplicationRecord
+  acts_as_paranoid
+
   include TeamLogoUploader[:logo]
 
   has_many :spaces, dependent: :destroy
@@ -7,6 +9,7 @@ class Team < ApplicationRecord
   has_many :members, foreign_key: "team_id", class_name: "TeamMember", dependent: :destroy
   has_many :users, through: :members
   has_many :user_authentications, source: :authentications, through: :users
+  has_many :sessions, class_name: "Authie::Session", foreign_key: "team_id", dependent: :destroy
   has_one :team_authentication, dependent: :destroy
 
   validates_uniqueness_of :subdomain
@@ -18,4 +21,7 @@ class Team < ApplicationRecord
   def primary_owner
     self.members.find_by(role: TeamMember::Roles::PRIMARY_OWNER)
   end
+
+  alias_method :disable, :destroy
+  alias_method :disabled?, :paranoia_destroyed?
 end

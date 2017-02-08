@@ -1,4 +1,6 @@
 class Invitation < ApplicationRecord
+  acts_as_paranoid
+
   belongs_to :team
 
   belongs_to :invited_by_user, class_name: "User", foreign_key: "invited_by_user_id", primary_key: "id"
@@ -9,6 +11,10 @@ class Invitation < ApplicationRecord
 
   validates :token, uniqueness: true
   before_create :generate_token
+
+  def destroy
+    used? ? super : really_destroy!
+  end
 
   def slack_invitation?
     invited_slack_user_uid.present?

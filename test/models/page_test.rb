@@ -3,12 +3,14 @@ require "test_helper"
 describe Page do
   let(:space) { spaces(:spaces) }
   let(:marketing_page) { pages(:marketing) }
+  let(:page_with_parent) { pages(:with_parent) }
 
   should belong_to(:space)
   should validate_presence_of(:space)
+  should have_one(:page_content).dependent(:destroy)
 
   before(:each) do
-    Page.rebuild! # Needed to avoid advisory_lock issues with closure_tree 
+    Page.rebuild! # Needed to avoid advisory_lock issues with closure_tree
   end
 
   it "has one collab_page" do
@@ -34,6 +36,15 @@ describe Page do
       assert_difference -> { CollabPage.count }, -1 do
         marketing_page.destroy
       end
+    end
+  end
+
+  describe "#restore" do
+    it "restores page in root node" do
+      page_with_parent.destroy
+      page_with_parent.restore(recursive: true)
+
+      assert_includes page_with_parent.space.pages.roots, page_with_parent
     end
   end
 end
