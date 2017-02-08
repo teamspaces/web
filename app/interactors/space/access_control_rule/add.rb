@@ -12,7 +12,7 @@ class Space::AccessControlRule::Add
   private
 
     def add_access_control
-      @space.update(access_control: @access_control_rule)
+      @space.update(access_control_rule: @access_control_rule)
     end
 
     def add_space_member

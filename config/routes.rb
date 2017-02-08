@@ -10,7 +10,7 @@ Rails.application.routes.draw do
         resource :private, only: [:create], to: "space/access_control_rules/private"
       end
 
-      resources :members, only: [:index, :create, :destroy], controller: "space/members"
+      resources :members, only: [:index, :create, :destroy], param: :user_id, controller: "space/members"
       resources :invitations, only: [:destroy], controller: "space/invitations"
 
       namespace :invitations do

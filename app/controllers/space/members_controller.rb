@@ -20,9 +20,9 @@ class Space::MembersController < SubdomainBaseController
     end
   end
 
-  # DELETE /spaces/:space_id/members/:id
+  # DELETE /spaces/:space_id/members/:user_id
   def destroy
-    Space::Members::Remove.call(space: @space, user: User.find(params[:id]))
+    Space::Members::Remove.call(space: @space, user: User.find(params[:user_id]))
 
     respond_to do |format|
       format.html { redirect_to space_members_path(@space) }
