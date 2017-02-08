@@ -44,7 +44,7 @@ class Space::Form
   end
 
   def save
-    valid? && persist!
+    valid? && persist! && enforce_access_control_rule!
   end
 
   private
@@ -52,5 +52,9 @@ class Space::Form
     def persist!
       @space.assign_attributes(name: name, team_id: team_id, access_control_rule: access_control_rule)
       @space.save
+    end
+
+    def enforce_access_control_rule!
+      Space::AccessControlRule::Enforce.call(user: @user, space: @space)
     end
 end
