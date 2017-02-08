@@ -12,6 +12,8 @@ class Space::MembersController < SubdomainBaseController
 
   # POST /spaces/:space_id/members
   def create
+    authorize @space, :add_member?
+
     Space::Members::Add.call(space: @space, user: User.find(space_member_params[:user_id]))
 
     respond_to do |format|
@@ -22,6 +24,8 @@ class Space::MembersController < SubdomainBaseController
 
   # DELETE /spaces/:space_id/members/:user_id
   def destroy
+    authorize @space, :remove_member?
+
     Space::Members::Remove.call(space: @space, user: User.find(params[:user_id]))
 
     respond_to do |format|

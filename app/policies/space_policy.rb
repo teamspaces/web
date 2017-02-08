@@ -11,6 +11,6 @@ class SpacePolicy
   def team_space?
     team == space.team
   end
-  
-  alias_methods :team_space?, [:show?, :new?, :edit?, :create?, :update?, :destroy?]
+
+  alias_methods :team_space?, [:show?, :new?, :edit?, :create?, :update?, :destroy?, :update_access_control?, :add_member?, :remove_member?]
 end

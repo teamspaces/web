@@ -3,7 +3,7 @@ class Space::AccessControlRules::PrivateController < SubdomainBaseController
 
   # POST /spaces/:space_id/access_control_rules/private
   def create
-    authorize @space, :update?
+    authorize @space, :update_access_control?
 
     Space::AccessControlRule::Add.call(space: @space,
                                        access_control_rule: Space::AccessControlRules::PRIVATE,
