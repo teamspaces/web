@@ -5,7 +5,7 @@ describe SendSlackInvitationJob, :model do
   let(:invitation) { invitations(:slack_user_milad_invitation) }
 
   it "sends invitation as slack message" do
-    Invitation::SlackInvitation::Send.expects(:call).with(invitation: invitation)
+    Invitation::Slack::Send.expects(:call).with(invitation: invitation)
 
     subject.perform_now(invitation.id)
   end

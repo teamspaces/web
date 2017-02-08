@@ -1,4 +1,4 @@
-class Invitation::SlackInvitation::Create
+class Invitation::Slack::Create
   include Interactor
 
   def call

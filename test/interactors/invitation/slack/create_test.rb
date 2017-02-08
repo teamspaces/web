@@ -1,6 +1,6 @@
 require "test_helper"
 
-describe Invitation::SlackInvitation::Create, :model do
+describe Invitation::Slack::Create, :model do
   let(:user) { users(:slack_user_emil) }
   let(:team) { teams(:spaces) }
   let(:valid_invitation_params) { { first_name: "Jessica", last_name: "Tol",
@@ -8,7 +8,7 @@ describe Invitation::SlackInvitation::Create, :model do
 
   it "creates slack invitation" do
     assert_difference -> { Invitation.count }, 1 do
-      result = Invitation::SlackInvitation::Create.call(team: team,
+      result = Invitation::Slack::Create.call(team: team,
                                                         invited_by_user: user,
                                                         invitation_attributes: valid_invitation_params)
 

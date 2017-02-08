@@ -4,6 +4,6 @@ class SendSlackInvitationJob < ActiveJob::Base
     invitation = Invitation.find_by(id: invitation_id)
     return unless invitation;
 
-    Invitation::SlackInvitation::Send.call(invitation: invitation)
+    Invitation::Slack::Send.call(invitation: invitation)
   end
 end

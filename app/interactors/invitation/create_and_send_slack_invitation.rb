@@ -1,5 +1,6 @@
 class Invitation::CreateAndSendSlackInvitation
   include Interactor::Organizer
 
-  organize Invitation::SlackInvitation::Create, Invitation::Send
+  organize Invitation::Slack::Create,
+           Invitation::Send
 end
