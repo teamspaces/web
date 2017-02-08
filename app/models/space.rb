@@ -1,4 +1,5 @@
 class Space < ApplicationRecord
+  include HasAccessControlRule
   include SpaceCoverUploader[:cover]
 
   belongs_to :team
