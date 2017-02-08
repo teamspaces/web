@@ -18,8 +18,9 @@ class Space::Form
   validates :team, presence: true
   validates :cover, attached_image: true
 
-  def initialize(space: Space.new, attributes: {})
+  def initialize(space: Space.new, team: nil, attributes: {})
     @space = space
+    @team = team
 
     super(@space.attributes)
     super(attributes)
