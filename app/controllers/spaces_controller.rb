@@ -40,7 +40,7 @@ class SpacesController < SubdomainBaseController
         format.html do
           redirect_to case
           when @space.form.space.private_access_control_rule? then space_members_path(@space_form.space)
-          else space_pages_path(@space_form.space), notice: 'Space was successfully created.'
+          else space_pages_path(@space_form.space)
           end
         end
         format.json { render :show, status: :created, location: @space_form.space }

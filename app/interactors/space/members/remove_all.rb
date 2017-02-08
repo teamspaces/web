@@ -1,4 +1,4 @@
-class Space::Members::Remove
+class Space::Members::RemoveAll
   include Interactor
 
   def call

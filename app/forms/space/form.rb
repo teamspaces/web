@@ -13,7 +13,7 @@ class Space::Form
   attribute :name, String
   attribute :cover
   attribute :team_id
-  attribute :access_control_rule, default: Space::AccessControlRules::TEAM
+  attribute :access_control_rule, String, default: ::Space::AccessControlRules::TEAM
 
   attribute :private_access_control, Boolean
   attribute :team_access_control, Boolean
@@ -35,14 +35,15 @@ class Space::Form
   end
 
   def private_access_control=(private_access_control)
+    # falsch da er da gleich absoeichert
     Space::AccessControlRule::Add.call(space: @space,
-                                       access_control_rule: Space::AccessControlRules::PRIVATE,
+                                       access_control_rule: ::Space::AccessControlRules::PRIVATE,
                                        initiating_user: user) if private_access_control == true
   end
 
   def team_access_control=(team_access_control)
     Space::AccessControlRule::Add.call(space: @space,
-                                       access_control_rule: Space::AccessControlRules::Team,
+                                       access_control_rule: ::Space::AccessControlRules::Team,
                                        initiating_user: user) if private_access_control == true
   end
 
