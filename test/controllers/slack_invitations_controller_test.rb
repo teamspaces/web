@@ -21,8 +21,9 @@ describe SlackInvitationsController do
         end
       end
 
-      it "sends invitation" do
-        Invitation::SlackInvitation::Send.expects(:call).once
+      it "sends invitation, as email and slack message" do
+        SendSlackInvitationJob.expects(:perform_later).once
+        SendEmailInvitationJob.expects(:perform_later).once
 
         get subject_url, params: valid_params
       end
