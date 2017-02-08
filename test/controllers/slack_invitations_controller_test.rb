@@ -6,7 +6,7 @@ describe SlackInvitationsController do
 
   before(:each) do
     sign_in user
-    Invitation::Slack::Send.stubs(:call).returns(true)
+    Invitation::SlackInvitation::Send.stubs(:call).returns(true)
   end
 
   describe "#create" do
