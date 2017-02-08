@@ -1,4 +1,4 @@
-class Invitation::SendSlackInvitation
+class Invitation::SlackInvitation::Send
   include Interactor
   include RouteHelper
 
@@ -18,7 +18,7 @@ class Invitation::SendSlackInvitation
                               username: "Spaces",
                               icon_url: application_icon_url)
     rescue Slack::Web::Api::Error => exception
-      Rails.logger.error("Invitation::SendSlackInvitation#send_invitation failed with (#{exception.class}=#{exception.message})")
+      Rails.logger.error("Invitation::SlackInvitation::Send#send_invitation failed with (#{exception.class}=#{exception.message})")
       Raven.capture_exception(exception)
       context.fail!
     end

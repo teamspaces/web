@@ -1,7 +1,9 @@
-class Invitation::CreateSlackInvitation
+class Invitation::SlackInvitation::Create
   include Interactor
 
   def call
+    context.invitation_attributes.each { |key, value| context[key] = value }
+
     context.invitation = build_slack_invitation
 
     context.fail! unless context.invitation.save

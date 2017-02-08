@@ -1,9 +1,9 @@
 require "test_helper"
 
-describe Invitation::SendSlackInvitation, :model do
+describe Invitation::SlackInvitation::Send, :model do
   include Rails.application.routes.url_helpers
 
-  subject { Invitation::SendSlackInvitation }
+  subject { Invitation::SlackInvitation::Send }
   let(:invitation) { invitations(:slack_user_milad_invitation) }
 
   it "sends invitation as slack message with link to accept_invitation path" do

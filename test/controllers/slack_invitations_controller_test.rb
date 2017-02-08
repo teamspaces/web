@@ -6,7 +6,7 @@ describe SlackInvitationsController do
 
   before(:each) do
     sign_in user
-    Invitation::SendInvitation.stubs(:call).returns(true)
+    Invitation::SlackInvitation::Send.stubs(:call).returns(true)
   end
 
   describe "#create" do
@@ -21,8 +21,9 @@ describe SlackInvitationsController do
         end
       end
 
-      it "sends invitation" do
-        Invitation::SendInvitation.expects(:call).once
+      it "sends invitation, as email and slack message" do
+        SendSlackInvitationJob.expects(:perform_later).once
+        SendEmailInvitationJob.expects(:perform_later).once
 
         get subject_url, params: valid_params
       end

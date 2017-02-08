@@ -15,6 +15,6 @@
       It's empty in here. Let's add some pages!
     </p>
 
-    <%= link_to "Edit space", new_space_page_path(@space), class: 'button button-primary' %>
+    <%= link_to "Edit space", space_pages_path(@space, params: { page: { _: true }}), method: :post, class: 'button button-primary' %>
   </main>
 </div>
