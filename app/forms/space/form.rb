@@ -12,14 +12,14 @@ class Space::Form
 
   attribute :name, String
   attribute :cover
-  attribute :team_id
+  attribute :team, Team
   attribute :access_control_rule, String
 
   attribute :private_access_control, Boolean
   attribute :team_access_control, Boolean
 
   validates :name, presence: true
-  validates :team_id, presence: true
+  validates :team, presence: true
   validates :cover, attached_image: true
   validates :access_control_rule, presence: true
 
@@ -50,11 +50,12 @@ class Space::Form
   private
 
     def persist!
-      @space.assign_attributes(name: name, team_id: team_id, access_control_rule: access_control_rule)
+      @space.assign_attributes(name: name, team: team, access_control_rule: access_control_rule)
       @space.save
     end
 
     def enforce_access_control_rule!
+      debugger
       Space::AccessControlRule::Enforce.call(user: @user, space: @space)
     end
 end
