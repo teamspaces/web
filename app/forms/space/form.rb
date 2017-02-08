@@ -13,7 +13,7 @@ class Space::Form
   attribute :name, String
   attribute :cover
   attribute :team_id
-  attribute :access_control_rule, String, default: ::Space::AccessControlRules::TEAM
+  attribute :access_control_rule, String
 
   attribute :private_access_control, Boolean
   attribute :team_access_control, Boolean
@@ -21,6 +21,7 @@ class Space::Form
   validates :name, presence: true
   validates :team_id, presence: true
   validates :cover, attached_image: true
+  validates :access_control_rule, presence: true
 
   def initialize(space:, user: nil, params: {})
     @space = space
@@ -34,17 +35,12 @@ class Space::Form
     Space::Cover::AttachUploadedCover.call(space: @space, file: uploaded_file)
   end
 
-  def private_access_control=(private_access_control)
-    # falsch da er da gleich absoeichert
-    Space::AccessControlRule::Add.call(space: @space,
-                                       access_control_rule: ::Space::AccessControlRules::PRIVATE,
-                                       initiating_user: user) if private_access_control == true
+  def private_access_control=(_)
+    @access_control_rule = Space::AccessControlRules::PRIVATE
   end
 
-  def team_access_control=(team_access_control)
-    Space::AccessControlRule::Add.call(space: @space,
-                                       access_control_rule: ::Space::AccessControlRules::Team,
-                                       initiating_user: user) if private_access_control == true
+  def team_access_control=(_)
+    @access_control_rule = Space::AccessControlRules::TEAM
   end
 
   def save

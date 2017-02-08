@@ -39,7 +39,7 @@ class SpacesController < SubdomainBaseController
       if @space_form.save
         format.html do
           redirect_to case
-          when @space.form.space.private_access_control_rule? then space_members_path(@space_form.space)
+          when @space_form.space.private_access_control_rule? then space_members_path(@space_form.space)
           else space_pages_path(@space_form.space)
           end
         end
