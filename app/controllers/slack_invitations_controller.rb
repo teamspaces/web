@@ -2,7 +2,7 @@ class SlackInvitationsController < SubdomainBaseController
 
   # GET /slack_invitation
   def create
-    result = Invitation::CreateAndSendSlackInvitation.call(invitation_params.to_h
+    result = Invitation::CreateAndSendSlackInvitation.call(invitation_params
                                                       .merge({invited_by_user: current_user,
                                                               team: current_team}))
 
@@ -20,6 +20,6 @@ class SlackInvitationsController < SubdomainBaseController
   private
 
     def invitation_params
-      params.permit(:invited_slack_user_uid, :email, :first_name, :last_name)
+      params.permit(:invited_slack_user_uid, :email, :first_name, :last_name).to_h
     end
 end
