@@ -1,8 +1,9 @@
-class Space::AccessControl::Add
+class Space::AccessControlRule::Add
   include Interactor
 
   def call
     @space = context.space
+    @access_control_rule = context.access_control_rule
     @initiating_user = context.initiating_user
 
     context.fail! unless add_access_control && add_space_member
@@ -11,7 +12,7 @@ class Space::AccessControl::Add
   private
 
     def add_access_control
-      @space.update(access_control: true)
+      @space.update(access_control: @access_control_rule)
     end
 
     def add_space_member
