@@ -15,6 +15,9 @@ class Space::Form
   attribute :team_id
   attribute :access_control_rule, default: Space::AccessControlRules::TEAM
 
+  attribute :private_access_control, Boolean
+  attribute :team_access_control, Boolean
+
   validates :name, presence: true
   validates :team_id, presence: true
   validates :cover, attached_image: true
@@ -34,7 +37,13 @@ class Space::Form
   def private_access_control=(private_access_control)
     Space::AccessControlRule::Add.call(space: @space,
                                        access_control_rule: Space::AccessControlRules::PRIVATE,
-                                       initiating_user: user) if private_access_control
+                                       initiating_user: user) if private_access_control == true
+  end
+
+  def team_access_control=(team_access_control)
+    Space::AccessControlRule::Add.call(space: @space,
+                                       access_control_rule: Space::AccessControlRules::Team,
+                                       initiating_user: user) if private_access_control == true
   end
 
   def save
