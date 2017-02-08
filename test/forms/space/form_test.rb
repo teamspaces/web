@@ -7,7 +7,7 @@ describe Space::Form, :model do
 
   describe "validations" do
     should validate_presence_of(:name)
-    should validate_presence_of(:team_id)
+    should validate_presence_of(:team)
 
     it "validates attached cover" do
       Shrine::Attacher.any_instance
@@ -33,7 +33,7 @@ describe Space::Form, :model do
 
   describe "#save" do
     it "saves space" do
-      assert Space::Form.new(space: space, params: { name: "new_name" }).save
+      assert Space::Form.new(space: space, attributes: { name: "new_name" }).save
 
       assert_equal "new_name", space.name
     end

@@ -12,17 +12,17 @@ class Space::Form
 
   attribute :name, String
   attribute :cover
-  attribute :team_id
+  attribute :team, Team
 
   validates :name, presence: true
-  validates :team_id, presence: true
+  validates :team, presence: true
   validates :cover, attached_image: true
 
-  def initialize(space:, params: {})
+  def initialize(space: Space.new, attributes: {})
     @space = space
 
     super(@space.attributes)
-    super(params)
+    super(attributes)
   end
 
   def cover=(uploaded_file)
@@ -36,7 +36,7 @@ class Space::Form
   private
 
     def persist!
-      @space.assign_attributes(name: name, team_id: team_id)
+      @space.assign_attributes(name: name, team: team)
       @space.save
     end
 end
