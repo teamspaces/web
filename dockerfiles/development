@@ -17,8 +17,12 @@ RUN apt-get update -qq && apt-get install -y \
     build-essential \
   && rm -rf /var/lib/apt/lists/*
 
-# Use latest version of nodejs
-RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
+# Node source packages
+RUN curl -sL https://deb.nodesource.com/setup_7.x | bash -
+
+# Yarn source packages
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
 ENV PHANTOM_JS_VERSION=2.1.1
 ENV PHANTOM_JS_APT_DEPENDENCIES \
@@ -28,16 +32,16 @@ ENV RAILS_APT_DEPENDENCIES \
   imagemagick
 
 ENV NODEJS_APT_DEPENDENCIES \
-  nodejs
+  nodejs yarn
 
-# Install apt dependencies
+# Apt dependencies
 RUN apt-get update -qq && apt-get install -y \
     ${RAILS_APT_DEPENDENCIES} \
     ${NODEJS_APT_DEPENDENCIES} \
     ${PHANTOM_JS_APT_DEPENDENCIES} \
   && rm -rf /var/lib/apt/lists/*
 
-# Install PhantomJS
+# PhantomJS
 WORKDIR /tmp
 RUN wget -q http://cnpmjs.org/mirrors/phantomjs/phantomjs-${PHANTOM_JS_VERSION}-linux-x86_64.tar.bz2 -O phantomjs.tar.bz2 \
   && tar xjf phantomjs.tar.bz2 \
@@ -46,9 +50,9 @@ RUN wget -q http://cnpmjs.org/mirrors/phantomjs/phantomjs-${PHANTOM_JS_VERSION}-
   && mv /tmp/phantomjs/bin/phantomjs /usr/local/bin/phantomjs \
   && rm -rf /tmp/phantomjs
 
-# Install Gulp
-RUN npm install gulp -g \
-  && npm cache clean
+# Webpack
+RUN yarn global add webpack \
+  && yarn cache clean
 
 # Setup SSH and remove Host Checking
 RUN ssh-keygen -t rsa -N "" -f /root/.ssh/id_rsa && \

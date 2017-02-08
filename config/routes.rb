@@ -29,7 +29,11 @@ Rails.application.routes.draw do
     resources :pages, only: [:show, :edit, :update, :destroy]
     resources :page_contents, only: [:show, :update]
 
-    resources :invitations, only: [:index, :create, :destroy]
+    resources :invitations, only: [:index, :create, :destroy] do
+      member do
+        get :send, to: "invitations#resend"
+      end
+    end
     get "slack_invitation", to: "slack_invitations#create", as: :create_slack_invitation
 
     get "/", to: "root_subdomain#index", as: :root_subdomain

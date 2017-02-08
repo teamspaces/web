@@ -14,8 +14,6 @@ gem "envied"
 gem "lograge"
 gem "bcrypt"
 gem "jbuilder"
-gem "jquery-rails"
-gem "sass-rails"
 gem "uglifier"
 gem "aws-sdk"
 

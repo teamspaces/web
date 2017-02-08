@@ -1,5 +1,5 @@
 # Our base image is Ruby 2.3
-FROM ruby:2.3
+FROM ruby:2.3.3
 
 ENV APP_HOME=/app \
     DEBIAN_FRONTEND=noninteractive \
@@ -17,13 +17,18 @@ RUN apt-get update -qq && apt-get install -y \
   # Delete apt caches
   && rm -rf /var/lib/apt/lists/*
 
-# Add NodeJS deb source repository
-RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
+# Node source packages
+RUN curl -sL https://deb.nodesource.com/setup_7.x | bash -
+
+# Yarn source packages
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
 # Install dependencies
 RUN apt-get update -qq && apt-get install -y \
     imagemagick \
     nodejs \
+    yarn \
   && rm -rf /var/lib/apt/lists/*
 
 # Setup app path
@@ -35,22 +40,20 @@ COPY . $APP_HOME
 
 # Build process
 RUN \
-  # Install gulp globally
-  npm install --production --global gulp \
-  # Install NPM packages (with retry)
-  && (npm install --production || (sleep 10 && npm install --production)) \
+  # Webpack
+  yarn global add webpack --production \
+  # Yarn
+  && yarn install --production \
   # Compile our assets
-  && RAILS_ENV=$RAILS_ENV gulp build \
+  && RAILS_ENV=$RAILS_ENV webpack -p \
   # Disable bundler from installing documentation
   && echo 'gem: --no-rdoc --no-ri' >> /.gemrc \
   && echo 'gem: --no-document' >> ~/.gemrc \
   # Install application gems (with retry)
   && (bundle install --no-cache --clean --jobs 20 --retry 20 --without development test --with production \
     || (sleep 10 && bundle install --no-cache --clean --jobs 20 --retry 20 --without development test --with production)) \
-  # Precompile Rails assets.
-  && RAILS_ENV=$RAILS_ENV SECRET_KEY_BASE=$SECRET_KEY_BASE DATABASE_URL=$DATABASE_URL bundle exec rake assets:precompile \
   # Clean caches
-  && npm cache clean
+  && yarn cache clean
 
 # Run your application with Puma.
 CMD bundle exec puma -C config/puma.rb

@@ -3,6 +3,7 @@ require 'test_helper'
 describe InvitationsController do
   let(:user) { users(:lars) }
   let(:team) { teams(:spaces) }
+  let(:invitation) { invitations(:jonas_at_spaces) }
   let(:team_invitations_url) { invitations_url(subdomain: team.subdomain) }
 
   before(:each) do
@@ -36,8 +37,18 @@ describe InvitationsController do
   describe "#destroy" do
     it "delets invitation" do
       assert_difference -> { Invitation.count }, -1 do
-        delete invitation_url(invitations(:jonas_at_spaces), subdomain: team.subdomain)
+        delete invitation_url(invitation, subdomain: team.subdomain)
       end
+    end
+  end
+
+  describe "#resend" do
+    it "sends invitation" do
+      Invitation::SendInvitation.expects(:call).with(invitation: invitation)
+
+      get send_invitation_url(invitation, subdomain: team.subdomain)
+
+      assert_redirected_to invitations_url(subdomain: team.subdomain)
     end
   end
 end
