@@ -8,12 +8,10 @@ class Space::Invitations::SlackController < SubdomainBaseController
 
   # GET /slack_invitation
   def create
-    result = Invitation::CreateSlackInvitation.call(invitation_params.to_h
-                                                    .merge({invited_by_user: current_user,
-                                                            space: @space,
-                                                            team: current_team}))
-
-    Invitation::SendInvitation.call(invitation: result.invitation) if result.success?
+    result = Invitation::CreateAndSendSlackInvitation.call(team: current_team,
+                                                           space: @space,
+                                                           invited_by_user: current_user,
+                                                           invitation_attributes: invitation_params)
 
     notice = result.success? ? t("invitation.slack.successfully_sent") :
                                t("invitation.slack.failure_create")
