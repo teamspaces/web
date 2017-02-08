@@ -13,7 +13,7 @@ class Space::Form
   attribute :name, String
   attribute :cover
   attribute :team_id
-  attribute :access_control, Boolean, default: false
+  attribute :access_control_rule, default: Space::AccessControlRules::TEAM
 
   validates :name, presence: true
   validates :team_id, presence: true
@@ -31,24 +31,20 @@ class Space::Form
     Space::Cover::AttachUploadedCover.call(space: @space, file: uploaded_file)
   end
 
+  def private_access_control=(private_access_control)
+    Space::AccessControlRule::Add.call(space: @space,
+                                       access_control_rule: Space::AccessControlRules::PRIVATE,
+                                       initiating_user: user) if private_access_control
+  end
+
   def save
     valid? && persist!
-    #&& regulate_access_control!
   end
 
   private
 
     def persist!
-      @space.assign_attributes(name: name, team_id: team_id)
-      #@space.assign_attributes(name: name, team_id: team_id, access_control: access_control)
+      @space.assign_attributes(name: name, team_id: team_id, access_control_rule: access_control_rule)
       @space.save
     end
-
-   # def regulate_access_control!
-   #   if @space.access_control
-   #     Space::AccessControl::Add.call(space: @space, initiating_user: user)
-   #   else
-   #     Space::AccessControl::Remove.call(space: @space)
-   #   end
-   # end
 end
