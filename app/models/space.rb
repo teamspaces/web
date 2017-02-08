@@ -9,10 +9,9 @@ class Space < ApplicationRecord
   validates :team, presence: true
 
   def team_members
-    if access_control
-      TeamMember.where(id: space_members.pluck(:team_member_id))
-    else
-      team.members
+    case
+    when team_access_control_rule? then team.members
+    when private_access_control_rule? then TeamMember.where(id: space_members.pluck(:team_member_id))
     end
   end
 

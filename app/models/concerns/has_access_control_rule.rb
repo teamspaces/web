@@ -6,11 +6,11 @@ module HasAccessControlRule
     PRIVATE = "private"
   end
 
-  def team?
+  def team_access_control_rule?
     access_control_rule == AccessControlRules::TEAM
   end
 
-  def private?
+  def private_access_control_rule?
     access_control_rule == AccessControlRules::PRIVATE
   end
 end
