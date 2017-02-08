@@ -45,6 +45,6 @@ class SendInvitationForm
     end
 
     def send!
-      Invitation::SendInvitation.call(invitation: @invitation)
+      Invitation::Send.call(invitation: @invitation)
     end
 end

@@ -44,7 +44,7 @@ describe InvitationsController do
 
   describe "#resend" do
     it "sends invitation" do
-      Invitation::SendInvitation.expects(:call).with(invitation: invitation)
+      Invitation::Send.expects(:call).with(invitation: invitation)
 
       get send_invitation_url(invitation, subdomain: team.subdomain)
 

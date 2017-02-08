@@ -43,7 +43,7 @@ class InvitationsController < SubdomainBaseController
   def resend
     authorize @invitation, :send?
 
-    Invitation::SendInvitation.call(invitation: @invitation)
+    Invitation::Send.call(invitation: @invitation)
 
     respond_to do |format|
       format.html { redirect_to invitations_path, notice: "Invitation was successfully sent" }

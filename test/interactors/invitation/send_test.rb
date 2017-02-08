@@ -1,7 +1,7 @@
 require "test_helper"
 
-describe Invitation::SendInvitation, :model do
-  subject { Invitation::SendInvitation }
+describe Invitation::Send, :model do
+  subject { Invitation::Send }
 
   describe "#call" do
     context "email invitation" do
