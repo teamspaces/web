@@ -32,21 +32,23 @@ class Space::Form
   end
 
   def save
-    valid? && persist! && regulate_access_control!
+    valid? && persist!
+    #&& regulate_access_control!
   end
 
   private
 
     def persist!
-      @space.assign_attributes(name: name, team_id: team_id, access_control: access_control)
+      @space.assign_attributes(name: name, team_id: team_id)
+      #@space.assign_attributes(name: name, team_id: team_id, access_control: access_control)
       @space.save
     end
 
-    def regulate_access_control!
-      if @space.access_control
-        Space::AccessControl::Add.call(space: @space, initiating_user: user)
-      else
-        Space::AccessControl::Remove.call(space: @space)
-      end
-    end
+   # def regulate_access_control!
+   #   if @space.access_control
+   #     Space::AccessControl::Add.call(space: @space, initiating_user: user)
+   #   else
+   #     Space::AccessControl::Remove.call(space: @space)
+   #   end
+   # end
 end
