@@ -7,12 +7,18 @@ class User::AcceptInvitation
     @invited_user = context.invited_user
     @invitation = context.invitation
 
-    context.fail! unless accept_team_invitation && confirm_email
-    Space::Members::Add.call(space: @invitation.space, user: @invited_user) if @invitation.space.present?
+    context.fail! unless accept_team_invitation &&
+                         accept_space_invitation &&
+                         confirm_email
   end
 
   def accept_team_invitation
     add_invited_user_to_team_members && save_invitation_invited_user
+  end
+
+  def accept_space_invitation
+    @invitation.space.present? ? Space::Members::Add.call(space: @invitation.space,
+                                                          user: @invited_user) : true
   end
 
   def confirm_email
