@@ -16,9 +16,9 @@ class SpacesController < SubdomainBaseController
 
   # GET /spaces/new
   def new
-    @space_form = Space::Form.new(team: current_team)
+    @space_form = Space::Form.new(space: current_team.spaces.new)
 
-    authorize @space_form, :new?
+    authorize @space_form.space, :new?
   end
 
   # GET /spaces/1/edit
@@ -52,7 +52,7 @@ class SpacesController < SubdomainBaseController
   def update
     @space_form = Space::Form.new(space: @space, attributes: space_params)
 
-    authorize @space_form, :update?
+    authorize @space, :update?
 
     respond_to do |format|
       if @space_form.save
