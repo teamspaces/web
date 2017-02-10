@@ -12,10 +12,10 @@ class Space::Form
 
   attribute :name, String
   attribute :cover
-  attribute :team
+  attribute :team_id
 
   validates :name, presence: true
-  validates :team, presence: true
+  validates :team_id, presence: true
   validates :cover, attached_image: true
 
   def initialize(space:, attributes: {})
@@ -36,7 +36,7 @@ class Space::Form
   private
 
     def persist!
-      @space.assign_attributes(name: name, team: team)
+      @space.assign_attributes(name: name, team_id: team_id)
       @space.save
     end
 end
