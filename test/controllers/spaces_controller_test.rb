@@ -38,7 +38,7 @@ describe SpacesController do
     context "valid space attributes" do
       it "creates a space" do
         assert_difference -> { Space.count }, 1 do
-          post spaces_url(subdomain: team.subdomain, params: { space: { name: "new_space" } })
+          post spaces_url(subdomain: team.subdomain, params: { space: { name: "new_space", private_access_control: true } })
         end
       end
     end
@@ -55,7 +55,7 @@ describe SpacesController do
   describe "#update" do
     context "valid space attributes" do
       it "updates a space" do
-        patch space_url(space, subdomain: team.subdomain, params: { space: { name: "new_name" } })
+        patch space_url(space, subdomain: team.subdomain, params: { space: { name: "new_name", private_access_control: true } })
         space.reload
 
         assert_equal "new_name", space.name

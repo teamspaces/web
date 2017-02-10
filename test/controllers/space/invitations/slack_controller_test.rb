@@ -7,6 +7,7 @@ describe Space::Invitations::SlackController do
 
   before(:each) do
     sign_in user
+    Team::FindInvitableSlackUsers.any_instance.stubs(:all).returns([])
     Invitation::SlackInvitation::Send.stubs(:call).returns(true)
   end
 

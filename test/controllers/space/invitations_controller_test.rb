@@ -7,7 +7,7 @@ describe Space::InvitationsController do
   describe "#destroy" do
     it "destoryes invitation" do
       assert_difference -> { Invitation.count }, -1 do
-        delete space_invitation_url(invitation, subdomain: team.subdomain)
+        delete space_invitation_url(space, invitation, subdomain: team.subdomain)
       end
     end
   end

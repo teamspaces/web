@@ -10,7 +10,7 @@ describe Space::AccessControlRules::PrivateController do
     it "creates a private access control for space" do
       post space_access_control_rules_private_url(space, subdomain: team.subdomain)
 
-      assert_equal Space::AccessControlRules::PRIVATE, space.access_control_rule
+      assert_equal Space::AccessControlRules::PRIVATE, space.reload.access_control_rule
     end
 
     it "redirects to space members path" do
