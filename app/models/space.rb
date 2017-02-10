@@ -5,5 +5,6 @@ class Space < ApplicationRecord
 
   has_many :pages, dependent: :destroy
   belongs_to :team
+  has_many :users, through: :team
   validates :team, presence: true
 end

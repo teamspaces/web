@@ -1,6 +1,7 @@
 class PagesController < SubdomainBaseController
   before_action :set_page, only: [:show, :edit, :update, :destroy]
   before_action :set_space, only: [:index, :new, :create]
+  before_action :set_sample_users_query, only: [:show, :index]
   before_action :set_parent, only: [:new, :create]
   layout 'client'
 
@@ -103,6 +104,10 @@ class PagesController < SubdomainBaseController
 
     def set_space
       @space = Space.find(params[:space_id])
+    end
+
+    def set_sample_users_query
+      @sample_users_query = SampleUsersQuery.new(_for: @space, users_count_to_return: 3)
     end
 
     def set_parent
