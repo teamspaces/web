@@ -18,11 +18,11 @@ class Space::Form
   validates :team_id, presence: true
   validates :cover, attached_image: true
 
-  def initialize(space:, params: {})
+  def initialize(space:, attributes: {})
     @space = space
 
     super(@space.attributes)
-    super(params)
+    super(attributes)
   end
 
   def cover=(uploaded_file)
