@@ -6,9 +6,10 @@ describe Page do
 
   should belong_to(:space)
   should validate_presence_of(:space)
+  should have_one(:page_content).dependent(:destroy)
 
   before(:each) do
-    Page.rebuild! # Needed to avoid advisory_lock issues with closure_tree 
+    Page.rebuild! # Needed to avoid advisory_lock issues with closure_tree
   end
 
   it "has one collab_page" do
@@ -34,6 +35,20 @@ describe Page do
       assert_difference -> { CollabPage.count }, -1 do
         marketing_page.destroy
       end
+    end
+  end
+
+  describe "#after restore" do
+    let(:page_with_parent) { pages(:with_parent) }
+    let(:parent_page) { page_with_parent.parent }
+
+    it "restores parents and rebuilds tree" do
+      page_with_parent.destroy
+      parent_page.destroy
+
+      page_with_parent.restore(recursive: true)
+
+      assert_nil parent_page.reload.deleted_at
     end
   end
 end
