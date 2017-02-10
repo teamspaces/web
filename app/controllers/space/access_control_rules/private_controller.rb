@@ -5,9 +5,9 @@ class Space::AccessControlRules::PrivateController < SubdomainBaseController
   def create
     authorize @space, :update_access_control?
 
-    Space::AccessControlRule::Add.call(space: @space,
-                                       access_control_rule: Space::AccessControlRules::PRIVATE,
-                                       initiating_user: current_user)
+    Space::AccessControlRule::UpdateAndEnforce.call(space: @space,
+                                                    access_control_rule: Space::AccessControlRules::PRIVATE,
+                                                    user: current_user)
 
     redirect_to space_members_path(@space)
   end
