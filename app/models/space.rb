@@ -1,4 +1,6 @@
 class Space < ApplicationRecord
+  acts_as_paranoid
+
   include HasAccessControlRule
   include SpaceCoverUploader[:cover]
 

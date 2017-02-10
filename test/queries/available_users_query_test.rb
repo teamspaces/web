@@ -20,7 +20,9 @@ describe AvailableUsersQuery, :model do
       create_session(user: slack_user,     browser_id: 1)
       create_session(user: with_one_space, browser_id: 2)
 
-      assert_equal [email_user, slack_user], subject.users
+      assert_equal 2, subject.users.length
+      assert_includes subject.users, email_user
+      assert_includes subject.users, slack_user
     end
 
     it "only returns user with an active session" do

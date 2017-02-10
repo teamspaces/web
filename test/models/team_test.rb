@@ -8,6 +8,7 @@ describe Team do
   should have_many(:users).through(:members)
   should have_many(:user_authentications).through(:users).source(:authentications)
   should have_one(:team_authentication).dependent(:destroy)
+  should have_many(:sessions).dependent(:destroy)
 
   should validate_uniqueness_of(:subdomain)
 

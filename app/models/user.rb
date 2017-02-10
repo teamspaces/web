@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  acts_as_paranoid
+
   include UserAvatarUploader[:avatar]
 
   devise :database_authenticatable, :recoverable, :rememberable,

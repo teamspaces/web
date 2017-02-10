@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 20170206090235) do
     t.string   "token_secret"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_authentications_on_deleted_at", using: :btree
     t.index ["user_id"], name: "index_authentications_on_user_id", using: :btree
   end
 
@@ -62,6 +64,8 @@ ActiveRecord::Schema.define(version: 20170206090235) do
     t.datetime "updated_at",             null: false
     t.string   "invited_slack_user_uid"
     t.integer  "space_id"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_invitations_on_deleted_at", using: :btree
     t.index ["team_id"], name: "index_invitations_on_team_id", using: :btree
   end
 
@@ -71,6 +75,8 @@ ActiveRecord::Schema.define(version: 20170206090235) do
     t.integer  "byte_size",  default: 0
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_page_contents_on_deleted_at", using: :btree
     t.index ["page_id"], name: "index_page_contents_on_page_id", using: :btree
   end
 
@@ -90,6 +96,8 @@ ActiveRecord::Schema.define(version: 20170206090235) do
     t.integer  "word_count", default: 0
     t.integer  "parent_id"
     t.integer  "sort_order"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_pages_on_deleted_at", using: :btree
     t.index ["space_id"], name: "index_pages_on_space_id", using: :btree
   end
 
@@ -109,6 +117,8 @@ ActiveRecord::Schema.define(version: 20170206090235) do
     t.datetime "updated_at",          null: false
     t.jsonb    "cover_data"
     t.string   "access_control_rule"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_spaces_on_deleted_at", using: :btree
     t.index ["team_id"], name: "index_spaces_on_team_id", using: :btree
   end
 
@@ -120,6 +130,8 @@ ActiveRecord::Schema.define(version: 20170206090235) do
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.string   "team_uid"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_team_authentications_on_deleted_at", using: :btree
     t.index ["team_id", "provider"], name: "index_team_authentications_on_team_id_and_provider", using: :btree
     t.index ["team_id"], name: "index_team_authentications_on_team_id", using: :btree
   end
@@ -130,6 +142,8 @@ ActiveRecord::Schema.define(version: 20170206090235) do
     t.string   "role"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_team_members_on_deleted_at", using: :btree
     t.index ["team_id"], name: "index_team_members_on_team_id", using: :btree
     t.index ["user_id"], name: "index_team_members_on_user_id", using: :btree
   end
@@ -140,6 +154,8 @@ ActiveRecord::Schema.define(version: 20170206090235) do
     t.datetime "updated_at", null: false
     t.string   "subdomain"
     t.jsonb    "logo_data"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_teams_on_deleted_at", using: :btree
     t.index ["subdomain"], name: "index_teams_on_subdomain", using: :btree
   end
 
@@ -164,7 +180,9 @@ ActiveRecord::Schema.define(version: 20170206090235) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
+    t.datetime "deleted_at"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
+    t.index ["deleted_at"], name: "index_users_on_deleted_at", using: :btree
     t.index ["email"], name: "index_users_on_email", using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end

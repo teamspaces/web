@@ -2,7 +2,7 @@ module HasOnePageContent
   extend ActiveSupport::Concern
 
   included do
-    has_one :page_content
+    has_one :page_content, dependent: :destroy
     after_create :create_page_content
   end
 
