@@ -11,7 +11,7 @@ class SampleUsersQuery
     User.where(id: sample_relation_user_ids).all
   end
 
-  def not_returned_users_count
+  def users_not_in_sample_count
     [(relation_users.count - users_count_to_return), 0].max
   end
 

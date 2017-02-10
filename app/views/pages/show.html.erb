@@ -2,6 +2,6 @@
 <%= render 'sidebar', space: @page.space,
                       pages: @page.space.pages,
                       sample_users: @sample_users_query.sample_users,
-                      show_unseen: @sample_users_query.not_returned_users_count %>
+                      users_not_in_sample_count: @sample_users_query.users_not_in_sample_count %>
 <%= render 'page_contents', page: @page, notice: notice %>
 <%= render 'actions', page: @page %>
