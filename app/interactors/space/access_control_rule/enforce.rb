@@ -13,13 +13,9 @@ class Space::AccessControlRule::Enforce
     def enforce_access_control_rule
       case @space.access_control_rule
         when Space::AccessControlRules::PRIVATE
-          Space::Members::Add.call(user: @user)
+          Space::Members::Add.call(user: @user, space: @space)
         when Space::AccessControlRules::TEAM
           Space::Members::RemoveAll.call(space: @space)
       end
     end
 end
-
-
-
-

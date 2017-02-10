@@ -7,8 +7,12 @@
     <div class="card-content">
       <%= notice %>
 
-      <%= link_to "Make privat", space_access_control_rules_private_path(@space), method: :post %>
-      <%= link_to "Make public", space_access_control_rules_team_path(@space), method: :post %>
+      <% unless @space.private_access_control_rule? %>
+        <%= link_to "Make privat", space_access_control_rules_private_path(@space), method: :post %>
+      <% end %>
+      <% unless @space.team_access_control_rule? %>
+        <%= link_to "Make public", space_access_control_rules_team_path(@space), method: :post %>
+      <% end %>
 
       <p>Space Members</p>
       <%= render "space_members", space_team_members: @space_team_members,team_members: @team_members %>
