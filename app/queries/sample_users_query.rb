@@ -2,9 +2,9 @@ class SampleUsersQuery
 
   attr_reader :users_count_to_return, :relation
 
-  def initialize(users_count_to_return:, _for: relation)
+  def initialize(users_count_to_return:, _for:)
     @users_count_to_return = users_count_to_return
-    @relation = relation
+    @relation = _for
   end
 
   def sample_users

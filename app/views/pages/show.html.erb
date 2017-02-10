@@ -1,7 +1,6 @@
 <% content_for :body_class, 'body-space' %>
 <%= render 'sidebar', space: @page.space,
                       pages: @page.space.pages,
-                      sample_users: @sample_users_query.sample_users,
-                      users_not_in_sample_count: @sample_users_query.users_not_in_sample_count %>
+                      sample_users_query: @sample_users_query %>
 <%= render 'page_contents', page: @page, notice: notice %>
 <%= render 'actions', page: @page %>
