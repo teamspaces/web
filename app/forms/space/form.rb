@@ -12,7 +12,7 @@ class Space::Form
 
   attribute :name, String
   attribute :cover
-  attribute :team_id
+  attribute :team
 
   validates :name, presence: true
   validates :team, presence: true
