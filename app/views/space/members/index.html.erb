@@ -7,30 +7,13 @@
     <div class="card-content">
       <%= notice %>
 
-      <% unless @space.private_access_control_rule? %>
-        <%= link_to "Make privat", space_access_control_rules_private_path(@space), method: :post %>
-      <% end %>
-      <% unless @space.team_access_control_rule? %>
-        <%= link_to "Make public", space_access_control_rules_team_path(@space), method: :post %>
-      <% end %>
-
       <% if @space.private_access_control_rule? %>
-        <p>Space Members</p>
-        <%= render "space_members", space_team_members: @space_team_members,team_members: @team_members %>
-
-        <p>Send Invitations</p>
-        <%= render "invitations", invitations: @space_invitations.unused %>
-
-        <p>Invitations</p>
-        <%= link_to "Add email invitation", new_space_invitations_email_path(@space) %>
-
-        <%= link_to "Add slack invitation", new_space_invitations_slack_path(@space) %>
+        <%= render "private/overview", space_team_members: @space_team_members,
+                                       team_members: @team_members,
+                                       space_invitations: @space_invitations %>
+      <% elsif @space.team_access_control_rule? %>
+        <%= render "team/overview" %>
       <% end %>
-
-      <% if @space.team_access_control_rule? %>
-        <%=  link_to "Team Invitations", invitations_path %>
-      <% end %>
-
 
       <%= link_to 'Continue', space_pages_path(@space), class: 'button button-primary' %>
     </div>
