@@ -25,7 +25,7 @@ class SpacesController < SubdomainBaseController
   def edit
     @space_form = Space::Form.new(space: @space)
 
-    authorize @space_form.space, :edit?
+    authorize @space, :edit?
   end
 
   # POST /spaces
