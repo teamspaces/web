@@ -25,16 +25,16 @@ class SpacesController < SubdomainBaseController
   def edit
     @space_form = Space::Form.new(space: @space)
 
-    authorize @space_form, :edit?
+    authorize @space_form.space, :edit?
   end
 
   # POST /spaces
   # POST /spaces.json
   def create
-    @space_form = Space::Form.new(team: current_team,
+    @space_form = Space::Form.new(space: current_team.spaces.new,
                                   attributes: space_params)
 
-    authorize @space_form, :create?
+    authorize @space_form.space, :create?
 
     respond_to do |format|
       if @space_form.save
