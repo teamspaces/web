@@ -18,7 +18,7 @@ describe Space::Invitations::EmailController do
     it "creates a space invitation" do
       assert_difference -> { space.invitations.count }, 1 do
         params = { invitation: { email: "gallen@nl.se"} }
-        post space_invitations_email_path(space, subdomain: team.subdomain), params: params
+        post space_invitations_email_url(space, subdomain: team.subdomain), params: params
 
         assert_redirected_to space_members_path(space)
       end

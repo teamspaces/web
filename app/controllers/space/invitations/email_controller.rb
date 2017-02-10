@@ -1,8 +1,6 @@
 class Space::Invitations::EmailController < SubdomainBaseController
   before_action :set_space
 
-  layout 'client'
-
   #GET /spaces/:space_id/invitations/new
   def new
     @invitation_form = SendInvitationForm.new
