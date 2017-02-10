@@ -19,11 +19,10 @@ describe SampleUsersQuery, :model do
 
   describe "#users_not_in_sample_count" do
     it "returns count of users that are not in sample" do
-      not_in_sample_count = subject.new(_for: team, users_count_to_return: 0)
+      not_in_sample_count = subject.new(_for: team, users_count_to_return: 50)
                                    .users_not_in_sample_count
 
-      assert_instance_of Integer, not_in_sample_count
-      assert not_in_sample_count > 1
+      assert_equal 0, not_in_sample_count
     end
   end
 end
