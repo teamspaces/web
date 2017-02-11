@@ -4,7 +4,7 @@ describe Space::AccessControlRule::Enforce, :model do
   let(:user) { users(:lars) }
   let(:space) { spaces(:spaces) }
 
-  subject { Space::AccessControlRule::Enforce }
+  subject { Space::AccessControlRule::Enforce }
 
   describe "#call" do
     describe "it enforces access control rule" do
