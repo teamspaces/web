@@ -34,7 +34,7 @@ describe Space::Form, :model do
 
   describe "#save" do
     it "saves space" do
-      assert Space::Form.new(space: space, params: { name: "new_name",  private_access_control: true }).save
+      assert Space::Form.new(space: space, attributes: { name: "new_name",  private_access_control: true }).save
 
       assert_equal "new_name", space.name
     end

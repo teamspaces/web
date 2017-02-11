@@ -16,7 +16,7 @@ class SpacesController < SubdomainBaseController
 
   # GET /spaces/new
   def new
-    @space_form = Space::Form.new(space: policy_scope(Space).build)
+    @space_form = Space::Form.new(space: current_team.spaces.new)
 
     authorize @space_form.space, :new?
   end
@@ -25,13 +25,15 @@ class SpacesController < SubdomainBaseController
   def edit
     @space_form = Space::Form.new(space: @space)
 
-    authorize @space_form.space, :edit?
+    authorize @space, :edit?
   end
 
   # POST /spaces
   # POST /spaces.json
   def create
-    @space_form = Space::Form.new(space: policy_scope(Space).build, user: current_user, params: space_params)
+    @space_form = Space::Form.new(space: current_team.spaces.new,
+                                  user: current_user,
+                                  attributes: space_params)
 
     authorize @space_form.space, :create?
 
@@ -54,9 +56,11 @@ class SpacesController < SubdomainBaseController
   # PATCH/PUT /spaces/1
   # PATCH/PUT /spaces/1.json
   def update
-    @space_form = Space::Form.new(space: @space, user: current_user, params: space_params)
+    @space_form = Space::Form.new(space: @space,
+                                  user: current_user,
+                                  attributes: space_params)
 
-    authorize @space_form.space, :update?
+    authorize @space, :update?
 
     respond_to do |format|
       if @space_form.save

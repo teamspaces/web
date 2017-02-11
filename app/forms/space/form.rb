@@ -23,12 +23,12 @@ class Space::Form
   validates :cover, attached_image: true
   validates :access_control_rule, presence: true
 
-  def initialize(space:, user: nil, params: {})
+  def initialize(space:, user: nil, attributes: {})
     @space = space
     @user = user
 
     super(@space.attributes)
-    super(params)
+    super(attributes)
   end
 
   def cover=(uploaded_file)
