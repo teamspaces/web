@@ -1,10 +1,10 @@
 <%= link_to(invitations_path, class: "avatars") do %>
-  <% sample_users.each do |user| %>
+  <% avatar_users.each do |user| %>
       <%= image_tag(user.avatar_url(:image_48), alt: user.name) %>
   <% end %>
 
-  <% if users_not_in_sample_count.positive? %>
-      <span class="avatars-overflow">+<%= users_not_in_sample_count %></span>
+  <% if number_of_hidden_avatars.positive? %>
+      <span class="avatars-overflow">+<%= number_of_hidden_avatars %></span>
   <% end %>
 
   <span class="avatars-add"></span>

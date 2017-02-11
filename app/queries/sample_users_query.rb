@@ -1,10 +1,10 @@
 class SampleUsersQuery
 
-  attr_reader :users_count_to_return, :relation
+  attr_reader :total_users_to_sample, :resource
 
-  def initialize(users_count_to_return:, _for:)
-    @users_count_to_return = users_count_to_return
-    @relation = _for
+  def initialize(total_users_to_sample:, resource:)
+    @total_users_to_sample = total_users_to_sample
+    @resource = resource
   end
 
   def sample_users
@@ -12,19 +12,18 @@ class SampleUsersQuery
   end
 
   def users_not_in_sample_count
-    [(relation_users.count - users_count_to_return), 0].max
+    [(resource_users.count - total_users_to_sample), 0].max
   end
 
   private
 
-    def relation_users
-      relation.users
-    end
-
-    def sample_relation_user_ids
-      relation_users.limit(100)
+    def user_ids
+      resource_users.limit(100)
                     .pluck(:id)
-                    .sample(users_count_to_return)
+                    .sample(total_users_to_sample)
     end
 
+    def resource_users
+      resource.users
+    end
 end

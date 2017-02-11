@@ -1,8 +1,8 @@
 <aside class="space-sidebar">
   <h3><%= link_to space.name, space_pages_path(space) %></h3>
 
-  <%= render "avatar_users", sample_users: @sample_users_query.sample_users,
-                             users_not_in_sample_count: @sample_users_query.users_not_in_sample_count  %>
+  <%= render "avatar_users", avatar_users: @sample_users_query.sample_users,
+                             number_of_hidden_avatars: @sample_users_query.users_not_in_sample_count  %>
 
   <ul class="space-sidebar-pages">
     <%= render "page_tree", page_tree: space.pages.hash_tree %>

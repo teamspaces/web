@@ -100,7 +100,7 @@ class PagesController < SubdomainBaseController
     end
 
     def set_sample_users_query
-      @sample_users_query = SampleUsersQuery.new(_for: @space, users_count_to_return: 3)
+      @sample_users_query = SampleUsersQuery.new(resource: @space, total_users_to_sample: 3)
     end
 
     def set_parent
