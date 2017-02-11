@@ -1,5 +1,6 @@
 class RootSubdomainController < SubdomainBaseController
   def index
+    #update nicht mehr nach team sondern user
     case current_team.spaces.count
     when 0
       redirect_to new_space_path

@@ -31,8 +31,4 @@ class PageContentsController < SubdomainBaseController
     def set_page_content
       @page_content = PageContent.find(params[:id])
     end
-
-    def pundit_user
-      PagePolicy::Context.new(current_user, current_team)
-    end
 end

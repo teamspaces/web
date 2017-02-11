@@ -9,9 +9,15 @@ class SpacePolicy
     @space = space
   end
 
+  def team_space?
+    team == space.team
+  end
+
+  alias_methods :team_space?, [:new?, :create?]
+
   def user_is_allowed_to_access_space?
     SpacePolicy::Scope.new(default_context, Space).resolve.exists?(space.id)
   end
 
-  alias_methods :user_is_allowed_to_access_space?, [:show?, :new?, :edit?, :create?, :update?, :destroy?, :update_access_control?, :add_member?, :remove_member?]
+  alias_methods :user_is_allowed_to_access_space?, [:show?, :edit?, :update?, :destroy?, :update_access_control?, :add_member?, :remove_member?]
 end
