@@ -1,9 +1,11 @@
 require "test_helper"
 
 describe Space::InvitationsController do
+  let(:user) { users(:lars) }
   let(:team) { teams(:spaces) }
   let(:space) { spaces(:spaces) }
   let(:invitation) { invitations(:jonas_at_spaces) }
+  before(:each) { sign_in user }
 
   describe "#destroy" do
     it "destoryes invitation" do
