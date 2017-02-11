@@ -24,7 +24,7 @@ describe Space::Invitations::SlackController do
       params = { invited_slack_user_uid: "U908w", email: "gallen@nl.se" }
 
       assert_difference -> { space.invitations.count }, 1 do
-        get space_invitations_slack_url(space, subdomain: team.subdomain), params: params
+        post space_invitations_slack_url(space, subdomain: team.subdomain), params: params
       end
 
       assert_redirected_to space_members_path(space)
