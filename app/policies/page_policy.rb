@@ -39,6 +39,6 @@ class PagePolicy
     end
 
     def user_is_allowed_to_access_space?
-      SpacePolicy::Scope.new(default_context, Space).resolve.exists?(space)
+      SpacePolicy::Scope.new(default_context, Space).resolve.exists?(space.id)
     end
 end
