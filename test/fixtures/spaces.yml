@@ -1,6 +1,7 @@
 spaces: &default
   team: spaces
   name: Spaces
+  access_control_rule: <%= Space::AccessControlRules::TEAM %>
 
 without_pages:
   <<: *default

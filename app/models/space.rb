@@ -15,8 +15,6 @@ class Space < ApplicationRecord
     when team_access_control_rule? then team.members
     when private_access_control_rule? then TeamMember.where(id: space_members.pluck(:team_member_id))
     end
-    # Remove later
-    team.members
   end
 
   def users

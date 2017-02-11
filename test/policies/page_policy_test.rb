@@ -42,7 +42,7 @@ describe PagePolicy, :model do
         page.stubs(:depth).returns(ENV["NESTED_PAGE_LIMIT"])
 
         assert_equal false,
-          PagePolicy.new(page_policy_context, team_page).create?
+          PagePolicy.new(page_policy_context, page).create?
       end
     end
   end
