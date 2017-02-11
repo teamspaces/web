@@ -8,7 +8,7 @@ class SampleUsersQuery
   end
 
   def sample_users
-    User.where(id: sample_relation_user_ids).all
+    User.where(id: user_ids).all
   end
 
   def users_not_in_sample_count
