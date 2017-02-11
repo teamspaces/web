@@ -12,16 +12,18 @@ class SpacePolicy::Scope
     scope.where(id: team_spaces + private_spaces)
   end
 
-  def team_spaces
-    Space.where(team: team, access_control_rule: Space::AccessControlRules::TEAM)
-  end
+  private
 
-  def private_spaces
-    Space.joins(:space_members)
-         .where(team: team,
-                access_control_rule: Space::AccessControlRules::PRIVATE,
-                space_members: { team_member: user.team_members})
-  end
+    def team_spaces
+      Space.where(team: team, access_control_rule: Space::AccessControlRules::TEAM)
+    end
+
+    def private_spaces
+      Space.joins(:space_members)
+           .where(team: team,
+                  access_control_rule: Space::AccessControlRules::PRIVATE,
+                  space_members: { team_member: user.team_members})
+    end
 end
 
 

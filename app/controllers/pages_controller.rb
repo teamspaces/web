@@ -1,6 +1,6 @@
 class PagesController < SubdomainBaseController
   before_action :set_page, only: [:show, :edit, :update, :destroy]
-  before_action :set_space, only: [:index, :new, :create]
+  before_action :set_space
   before_action :set_parent, only: [:new, :create]
   layout 'client'
 
@@ -102,7 +102,7 @@ class PagesController < SubdomainBaseController
     end
 
     def set_space
-      @space = Space.find(params[:space_id]).decorate
+      @space = params[:space_id].present? ? Space.find(params[:space_id]).decorate : @page.space
     end
 
     def set_parent
