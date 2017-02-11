@@ -9,15 +9,18 @@ class SpacePolicy::Scope
   end
 
   def resolve
-    scope.where(team: team, access_control_rule: Space::AccessControlRules::TEAM)
-         .or(private_user_spaces)
+    scope.where(id: team_spaces + private_spaces)
   end
 
-  def private_user_spaces
+  def team_spaces
+    Space.where(team: team, access_control_rule: Space::AccessControlRules::TEAM)
+  end
+
+  def private_spaces
     Space.joins(:space_members)
          .where(team: team,
                 access_control_rule: Space::AccessControlRules::PRIVATE,
-                space_members: { team_member: user})
+                space_members: { team_member: user.team_members})
   end
 end
 
