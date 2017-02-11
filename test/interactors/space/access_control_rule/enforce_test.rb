@@ -1,6 +1,5 @@
 require "test_helper"
 
-
 describe Space::AccessControlRule::Enforce, :model do
   let(:user) { users(:lars) }
   let(:space) { spaces(:spaces) }

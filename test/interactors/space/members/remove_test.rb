@@ -1,12 +1,12 @@
 require "test_helper"
 
-describe Space::AccessControlRule::Update, :model do
+describe Space::Members::Remove, :model do
   let(:space) { spaces(:spaces) }
 
-  subject { Space::AccessControlRule::Update }
+  subject { Space::Members::Remove }
 
   describe "#call" do
-    it "updates space access control rule" do
+    it "removes user from space members" do
       result = subject.call(space: space, access_control_rule: Space::AccessControlRules::PRIVATE)
 
       assert result.success?
