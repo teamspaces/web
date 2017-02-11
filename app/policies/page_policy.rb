@@ -13,11 +13,12 @@ class PagePolicy
   end
 
   def index?
-    user_is_allowed_to_access_space?
+    team == space.team
+    #user_is_allowed_to_access_space?
   end
 
   def team_page?
-    team == page.team && user_is_allowed_to_access_space?
+    team == page.team #&& user_is_allowed_to_access_space?
   end
 
   alias_methods :team_page?, [:show?, :new?, :edit?, :update?, :destroy?]
