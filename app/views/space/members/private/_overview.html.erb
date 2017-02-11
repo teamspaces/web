@@ -1,11 +1,11 @@
 <%= link_to "Make public", space_access_control_rules_team_path(@space), method: :post %>
 
 <p>Space Members</p>
-<%= render "space_members", space_team_members: space_team_members,
+<%= render "space/members/private/space_members", space_team_members: space_team_members,
                             team_members: team_members %>
 
 <p>Send Invitations</p>
-<%= render "invitations", invitations: space_invitations.unused %>
+<%= render "space/members/private/invitations", invitations: space_invitations.unused %>
 
 <p>Space Invitations</p>
 <%= link_to "Add email invitation", new_space_invitations_email_path(@space) %>

@@ -8,7 +8,7 @@
       <%= notice %>
 
       <% if @space.private_access_control_rule? %>
-        <%= render "private/overview", space_team_members: @space_team_members,
+        <%= render "space/members/private/overview", space_team_members: @space_team_members,
                                        team_members: @team_members,
                                        space_invitations: @space_invitations %>
       <% elsif @space.team_access_control_rule? %>
