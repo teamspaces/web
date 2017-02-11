@@ -19,5 +19,11 @@ class SpacePolicy
     SpacePolicy::Scope.new(default_context, Space).resolve.exists?(space.id)
   end
 
-  alias_methods :user_is_allowed_to_access_space?, [:show?, :edit?, :update?, :destroy?, :update_access_control?, :add_member?, :remove_member?]
+  alias_methods :user_is_allowed_to_access_space?, [:show?, :edit?, :update?, :destroy?, :update_access_control?]
+
+  def private_space_that_user_is_allowed_to_access?
+    user_is_allowed_to_access_space? && team.private_access_control_rule?
+  end
+
+  alias_methods :private_space_that_user_is_allowed_to_access? [:add_member?, :remove_member?]
 end

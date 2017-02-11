@@ -16,7 +16,7 @@ describe Space::MembersController do
 
   describe "#create" do
     it "adds a member to the space" do
-      assert_difference -> { space.members.count }, 1 do
+      assert_difference -> { space.space_members.count }, 1 do
         post space_members_url(space, team: team.subdomain), params: { space_member: { user_id: user.id } }
       end
     end
