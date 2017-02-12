@@ -6,6 +6,11 @@ class SubdomainBaseController < ApplicationController
     subdomain_team
   end
 
+  helper_method :other_available_teams
+  def other_available_teams
+    available_users.teams - [current_team]
+  end
+
   private
 
     def verify_team_membership

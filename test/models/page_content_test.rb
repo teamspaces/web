@@ -4,7 +4,7 @@ describe PageContent do
   let(:page) { pages(:spaces) }
   let(:page_content) { PageContent.new(page: page) }
 
-  should belong_to(:page)
+  should belong_to(:page).touch(true)
 
   it "must be valid" do
     value(page_content).must_be :valid?
