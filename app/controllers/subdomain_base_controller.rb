@@ -25,6 +25,11 @@ class SubdomainBaseController < ApplicationController
       [(current_team.users.count - AVATAR_USERS_TO_SHOW), 0].max
   end
 
+  helper_method :other_available_teams
+  def other_available_teams
+    available_users.teams - [current_team]
+  end
+
   private
 
     def verify_team_membership
