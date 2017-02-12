@@ -29,13 +29,6 @@ describe PagesController do
     end
   end
 
-  describe "#new" do
-    it "works" do
-      get new_space_page_url(space, subdomain: team.subdomain)
-      assert_response :success
-    end
-  end
-
   describe "#edit" do
     it "works" do
       get edit_page_url(page, subdomain: team.subdomain)
