@@ -1,7 +1,8 @@
 class PagesController < SubdomainBaseController
   before_action :set_page, only: [:show, :edit, :update, :destroy]
-  before_action :set_space
-  before_action :set_parent, only: [:new, :create]
+  before_action :set_space, :set_sample_users_query, only: [:index, :create, :show, :edit]
+  before_action :set_parent, only: [:create]
+
   layout 'client'
 
   helper_method :number_of_words_to_minutes_reading
@@ -37,12 +38,6 @@ class PagesController < SubdomainBaseController
   # GET /pages/1.json
   def show
     authorize @page, :show?
-  end
-
-  # GET /pages/new
-  def new
-    @page = policy_scope(Page).build(parent: @parent)
-    authorize @page, :new?
   end
 
   # GET /pages/1/edit
@@ -102,7 +97,11 @@ class PagesController < SubdomainBaseController
     end
 
     def set_space
-      @space = params[:space_id].present? ? Space.find(params[:space_id]).decorate : @page.space
+      @space = params[:space_id] ? Space.find(params[:space_id]) : @page.space
+    end
+
+    def set_sample_users_query
+      @sample_users_query = SampleUsersQuery.new(resource: @space, total_users_to_sample: 3)
     end
 
     def set_parent
