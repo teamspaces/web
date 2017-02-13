@@ -16,7 +16,11 @@
         <td><%= user.name %></td>
         <td><%= user.email %></td>
         <td><%= member.role %></td>
-        <td><%= link_to "Remove", team_member_path(member), method: :delete %></td>
+        <% if TeamMemberPolicy.new(default_context, member).destroy? %>
+          <td><%= link_to "Remove", team_member_path(member), method: :delete %></td>
+        <% else %>
+          <td>-</td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
