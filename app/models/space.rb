@@ -1,7 +1,7 @@
 class Space < ApplicationRecord
   acts_as_paranoid
 
-  include HasAccessControlRule
+  include HasAccessControl
   include SpaceCoverUploader[:cover]
 
   belongs_to :team

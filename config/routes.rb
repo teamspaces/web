@@ -5,9 +5,9 @@ Rails.application.routes.draw do
     resources :spaces do
       resources :pages, only: [:index, :new, :create]
 
-      namespace :access_control_rules do
-        resource :team, only: [:create], controller: "/space/access_control_rules/team"
-        resource :private, only: [:create], controller: "/space/access_control_rules/private"
+      namespace :access_control do
+        resource :team, only: [:create], controller: "/space/access_control/team"
+        resource :private, only: [:create], controller: "/space/access_control/private"
       end
 
       resources :members, only: [:index, :create, :destroy], param: :user_id, controller: "space/members"

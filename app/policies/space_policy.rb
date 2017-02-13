@@ -25,5 +25,5 @@ class SpacePolicy
     user_is_allowed_to_access_space? && team.private_access_control_rule?
   end
 
-  alias_methods :private_space_that_user_is_allowed_to_access? [:add_member?, :remove_member?]
+  alias_methods :private_space_that_user_is_allowed_to_access?, [:add_member?, :remove_member?]
 end

@@ -2,7 +2,6 @@ class PagesController < SubdomainBaseController
   before_action :set_page, only: [:show, :edit, :update, :destroy]
   before_action :set_space, :set_sample_users_query, only: [:index, :create, :show, :edit]
   before_action :set_parent, only: [:create]
-
   layout 'client'
 
   helper_method :number_of_words_to_minutes_reading
