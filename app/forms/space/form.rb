@@ -15,9 +15,6 @@ class Space::Form
   attribute :team_id
   attribute :access_control
 
-  attribute :private_access_control, Boolean
-  attribute :team_access_control, Boolean
-
   validates :name, presence: true
   validates :team_id, presence: true
   validates :cover, attached_image: true

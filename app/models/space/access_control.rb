@@ -15,7 +15,9 @@ class Space::AccessControl
     access_control == TEAM
   end
 
-  def access_control
-    @space.read_attribute(:access_control)
-  end
+  private
+
+    def access_control
+      @space.read_attribute(:access_control)
+    end
 end
