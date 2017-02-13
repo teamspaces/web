@@ -16,7 +16,7 @@
         <td><%= user.name %></td>
         <td><%= user.email %></td>
         <td><%= member.role %></td>
-        <td><%= link_to "Remove", team_members_path(member), method: :delete %></td>
+        <td><%= link_to "Remove", team_member_path(member), method: :delete %></td>
       </tr>
     <% end %>
   </tbody>
