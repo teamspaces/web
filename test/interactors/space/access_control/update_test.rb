@@ -10,7 +10,7 @@ describe Space::AccessControl::Update, :model do
       result = subject.call(space: space, access_control: Space::AccessControl::PRIVATE)
 
       assert result.success?
-      assert space.reload.access_control.private?
+      assert space.access_control.private?
     end
   end
 end

@@ -7,17 +7,21 @@ without_pages:
   <<: *default
 
 power_rangers:
+  <<: *default
   team: power_rangers
   name: Developers
 
 with_one_space:
+  <<: *default
   team: with_one_space
   name: With One Space
 
 with_two_spaces_1:
+  <<: *default
   team: with_two_spaces
   name: With Two Spaces 1
 
 with_two_spaces_2:
+  <<: *default
   team: with_two_spaces
   name: With Two Spaces 2
