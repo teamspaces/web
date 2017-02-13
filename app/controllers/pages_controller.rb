@@ -97,7 +97,7 @@ class PagesController < SubdomainBaseController
     end
 
     def set_space
-      @space = params[:space_id].present? ? Space.find(params[:space_id]) : @page.space
+      @space = params[:space_id] ? Space.find(params[:space_id]) : @page.space
     end
 
     def set_sample_users_query
