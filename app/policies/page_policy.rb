@@ -3,17 +3,13 @@ class PagePolicy
 
   attr_reader :default_context, :user, :team, :space, :page
 
-  def initialize(page_policy_context, page)
-    @user = page_policy_context.user
-    @team = page_policy_context.team
-    @space = page_policy_context.space
-    @default_context = DefaultContext.new(user, team)
+  def initialize(default_context, page)
+    @default_context = default_context
+    @user = default_context.user
+    @team = default_context.team
+    @space = page.space
 
     @page = page
-  end
-
-  def index?
-    user_is_allowed_to_access_space?
   end
 
   def team_page?

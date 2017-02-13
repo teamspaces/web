@@ -1,6 +1,6 @@
 class PagesController < SubdomainBaseController
   before_action :set_page, only: [:show, :edit, :update, :destroy]
-  before_action :set_space, :set_sample_users_query, only: [:index, :create, :show, :edit]
+  before_action :set_space, :set_sample_users_query
   before_action :set_parent, only: [:create]
   layout 'client'
 
@@ -25,8 +25,9 @@ class PagesController < SubdomainBaseController
   # GET /pages
   # GET /pages.json
   def index
+    authorize @space, :show?
+
     @pages = policy_scope(Page).all
-    authorize @pages, :index?
 
     if @pages.count.positive?
       redirect_to @pages.first
@@ -96,7 +97,7 @@ class PagesController < SubdomainBaseController
     end
 
     def set_space
-      @space = params[:space_id] ? Space.find(params[:space_id]) : @page.space
+      @space = params[:space_id].present? ? Space.find(params[:space_id]) : @page.space
     end
 
     def set_sample_users_query
