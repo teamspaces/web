@@ -6,7 +6,7 @@ class Space::AccessControl::PrivateController < SubdomainBaseController
     authorize @space, :update_access_control?
 
     Space::AccessControl::UpdateAndEnforce.call(space: @space,
-                                                access_control: :private,
+                                                access_control: Space::AccessControl::PRIVATE,
                                                 user: current_user)
 
     redirect_to space_members_path(@space)

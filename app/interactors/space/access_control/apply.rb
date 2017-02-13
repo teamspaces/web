@@ -1,11 +1,11 @@
-class Space::AccessControl::Enforce
+class Space::AccessControl::Apply
   include Interactor
 
   def call
     @space = context.space
     @user = context.user
 
-    context.fail! unless enforce_access_control
+    context.fail! unless apply_access_control
   end
 
   private

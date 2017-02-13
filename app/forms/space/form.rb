@@ -21,7 +21,7 @@ class Space::Form
   validates :name, presence: true
   validates :team_id, presence: true
   validates :cover, attached_image: true
-  validates_inclusion_of :access_control, in: ["team", "private"]
+  validates_inclusion_of :access_control, in: [Space::AccessControl::TEAM, Space::AccessControl::PRIVATE]
 
   def initialize(space:, user: nil, attributes: {})
     @space = space

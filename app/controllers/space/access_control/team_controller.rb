@@ -6,7 +6,7 @@ class Space::AccessControl::TeamController < SubdomainBaseController
     authorize @space, :update_access_control?
 
     Space::AccessControl::UpdateAndEnforce.call(space: @space,
-                                                access_control: :team,
+                                                access_control: Space::AccessControl::TEAM,
                                                 user: current_user)
 
     redirect_to space_members_path(@space)
