@@ -10,26 +10,6 @@ describe PagePolicy, :model do
   let(:external_page) { pages(:power_rangers) }
   let(:page_policy_context) { PagePolicy::Context.new(user, team, team_space) }
 
-  describe "#index?" do
-    context "pages belong to a team space" do
-      it "retruns true" do
-        team_space_page_policy_context = PagePolicy::Context.new(user, team, team_space)
-
-        assert_equal true,
-          PagePolicy.new(team_space_page_policy_context, team_space.pages).index?
-      end
-    end
-
-    context "pages belong to another team's space" do
-      it "returns false" do
-        not_team_space_page_policy_context = PagePolicy::Context.new(user, team, external_space)
-
-        assert_equal false,
-          PagePolicy.new(not_team_space_page_policy_context, team_space.pages).index?
-      end
-    end
-  end
-
   describe "#create?" do
     it "is true" do
       assert_equal true,

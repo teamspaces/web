@@ -1,7 +1,7 @@
 spaces: &default
   team: spaces
   name: Spaces
-  access_control: team
+  access_control: <%= Space::AccessControl::TEAM %>
 
 without_pages:
   <<: *default
@@ -25,3 +25,8 @@ with_two_spaces_2:
   <<: *default
   team: with_two_spaces
   name: With Two Spaces 2
+
+private:
+  <<: *default
+  name: private
+  access_control: <%= Space::AccessControl::PRIVATE %>

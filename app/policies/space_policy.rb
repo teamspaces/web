@@ -22,7 +22,7 @@ class SpacePolicy
   alias_methods :user_is_allowed_to_access_space?, [:show?, :edit?, :update?, :destroy?, :update_access_control?]
 
   def private_space_that_user_is_allowed_to_access?
-    user_is_allowed_to_access_space? && team.private_access_control_rule?
+    space.access_control.private? && user_is_allowed_to_access_space?
   end
 
   alias_methods :private_space_that_user_is_allowed_to_access?, [:add_member?, :remove_member?]

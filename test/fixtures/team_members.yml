@@ -44,3 +44,8 @@ madeleine_at_with_two_spaces:
   team: with_two_spaces
   user: with_two_spaces
   role: primary_owner
+
+lars_at_private:
+  team: spaces
+  user: lars
+  role: primary_owner
