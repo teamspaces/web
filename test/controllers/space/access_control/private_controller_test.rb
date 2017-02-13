@@ -8,13 +8,13 @@ describe Space::AccessControl::PrivateController do
 
   describe "#create" do
     it "creates a private access control for space" do
-      post space_access_control_rules_private_url(space, subdomain: team.subdomain)
+      post space_access_control_private_url(space, subdomain: team.subdomain)
 
       assert_equal Space::AccessControl::PRIVATE, space.reload.access_control_rule
     end
 
     it "redirects to space members path" do
-      post space_access_control_rules_private_url(space, subdomain: team.subdomain)
+      post space_access_control_private_url(space, subdomain: team.subdomain)
 
       assert_redirected_to space_members_path(space)
     end

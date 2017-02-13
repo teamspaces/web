@@ -9,7 +9,8 @@ describe Space::Form, :model do
   describe "validations" do
     should validate_presence_of(:name)
     should validate_presence_of(:team_id)
-    should validate_presence_of(:access_control_rule)
+    should validate_presence_of(:access_control)
+    should validate_inclusion_of(:access_control).in_array([Space::AccessControl::TEAM, Space::AccessControl::PRIVATE])
 
     it "validates attached cover" do
       Shrine::Attacher.any_instance

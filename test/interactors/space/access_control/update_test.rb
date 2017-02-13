@@ -7,10 +7,10 @@ describe Space::AccessControl::Update, :model do
 
   describe "#call" do
     it "updates space access control rule" do
-      result = subject.call(space: space, access_control_rule: Space::AccessControl::PRIVATE)
+      result = subject.call(space: space, access_control: Space::AccessControl::PRIVATE)
 
       assert result.success?
-      assert_equal Space::AccessControl::PRIVATE, space.reload.access_control_rule
+      assert space.reload.access_control.private?
     end
   end
 end

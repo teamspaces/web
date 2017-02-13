@@ -8,13 +8,13 @@ describe Space::AccessControl::TeamController do
 
   describe "#create" do
     it "creates a team access control for space" do
-      post space_access_control_rules_team_url(space, subdomain: team.subdomain)
+      post space_access_control_team_url(space, subdomain: team.subdomain)
 
       assert_equal Space::AccessControl::TEAM, space.reload.access_control_rule
     end
 
     it "redirects to space members path" do
-      post space_access_control_rules_team_url(space, subdomain: team.subdomain)
+      post space_access_control_team_url(space, subdomain: team.subdomain)
 
       assert_redirected_to space_members_path(space)
     end
