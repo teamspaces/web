@@ -113,6 +113,6 @@ class PagesController < SubdomainBaseController
     end
 
     def pundit_user
-      PagePolicy::Context.new(current_user, current_team, @space)
+      PagePolicy::Context.new(current_user, current_team)
     end
 end

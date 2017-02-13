@@ -5,16 +5,14 @@ class Space::AccessControl
   end
 
   def private?
-    access_control == :private
+    access_control == "private"
   end
 
   def team?
-    access_control == :team
+    access_control == "team"
   end
 
   def access_control
-    #da gibts whatheinlich son to
-    @space.access_control
+    @space.read_attribute(:access_control)
   end
-
 end

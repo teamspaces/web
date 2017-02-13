@@ -15,13 +15,13 @@ class SpacePolicy::Scope
   private
 
     def team_spaces
-      Space.where(team: team, access_control: Space::AccessControl::TEAM)
+      Space.where(team: team, access_control: :team)
     end
 
     def private_spaces
       Space.joins(:space_members)
            .where(team: team,
-                  access_control: Space::AccessControl::PRIVATE,
+                  access_control: :private,
                   space_members: { team_member: user.team_members})
     end
 end

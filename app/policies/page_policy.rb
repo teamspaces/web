@@ -6,7 +6,7 @@ class PagePolicy
   def initialize(page_policy_context, page)
     @user = page_policy_context.user
     @team = page_policy_context.team
-    @space = page_policy_context.space
+    @space = page.space
     @default_context = DefaultContext.new(user, team)
 
     @page = page

@@ -1,4 +1,4 @@
-class Space::AccessControlRule::Update
+class Space::AccessControl::Update
   include Interactor
 
   def call

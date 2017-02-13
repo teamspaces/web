@@ -16,10 +16,8 @@
   <%= f.hidden_field :cover, value: form.cached_cover_data %>
   <%= f.file_field :cover %>
 
-  <%= f.label "Team Space" %>
-  <%= f.radio_button :access_control, :team %>
-  <%= f.label "Private Space" %>
-  <%= f.radio_button :access_control, :private %>
+  <%= f.label :access_control %>
+  <%= f.select :access_control, options_for_select([:team, :private]) %>
 
   <%= f.submit %>
 <% end %>

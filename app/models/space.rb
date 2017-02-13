@@ -10,19 +10,19 @@ class Space < ApplicationRecord
   has_many :users, through: :team
   validates :team, presence: true
 
-  def access_control
-    Space::AccessControl.new(self)
-  end
-
   def team_members
     case
-    when team_access_control_rule? then team.members
-    when private_access_control_rule? then TeamMember.where(id: space_members.pluck(:team_member_id))
+    when access_control.team? then team.members
+    when access_control.private? then TeamMember.where(id: space_members.pluck(:team_member_id))
     end
   end
 
   def users
     User.joins(:team_members)
         .where(team_members: { id: team_members.pluck(:id) })
+  end
+
+  def access_control
+    Space::AccessControl.new(self)
   end
 end

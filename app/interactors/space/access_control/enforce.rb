@@ -1,4 +1,4 @@
-class Space::AccessControlRule::Enforce
+class Space::AccessControl::Enforce
   include Interactor
 
   def call
@@ -11,10 +11,10 @@ class Space::AccessControlRule::Enforce
   private
 
     def enforce_access_control_rule
-      case @space.access_control_rule
-        when Space::AccessControlRules::PRIVATE
+      case
+        when @space.access_control.private?
           Space::Members::Add.call(user: @user, space: @space)
-        when Space::AccessControlRules::TEAM
+        when @space.access_control.team?
           Space::Members::RemoveAll.call(space: @space)
       end
     end
