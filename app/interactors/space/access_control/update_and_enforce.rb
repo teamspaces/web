@@ -1,6 +1,6 @@
 class Space::AccessControl::UpdateAndEnforce
   include Interactor::Organizer
 
-  organize Space::AccessControlRule::Update,
-           Space::AccessControlRule::Enforce
+  organize Space::AccessControl::Update,
+           Space::AccessControl::Enforce
 end

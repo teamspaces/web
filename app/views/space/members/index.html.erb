@@ -7,12 +7,12 @@
     <div class="card-content">
       <%= notice %>
 
-      <% if @space.private_access_control_rule? %>
+      <% if @space.access_control.private? %>
         <%= render "space/members/private/overview", space_team_members: @space_team_members,
                                        team_members: @team_members,
                                        space_invitations: @space_invitations %>
-      <% elsif @space.team_access_control_rule? %>
-        <%= render "team/overview" %>
+      <% elsif @space.access_control.team? %>
+        <%= render "space/members/team/overview" %>
       <% end %>
 
       <%= link_to 'Continue', space_pages_path(@space), class: 'button button-primary' %>

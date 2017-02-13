@@ -3,14 +3,14 @@ class Space::AccessControl::Update
 
   def call
     @space = context.space
-    @access_control_rule = context.access_control_rule
+    @access_control = context.access_control
 
-    context.fail! unless update_access_control_rule
+    context.fail! unless update_access_control
   end
 
   private
 
-    def update_access_control_rule
-      @space.update(access_control_rule: @access_control_rule)
+    def update_access_control
+      @space.update(access_control: @access_control)
     end
 end
