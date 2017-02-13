@@ -17,9 +17,9 @@
   <%= f.file_field :cover %>
 
   <%= f.label "Team Space" %>
-  <%= f.radio_button :team_access_control, true %>
+  <%= f.radio_button :access_control, :team %>
   <%= f.label "Private Space" %>
-  <%= f.radio_button :private_access_control, true %>
+  <%= f.radio_button :access_control, :private %>
 
   <%= f.submit %>
 <% end %>

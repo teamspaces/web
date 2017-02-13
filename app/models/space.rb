@@ -1,7 +1,6 @@
 class Space < ApplicationRecord
   acts_as_paranoid
 
-  include HasAccessControl
   include SpaceCoverUploader[:cover]
 
   belongs_to :team
@@ -10,6 +9,10 @@ class Space < ApplicationRecord
   has_many :space_members, dependent: :destroy
   has_many :users, through: :team
   validates :team, presence: true
+
+  def access_control
+    Space::AccessControl.new(self)
+  end
 
   def team_members
     case
