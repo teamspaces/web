@@ -12,8 +12,8 @@ class Space::Form
 
   attribute :name, String
   attribute :cover
-  attribute :team_id, Team
-  attribute :access_control, String
+  attribute :team_id
+  attribute :access_control
 
   attribute :private_access_control, Boolean
   attribute :team_access_control, Boolean
@@ -21,7 +21,8 @@ class Space::Form
   validates :name, presence: true
   validates :team_id, presence: true
   validates :cover, attached_image: true
-  validates_inclusion_of :access_control, in: [Space::AccessControl::TEAM, Space::AccessControl::PRIVATE]
+  validates_inclusion_of :access_control, in: [Space::AccessControl::TEAM,
+                                               Space::AccessControl::PRIVATE]
 
   def initialize(space:, user: nil, attributes: {})
     @space = space
@@ -36,7 +37,7 @@ class Space::Form
   end
 
   def save
-    valid? && persist! && enforce_access_control_rule!
+    valid? && persist! && apply_access_control!
   end
 
   private
@@ -46,7 +47,7 @@ class Space::Form
       @space.save
     end
 
-    def enforce_access_control_rule!
-      Space::AccessControl::Enforce.call(user: @user, space: @space)
+    def apply_access_control!
+      Space::AccessControl::Apply.call(user: @user, space: @space)
     end
 end

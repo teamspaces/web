@@ -10,7 +10,7 @@ class Space::AccessControl::Apply
 
   private
 
-    def enforce_access_control
+    def apply_access_control
       case
         when @space.access_control.private?
           Space::Members::Add.call(user: @user, space: @space)
