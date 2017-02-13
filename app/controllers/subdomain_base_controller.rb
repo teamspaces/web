@@ -11,6 +11,11 @@ class SubdomainBaseController < ApplicationController
     available_users.teams - [current_team]
   end
 
+  helper_method :pundit_user
+  def pundit_user
+    DefaultContext.new(current_user, current_team)
+  end
+
   private
 
     def verify_team_membership
@@ -25,9 +30,5 @@ class SubdomainBaseController < ApplicationController
 
         redirect_to new_user_email_confirmation_path
       end
-    end
-
-    def pundit_user
-      DefaultContext.new(current_user, current_team)
     end
 end

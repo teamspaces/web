@@ -16,7 +16,7 @@
         <td><%= user.name %></td>
         <td><%= user.email %></td>
         <td><%= member.role %></td>
-        <% if TeamMemberPolicy.new(default_context, member).destroy? %>
+        <% if TeamMemberPolicy.new(pundit_user, member).destroy? %>
           <td><%= link_to "Remove", team_member_path(member), method: :delete %></td>
         <% else %>
           <td>-</td>
