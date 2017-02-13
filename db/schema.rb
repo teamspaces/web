@@ -113,11 +113,11 @@ ActiveRecord::Schema.define(version: 20170207083310) do
   create_table "spaces", force: :cascade do |t|
     t.integer  "team_id"
     t.string   "name"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.jsonb    "cover_data"
-    t.string   "access_control_rule"
     t.datetime "deleted_at"
+    t.string   "access_control"
     t.index ["deleted_at"], name: "index_spaces_on_deleted_at", using: :btree
     t.index ["team_id"], name: "index_spaces_on_team_id", using: :btree
   end
