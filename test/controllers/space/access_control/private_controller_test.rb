@@ -1,6 +1,6 @@
 require "test_helper"
 
-describe Space::AccessControlRules::PrivateController do
+describe Space::AccessControl::PrivateController do
   let(:user) { users(:ulf) }
   let(:team) { user.teams.first }
   let(:space) { team.spaces.first }
@@ -10,7 +10,7 @@ describe Space::AccessControlRules::PrivateController do
     it "creates a private access control for space" do
       post space_access_control_rules_private_url(space, subdomain: team.subdomain)
 
-      assert_equal Space::AccessControlRules::PRIVATE, space.reload.access_control_rule
+      assert_equal Space::AccessControl::PRIVATE, space.reload.access_control_rule
     end
 
     it "redirects to space members path" do
