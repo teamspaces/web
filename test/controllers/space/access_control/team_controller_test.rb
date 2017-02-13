@@ -1,7 +1,7 @@
 require "test_helper"
 
 describe Space::AccessControl::TeamController do
-  let(:user) { users(:ulf) }
+  let(:user) { users(:lars) }
   let(:team) { user.teams.first }
   let(:space) { team.spaces.first }
   before(:each) { sign_in user }
