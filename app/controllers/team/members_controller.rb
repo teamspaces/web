@@ -3,7 +3,7 @@ class Team::MembersController < SubdomainBaseController
 
   # DELETE /team/members/:id
   def destroy
-    authorize @team, :update?
+    authorize @team_member, :destroy?
 
     Authie::Session.sign_out_team_member_from_team_subdomain(@team_member)
     @team_member.destroy
