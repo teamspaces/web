@@ -1,7 +1,7 @@
 class Space::AccessControl::TeamController < SubdomainBaseController
   before_action :set_space
 
-  # POST /spaces/:space_id/access_control_rules/team
+  # POST /spaces/:space_id/access_control/team
   def create
     authorize @space, :update_access_control?
 

@@ -1,7 +1,7 @@
 class Space::AccessControl::PrivateController < SubdomainBaseController
   before_action :set_space
 
-  # POST /spaces/:space_id/access_control_rules/private
+  # POST /spaces/:space_id/access_control/private
   def create
     authorize @space, :update_access_control?
 
