@@ -17,8 +17,8 @@ class User::AcceptInvitation
   end
 
   def accept_space_invitation
-    @invitation.space.present? ? Space::Members::Add.call(space: @invitation.space,
-                                                          user: @invited_user) : true
+    @invitation.space_invitation? ? Space::Members::Add.call(space: @invitation.space,
+                                                             user: @invited_user) : true
   end
 
   def confirm_email

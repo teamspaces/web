@@ -23,6 +23,16 @@ describe SendInvitationForm, :model do
     end
   end
 
+  describe "space invitation" do
+    it "creates space invitation" do
+      subject.email = "hello@spaces.os"
+      subject.space = spaces(:spaces)
+      subject.save
+
+      assert subject.invitation.reload.space_invitation?
+    end
+  end
+
   it "sends email-invitation" do
     Invitation::Send.expects(:call)
 

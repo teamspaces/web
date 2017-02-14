@@ -21,6 +21,10 @@ class Invitation < ApplicationRecord
     email.present? && !slack_invitation?
   end
 
+  def space_invitation?
+    space.present?
+  end
+
   def used?
     invited_user.present?
   end
