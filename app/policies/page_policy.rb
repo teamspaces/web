@@ -12,11 +12,11 @@ class PagePolicy
     @page = page
   end
 
-  def team_page?
-    team == page.team && user_is_allowed_to_access_space?
+  def allowed_to_access?
+    team_page? && user_is_allowed_to_access_space?
   end
 
-  alias_methods :team_page?, [:show?, :new?, :edit?, :update?, :destroy?]
+  alias_methods :allowed_to_access?, [:show?, :new?, :edit?, :update?, :destroy?]
 
   def create?
     team_page? &&
@@ -24,6 +24,10 @@ class PagePolicy
   end
 
   private
+
+    def team_page?
+      team == page.team
+    end
 
     def allow_nesting?
       page_depth <= ENV["NESTED_PAGE_LIMIT"].to_i

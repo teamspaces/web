@@ -26,7 +26,11 @@ with_two_spaces_2:
   team: with_two_spaces
   name: With Two Spaces 2
 
-private:
+private: &private
   <<: *default
   name: private
   access_control: <%= Space::AccessControl::PRIVATE %>
+
+private_slack_user_milad:
+  <<: *private
+  name: slack user milad private space
