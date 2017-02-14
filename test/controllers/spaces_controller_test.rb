@@ -50,6 +50,24 @@ describe SpacesController do
         end
       end
     end
+
+    context "private space" do
+      it "redirects to space members path" do
+        post spaces_url(subdomain: team.subdomain, params: { space: { name: "private",
+                                                                      access_control: Space::AccessControl::PRIVATE }})
+
+        assert_redirected_to space_members_path(Space.last)
+      end
+    end
+
+    context "team space" do
+      it "redirects to space pages" do
+        post spaces_url(subdomain: team.subdomain, params: { space: { name: "team",
+                                                                      access_control: Space::AccessControl::TEAM }})
+
+        assert_redirected_to space_pages_path(Space.last)
+      end
+    end
   end
 
   describe "#update" do
