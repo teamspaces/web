@@ -11,6 +11,8 @@ describe Space::InvitationsController do
     it "destoryes invitation" do
       assert_difference -> { Invitation.count }, -1 do
         delete space_invitation_url(space, invitation, subdomain: team.subdomain)
+
+        assert_redirected_to space_members_path(space)
       end
     end
   end

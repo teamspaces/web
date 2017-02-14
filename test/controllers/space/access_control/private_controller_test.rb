@@ -2,8 +2,8 @@ require "test_helper"
 
 describe Space::AccessControl::PrivateController do
   let(:user) { users(:lars) }
-  let(:team) { user.teams.first }
-  let(:space) { team.spaces.first }
+  let(:team) { teams(:spaces) }
+  let(:space) { spaces(:spaces) }
   before(:each) { sign_in user }
 
   describe "#create" do

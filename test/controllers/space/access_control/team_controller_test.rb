@@ -3,7 +3,7 @@ require "test_helper"
 describe Space::AccessControl::TeamController do
   let(:user) { users(:lars) }
   let(:team) { teams(:spaces) }
-  let(:space) { spaces(:spaces) }
+  let(:space) { spaces(:private) }
   before(:each) { sign_in user }
 
   describe "#create" do

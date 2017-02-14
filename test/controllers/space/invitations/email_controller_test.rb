@@ -2,8 +2,8 @@ require "test_helper"
 
 describe Space::Invitations::EmailController do
   let(:user) { users(:ulf) }
-  let(:team) { user.teams.first }
-  let(:space) { team.spaces.first }
+  let(:team) { teams(:spaces) }
+  let(:space) { spaces(:private) }
   before(:each) { sign_in user }
 
   describe "#new" do

@@ -25,6 +25,3 @@ class SpacePolicy::Scope
                   space_members: { team_member: user.team_members})
     end
 end
-
-
-
