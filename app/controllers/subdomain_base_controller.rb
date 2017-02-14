@@ -11,9 +11,9 @@ class SubdomainBaseController < ApplicationController
     available_users.teams - [current_team]
   end
 
-  helper_method :pundit_user
-  def pundit_user
-    DefaultContext.new(current_user, current_team)
+  helper_method :policy_for
+  def policy_for(obj)
+    Object.const_get("#{obj.class.name}Policy").new(pundit_user, obj)
   end
 
   private
@@ -30,5 +30,9 @@ class SubdomainBaseController < ApplicationController
 
         redirect_to new_user_email_confirmation_path
       end
+    end
+
+    def pundit_user
+      DefaultContext.new(current_user, current_team)
     end
 end
