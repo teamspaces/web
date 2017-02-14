@@ -3,11 +3,12 @@ require "test_helper"
 describe TeamMemberPolicy, :model do
   let(:user) { users(:lars) }
   let(:team) { teams(:spaces) }
+  let(:default_context) { DefaultContext.new(user, team) }
+
   let(:user_team_member) { team_members(:lars_at_spaces) }
   let(:normal_member) { team_members(:maja_at_spaces) }
   let(:primary_owner) { team_members(:ulf_at_spaces) }
   let(:external_team_member) { team_members(:maja_at_power) }
-  let(:default_context) { DefaultContext.new(user, team) }
 
   describe "#destroy?" do
     it "works" do

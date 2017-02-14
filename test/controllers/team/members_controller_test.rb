@@ -1,9 +1,9 @@
 require 'test_helper'
 
 describe Team::MembersController do
-  let(:team_member) { team_members(:erik_at_with_one_space) }
-  let(:user) { team_member.user }
-  let(:team) { team_member.team }
+  let(:user) { users(:ulf) }
+  let(:team) { teams(:spaces) }
+  let(:team_member) { team_members(:lars_at_spaces) }
   before(:each) { sign_in user}
 
   describe "#destroy" do
