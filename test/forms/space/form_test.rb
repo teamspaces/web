@@ -45,7 +45,7 @@ describe Space::Form, :model do
       Space::AccessControl::Apply.expects(:call)
                                  .with(user: user, space: space)
 
-      assert subject.save
+      subject.save
     end
   end
 end

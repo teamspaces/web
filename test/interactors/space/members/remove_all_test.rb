@@ -1,7 +1,7 @@
 require "test_helper"
 
 describe Space::Members::RemoveAll, :model do
-  let(:space) { spaces(:spaces) }
+  let(:space) { spaces(:private) }
 
   subject { Space::Members::RemoveAll }
 

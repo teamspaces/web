@@ -12,6 +12,7 @@ describe Invitation do
   let(:space_invitation) { invitations(:space_invitation) }
 
   should belong_to(:team)
+  should belong_to(:space).optional(:true)
   should belong_to(:invited_by_user).class_name("User")
   should belong_to(:invited_user).class_name("User")
 

@@ -10,7 +10,7 @@ describe Space::Members::Remove, :model do
   describe "#call" do
     it "removes user from space members" do
       assert_difference -> { space.space_members.count }, -1 do
-        subject.call(user: space_member.user)
+        subject.call(user: user)
       end
     end
   end

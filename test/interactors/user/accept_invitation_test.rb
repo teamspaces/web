@@ -3,6 +3,7 @@ require "test_helper"
 describe User::AcceptInvitation, :model do
   let(:user) { users(:without_team) }
   let(:invitation) { invitations(:katharina_at_power_rangers) }
+  let(:space_invitation) { invitations(:space_invitation) }
   subject { User::AcceptInvitation }
 
   context "valid token" do
@@ -21,6 +22,14 @@ describe User::AcceptInvitation, :model do
 
       invitation.reload
       assert_equal user, invitation.invited_user
+    end
+
+    context "space invitation" do
+      it "adds invited user to space members" do
+        assert_difference -> { space_invitation.space.space_members.count }, 1 do
+          subject.call(invited_user: user, invitation: space_invitation)
+        end
+      end
     end
 
     context "is email invitation" do
