@@ -6,7 +6,7 @@ describe Space::AccessControl::Update, :model do
   subject { Space::AccessControl::Update }
 
   describe "#call" do
-    it "updates space access control rule" do
+    it "updates space access control" do
       result = subject.call(space: space, access_control: Space::AccessControl::PRIVATE)
 
       assert result.success?

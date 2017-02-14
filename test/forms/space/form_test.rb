@@ -4,7 +4,7 @@ describe Space::Form, :model do
   let(:user) { users(:lars) }
   let(:space) { spaces(:spaces) }
 
-  subject { Space::Form.new(space: space) }
+  subject { Space::Form.new(space: space, user: user) }
 
   describe "validations" do
     should validate_presence_of(:name)
@@ -36,9 +36,16 @@ describe Space::Form, :model do
 
   describe "#save" do
     it "saves space" do
-      assert Space::Form.new(space: space, user: user, attributes: { name: "new_name",  private_access_control: true }).save
+      assert Space::Form.new(space: space, user: user, attributes: { name: "new_name" }).save
 
       assert_equal "new_name", space.name
+    end
+
+    it "applies access control" do
+      Space::AccessControl::Apply.expects(:call)
+                                 .with(user: user, space: space)
+
+      assert subject.save
     end
   end
 end

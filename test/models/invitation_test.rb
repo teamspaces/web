@@ -9,7 +9,7 @@ describe Invitation do
   let(:used_invitation) { invitations(:used_invitation) }
   let(:unused_invitation) { slack_invitation }
   let(:team_invitation) { email_invitation }
-  let(:space_invitation) { invitations(:space_invitation) }
+  let(:space_invitation) { invitations(:space_invitation) }
 
   should belong_to(:team)
   should belong_to(:invited_by_user).class_name("User")
