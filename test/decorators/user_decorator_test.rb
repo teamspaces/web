@@ -29,4 +29,18 @@ describe UserDecorator, :model do
       end
     end
   end
+
+  describe "#auth_method" do
+    context "email user" do
+      it "returns email" do
+        assert_equal "email", email_user.auth_method
+      end
+    end
+
+    context "slack user" do
+      it "returns slack" do
+        assert_equal "slack", slack_user.auth_method
+      end
+    end
+  end
 end
