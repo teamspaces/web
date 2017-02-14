@@ -6,5 +6,8 @@ class CreateSpaceMembers < ActiveRecord::Migration[5.0]
 
       t.timestamps
     end
+
+    add_column :space_members, :deleted_at, :datetime
+    add_index :space_members, :deleted_at
   end
 end
