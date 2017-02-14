@@ -16,6 +16,7 @@ class EditorSettingsHashPresenter
       document_id: format_document_id,
       collab_url: "#{ENV["COLLAB_SERVICE_URL"]}?token=#{generate_token}",
       page_content_url: @controller.page_content_url(@page.page_content),
+      page_url: @controller.page_url(@page),
       csrf_token: @controller.view_context.form_authenticity_token
     }
   end

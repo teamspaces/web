@@ -4,5 +4,6 @@ window._ = require('lodash');
 require('jquery-ujs');
 
 window.Spaces = {
-  Editor: require('./editor')
+  Editor: require('./editor'),
+  TitleEditor: require('./title_editor')
 };
