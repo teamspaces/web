@@ -2,50 +2,27 @@
 
 const TitleEditor = class TitleEditor {
 
-  constructor(title_input, settings) {
+  constructor(title_input, page) {
     this.title_input = title_input;
-    this.settings = settings;
+    this.title = () => { return title_input.val() };
 
-    this.page_url = this.settings.page_url;
-    this.csrf_token =  this.settings.csrf_token;
+    this.page = page;
   };
 
-  title(){
-    return this.title_input.val();
-  };
-
-  observeAndSaveChanges(){
-    this.observe(this.save.bind(this));
-  };
-
-  observe(onUpdate){
-    var timer;
-
-    this.title_input.keyup(() => {
-        clearTimeout(timer);
-        //wait then save
-        timer = setTimeout(() => { onUpdate(); }, 700);
+  init(){
+    this.onTitleChange(() => {
+      this.page.update({title: this.title()});
     });
   };
 
-  save(){
-        $.ajax({
-            url: this.page_url,
-            headers: { "X-CSRF-Token": this.csrf_token },
-            method: "PATCH",
-            dataType: "json",
-            data: {
-                page: {
-                    title: this.title(),
-                }
-            },
-            error: function(ola){
-              console.log("SDFDF");
-            },
-            success: function(ola){
-              console.log("SUCCESS");
-            }
-        });
+  onTitleChange(fn){
+    let timer;
+
+    this.title_input.keyup(() => {
+        clearTimeout(timer);
+        // wait for more changes
+        timer = setTimeout(() => { fn(); }, 700);
+    });
   };
 };
 

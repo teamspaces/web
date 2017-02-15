@@ -33,8 +33,9 @@
 <script>
   $(function(){
     Spaces.Editor.init("#page-editor", <%= editor_settings %>);
-    window.editor = new Spaces.TitleEditor($("#title_input"), <%= editor_settings %>);
-    window.editor.observeAndSaveChanges();
+    window.page = new Spaces.Page(<%= editor_settings %>);
+    window.editor = new Spaces.TitleEditor($("#title_input"), window.page);
+    window.editor.init();
 
    // console.log(window.editor);
     //window.editor = editor;
