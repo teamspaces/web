@@ -1,0 +1,18 @@
+maja_at_spaces: &default
+  user: with_several_teams
+  browser_id: desktop
+  active: true
+  team_id: <%= ActiveRecord::FixtureSet.identify(:spaces) %>
+
+maja_at_power:
+  <<: *default
+  team_id: <%= ActiveRecord::FixtureSet.identify(:power_rangers) %>
+
+maja_mobile_browser:
+  <<: *default
+  browser_id: mobile
+
+maja_inactive:
+  <<: *default
+  active: false
+
