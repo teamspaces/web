@@ -14,7 +14,8 @@ describe Team::MembersController do
     end
 
     it "signs out team-member from team-subdomain" do
-      DestroyUserSessionsQuery.expects(:for_team!)
+      DestroyUserSessionsQuery.any_instance
+                              .expects(:for_team!)
                               .with(team)
 
       delete team_member_url(team_member, subdomain: team.subdomain)

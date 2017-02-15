@@ -16,7 +16,7 @@ describe SessionAuthentication, :controller do
     it "signs out user current user" do
       controller.sign_in(user)
 
-      DestroyUserSessionsQuery.expects(:for_browser!)
+      DestroyUserSessionsQuery.any_instance.expects(:for_browser!)
 
       controller.sign_out
     end
