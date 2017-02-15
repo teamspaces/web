@@ -6,6 +6,7 @@ const TitleEditor = class TitleEditor {
     this.title_input = title_input;
     this.settings = settings;
     this.url = this.settings.page_url;
+    console.log(this.url);
   };
 
   observeAndSaveChanges(){
@@ -27,6 +28,24 @@ const TitleEditor = class TitleEditor {
 
     console.log("TE BESARE");
     console.log(title);
+
+        $.ajax({
+            url: this.url,
+            headers: { "X-CSRF-Token": this.settings.csrf_token },
+            method: "PATCH",
+            dataType: "json",
+            data: {
+                page: {
+                    title: title,
+                }
+            },
+            error: function(ola){
+              console.log("SDFDF");
+            },
+            success: function(ola){
+              console.log("SUCCESS");
+            }
+        });
   };
 
   hello(){
