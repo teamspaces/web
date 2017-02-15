@@ -2,10 +2,11 @@
 
 const TitleEditor = class TitleEditor {
 
-  constructor(title_input, settings) {
+  constructor(title_input, settings, db) {
     this.title_input = title_input;
     this.settings = settings;
     this.url = this.settings.page_url;
+    console.log(db);
   };
 
   observeAndSaveChanges(){

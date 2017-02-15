@@ -1,14 +1,19 @@
 'use strict';
 
+const ShareDB = require("sharedb/lib/client");
 const LiveDB = class LiveDB {
 
-  constructor(collab_url) {
-    this.title_input = title_input;
-    this.settings = settings;
-    this.url = this.settings.page_url;
+  constructor(endpoint_url) {
+    this.webSocket = new WebSocket(endpoint_url);
+    this.shareDBConnection = new ShareDB.Connection(this.webSocket);
   };
 
-  this.webSocket = new WebSocket(this.options.collab_url);
+  subscribe(collection, document_id, func, callback){
+    connection = this.shareDBConnection.get(collection, document_id);
+    connection.subscribe(func);
+
+    callback(connection, nil);
+  };
 };
 
 module.exports = LiveDB;

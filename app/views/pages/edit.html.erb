@@ -32,12 +32,13 @@
 
 <script>
   $(function(){
+    window.liveDB = new Spaces.LiveDB("<%= collab_url %>");
     Spaces.Editor.init("#page-editor", <%= editor_settings %>);
-    window.editor = new Spaces.TitleEditor($("#title_input"), <%= editor_settings %>);
+   // window.editor = new Spaces.TitleEditor($("#title_input"), <%= editor_settings %>);
 
-    window.editor.observeAndSaveChanges();
+   // window.editor.observeAndSaveChanges();
 
-    console.log(window.editor);
+   // console.log(window.editor);
     //window.editor = editor;
     //editor.hello();
   });
