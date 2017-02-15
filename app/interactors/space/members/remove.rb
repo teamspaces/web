@@ -12,6 +12,6 @@ class Space::Members::Remove
 
     def remove_space_member
       team_member = @user.team_members.find_by(team: @space.team)
-      SpaceMember.find_by(space: @space, team_member: team_member).destroy
+      SpaceMember.find_by(space: @space, team_member: team_member).really_destroy!
     end
 end
