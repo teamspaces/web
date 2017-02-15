@@ -22,17 +22,6 @@ class PagesController < SubdomainBaseController
       .html_safe
   end
 
-  helper_method :collab_url
-
-  def collab_url
-    EditorSettingsHashPresenter
-      .new(controller: self,
-           user: current_user,
-           page: @page)
-      .to_hash[:collab_url]
-      .html_safe
-  end
-
   # GET /pages
   # GET /pages.json
   def index

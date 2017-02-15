@@ -2,38 +2,41 @@
 
 const TitleEditor = class TitleEditor {
 
-  constructor(title_input, settings, db) {
+  constructor(title_input, settings) {
     this.title_input = title_input;
     this.settings = settings;
-    this.url = this.settings.page_url;
-    console.log(db);
+
+    this.page_url = this.settings.page_url;
+    this.csrf_token =  this.settings.csrf_token;
+  };
+
+  title(){
+    return this.title_input.val();
   };
 
   observeAndSaveChanges(){
     this.observe(this.save.bind(this));
   };
 
-  observe(cb){
+  observe(onUpdate){
     var timer;
 
     this.title_input.keyup(() => {
         clearTimeout(timer);
         //wait then save
-        timer = setTimeout(() => { cb(); }, 700);
+        timer = setTimeout(() => { onUpdate(); }, 700);
     });
   };
 
   save(){
-    var title = this.title_input.val();
-
         $.ajax({
-            url: this.url,
-            headers: { "X-CSRF-Token": this.settings.csrf_token },
+            url: this.page_url,
+            headers: { "X-CSRF-Token": this.csrf_token },
             method: "PATCH",
             dataType: "json",
             data: {
                 page: {
-                    title: title,
+                    title: this.title(),
                 }
             },
             error: function(ola){
@@ -43,11 +46,6 @@ const TitleEditor = class TitleEditor {
               console.log("SUCCESS");
             }
         });
-  };
-
-  hello(){
-    console.log(this.title_input);
-    console.log(this.settings);
   };
 };
 
