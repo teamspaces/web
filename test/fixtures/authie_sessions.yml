@@ -1,5 +1,5 @@
 maja_at_spaces: &default
-  user: with_several_teams
+  user_id: <%= ActiveRecord::FixtureSet.identify(:with_several_teams) %>
   browser_id: desktop
   active: true
   team_id: <%= ActiveRecord::FixtureSet.identify(:spaces) %>

@@ -1,6 +1,8 @@
 require "test_helper"
 
 describe DestroyUserSessionsQuery, :model do
+  set_fixture_class authie_sessions: Authie::Session
+
   let(:user) { users(:with_several_teams) }
   let(:spaces_team) { teams(:spaces) }
   let(:spaces_session) { authie_sessions(:maja_at_spaces) }
@@ -12,20 +14,22 @@ describe DestroyUserSessionsQuery, :model do
 
   describe "#for_team!" do
     it "invalidates all team sessions for user" do
-      spaces_session.expects(:invalidate!)
-      power_session.expects(:invalidate!).never
+      sessions = subject.new(user).send(:active_user_sessions_for_team, spaces_team)
 
-      subject.new(user).for_team!(spaces_team)
+      assert_includes sessions, spaces_session
+      assert_not_includes sessions, power_session
+      assert_not_includes sessions, inactive_session
     end
   end
 
   describe "#for_browser!" do
     it "invalidates all browser sessions for user" do
-      power_session.expects(:invalidate!)
-      spaces_session.expects(:invalidate!)
-      mobile_browser_session.expects(:invalidate!).never
+      sessions = subject.new(user).send(:active_user_sessions_for_browser, spaces_session.browser_id)
 
-      subject.new(user).for_team!(spaces_team)
+      assert_includes sessions, spaces_session
+      assert_includes sessions, power_session
+      assert_not_includes sessions, inactive_session
+      assert_not_includes sessions, mobile_browser_session
     end
   end
 end
