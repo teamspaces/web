@@ -6,7 +6,6 @@ const TitleEditor = class TitleEditor {
     this.title_input = title_input;
     this.settings = settings;
     this.url = this.settings.page_url;
-    console.log(this.url);
   };
 
   observeAndSaveChanges(){
@@ -25,9 +24,6 @@ const TitleEditor = class TitleEditor {
 
   save(){
     var title = this.title_input.val();
-
-    console.log("TE BESARE");
-    console.log(title);
 
         $.ajax({
             url: this.url,
