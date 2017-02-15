@@ -11,18 +11,18 @@ class TeamMemberPolicy
   end
 
   def destroy?
-    team_team_member? &&
-    !user_remove_itself? &&
+    my_team? &&
+    !my_team_member? &&
     !team_member.primary_owner?
   end
 
   private
 
-    def user_remove_itself?
+    def my_team_member?
       user == team_member.user
     end
 
-    def team_team_member?
+    def my_team?
       team == team_member.team
     end
 end
