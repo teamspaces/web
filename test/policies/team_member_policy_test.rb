@@ -21,7 +21,7 @@ describe TeamMemberPolicy, :model do
       end
     end
 
-    context "user removes himself from team" do
+    context "user deletes himself from team" do
       it "returns false" do
         refute TeamMemberPolicy.new(default_context, user_team_member).destroy?
       end

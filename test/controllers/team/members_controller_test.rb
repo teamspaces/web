@@ -13,7 +13,7 @@ describe Team::MembersController do
       end
     end
 
-    it "signs out team-member from team-subdomain" do
+    it "signs out team-member from team" do
       DestroyUserSessionsQuery.any_instance
                               .expects(:for_team!)
                               .with(team)
