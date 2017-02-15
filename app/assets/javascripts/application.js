@@ -5,5 +5,6 @@ require('jquery-ujs');
 
 window.Spaces = {
   Editor: require('./editor'),
-  TitleEditor: require('./title_editor')
+  TitleEditor: require('./title_editor'),
+  LiveDB: require('./live_db')
 };
