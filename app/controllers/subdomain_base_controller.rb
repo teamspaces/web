@@ -11,11 +11,6 @@ class SubdomainBaseController < ApplicationController
     available_users.teams - [current_team]
   end
 
-  helper_method :policy_for
-  def policy_for(obj)
-    Object.const_get("#{obj.class.name}Policy").new(pundit_user, obj)
-  end
-
   private
 
     def verify_team_membership

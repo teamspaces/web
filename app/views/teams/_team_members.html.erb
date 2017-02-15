@@ -16,7 +16,7 @@
         <td><%= user.name %></td>
         <td><%= user.email %></td>
         <td><%= member.role %></td>
-        <% if policy_for(member).destroy? %>
+        <% if policy(member).destroy? %>
           <td><%= link_to "Remove", team_member_path(member), method: :delete, data: { confirm: "Are you sure?" } %></td>
         <% else %>
           <td>-</td>

@@ -5,18 +5,6 @@ Authie::Session.class_eval do
 
   scope :active, -> { where(active: true) }
 
-  def self.sign_out(user:,browser_id:)
-    self.active
-        .where(user: user, browser_id: browser_id)
-        .find_each(&:invalidate!)
-  end
-
-  def self.sign_out_team_member_from_team_subdomain(team_member)
-    self.active
-        .where(user: team_member.user, team_id: team_member.team.id)
-        .find_each(&:invalidate!)
-  end
-
   def self.start(controller, params = {})
     cookies = controller.send(:cookies)
     current_team_id = controller.try(:current_team)&.id
