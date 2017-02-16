@@ -8,3 +8,36 @@
     <%= render "page_tree", page_tree: space.pages.hash_tree %>
   </ul>
 </aside>
+
+<style type="text/css">
+.hovered {
+  width:100%;
+  height:30px;
+  background-color:red}
+</style>
+
+<script>
+  $(function(){
+    function handleDropEvent( event, ui ) {
+        console.log($(this));
+        console.log($(this).data("hello"));
+
+        ui.draggable.addClass( 'correct' );
+        ui.draggable.draggable( 'disable' );
+        $(this).droppable( 'disable' );
+        //ui.draggable.position( { of: $(this), my: 'center', at: 'center' } );
+        ui.draggable.draggable( 'option', 'revert', false );
+    }
+
+
+    $( ".draggable" ).draggable({
+      //containment: '#page-tree-content',
+      //snap: '#page-tree-content',
+      cursor: 'move'});
+
+     $('.droppable').droppable( {
+        drop: handleDropEvent,
+        hoverClass: 'hovered'
+      });
+  });
+</script>

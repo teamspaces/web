@@ -1,6 +1,11 @@
 <% page_tree.map do |page, page_tree| %>
     <li>
-        <%= link_to(page.decorate.title_with_fallback, page) %>
+        <%= link_to(page.decorate.title_with_fallback, page, class: "draggable") %>
+
+        <div class="droppable" style="width:100%;
+  height:5px;" data-hello="<%= page.parent&.id %>">
+
+        </div>
 
         <% if page_tree.size.positive? %>
             <ul>

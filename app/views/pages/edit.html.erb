@@ -10,7 +10,7 @@
   <%= render "avatar_users", avatar_users: @sample_users_query.sample_users,
                              number_of_hidden_avatars: @sample_users_query.users_not_in_sample_count  %>
 
-  <ul class="space-sidebar-pages">
+  <ul class="space-sidebar-pages" id="page-tree-content">
     <%= render "edit_page_tree", page_tree: @page.space.pages.hash_tree %>
   </ul>
 </aside>
@@ -30,8 +30,16 @@
   </div> -->
 </div>
 
+<style type="text/css">
+.hovered{
+  background-color: red;
+}
+</style>
+
 <script>
   $(function(){
+
     Spaces.Editor.init("#page-editor", <%= editor_settings %>);
+
   });
 </script>
