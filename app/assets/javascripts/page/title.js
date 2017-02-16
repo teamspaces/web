@@ -1,6 +1,6 @@
 'use strict';
 
-const TitleEditor = class TitleEditor {
+const PageTitle = class PageTitle {
 
   constructor(title_input, page) {
     this.title_input = title_input;
@@ -26,5 +26,4 @@ const TitleEditor = class TitleEditor {
   };
 };
 
-module.exports = TitleEditor;
-
+module.exports = PageTitle;

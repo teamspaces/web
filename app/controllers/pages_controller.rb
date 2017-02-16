@@ -22,6 +22,14 @@ class PagesController < SubdomainBaseController
       .html_safe
   end
 
+  helper_method :page_settings
+  def page_settings
+    PageSettingsHashPresenter.new(controller: self, page: @page)
+                             .to_hash
+                             .to_json
+                             .html_safe
+  end
+
   # GET /pages
   # GET /pages.json
   def index
