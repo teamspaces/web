@@ -2,23 +2,23 @@
 
 const PageTitle = class PageTitle {
 
-  constructor(title_input, page) {
-    this.title_input = title_input;
-    this.title = () => { return title_input.val() };
+  constructor(input, page) {
+    this.input = input;
+    this.title = () => { return input.val() };
 
     this.page = page;
   };
 
   init(){
-    this.onTitleChange(() => {
+    this.onChange(() => {
       this.page.update({title: this.title()});
     });
   };
 
-  onTitleChange(fn){
+  onChange(fn){
     let timer;
 
-    this.title_input.keyup(() => {
+    this.input.keyup(() => {
         clearTimeout(timer);
         // wait for more changes
         timer = setTimeout(() => { fn(); }, 700);
