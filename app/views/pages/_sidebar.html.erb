@@ -18,9 +18,38 @@
 
 <script>
   $(function(){
+
+
     function handleDropEvent( event, ui ) {
+        var editor_settings =  <%= editor_settings %>;
+
         console.log($(this));
         console.log($(this).data("hello"));
+        console.log($(this).data("id"));
+
+        var ola = $(this).data("hello");
+        var optimun = $(this).data("id");
+
+
+        $.ajax({
+            url: "" + ola,
+            headers: { "X-CSRF-Token": editor_settings['csrf_token'] },
+            method: "PATCH",
+            dataType: "json",
+            data: { page: {parent_id: optimun} },
+            success: function(data, textStatus, jqXHR){
+
+                console.log("Successfully updated page");
+
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+
+                console.log("Could not update page");
+
+            }
+        });
+
+
 
         ui.draggable.addClass( 'correct' );
         ui.draggable.draggable( 'disable' );

@@ -8,6 +8,9 @@ const css_output_template = production ? "/stylesheets/[name]-[hash].css" : "/st
 const js_output_template = production ? "/javascripts/[name]-[hash].js" : "/javascripts/[name].js";
 const images_output_template = production ? "/images/[name]-[hash].[ext]" : "/images/[name].[ext]"
 
+
+
+
 // TODO: Move this into it's own package.
 // My docker containers don't respond to  ctrl+c and this fixes it.
 process.on('SIGINT', function() {

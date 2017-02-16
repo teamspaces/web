@@ -22,6 +22,14 @@ class PagesController < SubdomainBaseController
       .html_safe
   end
 
+  helper_method :page_settings
+  def page_settings
+    PageSettingsHashPresenter.new(controller: self, page: @page)
+                             .to_hash
+                             .to_json
+                             .html_safe
+  end
+
   # GET /pages
   # GET /pages.json
   def index
@@ -65,6 +73,10 @@ class PagesController < SubdomainBaseController
   # PATCH/PUT /pages/1.json
   def update
     authorize @page, :update?
+
+    puts "SDFDSFDF"
+    puts  @page
+    puts @page.valid?
 
     respond_to do |format|
       if @page.update(page_params)

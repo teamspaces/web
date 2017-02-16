@@ -41,5 +41,8 @@
 
     Spaces.Editor.init("#page-editor", <%= editor_settings %>);
 
+    const Page = new Spaces.Page(<%= page_settings %>);
+                 new Spaces.PageTitle($("#title_input"), Page).init();
+
   });
 </script>
