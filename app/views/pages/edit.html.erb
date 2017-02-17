@@ -10,7 +10,7 @@
   <%= render "avatar_users", avatar_users: @sample_users_query.sample_users,
                              number_of_hidden_avatars: @sample_users_query.users_not_in_sample_count  %>
 
-  <ul class="space-sidebar-pages sortable">
+  <ul class="space-sidebar-pages">
     <%= render "edit_page_tree", page_tree: @page.space.pages.hash_tree %>
   </ul>
 </aside>
@@ -37,20 +37,12 @@
 
     window.Space = new Spaces.Space(<%= space_settings %>);
 
-
-    $('.sortable').nestedSortable({
-      handle: 'a',
-      items: 'li',
-      listType: 'ul',
-      toleranceElement: '> a',
-      isTree: true,
-      relocate: function(){
-        var hierarchy = $(this).sortable('toHierarchy');
-
-        Space.update({ page_hierarchy: JSON.stringify(hierarchy) });
-      }
-    });
-
+    window.PageTree = new Spaces.PageTree(
+      { container: $('.space-sidebar-pages'),
+        onChange: function(hierarchy){
+          Space.update({ page_hierarchy: JSON.stringify(hierarchy) });
+        }
+      });
 
 
   });
