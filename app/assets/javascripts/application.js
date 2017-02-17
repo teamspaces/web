@@ -5,7 +5,7 @@ require('jquery-ujs');
 
 if(process.env.PRODUCTION){
   window.Raven = require('../../../node_modules/raven-js/dist/raven.js');
-  Raven.config(process.env.SENTRY).install();
+  Raven.config(process.env.SENTRY_DSN).install();
 }
 
 window.Spaces = {

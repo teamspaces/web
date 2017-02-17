@@ -89,7 +89,7 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env': {
         'PRODUCTION': production,
-        'SENTRY': '"' +  process.env.SENTRY + '"'
+        'SENTRY_DSN': '"' +  process.env.SENTRY_DSN + '"'
       }
     }),
 
