@@ -4,50 +4,7 @@
   <%= render "avatar_users", avatar_users: @sample_users_query.sample_users,
                              number_of_hidden_avatars: @sample_users_query.users_not_in_sample_count  %>
 
-  <ul class="space-sidebar-pages sortable">
+  <ul class="space-sidebar-pages">
     <%= render "page_tree", page_tree: space.pages.hash_tree %>
   </ul>
 </aside>
-
-<style type="text/css">
-
-.rich{
-  width: 100%;
-  height: 5px;
-  background-color: grey;
-}
-.hovered {
-  width:100%;
-  height:10px;
-  background-color:grey}
-</style>
-
-<script>
-  $(function(){
-
-        console.log("SDF");
-
-        $('.sortable').nestedSortable({
-            handle: 'a',
-            items: 'li',
-            listType: 'ul',
-            toleranceElement: '> a',
-            change: function(a, ev){
-              console.log("SDFDSF");
-              console.log(a);
-              console.log(ev);
-              console.log(ab);
-            }
-        }).on('change', function(nn, bb){
-          console.log("SDFDF")
-          console.log(nn);
-          console.log(bb);
-        });
-
-        $('.sortable').on('change', function(nn, bb){
-          console.log("SDFDF")
-          console.log(nn);
-          console.log(bb);
-        });
-  });
-</script>

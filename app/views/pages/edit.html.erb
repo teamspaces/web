@@ -10,7 +10,7 @@
   <%= render "avatar_users", avatar_users: @sample_users_query.sample_users,
                              number_of_hidden_avatars: @sample_users_query.users_not_in_sample_count  %>
 
-  <ul class="space-sidebar-pages sortable" id="page-tree-content">
+  <ul class="space-sidebar-pages sortable">
     <%= render "edit_page_tree", page_tree: @page.space.pages.hash_tree %>
   </ul>
 </aside>
@@ -30,41 +30,26 @@
   </div> -->
 </div>
 
-<style type="text/css">
-.hovered{
-  background-color: red;
-}
-</style>
-
 <script>
   $(function(){
 
     Spaces.Editor.init("#page-editor", <%= editor_settings %>);
 
     window.Space = new Spaces.Space(<%= space_settings %>);
-    //https://github.com/ilikenwf/nestedSortable
+
+
     $('.sortable').nestedSortable({
-            handle: 'a',
-            items: 'li',
-            listType: 'ul',
-            toleranceElement: '> a',
-            isTree: true,
-            relocate: function(a, obj){
-              console.log("SDFDSF");
+      handle: 'a',
+      items: 'li',
+      listType: 'ul',
+      toleranceElement: '> a',
+      isTree: true,
+      relocate: function(){
+        var actavis = $(this).sortable('toHierarchy');
 
-             // console.log(obj);
-             var actavis = $(this).sortable('toHierarchy');
-
-              console.log(JSON.stringify(actavis));
-
-              Space.update({space: { pages_order: JSON.stringify(actavis) }
-                //, function(){location.reload()} }
-              });
-
-           //   console.log($(obj.item[0]));
-           //   console.log($(obj.placeholder[0]));
-            }
-        });
+        Space.update({space: { pages_order: JSON.stringify(actavis) }});
+      }
+    });
 
 
 
