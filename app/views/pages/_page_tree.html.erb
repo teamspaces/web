@@ -1,9 +1,9 @@
 <% page_tree.map do |page, page_tree| %>
     <li>
-        <%= link_to(page.decorate.title_with_fallback, page, class: "draggable") %>
+        <%= link_to(page.decorate.title_with_fallback, page, class: "draggable", data: { id: page.id }) %>
 
         <div class="droppable" style="width:100%;
-  height:5px;" data-hello="<%= page.parent&.id %>" data-id="<%= page.id %>">
+  height:5px;" data-parent-id="<%= page.parent&.id %>">
 
         </div>
 

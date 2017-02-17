@@ -23,20 +23,21 @@
     function handleDropEvent( event, ui ) {
         var editor_settings =  <%= editor_settings %>;
 
-        console.log($(this));
-        console.log($(this).data("hello"));
-        console.log($(this).data("id"));
+        var id = ui.draggable.data("id");
+        var parent_id = $(this).data("parent-id");
 
-        var ola = $(this).data("hello");
-        var optimun = $(this).data("id");
+        console.log("id");
+        console.log(id);
+        console.log("parent");
+        console.log(parent_id);
 
 
         $.ajax({
-            url: "" + ola,
+            url: "" + id,
             headers: { "X-CSRF-Token": editor_settings['csrf_token'] },
             method: "PATCH",
             dataType: "json",
-            data: { page: {parent_id: optimun} },
+            data: { page: {parent_id: parent_id} },
             success: function(data, textStatus, jqXHR){
 
                 console.log("Successfully updated page");
