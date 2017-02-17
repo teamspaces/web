@@ -31,7 +31,6 @@ class SpacesController < SubdomainBaseController
   # POST /spaces
   # POST /spaces.json
   def create
-    debugger
     @space_form = Space::Form.new(space: current_team.spaces.new,
                                   attributes: space_params)
 
@@ -54,9 +53,16 @@ class SpacesController < SubdomainBaseController
     if params["space"]["pages_order"]
 
       def add_as_child(parent:,children:)
+        children_sort = 0
+
         children.each do |child_attributes|
           child_page = Page.find(child_attributes["id"])
-          child_page.update(parent_id: parent.id)
+          #child_page.update(parent_id: parent.id, sort_order: children_sort)
+          debugger
+          parent.append_child(child_page)
+          #parent.save
+
+          children_sort += 1
 
           if child_attributes["children"]
             add_as_child(parent: child_page, children: child_attributes["children"])
@@ -64,9 +70,14 @@ class SpacesController < SubdomainBaseController
         end
       end
 
+      parent_sort = 0
       JSON.parse(params["space"]["pages_order"]).each do |page_attributes|
         page = Page.find(page_attributes["id"])
+        #page.update(parent_id: nil, sort_order: parent_sort)
+
         page.update(parent_id: nil)
+
+        parent_sort += 1
 
         if page_attributes["children"]
           add_as_child(parent: page, children: page_attributes["children"])

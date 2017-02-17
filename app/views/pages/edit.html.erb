@@ -61,7 +61,7 @@
 
               console.log(JSON.stringify(actavis));
 
-              Space.update({space: { pages_order: JSON.stringify(actavis) } });
+              Space.update({space: { pages_order: JSON.stringify(actavis) }, function(){location.reload()} });
 
            //   console.log($(obj.item[0]));
            //   console.log($(obj.placeholder[0]));
