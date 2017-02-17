@@ -45,9 +45,9 @@
       toleranceElement: '> a',
       isTree: true,
       relocate: function(){
-        var actavis = $(this).sortable('toHierarchy');
+        var hierarchy = $(this).sortable('toHierarchy');
 
-        Space.update({space: { pages_order: JSON.stringify(actavis) }});
+        Space.update({space: { pages_order: JSON.stringify(hierarchy) }});
       }
     });
 
