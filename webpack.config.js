@@ -21,6 +21,7 @@ module.exports = {
   entry: {
     application: [
         "../../vendor/assets/stylesheets/quill.snow.css",
+        "../../node_modules/raven-js/dist/raven.js",
         "./javascripts/application.js",
         "./stylesheets/application.css",
     ]
@@ -85,6 +86,11 @@ module.exports = {
     new CopyWebpackPlugin([
         { from: "images/static", to: "images/static" }
     ]),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'SENTRY': '"secret07"'
+      }
+    }),
 
     function() {
       // delete previous outputs
