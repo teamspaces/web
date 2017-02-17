@@ -1,7 +1,7 @@
 class PageHierarchiesController < SubdomainBaseController
   before_action :set_space
 
-  # DELETE /team/logo
+  # PATCH /spaces/:space_id/page_hierarchy
   def update
     authorize @space, :update?
 
