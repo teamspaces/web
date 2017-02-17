@@ -50,40 +50,17 @@ class SpacesController < SubdomainBaseController
   # PATCH/PUT /spaces/1
   # PATCH/PUT /spaces/1.json
   def update
-    if params["space"]["pages_order"]
+    @space_form = Space::Form.new(space: @space, attributes: space_params)
 
-      def save_children(parent:,children:)
-        children_sort = 0
+    authorize @space, :update?
 
-        children.each do |child_attributes|
-          child_page = Page.find(child_attributes["id"])
-          child_page.update(parent_id: parent&.id, sort_order: children_sort)
-
-          children_sort += 1
-
-          if child_attributes["children"]
-            save_children(parent: child_page, children: child_attributes["children"])
-          end
-        end
-      end
-
-      save_children(parent: nil, children: JSON.parse(params["space"]["pages_order"]))
-
-
-      render json: @space.pages.hash_tree, status: :ok
-    else
-      @space_form = Space::Form.new(space: @space, attributes: space_params)
-
-      authorize @space, :update?
-
-      respond_to do |format|
-        if @space_form.save
-          format.html { redirect_to @space_form.space, notice: 'Space was successfully updated.' }
-          format.json { render :show, status: :ok, location: @space_form.space }
-        else
-          format.html { render :edit }
-          format.json { render json: @space_form.errors, status: :unprocessable_entity }
-        end
+    respond_to do |format|
+      if @space_form.save
+        format.html { redirect_to @space_form.space, notice: 'Space was successfully updated.' }
+        format.json { render :show, status: :ok, location: @space_form.space }
+      else
+        format.html { render :edit }
+        format.json { render json: @space_form.errors, status: :unprocessable_entity }
       end
     end
   end

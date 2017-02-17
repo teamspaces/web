@@ -47,7 +47,7 @@
       relocate: function(){
         var hierarchy = $(this).sortable('toHierarchy');
 
-        Space.update({space: { pages_order: JSON.stringify(hierarchy) }});
+        Space.update({ page_hierarchy: JSON.stringify(hierarchy) });
       }
     });
 
