@@ -6,7 +6,5 @@ require('jquery-ui-bundle');
 
 window.Spaces = {
   Editor: require('./editor'),
-  Page: require('./page'),
-  Space: require('./space'),
-  PageTitle: require('./page/title')
+  Space: require('./space')
 };

@@ -41,10 +41,6 @@
 
     Spaces.Editor.init("#page-editor", <%= editor_settings %>);
 
-    const Page = new Spaces.Page(<%= page_settings %>);
-                 new Spaces.PageTitle($("#title_input"), Page).init();
-        console.log("SDF");
-
     window.Space = new Spaces.Space(<%= space_settings %>);
     //https://github.com/ilikenwf/nestedSortable
     $('.sortable').nestedSortable({
@@ -61,7 +57,9 @@
 
               console.log(JSON.stringify(actavis));
 
-              Space.update({space: { pages_order: JSON.stringify(actavis) }, function(){location.reload()} });
+              Space.update({space: { pages_order: JSON.stringify(actavis) }
+                //, function(){location.reload()} }
+              });
 
            //   console.log($(obj.item[0]));
            //   console.log($(obj.placeholder[0]));

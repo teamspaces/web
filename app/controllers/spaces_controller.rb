@@ -67,11 +67,10 @@ class SpacesController < SubdomainBaseController
         end
       end
 
-
       save_children(parent: nil, children: JSON.parse(params["space"]["pages_order"]))
 
 
-      render :head
+      render json: @space.pages.hash_tree, status: :ok
     else
       @space_form = Space::Form.new(space: @space, attributes: space_params)
 
@@ -109,6 +108,6 @@ class SpacesController < SubdomainBaseController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def space_params
-      params.require(:space).permit(:name, :cover, :pages_order).to_h
+      params.require(:space).permit(:name, :cover).to_h
     end
 end
