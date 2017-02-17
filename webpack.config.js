@@ -88,7 +88,8 @@ module.exports = {
     ]),
     new webpack.DefinePlugin({
       'process.env': {
-        'SENTRY': '"secret07"'
+        'PRODUCTION': production,
+        'SENTRY': '"' +  process.env.SENTRY + '"'
       }
     }),
 

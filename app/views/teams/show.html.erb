@@ -17,10 +17,6 @@
         <%= render "/landing/available_teams", teams: other_available_teams %>
       <% end %>
 
-      <script type="text/javascript">
-        throw new Error('Good Morning');
-      </script>
-
       <div class="card-actions">
         <%= link_to "Edit", edit_team_path %> |
         <%= link_to "Destroy", team_path, method: :delete, data: { confirm: 'Are you sure?' } %>
