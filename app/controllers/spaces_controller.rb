@@ -52,37 +52,24 @@ class SpacesController < SubdomainBaseController
   def update
     if params["space"]["pages_order"]
 
-      def add_as_child(parent:,children:)
+      def save_children(parent:,children:)
         children_sort = 0
 
         children.each do |child_attributes|
           child_page = Page.find(child_attributes["id"])
-          #child_page.update(parent_id: parent.id, sort_order: children_sort)
-          debugger
-          parent.append_child(child_page)
-          #parent.save
+          child_page.update(parent_id: parent&.id, sort_order: children_sort)
 
           children_sort += 1
 
           if child_attributes["children"]
-            add_as_child(parent: child_page, children: child_attributes["children"])
+            save_children(parent: child_page, children: child_attributes["children"])
           end
         end
       end
 
-      parent_sort = 0
-      JSON.parse(params["space"]["pages_order"]).each do |page_attributes|
-        page = Page.find(page_attributes["id"])
-        #page.update(parent_id: nil, sort_order: parent_sort)
 
-        page.update(parent_id: nil)
+      save_children(parent: nil, children: JSON.parse(params["space"]["pages_order"]))
 
-        parent_sort += 1
-
-        if page_attributes["children"]
-          add_as_child(parent: page, children: page_attributes["children"])
-        end
-      end
 
       render :head
     else
