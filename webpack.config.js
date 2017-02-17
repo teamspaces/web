@@ -20,6 +20,8 @@ module.exports = {
   context: __dirname + "/app/assets",
   entry: {
     application: [
+        "../../node_modules/highlight.js/styles/atom-one-light.css",
+        "../../node_modules/highlight.js/lib/highlight.js",
         "../../vendor/assets/stylesheets/quill.snow.css",
         "./javascripts/application.js",
         "./stylesheets/application.css",
