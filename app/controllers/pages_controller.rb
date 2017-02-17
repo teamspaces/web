@@ -30,6 +30,14 @@ class PagesController < SubdomainBaseController
                              .html_safe
   end
 
+  helper_method :space_settings
+  def space_settings
+    SpaceSettingsHashPresenter.new(controller: self, space: @space)
+                             .to_hash
+                             .to_json
+                             .html_safe
+  end
+
   # GET /pages
   # GET /pages.json
   def index

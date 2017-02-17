@@ -45,7 +45,9 @@
                  new Spaces.PageTitle($("#title_input"), Page).init();
         console.log("SDF");
 
-    window.bb = $('.sortable').nestedSortable({
+    window.Space = new Spaces.Space(<%= space_settings %>);
+    //https://github.com/ilikenwf/nestedSortable
+    $('.sortable').nestedSortable({
             handle: 'a',
             items: 'li',
             listType: 'ul',
@@ -58,6 +60,8 @@
              var actavis = $(this).sortable('toHierarchy');
 
               console.log(JSON.stringify(actavis));
+
+              Space.update({space: { pages_order: JSON.stringify(actavis) } });
 
            //   console.log($(obj.item[0]));
            //   console.log($(obj.placeholder[0]));
