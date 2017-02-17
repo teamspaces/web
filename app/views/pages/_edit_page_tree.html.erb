@@ -1,7 +1,7 @@
 <% page_tree.map do |page, page_tree| %>
-    <li>
+    <li id=<%= "page_" + page.id.to_s %> >
 
-        <%= link_to(page.decorate.title_with_fallback, edit_page_path(page)) %>
+        <%= link_to(page.decorate.title_with_fallback, edit_page_path(page), id: page.id) %>
 
         <div class="space-sidebar-edit-actions">
             <span class="space-sidebar-move"></span>
@@ -10,7 +10,7 @@
         </div>
 
         <% if page_tree.size.positive? %>
-            <ul>
+            <ul id="page_3">
                 <%= render "edit_page_tree", page_tree: page_tree %>
             </ul>
         <% end %>

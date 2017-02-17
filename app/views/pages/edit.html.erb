@@ -43,13 +43,28 @@
 
     const Page = new Spaces.Page(<%= page_settings %>);
                  new Spaces.PageTitle($("#title_input"), Page).init();
+        console.log("SDF");
 
-      $('.sortable').nestedSortable({
+    window.bb = $('.sortable').nestedSortable({
             handle: 'a',
             items: 'li',
             listType: 'ul',
-            toleranceElement: '> a'
+            toleranceElement: '> a',
+            isTree: true,
+            relocate: function(a, obj){
+              console.log("SDFDSF");
+
+             // console.log(obj);
+             var actavis = $(this).sortable('toHierarchy');
+
+              console.log(JSON.stringify(actavis));
+
+           //   console.log($(obj.item[0]));
+           //   console.log($(obj.placeholder[0]));
+            }
         });
+
+
 
   });
 </script>

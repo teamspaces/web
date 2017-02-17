@@ -2,7 +2,6 @@
     <li>
         <%= link_to(page.decorate.title_with_fallback, page, class: "draggable", data: { id: page.id }) %>
 
-
         <% if page_tree.size.positive? %>
             <ul>
                 <%= render "page_tree", page_tree: page_tree %>

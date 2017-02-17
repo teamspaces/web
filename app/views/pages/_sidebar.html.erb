@@ -25,12 +25,29 @@
 <script>
   $(function(){
 
+        console.log("SDF");
 
         $('.sortable').nestedSortable({
             handle: 'a',
             items: 'li',
             listType: 'ul',
-            toleranceElement: '> a'
+            toleranceElement: '> a',
+            change: function(a, ev){
+              console.log("SDFDSF");
+              console.log(a);
+              console.log(ev);
+              console.log(ab);
+            }
+        }).on('change', function(nn, bb){
+          console.log("SDFDF")
+          console.log(nn);
+          console.log(bb);
+        });
+
+        $('.sortable').on('change', function(nn, bb){
+          console.log("SDFDF")
+          console.log(nn);
+          console.log(bb);
         });
   });
 </script>
