@@ -10,7 +10,7 @@
   <%= render "avatar_users", avatar_users: @sample_users_query.sample_users,
                              number_of_hidden_avatars: @sample_users_query.users_not_in_sample_count  %>
 
-  <ul class="space-sidebar-pages" id="page-tree-content">
+  <ul class="space-sidebar-pages sortable" id="page-tree-content">
     <%= render "edit_page_tree", page_tree: @page.space.pages.hash_tree %>
   </ul>
 </aside>
@@ -43,6 +43,13 @@
 
     const Page = new Spaces.Page(<%= page_settings %>);
                  new Spaces.PageTitle($("#title_input"), Page).init();
+
+      $('.sortable').nestedSortable({
+            handle: 'a',
+            items: 'li',
+            listType: 'ul',
+            toleranceElement: '> a'
+        });
 
   });
 </script>
