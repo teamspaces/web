@@ -3,9 +3,14 @@ window._ = require('lodash');
 
 require('jquery-ujs');
 
-Raven.config().install();
+var $script = require("scriptjs");
+$script("//cdn.ravenjs.com/3.10.0/raven.min.js", function() {
+  Raven.config('').install();
+
 
 window.Spaces = {
   Editor: require('./editor')
 };
+
+});
 
