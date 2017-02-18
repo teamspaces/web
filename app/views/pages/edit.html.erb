@@ -34,12 +34,12 @@
   $(function(){
     Spaces.Editor.init("#page-editor", <%= editor_settings %>);
 
-    window.Space = new Spaces.Space(<%= space_settings %>);
+    const PageHierarchy = new Spaces.PageHierarchy(<%= page_hierarchy_settings %>);
 
     new Spaces.PageTree({
       container: $('.space-sidebar-pages'),
       onChange: function(hierarchy){
-        Space.update({ page_hierarchy: JSON.stringify(hierarchy) });
+        PageHierarchy.update({ page_hierarchy: JSON.stringify(hierarchy) });
       }
     });
   });

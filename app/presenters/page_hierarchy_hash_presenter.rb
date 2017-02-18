@@ -1,4 +1,4 @@
-class SpaceSettingsHashPresenter
+class PageHierarchyHashPresenter
 
   attr_reader :controller, :space
 
@@ -8,7 +8,7 @@ class SpaceSettingsHashPresenter
   end
 
   def to_hash
-    { space_url: controller.space_page_hierarchy_url(space),
+    { page_hierarchy_url: controller.space_page_hierarchy_url(space),
       csrf_token: controller.view_context.form_authenticity_token }
   end
 end

@@ -1,9 +1,9 @@
 'use strict';
 
-const Space = class Space {
+const PageHierarchy = class PageHierarchy {
 
   constructor(settings) {
-    this.space_url = settings['space_url'];
+    this.space_url = settings['page_hierarchy_url'];
     this.csrf_token = settings['csrf_token'];
   };
 
@@ -16,16 +16,16 @@ const Space = class Space {
         data: attributes,
         success: function(data, textStatus, jqXHR){
           if(success){ success() }else{
-            console.log("Successfully updated page");
+            console.log("Successfully updated page hierarchy");
           }
         },
         error: function(jqXHR, textStatus, errorThrown){
           if(error){ error() }else{
-            console.log("Could not update page");
+            console.log("Could not update page hierarchy");
           }
         }
     });
   };
 };
 
-module.exports = Space;
+module.exports = PageHierarchy;
