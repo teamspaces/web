@@ -12,11 +12,11 @@ class PageHierarchiesController < SubdomainBaseController
 
   private
 
-    def page_hierarchy_params
-      JSON.parse(params["page_hierarchy"])
-    end
-
     def set_space
       @space = Space.find(params[:space_id])
+    end
+
+    def page_hierarchy_params
+      JSON.parse(params["page_hierarchy"])
     end
 end
