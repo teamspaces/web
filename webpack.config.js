@@ -22,6 +22,7 @@ module.exports = {
     application: [
         "../../vendor/assets/stylesheets/quill.snow.css",
         "./javascripts/application.js",
+        "../../vendor/assets/javascripts/jquery.mjs.nestedSortable.js",
         "./stylesheets/application.css",
     ]
   },
