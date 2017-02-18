@@ -22,6 +22,9 @@ module.exports = {
     application: [
         "../../node_modules/highlight.js/styles/atom-one-light.css",
         "../../vendor/assets/stylesheets/quill.snow.css",
+        "../../node_modules/raven-js/dist/raven.js",
+        "./javascripts/vendor.js",
+        "./javascripts/raven.js",
         "./javascripts/application.js",
         "./stylesheets/application.css",
     ]
@@ -86,6 +89,11 @@ module.exports = {
     new CopyWebpackPlugin([
         { from: "images/static", to: "images/static" }
     ]),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'SENTRY_PUBLIC_DSN': '"' +  process.env.SENTRY_PUBLIC_DSN + '"'
+      }
+    }),
 
     function() {
       // delete previous outputs
