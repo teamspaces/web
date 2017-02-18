@@ -12,8 +12,8 @@ class TeamMemberPolicy
 
   def destroy?
     my_team? &&
-    !my_team_member? &&
-    !team_member.primary_owner?
+      !my_team_member? &&
+      !team_owner?
   end
 
   private
@@ -24,5 +24,9 @@ class TeamMemberPolicy
 
     def my_team?
       team == team_member.team
+    end
+  
+    def team_owner?
+      team_member.primary_owner?
     end
 end
