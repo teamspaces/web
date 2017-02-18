@@ -22,6 +22,8 @@ module.exports = {
     application: [
         "../../vendor/assets/stylesheets/quill.snow.css",
         "../../node_modules/raven-js/dist/raven.js",
+        "./javascripts/vendor.js",
+        "./javascripts/raven.js",
         "./javascripts/application.js",
         "./stylesheets/application.css",
     ]
@@ -88,7 +90,6 @@ module.exports = {
     ]),
     new webpack.DefinePlugin({
       'process.env': {
-        'PRODUCTION': production,
         'SENTRY_DSN': '"' +  process.env.SENTRY_DSN + '"'
       }
     }),
