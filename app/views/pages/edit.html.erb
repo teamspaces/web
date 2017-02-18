@@ -37,13 +37,11 @@
 
     window.Space = new Spaces.Space(<%= space_settings %>);
 
-    window.PageTree = new Spaces.PageTree(
-      { container: $('.space-sidebar-pages'),
-        onChange: function(hierarchy){
-          Space.update({ page_hierarchy: JSON.stringify(hierarchy) });
-        }
-      });
-
-
+    new Spaces.PageTree({
+      container: $('.space-sidebar-pages'),
+      onChange: function(hierarchy){
+        Space.update({ page_hierarchy: JSON.stringify(hierarchy) });
+      }
+    });
   });
 </script>
