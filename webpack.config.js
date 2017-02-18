@@ -91,7 +91,7 @@ module.exports = {
     ]),
     new webpack.DefinePlugin({
       'process.env': {
-        'SENTRY_WEB_CLIENT_DSN': '"' +  process.env.SENTRY_WEB_CLIENT_DSN + '"'
+        'SENTRY_PUBLIC_DSN': '"' +  process.env.SENTRY_PUBLIC_DSN + '"'
       }
     }),
 

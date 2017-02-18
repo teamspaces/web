@@ -46,4 +46,4 @@ var ravenOptions = {
 
 
 window.Raven = require('../../../node_modules/raven-js/dist/raven.js');
-Raven.config(process.env.SENTRY_WEB_CLIENT_DSN, ravenOptions).install();
+Raven.config(process.env.SENTRY_PUBLIC_DSN, ravenOptions).install();
