@@ -1,3 +1,5 @@
+window.Raven = require('../../../node_modules/raven-js/dist/raven.js');
+
 var ravenOptions = {
   // Will cause a deprecation warning, but the demise of `ignoreErrors` is still under discussion.
   // See: https://github.com/getsentry/raven-js/issues/73
@@ -44,6 +46,4 @@ var ravenOptions = {
   ]
 };
 
-
-window.Raven = require('../../../node_modules/raven-js/dist/raven.js');
-Raven.config(process.env.SENTRY_PUBLIC_DSN, ravenOptions).install();
+Raven.config(SENTRY_PUBLIC_DSN, ravenOptions).install();
