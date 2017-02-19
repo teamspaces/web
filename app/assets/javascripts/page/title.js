@@ -11,7 +11,11 @@ const PageTitle = class PageTitle {
 
   init(){
     this.onChange(() => {
-      this.page.update({title: this.title()});
+      const promise = this.page.update({title: this.title()})
+
+      promise
+        .then(value => console.log("Successfully updated page title"))
+        .reject(reason => console.log("Failed to update page title"));
     });
   };
 

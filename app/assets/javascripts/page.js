@@ -7,24 +7,16 @@ const Page = class Page {
     this.csrf_token = csrf_token;
   };
 
-  update(attributes, success, error){
-    $.ajax({
-        url: this.page_url,
-        headers: { "X-CSRF-Token": this.csrf_token },
-        method: "PATCH",
-        dataType: "json",
-        data: { page: attributes },
-        success: function(data, textStatus, jqXHR){
-          if(success){ success() }else{
-            console.log("Successfully updated page");
-          }
-        },
-        error: function(jqXHR, textStatus, errorThrown){
-          if(error){ error() }else{
-            console.log("Could not update page");
-          }
-        }
-    });
+  update(attributes){
+    return fetch(this.page_url, {
+      method: 'PATCH',
+      body: JSON.stringify({ page: attributes }),
+      headers: new Headers({
+        "X-CSRF-Token": this.csrf_token,
+        'Content-Type': 'application/json' }),
+      credentials: 'include',
+      redirect: 'manual'
+    })
   };
 };
 
