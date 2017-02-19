@@ -12,10 +12,10 @@ const Page = class Page {
       method: 'PATCH',
       body: JSON.stringify({ page: attributes }),
       headers: new Headers({
-        "X-CSRF-Token": this.csrf_token,
-        'Content-Type': 'application/json' }),
-      credentials: 'include',
-      redirect: 'manual'
+        'X-CSRF-Token': this.csrf_token,
+        'Content-Type': 'application/json',
+        'Accept':  'application/json' }),
+      credentials: 'same-origin'
     })
   };
 };
