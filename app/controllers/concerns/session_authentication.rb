@@ -7,8 +7,8 @@ module SessionAuthentication
   end
 
   def sign_out(_resource_or_scope = nil)
-    Authie::Session.sign_out(user: current_user,
-                             browser_id: cookies[:browser_id])
+    DestroyUserSessionsQuery.new(current_user)
+                            .for_browser!(cookies[:browser_id])
   end
 
   def sign_out_from_subdomain

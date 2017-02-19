@@ -12,12 +12,9 @@
     <link rel="stylesheet" type="text/css" href="https://cloud.typography.com/7058934/7767372/css/fonts.css" />
     <%= stylesheet_link_tag fingerprinted_asset("application"), media: 'all' %>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/atom-one-light.min.css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
-
     <%= javascript_include_tag fingerprinted_asset("application") %>
     <%= render "layouts/google_analytics" %>
+    <%= render "layouts/drift" %>
   </head>
 
   <body class="<%= content_for :body_class %>">
