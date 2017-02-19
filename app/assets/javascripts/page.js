@@ -2,9 +2,9 @@
 
 const Page = class Page {
 
-  constructor(settings) {
-    this.page_url = settings['page_url'];
-    this.csrf_token = settings['csrf_token'];
+  constructor({ page_url, csrf_token }) {
+    this.page_url = page_url;
+    this.csrf_token = csrf_token;
   };
 
   update(attributes, success, error){
