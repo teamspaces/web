@@ -14,8 +14,8 @@ const PageTitle = class PageTitle {
       const promise = this.page.update({title: this.title()})
 
       promise
-        .then(value => console.log("Successfully updated page title"))
-        .reject(reason => console.log("Failed to update page title"));
+        .then(response => console.log("Successfully updated page title"))
+        .catch(error => console.log("Failed to update page title"));
     });
   };
 
