@@ -81,13 +81,13 @@ module.exports = {
 
   plugins: [
     new ExtractTextPlugin(css_output_template),
+
     new CopyWebpackPlugin([
         { from: "images/static", to: "images/static" }
     ]),
+
     new webpack.DefinePlugin({
-      'process.env': {
-        'SENTRY_PUBLIC_DSN': '"' +  process.env.SENTRY_PUBLIC_DSN + '"'
-      }
+      SENTRY_PUBLIC_DSN: JSON.stringify(process.env.SENTRY_PUBLIC_DSN)
     }),
 
     function() {
