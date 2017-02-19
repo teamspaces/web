@@ -20,7 +20,6 @@ module.exports = {
   context: __dirname + "/app/assets",
   entry: {
     application: [
-        "../../vendor/assets/stylesheets/quill.snow.css",
         "./javascripts/application.js",
         "../../vendor/assets/javascripts/jquery.mjs.nestedSortable.js",
         "./stylesheets/application.css",
@@ -86,6 +85,11 @@ module.exports = {
     new CopyWebpackPlugin([
         { from: "images/static", to: "images/static" }
     ]),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'SENTRY_PUBLIC_DSN': '"' +  process.env.SENTRY_PUBLIC_DSN + '"'
+      }
+    }),
 
     function() {
       // delete previous outputs

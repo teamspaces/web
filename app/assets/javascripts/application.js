@@ -1,7 +1,8 @@
-window.$ = window.jQuery = require('jquery');
-window._ = require('lodash');
+import "../../../node_modules/raven-js/dist/raven.js"
+import "./vendor.js"
+import "./raven.js"
 
-require('jquery-ujs');
+// TODO: Move this to vendor.js?
 require('jquery-ui-bundle');
 
 window.Spaces = {

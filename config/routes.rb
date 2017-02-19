@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
     resource :team, only: [:show, :edit, :update, :destroy]
     namespace :team do
+      resources :members, only: [:destroy]
       resource :logo, only: [:destroy]
     end
 
