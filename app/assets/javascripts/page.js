@@ -1,4 +1,4 @@
-const Page = class Page {
+class Page {
 
   constructor({ page_url, csrf_token }) {
     this.page_url = page_url;
@@ -18,4 +18,4 @@ const Page = class Page {
   };
 };
 
-module.exports = Page;
+export default Page

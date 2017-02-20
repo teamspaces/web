@@ -28,4 +28,4 @@ const PageTitle = class PageTitle {
   };
 };
 
-module.exports = PageTitle;
+export default PageTitle;

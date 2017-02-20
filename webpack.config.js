@@ -37,7 +37,8 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
-          presets: ['es2017']
+          plugins: ['transform-runtime'],
+          presets: ['es2015']
         }
       },
       {
