@@ -14,8 +14,9 @@
     var contentsChanged = false;
     var calledSaveAt = 0.0;
 
-    Editor.prototype.init = function(attachTo, options) {
+    Editor.prototype.init = function(attachTo, pageSavingStatus, options) {
         this.attachTo = attachTo;
+        this.pageSavingStatus = pageSavingStatus;
         this.options = options;
 
         this.registerOT();
@@ -209,6 +210,7 @@
     Editor.prototype.onSaveRequestSuccess = function() {
         base.contentsChanged = false;
         base.debug("Saved changes.");
+        base.pageSavingStatus.update('saved');
     }
 
     Editor.prototype.onSaveRequestComplete = function() {

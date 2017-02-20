@@ -24,15 +24,15 @@
 <div class="edit-toolbar">
   <%= link_to 'New page', space_pages_path(@page.space, params: { page: { _: true } }), method: :post, class: 'edit-toolbar-new-page' %>
 
-  <!-- TODO: Toggle between Saving... and Saved -->
-  <!-- <div class="edit-toolbar-status">
-    Saved
-  </div> -->
+  <div class="edit-toolbar-status">
+  </div>
 </div>
 
 <script>
   $(function(){
-    Spaces.Editor.init("#page-editor", <%= editor_settings %>);
+    const pageSavingStatus = new Spaces.PageSavingStatus($(".edit-toolbar-status"));
+
+    Spaces.Editor.init("#page-editor", pageSavingStatus, <%= editor_settings %>);
 
     const page = new Spaces.Page(<%= page_settings %>);
     const pageTitle = new Spaces.PageTitle($("#title_input"), page).init();
