@@ -10,7 +10,7 @@ describe Space::Members::RemoveAll, :model do
       result = subject.call(space: space)
 
       assert result.success?
-      assert_equal 0, space.space_members.count
+      assert_equal 0, space.reload.space_members.count
     end
   end
 end

@@ -11,7 +11,7 @@ describe Space::AccessControlController do
       patch space_access_control_url(space, subdomain: team.subdomain,
                                             params: { space: { access_control: Space::AccessControl::TEAM }})
 
-      assert_response :success
+      assert_redirected_to space_members_path(space)
       assert space.reload.access_control.team?
     end
   end
