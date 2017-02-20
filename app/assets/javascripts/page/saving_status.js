@@ -4,16 +4,18 @@ class PageSavingStatus {
     this.text_field = text_field;
   };
 
-  update(state){
-    this.text_field.show();
+  updateSavedSuccessfully(){
+    this.update('Saved');
+  };
 
-    if(state == 'saving'){
-      this.text_field.text('Saving');
-    }else if(state == 'saved'){
-      this.text_field.text('Saved');
-    };
+  updateFailedToSave(){
+    this.update('Failed to Save');
+  };
 
-    this.text_field.delay(1200).fadeOut(500);
+  update(msg){
+    this.text_field.show()
+                   .text(msg)
+                   .delay(1200).fadeOut(500);
   };
 };
 

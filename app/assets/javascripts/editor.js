@@ -204,13 +204,12 @@
             base.disableEditor();
         }
 
-        base.debug("Unable to save changes, will retry on next cycle");
+        base.pageSavingStatus.updateFailedToSave();
     }
 
     Editor.prototype.onSaveRequestSuccess = function() {
         base.contentsChanged = false;
-        base.debug("Saved changes.");
-        base.pageSavingStatus.update('saved');
+        base.pageSavingStatus.updateSavedSuccessfully();
     }
 
     Editor.prototype.onSaveRequestComplete = function() {
