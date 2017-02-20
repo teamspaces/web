@@ -4,7 +4,7 @@ class Space::Members::RemoveAll
   def call
     @space = context.space
 
-    context.fail! unless remove_all_space_members
+    remove_all_space_members
   end
 
   private
