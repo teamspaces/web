@@ -4,6 +4,15 @@ Rails.application.routes.draw do
 
     resources :spaces do
       resources :pages, only: [:index, :new, :create]
+
+      resource :access_control, only: [:update], controller: "space/access_control"
+      resources :members, only: [:index, :create, :destroy], param: :user_id, controller: "space/members"
+      resources :invitations, only: [:destroy], controller: "space/invitations"
+
+      namespace :invitations do
+        resource :email, only: [:new, :create], controller: "/space/invitations/email"
+        resource :slack, only: [:new, :create], controller: "/space/invitations/slack"
+      end
     end
 
     resource :team, only: [:show, :edit, :update, :destroy]

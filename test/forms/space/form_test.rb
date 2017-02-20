@@ -1,13 +1,16 @@
 require "test_helper"
 
 describe Space::Form, :model do
+  let(:user) { users(:lars) }
   let(:space) { spaces(:spaces) }
 
-  subject { Space::Form.new(space: space) }
+  subject { Space::Form.new(space: space, user: user) }
 
   describe "validations" do
     should validate_presence_of(:name)
     should validate_presence_of(:team_id)
+    should validate_inclusion_of(:access_control).in_array([Space::AccessControl::TEAM,
+                                                            Space::AccessControl::PRIVATE])
 
     it "validates attached cover" do
       Shrine::Attacher.any_instance
@@ -33,9 +36,16 @@ describe Space::Form, :model do
 
   describe "#save" do
     it "saves space" do
-      assert Space::Form.new(space: space, attributes: { name: "new_name" }).save
+      assert Space::Form.new(space: space, user: user, attributes: { name: "new_name" }).save
 
       assert_equal "new_name", space.name
+    end
+
+    it "applies access control" do
+      Space::AccessControl::Apply.expects(:call)
+                                 .with(user: user, space: space)
+
+      subject.save
     end
   end
 end
