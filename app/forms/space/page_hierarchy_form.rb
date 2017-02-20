@@ -7,7 +7,7 @@ class Space::PageHierarchyForm
 
   validate :completeness_of_page_hierarchy
 
-  def initialize(space:,page_hierarchy:)
+  def initialize(space:, page_hierarchy:)
     @space = space
     @page_hierarchy = page_hierarchy
   end
@@ -27,7 +27,7 @@ class Space::PageHierarchyForm
       find_hierarchy_ids page_hierarchy, hierarchy_page_ids
 
       if hierarchy_page_ids.sort != space.pages.order(:id).pluck(:id)
-        errors.add(:page_hierarchy, "incomplete")
+        errors.add(:page_hierarchy, :invalid)
       end
     end
 

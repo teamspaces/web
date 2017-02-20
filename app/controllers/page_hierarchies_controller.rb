@@ -22,6 +22,6 @@ class PageHierarchiesController < SubdomainBaseController
     end
 
     def page_hierarchy_params
-      params["page_hierarchy"]
+      params[:page_hierarchy]
     end
 end
