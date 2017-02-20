@@ -2,9 +2,9 @@ require "test_helper"
 
 describe Space::PageHierarchyForm, :model do
   let(:space) { spaces(:spaces) }
-  let(:main_page) {pages(:spaces)}
-  let(:onboarding_page) {pages(:onboarding)}
-  let(:marketing_page) {pages(:marketing)}
+  let(:main_page) { pages(:spaces) }
+  let(:onboarding_page) { pages(:onboarding) }
+  let(:marketing_page) { pages(:marketing) }
   subject { Space::PageHierarchyForm }
 
   let(:valid_page_hierarchy) do
