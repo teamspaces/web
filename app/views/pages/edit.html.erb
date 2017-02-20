@@ -34,12 +34,12 @@
   $(function(){
     Spaces.Editor.init("#page-editor", <%= editor_settings %>);
 
-    const PageHierarchy = new Spaces.PageHierarchy(<%= page_hierarchy_settings %>);
+    const page_hierarchy = new Spaces.PageHierarchy(<%= page_hierarchy_settings %>);
 
     new Spaces.PageTree({
       container: $('.space-sidebar-pages'),
       onChange: function(hierarchy){
-        const promise = PageHierarchy.update({ page_hierarchy: hierarchy });
+        const promise = page_hierarchy.update({ page_hierarchy: hierarchy });
 
         promise
           .then(response => console.log('Successfully updated page hierarchy'))
