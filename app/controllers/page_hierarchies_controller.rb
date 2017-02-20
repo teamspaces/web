@@ -17,6 +17,6 @@ class PageHierarchiesController < SubdomainBaseController
     end
 
     def page_hierarchy_params
-      JSON.parse(params["page_hierarchy"])
+      params["page_hierarchy"]
     end
 end

@@ -39,7 +39,7 @@
     new Spaces.PageTree({
       container: $('.space-sidebar-pages'),
       onChange: function(hierarchy){
-        const promise = PageHierarchy.update({ page_hierarchy: JSON.stringify(hierarchy) });
+        const promise = PageHierarchy.update({ page_hierarchy: hierarchy });
 
         promise
           .then(response => console.log('Successfully updated page hierarchy'))
