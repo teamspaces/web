@@ -1,4 +1,4 @@
-const PageTree = class PageTree {
+class PageTree {
 
   constructor({container, onChange}) {
     this.container = container;
@@ -25,4 +25,4 @@ const PageTree = class PageTree {
   };
 };
 
-module.exports = PageTree;
+export default PageTree;

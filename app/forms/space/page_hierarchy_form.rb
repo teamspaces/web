@@ -23,10 +23,10 @@ class Space::PageHierarchyForm
     end
 
     def completeness_of_page_hierarchy
-      page_hierarchy_ids = []
-      find_hierarchy_ids page_hierarchy, page_hierarchy_ids
+      hierarchy_page_ids = []
+      find_hierarchy_ids page_hierarchy, hierarchy_page_ids
 
-      if page_hierarchy_ids.sort != space.pages.order(:id).pluck(:id)
+      if hierarchy_page_ids.sort != space.pages.order(:id).pluck(:id)
         errors.add(:page_hierarchy, "incomplete")
       end
     end

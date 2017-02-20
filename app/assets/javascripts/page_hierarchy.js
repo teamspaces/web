@@ -1,4 +1,4 @@
-const PageHierarchy = class PageHierarchy {
+class PageHierarchy {
 
   constructor({page_hierarchy_url, csrf_token}) {
     this.page_hierarchy_url = page_hierarchy_url;
@@ -18,4 +18,4 @@ const PageHierarchy = class PageHierarchy {
   };
 };
 
-module.exports = PageHierarchy;
+export default PageHierarchy;

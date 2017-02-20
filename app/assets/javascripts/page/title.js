@@ -1,4 +1,4 @@
-const PageTitle = class PageTitle {
+class PageTitle {
 
   constructor(input, page) {
     this.input = input;
