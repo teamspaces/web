@@ -33,5 +33,8 @@
 <script>
   $(function(){
     Spaces.Editor.init("#page-editor", <%= editor_settings %>);
+
+    const page = new Spaces.Page(<%= page_settings %>);
+    const pageTitle = new Spaces.PageTitle($("#title_input"), page).init();
   });
 </script>
