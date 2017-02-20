@@ -2,9 +2,9 @@ class UpdatePageHierarchy
   include Interactor
 
   def call
-    hierarchy = context.hierarchy
+    page_hierarchy = context.page_hierarchy
 
-    save_descendants(children: hierarchy)
+    save_descendants(children: page_hierarchy)
   end
 
   private

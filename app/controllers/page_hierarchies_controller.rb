@@ -5,9 +5,14 @@ class PageHierarchiesController < SubdomainBaseController
   def update
     authorize @space, :update?
 
-    UpdatePageHierarchy.call(hierarchy: page_hierarchy_params)
+    hierarchy_form = Space::PageHierarchyForm.new(space: @space,
+                                                  page_hierarchy: page_hierarchy_params)
 
-    render json: @space.pages.hash_tree, status: :ok
+    if hierarchy_form.save
+      render json: @space.pages.hash_tree, status: :ok
+    else
+      render json: hierarchy_form.errors, status: :unprocessable_entity
+    end
   end
 
   private
