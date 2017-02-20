@@ -7,10 +7,9 @@ describe Space::Members::RemoveAll, :model do
 
   describe "#call" do
     it "removes all space members" do
-      result = subject.call(space: space)
-
-      assert result.success?
-      assert_equal 0, space.reload.space_members.count
+      assert_difference -> { space.space_members.count } do
+        assert subject.call(space: space).success?
+      end
     end
   end
 end
