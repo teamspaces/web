@@ -181,7 +181,7 @@
 					continue;
 				}
 
-				// No action if intersected item is disabled 
+				// No action if intersected item is disabled
 				// and the element above or below in the direction we're going is also disabled
 				if (itemElement.className.indexOf(o.disabledClass) !== -1) {
 					// Note: intersection hardcoded direction values from jquery.ui.sortable.js:_intersectsWithPointer
@@ -191,7 +191,7 @@
 						if (itemAfter && itemAfter.item[0].className.indexOf(o.disabledClass) !== -1){
 							continue;
 						}
-						
+
 					}
 					else if (intersection === 1) {
 						// Going up
@@ -398,11 +398,11 @@
 			this.hovering = null;
 
 			$.ui.sortable.prototype._mouseStop.apply(this, arguments);
-			
+
 			var pid = $(this.domPosition.parent).parent().attr("id");
 			var sort = this.domPosition.prev ? $(this.domPosition.prev).next().index() : 0;
-			
-			if(!(pid == this._uiHash().item.parent().parent().attr("id") && 
+
+			if(!(pid == this._uiHash().item.parent().parent().attr("id") &&
 				sort == this._uiHash().item.index())) {
 				this._trigger("relocate", event, this._uiHash());
 			}

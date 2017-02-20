@@ -33,8 +33,8 @@ class Space::PageHierarchyForm
 
     def find_hierarchy_ids hierarchy, ids
       hierarchy.each do |entry|
-        ids << entry["id"].to_i if entry["id"]
-        find_hierarchy_ids(entry["children"], ids) if entry["children"]
+        ids << entry[:id].to_i if entry[:id]
+        find_hierarchy_ids(entry[:children], ids) if entry[:children]
       end
     end
 end
