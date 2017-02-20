@@ -1,9 +1,26 @@
+window._ = require('lodash')
+
+window.$ = window.jQuery = require('jquery')
+require('jquery-ujs')
+require('jquery-ui-bundle')
+
+window.hljs = require('highlight.js')
+hljs.initHighlightingOnLoad()
+
 import "../../../node_modules/raven-js/dist/raven.js"
-import "./vendor.js"
 import "./raven.js"
 
+const Editor = require('./editor')
+
+import Page from './page'
+import PageTitle from './page/title'
+import PageTree from './page_tree'
+import PageHierarchy from './page_hierarchy'
+
 window.Spaces = {
-  Editor: require('./editor'),
-  PageHierarchy: require('./page_hierarchy'),
-  PageTree: require('./page_tree')
+  Editor: Editor,
+  Page: Page,
+  PageTitle: PageTitle,
+  PageTree: PageTree,
+  PageHierarchy: PageHierarchy
 };

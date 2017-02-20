@@ -15,7 +15,6 @@ gem "lograge"
 gem "bcrypt"
 gem "paranoia", "~> 2.2"
 gem "jbuilder"
-gem "uglifier"
 gem "aws-sdk"
 
 gem "inflorm"

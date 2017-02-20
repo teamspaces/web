@@ -1,1 +1,1 @@
-json.extract! @space, :id, :title, :created_at, :updated_at
+json.extract! @page, :id, :title, :created_at, :updated_at

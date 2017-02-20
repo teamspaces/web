@@ -22,12 +22,20 @@ class PagesController < SubdomainBaseController
       .html_safe
   end
 
-  helper_method :page_hierarchy_settings
-  def page_hierarchy_settings
-    PageHierarchyHashPresenter.new(controller: self, space: @space)
+  helper_method :page_settings
+  def page_settings
+    PageSettingsHashPresenter.new(controller: self, page: @page)
                              .to_hash
                              .to_json
                              .html_safe
+  end
+
+  helper_method :page_hierarchy_settings
+  def page_hierarchy_settings
+    PageHierarchyHashPresenter.new(controller: self, space: @space)
+                              .to_hash
+                              .to_json
+                              .html_safe
   end
 
   # GET /pages
