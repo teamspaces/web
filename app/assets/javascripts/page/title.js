@@ -23,7 +23,7 @@ const PageTitle = class PageTitle {
     this.input.keyup(() => {
         clearTimeout(timer);
         // wait for more changes
-        timer = setTimeout(() => { fn(); }, 700);
+        timer = setTimeout(() => { fn(); }, 350);
     });
   };
 };
