@@ -1,5 +1,3 @@
-'use strict';
-
 const PageTitle = class PageTitle {
 
   constructor(input, page) {
@@ -15,7 +13,7 @@ const PageTitle = class PageTitle {
 
       promise
         .then(response => console.log("Successfully updated page title"))
-        .catch(error => console.log("Failed to update page title"));
+        .catch(error => Raven.captureException(error));
     });
   };
 

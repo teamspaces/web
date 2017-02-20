@@ -1,5 +1,3 @@
-'use strict';
-
 const Page = class Page {
 
   constructor({ page_url, csrf_token }) {
