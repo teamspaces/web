@@ -5,3 +5,4 @@ window.hljs = require('highlight.js');
 hljs.initHighlightingOnLoad();
 
 require('jquery-ujs');
+require('jquery-ui-bundle');

@@ -1,10 +1,8 @@
-'use strict';
-
 const PageTree = class PageTree {
 
-  constructor(options) {
-    this.container = options.container;
-    this.onChange = options.onChange;
+  constructor({container, onChange}) {
+    this.container = container;
+    this.onChange = onChange;
 
     this.init();
   };

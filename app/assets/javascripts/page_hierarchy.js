@@ -1,29 +1,19 @@
-'use strict';
-
 const PageHierarchy = class PageHierarchy {
 
-  constructor(settings) {
-    this.space_url = settings['page_hierarchy_url'];
-    this.csrf_token = settings['csrf_token'];
+  constructor({page_hierarchy_url, csrf_token}) {
+    this.page_hierarchy_url = page_hierarchy_url;
+    this.csrf_token = csrf_token;
   };
 
-  update(attributes, success, error){
-    $.ajax({
-        url: this.space_url,
-        headers: { "X-CSRF-Token": this.csrf_token },
-        method: "PATCH",
-        dataType: "json",
-        data: attributes,
-        success: function(data, textStatus, jqXHR){
-          if(success){ success() }else{
-            console.log("Successfully updated page hierarchy");
-          }
-        },
-        error: function(jqXHR, textStatus, errorThrown){
-          if(error){ error() }else{
-            console.log("Could not update page hierarchy");
-          }
-        }
+  update(attributes){
+    return fetch(this.page_hierarchy_url, {
+      method: 'PATCH',
+      body: JSON.stringify(attributes),
+      headers: new Headers({
+        'X-CSRF-Token': this.csrf_token,
+        'Content-Type': 'application/json',
+        'Accept':  'application/json' }),
+      credentials: 'same-origin'
     });
   };
 };
