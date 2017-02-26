@@ -1,9 +1,9 @@
 require 'test_helper'
 
 describe SpacesController do
-  let(:user) { users(:ulf) }
-  let(:team) { user.teams.first }
-  let(:space) { team.spaces.first }
+  let(:user) { users(:lars) }
+  let(:team) { teams(:spaces) }
+  let(:space) { spaces(:spaces) }
   before(:each) { sign_in user }
 
   describe "#index" do
@@ -38,7 +38,7 @@ describe SpacesController do
     context "valid space attributes" do
       it "creates a space" do
         assert_difference -> { Space.count }, 1 do
-          post spaces_url(subdomain: team.subdomain, params: { space: { name: "new_space" } })
+          post spaces_url(subdomain: team.subdomain, params: { space: { name: "new_space", access_control: Space::AccessControl::PRIVATE } })
         end
       end
     end
@@ -50,12 +50,30 @@ describe SpacesController do
         end
       end
     end
+
+    context "private space" do
+      it "redirects to space members path" do
+        post spaces_url(subdomain: team.subdomain, params: { space: { name: "private",
+                                                                      access_control: Space::AccessControl::PRIVATE }})
+
+        assert_redirected_to space_members_path(Space.last)
+      end
+    end
+
+    context "team space" do
+      it "redirects to space pages" do
+        post spaces_url(subdomain: team.subdomain, params: { space: { name: "team",
+                                                                      access_control: Space::AccessControl::TEAM }})
+
+        assert_redirected_to space_pages_path(Space.last)
+      end
+    end
   end
 
   describe "#update" do
     context "valid space attributes" do
       it "updates a space" do
-        patch space_url(space, subdomain: team.subdomain, params: { space: { name: "new_name" } })
+        patch space_url(space, subdomain: team.subdomain, params: { space: { name: "new_name", access_control: Space::AccessControl::TEAM } })
         space.reload
 
         assert_equal "new_name", space.name

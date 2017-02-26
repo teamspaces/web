@@ -32,13 +32,19 @@ class SpacesController < SubdomainBaseController
   # POST /spaces.json
   def create
     @space_form = Space::Form.new(space: current_team.spaces.new,
+                                  user: current_user,
                                   attributes: space_params)
 
     authorize @space_form.space, :create?
 
     respond_to do |format|
       if @space_form.save
-        format.html { redirect_to space_pages_path(@space_form.space), notice: 'Space was successfully created.' }
+        format.html do
+          redirect_to case
+          when @space_form.space.access_control.private? then space_members_path(@space_form.space)
+          else space_pages_path(@space_form.space)
+          end
+        end
         format.json { render :show, status: :created, location: @space_form.space }
       else
         format.html { render :new }
@@ -50,13 +56,15 @@ class SpacesController < SubdomainBaseController
   # PATCH/PUT /spaces/1
   # PATCH/PUT /spaces/1.json
   def update
-    @space_form = Space::Form.new(space: @space, attributes: space_params)
+    @space_form = Space::Form.new(space: @space,
+                                  user: current_user,
+                                  attributes: space_params)
 
     authorize @space, :update?
 
     respond_to do |format|
       if @space_form.save
-        format.html { redirect_to @space_form.space, notice: 'Space was successfully updated.' }
+        format.html { redirect_to space_pages_path(@space_form.space), notice: 'Space was successfully updated.' }
         format.json { render :show, status: :ok, location: @space_form.space }
       else
         format.html { render :edit }
@@ -85,6 +93,6 @@ class SpacesController < SubdomainBaseController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def space_params
-      params.require(:space).permit(:name, :cover).to_h
+      params.require(:space).permit(:name, :cover, :access_control).to_h
     end
 end

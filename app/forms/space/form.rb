@@ -3,7 +3,7 @@ class Space::Form
   include ActiveModel::Conversion
   include Virtus.model
 
-  attr_reader :space
+  attr_reader :space, :user
   delegate :cached_cover_data, to: :space
   delegate :cover_url, to: :space
   delegate :id, to: :space
@@ -13,13 +13,17 @@ class Space::Form
   attribute :name, String
   attribute :cover
   attribute :team_id
+  attribute :access_control
 
   validates :name, presence: true
   validates :team_id, presence: true
   validates :cover, attached_image: true
+  validates_inclusion_of :access_control, in: [Space::AccessControl::TEAM,
+                                               Space::AccessControl::PRIVATE]
 
-  def initialize(space:, attributes: {})
+  def initialize(space:, user: nil, attributes: {})
     @space = space
+    @user = user
 
     super(@space.attributes)
     super(attributes)
@@ -30,13 +34,17 @@ class Space::Form
   end
 
   def save
-    valid? && persist!
+    valid? && persist! && apply_access_control!
   end
 
   private
 
     def persist!
-      @space.assign_attributes(name: name, team_id: team_id)
+      @space.assign_attributes(name: name, team_id: team_id, access_control: access_control)
       @space.save
+    end
+
+    def apply_access_control!
+      Space::AccessControl::Apply.call(user: @user, space: @space)
     end
 end

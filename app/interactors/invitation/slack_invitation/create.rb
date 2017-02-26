@@ -13,6 +13,7 @@ class Invitation::SlackInvitation::Create
     def build_slack_invitation
       Invitation.new(invited_by_user: context.invited_by_user,
                      team: context.team,
+                     space: context.space,
                      first_name: context.first_name,
                      last_name: context.last_name,
                      email: context.email,

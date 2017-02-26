@@ -1,0 +1,39 @@
+<main>
+  <div class="card">
+    <header>
+      <h1>Slack Invitations</h1>
+    </header>
+
+    <div class="card-content">
+      <%= notice %>
+
+      <% if @team.connected_to_slack? %>
+        <% @slack_users_to_invite.each do |slack_user| %>
+          <hr>
+
+            <%= image_tag slack_user.profile.image_192 %>
+
+
+            <p><%= slack_user.real_name %></p>
+
+
+            <%= link_to "Invite",
+              space_invitations_slack_path(invited_slack_user_uid: slack_user.id,
+                                           email: slack_user.profile.email,
+                                           first_name: slack_user.profile.first_name,
+                                           last_name: slack_user.profile.last_name), method: :post %>
+
+            </hr>
+
+        <% end %>
+      <% else %>
+        <%= link_to "Add Slack Team-Members", user_slack_button_omniauth_authorize_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], team_id: @team.id) %>
+      <% end %>
+
+
+      <div class="card-actions">
+        <%= link_to 'Back to Members', space_members_path(@space) %>
+      </div>
+    </div>
+  </div>
+</main>

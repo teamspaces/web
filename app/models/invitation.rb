@@ -2,6 +2,7 @@ class Invitation < ApplicationRecord
   acts_as_paranoid
 
   belongs_to :team
+  belongs_to :space, optional: true
 
   belongs_to :invited_by_user, class_name: "User", foreign_key: "invited_by_user_id", primary_key: "id"
   belongs_to :invited_user, class_name: "User", foreign_key: "invited_user_id", primary_key: "id", optional: true
@@ -18,6 +19,10 @@ class Invitation < ApplicationRecord
 
   def email_invitation?
     email.present? && !slack_invitation?
+  end
+
+  def space_invitation?
+    space.present?
   end
 
   def used?

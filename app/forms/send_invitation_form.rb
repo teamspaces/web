@@ -8,6 +8,7 @@ class SendInvitationForm
   delegate :model_name, to: Invitation
 
   attribute :team, Team
+  attribute :space, Space
   attribute :invited_by_user, User
 
   attribute :email, String
@@ -20,8 +21,9 @@ class SendInvitationForm
   validates :invited_by_user, presence: true
   validate :email_one_invitation_per_team
 
-  def initialize(team: nil, invited_by_user: nil, attributes: {})
+  def initialize(team: nil, space: nil, invited_by_user: nil, attributes: {})
     @team = team
+    @space = space
     @invited_by_user = invited_by_user
 
     super(attributes)
@@ -41,7 +43,7 @@ class SendInvitationForm
 
     def persist!
       @invitation = Invitation.create(email: email, team: team, invited_by_user: invited_by_user,
-                                      first_name: first_name, last_name: last_name)
+                                      first_name: first_name, last_name: last_name, space: space)
     end
 
     def send!
