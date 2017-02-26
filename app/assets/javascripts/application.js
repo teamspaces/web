@@ -13,9 +13,11 @@ const Editor = require('./editor')
 
 import Page from './page'
 import PageTitle from './page/title'
+import PageSavingStatus from './page/saving_status'
 
 window.Spaces = {
   Editor: Editor,
   Page: Page,
-  PageTitle: PageTitle
+  PageTitle: PageTitle,
+  PageSavingStatus: PageSavingStatus
 };
