@@ -9,7 +9,6 @@ dependencies:
     - yarn install
     - yarn add --force node-sass # Because it breaks every now and then...
     - bundle install --path=vendor/bundle --jobs 20 --retry 20
-    - bundle exec rake db:create db:migrate
     - yarn global add webpack
     - webpack
 
