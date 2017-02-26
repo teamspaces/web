@@ -5,10 +5,11 @@
     </header>
 
     <div class="card-content">
-      <%= render 'form', form: @space_form %>
+      <%= render "form", form: @space_form %>
 
       <div class="card-actions">
-        <%= link_to 'Back', spaces_path(@space.team) %>
+        <%= link_to "Member Settings", space_members_path(@space) %>
+        <%= link_to "Back", spaces_path(@space.team) %>
       </div>
     </div>
   </div>

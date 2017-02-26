@@ -1,0 +1,34 @@
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Auth-Method</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% space_team_members.each do |member| %>
+      <% user = member.user.decorate %>
+
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.auth_method %></td>
+        <td><%= link_to "Remove", space_member_path(@space, user), method: :delete %></td>
+      </tr>
+    <% end %>
+
+    <% [team_members - space_team_members].flatten.each do |member| %>
+      <% user = member.user.decorate %>
+
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.auth_method %></td>
+        <td><%= link_to "Add", space_members_path(@space, space_member: { user_id: user.id}), method: :post %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

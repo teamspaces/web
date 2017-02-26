@@ -18,3 +18,7 @@ with_parent:
   space: power_rangers
   title: Power Rangers
   parent: spaces
+
+private_slack_user_milad:
+  space: private_slack_user_milad
+  title : private

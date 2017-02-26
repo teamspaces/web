@@ -14,8 +14,9 @@
     var contentsChanged = false;
     var calledSaveAt = 0.0;
 
-    Editor.prototype.init = function(attachTo, options) {
+    Editor.prototype.init = function(attachTo, pageSavingStatus, options) {
         this.attachTo = attachTo;
+        this.pageSavingStatus = pageSavingStatus;
         this.options = options;
 
         this.registerOT();
@@ -203,12 +204,12 @@
             base.disableEditor();
         }
 
-        base.debug("Unable to save changes, will retry on next cycle");
+        base.pageSavingStatus.updateFailedToSave();
     }
 
     Editor.prototype.onSaveRequestSuccess = function() {
         base.contentsChanged = false;
-        base.debug("Saved changes.");
+        base.pageSavingStatus.updateSavedSuccessfully();
     }
 
     Editor.prototype.onSaveRequestComplete = function() {

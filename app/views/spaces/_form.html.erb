@@ -16,5 +16,8 @@
   <%= f.hidden_field :cover, value: form.cached_cover_data %>
   <%= f.file_field :cover %>
 
+  <%= f.label :access_control %>
+  <%= f.select :access_control, options_for_select([Space::AccessControl::TEAM, Space::AccessControl::PRIVATE]) %>
+
   <%= f.submit %>
 <% end %>

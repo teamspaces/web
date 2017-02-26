@@ -38,3 +38,8 @@ used_invitation:
   <<: *default
   token: w89s98ji88787
   invited_user_id: <%= ActiveRecord::FixtureSet.identify(:lars) %>
+
+space_invitation:
+  <<: *default
+  token: sldfkoki23i4a
+  space: spaces

@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(version: 20170207083310) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.string   "invited_slack_user_uid"
+    t.integer  "space_id"
     t.datetime "deleted_at"
     t.index ["deleted_at"], name: "index_invitations_on_deleted_at", using: :btree
     t.index ["team_id"], name: "index_invitations_on_team_id", using: :btree
@@ -100,12 +101,24 @@ ActiveRecord::Schema.define(version: 20170207083310) do
     t.index ["space_id"], name: "index_pages_on_space_id", using: :btree
   end
 
+  create_table "space_members", force: :cascade do |t|
+    t.integer  "team_member_id"
+    t.integer  "space_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_space_members_on_deleted_at", using: :btree
+    t.index ["space_id"], name: "index_space_members_on_space_id", using: :btree
+    t.index ["team_member_id"], name: "index_space_members_on_team_member_id", using: :btree
+  end
+
   create_table "spaces", force: :cascade do |t|
     t.integer  "team_id"
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.jsonb    "cover_data"
+    t.string   "access_control"
     t.datetime "deleted_at"
     t.index ["deleted_at"], name: "index_spaces_on_deleted_at", using: :btree
     t.index ["team_id"], name: "index_spaces_on_team_id", using: :btree
@@ -177,9 +190,12 @@ ActiveRecord::Schema.define(version: 20170207083310) do
   end
 
   add_foreign_key "authentications", "users", on_delete: :cascade
+  add_foreign_key "invitations", "spaces"
   add_foreign_key "invitations", "teams"
   add_foreign_key "page_contents", "pages", on_delete: :cascade
   add_foreign_key "pages", "spaces", on_delete: :cascade
+  add_foreign_key "space_members", "spaces"
+  add_foreign_key "space_members", "team_members"
   add_foreign_key "spaces", "teams", on_delete: :cascade
   add_foreign_key "team_authentications", "teams"
   add_foreign_key "team_members", "teams", on_delete: :cascade

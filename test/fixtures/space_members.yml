@@ -1,0 +1,7 @@
+lars_at_private:
+  space: private
+  team_member: lars_at_spaces
+
+private_slack_user_milad:
+  space: private_slack_user_milad
+  team_member: slack_user_milad_at_spaces
