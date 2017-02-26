@@ -21,6 +21,7 @@ module.exports = {
   entry: {
     application: [
         "./javascripts/application.js",
+        "../../vendor/assets/javascripts/jquery.mjs.nestedSortable.js",  // The NPM package has issues loading the correct modules
         "./stylesheets/application.css",
     ]
   },

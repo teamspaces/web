@@ -3,9 +3,10 @@ Rails.application.routes.draw do
     get :login_into_team, to: "login_register_funnel/login_into_team#new", as: :login_into_team
 
     resources :spaces do
-      resources :pages, only: [:index, :new, :create]
-
+      resource :page_hierarchy, only: [:update]
       resource :access_control, only: [:update], controller: "space/access_control"
+       
+      resources :pages, only: [:index, :new, :create]
       resources :members, only: [:index, :create, :destroy], param: :user_id, controller: "space/members"
       resources :invitations, only: [:destroy], controller: "space/invitations"
 

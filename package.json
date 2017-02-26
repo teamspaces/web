@@ -15,6 +15,7 @@
     "highlight.js": "^9.9.0",
     "image-webpack-loader": "^3.2.0",
     "jquery": "^3.1.1",
+    "jquery-ui-bundle": "^1.11.4",
     "jquery-ujs": "^1.2.2",
     "lodash": "^4.16.4",
     "node-sass": "^4.5.0",
