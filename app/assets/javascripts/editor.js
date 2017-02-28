@@ -47,6 +47,15 @@
 
     Editor.prototype.connectWebSocket = function(){
         this.webSocket = new WebSocket(this.options.collab_url);
+
+        this.webSocket.addEventListener('open', function(_event){
+            base.debug("WebSocket established");
+        });
+
+        this.webSocket.addEventListener('close', function(_event){
+            base.debug("WebSocket closed");
+            base.disableEditor();
+        });
     }
 
     Editor.prototype.connectShareDB = function(){
@@ -62,7 +71,7 @@
     }
 
     Editor.prototype.disconnect = function(){
-        base.debug("Window disconnected. Closing WebSocket and Disabling editor.");
+        base.debug("Disconnecting");
         base.disableEditor();
         webSocket.close();
 
@@ -99,6 +108,7 @@
     }
 
     Editor.prototype.disableEditor = function(){
+        base.debug("Disabling editor");
         this.editor.disable();
     }
 
@@ -111,7 +121,7 @@
 
     Editor.prototype.onPageSubcribe = function(error){
         if (error) {
-            base.debug("Disabling editor, page subscribe failed with error:");
+            base.debug("Page subscribe failed with error:");
             base.debug(error);
             base.disableEditor();
             return false;
@@ -154,8 +164,8 @@
 
             // We don't have access to this document
             if (error.code == 403) {
-                base.editor.disable();
-                base.debug("Disabling editor, access denied: " + error.message);
+                base.debug("Access denied: " + error.message);
+                base.disableEditor();
             } else {
                 // What else do we want to handle? And how?
                 base.debug("Unhandled error:" + error);
@@ -213,10 +223,10 @@
 
     Editor.prototype.onSaveRequestError = function(request) {
         if(request.status == 404) {
-            base.debug("Disabling editor, page not found");
+            base.debug("Page not found");
             base.disableEditor();
         } else if (request.status == 403) {
-            base.debug("Disabling editor, not authorized to this page");
+            base.debug("Not authorized for this page");
             base.disableEditor();
         }
 
