@@ -62,7 +62,10 @@
     }
 
     Editor.prototype.disconnect = function(){
+        base.debug("Window disconnected. Closing WebSocket and Disabling editor.");
+        base.disableEditor();
         webSocket.close();
+
     }
 
     Editor.prototype.reconnect = function(){
@@ -123,6 +126,15 @@
 
             // Trigger auto-save
             base.save();
+        });
+
+        // Let us know when there is no pending actions
+        base.page.whenNothingPending(function(error) {
+            if (error) {
+                base.debug("Nothing pending error: " + error.message);
+            } else {
+                base.debug("Nothing pending.");
+            }
         });
 
         // Update editor with new deltas coming from collab
