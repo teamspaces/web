@@ -62,7 +62,10 @@
     }
 
     Editor.prototype.disconnect = function(){
+        base.debug("Window disconnected. Closing WebSocket and Disabling editor.");
+        base.disableEditor();
         webSocket.close();
+
     }
 
     Editor.prototype.reconnect = function(){
@@ -88,6 +91,7 @@
         };
 
         this.editor = new Quill(this.attachTo, editorOptions);
+        base.disableEditor();
     }
 
     Editor.prototype.enableEditor = function(){
@@ -113,6 +117,9 @@
             return false;
         }
 
+        // Enable editor
+        base.enableEditor();
+
         // Setup editor using all deltas for this page
         base.editor.setContents(base.page.data);
 
@@ -123,6 +130,15 @@
 
             // Trigger auto-save
             base.save();
+        });
+
+        // Let us know when there is no pending actions
+        base.page.whenNothingPending(function(error) {
+            if (error) {
+                base.debug("Nothing pending error: " + error.message);
+            } else {
+                base.debug("Nothing pending.");
+            }
         });
 
         // Update editor with new deltas coming from collab
