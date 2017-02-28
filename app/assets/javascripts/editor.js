@@ -91,6 +91,7 @@
         };
 
         this.editor = new Quill(this.attachTo, editorOptions);
+        base.disableEditor();
     }
 
     Editor.prototype.enableEditor = function(){
@@ -115,6 +116,9 @@
             base.disableEditor();
             return false;
         }
+
+        // Enable editor
+        base.enableEditor();
 
         // Setup editor using all deltas for this page
         base.editor.setContents(base.page.data);
