@@ -2,39 +2,25 @@
  * Topbar
  */
 .topbar {
-  @include clearfix;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 100;
   width: 100%;
+  height: 73px;
   background: #fff;
-  border-bottom: 1px solid #EBEDF0;
-}
+  border-bottom: 1px solid #E6E8EB;
+  box-shadow: 0 0 10px rgba(0,0,0,0.03);
 
-.body-space {
-  .topbar {
-    background: transparent;
-    border-bottom: 0;
+  a {
+    transition: all 0.3s;
 
-    nav {
-      position: relative;
-      width: 301px;
-      background: #fff;
-      border-right: 1px solid #EBEDF0;
-
-      &:after {
-        content: '';
-        position: absolute;
-        bottom: -1px;
-        left: 0 ;
-        width: 300px;
-        height: 1px;
-        background: #EBEDF0;
-      }
+    &:hover, &:active, &:focus {
+      color: $color-text-secondary;
+      text-decoration: none;
+      opacity: 0.6;
     }
   }
-
 }
 
 .body-space.body-space-edit {
@@ -46,37 +32,53 @@
 
 
 /**
+ * Logo
+ */
+.topbar-logo {
+  display: inline-block;
+  padding: 21px 0;
+
+  img {
+    height: 30px;
+    width: auto;
+    max-width: 100%;
+    border-radius: 5px;
+  }
+}
+
+
+
+/**
  * Search
  */
 input.topbar-search {
   display: block;
-  float: right;
-  background: #fff url(../images/topbar/search-icon.svg) no-repeat 12px center;
-  width: 204px;
-  height: 42px;
-  padding: 13px 0 13px 45px;
-  margin: 15px 0 0 0;
-  border: 1px solid #E6E8EB;
-  border-radius: 21px;
-  font-size: 13px;
+  float: left;
+  background: #fff;
+  width: 440px;
+  height: 72px;
+  padding: 28px 0;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  font-size: 14px;
   line-height: 16px;
   color: $color-text-primary;
-  transition: all 0.3s;
 
   &:hover, &:focus {
     outline: none;
   }
 
   &::-webkit-input-placeholder {
-    color: #A1AAB3;
+    color: #A6A6A6;
   }
 
   &::-moz-placeholder {
-    color: #A1AAB3;
+    color: #A6A6A6;
   }
 
   &:-ms-input-placeholder {
-    color: #A1AAB3;
+    color: #A6A6A6;
   }
 }
 
@@ -87,7 +89,8 @@ input.topbar-search {
  */
 nav {
   @include clearfix;
-  float: left;
+  float: right;
+  margin-right: -18px;
 
   ul {
     margin: 0;
@@ -101,57 +104,12 @@ nav {
 
   a {
     display: block;
-    font-size: 13px;
+    font-size: 14px;
     line-height: 72px;
+    padding: 0 18px;
     color: $color-text-secondary;
     text-decoration: none;
-    transition: all 0.3s;
     vertical-align: middle;
-
-    &:hover, &:active, &:focus {
-      color: $color-text-secondary;
-      text-decoration: none;
-      opacity: 0.6;
-    }
-  }
-}
-
-
-
-/**
- * Spaces navigation
- */
-.topbar-spaces {
-  padding: 0 15px;
-
-  // span {
-  //   display: inline-block;;
-  //   width: 45px;
-  //   height: 30px;
-  //   border-radius: 6px;
-  //   background: transparent url(../images/topbar/temp-space-thumb.png) no-repeat center center;
-  //   background-size: cover;
-  //   box-shadow: 0 1px 3px rgba(0,0,0,0.12);
-  //   margin: -1px 15px 0 0;
-  //   vertical-align: middle;
-  // }
-}
-
-
-
-/**
- * Team navigation
- */
-.topbar-team {
-  padding: 0 15px 0 30px;
-
-  img {
-    display: inline-block;
-    width: 36px;
-    height: 36px;
-    margin: -1px 30px 0 0;
-    border-radius: 6px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12);
   }
 }
 
@@ -163,19 +121,13 @@ nav {
 .topbar-account {
   display: block;
   float: right;
-  padding: 18px 30px;
-  transition: all 0.3s;
-
-  &:hover, &:active, &:focus {
-    opacity: 0.6;
-  }
+  margin-right: -30px;
+  padding: 21px 30px;
 
   img {
     display: inline-block;
-    width: 36px;
-    height: 36px;
-    border-radius: 18px;
-    margin-top: -1px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
   }
 }

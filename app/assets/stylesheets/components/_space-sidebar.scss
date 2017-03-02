@@ -2,23 +2,17 @@
  * Sidebar
  */
 .space-sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 10;
-  width: 301px;
-  height: 100%;
-  background: #F5F7FA;
-  border-right: 1px solid #EBEDF0;
-  padding: 102px 0 60px 30px;
-  overflow: auto;
+  margin: 162px 0 0 0;
+  padding: 0 36px 24px 0;
 
   h3 {
-    font-size: 14px;
+    margin: 0;
+    font-family: "Galano Grotesque", sans-serif;
+    font-size: 15px;
+    line-height: 24px;
     font-weight: 400;
     line-height: 24px;
     color: $color-text-secondary;
-    margin: 0;
   }
 
   h3 a {
@@ -36,10 +30,6 @@
       opacity: 0.6;
     }
   }
-
-  .avatars {
-    padding: 18px 0 24px 0;
-  }
 }
 
 
@@ -48,10 +38,9 @@
  * Pages navigation
  */
 .space-sidebar-pages {
-  margin: 0;
-  padding: 12px 30px 0 0;
+  margin: 10px 0 0 0;
+  padding: 0;
   list-style: none;
-  border-top: 1px solid #EBEDF0;
 
   li {
     display: block;
@@ -63,19 +52,19 @@
     color: $color-text-secondary;
     font-size: 13px;
     line-height: 18px;
-    padding: 9px 18px;
-    background: url(../images/space/page-bullet-icon.svg) no-repeat left center;
+    padding: 6px 0;
+    // background: url(../images/space/page-bullet-icon.svg) no-repeat left center;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     transition: all 0.3s;
 
     &.space-sidebar-pages-closed {
-      background-image: url(../images/space/page-closed-icon.svg);
+      // background-image: url(../images/space/page-closed-icon.svg);
     }
 
     &.space-sidebar-pages-open {
-      background-image: url(../images/space/page-open-icon.svg);
+      // background-image: url(../images/space/page-open-icon.svg);
     }
   }
 
@@ -87,7 +76,7 @@
   // Nested lists
   ul {
     margin: 0;
-    padding: 0 0 0 18px;
+    padding: 0 0 0 12px;
     list-style: none;
   }
 }
@@ -98,7 +87,7 @@
  * Edit sidebar
  */
 .space-sidebar.space-sidebar-edit {
-  padding-top: 42px;
+  margin-top: 90px;
 
   &:hover, &:active, &:focus {
     h3 span, .space-sidebar-edit-actions {
@@ -115,11 +104,11 @@
     display: block;
     position: absolute;
     top: 5px;
-    right: 18px;
+    right: -12px;
     height: 24px;
     width: 42px;
     padding: 0 12px;
-    background: #F5F7FA url(../images/space/settings-icon.svg) no-repeat center center;
+    background: #fff url(../images/space/settings-icon.svg) no-repeat center center;
     opacity: 0;
     transition: all 0.4s;
   }
@@ -137,12 +126,13 @@
   transition: all 0.4s;
 
   span, a {
+    margin-top: -2px;
     display: block;
     float: left;
-    height: 36px;
+    height: 30px;
     width: 30px;
     padding: 0 6px;
-    background-color: #F5F7FA;
+    background-color: #fff;
     background-position: center center;
     background-repeat: no-repeat;
     transition: all 0.2s;

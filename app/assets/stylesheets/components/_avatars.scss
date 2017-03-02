@@ -1,27 +1,29 @@
 .avatars {
-  @include clearfix;
-  display: block;
-  transition: all 0.3s;
+  height: 34px;
+  margin-right: 16px;
 
-  &:hover, &:active, &:focus {
-    opacity: 0.6;
+  .avatars-inner {
+    @include clearfix;
+    display: inline-block;
+    transition: all 0.3s;
+
+    &:hover, &:active, &:focus {
+      opacity: 0.6;
+    }
   }
 
   img, span {
-    display: block;
+    display: inline-block;
+    box-sizing: content-box;
     float: left;
-    width: 24px;
-    height: 24px;
-    border-radius: 12px;
-    margin-right: 6px;
-  }
-
-  img {
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+    width: 30px;
+    height: 30px;
+    border-radius: 17px;
+    border: 2px solid #fff;
+    margin-right: -18px;
   }
 
   .avatars-add {
-    border: 1px dotted #A1AAB3;
-    background: url(../images/space/add-member-icon.svg) no-repeat center center;
+    background: #02B875 url(../images/space/add-member-icon.svg) no-repeat center center;
   }
 }

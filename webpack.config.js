@@ -6,7 +6,8 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const production = process.argv.indexOf('-p') !== -1;
 const css_output_template = production ? "/stylesheets/[name]-[hash].css" : "/stylesheets/[name].css";
 const js_output_template = production ? "/javascripts/[name]-[hash].js" : "/javascripts/[name].js";
-const images_output_template = production ? "/images/[name]-[hash].[ext]" : "/images/[name].[ext]"
+const images_output_template = production ? "/images/[name]-[hash].[ext]" : "/images/[name].[ext]";
+const fonts_output_template = production ? "/fonts/[name]-[hash].[ext]" : "/fonts/[name].[ext]";
 
 // TODO: Move this into it's own package.
 // My docker containers don't respond to  ctrl+c and this fixes it.
@@ -22,7 +23,7 @@ module.exports = {
     application: [
         "./javascripts/application.js",
         "../../vendor/assets/javascripts/jquery.mjs.nestedSortable.js",  // The NPM package has issues loading the correct modules
-        "./stylesheets/application.css",
+        "./stylesheets/application.scss",
     ]
   },
 
@@ -43,8 +44,12 @@ module.exports = {
         }
       },
       {
-        test: /\.css$/,
+        test: /\.scss$/,
         loader: ExtractTextPlugin.extract("css-loader!sass-loader")
+      },
+      {
+        test: /\.woff2?$/,
+        loader: 'file-loader?name=' + fonts_output_template
       },
       {
         test: /.*\.(gif|png|jpe?g|svg)$/i,

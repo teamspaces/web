@@ -1,9 +1,11 @@
-<ul class="space-actions">
-  <li class="space-actions-edit">
-    <%= link_to '', edit_page_path(page) %>
-  </li>
+<div class="five-cols-1">
+  <div class="space-actions">
+    <%=
+      render "avatar_users",
+      avatar_users: @sample_users_query.sample_users,
+      number_of_hidden_avatars: @sample_users_query.users_not_in_sample_count
+    %>
 
-  <li class="space-actions-share">
-    <a href="#"></a>
-  </li>
-</ul>
+    <%= link_to 'Edit', edit_page_path(page), class: 'button space-actions-edit' %>
+  </div>
+</div>

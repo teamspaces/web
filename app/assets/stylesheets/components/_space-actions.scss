@@ -1,39 +1,15 @@
 .space-actions {
-  margin: 0;
-  padding: 0;
-  list-style: none;
   position: fixed;
-  bottom: 15px;
-  right: 30px;
+  bottom: 42px;
   z-index: 10;
+  width: 228px;
+  text-align: right;
 
-  li {
-    display: block;
-    margin-bottom: 15px;
+  .button {
+    margin-top: 20px;
   }
+}
 
-  a {
-    display: block;
-    width: 60px;
-    height: 60px;
-    background: #fff;
-    border: 1px solid #EBEDF0;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: all 0.3s;
-    background-repeat: no-repeat;
-    background-position: center center;
-
-    &:hover, &:active, &:focus {
-      opacity: 0.6;
-    }
-  }
-
-  .space-actions-edit a {
-    background-image: url(../images/space/edit-icon-2.svg);
-  }
-
-  .space-actions-share a {
-    background-image: url(../images/space/share-icon-2.svg);
-  }
+.body-space-edit .space-actions {
+  bottom: 96px;
 }

@@ -12,8 +12,8 @@
     <g id="2.1.2-Edit" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g transform="translate(-30.000000, -637.000000)" id="new-page-icon-on">
             <g transform="translate(30.000000, 637.000000)">
-                <use id="Rectangle-7" stroke="#0099E5" mask="url(#mask-2)" stroke-width="2" xlink:href="#path-1"></use>
-                <g id="Group-4" transform="translate(7.000000, 7.000000)" fill="#0099E5">
+                <use id="Rectangle-7" stroke="#02B875" mask="url(#mask-2)" stroke-width="2" xlink:href="#path-1"></use>
+                <g id="Group-4" transform="translate(7.000000, 7.000000)" fill="#02B875">
                     <rect id="Rectangle-2" x="0" y="4" width="9" height="1" rx="0.5"></rect>
                     <rect id="Rectangle-2-Copy" x="4" y="0" width="1" height="9" rx="0.5"></rect>
                 </g>

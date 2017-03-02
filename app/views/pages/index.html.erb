@@ -1,19 +1,26 @@
 <% content_for :body_class, 'body-space' %>
 
-<%= render 'sidebar', space: @space,
-                      pages: @pages,
-                      sample_users_query: @sample_users_query %>
+<div class="container">
+  <div class="five-cols-1">
+    <%=
+      render 'sidebar',
+      space: @space,
+      pages: @pages,
+      sample_users_query: @sample_users_query
+    %>
+  </div>
 
-<div class="space-page-container">
-  <main class="space-page">
-    <%= notice %>
+  <div class="five-cols-3">
+    <main class="space-page">
+      <%= notice %>
 
-    <h1><%= @space.name %></h1>
+      <h1><%= @space.name %></h1>
 
-    <p>
-      It's empty in here. Let's add some pages!
-    </p>
+      <p>
+        It's empty in here. Let's add some pages!
+      </p>
 
-    <%= link_to "Edit space", space_pages_path(@space, params: { page: { _: true }}), method: :post, class: 'button button-primary' %>
-  </main>
+      <%= link_to "Edit space", space_pages_path(@space, params: { page: { _: true }}), method: :post, class: 'button button-primary' %>
+    </main>
+  </div>
 </div>
