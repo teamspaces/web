@@ -5,3 +5,25 @@
 .body-space {
   background: #fff;
 }
+
+.body-flipped {
+  .topbar {
+    top: auto;
+    bottom: 0;
+    border-bottom: 0;
+    border-top: 1px solid #E6E8EB;
+  }
+
+  .space-page {
+    margin: 0 auto;
+    padding: 80px 0 132px 0;
+  }
+
+  .space-sidebar {
+    margin-top: 90px;
+  }
+
+  .space-actions {
+    bottom: 94px;
+  }
+}
