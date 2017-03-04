@@ -1,3 +1,5 @@
+import isWhitespace from 'is-whitespace'
+
 (function(){
     const ShareDB = require("sharedb/lib/client");
     const RichText = require("rich-text");
@@ -100,6 +102,7 @@
         };
 
         this.editor = new Quill(this.attachTo, editorOptions);
+        base.addClipboardURLMatcher();
         base.disableEditor();
     }
 
@@ -137,6 +140,31 @@
         base.editor.on("text-change", function(delta, oldDelta, source) {
             if (source !== "user") return;
             base.page.submitOp(delta, {source: base.editor});
+
+            // Autolink URLs while typing
+            var regex = /https?:\/\/[^\s]+$/;
+            if(delta.ops.length === 2 && delta.ops[0].retain && isWhitespace(delta.ops[1].insert)) {
+                var endRetain = delta.ops[0].retain;
+                var text = base.editor.getText().substr(0, endRetain);
+                var match = text.match(regex);
+                if(match !== null) {
+                    var url = match[0];
+
+                    var ops = [];
+                    if(endRetain > url.length) {
+                        ops.push({ retain: endRetain - url.length });
+                    }
+
+                    ops = ops.concat([
+                        { delete: url.length },
+                        { insert: url, attributes: { link: url } }
+                    ]);
+
+                    base.editor.updateContents({
+                        ops: ops
+                    });
+                }
+            }
 
             // Trigger auto-save
             base.save();
@@ -244,6 +272,30 @@
 
     Editor.prototype.startAutoSaveCycle = function() {
         setTimeout(this.onSave, 500);
+    }
+
+    Editor.prototype.addClipboardURLMatcher = function() {
+        base.editor.clipboard.addMatcher(Node.TEXT_NODE, function(node, delta){
+            var regex = /https?:\/\/[^\s]+/g;
+            if(typeof(node.data) !== 'string') return;
+            var matches = node.data.match(regex);
+
+            if(matches && matches.length > 0) {
+                var ops = [];
+                var str = node.data;
+                matches.forEach(function(match) {
+                    var split = str.split(match);
+                    var beforeLink = split.shift();
+                    ops.push({ insert: beforeLink });
+                    ops.push({ insert: match, attributes: { link: match } });
+                    str = split.join(match);
+                });
+                ops.push({ insert: str });
+                delta.ops = ops;
+            }
+
+            return delta;
+        });
     }
 
     var base = module.exports = new Editor();
