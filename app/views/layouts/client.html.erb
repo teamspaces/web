@@ -24,8 +24,10 @@
           <%= link_to image_tag(current_team.logo_url(:image_72), alt: current_team.name), team_url(subdomain: current_team.subdomain), class: 'topbar-logo' %>
         </div>
 
-        <div class="five-cols-3">
+        <div class="five-cols-4">
           <input type="text" placeholder="Search" class="topbar-search" tabindex="1">
+
+          <%= link_to image_tag(current_user.avatar_url(:image_72), alt: current_user.first_name), edit_user_path, class: 'topbar-account' %>
 
           <nav>
             <ul>
@@ -42,10 +44,6 @@
               </li>
             </ul>
           </nav>
-        </div>
-
-        <div class="five-cols-1">
-          <%= link_to image_tag(current_user.avatar_url(:image_72), alt: current_user.first_name), edit_user_path, class: 'topbar-account' %>
         </div>
       </div>
     </header>
