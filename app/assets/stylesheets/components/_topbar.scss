@@ -13,8 +13,6 @@
   // box-shadow: 0 0 10px rgba(0,0,0,0.03);
 
   a {
-    transition: all 0.3s;
-
     &:hover, &:active, &:focus {
       color: $color-text-secondary;
       text-decoration: none;

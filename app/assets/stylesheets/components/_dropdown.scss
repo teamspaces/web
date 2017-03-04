@@ -1,0 +1,225 @@
+/**
+ * Dropdown component
+ */
+.dropdown {
+  background: #fff;
+  border: 1px solid #E1E3E6;
+  box-shadow: 0 0 10px rgba(0,0,0,0.06);
+  border-radius: 5px;
+  width: 266px;
+  z-index: 1000;
+  position: absolute;
+  top: 72px;
+  left: 100px;
+
+  // Arrow
+  &:before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    margin-left: -10px;
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    background: #fff;
+    transform: rotate(45deg);
+    border: 1px solid #E1E3E6;
+    box-shadow: 0 0 10px rgba(0,0,0,0.06);
+  }
+
+  // Covers lower portion of arrow
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin-left: -30px;
+    width: 60px;
+    height: 25px;
+    background: #fff;
+    pointer-events: none;
+  }
+}
+
+
+
+/**
+ * Dropdown modifiers
+ */
+.dropdown--teams {
+  width: 482px;
+}
+
+.dropdown--accounts {
+
+}
+
+
+
+/**
+ * Dropdown children
+ */
+.dropdown__list {
+  list-style: none;
+  margin: 0;
+  padding: 18px 30px 16px 30px;
+
+  > li {
+    padding: 0 40px 0 0;
+    position: relative;
+
+    > a {
+      @include ellipsis;
+      display: block;
+      line-height: 36px;
+      color: $color-text-primary;
+
+      &:hover, &:active, &:focus {
+        color: $color-text-primary;
+        text-decoration: none;
+        opacity: 0.6;
+      }
+    }
+  }
+
+
+  .overflow {
+    position: absolute;
+    top: 1px;
+    right: -10px;
+  }
+}
+
+.dropdown__list + .button {
+  display: block;
+  margin: 0 30px 24px 30px;
+}
+
+
+
+.dropdown__expand {
+  display: inline-block;
+  height: 60px;
+  font-size: 13px;
+  line-height: 60px;
+  padding: 0 0 0 30px;
+  background: url(../images/dropdowns/expand-icon.svg) no-repeat center left;
+  color: #66737F;
+
+  &:hover, &:active, &:focus {
+    color: #66737F;
+    text-decoration: none;
+    opacity: 0.6;
+  }
+}
+
+
+
+.dropdown__footer {
+  border-top: 1px solid #EBEDF0;
+  padding: 0 20px;
+
+  .button {
+    float: right;
+    margin-top: 9px;
+    margin-right: -11px;
+  }
+}
+
+.dropdown__footer--centered {
+  text-align: center;
+}
+
+
+
+.dropdown__team-header {
+  position: relative;
+  text-align: center;
+  padding: 48px 0 36px 0;
+
+  > img {
+    display: inline-block;
+    height: 48px;
+    width: auto;
+    background: #ccc;
+  }
+
+  h3 {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    color: #41474D;
+    font-family: $font-family;
+    margin: 12px 0 0 0;
+  }
+
+  .avatars {
+    position: absolute;
+    bottom: -16px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    margin: 0;
+
+    .avatars__inner {
+      margin-left: -16px;
+    }
+  }
+}
+
+
+
+.dropdown__team-actions {
+  background: #FAFBFD;
+  border-top: 1px solid #EBEDF0;
+  border-bottom: 1px solid #EBEDF0;
+}
+
+
+
+.dropdown__teams-grid {
+  ul {
+
+  }
+
+  li {
+    img {
+
+    }
+
+    span {
+
+    }
+  }
+
+  p {
+
+  }
+}
+
+
+
+.dropdown__accounts-list {
+  li {
+
+  }
+
+  img, div {
+
+  }
+
+  div {
+
+  }
+
+  h3 {
+
+  }
+
+  a {
+
+  }
+}

@@ -9,7 +9,7 @@
 
       <%= render "team_members", team_members: @team.members %>
 
-      <%= link_to "Invite", invitations_path, class: "button button-primary" %>
+      <%= link_to "Invite", invitations_path, class: "button button--primary" %>
 
       <% if other_available_teams.count.positive? %>
         <p>Other Available Teams</p>

@@ -1,0 +1,64 @@
+// Overflow component
+.overflow {
+  position: relative;
+  display: inline-block;
+  z-index: 10000;
+}
+
+
+
+// Overflow modifiers
+
+
+
+// Overflow
+.overflow__toggle {
+  display: inline-block;
+  padding: 10px;
+  cursor: pointer;
+
+  div {
+    width: 20px;
+    height: 12px;
+    background: #F5F7FA url(../images/overflow/ellipsis-icon.svg) no-repeat center center;
+    border: 1px solid #E1E3E6;
+    border-radius: 5px;
+    transition: all 0.2s;
+  }
+
+  &:hover, &:active, &:focus {
+    div {
+      border-color: #66737F;
+      transform: scale(1.125);
+    }
+  }
+}
+
+.overflow__content {
+  display: none;
+  position: absolute;
+  top: 24px;
+  right: 10px;
+  width: 156px;
+  background: #fff;
+  border-radius: 5px;
+  border: 1px solid #E1E3E6;
+  box-shadow: 0 0 10px rgba(0,0,0,0.06);
+  margin: 0;
+  padding: 12px 18px;
+  list-style: none;
+
+  a {
+    @include ellipsis;
+    display: block;
+    font-size: 13px;
+    line-height: 24px;
+    color: $color-text-primary;
+
+    &:hover, &:active, &:focus {
+      color: $color-text-primary;
+      text-decoration: none;
+      opacity: 0.6;
+    }
+  }
+}

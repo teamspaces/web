@@ -33,7 +33,7 @@ pre {
 a {
   color: $color-primary;
   text-decoration: none;
-  transition: color 0.2s;
+  transition: color 0.2s, opacity 0.2s;
 
   &:hover, &:active, &:focus {
     color: darken($color-primary, 5%);

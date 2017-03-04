@@ -13,11 +13,11 @@
   border-radius: 5px;
   border: 1px solid #E6E8EB;
   cursor: pointer;
-  transition: all 0.5s;
+  transition: all 0.2s;
   border: 1px solid #E1E3E6;
 
   &:hover, &:active, &:focus {
-    opacity: 1;
+    transform: scale(1.025);
     text-decoration: none;
     border-color: $color-primary;
     background: $color-primary;
@@ -25,16 +25,18 @@
     color: #fff;
     outline: 0;
   }
+}
 
-  &.button-primary {
-    border-color: $color-primary;
-    background: $color-primary;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+.button--primary {
+  border-color: $color-primary;
+  background: $color-primary;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+  font-size: 14px;
+  color: #fff;
+
+  &:hover, &:active, &:focus {
+    background: darken($color-primary, 5%);
+    border-color: darken($color-primary, 5%);
     color: #fff;
-
-    &:hover, &:active, &:focus {
-      opacity: 0.6;
-      color: #fff;
-    }
   }
 }
