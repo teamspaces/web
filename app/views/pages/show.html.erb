@@ -1,6 +1,24 @@
 <% content_for :body_class, 'body-space' %>
-<%= render 'sidebar', space: @page.space,
-                      pages: @page.space.pages,
-                      sample_users_query: @sample_users_query %>
-<%= render 'page_contents', page: @page, notice: notice %>
-<%= render 'actions', page: @page %>
+
+<div class="container" id="sticky-container">
+  <%=
+    render 'sidebar',
+    space: @page.space,
+    pages: @page.space.pages,
+    sample_users_query: @sample_users_query
+  %>
+
+  <%= render 'page_contents', page: @page, notice: notice %>
+
+  <%= render 'actions', page: @page %>
+</div>
+
+<script>
+  $(function(){
+    // Sticky sidebar
+    $('.space-sidebar').stick_in_parent({
+      parent: '#sticky-container',
+      offset_top: -48
+    });
+  });
+</script>

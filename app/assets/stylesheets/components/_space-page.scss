@@ -1,22 +1,9 @@
-.space-page-container {
-  padding: 0 108px 0 408px;
-}
-
-
-
 /**
  * Page
  */
 .space-page {
-  max-width: 684px;
   margin: 0 auto;
-  padding: 120px 12px 60px 0;
-}
-
-@media (min-width: 1350px) {
-  .space-page {
-    max-width: 732px;
-  }
+  padding: 152px 0 60px 0;
 }
 
 
@@ -27,7 +14,7 @@
 .space-page-meta {
   font-size: 13px;
   color: #999;
-  margin: 6px 0 48px 0;
+  margin: 11px 0 0 0;
 }
 
 
@@ -36,6 +23,8 @@
  * Page content
  */
 .space-page-content {
+  margin-top: 36px;
+
   // Remove the top margin for the first child
   > *:first-child {
     margin-top: 0;
@@ -50,8 +39,7 @@
 
   // Style images
   img {
-    border-radius: 6px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+    border-radius: 5px;
   }
 }
 
@@ -61,13 +49,19 @@
  * Edit page
  */
 .space-page.space-page-edit {
-  padding-top: 60px;
+  padding-top: 80px;
   padding-bottom: 120px;
 
+  form {
+    margin: 0;
+  }
+
   input[type=text] {
-    font-size: 32px;
+    font-size: 28px;
+    font-family: 'Galano Grotesque Light', sans-serif;
     font-weight: 300;
-    line-height: 48px;
+    line-height: 36px;
+    height: 36px;
     color: $color-title;
     margin-top: 0;
     border: 0;

@@ -14,6 +14,8 @@ main {
   padding: 156px 0 84px 0;
 }
 
+
+
 /**
  * Code blocks
  */
@@ -22,6 +24,8 @@ pre {
   padding: 10px 15px;
   border-radius: 5px;
 }
+
+
 
 /**
  * Links
@@ -47,6 +51,8 @@ img {
   height: auto;
 }
 
+
+
 /**
  * Text
  */
@@ -55,9 +61,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 300;
-  line-height: 48px;
+  font-family: 'Galano Grotesque Light', sans-serif;
+  line-height: 36px;
   color: $color-title;
   margin-top: 0;
 }
@@ -71,14 +78,16 @@ h2 {
 
 h3 {
   font-size: 16px;
-  font-weight: 500;
+  font-weight: normal; // 500
+  font-family: 'Galano Grotesque Semi Bold', sans-serif;
   line-height: 24px;
   color: $color-title;
 }
 
 h4 {
   font-size: 14px;
-  font-weight: 500;
+  font-weight: normal; // 500
+  font-family: 'Galano Grotesque Semi Bold', sans-serif;
   line-height: 24px;
   color: $color-title;
 }
@@ -189,16 +198,15 @@ input[type=text], input[type=password], input[type=email] {
 input[type=submit] {
   display: inline-block;
   width: auto;
-  min-width: 80px;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: normal;
   line-height: 18px;
   background: $color-primary;
   color: #fff;
   margin: 48px 0 0 0;
   padding: 12px 24px;
   text-align: center;
-  border-radius: 6px;
+  border-radius: 5px;
   border: 0;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12);
   cursor: pointer;

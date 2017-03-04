@@ -9,33 +9,43 @@
     <title>Spaces: Knowledge Management for Teams</title>
 
     <link rel="icon" href="">
-    <link rel="stylesheet" type="text/css" href="https://cloud.typography.com/7058934/7767372/css/fonts.css" />
     <%= stylesheet_link_tag fingerprinted_asset("application"), media: 'all' %>
 
     <%= javascript_include_tag fingerprinted_asset("application") %>
     <%= render "layouts/google_analytics" %>
     <%= render "layouts/drift" %>
+    <%= render "layouts/myfonts" %>
   </head>
 
   <body class="<%= content_for :body_class %>">
     <header class="topbar">
-      <nav>
-        <ul>
-          <li>
-            <%= link_to image_tag(current_team.logo_url(:image_72), alt: current_team.name) + 'Team', team_url(subdomain: current_team.subdomain), class: 'topbar-team' %>
-          </li>
+      <div class="container">
+        <div class="five-cols-1">
+          <%= link_to image_tag(current_team.logo_url(:image_72), alt: current_team.name), team_url(subdomain: current_team.subdomain), class: 'topbar-logo' %>
+        </div>
 
-          <li>
-            <%= link_to(spaces_path, class: 'topbar-spaces') do %>
-              <span></span>Spaces
-            <% end %>
-          </li>
-        </ul>
-      </nav>
+        <div class="five-cols-4">
+          <input type="text" placeholder="Search" class="topbar-search" tabindex="1">
 
-      <%= link_to image_tag(current_user.avatar_url(:image_72), alt: current_user.first_name), edit_user_path, class: 'topbar-account' %>
+          <%= link_to image_tag(current_user.avatar_url(:image_72), alt: current_user.first_name), edit_user_path, class: 'topbar-account' %>
 
-      <input type="text" placeholder="Search" class="topbar-search" tabindex="1">
+          <nav>
+            <ul>
+              <li>
+                <%= link_to 'Team', team_url(subdomain: current_team.subdomain), class: 'topbar-team' %>
+              </li>
+
+              <li>
+                <%= link_to 'Spaces', spaces_path, class: 'topbar-spaces' %>
+              </li>
+
+              <li>
+                <a href="#" class="topbar-support drift-open-chat">Help</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
     </header>
 
     <% if notice %>
