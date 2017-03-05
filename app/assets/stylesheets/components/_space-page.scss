@@ -22,15 +22,21 @@
 /**
  * Page content
  */
-.space-page-content {
+ // TODO Remove .space-page-content when merged with feature/dropdowns branch
+.space-page-content, .spaces-page__content {
   margin-top: 36px;
 
-  // Remove the top margin for the first child
-  > *:first-child {
-    margin-top: 0;
+  // Remove top margins for elements and let users control this with linebreaks instead, i.e. <p><br></p> in the editor
+  h2, h3, h4, h5, h6, p, ul, ol, pre, table, form, label {
+    margin: 0;
   }
 
-  // Reduce margin between headlines and next sibling
+  // The <br> line-height controls the height of linebreaks
+  br {
+    line-height: 24px;
+  }
+
+  // Add margin between headlines and next sibling
   h2, h3, h4, h5, h6 {
     & + * {
       margin-top: 12px;
