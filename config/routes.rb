@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     resources :spaces do
       resource :page_hierarchy, only: [:update]
       resource :access_control, only: [:update], controller: "space/access_control"
-       
+
       resources :pages, only: [:index, :new, :create]
       resources :members, only: [:index, :create, :destroy], param: :user_id, controller: "space/members"
       resources :invitations, only: [:destroy], controller: "space/invitations"
@@ -67,7 +67,7 @@ Rails.application.routes.draw do
     get :create_team, to: "login_register_funnel/teams#new", as: :login_register_funnel_new_team
     post :create_team, to: "login_register_funnel/teams#create", as: :login_register_funnel_create_team
 
-    get "team/:team_subomain", to: "login_register_funnel/teams#show", as: :show_team_subdomain
+    get "team/:team_subdomain", to: "login_register_funnel/teams#show", as: :show_team_subdomain
     get :choose_team, to: "login_register_funnel/teams#index", as: :login_register_funnel_list_teams
   end
 

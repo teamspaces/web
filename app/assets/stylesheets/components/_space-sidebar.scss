@@ -153,7 +153,6 @@
 .space-sidebar__move {
   background-image: url(../images/space/move-icon.svg);
   cursor: move;
-  display: none !important; // Remove this once we've implemented sorting
 }
 
 .space-sidebar__remove {

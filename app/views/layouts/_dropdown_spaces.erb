@@ -6,8 +6,9 @@
 
     <div class="dropdown__scroll-container">
       <ul class="dropdown__spaces-list">
+        <% current_team.spaces.find_each do |space| %>
         <li>
-          <a href="#">Product</a>
+          <%= link_to space.name, space_pages_path(space) %>
 
           <div class="dropdown">
             <div class="dropdown__toggle overflow-toggle">
@@ -16,13 +17,13 @@
 
             <ul class="dropdown__content dropdown__content--right">
               <li>
-                <a href="#">Edit space</a>
-                <a href="#">Members</a>
-                <a href="#">Settings</a>
+                <%= link_to "Settings", edit_space_path(space) %>
+                <%= link_to "Members", space_members_path(space) %>
               </li>
             </ul>
           </div>
         </li>
+        <% end %>
       </ul>
 
       <%= link_to 'New space', new_space_path, class: 'button button--primary' %>

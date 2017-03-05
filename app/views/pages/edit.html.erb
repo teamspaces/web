@@ -23,11 +23,7 @@
 
   <div class="five-cols-1">
     <div class="space-actions">
-      <%=
-      render "avatar_users",
-      avatar_users: @sample_users_query.sample_users,
-      number_of_hidden_avatars: @sample_users_query.users_not_in_sample_count
-      %>
+      <%= render "avatar_users" %>
     </div>
   </div>
 </div>

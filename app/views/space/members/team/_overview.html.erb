@@ -1,4 +1,4 @@
-<%= link_to "Make private", space_access_control_path(@space, space: { access_control: Space::AccessControl::PRIVATE }), method: :patch %>
+<%= link_to "Make private", space_access_control_path(@space, space: { access_control: Space::AccessControl::PRIVATE }), method: :patch, data: { confirm: "Are you sure?" } %>
 
 
 <%=  link_to "Team Invitations", invitations_path %>

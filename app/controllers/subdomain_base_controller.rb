@@ -1,5 +1,6 @@
 class SubdomainBaseController < ApplicationController
-  before_action :verify_team_membership, :verify_email_confirmed
+  before_action :verify_team_membership,
+                :verify_email_confirmed
 
   helper_method :current_team
   def current_team
@@ -11,7 +12,34 @@ class SubdomainBaseController < ApplicationController
     available_users.teams - [current_team]
   end
 
+  helper_method :other_available_users
+  def other_available_users
+    available_users.users - [current_user]
+  end
+
+  helper_method :avatar_users
+  def avatar_users
+    @set_sample_users_query&.users || []
+  end
+
+  helper_method :hidden_avatar_users
+  def hidden_avatar_users
+    @set_sample_users_query&.users_not_in_sample_count || 0
+  end
+
+  helper_method :current_space
+  def current_space
+    @current_space
+  end
+
   private
+
+    def set_sample_users_query
+      return unless current_space
+      @set_sample_users_query =
+        SampleUsersQuery.new(resource: current_space,
+                             total_users_to_sample: 3)
+    end
 
     def verify_team_membership
       unless current_team && TeamPolicy.new(pundit_user, current_team).read?
