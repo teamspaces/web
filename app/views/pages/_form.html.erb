@@ -15,15 +15,15 @@
 
   <%= f.hidden_field :parent_id %>
 
-  <div id="page-editor" class="space-page-content"></div>
+  <div id="page-editor" class="space-page__content"></div>
 
   <div class="edit-toolbar">
     <div class="container">
-      <%= link_to 'New page', space_pages_path(@page.space, params: { page: { _: true } }), method: :post, class: 'edit-toolbar-new-page' %>
+      <%= link_to 'New page', space_pages_path(@page.space, params: { page: { _: true } }), method: :post, class: 'edit-toolbar__new-page' %>
 
       <%= f.submit 'Done' %>
 
-      <div class="edit-toolbar-status"></div>
+      <div class="edit-toolbar__status"></div>
     </div>
   </div>
 <% end %>

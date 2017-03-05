@@ -4,7 +4,7 @@
       <h1><b>3/3</b> | Login with your email address</h1>
     </header>
 
-    <div class="card-content">
+    <div class="card__content">
 
       <p>Login with your email address: <b><%= @email_login_form.email %></b></p>
 
@@ -28,7 +28,7 @@
 
       <% end %>
 
-      <div class="card-actions">
+      <div class="card__actions">
         <p>
           <%= link_to "I Forgot my password, I want to reset it", new_login_register_funnel_reset_password_path(email: @email_login_form.email)  %>
         </p>

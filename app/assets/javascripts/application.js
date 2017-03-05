@@ -11,7 +11,7 @@ import "../../../node_modules/raven-js/dist/raven.js"
 import "./raven.js"
 
 // Adding the path here as the main path is incorrect in the package
-require('sticky-kit/dist/sticky-kit.js');
+require('sticky-kit/dist/sticky-kit.js')
 
 const Editor = require('./editor')
 
@@ -20,6 +20,7 @@ import PageSavingStatus from './page/saving_status'
 import PageTitle from './page/title'
 import PageTree from './page_tree'
 import PageHierarchy from './page_hierarchy'
+import Dropdowns from './Dropdowns'
 
 window.Spaces = {
   Editor: Editor,
@@ -29,3 +30,5 @@ window.Spaces = {
   PageTree: PageTree,
   PageHierarchy: PageHierarchy
 };
+
+const dropdowns = new Dropdowns()

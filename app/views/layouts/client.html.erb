@@ -21,22 +21,22 @@
     <header class="topbar">
       <div class="container">
         <div class="five-cols-1">
-          <%= link_to image_tag(current_team.logo_url(:image_72), alt: current_team.name), team_url(subdomain: current_team.subdomain), class: 'topbar-logo' %>
+          <%= link_to image_tag(current_team.logo_url(:image_72), alt: current_team.name), spaces_path, class: 'topbar__logo' %>
         </div>
 
         <div class="five-cols-4">
-          <input type="text" placeholder="Search" class="topbar-search" tabindex="1">
+          <input type="text" placeholder="Search" class="topbar__search" tabindex="1">
 
-          <%= link_to image_tag(current_user.avatar_url(:image_72), alt: current_user.first_name), edit_user_path, class: 'topbar-account' %>
+          <%= render "layouts/dropdown_accounts" %>
 
           <nav>
             <ul>
               <li>
-                <%= link_to 'Spaces', spaces_path, class: 'topbar-spaces' %>
+                <%= render "layouts/dropdown_spaces" %>
               </li>
 
               <li>
-                <%= link_to 'Team', team_url(subdomain: current_team.subdomain), class: 'topbar-team' %>
+                <%= render "layouts/dropdown_teams" %>
               </li>
 
               <li>
@@ -48,16 +48,12 @@
       </div>
     </header>
 
-
-    <%= render "layouts/dropdown_teams" %>
-
-
     <% if notice %>
-      <div class="message message-notice"><%= notice %></div>
+      <div class="message message--notice"><%= notice %></div>
     <% end %>
 
     <% if alert %>
-      <div class="message message-alert"><%= alert %></div>
+      <div class="message message--alert"><%= alert %></div>
     <% end %>
 
     <%= yield %>

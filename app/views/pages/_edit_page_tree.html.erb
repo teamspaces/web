@@ -2,10 +2,10 @@
     <li id=<%= "page_#{page.id}" %> >
         <%= link_to(page.decorate.title_with_fallback, edit_page_path(page)) %>
 
-        <div class="space-sidebar-edit-actions">
-            <span class="space-sidebar-move"></span>
-            <%= link_to "", page, method: :delete, class: "space-sidebar-remove", data: { confirm: "Are you sure?" } %>
-            <%= link_to "", space_pages_path(page.space, params: { page: { parent_id: page.id}}), method: :post, class: "space-sidebar-add-subpage" %>
+        <div class="space-sidebar__edit-actions">
+            <span class="space-sidebar__move"></span>
+            <%= link_to "", page, method: :delete, class: "space-sidebar__remove", data: { confirm: "Are you sure?" } %>
+            <%= link_to "", space_pages_path(page.space, params: { page: { parent_id: page.id}}), method: :post, class: "space-sidebar__add-subpage" %>
         </div>
 
         <% if page_tree.size.positive? %>

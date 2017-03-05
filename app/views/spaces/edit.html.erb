@@ -4,10 +4,10 @@
       <h1>Editing Space</h1>
     </header>
 
-    <div class="card-content">
+    <div class="card__content">
       <%= render "form", form: @space_form %>
 
-      <div class="card-actions">
+      <div class="card__actions">
         <%= link_to "Member Settings", space_members_path(@space) %>
         <%= link_to "Back", spaces_path(@space.team) %>
       </div>

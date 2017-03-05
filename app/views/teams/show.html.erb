@@ -4,7 +4,7 @@
       <h1>Team</h1>
     </header>
 
-    <div class="card-content">
+    <div class="card__content">
       <%= notice %>
 
       <%= render "team_members", team_members: @team.members %>
@@ -17,7 +17,7 @@
         <%= render "/landing/available_teams", teams: other_available_teams %>
       <% end %>
 
-      <div class="card-actions">
+      <div class="card__actions">
         <%= link_to "Edit", edit_team_path %> |
         <%= link_to "Destroy", team_path, method: :delete, data: { confirm: 'Are you sure?' } %>
       </div>

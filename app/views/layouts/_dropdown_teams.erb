@@ -1,46 +1,62 @@
 <div class="dropdown dropdown--teams">
-  <div class="dropdown__team-header">
-    <img src="" alt="">
+  <%= link_to 'Team', team_url(subdomain: current_team.subdomain), class: 'dropdown__toggle' %>
 
-    <h3>Spaces</h3>
+  <div class="dropdown__content">
+    <div class="dropdown__arrow"></div>
 
-    <div class="avatars avatars--small">
-      <%= link_to(invitations_path, class: "avatars__inner") do %>
-        <%= image_tag(current_user.avatar_url(:image_72), alt: current_user.first_name) %>
-        <%= image_tag(current_user.avatar_url(:image_72), alt: current_user.first_name) %>
-        <%= image_tag(current_user.avatar_url(:image_72), alt: current_user.first_name) %>
-      <% end %>
+    <div class="dropdown__scroll-container">
+      <div class="dropdown__team-header">
+        <img src="" alt="">
+
+        <h3>Spaces</h3>
+
+        <div class="avatars avatars--small">
+          <%= link_to(invitations_path, class: "avatars__inner") do %>
+            <%= image_tag(current_user.avatar_url(:image_72), alt: current_user.first_name) %>
+            <%= image_tag(current_user.avatar_url(:image_72), alt: current_user.first_name) %>
+            <%= image_tag(current_user.avatar_url(:image_72), alt: current_user.first_name) %>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="dropdown__team-actions">
+        <a href="#">Team members</a>
+
+        <a href="#" class="button button--primary">Invite people</a>
+
+        <a href="#">Team settings</a>
+      </div>
+
+      <div class="dropdown__teams-grid">
+        <ul>
+          <li>
+            <a href="#">
+              <img src="" alt="">
+
+              <span>Upgraded</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="#">
+              <img src="" alt="">
+
+              <span>UCLA</span>
+            </a>
+          </li>
+        </ul>
+
+        <p>
+          You can switch between teams if you have more than one.<br>
+          <a href="#">Sign in</a> to show teams from other accounts here.
+        </p>
+      </div>
     </div>
-  </div>
 
-  <div class="dropdown__team-actions">
-    <a href="#">Team members</a>
+    <div class="dropdown__footer">
+      <%= link_to 'Teams', team_url(subdomain: current_team.subdomain), class: 'dropdown__expand' %>
 
-    <a href="#" class="button button--primary">Invite people</a>
-
-    <a href="#">Team settings</a>
-  </div>
-
-  <div class="dropdown__teams-grid">
-    <ul>
-      <li>
-        <a href="#">
-          <img src="" alt="">
-
-          <span>Upgraded</span>
-        </a>
-      </li>
-    </ul>
-
-    <p>
-      You can switch between teams if you have more than one.
-      <a href="#">Sign in</a> to show teams from other accounts here.
-    </p>
-  </div>
-
-  <div class="dropdown__footer">
-    <a href="#" class="dropdown__expand">Teams</a>
-
-    <a href="#" class="button">New team</a>
+      <a href="#" class="button">New team</a>
+    </div>
   </div>
 </div>

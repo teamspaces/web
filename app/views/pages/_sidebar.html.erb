@@ -2,7 +2,7 @@
   <aside class="space-sidebar">
     <h3><%= link_to space.name, space_pages_path(space) %></h3>
 
-    <ul class="space-sidebar-pages">
+    <ul class="space-sidebar__pages">
       <%= render "page_tree", page_tree: space.pages.hash_tree %>
     </ul>
   </aside>
