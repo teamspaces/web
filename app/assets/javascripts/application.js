@@ -20,7 +20,7 @@ import PageSavingStatus from './page/saving_status'
 import PageTitle from './page/title'
 import PageTree from './page_tree'
 import PageHierarchy from './page_hierarchy'
-import Dropdowns from './Dropdowns'
+import Dropdowns from './dropdowns'
 
 window.Spaces = {
   Editor: Editor,
