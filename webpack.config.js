@@ -20,9 +20,11 @@ process.on('SIGINT', function() {
 module.exports = {
   context: __dirname + "/app/assets",
   entry: {
+    vendor: [
+        "./javascripts/vendor.js"
+    ],
     application: [
         "./javascripts/application.js",
-        "../../vendor/assets/javascripts/jquery.mjs.nestedSortable.js",  // The NPM package has issues loading the correct modules
         "./stylesheets/application.scss",
     ]
   },
@@ -99,24 +101,24 @@ module.exports = {
 
     function() {
       // delete previous outputs
-      this.plugin("compile", function() {
-        let basepath = __dirname + "/public";
-        let paths = ["/javascripts", "/stylesheets"];
-
-        for (let x = 0; x < paths.length; x++) {
-          const asset_path = basepath + paths[x];
-
-          fs.readdir(asset_path, function(err, files) {
-            if (files === undefined) {
-              return;
-            }
-
-            for (let i = 0; i < files.length; i++) {
-              fs.unlinkSync(asset_path + "/" + files[i]);
-            }
-          });
-        }
-      });
+    //   this.plugin("compile", function() {
+    //     let basepath = __dirname + "/public";
+    //     let paths = ["/javascripts", "/stylesheets"];
+      //
+    //     for (let x = 0; x < paths.length; x++) {
+    //       const asset_path = basepath + paths[x];
+      //
+    //       fs.readdir(asset_path, function(err, files) {
+    //         if (files === undefined) {
+    //           return;
+    //         }
+      //
+    //         for (let i = 0; i < files.length; i++) {
+    //           fs.unlinkSync(asset_path + "/" + files[i]);
+    //         }
+    //       });
+    //     }
+    //   });
 
       // output the fingerprint
       this.plugin("done", function(stats) {
