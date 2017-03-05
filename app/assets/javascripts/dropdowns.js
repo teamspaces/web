@@ -37,7 +37,7 @@ class Dropdowns {
   }
 
   onDocumentKeyUp (e) {
-    // Pressing enter hides all dropdowns
+    // Pressing escape hides all dropdowns
     if(e.keyCode === 27)
       this.hideAllDropdowns()
   }
