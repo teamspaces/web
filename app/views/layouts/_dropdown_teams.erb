@@ -48,8 +48,7 @@
     <div class="dropdown__footer">
       <%= link_to "Teams", team_url(subdomain: current_team.subdomain), class: "dropdown__expand" %>
 
-      <!-- TODO: where should we send the user? -->
-      <a href="#" class="button">New team</a>
+      <%= link_to "New Team", choose_login_method_url(create_team: true, subdomain: ENV["DEFAULT_SUBDOMAIN"]), class: "button" %>
     </div>
   </div>
 </div>
