@@ -9,7 +9,7 @@
         <li>
           <%= image_tag(current_user.avatar_url(:image_72), alt: current_user.first_name) %>
 
-          <h3><%= current_user.first_name + ' ' + current_user.last_name %></h3>
+          <h3><%= current_user.name %></h3>
 
           <%= link_to 'Account settings', edit_user_path %>
         </li>
@@ -19,7 +19,7 @@
 
           <h3>Have another account?</h3>
 
-          <a href="#">Sign in</a>
+          <%= link_to 'Sign in', choose_login_method(subdomain: ENV["DEFAULT_SUBDOMAIN"]), target: '_blank' %>
         </li>
       </ul>
     </div>
