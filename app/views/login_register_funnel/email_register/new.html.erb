@@ -4,7 +4,7 @@
       <h1><b>3/3</b> | Register with your email address</h1>
     </header>
 
-    <div class="card-content">
+    <div class="card__content">
 
       <% if @existing_slack_user_with_same_email.present? %>
         <%= link_to "Login with your Slack Account", user_slack_omniauth_authorize_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], state: :login) %>
@@ -41,7 +41,7 @@
 
       <% end %>
 
-      <div class="card-actions">
+      <div class="card__actions">
         <%= link_to "Back", new_review_email_address_path %>
       </div>
     </div>

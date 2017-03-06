@@ -10,19 +10,66 @@
   height: 73px;
   background: #fff;
   border-bottom: 1px solid #E6E8EB;
-  // box-shadow: 0 0 10px rgba(0,0,0,0.03);
 
-  a {
-    transition: all 0.3s;
+  .container {
+    position: relative;
+  }
 
-    &:hover, &:active, &:focus {
-      color: $color-text-secondary;
-      text-decoration: none;
-      opacity: 0.6;
+  // Spaces, team and help
+  nav {
+    @include clearfix;
+    float: right;
+    margin-right: -18px;
+
+    > ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+
+      > li {
+        float: left;
+
+        > a, > .dropdown > .dropdown__toggle {
+          display: block;
+          font-size: 14px;
+          line-height: 72px;
+          padding: 0 18px;
+          color: $color-text-secondary;
+          vertical-align: middle;
+
+          &:hover, &:active, &:focus {
+            color: $color-text-secondary;
+            opacity: 0.6;
+          }
+        }
+      }
+    }
+  }
+
+  // Account
+  .dropdown--accounts {
+    float: right;
+    margin-right: -30px;
+
+    .dropdown__toggle {
+      display: block;
+      padding: 21px 30px 21px 36px;
+
+      img {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        border-radius: 15px;
+      }
+
+      &:hover, &:active, &:focus {
+        opacity: 0.6;
+      }
     }
   }
 }
 
+// Hide topbar when editing pages
 .body-space.body-space-edit {
   .topbar {
     display: none;
@@ -34,7 +81,7 @@
 /**
  * Logo
  */
-.topbar-logo {
+.topbar__logo {
   display: inline-block;
   padding: 21px 0;
 
@@ -44,6 +91,10 @@
     max-width: 100%;
     border-radius: 5px;
   }
+
+  &:hover, &:active, &:focus {
+    opacity: 0.6;
+  }
 }
 
 
@@ -51,7 +102,7 @@
 /**
  * Search
  */
-input.topbar-search {
+input.topbar__search {
   display: block;
   float: left;
   background: #fff;
@@ -79,55 +130,5 @@ input.topbar-search {
 
   &:-ms-input-placeholder {
     color: #A6A6A6;
-  }
-}
-
-
-
-/**
- * Navigation container
- */
-nav {
-  @include clearfix;
-  float: right;
-  margin-right: -18px;
-
-  ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  li {
-    float: left;
-  }
-
-  a {
-    display: block;
-    font-size: 14px;
-    line-height: 72px;
-    padding: 0 18px;
-    color: $color-text-secondary;
-    text-decoration: none;
-    vertical-align: middle;
-  }
-}
-
-
-
-/**
- * Account navigation
- */
-.topbar-account {
-  display: block;
-  float: right;
-  margin-right: -30px;
-  padding: 21px 30px 21px 36px;
-
-  img {
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    border-radius: 15px;
   }
 }

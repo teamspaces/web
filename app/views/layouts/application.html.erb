@@ -20,11 +20,11 @@
 
   <body class="body-no-topbar <%= content_for :body_class %>">
     <% if notice %>
-      <div class="message message-notice"><%= notice %></div>
+      <div class="message message--notice"><%= notice %></div>
     <% end %>
 
     <% if alert %>
-      <div class="message message-alert"><%= alert %></div>
+      <div class="message message--alert"><%= alert %></div>
     <% end %>
 
     <%= yield %>

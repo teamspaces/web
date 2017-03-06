@@ -4,9 +4,9 @@
       <h1><b>1/3</b> | How would you like to sign in?</h1>
     </header>
 
-    <div class="card-content">
+    <div class="card__content">
 
-      <div class="card-actions">
+      <div class="card__actions">
         <%= link_to "Sign in with slack", user_slack_omniauth_authorize_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], state: :register) %> |
         <%= link_to "Sign in with email", new_review_email_address_path %>
       </div>

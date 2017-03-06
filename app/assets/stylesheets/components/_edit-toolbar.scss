@@ -32,7 +32,7 @@
   z-index: 102;
 }
 
-.edit-toolbar-new-page {
+.edit-toolbar__new-page {
   display: block;
   float: left;
   height: 72px;
@@ -44,13 +44,12 @@
   transition: all 0.2s;
 
   &:hover, &:active, &:focus {
-    text-decoration: none;
     color: $color-primary;
     background-image: url(../images/space/new-page-icon-on.svg);
   }
 }
 
-.edit-toolbar-status {
+.edit-toolbar__status {
   display: block;
   float: right;
   font-size: 13px;

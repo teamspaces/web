@@ -18,13 +18,9 @@
       margin: 0;
     }
   }
-
-  &.card-editor {
-    width: 776px;
-  }
 }
 
-.card-content {
+.card__content {
   @include clearfix;
   padding: 48px;
 
@@ -37,7 +33,7 @@
   }
 }
 
-.card-actions {
+.card__actions {
   float: left;
   margin: 48px 0 0 0;
   color: #ccc;

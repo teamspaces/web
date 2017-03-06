@@ -7,7 +7,7 @@ class SampleUsersQuery
     @resource = resource
   end
 
-  def sample_users
+  def users
     User.where(id: user_ids).all
   end
 

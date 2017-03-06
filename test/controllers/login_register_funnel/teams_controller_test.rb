@@ -86,7 +86,7 @@ describe LoginRegisterFunnel::TeamsController do
 
     it "redirects to sign_in_url for user and team" do
       sign_in(user)
-      get show_team_subdomain_url(team_subomain: team.subdomain, subdomain: ENV["DEFAULT_SUBDOMAIN"])
+      get show_team_subdomain_url(team_subdomain: team.subdomain, subdomain: ENV["DEFAULT_SUBDOMAIN"])
 
       assert_redirected_to @controller.sign_in_url_for(user: user, team_to_redirect_to: team)
     end

@@ -4,20 +4,14 @@
       <h1>Team</h1>
     </header>
 
-    <div class="card-content">
+    <div class="card__content">
       <%= notice %>
 
       <%= render "team_members", team_members: @team.members %>
 
-      <%= link_to "Invite", invitations_path, class: "button button-primary" %>
+      <%= link_to "Invite", invitations_path, class: "button button--primary" %>
 
-      <% if other_available_teams.count.positive? %>
-        <p>Other Available Teams</p>
-
-        <%= render "/landing/available_teams", teams: other_available_teams %>
-      <% end %>
-
-      <div class="card-actions">
+      <div class="card__actions">
         <%= link_to "Edit", edit_team_path %> |
         <%= link_to "Destroy", team_path, method: :delete, data: { confirm: 'Are you sure?' } %>
       </div>

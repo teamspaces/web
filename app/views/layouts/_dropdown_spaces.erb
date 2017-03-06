@@ -1,0 +1,36 @@
+<div class="dropdown dropdown--spaces">
+  <%= link_to 'Spaces', spaces_path, class: 'dropdown__toggle' %>
+
+  <div class="dropdown__content">
+    <div class="dropdown__arrow"></div>
+
+    <div class="dropdown__scroll-container">
+      <ul class="dropdown__spaces-list">
+        <% current_team.spaces.find_each do |space| %>
+        <li>
+          <%= link_to space.name, space_pages_path(space) %>
+
+          <div class="dropdown">
+            <div class="dropdown__toggle overflow-toggle">
+              <div></div>
+            </div>
+
+            <ul class="dropdown__content dropdown__content--right">
+              <li>
+                <%= link_to "Settings", edit_space_path(space) %>
+                <%= link_to "Members", space_members_path(space) %>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <% end %>
+      </ul>
+
+      <%= link_to 'New space', new_space_path, class: 'button button--primary' %>
+    </div>
+
+    <div class="dropdown__footer dropdown__footer--centered">
+      <%= link_to 'Spaces', spaces_path, class: 'dropdown__expand' %>
+    </div>
+  </div>
+</div>

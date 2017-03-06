@@ -1,4 +1,4 @@
-<%= link_to "Allow all Team Members", space_access_control_path(@space, space: { access_control: Space::AccessControl::TEAM }), method: :patch %>
+<%= link_to "Allow all Team Members", space_access_control_path(@space, space: { access_control: Space::AccessControl::TEAM }), method: :patch, data: { confirm: "Are you sure?" } %>
 
 <p>Space Members</p>
 <%= render "space/members/private/space_members", space_team_members: space_team_members,

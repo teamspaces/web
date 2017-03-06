@@ -2,16 +2,6 @@
   height: 34px;
   margin-right: 16px;
 
-  .avatars-inner {
-    @include clearfix;
-    display: inline-block;
-    transition: all 0.3s;
-
-    &:hover, &:active, &:focus {
-      opacity: 0.6;
-    }
-  }
-
   img, span {
     display: inline-block;
     box-sizing: content-box;
@@ -22,8 +12,18 @@
     border: 2px solid #fff;
     margin-right: -18px;
   }
+}
 
-  .avatars-add {
-    background: #02B875 url(../images/space/add-member-icon.svg) no-repeat center center;
+.avatars__inner {
+  @include clearfix;
+  display: inline-block;
+  transition: all 0.3s;
+
+  &:hover, &:active, &:focus {
+    opacity: 0.6;
   }
+}
+
+.avatars__add {
+  background: #02B875 url(../images/space/add-member-icon.svg) no-repeat center center;
 }

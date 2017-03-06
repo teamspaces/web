@@ -2,39 +2,35 @@
 
 <div class="container" id="sticky-container">
   <div class="five-cols-1">
-    <aside class="space-sidebar space-sidebar-edit">
+    <aside class="space-sidebar space-sidebar--edit">
       <h3>
         <%= link_to edit_space_path(@page.space) do %>
           <%= @page.space.name %><span></span>
         <% end %>
       </h3>
 
-      <ul class="space-sidebar-pages">
+      <ul class="space-sidebar__pages">
         <%= render "edit_page_tree", page_tree: @page.space.pages.hash_tree %>
       </ul>
     </aside>
   </div>
 
   <div class="five-cols-3">
-    <main class="space-page space-page-edit">
+    <main class="space-page space-page--edit">
       <%= render 'form', page: @page %>
     </main>
   </div>
 
   <div class="five-cols-1">
     <div class="space-actions">
-      <%=
-      render "avatar_users",
-      avatar_users: @sample_users_query.sample_users,
-      number_of_hidden_avatars: @sample_users_query.users_not_in_sample_count
-      %>
+      <%= render "avatar_users" %>
     </div>
   </div>
 </div>
 
 <script>
   $(function(){
-    const pageSavingStatus = new Spaces.PageSavingStatus($(".edit-toolbar-status"));
+    const pageSavingStatus = new Spaces.PageSavingStatus($(".edit-toolbar__status"));
 
     Spaces.Editor.init("#page-editor", pageSavingStatus, <%= editor_settings %>);
 
@@ -44,7 +40,7 @@
     const pageHierarchy = new Spaces.PageHierarchy(<%= page_hierarchy_settings %>);
 
     new Spaces.PageTree({
-      container: $('.space-sidebar-pages'),
+      container: $('.space-sidebar__pages'),
       onChange: function(hierarchy){
         const promise = pageHierarchy.update({ page_hierarchy: hierarchy });
 
