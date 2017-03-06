@@ -27,7 +27,7 @@
 
       <div class="dropdown__teams-grid">
         <ul>
-          <% available_users.teams.each do |team| %>
+          <% other_available_teams.each do |team| %>
             <li>
               <%= link_to root_subdomain_url(subdomain: team.subdomain) do %>
                 <%= image_tag team.logo_url(:image_192) %>
