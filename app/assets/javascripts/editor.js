@@ -88,7 +88,7 @@ import isWhitespace from 'is-whitespace'
         /* https://quilljs.com/docs/configuration/ */
         var editorOptions = {
             theme: "snow",
-            placeholder: "And write something awesome here...",
+            placeholder: "And write something here...",
             modules: {
                 syntax: true,
                 toolbar: [
