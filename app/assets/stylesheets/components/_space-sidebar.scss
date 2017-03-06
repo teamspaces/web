@@ -3,7 +3,7 @@
  */
 .space-sidebar {
   margin: 162px 0 0 0;
-  padding: 0 72px 24px 0;
+  padding: 0 84px 24px 0;
 
   h3 {
     margin: 0;
@@ -16,17 +16,12 @@
   }
 
   h3 a {
+    @include ellipsis;
     display: block;
     color: $color-text-secondary;
-    text-decoration: none;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    transition: all 0.3s;
 
     &:hover, &:active, &:focus {
       color: $color-text-secondary;
-      text-decoration: none;
       opacity: 0.6;
     }
   }
@@ -37,7 +32,7 @@
 /**
  * Pages navigation
  */
-.space-sidebar-pages {
+.space-sidebar__pages {
   margin: 10px 0 0 0;
   padding: 0;
   list-style: none;
@@ -59,18 +54,17 @@
     text-overflow: ellipsis;
     transition: all 0.3s;
 
-    &.space-sidebar-pages-closed {
+    &.space-sidebar__closed {
       // background-image: url(../images/space/page-closed-icon.svg);
     }
 
-    &.space-sidebar-pages-open {
+    &.space-sidebar__open {
       // background-image: url(../images/space/page-open-icon.svg);
     }
   }
 
-  li.space-sidebar-active > a:first-child, li a:hover, li a:active, li a:focus {
+  li.space-sidebar__active > a:first-child, li a:hover, li a:active, li a:focus {
     color: $color-primary;
-    text-decoration: none;
   }
 
   // Nested lists
@@ -99,11 +93,11 @@
 /**
  * Edit sidebar
  */
-.space-sidebar.space-sidebar-edit {
+.space-sidebar.space-sidebar--edit {
   margin-top: 90px;
 
   &:hover, &:active, &:focus {
-    h3 span, .space-sidebar-edit-actions {
+    h3 span, .space-sidebar__edit-actions {
       opacity: 1;
       top: 0;
     }
@@ -131,7 +125,7 @@
   }
 }
 
-.space-sidebar-edit-actions {
+.space-sidebar__edit-actions {
   position: absolute;
   top: 5px;
   right: -6px;
@@ -151,24 +145,22 @@
     transition: all 0.2s;
 
     &:hover, &:active, &:focus {
-      text-decoration: none;
       opacity: 0.6;
     }
   }
 }
 
-.space-sidebar-move {
+.space-sidebar__move {
   background-image: url(../images/space/move-icon.svg);
   cursor: move;
-  display: none !important; // Remove this once we've implemented sorting
 }
 
-.space-sidebar-remove {
+.space-sidebar__remove {
   background-image: url(../images/space/remove-icon.svg);
   width: 27px;
 }
 
-.space-sidebar-add-subpage {
+.space-sidebar__add-subpage {
   background-image: url(../images/space/add-subpage-icon.svg);
   width: 31px;
 }

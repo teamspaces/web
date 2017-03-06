@@ -1,7 +1,11 @@
 class PagesController < SubdomainBaseController
   before_action :set_page, only: [:show, :edit, :update, :destroy]
-  before_action :set_space, :set_sample_users_query
+
+  before_action :set_current_space,
+                :set_sample_users_query
+
   before_action :set_parent, only: [:create]
+
   layout 'client'
 
   helper_method :number_of_words_to_minutes_reading
@@ -32,7 +36,7 @@ class PagesController < SubdomainBaseController
 
   helper_method :page_hierarchy_settings
   def page_hierarchy_settings
-    PageHierarchyHashPresenter.new(controller: self, space: @space)
+    PageHierarchyHashPresenter.new(controller: self, space: current_space)
                               .to_hash
                               .to_json
                               .html_safe
@@ -41,7 +45,7 @@ class PagesController < SubdomainBaseController
   # GET /pages
   # GET /pages.json
   def index
-    authorize @space, :show?
+    authorize current_space, :show?
 
     @pages = policy_scope(Page).all
 
@@ -112,16 +116,12 @@ class PagesController < SubdomainBaseController
       @page = Page.find(params[:id])
     end
 
-    def set_space
-      @space = params[:space_id] ? Space.find(params[:space_id]) : @page.space
-    end
-
-    def set_sample_users_query
-      @sample_users_query = SampleUsersQuery.new(resource: @space, total_users_to_sample: 3)
+    def set_current_space
+      @current_space = params[:space_id] ? Space.find(params[:space_id]) : @page.space
     end
 
     def set_parent
-      @parent = @space.pages.find_by(id: params[:parent_id])
+      @parent = current_space.pages.find_by(id: params[:parent_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
@@ -130,6 +130,6 @@ class PagesController < SubdomainBaseController
     end
 
     def pundit_user
-      PagePolicy::Context.new(current_user, current_team, @space)
+      PagePolicy::Context.new(current_user, current_team, current_space)
     end
 end

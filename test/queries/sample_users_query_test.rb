@@ -9,7 +9,7 @@ describe SampleUsersQuery, :model do
   describe "#sample_users" do
     it "returns given count of sample users" do
       sample_users = subject.new(resource: space, total_users_to_sample: 2)
-                            .sample_users
+                            .users
 
 
       assert_equal 2, sample_users.length

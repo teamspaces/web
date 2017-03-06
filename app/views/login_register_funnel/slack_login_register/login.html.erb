@@ -4,8 +4,8 @@
       <h1><b>3/3</b> | Slack Login</h1>
     </header>
 
-    <div class="card-content">
-      <div class="card-actions">
+    <div class="card__content">
+      <div class="card__actions">
         <%= link_to "Login with Slack", user_slack_omniauth_authorize_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], state: :login) %>
       </div>
     </div>

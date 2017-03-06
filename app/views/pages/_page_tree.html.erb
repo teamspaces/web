@@ -1,5 +1,5 @@
 <% page_tree.map do |page, page_tree| %>
-    <li class="<%= (current_page?(page)) ? 'space-sidebar-active' : nil %>">
+    <li class="<%= (current_page?(page)) ? 'space-sidebar__active' : nil %>">
         <%= link_to(page.decorate.title_with_fallback, page) %>
 
         <% if page_tree.size.positive? %>

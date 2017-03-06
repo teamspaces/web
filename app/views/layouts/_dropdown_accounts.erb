@@ -1,0 +1,45 @@
+<div class="dropdown dropdown--accounts">
+  <%= link_to image_tag(current_user.avatar_url(:image_72), alt: current_user.first_name), edit_user_path, class: 'dropdown__toggle' %>
+
+  <div class="dropdown__content">
+    <div class="dropdown__scroll-container">
+      <div class="dropdown__arrow"></div>
+
+      <ul class="dropdown__accounts-list">
+        <li>
+          <%= image_tag(current_user.avatar_url(:image_72), alt: current_user.first_name) %>
+
+          <h3><%= current_user.name %></h3>
+
+          <%= link_to 'Account settings', edit_user_path %>
+        </li>
+
+        <% other_available_users.each do |user| %>
+        <li>
+          <%= image_tag(user.avatar_url(:image_72), alt: user.first_name) %>
+
+          <h3><%= user.name %></h3>
+
+          <!-- TODO: should we have accounts.spaces.is for managing accounts? -->
+          <%= link_to 'Account settings', '#' %>
+        </li>
+        <% end %>
+
+        <li>
+          <div></div>
+
+          <h3>Have another account?</h3>
+
+          <%= link_to 'Sign in', choose_login_method_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]), target: '_blank' %>
+        </li>
+      </ul>
+    </div>
+
+    <div class="dropdown__footer">
+      <!-- TODO: should we have accounts.spaces.is for managing accounts? -->
+      <a href="#" class="dropdown__expand">Accounts</a>
+
+      <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: "button" %>
+    </div>
+  </div>
+</div>

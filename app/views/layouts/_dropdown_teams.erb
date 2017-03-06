@@ -1,0 +1,54 @@
+<div class="dropdown dropdown--teams">
+  <%= link_to "Team", team_url(subdomain: current_team.subdomain), class: "dropdown__toggle" %>
+
+  <div class="dropdown__content">
+    <div class="dropdown__arrow"></div>
+
+    <div class="dropdown__scroll-container">
+      <div class="dropdown__team-header">
+        <%= image_tag(current_team.logo_url(:image_192), alt: current_team.name) %>
+
+        <h3>Spaces</h3>
+
+        <div class="avatars avatars--small">
+          <%= link_to(invitations_path, class: "avatars__inner") do %>
+            <% avatar_users.each do |user| %>
+              <%= image_tag(user.avatar_url(:image_72), alt: user.first_name) %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="dropdown__team-actions">
+        <%= link_to "Team members", team_path %>
+        <%= link_to "Invite people", invitations_path, class: "button button--primary" %>
+        <%= link_to "Team settings", edit_team_path %>
+      </div>
+
+      <div class="dropdown__teams-grid">
+        <ul>
+          <% available_users.teams.each do |team| %>
+            <li>
+              <%= link_to root_subdomain_url(subdomain: team.subdomain) do %>
+                <%= image_tag team.logo_url(:image_192) %>
+
+                <span><%= team.name %></span>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+
+        <p>
+          You can switch between teams if you have more than one.<br>
+          <%= link_to "Sign in", choose_login_method_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]), target: "_blank" %> to show teams from other accounts here.
+        </p>
+      </div>
+    </div>
+
+    <div class="dropdown__footer">
+      <%= link_to "Teams", team_url(subdomain: current_team.subdomain), class: "dropdown__expand" %>
+
+      <%= link_to "New Team", choose_login_method_url(create_team: true, subdomain: ENV["DEFAULT_SUBDOMAIN"]), class: "button" %>
+    </div>
+  </div>
+</div>

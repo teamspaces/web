@@ -11,7 +11,7 @@
 /**
  * Page meta
  */
-.space-page-meta {
+.space-page__meta {
   font-size: 13px;
   color: #999;
   margin: 11px 0 0 0;
@@ -22,8 +22,7 @@
 /**
  * Page content
  */
- // TODO Remove .space-page-content when merged with feature/dropdowns branch
-.space-page-content, .spaces-page__content {
+.space-page__content {
   margin-top: 36px;
 
   // Remove margins from elements and let users control this with linebreaks instead, i.e. <p><br></p> in the editor
@@ -54,7 +53,7 @@
 /**
  * Edit page
  */
-.space-page.space-page-edit {
+.space-page.space-page--edit {
   padding-top: 80px;
   padding-bottom: 120px;
 

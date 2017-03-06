@@ -4,15 +4,15 @@
       <h1><%= @space.name %></h1>
     </header>
 
-    <div class="card-content">
+    <div class="card__content">
       <%= notice %>
 
       <%= image_tag @space.cover_url(:image_450) %>
 
       <div>
-        <%= link_to "View #{@space.name}", space_pages_path(@space), class: 'button button-primary' %>
+        <%= link_to "View #{@space.name}", space_pages_path(@space), class: 'button button--primary' %>
 
-        <div class="card-actions">
+        <div class="card__actions">
           <%= link_to 'Back to Spaces', spaces_path %> | 
           <%= link_to "Edit #{@space.name}", edit_space_path(@space) %>
         </div>

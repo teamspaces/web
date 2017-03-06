@@ -4,7 +4,7 @@
       <h1>Here you can change your password</h1>
     </header>
 
-    <div class="card-content">
+    <div class="card__content">
       <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
         <%= devise_error_messages! %>
         <%= f.hidden_field :reset_password_token %>
@@ -21,7 +21,7 @@
         <%= f.submit "Change my password and sign me in" %>
       <% end %>
 
-      <div class="card-actions">
+      <div class="card__actions">
         <%= link_to "Take me back", root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]) %>
       </div>
     </div>

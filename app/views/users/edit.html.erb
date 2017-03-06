@@ -4,7 +4,7 @@
       <h1>Edit Account</h1>
     </header>
 
-    <div class="card-content">
+    <div class="card__content">
       <%= notice %>
 
       <%= render "personal_info_form", form: @update_settings_form %>
@@ -12,7 +12,7 @@
       <%= render "password_form", form: @update_settings_form if @user.login_using_email? %>
 
 
-      <div class="card-actions">
+      <div class="card__actions">
         <%= link_to "Back", root_subdomain_path %>
       </div>
     </div>
