@@ -15,8 +15,8 @@
   font-size: 13px;
   color: #999;
   margin: 11px 0 0 0;
-  border-bottom: 1px solid #E6E8EB;
-  padding-bottom: 20px;
+  // border-bottom: 1px solid #E6E8EB;
+  // padding-bottom: 20px;
 }
 
 
@@ -25,7 +25,7 @@
  * Page content
  */
 .space-page__content {
-  margin-top: 42px;
+  margin-top: 36px;
 
   // Remove margins from elements and let users control this with linebreaks instead, i.e. <p><br></p> in the editor
   h2, h3, h4, h5, h6, p, ul, ol, pre, table, form, label {
