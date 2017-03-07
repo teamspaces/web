@@ -16,10 +16,11 @@ class TeamsController < SubdomainBaseController
   end
 
   def create
-    @team_form = Team::CreateTeamForUserForm.new(user: User.find(team_params[:user_id]), attributes: team_params)
+    @creation_user = User.find(team_params[:user_id])
+    @team_form = Team::CreateTeamForUserForm.new(user: @creation_user, attributes: team_params)
 
     if @team_form.save
-      redirect_to sign_in_url_for(user: User.find(team_params[:user_id]), created_team_to_redirect_to: @team_form.team)
+      redirect_to sign_in_url_for(user: @creation_user, created_team_to_redirect_to: @team_form.team)
     else
       render :new
     end
