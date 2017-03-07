@@ -30,12 +30,21 @@ describe TeamsController do
       get new_team_url(user, subdomain: team.subdomain)
       assert_response :success
     end
+
+    context "creating user is not authorized" do
+      it "raises authorization error" do
+        assert_raises Pundit::NotAuthorizedError do
+          get new_team_url(users(:with_two_spaces), subdomain: team.subdomain)
+        end
+      end
+    end
   end
 
   describe "#create" do
-    describe "valid params" do
-      let(:valid_params) {{team:{name: "bain ltd", subdomain: "baincompany"}}}
+    let(:valid_params) {{team:{name: "bain ltd", subdomain: "baincompany"}}}
+    let(:invalid_params){{team:{name:"bain ltd"}}}
 
+    context "valid params" do
       it "works" do
         assert_difference -> { Team.count }, 1 do
           post team_url(user_id: user.id, subdomain: team.subdomain), params: valid_params
@@ -45,14 +54,20 @@ describe TeamsController do
       end
     end
 
-    describe "invalid params" do
-      let(:invalid_params){{team:{name:"bain ltd"}}}
-
+    context "invalid params" do
       it "works" do
         assert_difference -> { Team.count }, 0 do
           post team_url(user_id: user.id, subdomain: team.subdomain), params: invalid_params
 
           assert_response :success
+        end
+      end
+    end
+
+    context "creating user is not authorized" do
+      it "raises authorization error" do
+        assert_raises Pundit::NotAuthorizedError do
+          post team_url(user_id: users(:with_two_spaces).id, subdomain: team.subdomain), params: valid_params
         end
       end
     end
