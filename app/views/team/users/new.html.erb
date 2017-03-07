@@ -1,0 +1,26 @@
+<main>
+  <div class="card">
+    <header>
+      <h1>Which account for the new team?</h1>
+    </header>
+
+    <div class="card__content">
+
+      <ul class="dropdown__accounts-list">
+        <% available_users.users.each do |user| %>
+        <li>
+          <%= image_tag(user.avatar_url(:image_72), alt: user.first_name) %>
+
+          <h3><%= user.name %></h3>
+
+          <%= link_to 'Choose', '#' %>
+        </li>
+        <% end %>
+      </ul>
+
+      <div class="card__actions">
+        <%= link_to "Back", root_subdomain_path %>
+      </div>
+    </div>
+  </div>
+</main>
