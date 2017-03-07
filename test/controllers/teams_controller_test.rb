@@ -4,6 +4,7 @@ describe TeamsController do
   let(:user) { users(:lars) }
   let(:team) { teams(:spaces) }
   let(:auth_token) { "secret_token" }
+  let(:external_user) { users(:with_two_spaces) }
 
   before(:each) { sign_in user }
 
@@ -40,15 +41,15 @@ describe TeamsController do
     context "creating user is not authorized" do
       it "raises authorization error" do
         assert_raises Pundit::NotAuthorizedError do
-          get new_team_url(users(:with_two_spaces), subdomain: team.subdomain)
+          get new_team_url(external_user, subdomain: team.subdomain)
         end
       end
     end
   end
 
   describe "#create" do
-    let(:valid_params) {{team:{name: "bain ltd", subdomain: "baincompany"}}}
-    let(:invalid_params){{team:{name:"bain ltd"}}}
+    let(:valid_params) { { team: { name: "bain ltd", subdomain: "baincompany" } } }
+    let(:invalid_params) { { team: { name:"bain ltd" } } }
 
     before(:each) do
       AvailableUsersQuery.any_instance
@@ -79,7 +80,7 @@ describe TeamsController do
     context "creating user is not authorized" do
       it "raises authorization error" do
         assert_raises Pundit::NotAuthorizedError do
-          post team_url(user_id: users(:with_two_spaces).id, subdomain: team.subdomain), params: valid_params
+          post team_url(user_id: external_user.id, subdomain: team.subdomain), params: valid_params
         end
       end
     end

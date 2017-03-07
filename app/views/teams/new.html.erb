@@ -6,7 +6,7 @@
 
     <div class="card__content">
 
-    <p>Account:</p>
+      <p>Account:</p>
 
       <ul class="dropdown__accounts-list">
         <li>
@@ -24,7 +24,7 @@
 
       <p>Team</p>
 
-      <%= render '/login_register_funnel/teams/form', team: @team_form, url: team_url(user_id: @creating_user.id) %>
+      <%= render "/login_register_funnel/teams/form", team: @team_form, url: team_url(user_id: @creating_user.id) %>
 
       <div class="card__actions">
         <%= link_to "Back", root_subdomain_path %>

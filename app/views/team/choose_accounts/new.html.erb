@@ -10,17 +10,15 @@
 
       <ul class="dropdown__accounts-list">
         <% available_users.users.each do |user| %>
-        <li>
-          <%= image_tag(user.avatar_url(:image_72), alt: user.first_name) %>
+          <li>
+            <%= image_tag(user.avatar_url(:image_72), alt: user.first_name) %>
 
+            <h3><%= user.name %></h3>
+            <a><%= user.email %></a>
+            <p><%= user.decorate.auth_method %>-User</p>
 
-          <h3><%= user.name %></h3>
-          <a><%= user.email %></a>
-          <p><%= user.decorate.auth_method %>-User</p>
-
-
-          <%= link_to 'Choose', new_team_path(user) %>
-        </li>
+            <%= link_to 'Choose', new_team_path(user) %>
+          </li>
         <% end %>
       </ul>
 
