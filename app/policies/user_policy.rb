@@ -16,9 +16,5 @@ class UserPolicy
     !@user.email_confirmation_required?
   end
 
-  def create_team?
-    true
-  end
-
    alias_methods :is_owner?, [:read?, :show?, :new?, :edit?, :create?, :update?, :destroy?]
 end

@@ -1,7 +1,7 @@
 class TeamsController < SubdomainBaseController
   before_action :set_team, except: [:index]
   skip_before_action :verify_team_membership, only: [:index, :create, :new, :update]
-  before_action :set_creating_user, only: [:create, :new]
+  before_action :set_creating_user, :authorize_creating_user, only: [:create, :new]
   layout 'client'
 
   # GET /teams/1
@@ -66,7 +66,9 @@ class TeamsController < SubdomainBaseController
   private
     def set_creating_user
       @creating_user = User.find(params[:user_id])
+    end
 
+    def authorize_creating_user
       unless AvailableUsersPolicy.new(available_users, @creating_user).create_team?
         raise Pundit::NotAuthorizedError
       end

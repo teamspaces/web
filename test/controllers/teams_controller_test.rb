@@ -26,6 +26,12 @@ describe TeamsController do
   end
 
   describe "#new" do
+    before(:each) do
+      AvailableUsersQuery.any_instance
+                         .stub(:users)
+                         .with([user])
+    end
+
     it "works" do
       get new_team_url(user, subdomain: team.subdomain)
       assert_response :success
@@ -43,6 +49,12 @@ describe TeamsController do
   describe "#create" do
     let(:valid_params) {{team:{name: "bain ltd", subdomain: "baincompany"}}}
     let(:invalid_params){{team:{name:"bain ltd"}}}
+
+    before(:each) do
+      AvailableUsersQuery.any_instance
+                         .stub(:users)
+                         .with([user])
+    end
 
     context "valid params" do
       it "works" do
