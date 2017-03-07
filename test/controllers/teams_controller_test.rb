@@ -28,8 +28,8 @@ describe TeamsController do
   describe "#new" do
     before(:each) do
       AvailableUsersQuery.any_instance
-                         .stub(:users)
-                         .with([user])
+                         .stubs(:users)
+                         .returns([user])
     end
 
     it "works" do
@@ -52,8 +52,8 @@ describe TeamsController do
 
     before(:each) do
       AvailableUsersQuery.any_instance
-                         .stub(:users)
-                         .with([user])
+                         .stubs(:users)
+                         .returns([user])
     end
 
     context "valid params" do
