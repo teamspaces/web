@@ -6,17 +6,37 @@
 
     <div class="card__content">
 
+      <h4>Choose an existing user for the new team</h4>
+
       <ul class="dropdown__accounts-list">
         <% available_users.users.each do |user| %>
         <li>
           <%= image_tag(user.avatar_url(:image_72), alt: user.first_name) %>
 
-          <h3><%= user.name %></h3>
 
-          <%= link_to 'Choose', '#' %>
+          <h3><%= user.name %></h3>
+          <a><%= user.email %></a>
+          <p><%= user.decorate.auth_method %>-User</p>
+
+
+          <%= link_to 'Choose', new_team_path(user) %>
         </li>
         <% end %>
       </ul>
+
+      <h4>Create a new user for the new team</h4>
+
+        <%= link_to "Create team with Slack-Account", choose_login_method_url(create_team: true, subdomain: ENV["DEFAULT_SUBDOMAIN"]) %>
+
+        <hr>
+
+        <p><b>Create Team with Email-Account</b></h4>
+
+          <%= label_tag :email %>
+          <%= text_field_tag :email %>
+          <%= submit_tag "submit" %>
+
+      <hr>
 
       <div class="card__actions">
         <%= link_to "Back", root_subdomain_path %>
