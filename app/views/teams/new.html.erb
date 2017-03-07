@@ -10,11 +10,11 @@
 
       <ul class="dropdown__accounts-list">
         <li>
-          <%= image_tag(@creation_user.avatar_url(:image_72), alt: @creation_user.first_name) %>
+          <%= image_tag(@creating_user.avatar_url(:image_72), alt: @creating_user.first_name) %>
 
-          <h3><%= @creation_user.name %></h3>
-          <a><%= @creation_user.email %></a>
-          <p><%= @creation_user.decorate.auth_method %>-User</p>
+          <h3><%= @creating_user.name %></h3>
+          <a><%= @creating_user.email %></a>
+          <p><%= @creating_user.decorate.auth_method %>-User</p>
         </li>
       </ul>
 
@@ -24,7 +24,7 @@
 
       <p>Team</p>
 
-      <%= render '/login_register_funnel/teams/form', team: @team_form, url: team_url(user_id: @creation_user.id) %>
+      <%= render '/login_register_funnel/teams/form', team: @team_form, url: team_url(user_id: @creating_user.id) %>
 
       <div class="card__actions">
         <%= link_to "Back", root_subdomain_path %>

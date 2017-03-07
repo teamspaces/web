@@ -1,8 +1,7 @@
 class Team::ChooseAccountsController < SubdomainBaseController
   layout 'client'
 
-  # DELETE /team/user/new
+  # GET /team/choose_account/new
   def new
-
   end
 end
