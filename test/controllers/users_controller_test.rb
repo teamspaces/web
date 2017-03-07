@@ -15,16 +15,25 @@ describe UsersController do
   end
 
   describe "#update" do
+    let(:valid_user_params) do
+      { first_name: "Anna", last_name: "Betz", email: "new@email.com", password: "secret", password_confirmation: "secret"}
+    end
+
     context "with valid attributes" do
       it "updates user attributes" do
-        user_params = { first_name: "Anna", last_name: "Betz", email: "new@email.com", password: "secret", password_confirmation: "secret"}
-        patch user_url(subdomain: team.subdomain), params: { user: user_params }
+        patch user_url(subdomain: team.subdomain), params: { user: valid_user_params }
         user.reload
 
         assert_equal "Anna", user.first_name
         assert_equal "Betz", user.last_name
         assert_equal "new@email.com", user.unconfirmed_email
         assert_equal "secret", user.password
+      end
+
+      it "redirects to edit user url" do
+        patch user_url(subdomain: team.subdomain), params: { user: valid_user_params }
+
+        assert_redirected_to edit_user_url(subdomain: team.subdomain)
       end
 
       describe "password changes" do

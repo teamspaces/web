@@ -17,7 +17,7 @@ class UsersController < SubdomainBaseController
     respond_to do |format|
       if @update_settings_form.save
         bypass_sign_in(@update_settings_form.user)
-        format.html { redirect_to user_path }
+        format.html { redirect_to edit_user_path }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit }
