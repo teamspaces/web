@@ -26,7 +26,7 @@
 
       <% team = @team_form %>
 
-      <%= form_for(team, url: team_url) do |f| %>
+      <%= form_for(team, url: team_url(user_id: @creation_user.id)) do |f| %>
         <% if team.errors.any? %>
           <div id="error_explanation">
             <h2><%= pluralize(team.errors.count, "error") %> prohibited this team from being saved:</h2>
@@ -38,8 +38,6 @@
             </ul>
           </div>
         <% end %>
-
-        <%= f.hidden_field :user_id, value: @creation_user.id %>
 
         <%= f.label :name %>
         <%= f.text_field :name %>

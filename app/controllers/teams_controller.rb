@@ -1,6 +1,7 @@
 class TeamsController < SubdomainBaseController
   before_action :set_team, except: [:index]
   skip_before_action :verify_team_membership, only: [:index, :create, :new, :update]
+  before_action :set_creation_user, only: [:create, :new]
   layout 'client'
 
   # GET /teams/1
@@ -11,12 +12,10 @@ class TeamsController < SubdomainBaseController
 
   # GET /teams/new/:user_id
   def new
-    @creation_user = User.find(params[:user_id])
     @team_form = Team::CreateTeamForUserForm.new(user: @creation_user)
   end
 
   def create
-    @creation_user = User.find(team_params[:user_id])
     @team_form = Team::CreateTeamForUserForm.new(user: @creation_user, attributes: team_params)
 
     if @team_form.save
@@ -64,6 +63,10 @@ class TeamsController < SubdomainBaseController
   end
 
   private
+    def set_creation_user
+      @creation_user = User.find(params[:user_id])
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_team
       @team = current_team
