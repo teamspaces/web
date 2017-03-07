@@ -34,9 +34,7 @@ describe TeamsController do
 
   describe "#create" do
     describe "valid params" do
-      let(:valid_params) do
-        { team: { name: "bain ltd", subdomain: "baincompany" }
-      end
+      let(:valid_params) {{team:{name: "bain ltd", subdomain: "baincompany"}}}
 
       it "works" do
         assert_difference -> { Team.count }, 1 do
@@ -48,11 +46,14 @@ describe TeamsController do
     end
 
     describe "invalid params" do
-      let(:invalid_params) do
-        { team: { name: "bain ltd" }
-      end
+      let(:invalid_params){{team:{name:"bain ltd"}}}
 
       it "works" do
+        assert_difference -> { Team.count }, 0 do
+          post team_url(user_id: user.id, subdomain: team.subdomain), params: invalid_params
+
+          assert_response :success
+        end
       end
     end
   end
