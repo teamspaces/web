@@ -9,6 +9,22 @@ class TeamsController < SubdomainBaseController
     authorize @team, :show?
   end
 
+  # GET /teams/new/:user_id
+  def new
+    @creation_user = User.find(params[:user_id])
+    @team_form = Team::CreateTeamForUserForm.new(user: @creation_user)
+  end
+
+  def create
+    @team_form = Team::CreateTeamForUserForm.new(user: User.find(team_params[:user_id]), attributes: team_params)
+
+    if @team_form.save
+      redirect_to sign_in_url_for(user: User.find(team_params[:user_id]), created_team_to_redirect_to: @team_form.team)
+    else
+      render :new
+    end
+  end
+
   # GET /teams/1/edit
   def edit
     authorize @team, :edit?
@@ -54,6 +70,6 @@ class TeamsController < SubdomainBaseController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def team_params
-      params.require(:team).permit(:name, :logo).to_h
+      params.require(:team).permit(:name, :subdomain, :logo, :user_id).to_h
     end
 end

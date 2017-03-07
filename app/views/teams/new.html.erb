@@ -1,0 +1,64 @@
+<main>
+  <div class="card">
+    <header>
+      <h1>Create new team</h1>
+    </header>
+
+    <div class="card__content">
+
+    <p>Account:</p>
+
+      <ul class="dropdown__accounts-list">
+        <li>
+          <%= image_tag(@creation_user.avatar_url(:image_72), alt: @creation_user.first_name) %>
+
+          <h3><%= @creation_user.name %></h3>
+          <a><%= @creation_user.email %></a>
+          <p><%= @creation_user.decorate.auth_method %>-User</p>
+        </li>
+      </ul>
+
+      <%= link_to "Choose another account", new_team_user_path %>
+
+      <hr>
+
+      <p>Team</p>
+
+      <% team = @team_form %>
+
+      <%= form_for(team, url: team_url) do |f| %>
+        <% if team.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(team.errors.count, "error") %> prohibited this team from being saved:</h2>
+
+            <ul>
+            <% team.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <%= f.hidden_field :user_id, value: @creation_user.id %>
+
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+
+        <%= f.label :subdomain %>
+        <%= f.text_field :subdomain %>
+
+        <%= image_tag team.logo_url(:image_192) if team.cached_logo_data %>
+
+        <%= f.label :logo %>
+        <%= f.hidden_field :logo, value: team.cached_logo_data %>
+        <%= f.file_field :logo %>
+
+        <%= f.submit %>
+      <% end %>
+
+      <div class="card__actions">
+        <%= link_to "Back", root_subdomain_path %>
+      </div>
+    </div>
+  </div>
+</main>
