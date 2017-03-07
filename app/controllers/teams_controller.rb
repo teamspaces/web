@@ -12,10 +12,15 @@ class TeamsController < SubdomainBaseController
 
   # GET /teams/new/:user_id
   def new
+    authorize @creation_user, :create_team?
+
     @team_form = Team::CreateTeamForUserForm.new(user: @creation_user)
   end
 
+  # POST /teams?user_id=
   def create
+    authorize @creation_user, :create_team?
+
     @team_form = Team::CreateTeamForUserForm.new(user: @creation_user, attributes: team_params)
 
     if @team_form.save
@@ -74,6 +79,6 @@ class TeamsController < SubdomainBaseController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def team_params
-      params.require(:team).permit(:name, :subdomain, :logo, :user_id).to_h
+      params.require(:team).permit(:name, :subdomain, :logo).to_h
     end
 end
