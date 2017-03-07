@@ -101,6 +101,16 @@ describe TeamsController do
       team.reload
       assert_equal new_team_name, team.name
     end
+
+    context "update subdomain" do
+      it "does not update subdomain" do
+        new_subdomain = "newsubdomain"
+        patch team_url(subdomain: team.subdomain), params: { team: { subdomain: new_subdomain } }
+
+        team.reload
+        assert_not_equal new_subdomain, team.subdomain
+      end
+    end
   end
 
   describe "#destroy" do

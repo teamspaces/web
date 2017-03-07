@@ -17,7 +17,7 @@ class TeamsController < SubdomainBaseController
 
   # POST /teams?user_id=
   def create
-    @team_form = Team::CreateTeamForUserForm.new(user: @creating_user, attributes: team_params)
+    @team_form = Team::CreateTeamForUserForm.new(user: @creating_user, attributes: create_team_params)
 
     if @team_form.save
       redirect_to sign_in_url_for(user: @creating_user, created_team_to_redirect_to: @team_form.team)
@@ -38,7 +38,7 @@ class TeamsController < SubdomainBaseController
   def update
     authorize @team, :update?
 
-    @team_form = Team::Form.new(team: @team, attributes: team_params)
+    @team_form = Team::Form.new(team: @team, attributes: update_team_params)
 
     respond_to do |format|
       if @team_form.save
@@ -79,8 +79,11 @@ class TeamsController < SubdomainBaseController
       @team = current_team
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def team_params
+    def create_team_params
       params.require(:team).permit(:name, :subdomain, :logo).to_h
+    end
+
+    def update_team_params
+      params.require(:team).permit(:name, :logo).to_h
     end
 end
