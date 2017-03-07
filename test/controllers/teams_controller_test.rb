@@ -25,6 +25,38 @@ describe TeamsController do
     end
   end
 
+  describe "#new" do
+    it "works" do
+      get new_team_url(user, subdomain: team.subdomain)
+      assert_response :success
+    end
+  end
+
+  describe "#create" do
+    describe "valid params" do
+      let(:valid_params) do
+        { team: { name: "bain ltd", subdomain: "baincompany" }
+      end
+
+      it "works" do
+        assert_difference -> { Team.count }, 1 do
+          post team_url(user_id: user.id, subdomain: team.subdomain), params: valid_params
+
+          assert_redirected_to @controller.sign_in_url_for(user: user, created_team_to_redirect_to: Team.last)
+        end
+      end
+    end
+
+    describe "invalid params" do
+      let(:invalid_params) do
+        { team: { name: "bain ltd" }
+      end
+
+      it "works" do
+      end
+    end
+  end
+
   describe "#edit" do
     it "works" do
       get edit_team_url(subdomain: team.subdomain)
