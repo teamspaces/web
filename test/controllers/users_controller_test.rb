@@ -30,7 +30,7 @@ describe UsersController do
         assert_equal "secret", user.password
       end
 
-      it "redirects to user edit path" do
+      it "redirects to edit user url" do
         patch user_url(subdomain: team.subdomain), params: { user: valid_user_params }
 
         assert_redirected_to edit_user_url(subdomain: team.subdomain)
