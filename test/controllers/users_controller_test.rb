@@ -33,7 +33,7 @@ describe UsersController do
       it "redirects to user edit path" do
         patch user_url(subdomain: team.subdomain), params: { user: valid_user_params }
 
-        assert_redirected_to edit_user_path(user)
+        assert_redirected_to edit_user_url(subdomain: team.subdomain)
       end
 
       describe "password changes" do
