@@ -20,33 +20,27 @@
 
   <body class="<%= content_for :body_class %>">
     <header class="topbar">
-      <div class="container">
-        <div class="five-cols-1">
-          <%= link_to image_tag(current_team.logo_url(:image_72), alt: current_team.name), spaces_path, class: 'topbar__logo' %>
-        </div>
+      <%= link_to image_tag(current_team.logo_url(:image_72), alt: current_team.name), spaces_path, class: 'topbar__logo' %>
 
-        <div class="five-cols-4">
-          <input type="text" placeholder="Search" class="topbar__search" tabindex="1">
+      <input type="text" placeholder="Search" class="topbar__search" tabindex="1">
 
-          <%= render "layouts/dropdown_accounts" %>
+      <%= render "layouts/dropdown_accounts" %>
 
-          <nav>
-            <ul>
-              <li>
-                <%= render "layouts/dropdown_spaces" %>
-              </li>
+      <nav>
+        <ul>
+          <li>
+            <%= render "layouts/dropdown_spaces" %>
+          </li>
 
-              <li>
-                <%= render "layouts/dropdown_teams" %>
-              </li>
+          <li>
+            <%= render "layouts/dropdown_teams" %>
+          </li>
 
-              <li>
-                <a href="#" class="topbar-support drift-open-chat">Help</a>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </div>
+          <li>
+            <a href="#" class="topbar-support drift-open-chat">Help</a>
+          </li>
+        </ul>
+      </nav>
     </header>
 
     <% if notice %>

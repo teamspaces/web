@@ -1,15 +1,25 @@
 .space-actions {
   position: fixed;
-  bottom: 42px;
-  z-index: 10;
-  width: 228px;
-  text-align: right;
+  bottom: 12px;
+  right: 12px;
+  z-index: 1000;
 
   .button {
-    margin-top: 20px;
+    float: right;
+    margin: 0;
+  }
+
+  .avatars {
+    float: right;
+    margin: 4px 29px 0 0;
   }
 }
 
 .body-space-edit .space-actions {
-  bottom: 96px;
+  right: 124px;
+  bottom: 15px;
+
+  .avatars {
+    margin: 0px;
+  }
 }

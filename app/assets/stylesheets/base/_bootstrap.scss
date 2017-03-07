@@ -25,21 +25,21 @@
 }
 
 .five-cols-1 {
-  width: 20%;
+  width: calc((100% - 684px) / 2);
 }
 
-.five-cols-2 {
-  width: 40%;
-}
+// .five-cols-2 {
+//   width: 40%;
+// }
 
 .five-cols-3 {
-  width: 60%;
+  width: 684px;
 }
 
-.five-cols-4 {
-  width: 80%;
-}
-
-.five-cols-5 {
-  width: 100%;
-}
+// .five-cols-4 {
+//   width: 80%;
+// }
+//
+// .five-cols-5 {
+//   width: 100%;
+// }
