@@ -1,6 +1,6 @@
 <% content_for :body_class, 'body-space body-space-edit' %>
 
-<div class="container" id="sticky-container">
+<div class="clearfix" id="sticky-container">
   <div class="five-cols-1">
     <aside class="space-sidebar space-sidebar--edit">
       <h3>
@@ -21,10 +21,8 @@
     </main>
   </div>
 
-  <div class="five-cols-1">
-    <div class="space-actions">
-      <%= render "avatar_users" %>
-    </div>
+  <div class="space-actions">
+    <%= render "avatar_users" %>
   </div>
 </div>
 

@@ -18,12 +18,16 @@
   <div id="page-editor" class="space-page__content"></div>
 
   <div class="edit-toolbar">
-    <div class="container">
+    <div class="five-cols-1">
       <%= link_to 'New page', space_pages_path(@page.space, params: { page: { _: true } }), method: :post, class: 'edit-toolbar__new-page' %>
+    </div>
 
-      <%= f.submit 'Done' %>
-
+    <div class="five-cols-3">
       <div class="edit-toolbar__status"></div>
+    </div>
+
+    <div class="five-cols-1">
+      <%= f.submit 'Done' %>
     </div>
   </div>
 <% end %>

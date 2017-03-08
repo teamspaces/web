@@ -17,11 +17,11 @@
 .dropdown--teams {
   .dropdown__content {
     width: 482px;
-    left: -262px;
+    left: -292px;
   }
 
   .dropdown__arrow {
-    left: 299px;
+    left: 324px;
   }
 }
 
@@ -29,11 +29,11 @@
   .dropdown__content {
     width: 302px;
     left: auto;
-    right: 0;
+    right: 12px;
   }
 
   .dropdown__arrow {
-    left: 256px;
+    left: 268px;
   }
 }
 
@@ -62,7 +62,7 @@
   position: absolute;
   top: 100%;
   left: 0;
-  z-index: 1000;
+  z-index: 10000;
   transition: all 0.3s;
   margin-top: -6px;
 }

@@ -4,20 +4,21 @@
   left: 0;
   z-index: 100;
   width: 100%;
-  height: 72px;
+  height: 66px;
   background: #fff;
   border-top: 1px solid #E6E8EB;
   box-shadow: 0 0 10px rgba(0,0,0,0.03);
 
   input[type=submit] {
     float: right;
-    margin-top: 15px;
+    margin-top: 12px;
+    margin-right: 12px;
   }
 }
 
 .ql-toolbar {
   position: fixed;
-  bottom: 16px;
+  bottom: 13px;
   z-index: 101;
   margin-left: -18px;
 }
@@ -35,10 +36,11 @@
 .edit-toolbar__new-page {
   display: block;
   float: left;
-  height: 72px;
+  height: 66px;
   font-size: 13px;
-  line-height: 72px;
+  line-height: 66px;
   padding: 0 0 0 37px;
+  margin-left: 30px;
   color: $color-text-secondary;
   background: url(../images/space/new-page-icon.svg) no-repeat 0 center;
   transition: all 0.2s;
@@ -53,7 +55,7 @@
   display: block;
   float: right;
   font-size: 13px;
-  line-height: 72px;
+  line-height: 66px;
   color: #bfbfbf;
-  margin-right: 18px;
+  margin-right: 0;
 }
