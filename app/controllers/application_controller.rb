@@ -40,13 +40,6 @@ class ApplicationController < ActionController::Base
           email: current_user.email,
           ip_address: request.remote_ip
         )
-
-      if current_team
-        Raven.extra_context(
-            team_id: current_team.id,
-            subdomain: current_team.subdomain
-          )
-      end
     else
       Raven.user_context(ip_address: request.remote_ip)
     end
