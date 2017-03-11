@@ -19,6 +19,7 @@ class ApplicationController < ActionController::Base
     root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
   end
 
+  helper_method :on_team_subdomain?
   def on_team_subdomain?
     subdomain_team.present?
   end
@@ -28,7 +29,6 @@ class ApplicationController < ActionController::Base
   end
 
   helper_method :available_users
-
   def available_users
     @available_users ||= AvailableUsersQuery.new(browser_id: cookies[:browser_id])
   end
