@@ -3,17 +3,22 @@
  */
 .space-sidebar {
   max-width: 324px;
-  margin: 150px 0 0 0;
-  padding: 0 126px 24px 30px;
+  margin: 63px 0 0 0;
+  padding: 0 120px 24px 36px;
+
+  &:hover {
+    .space-sidebar__pages li > a:first-child {
+      color: $color-text-primary;
+    }
+  }
 
   h3 {
     margin: 0;
-    font-family: "Galano Grotesque", sans-serif;
     font-size: 14px;
     line-height: 24px;
-    font-weight: 400;
-    line-height: 24px;
-    color: $color-text-secondary;
+    font-weight: 300;
+    line-height: 30px;
+    color: $color-text-primary;
   }
 
   h3 a {
@@ -34,7 +39,7 @@
  * Pages navigation
  */
 .space-sidebar__pages {
-  margin: 10px 0 0 0;
+  margin: 0;
   padding: 0;
   list-style: none;
 
@@ -44,16 +49,13 @@
   }
 
   li > a:first-child {
+    @include ellipsis;
     display: block;
     color: $color-text-secondary;
-    font-size: 12.5px;
+    font-size: 13px;
     line-height: 18px;
     padding: 6px 0;
     // background: url(../images/space/page-bullet-icon.svg) no-repeat left center;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    transition: all 0.3s;
 
     &.space-sidebar__closed {
       // background-image: url(../images/space/page-closed-icon.svg);
@@ -65,7 +67,7 @@
   }
 
   li.space-sidebar__active > a:first-child, li a:hover, li a:active, li a:focus {
-    color: $color-primary;
+    color: #B3B3B3 !important;
   }
 
   // Nested lists
@@ -75,17 +77,17 @@
     list-style: none;
     position: relative;
 
-    &:before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 1px;
-      height: 100%;
-      background: #E6E8EB;
-      border-top: 10px solid #fff;
-      border-bottom: 11px solid #fff;
-    }
+    // &:before {
+    //   content: '';
+    //   position: absolute;
+    //   top: 0;
+    //   left: 0;
+    //   width: 1px;
+    //   height: 100%;
+    //   background: #E6E8EB;
+    //   border-top: 10px solid #fff;
+    //   border-bottom: 11px solid #fff;
+    // }
   }
 }
 
@@ -95,7 +97,7 @@
  * Edit sidebar
  */
 .space-sidebar.space-sidebar--edit {
-  margin-top: 90px;
+  margin-top: 40px;
 
   &:hover, &:active, &:focus {
     h3 span, .space-sidebar__edit-actions {
@@ -112,7 +114,7 @@
     display: block;
     position: absolute;
     top: 5px;
-    right: -12px;
+    right: -96px;
     height: 24px;
     width: 42px;
     padding: 0 12px;
@@ -129,12 +131,11 @@
 .space-sidebar__edit-actions {
   position: absolute;
   top: 5px;
-  right: -6px;
+  right: -90px;
   opacity: 0;
   transition: all 0.4s;
 
   span, a {
-    margin-top: -2px;
     display: block;
     float: left;
     height: 30px;
@@ -164,4 +165,10 @@
 .space-sidebar__add-subpage {
   background-image: url(../images/space/add-subpage-icon.svg);
   width: 31px;
+}
+
+@media (min-width: 1400px) {
+  .space-sidebar {
+    margin-top: 87px;
+  }
 }

@@ -1,25 +1,47 @@
 .space-actions {
-  position: fixed;
-  bottom: 12px;
-  right: 12px;
-  z-index: 1000;
+  height: 47px;
+  padding: 0 36px;
+  background: #FCFCFC;
+  border-bottom: 1px solid #EBEBEB;
+  margin-top: 1px;
 
-  .button {
-    float: right;
+  h3 {
+    @include ellipsis;
+    float: left;
+    max-width: 160px;
     margin: 0;
+
+    a {
+      font-size: 14px;
+      line-height: 46px;
+      font-weight: 300;
+      color: #7F7F7F;
+
+      &:hover, &:focus, &:active {
+        color: #7F7F7F;
+        opacity: 0.6;
+      }
+    }
   }
 
   .avatars {
     float: right;
-    margin: 4px 29px 0 0;
+    margin: 11px 15px 0 0;
   }
 }
 
-.body-space-edit .space-actions {
-  right: 124px;
-  bottom: 15px;
+.space-actions__edit {
+  float: right;
+  margin: 0;
+  font-size: 14px;
+  line-height: 46px;
+  color: #7F7F7F;
+  border-left: 1px solid #EBEBEB;
+  border-right: 1px solid #EBEBEB;
+  padding: 0 18px;
 
-  .avatars {
-    margin: 0px;
+  &:hover, &:active, &:focus {
+    color: #7F7F7F;
+    opacity: 0.6;
   }
 }

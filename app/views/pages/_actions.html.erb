@@ -1,7 +1,7 @@
-<div class="five-cols-1">
-  <div class="space-actions">
-    <%= link_to 'Edit', edit_page_path(page), class: 'button space-actions-edit' %>
+<div class="space-actions">
+  <h3><%= link_to current_space.name, space_pages_path(current_space) %></h3>
 
-    <%= render "avatar_users" %>
-  </div>
+  <%= link_to 'Edit space', edit_page_path(page), class: 'space-actions__edit' %>
+
+  <%= render "avatar_users" %>
 </div>

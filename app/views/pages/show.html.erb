@@ -1,5 +1,7 @@
 <% content_for :body_class, 'body-space' %>
 
+<%= render 'actions', page: @page %>
+
 <div class="clearfix" id="sticky-container">
   <%=
     render 'sidebar',
@@ -9,8 +11,6 @@
   %>
 
   <%= render 'page_contents', page: @page, notice: notice %>
-
-  <%= render 'actions', page: @page %>
 </div>
 
 <script>
@@ -18,7 +18,7 @@
     // Sticky sidebar
     $('.space-sidebar').stick_in_parent({
       parent: '#sticky-container',
-      offset_top: -48
+      offset_top: 36
     })
   })
 </script>
