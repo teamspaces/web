@@ -21,6 +21,10 @@
     drift.SNIPPET_VERSION = '0.3.1';
     drift.load('<%= ENV["DRIFT_TOKEN"] %>');
 
+    <% if user_signed_in? %>
+      drift.identify(<%= current_user.id %>, <%= { name: current_user.name, email: current_user.email, subdomain: current_team&.subdomain, companyId: current_team&.id }.to_json.html_safe %>);
+    <% end %>
+
     (function() {
      /* Add this class to any elements you want to use to open Drift.
      *
