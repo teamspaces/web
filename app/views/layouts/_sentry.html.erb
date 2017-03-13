@@ -1,3 +1,4 @@
+<script type="text/javascript">
 <% if user_signed_in? %>
   <% if on_team_subdomain? %>
     Raven.setUserContext(<%= {
@@ -13,3 +14,4 @@
   }.to_json.html_safe %>);
   <% end %>
 <% end %>
+</script>
