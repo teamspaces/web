@@ -1,5 +1,6 @@
 class SubdomainBaseController < ApplicationController
   before_action :verify_team_membership,
+                :add_sentry_team_context,
                 :verify_email_confirmed
 
   helper_method :current_team
@@ -57,5 +58,12 @@ class SubdomainBaseController < ApplicationController
 
     def pundit_user
       DefaultContext.new(current_user, current_team)
+    end
+
+    def add_sentry_team_context
+      Raven.extra_context(
+          team_id: current_team.id,
+          subdomain: current_team.subdomain
+        )
     end
 end

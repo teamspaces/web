@@ -8,7 +8,8 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  before_action :authenticate_user!
+  before_action :authenticate_user!,
+                :add_sentry_context
 
   def sign_in_url_for(options)
     User::SignInUrlDecider.call({ controller: self }.merge(options.to_h)).url
@@ -18,6 +19,7 @@ class ApplicationController < ActionController::Base
     root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
   end
 
+  helper_method :on_team_subdomain?
   def on_team_subdomain?
     subdomain_team.present?
   end
@@ -27,8 +29,19 @@ class ApplicationController < ActionController::Base
   end
 
   helper_method :available_users
-
   def available_users
     @available_users ||= AvailableUsersQuery.new(browser_id: cookies[:browser_id])
+  end
+
+  def add_sentry_context
+    if user_signed_in?
+      Raven.user_context(
+          id: current_user.id,
+          email: current_user.email,
+          ip_address: request.remote_ip
+        )
+    else
+      Raven.user_context(ip_address: request.remote_ip)
+    end
   end
 end

@@ -1,0 +1,17 @@
+<script>
+<% if user_signed_in? %>
+  <% if on_team_subdomain? %>
+    Raven.setUserContext(<%= {
+      id: current_user.id,
+      email: current_user.email,
+      team_id: current_team&.id,
+      subdomain: current_team&.subdomain
+    }.to_json.html_safe %>);
+  <% else %>
+  Raven.setUserContext(<%= {
+    id: current_user.id,
+    email: current_user.email
+  }.to_json.html_safe %>);
+  <% end %>
+<% end %>
+</script>
