@@ -1,29 +1,55 @@
-.avatars {
-  height: 34px;
-  margin-right: 17px;
+.avatar {
+  position: relative;
 
-  img, span {
-    display: inline-block;
-    box-sizing: content-box;
-    float: left;
-    width: 30px;
-    height: 30px;
-    border-radius: 17px;
-    border: 2px solid #fff;
-    margin-right: -19px;
+  img {
+    display: block;
+  }
+
+  &:after, img {
+    width: 24px;
+    height: 24px;
+    border-radius: 12px;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.15);
   }
 }
 
-.avatars__inner {
+.avatar--large {
+  &:after, img {
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+  }
+}
+
+.avatars {
   @include clearfix;
   display: inline-block;
-  transition: all 0.3s;
+  transition: all 0.2s;
 
   &:hover, &:active, &:focus {
-    opacity: 0.6;
+    transform: scale(1.05);
+  }
+
+  .avatar, .avatars__add {
+    display: block;
+    float: left;
+    margin: 0 3px;
   }
 }
 
 .avatars__add {
-  background: #02B875 url(../images/space/add-member-icon.svg) no-repeat center center;
+  display: block;
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  background: $color-primary url(../images/space/add-member-icon.svg) no-repeat center center;
+  border: 1px solid #2C8E46;
 }

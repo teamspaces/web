@@ -9,19 +9,17 @@
     <title>Spaces: Knowledge Management for Teams</title>
 
     <link rel="icon" href="">
+    <%= render "layouts/fonts" %>
     <%= stylesheet_link_tag fingerprinted_asset("application"), media: 'all' %>
 
     <%= javascript_include_tag fingerprinted_asset("vendor") %>
     <%= javascript_include_tag fingerprinted_asset("application") %>
     <%= render "layouts/google_analytics" %>
     <%= render "layouts/drift" %>
-    <%= render "layouts/myfonts" %>
   </head>
 
   <body class="<%= content_for :body_class %>">
     <header class="topbar">
-      <%= link_to image_tag(current_team.logo_url(:image_72), alt: current_team.name), spaces_path, class: 'topbar__logo' %>
-
       <input type="text" placeholder="Search" class="topbar__search" tabindex="1">
 
       <%= render "layouts/dropdown_accounts" %>
