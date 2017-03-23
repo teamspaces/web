@@ -39,9 +39,17 @@ describe Space do
     end
   end
 
-  describe "#users" do
-    it "returns space users" do
-      assert true
+  describe "#root_page" do
+    context "space has several pages" do
+      it "returns hierachy root page with lowest sort oder" do
+        assert_equal pages(:lowest_sort_order), team_space.root_page
+      end
+    end
+
+    context "space without pages" do
+      it "returns nil" do
+        assert_nil spaces(:without_pages).root_page
+      end
     end
   end
 end

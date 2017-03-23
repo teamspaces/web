@@ -21,6 +21,13 @@ class Space < ApplicationRecord
         .where(team_members: { id: team_members.pluck(:id) })
   end
 
+  def root_page
+    pages.where(parent_id: nil)
+         .order(sort_order: :asc)
+         .limit(1)
+         .first
+  end
+
   def access_control
     Space::AccessControl.new(self)
   end

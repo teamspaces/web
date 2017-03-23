@@ -1,14 +1,22 @@
 spaces:
   space: spaces
   title: Spaces Main
+  sort_order: 3
 
 onboarding:
   space: spaces
   title: Onboarding Guide
+  sort_order: 2
 
 marketing:
   space: spaces
   title: Marketing for everyone
+  sort_order: 1
+
+lowest_sort_order:
+  space: spaces
+  title: Development
+  sort_order: 0
 
 power_rangers:
   space: power_rangers
