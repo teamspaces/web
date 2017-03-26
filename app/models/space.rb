@@ -22,10 +22,7 @@ class Space < ApplicationRecord
   end
 
   def root_page
-    pages.where(parent_id: nil)
-         .order(sort_order: :asc)
-         .limit(1)
-         .first
+    Space::PagesQuery.new(self).root_page
   end
 
   def access_control
