@@ -47,10 +47,10 @@ class PagesController < SubdomainBaseController
   def index
     authorize current_space, :show?
 
-    @pages = policy_scope(Page).all
-
-    if @pages.count.positive?
-      redirect_to @pages.first
+    if current_space.root_page
+      redirect_to current_space.root_page
+    else
+      @pages = policy_scope(Page).all
     end
   end
 

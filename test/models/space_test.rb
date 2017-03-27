@@ -38,10 +38,4 @@ describe Space do
       end
     end
   end
-
-  describe "#users" do
-    it "returns space users" do
-      assert true
-    end
-  end
 end

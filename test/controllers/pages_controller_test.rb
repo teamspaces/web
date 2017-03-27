@@ -9,9 +9,11 @@ describe PagesController do
   before(:each) { sign_in users(:ulf) }
 
   describe "#index" do
-    it "redirects to first page" do
-      get space_pages_url(space, subdomain: team.subdomain)
-      assert_redirected_to page_path(space.pages.first, subdomain: team.subdomain)
+    context "with pages" do
+      it "redirects to root page" do
+        get space_pages_url(space, subdomain: team.subdomain)
+        assert_redirected_to page_path(space.root_page, subdomain: team.subdomain)
+      end
     end
 
     context "without pages" do

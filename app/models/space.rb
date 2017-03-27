@@ -21,6 +21,10 @@ class Space < ApplicationRecord
         .where(team_members: { id: team_members.pluck(:id) })
   end
 
+  def root_page
+    Space::PagesQuery.new(self).root_page
+  end
+
   def access_control
     Space::AccessControl.new(self)
   end

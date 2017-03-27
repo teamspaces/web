@@ -6,7 +6,8 @@ describe PageHierarchiesController do
   before(:each){ sign_in users(:lars) }
 
   let(:valid_page_hierarchy) do
-    [{id: pages(:spaces).id},
+    [{id: pages(:lowest_sort_order).id},
+     {id: pages(:spaces).id},
      {id: pages(:onboarding).id,
       children: [{id: pages(:marketing).id}]}]
   end
