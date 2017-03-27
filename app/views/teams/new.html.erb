@@ -10,21 +10,21 @@
 
       <ul class="dropdown__accounts-list">
         <li>
-          <%= image_tag(@creating_user.avatar_url(:image_72), alt: @creating_user.first_name) %>
+          <%= image_tag(@user_for_team.avatar_url(:image_72), alt: @user_for_team.first_name) %>
 
-          <h3><%= @creating_user.name %></h3>
-          <a><%= @creating_user.email %></a>
-          <p><%= @creating_user.decorate.auth_method %>-User</p>
+          <h3><%= @user_for_team.name %></h3>
+          <a><%= @user_for_team.email %></a>
+          <p><%= @user_for_team.decorate.auth_method %>-User</p>
         </li>
       </ul>
 
-      <%= link_to "Choose another account", new_team_choose_account_path %>
+      <%= link_to "Choose another account", new_team_choose_user_path %>
 
       <hr>
 
       <p>Team</p>
 
-      <%= render "/login_register_funnel/teams/form", team: @team_form, url: team_url(user_id: @creating_user.id) %>
+      <%= render "/login_register_funnel/teams/form", team: @team_form, url: team_url(user_id: @user_for_team.id) %>
 
       <div class="card__actions">
         <%= link_to "Back", root_subdomain_path %>
