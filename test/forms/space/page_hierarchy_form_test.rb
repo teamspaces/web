@@ -2,13 +2,15 @@ require "test_helper"
 
 describe Space::PageHierarchyForm, :model do
   let(:space) { spaces(:spaces) }
+  let(:root_page) { pages(:lowest_sort_order) }
   let(:main_page) { pages(:spaces) }
   let(:onboarding_page) { pages(:onboarding) }
   let(:marketing_page) { pages(:marketing) }
   subject { Space::PageHierarchyForm }
 
   let(:valid_page_hierarchy) do
-    [{id: main_page.id},
+    [{id: root_page.id},
+     {id: main_page.id},
      {id: onboarding_page.id,
       children: [{id: marketing_page.id}]}]
   end
