@@ -1,3 +1,4 @@
+
 import isWhitespace from 'is-whitespace'
 
 (function(){
