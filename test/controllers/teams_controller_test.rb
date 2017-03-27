@@ -27,19 +27,19 @@ describe TeamsController do
   end
 
   describe "#new" do
-    before(:each) do
-      AvailableUsersQuery.any_instance
-                         .stubs(:users)
-                         .returns([user])
+    context "user for team is authorized" do
+      it "works" do
+        AvailableUsersPolicy.expects(:create_team?).returns(true)
+
+        get new_team_url(user, subdomain: team.subdomain)
+        assert_response :success
+      end
     end
 
-    it "works" do
-      get new_team_url(user, subdomain: team.subdomain)
-      assert_response :success
-    end
-
-    context "creating user is not authorized" do
+    context "user for team is not authorized" do
       it "raises authorization error" do
+        AvailableUsersPolicy.expects(:create_team?).returns(false)
+
         assert_raises Pundit::NotAuthorizedError do
           get new_team_url(external_user, subdomain: team.subdomain)
         end
@@ -51,34 +51,34 @@ describe TeamsController do
     let(:valid_params) { { team: { name: "bain ltd", subdomain: "baincompany" } } }
     let(:invalid_params) { { team: { name:"bain ltd" } } }
 
-    before(:each) do
-      AvailableUsersQuery.any_instance
-                         .stubs(:users)
-                         .returns([user])
-    end
+    describe "user for team is authorized" do
+      before(:each) { AvailableUsersPolicy.expects(:create_team?).returns(true) }
 
-    context "valid params" do
-      it "works" do
-        assert_difference -> { Team.count }, 1 do
-          post team_url(user_id: user.id, subdomain: team.subdomain), params: valid_params
+      context "valid params" do
+        it "works" do
+          assert_difference -> { Team.count }, 1 do
+            post team_url(user_id: user.id, subdomain: team.subdomain), params: valid_params
 
-          assert_redirected_to @controller.sign_in_url_for(user: user, created_team_to_redirect_to: Team.last)
+            assert_redirected_to @controller.sign_in_url_for(user: user, created_team_to_redirect_to: Team.last)
+          end
+        end
+      end
+
+      context "invalid params" do
+        it "works" do
+          assert_difference -> { Team.count }, 0 do
+            post team_url(user_id: user.id, subdomain: team.subdomain), params: invalid_params
+
+            assert_response :success
+          end
         end
       end
     end
 
-    context "invalid params" do
-      it "works" do
-        assert_difference -> { Team.count }, 0 do
-          post team_url(user_id: user.id, subdomain: team.subdomain), params: invalid_params
-
-          assert_response :success
-        end
-      end
-    end
-
-    context "creating user is not authorized" do
+    describe "user for team is not authorized" do
       it "raises authorization error" do
+         AvailableUsersPolicy.expects(:create_team?).returns(false)
+
         assert_raises Pundit::NotAuthorizedError do
           post team_url(user_id: external_user.id, subdomain: team.subdomain), params: valid_params
         end
