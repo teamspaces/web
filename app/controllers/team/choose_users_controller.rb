@@ -1,5 +1,5 @@
 class Team::ChooseUsersController < SubdomainBaseController
-  layout 'client'
+  layout "client"
 
   # GET /team/choose_user/new
   def new

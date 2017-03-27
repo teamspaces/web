@@ -29,7 +29,7 @@ describe TeamsController do
   describe "#new" do
     context "user for team is authorized" do
       it "works" do
-        AvailableUsersPolicy.expects(:create_team?).returns(true)
+        AvailableUsersPolicy.any_instance.expects(:create_team?).returns(true)
 
         get new_team_url(user, subdomain: team.subdomain)
         assert_response :success
@@ -38,7 +38,7 @@ describe TeamsController do
 
     context "user for team is not authorized" do
       it "raises authorization error" do
-        AvailableUsersPolicy.expects(:create_team?).returns(false)
+        AvailableUsersPolicy.any_instance.expects(:create_team?).returns(false)
 
         assert_raises Pundit::NotAuthorizedError do
           get new_team_url(external_user, subdomain: team.subdomain)
@@ -52,7 +52,11 @@ describe TeamsController do
     let(:invalid_params) { { team: { name:"bain ltd" } } }
 
     describe "user for team is authorized" do
-      before(:each) { AvailableUsersPolicy.expects(:create_team?).returns(true) }
+      before(:each) do
+        AvailableUsersPolicy.any_instance
+                            .expects(:create_team?)
+                            .returns(true)
+      end
 
       context "valid params" do
         it "works" do
@@ -77,7 +81,7 @@ describe TeamsController do
 
     describe "user for team is not authorized" do
       it "raises authorization error" do
-         AvailableUsersPolicy.expects(:create_team?).returns(false)
+         AvailableUsersPolicy.any_instance.expects(:create_team?).returns(false)
 
         assert_raises Pundit::NotAuthorizedError do
           post team_url(user_id: external_user.id, subdomain: team.subdomain), params: valid_params
