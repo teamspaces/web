@@ -1,4 +1,4 @@
-class Team::ChooseAccountsController < SubdomainBaseController
+class Team::ChooseUsersController < SubdomainBaseController
   layout 'client'
 
   # GET /team/choose_account/new

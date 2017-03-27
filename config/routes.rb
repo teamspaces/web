@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 
     resource :team, only: [:show, :edit, :update, :destroy, :new, :create], path_names: { new: "new/:user_id" }
     namespace :team do
-      resource :choose_account, only: [:new]
+      resource :choose_user, only: [:new]
       resources :members, only: [:destroy]
       resource :logo, only: [:destroy]
     end
