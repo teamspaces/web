@@ -29,7 +29,9 @@ describe TeamsController do
   describe "#new" do
     context "user for team is authorized" do
       it "works" do
-        AvailableUsersPolicy.any_instance.expects(:create_team?).returns(true)
+        stub_available_users_policy_for(user: user,
+                                        method: :create_team?,
+                                        return_value: true)
 
         get new_team_url(user, subdomain: team.subdomain)
         assert_response :success
@@ -38,7 +40,9 @@ describe TeamsController do
 
     context "user for team is not authorized" do
       it "raises authorization error" do
-        AvailableUsersPolicy.any_instance.expects(:create_team?).returns(false)
+        stub_available_users_policy_for(user: external_user,
+                                        method: :create_team?,
+                                        return_value: false)
 
         assert_raises Pundit::NotAuthorizedError do
           get new_team_url(external_user, subdomain: team.subdomain)
@@ -53,9 +57,9 @@ describe TeamsController do
 
     describe "user for team is authorized" do
       before(:each) do
-        AvailableUsersPolicy.any_instance
-                            .expects(:create_team?)
-                            .returns(true)
+        stub_available_users_policy_for(user: user,
+                                        method: :create_team?,
+                                        return_value: true)
       end
 
       context "valid params" do
@@ -81,7 +85,9 @@ describe TeamsController do
 
     describe "user for team is not authorized" do
       it "raises authorization error" do
-         AvailableUsersPolicy.any_instance.expects(:create_team?).returns(false)
+        stub_available_users_policy_for(user: external_user,
+                                        method: :create_team?,
+                                        return_value: false)
 
         assert_raises Pundit::NotAuthorizedError do
           post team_url(user_id: external_user.id, subdomain: team.subdomain), params: valid_params
@@ -125,4 +131,14 @@ describe TeamsController do
       end
     end
   end
+
+  private
+
+    def stub_available_users_policy_for(user:, method:, return_value:)
+      AvailableUsersPolicy.expects(:new)
+                          .with(anything, user)
+                          .returns(policy_mock = mock)
+
+      policy_mock.expects(method).returns(return_value)
+    end
 end
