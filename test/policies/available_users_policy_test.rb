@@ -4,7 +4,7 @@ describe AvailableUsersPolicy, :model do
   let(:available_user) { users(:ulf) }
   let(:external_user) { users(:lars) }
   let(:available_users) do
-    available_users = AvailableUsersQuery.new
+    available_users = AvailableUsersQuery.new(browser_id: "default")
     available_users.stubs(:users)
                    .returns([available_user])
   end
