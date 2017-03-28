@@ -6,7 +6,7 @@
 
     <div class="dropdown__scroll-container">
       <ul class="dropdown__spaces-list">
-        <% current_team.spaces.find_each do |space| %>
+        <% policy_scope(Space).find_each do |space| %>
         <li>
           <%= link_to space.name, space_pages_path(space) %>
 
