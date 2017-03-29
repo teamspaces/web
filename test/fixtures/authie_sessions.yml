@@ -4,7 +4,7 @@ maja_at_spaces: &default
   active: true
   team_id: <%= ActiveRecord::FixtureSet.identify(:spaces) %>
 
-hassan_at_without_space: &default
+hassan_at_without_space:
   <<: *default
   user_id: <%= ActiveRecord::FixtureSet.identify(:without_space) %>
   team_id: <%= ActiveRecord::FixtureSet.identify(:without_space) %>

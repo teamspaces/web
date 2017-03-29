@@ -33,6 +33,6 @@ class DestroyUserSessionsQuery
     end
 
     def destroy_all_users_sessions?
-      @user == :all
+      user == :all
     end
 end

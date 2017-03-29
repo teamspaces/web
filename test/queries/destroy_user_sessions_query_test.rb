@@ -30,7 +30,7 @@ describe DestroyUserSessionsQuery, :model do
         sessions = subject.new(user: :all).send(:active_user_sessions_for_team, spaces_team)
 
         assert_includes sessions, maja_spaces_session
-        assert_includes sessions, hassan_without_spaces_session
+        assert_not_includes sessions, hassan_without_spaces_session
         assert_not_includes sessions, maja_power_session
         assert_not_includes sessions, maja_inactive_spaces_session
       end
@@ -52,7 +52,7 @@ describe DestroyUserSessionsQuery, :model do
 
     context "all users" do
       it "invalidates all browser sessions for all users" do
-        sessions = subject.new(user: user).send(:active_user_sessions_for_browser, maja_spaces_session.browser_id)
+        sessions = subject.new(user: :all).send(:active_user_sessions_for_browser, maja_spaces_session.browser_id)
 
         assert_includes sessions, maja_spaces_session
         assert_includes sessions, maja_power_session
