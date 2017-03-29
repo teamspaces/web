@@ -6,7 +6,7 @@ describe DestroyUserSessionsQuery, :model do
   let(:user) { users(:with_several_teams) }
   let(:spaces_team) { teams(:spaces) }
   let(:maja_spaces_session) { authie_sessions(:maja_at_spaces) }
-  let(:ulf_spaces_session) { authie_sessions(:ulf_at_spaces) }
+  let(:hassan_without_spaces_session) { authie_sessions(:hassan_at_without_space) }
   let(:maja_power_session) { authie_sessions(:maja_at_power) }
   let(:maja_inactive_spaces_session) { authie_sessions(:maja_inactive_at_spaces) }
   let(:maja_mobile_browser_session) { authie_sessions(:maja_mobile_browser) }
@@ -19,7 +19,7 @@ describe DestroyUserSessionsQuery, :model do
         sessions = subject.new(user: user).send(:active_user_sessions_for_team, spaces_team)
 
         assert_includes sessions, maja_spaces_session
-        assert_not_includes sessions, ulf_spaces_session
+        assert_not_includes sessions, hassan_without_spaces_session
         assert_not_includes sessions, maja_power_session
         assert_not_includes sessions, maja_inactive_spaces_session
       end
@@ -30,7 +30,7 @@ describe DestroyUserSessionsQuery, :model do
         sessions = subject.new(user: :all).send(:active_user_sessions_for_team, spaces_team)
 
         assert_includes sessions, maja_spaces_session
-        assert_includes sessions, ulf_spaces_session
+        assert_includes sessions, hassan_without_spaces_session
         assert_not_includes sessions, maja_power_session
         assert_not_includes sessions, maja_inactive_spaces_session
       end
@@ -44,7 +44,7 @@ describe DestroyUserSessionsQuery, :model do
 
         assert_includes sessions, maja_spaces_session
         assert_includes sessions, maja_power_session
-        assert_not_includes sessions, ulf_spaces_session
+        assert_not_includes sessions, hassan_without_spaces_session
         assert_not_includes sessions, maja_inactive_spaces_session
         assert_not_includes sessions, maja_mobile_browser_session
       end
@@ -56,7 +56,7 @@ describe DestroyUserSessionsQuery, :model do
 
         assert_includes sessions, maja_spaces_session
         assert_includes sessions, maja_power_session
-        assert_includes sessions, ulf_spaces_session
+        assert_includes sessions, hassan_without_spaces_session
         assert_not_includes sessions, maja_inactive_spaces_session
         assert_not_includes sessions, maja_mobile_browser_session
       end
