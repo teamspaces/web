@@ -22,6 +22,18 @@ describe SessionAuthentication, :controller do
     end
   end
 
+  describe "#sign_out_all_users_from_browser" do
+    it "works" do
+      DestroyUserSessionsQuery.expects(:new)
+                              .with(user: :all)
+                              .returns(destroy_user_sessions_mock = mock)
+
+      destroy_user_sessions_mock.expects(:for_browser!)
+
+      controller.sign_out_all_users_from_browser
+    end
+  end
+
   describe "#authenticate_user!" do
     context "user is signed in" do
       it "does nothing" do

@@ -7,7 +7,12 @@ module SessionAuthentication
   end
 
   def sign_out(_resource_or_scope = nil)
-    DestroyUserSessionsQuery.new(current_user)
+    DestroyUserSessionsQuery.new(user: current_user)
+                            .for_browser!(cookies[:browser_id])
+  end
+
+  def sign_out_all_users_from_browser
+    DestroyUserSessionsQuery.new(user: :all)
                             .for_browser!(cookies[:browser_id])
   end
 

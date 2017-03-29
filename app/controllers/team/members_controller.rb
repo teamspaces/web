@@ -5,7 +5,7 @@ class Team::MembersController < SubdomainBaseController
   def destroy
     authorize @team_member, :destroy?
 
-    DestroyUserSessionsQuery.new(@team_member.user)
+    DestroyUserSessionsQuery.new(user: @team_member.user)
                             .for_team!(@team_member.team)
     @team_member.destroy
 

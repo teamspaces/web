@@ -47,7 +47,7 @@ Rails.application.routes.draw do
                             passwords: "user/passwords" }
 
   devise_scope :user do
-    delete :logout, to: "devise/sessions#destroy", as: :destroy_user_session
+    delete :logout, to: "user/sessions#destroy", as: :destroy_user_session
   end
 
   constraints subdomain: ENV["DEFAULT_SUBDOMAIN"] do
