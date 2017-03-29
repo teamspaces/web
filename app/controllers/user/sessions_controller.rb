@@ -5,7 +5,6 @@ class User::SessionsController < Devise::SessionsController
   def verify_signed_out_user
   end
 
-
   # DELETE /logout
   def destroy
     sign_out_all_users_from_browser
