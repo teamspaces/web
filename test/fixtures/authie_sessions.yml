@@ -8,11 +8,6 @@ sven_at_spaces:
   <<: *default
   user_id: <%= ActiveRecord::FixtureSet.identify(:sven) %>
 
-hassan_at_without_space:
-  <<: *default
-  user_id: <%= ActiveRecord::FixtureSet.identify(:without_space) %>
-  team_id: <%= ActiveRecord::FixtureSet.identify(:without_space) %>
-
 maja_at_power:
   <<: *default
   team_id: <%= ActiveRecord::FixtureSet.identify(:power_rangers) %>
