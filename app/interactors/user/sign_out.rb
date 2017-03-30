@@ -1,12 +1,12 @@
 class User::SignOut
   include Interactor
 
-  attr_reader :user, :from_team, :from_browser
+  attr_reader :user, :team, :browser
 
   def call
     @user = context.user # single user or :all
-    @from_team = context&.from_team
-    @from_browser = context&.from_browser
+    @team = context&.from_team
+    @browser = context&.from_browser
 
     sign_out
   end
@@ -18,19 +18,23 @@ class User::SignOut
     end
 
     def user_sessions
-      @relation = active_user_sessions
-      @relation = matching_team_sessions
-      @relation =
+      sessions = active_user_sessions
+      sessions = matching_team_sessions(sessions) if team.present?
+      sessions = matching_browser_sessions(sessions) if browser.present?
+      sessions
     end
-
 
     def active_user_sessions
-      if user == :all
-        Authie::Session.active
-      else
-        Authie::Session.active.where(user_id: user.id)
-      end
+      user_sessions = Authie::Session.active
+      user_sessions = user_sessions.where(user_id: user.id) if user.is_a?(User)
+      user_sessions
     end
 
+    def matching_team_sessions(sessions)
+      sessions.where.where(team_id: team.id)
+    end
 
+    def matching_browser_sessions(sessions)
+      sessions.where(browser_id: browser)
+    end
 end

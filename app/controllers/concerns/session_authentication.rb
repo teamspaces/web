@@ -11,7 +11,7 @@ module SessionAuthentication
   end
 
   def sign_out_all_users_from_browser
-    User::SignOut.call(user: :all, from_browser: cookies[:browser_id])
+    User::SignOut.call(from_browser: cookies[:browser_id])
   end
 
   def sign_out_from_subdomain
