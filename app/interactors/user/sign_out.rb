@@ -4,6 +4,7 @@ class User::SignOut
   attr_reader :user, :team, :browser
 
   def call
+    # optional arguments, if no arguments provided sign out all users
     @user = context&.user
     @team = context&.from_team
     @browser = context&.from_browser
