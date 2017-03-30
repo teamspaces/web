@@ -5,8 +5,8 @@ class Team::MembersController < SubdomainBaseController
   def destroy
     authorize @team_member, :destroy?
 
-    DestroyUserSessionsQuery.new(user: @team_member.user)
-                            .for_team!(@team_member.team)
+    User::SignOut.call(user: @team_member.user, from_team: @team_member.team)
+
     @team_member.destroy
 
     redirect_to team_path
