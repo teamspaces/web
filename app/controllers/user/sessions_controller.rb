@@ -1,7 +1,7 @@
 class User::SessionsController < Devise::SessionsController
   include SessionAuthentication
 
-  # overwrite devise before_action, not needed
+  # skip devise before_action
   def verify_signed_out_user
   end
 
