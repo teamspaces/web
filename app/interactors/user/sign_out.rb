@@ -15,20 +15,23 @@ class User::SignOut
   private
 
     def sign_out
-      matching_user_sessions.find_each(&:invalidate!)
+      user_sessions.find_each(&:invalidate!)
     end
 
-    def matching_user_sessions
-      sessions = matching_active_user_sessions
+    def user_sessions
+      sessions = active_user_sessions
+      sessions = matching_user_sessions(sessions) if user.present?
       sessions = matching_team_sessions(sessions) if team.present?
       sessions = matching_browser_sessions(sessions) if browser.present?
       sessions
     end
 
-    def matching_active_user_sessions
-      user_sessions = Authie::Session.active
-      user_sessions = user_sessions.where(user_id: user.id) if user.is_a?(User)
-      user_sessions
+    def active_user_sessions
+      Authie::Session.active
+    end
+
+    def matching_user_sessions(sessions)
+      sessions.where(user_id: user.id)
     end
 
     def matching_team_sessions(sessions)
