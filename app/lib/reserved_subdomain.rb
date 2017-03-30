@@ -12,6 +12,7 @@ class ReservedSubdomain
 
     def self.reserved_names
       %w(admin api assets
+         accounts
          cdn
          develop developer developers docs documentation
          ftp

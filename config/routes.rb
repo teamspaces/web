@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+
+  constraints subdomain: "accounts" do
+    resources :teams, controller: "team/new_teams"
+  end
+
   constraints ReservedSubdomain do
     get :login_into_team, to: "login_register_funnel/login_into_team#new", as: :login_into_team
 
