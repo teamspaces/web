@@ -3,6 +3,8 @@ require 'test_helper'
 describe PagesController do
   let(:team) { teams(:spaces) }
   let(:page) { pages(:spaces) }
+  let(:marketing_page) { pages(:marketing) }
+  let(:onboarding_page) { pages(:onboarding) }
   let(:space) { spaces(:spaces) }
   let(:space_without_pages) { spaces(:without_pages) }
 
@@ -62,7 +64,16 @@ describe PagesController do
     it "works" do
       assert_difference "Page.count", -1 do
         delete page_url(page, subdomain: team.subdomain)
-        assert_redirected_to space_pages_url(space, subdomain: team.subdomain)
+        assert_redirected_to edit_page_url(onboarding_page, subdomain: team.subdomain)
+      end
+    end
+
+    context "page_to_redirect_to provided" do
+      it "redirects to edit page_to_redirect_to" do
+        assert_difference "Page.count", -1 do
+          delete page_url(page, page_to_redirect_to_id: marketing_page.id, subdomain: team.subdomain)
+          assert_redirected_to edit_page_url(marketing_page, subdomain: team.subdomain)
+        end
       end
     end
   end
