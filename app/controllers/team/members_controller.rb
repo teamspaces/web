@@ -5,7 +5,7 @@ class Team::MembersController < SubdomainBaseController
   def destroy
     authorize @team_member, :destroy?
 
-    User::SignOut.call(user: @team_member.user, from_team: @team_member.team)
+    User::SignOutInteractor.call(user: @team_member.user, from_team: @team_member.team)
 
     @team_member.destroy
 

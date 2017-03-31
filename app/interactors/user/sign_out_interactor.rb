@@ -1,4 +1,4 @@
-class User::SignOut
+class User::SignOutInteractor
   include Interactor
 
   attr_reader :user, :team, :browser

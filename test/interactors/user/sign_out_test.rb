@@ -1,11 +1,11 @@
 require "test_helper"
 
-describe User::SignOut, :model do
+describe User::SignOutInteractor, :model do
   set_fixture_class authie_sessions: Authie::Session
 
   alias sessions authie_sessions
 
-  subject { User::SignOut }
+  subject { User::SignOutInteractor }
   let(:maja_at_spaces) { users(:with_several_teams) }
   let(:sven_at_spaces) { users(:sven_at_spaces) }
   let(:spaces) { teams(:spaces) }

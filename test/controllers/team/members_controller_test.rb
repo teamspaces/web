@@ -14,7 +14,7 @@ describe Team::MembersController do
     end
 
     it "signs out team-member from team" do
-      User::SignOut.expects(:call).with(user: team_member.user, from_team: team)
+      User::SignOutInteractor.expects(:call).with(user: team_member.user, from_team: team)
 
       delete team_member_url(team_member, subdomain: team.subdomain)
     end
