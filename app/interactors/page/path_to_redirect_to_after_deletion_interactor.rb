@@ -28,5 +28,3 @@ class Page::PathToRedirectToAfterDeletionInteractor
       Page::NextPageQuery.new(page: page_to_delete).next_page
     end
 end
-
-
