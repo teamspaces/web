@@ -6,7 +6,7 @@ Rails.application.routes.draw do
       resource :page_hierarchy, only: [:update]
       resource :access_control, only: [:update], controller: "space/access_control"
 
-      resources :pages, only: [:index, :new, :create]
+      resources :pages, only: [:index, :new, :create], path_names: { destroy: "pages/:id(/:page_to_redirect_to_id)" }
       resources :members, only: [:index, :create, :destroy], param: :user_id, controller: "space/members"
       resources :invitations, only: [:destroy], controller: "space/invitations"
 
