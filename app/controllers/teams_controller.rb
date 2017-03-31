@@ -9,6 +9,10 @@ class TeamsController < SubdomainBaseController
     authorize @team, :show?
   end
 
+  def new
+    redirect_to LoginRegisterFunnel::BaseController::SignInUrlForUser.new(current_user, self).new_team_url
+  end
+
   # GET /teams/1/edit
   def edit
     authorize @team, :edit?

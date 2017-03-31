@@ -9,6 +9,10 @@ class LoginRegisterFunnel::BaseController::SignInUrlForUser
     @controller.login_register_funnel_new_team_url(subdomain: ENV["DEFAULT_SUBDOMAIN"], auth_token: GenerateLoginToken.call(user: @user))
   end
 
+  def new_team_url
+    @controller.team_new_teams_url(subdomain: "accounts", auth_token: GenerateLoginToken.call(user: @user))
+  end
+
   def team_url(team)
     @controller.team_url(subdomain: team.subdomain, auth_token: GenerateLoginToken.call(user: @user))
   end
