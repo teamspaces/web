@@ -4,12 +4,12 @@ class User::SignOutInteractor
   attr_reader :user, :team, :browser
 
   def call
-    # optional arguments, if no arguments provided sign out all users
+    # optional arguments, provide at least one
     @user = context&.user
     @team = context&.from_team
     @browser = context&.from_browser
 
-    sign_out
+    sign_out if [user, team, browser].any?
   end
 
   private
