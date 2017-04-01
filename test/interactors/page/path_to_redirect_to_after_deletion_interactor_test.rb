@@ -36,8 +36,7 @@ describe Page::PathToRedirectToAfterDeletionInteractor, :controller do
       context "several other pages exist in space" do
         it "redirects to next_page" do
           subject.any_instance
-                 .expects(:next_page)
-                 .at_least_once
+                 .stubs(:next_page)
                  .returns(space_page)
 
           redirect_path = subject.call(page_to_delete: page_to_redirect,
