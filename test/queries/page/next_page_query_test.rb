@@ -13,22 +13,22 @@ describe Page::NextPageQuery, :model do
 
   describe "#next_page" do
     context "space has several pages" do
-      context "page has parent page" do
-        it "returns parent page" do
+      context "page has parent_page" do
+        it "returns parent_page" do
           assert_equal parent_page, subject.new(page: page_with_parent).next_page
         end
       end
 
       context "page has no parent page" do
-        context "page has sibling before" do
-          it "returns sibling before" do
-            assert_equal second_page_in_space, subject.new(page: first_page_in_space).next_page
+        context "page has sibling_before" do
+          it "returns sibling_before" do
+            assert_equal penultimate_page_in_space, subject.new(page: last_page_in_space).next_page
           end
         end
 
-        context "page has sibling after" do
-          it "returns sibling after" do
-            assert_equal penultimate_page_in_space, subject.new(page: last_page_in_space).next_page
+        context "page has sibling_after" do
+          it "returns sibling_after" do
+            assert_equal second_page_in_space, subject.new(page: first_page_in_space).next_page
           end
         end
       end
