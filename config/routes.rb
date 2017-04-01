@@ -1,11 +1,4 @@
 Rails.application.routes.draw do
-  constraints subdomain: "accounts" do
-    namespace :team do
-      resources :new_teams, path_names: { new: "new/:user_id" }
-    end
-  end
-
-
   constraints ReservedSubdomain do
     get :login_into_team, to: "login_register_funnel/login_into_team#new", as: :login_into_team
 
@@ -76,6 +69,12 @@ Rails.application.routes.draw do
 
     get "team/:team_subdomain", to: "login_register_funnel/teams#show", as: :show_team_subdomain
     get :choose_team, to: "login_register_funnel/teams#index", as: :login_register_funnel_list_teams
+  end
+
+  constraints subdomain: ENV["ACCOUNTS_SUBDOMAIN"] do
+    namespace :team do
+      resources :new_teams, path_names: { new: "new/:user_id" }
+    end
   end
 
   get :email_login, to: "login_register_funnel/email_login#new", as: :new_email_login

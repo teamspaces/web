@@ -10,7 +10,7 @@ class TeamsController < SubdomainBaseController
   end
 
   def new
-    redirect_to LoginRegisterFunnel::BaseController::SignInUrlForUser.new(current_user, self).new_team_url
+    redirect_to team_new_teams_url(subdomain: ENV["ACCOUNTS_SUBDOMAIN"], auth_token: GenerateLoginToken.call(user: current_user))
   end
 
   # GET /teams/1/edit

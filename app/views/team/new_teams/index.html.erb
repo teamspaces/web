@@ -10,7 +10,7 @@
       <h4>Choose an existing account for the new team:</h4>
 
       <ul class="dropdown__accounts-list">
-        <% available_users.users.each do |user| %>
+        <% @users_for_team.each do |user| %>
           <li>
             <%= image_tag(user.avatar_url(:image_72), alt: user.first_name) %>
 
