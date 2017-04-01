@@ -33,7 +33,10 @@ describe Page::PathToRedirectToAfterDeletionInteractor, :controller do
     context "no page_to_redirect_to provided" do
       context "several other pages exist in space" do
         it "redirects to next_page" do
+          subject.any_instance.expects(:next_page).returns(onboarding_page)
 
+          assert_equal controller.edit_page_path(onboarding_page), subject.call(controller: controller,
+                                                                                page_to_delete: marketing_page).path
         end
       end
 
