@@ -19,17 +19,19 @@ class Team::NewTeamsController < AccountsBaseController
     end
   end
 
-  def set_user_for_team
-    @user_for_team = User.find(params[:user_id])
-  end
+  private
 
-  def authorize_user_for_new_team
-    #unless AvailableUsersPolicy.new(available_users, @user_for_team).create_team?
-    #  raise Pundit::NotAuthorizedError
-    #end
-  end
+    def authorize_user_for_new_team
+      unless AvailableUsersPolicy.new(available_users, @user_for_team).create_team?
+        raise Pundit::NotAuthorizedError
+      end
+    end
 
-  def team_params
-    params.require(:team).permit(:name, :subdomain).to_h
-  end
+    def set_user_for_team
+      @user_for_team = User.find(params[:user_id])
+    end
+
+    def team_params
+      params.require(:team).permit(:name, :subdomain).to_h
+    end
 end
