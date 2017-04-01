@@ -4,7 +4,7 @@
 
         <div class="space-sidebar__edit-actions">
             <span class="space-sidebar__move"></span>
-            <%= link_to "", page_path(page_to_redirect_to_id: current_page.id), method: :delete, class: "space-sidebar__remove", data: { confirm: "Are you sure?" } %>
+            <%= link_to "", page_path(page, page_to_redirect_to_id: current_page.id), method: :delete, class: "space-sidebar__remove", data: { confirm: "Are you sure?" } %>
             <%= link_to "", space_pages_path(page.space, params: { page: { parent_id: page.id}}), method: :post, class: "space-sidebar__add-subpage" %>
         </div>
 
