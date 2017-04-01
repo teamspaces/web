@@ -6,7 +6,7 @@ describe Page::PathToRedirectToAfterDeletionInteractor, :controller do
   let(:controller) { get root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]); @controller }
   let(:marketing_page) { pages(:marketing) }
   let(:onboarding_page) { pages(:onboarding) }
-  let(:only_page_in_space) { pages(:only_page_in_space) }
+  let(:only_page_in_space) { pages(:private_slack_user_milad) }
 
   describe "#call" do
     context "page_to_redirect_to provided" do
