@@ -13,12 +13,23 @@ describe SessionAuthentication, :controller do
   end
 
   describe "#sign_out" do
-    it "signs out user current user" do
+    it "signs out current user" do
       controller.sign_in(user)
 
-      DestroyUserSessionsQuery.any_instance.expects(:for_browser!)
+      User::SignOutInteractor.expects(:call)
+                   .with(all_of(has_entry(user: user),
+                                has_key(:from_browser)))
 
       controller.sign_out
+    end
+  end
+
+  describe "#sign_out_all_users_from_browser" do
+    it "works" do
+      User::SignOutInteractor.expects(:call)
+                   .with(has_key(:from_browser))
+
+      controller.sign_out_all_users_from_browser
     end
   end
 

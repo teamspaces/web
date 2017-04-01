@@ -4,6 +4,10 @@ maja_at_spaces: &default
   active: true
   team_id: <%= ActiveRecord::FixtureSet.identify(:spaces) %>
 
+sven_at_spaces:
+  <<: *default
+  user_id: <%= ActiveRecord::FixtureSet.identify(:sven) %>
+
 maja_at_power:
   <<: *default
   team_id: <%= ActiveRecord::FixtureSet.identify(:power_rangers) %>
@@ -12,7 +16,7 @@ maja_mobile_browser:
   <<: *default
   browser_id: mobile
 
-maja_inactive:
+maja_inactive_at_spaces:
   <<: *default
   active: false
 
