@@ -1,6 +1,6 @@
 require 'test_helper'
 
-describe ApplicationController do
+describe AccountsBaseController do
   let(:user) { users(:lars) }
   let(:accounts_base_controller_url) { team_new_teams_url(subdomain: ENV["ACCOUNTS_SUBDOMAIN"]) }
 
