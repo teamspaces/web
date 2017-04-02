@@ -8,7 +8,7 @@ describe TeamsController do
   before(:each) { sign_in user }
 
   describe "#new" do
-    it "redirects to new_teams path on accounts subdomain" do
+    it "redirects to team_new_teams_url on accounts subdomain" do
       get new_team_url(subdomain: team.subdomain)
       assert_redirected_to team_new_teams_url(subdomain: ENV["ACCOUNTS_SUBDOMAIN"], auth_token: auth_token)
     end

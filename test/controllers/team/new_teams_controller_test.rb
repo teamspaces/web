@@ -79,5 +79,3 @@ describe Team::NewTeamsController do
     end
   end
 end
-
-
