@@ -1,4 +1,5 @@
 const Quill = require("quill");
+import isWhitespace from 'is-whitespace';
 
 /* https://quilljs.com/docs/configuration/ */
 const QuillOptions = { theme: "snow",
@@ -37,6 +38,28 @@ const clipboardURLMatcherFunc = function(node, delta){
         return delta;
     };
 
+const liveAutolinkUrlsFunc = function(delta, editor){
+  var regex = /https?:\/\/[^\s]+$/;
+  if(delta.ops.length === 2 && delta.ops[0].retain && isWhitespace(delta.ops[1].insert)) {
+    var endRetain = delta.ops[0].retain;
+    var text = editor.getText().substr(0, endRetain);
+    var match = text.match(regex);
+    if(match !== null) {
+      var url = match[0];
+
+      var ops = [];
+      if(endRetain > url.length) {
+        ops.push({ retain: endRetain - url.length });
+      }
+
+      ops = ops.concat([{ delete: url.length },
+                        { insert: url, attributes: { link: url } } ]);
+
+      editor.updateContents({ ops: ops });
+    }
+  }
+}
+
 class QuillEditor {
 
   constructor(attachTo, onSaveFunc, onTextChange){
@@ -48,57 +71,22 @@ class QuillEditor {
     this.addClipboardURLMatcher();
     this.disable();
 
-    this.onChange(onSaveFunc);
+    this.onSaveFunc = onSaveFunc;
   };
 
   addOnTextChange(onTextChange){
+    let timer;
+
     this.editor.on("text-change", (delta, oldDelta, source) => {
       if (source !== "user") return;
 
         onTextChange(delta, {source: this.editor});
+        liveAutolinkUrlsFunc(delta, this.editor);
 
-            //base.page.submitOp(delta, {source: base.editor});
-
-            // Autolink URLs while typing
-            //var regex = /https?:\/\/[^\s]+$/;
-            //if(delta.ops.length === 2 && delta.ops[0].retain && isWhitespace(delta.ops[1].insert)) {
-            //    var endRetain = delta.ops[0].retain;
-            //    var text = base.editor.getText().substr(0, endRetain);
-            //    var match = text.match(regex);
-            //    if(match !== null) {
-            //        var url = match[0];
-
-            //        var ops = [];
-            //        if(endRetain > url.length) {
-            //            ops.push({ retain: endRetain - url.length });
-            //        }
-
-            //        ops = ops.concat([
-            //            { delete: url.length },
-            //            { insert: url, attributes: { link: url } }
-            //        ]);
-
-            //        base.editor.updateContents({
-            //            ops: ops
-            //        });
-            //    }
-            //}
-
-            // Trigger auto-save
-            //base.save();
+        clearTimeout(timer);
+        timer = setTimeout(() => { this.onSaveFunc(this.contents()); }, 350);
     });
   }
-
-  onChange(fn){
-    let timer;
-
-    $(this.attachTo).keyup(() => {
-        clearTimeout(timer);
-        //TODO verbessern checken wenn wirklich sich was verändert hat
-        // wait for more changes
-        timer = setTimeout(() => { fn(this.contents()); }, 350);
-    });
-  };
 
   addClipboardURLMatcher(){
     this.editor.clipboard.addMatcher(Node.TEXT_NODE, clipboardURLMatcherFunc);
