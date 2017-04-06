@@ -35,6 +35,10 @@ class PageDB {
     };
 
     save(content){
+
+    }
+
+    save2(content){
       console.log(content);
 
       $.ajax({

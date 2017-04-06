@@ -26,7 +26,10 @@
   $(function(){
     const pageSavingStatus = new Spaces.PageSavingStatus($(".edit-toolbar__status"));
 
-    Spaces.Editor.init("#page-editor", pageSavingStatus, <%= editor_settings %>);
+    //Spaces.Editor.init("#page-editor", pageSavingStatus, <%= editor_settings %>);
+
+    new Spaces.Editor({ attachTo: '#page-editor',
+                        options: <%= editor_settings %> });
 
     const page = new Spaces.Page(<%= page_settings %>);
     const pageTitle = new Spaces.PageTitle($("#title_input"), page).init();

@@ -39,17 +39,55 @@ const clipboardURLMatcherFunc = function(node, delta){
 
 class QuillEditor {
 
-  constructor(attachTo, onSaveFunc){
+  constructor(attachTo, onSaveFunc, onTextChange){
     this.attachTo = attachTo;
     this.editor = new Quill(attachTo, QuillOptions);
     this.contents = () => { return $(attachTo + " .ql-editor").html(); };
 
+    this.addOnTextChange(onTextChange);
     this.addClipboardURLMatcher();
     this.disable();
 
     this.onChange(onSaveFunc);
   };
 
+  addOnTextChange(onTextChange){
+    this.editor.on("text-change", (delta, oldDelta, source) => {
+            if (source !== "user") return;
+            onTextChange(delta, {source: this.editor});
+
+            //base.page.submitOp(delta, {source: base.editor});
+
+            // Autolink URLs while typing
+            //var regex = /https?:\/\/[^\s]+$/;
+            //if(delta.ops.length === 2 && delta.ops[0].retain && isWhitespace(delta.ops[1].insert)) {
+            //    var endRetain = delta.ops[0].retain;
+            //    var text = base.editor.getText().substr(0, endRetain);
+            //    var match = text.match(regex);
+            //    if(match !== null) {
+            //        var url = match[0];
+
+            //        var ops = [];
+            //        if(endRetain > url.length) {
+            //            ops.push({ retain: endRetain - url.length });
+            //        }
+
+            //        ops = ops.concat([
+            //            { delete: url.length },
+            //            { insert: url, attributes: { link: url } }
+            //        ]);
+
+            //        base.editor.updateContents({
+            //            ops: ops
+            //        });
+            //    }
+            //}
+
+            // Trigger auto-save
+            //base.save();
+        });
+
+  }
 
   onChange(fn){
     let timer;

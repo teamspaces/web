@@ -1,5 +1,6 @@
-const Editor = require('./editor')
+//const Editor = require('./editor')
 
+import Editor from './editor'
 import Page from './page'
 import PageSavingStatus from './page/saving_status'
 import PageTitle from './page/title'
