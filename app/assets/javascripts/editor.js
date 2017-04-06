@@ -1,55 +1,34 @@
 import QuillEditor from './quill_editor'
-import PageDB from './page_db'
+import PageSharedContent from './page/shared_content'
+import PageContent from './page/content'
 
 class Editor {
 
   constructor({ attachTo, options }) {
+    this.pageContent = new PageContent(options);
+    this.pageSharedContent = new PageSharedContent(options);
 
-    this.pageDB = new PageDB(options);
     this.quillEditor = new QuillEditor(attachTo,
                                        this.onEditorSave.bind(this),
-                                       this.onEditorSave2.bind(this));
+                                       this.onLiveUpdate.bind(this));
 
     this.init();
   };
 
   init(){
-    this.pageDB.onPageSubscribe((content) => {
+    this.pageSharedContent.onPageSubscribe((content) => {
       this.quillEditor.enable();
-      console.log(content);
-      console.log(content);
       this.quillEditor.setContents(content);
     });
-    //this.page.subscribe((error) => {
-      //error handling
-
-    //  this.quillEditor.setContents(this.page.data);
-    //  this.quillEditor.enable();
-
-    //});
   };
 
-  onEditorSave2(delta, opts){
-    this.pageDB.page.submitOp(delta, opts)
+  onLiveUpdate(delta, opts){
+    this.pageSharedContent.page.submitOp(delta, opts)
   }
 
   onEditorSave(contents){
-    this.pageDB.save(contents);
+    this.pageContent.update(contents);
   }
-
-
-
-  //update(attributes){
-  //  return fetch(this.page_url, {
-  //    method: 'PATCH',
-  //    body: JSON.stringify({ page: attributes }),
-  //    headers: new Headers({
-  //     'X-CSRF-Token': this.csrf_token,
-  //      'Content-Type': 'application/json',
-  //      'Accept':  'application/json' }),
-  //    credentials: 'same-origin'
-  //  })
-  //};
 };
 
 export default Editor

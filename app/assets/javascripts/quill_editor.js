@@ -53,8 +53,9 @@ class QuillEditor {
 
   addOnTextChange(onTextChange){
     this.editor.on("text-change", (delta, oldDelta, source) => {
-            if (source !== "user") return;
-            onTextChange(delta, {source: this.editor});
+      if (source !== "user") return;
+
+        onTextChange(delta, {source: this.editor});
 
             //base.page.submitOp(delta, {source: base.editor});
 
@@ -85,8 +86,7 @@ class QuillEditor {
 
             // Trigger auto-save
             //base.save();
-        });
-
+    });
   }
 
   onChange(fn){
