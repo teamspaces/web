@@ -8,9 +8,14 @@ class Editor {
     this.pageContent = new PageContent(options);
     this.pageSharedContent = new PageSharedContent(options);
 
-    this.quillEditor = new QuillEditor(attachTo,
-                                       this.onEditorSave.bind(this),
-                                       this.onLiveUpdate.bind(this));
+    const onSaveTextChange   = this.pageSharedContent.update.bind(this.pageSharedContent);
+    const onSaveCompleteText = this.pageContent.update.bind(this.pageContent);
+
+    this.quillEditor = new QuillEditor({ attachTo: attachTo,
+                                         onSaveTextChange: onSaveTextChange,
+                                         onSaveCompleteText: onSaveCompleteText });
+
+    this.pageSharedContent.onUpdate(this.quillEditor.updateContents.bind(this.quillEditor));
 
     this.init();
   };
@@ -21,14 +26,6 @@ class Editor {
       this.quillEditor.setContents(content);
     });
   };
-
-  onLiveUpdate(delta, opts){
-    this.pageSharedContent.page.submitOp(delta, opts)
-  }
-
-  onEditorSave(contents){
-    this.pageContent.update(contents);
-  }
 };
 
 export default Editor

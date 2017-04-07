@@ -17,20 +17,23 @@ class PageSharedContent {
     onPageSubscribe(func){
       this.page.subscribe((error) => {
         if (error) {
-
-          console.log("ererer");
+          console.log("error");
           console.log(error);
-          //base.debug("Page subscribe failed with error:");
-          //base.debug(error);
-          //base.disableEditor();
-          //return false;
-
-
         }
 
         func(this.page.data);
       })
     };
+
+    update(delta, options){
+      this.page.submitOp(delta,options);
+    };
+
+    onUpdate(func){
+      this.page.on("op", (op, source) => {
+        func(op, source);
+      });
+    }
 }
 
 

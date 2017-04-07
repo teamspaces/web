@@ -18,29 +18,30 @@ const QuillOptions = { theme: "snow",
 
 class QuillEditor {
 
-  constructor(attachTo, onSaveFunc, onTextChange){
+  constructor({ attachTo, onSaveTextChange, onSaveCompleteText} ){
     this.attachTo = attachTo;
+    this.onSaveTextChange = onSaveTextChange;
+    this.onSaveCompleteText = onSaveCompleteText;
+
     this.editor = new Quill(attachTo, QuillOptions);
     this.contents = () => { return $(attachTo + " .ql-editor").html(); };
 
-    this.addOnTextChange(onTextChange);
+    this.addOnTextChange();
     this.addClipboardURLMatcher();
     this.disable();
-
-    this.onSaveFunc = onSaveFunc;
   };
 
-  addOnTextChange(onTextChange){
+  addOnTextChange(){
     let timer;
 
     this.editor.on("text-change", (delta, oldDelta, source) => {
       if (source !== "user") return;
 
-        onTextChange(delta, {source: this.editor});
+        this.onSaveTextChange(delta, {source: this.editor});
         liveAutolinkUrlsFunc(delta, this.editor);
 
         clearTimeout(timer);
-        timer = setTimeout(() => { this.onSaveFunc(this.contents()); }, 350);
+        timer = setTimeout(() => { this.onSaveCompleteText(this.contents()); }, 350);
     });
   }
 
@@ -58,6 +59,12 @@ class QuillEditor {
 
   setContents(contents){
     this.editor.setContents(contents);
+  };
+
+  updateContents(op, source){
+    if (source === this.editor) return;
+
+    this.editor.updateContents(op);
   }
 }
 
