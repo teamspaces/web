@@ -1,4 +1,4 @@
-<%= form_for(team, url: team_new_teams_path) do |f| %>
+<%= form_for(team, url: team_for_account_path) do |f| %>
   <% if team.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(team.errors.count, "error") %> prohibited this team from being saved:</h2>

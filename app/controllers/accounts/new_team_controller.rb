@@ -1,14 +1,16 @@
-class Team::NewTeamsController < AccountsBaseController
+class Accounts::NewTeamController < Accounts::BaseController
   before_action :set_user_for_team, :authorize_user_for_new_team, only: [:create, :new]
 
+  # GET /choose_account_for_new_team(.:format)
   def index
-    @users_for_team = available_users.users
   end
 
+  # GET /team_for_account/new/:user_id(.:format)
   def new
     @team_form = Team::CreateTeamForUserForm.new(user: @user_for_team)
   end
 
+  # POST /team_for_account(.:format)
   def create
     @team_form = Team::CreateTeamForUserForm.new(user: @user_for_team, attributes: team_params)
 
@@ -22,7 +24,7 @@ class Team::NewTeamsController < AccountsBaseController
   private
 
     def authorize_user_for_new_team
-      unless AvailableUsersPolicy.new(available_users, @user_for_team).create_team?
+      unless User::CreateTeamPolicy.new(available_users, @user_for_team).create_team?
         raise Pundit::NotAuthorizedError
       end
     end

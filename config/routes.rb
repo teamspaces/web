@@ -72,9 +72,12 @@ Rails.application.routes.draw do
   end
 
   constraints subdomain: ENV["ACCOUNTS_SUBDOMAIN"] do
-    namespace :team do
-      resources :new_teams, path_names: { new: "new/:user_id" }
-    end
+    resource :team_for_account, only: [:new, :create],
+                                controller: "accounts/new_team",
+                                path_names: { new: "new/:user_id" }
+
+    get :choose_account_for_new_team, to: "accounts/new_team#index",
+                                      as: :choose_account_for_new_team
   end
 
   get :email_login, to: "login_register_funnel/email_login#new", as: :new_email_login
