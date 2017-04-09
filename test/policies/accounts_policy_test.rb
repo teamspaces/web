@@ -41,7 +41,7 @@ describe AccountsPolicy, :model do
 
       context "available_user" do
         it "returns false" do
-          assert subject.new(available_users, available_user).create_team?
+          refute subject.new(available_users, available_user).create_team?
         end
       end
 

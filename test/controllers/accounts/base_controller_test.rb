@@ -2,7 +2,7 @@ require 'test_helper'
 
 describe Accounts::BaseController do
   let(:user) { users(:lars) }
-  let(:accounts_base_controller_url) { new_team_for_account_url(subdomain: ENV["ACCOUNTS_SUBDOMAIN"]) }
+  let(:accounts_base_controller_url) { choose_account_for_new_team_url(subdomain: ENV["ACCOUNTS_SUBDOMAIN"]) }
 
   context "not signed in" do
     it "redirects to root_url" do
