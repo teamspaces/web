@@ -24,9 +24,13 @@ class Accounts::NewTeamController < Accounts::BaseController
   private
 
     def authorize_user_for_new_team
-      unless AccountsPolicy.new(available_users, @user_for_team).create_team?
+      unless user_for_team_available? && UserPolicy.new(pundit_user, @user_for_team).create_team?
         raise Pundit::NotAuthorizedError
       end
+    end
+
+    def user_for_team_available?
+      available_users.users.include?(@user_for_team)
     end
 
     def set_user_for_team
