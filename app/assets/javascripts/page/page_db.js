@@ -1,7 +1,8 @@
 const EventEmitter = require('events');
 
 class PageDB extends EventEmitter {
-  // emits saved, error
+  // emits saved
+  // emits error
 
   constructor({ csrf_token, page_content_url }){
     super();

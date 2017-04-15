@@ -1,5 +1,5 @@
-const RichText = require("rich-text");
-const ShareDB = require("sharedb/lib/client");
+const RichText = require('rich-text');
+const ShareDB = require('sharedb/lib/client');
       ShareDB.types.register(RichText.type);
 const EventEmitter = require('events');
 
@@ -7,6 +7,8 @@ class PageSharedDB extends EventEmitter {
     // emits subscribe
     // emits update
     // emits reconnect
+    // emits not-authorized
+    // emits failure-reconnect
 
     constructor(options){
       super();
@@ -32,7 +34,7 @@ class PageSharedDB extends EventEmitter {
 
       this.fetchEditorSettings()
           .then((editor_settings) => this.connect(editor_settings))
-          .catch((error) => console.log("Error reconnecting") );
+          .catch((error) => this.emit('failure-reconnect', error) );
     };
 
     fetchEditorSettings(){
@@ -43,8 +45,8 @@ class PageSharedDB extends EventEmitter {
                       'Content-Type': 'application/json',
                       'Accept':  'application/json' }),
                     credentials: 'same-origin'})
-        .then(r => r.json())
-        .then(response => JSON.parse(response.editor_settings));
+        .then(response => response.json())
+        .then(body => JSON.parse(body.editor_settings));
     };
 
     attachPageEvents(){
