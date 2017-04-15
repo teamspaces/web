@@ -86,5 +86,4 @@ class QuillEditor extends EventEmitter {
   }
 }
 
-
 export default QuillEditor;

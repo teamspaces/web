@@ -82,5 +82,4 @@ class PageSharedDB extends EventEmitter {
     };
 }
 
-
 export default PageSharedDB

@@ -1,5 +1,3 @@
-//const Editor = require('./editor')
-
 import Editor from './editor'
 import Page from './page'
 import PageStatusMessage from './page/status_message'
