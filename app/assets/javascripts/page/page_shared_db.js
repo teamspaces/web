@@ -66,13 +66,7 @@ class PageSharedDB extends EventEmitter {
 
     attachPageEvents(){
       this.page.on('error', (error) => {
-        switch(error.code) {
-          case 405: // invalid or expired token
-            this.emit('invalid-token');
-            this.reconnect();
-          case 403: // not authorized
-            this.emit('not-authorized');
-        };
+        this.emit('error', error);
       });
 
       this.page.on('op', (op, source) => {

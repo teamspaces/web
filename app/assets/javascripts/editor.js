@@ -22,18 +22,27 @@ class Editor {
     this.quillEditor.on('text-save',   this.pageDB.update.bind(this.pageDB));
   };
 
-  attachPageDBEvents(){
+  attachPageDBEvents(){ // web_server events
     this.pageDB.on('saved', (response) => this.statusMessage.update("SAVED"));
-    this.pageDB.on('error', (error)    => console.log("Error"));
+    this.pageDB.on('error', (error) => {
+      console.log(error);
+      Raven.captureException(error);
+      this.quillEditor.disable();
+    });
   };
 
-  attachPageSharedDBEvents(){
+  attachPageSharedDBEvents(){ // collab_server events
     this.pageSharedDB.on('subscribe', (content) => {
       this.quillEditor.enable();
       this.quillEditor.setContents(content);
     });
 
     this.pageSharedDB.on('update', this.quillEditor.updateContents.bind(this.quillEditor));
+    this.pageSharedDB.on('error', (error) => {
+      console.log(error);
+      Raven.captureException(error);
+      this.quillEditor.disable();
+    });
   };
 };
 
