@@ -2,7 +2,7 @@
 
 import Editor from './editor'
 import Page from './page'
-import PageSavingStatus from './page/saving_status'
+import PageStatusMessage from './page/status_message'
 import PageTitle from './page/title'
 import PageTree from './page_tree'
 import PageHierarchy from './page_hierarchy'
@@ -11,7 +11,7 @@ import Dropdowns from './dropdowns'
 window.Spaces = {
   Editor: Editor,
   Page: Page,
-  PageSavingStatus: PageSavingStatus,
+  PageStatusMessage: PageStatusMessage,
   PageTitle: PageTitle,
   PageTree: PageTree,
   PageHierarchy: PageHierarchy

@@ -1,18 +1,20 @@
 class PageTitle {
 
-  constructor(input, page) {
-    this.input = input;
-    this.title = () => { return input.val() };
+  constructor({attachTo, statusMessage, page}) {
+    this.statusMessage = statusMessage;
 
+    this.input = $(attachTo);
     this.page = page;
+
+    this.title = () => { return this.input.val() };
+
+    this.addEventListeners();
   };
 
-  init(){
+  addEventListeners(){
     this.onChange(() => {
-      const promise = this.page.update({title: this.title()})
-
-      promise
-        .then(response => console.log("Successfully updated page title"))
+      this.page.update({title: this.title()})
+        .then(response => this.statusMessage.update("SAVED TITLE"))
         .catch(error => Raven.captureException(error));
     });
   };
@@ -22,6 +24,8 @@ class PageTitle {
 
     this.input.keyup(() => {
         clearTimeout(timer);
+
+        this.statusMessage.update("SAVING TITLE");
         // wait for more changes
         timer = setTimeout(() => { fn(); }, 350);
     });

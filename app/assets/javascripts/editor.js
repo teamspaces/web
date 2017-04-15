@@ -4,7 +4,9 @@ import PageDB from './page/page_db'
 
 class Editor {
 
-  constructor({ attachTo, options }) {
+  constructor({ attachTo, statusMessage, options }) {
+    this.statusMessage = statusMessage;
+
     this.pageDB       = new PageDB(options); // web_server
     this.pageSharedDB = new PageSharedDB(options); // collab_server
     this.quillEditor  = new QuillEditor({ attachTo: attachTo });
@@ -16,11 +18,12 @@ class Editor {
 
   attachQuillEditorEvents(){
     this.quillEditor.on('text-change', this.pageSharedDB.update.bind(this.pageSharedDB));
+    this.quillEditor.on('text-change', () => this.statusMessage.update("SAVING..."));
     this.quillEditor.on('text-save',   this.pageDB.update.bind(this.pageDB));
   };
 
   attachPageDBEvents(){
-    this.pageDB.on('saved', (response) => console.log("Saved Content"));
+    this.pageDB.on('saved', (response) => this.statusMessage.update("SAVED"));
     this.pageDB.on('error', (error)    => console.log("Error"));
   };
 

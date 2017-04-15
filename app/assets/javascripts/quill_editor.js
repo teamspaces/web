@@ -17,7 +17,7 @@ const QuillOptions = { theme: "snow",
             }
         };
 
-const SaveAfterMilliseconds = 350;
+const SaveAfterMilliseconds = 500;
 
 class QuillEditor extends EventEmitter {
   // emits text-change with parameters: ( delta, { source: } )
