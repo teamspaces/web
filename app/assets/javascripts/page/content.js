@@ -1,8 +1,12 @@
-class PageContent {
+const EventEmitter = require('events');
+
+class PageContent extends EventEmitter {
 
   constructor({ csrf_token, page_content_url }){
-      this.csrf_token = csrf_token;
-      this.page_content_url = page_content_url;
+    super();
+
+    this.csrf_token = csrf_token;
+    this.page_content_url = page_content_url;
   }
 
   update(content){
@@ -14,8 +18,8 @@ class PageContent {
             'Content-Type': 'application/json',
             'Accept':  'application/json' }),
           credentials: 'same-origin'
-    }).then((response) => { console.log("Successfully")})
-      .catch((error)   => { console.log(error) })
+    }).then((response) => { this.emit('saved', response) })
+      .catch((error)   => { this.emit('error', error) })
   }
 };
 

@@ -10,12 +10,18 @@ class Editor {
     this.quillEditor       = new QuillEditor({ attachTo: attachTo });
 
     this.attachQuillEditorEvents();
+    this.attachPageContentEvents();
     this.attachPageSharedContentEvents();
   };
 
   attachQuillEditorEvents(){
     this.quillEditor.on('text-change', this.pageSharedContent.update.bind(this.pageSharedContent));
     this.quillEditor.on('text-save',   this.pageContent.update.bind(this.pageContent));
+  };
+
+  attachPageContentEvents(){
+    this.pageContent.on('saved', (response) => console.log("Saved Content"));
+    this.pageContent.on('error', (error) => console.log("Error"));
   };
 
   attachPageSharedContentEvents(){
@@ -26,7 +32,7 @@ class Editor {
 
     this.pageSharedContent.on('page_update', this.quillEditor.updateContents.bind(this.quillEditor));
 
-    this.pageSharedContent.on('expired_token', () => {
+    this.pageSharedContent.on('reconnect', () => {
         this.quillEditor.disable();
     });
   };
