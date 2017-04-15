@@ -3,9 +3,9 @@ const ShareDB = require("sharedb/lib/client");
       ShareDB.types.register(RichText.type);
 const EventEmitter = require('events');
 
-class PageSharedContent extends EventEmitter {
-    // emits page_subscribe
-    // emits page_update
+class PageSharedDB extends EventEmitter {
+    // emits subscribe
+    // emits update
     // emits reconnect
 
     constructor(options){
@@ -58,11 +58,11 @@ class PageSharedContent extends EventEmitter {
       });
 
       this.page.on('op', (op, source) => {
-        this.emit('page_update', op, source);
+        this.emit('update', op, source);
       });
 
       this.page.subscribe((_error) => {
-        this.emit('page_subscribe', this.page.data);
+        this.emit('subscribe', this.page.data);
       });
     };
 
@@ -72,4 +72,4 @@ class PageSharedContent extends EventEmitter {
 }
 
 
-export default PageSharedContent
+export default PageSharedDB

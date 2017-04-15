@@ -1,40 +1,37 @@
 import QuillEditor from './quill_editor'
-import PageSharedContent from './page/shared_content'
-import PageContent from './page/content'
+import PageSharedDB from './page/page_shared_db'
+import PageDB from './page/page_db'
 
 class Editor {
 
   constructor({ attachTo, options }) {
-    this.pageContent       = new PageContent(options);
-    this.pageSharedContent = new PageSharedContent(options);
-    this.quillEditor       = new QuillEditor({ attachTo: attachTo });
+    this.pageDB       = new PageDB(options); // web_server
+    this.pageSharedDB = new PageSharedDB(options); // collab_server
+    this.quillEditor  = new QuillEditor({ attachTo: attachTo });
 
     this.attachQuillEditorEvents();
-    this.attachPageContentEvents();
-    this.attachPageSharedContentEvents();
+    this.attachPageDBEvents();
+    this.attachPageSharedDBEvents();
   };
 
   attachQuillEditorEvents(){
-    this.quillEditor.on('text-change', this.pageSharedContent.update.bind(this.pageSharedContent));
-    this.quillEditor.on('text-save',   this.pageContent.update.bind(this.pageContent));
+    this.quillEditor.on('text-change', this.pageSharedDB.update.bind(this.pageSharedDB));
+    this.quillEditor.on('text-save',   this.pageDB.update.bind(this.pageDB));
   };
 
-  attachPageContentEvents(){
-    this.pageContent.on('saved', (response) => console.log("Saved Content"));
-    this.pageContent.on('error', (error) => console.log("Error"));
+  attachPageDBEvents(){
+    this.pageDB.on('saved', (response) => console.log("Saved Content"));
+    this.pageDB.on('error', (error)    => console.log("Error"));
   };
 
-  attachPageSharedContentEvents(){
-    this.pageSharedContent.on('page_subscribe', (content) => {
+  attachPageSharedDBEvents(){
+    this.pageSharedDB.on('subscribe', (content) => {
       this.quillEditor.enable();
       this.quillEditor.setContents(content);
     });
 
-    this.pageSharedContent.on('page_update', this.quillEditor.updateContents.bind(this.quillEditor));
-
-    this.pageSharedContent.on('reconnect', () => {
-        this.quillEditor.disable();
-    });
+    this.pageSharedDB.on('update',    this.quillEditor.updateContents.bind(this.quillEditor));
+    this.pageSharedDB.on('reconnect', this.quillEditor.disable() );
   };
 };
 
