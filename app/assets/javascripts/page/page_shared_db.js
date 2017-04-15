@@ -15,9 +15,9 @@ class PageSharedDB extends EventEmitter {
       this.connect(options);
     };
 
-    connect({ collab_url, collection, document_id, url, csrf_token, expires_at}){
-      // url, csrf_token, expires_at are used to reconnect
-      this.url = url;
+    connect({ collab_url, collection, document_id, edit_page_url, csrf_token, expires_at}){
+      // edit_page_url, csrf_token, expires_at are used to reconnect
+      this.edit_page_url = edit_page_url;
       this.csrf_token = csrf_token;
       this.expires_at = expires_at;
 
@@ -51,7 +51,7 @@ class PageSharedDB extends EventEmitter {
     };
 
     fetchEditorSettings(){
-      return  fetch(this.url, {
+      return  fetch(this.edit_page_url, {
                     method: 'GET',
                     headers: new Headers({
                       'X-CSRF-Token': this.csrf_token,

@@ -35,7 +35,7 @@ describe EditorSettingsHashPresenter, :model do
       assert_match /#{ENV["COLLAB_SERVICE_URL"]}.*.token=.*/, hash[:collab_url]
 
       assert_equal "fake_page_content_url", hash[:page_content_url]
-      assert_equal "fake_edit_page_url", hash[:url]
+      assert_equal "fake_edit_page_url", hash[:edit_page_url]
       assert_equal "fake_token", hash[:csrf_token]
     end
   end

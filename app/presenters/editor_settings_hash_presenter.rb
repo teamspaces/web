@@ -17,7 +17,7 @@ class EditorSettingsHashPresenter
       collab_url: "#{ENV["COLLAB_SERVICE_URL"]}?token=#{generate_token}",
       expires_at: expires_at,
       page_content_url: @controller.page_content_url(@page.page_content),
-      url: @controller.edit_page_url(@page),
+      edit_page_url: @controller.edit_page_url(@page),
       csrf_token: @controller.view_context.form_authenticity_token
     }
   end
