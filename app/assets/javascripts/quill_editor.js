@@ -27,17 +27,15 @@ class QuillEditor extends EventEmitter {
     super();
 
     this.attachTo = attachTo;
-
     this.editor = new Quill(attachTo, QuillOptions);
-    this.contents = () => { return $(attachTo + " .ql-editor").html(); };
 
-    this.addOnTextChange();
-    this.addClipboardURLMatcher();
+    this.addEditorEvents();
+    this.addEditorMatchers();
     this.disable();
   };
 
-  addOnTextChange(){
-    let timer;
+  addEditorEvents(){
+    let text_change_timer;
 
     this.editor.on('text-change', (delta, oldDelta, source) => {
       if (source !== 'user') return;
@@ -45,12 +43,16 @@ class QuillEditor extends EventEmitter {
         this.emit('text-change', delta, {source: this.editor});
         liveAutolinkUrlsFunc(delta, this.editor);
 
-        clearTimeout(timer);
-        timer = setTimeout(() => { this.emit('text-save', this.contents()); }, SaveAfterMilliseconds);
+        clearTimeout(text_change_timer);
+
+        text_change_timer = setTimeout(() => {
+          this.emit('text-save', this.contents());
+        }, SaveAfterMilliseconds);
     });
   }
 
-  addClipboardURLMatcher(){
+  addEditorMatchers(){
+    // Clipboard URL Matcher
     this.editor.clipboard.addMatcher(Node.TEXT_NODE, clipboardURLMatcherFunc);
   };
 
@@ -60,6 +62,10 @@ class QuillEditor extends EventEmitter {
 
   enable(){
     this.editor.enable();
+  };
+
+  contents(){
+    return $(this.attachTo + " .ql-editor").html();
   };
 
   setContents(contents){
