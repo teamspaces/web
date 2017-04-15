@@ -19,10 +19,6 @@ class ApplicationController < ActionController::Base
     root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
   end
 
-  def new_session_path(scope)
-    temporary_landing_path
-  end
-
   helper_method :on_team_subdomain?
   def on_team_subdomain?
     subdomain_team.present?
