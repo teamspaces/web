@@ -1,5 +1,6 @@
 const EventEmitter = require('events');
 
+// performs requests to web_server
 class PageDB extends EventEmitter {
   // emits saved
   // emits error

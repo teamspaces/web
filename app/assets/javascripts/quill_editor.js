@@ -29,8 +29,8 @@ class QuillEditor extends EventEmitter {
     this.attachTo = attachTo;
     this.editor = new Quill(attachTo, QuillOptions);
 
-    this.addEditorEvents();
     this.addEditorMatchers();
+    this.addEditorEvents();
     this.disable();
   };
 
@@ -74,7 +74,9 @@ class QuillEditor extends EventEmitter {
     this.editor.setContents(contents);
 
     // jump to same position like before
-    this.editor.setSelection(current_selection);
+    if(current_selection){
+      this.editor.setSelection(current_selection);
+    }
   };
 
   updateContents(op, source){

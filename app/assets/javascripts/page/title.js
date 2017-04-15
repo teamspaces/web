@@ -22,15 +22,12 @@ class PageTitle {
   };
 
   addEventListeners(){
-    let title_change_timer;
-
     this.input.keyup(() => {
-        clearTimeout(title_change_timer);
-
         this.statusMessage.update("SAVING...");
 
+        clearTimeout(this.title_change_timer);
         // wait for more changes
-        title_change_timer = setTimeout(() => {
+        this.title_change_timer = setTimeout(() => {
           this.save();
         }, SaveAfterMilliseconds);
     });

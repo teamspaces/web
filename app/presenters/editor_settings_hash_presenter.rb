@@ -1,6 +1,6 @@
 class EditorSettingsHashPresenter
   DEFAULT_COLLECTION = 'collab_pages'
-  DEFAULT_EXPIRES_IN = 20.seconds
+  DEFAULT_EXPIRES_IN = ENV["EDITOR_SECONDS_TO_JWT_EXPIRY"] || 10.seconds
 
   def initialize(controller:, user:, page:, expires_in: DEFAULT_EXPIRES_IN, collection: DEFAULT_COLLECTION)
     @controller = controller
