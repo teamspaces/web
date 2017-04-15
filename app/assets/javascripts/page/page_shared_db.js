@@ -16,10 +16,11 @@ class PageSharedDB extends EventEmitter {
       this.connect(options);
     };
 
-    connect({ collab_url, collection, document_id, url, csrf_token}){
-      // url and csrf_token are used to reconnect
+    connect({ collab_url, collection, document_id, url, csrf_token, expires_at}){
+      // url, csrf_token, expires_at are used to reconnect
       this.url = url;
       this.csrf_token = csrf_token;
+      this.expires_at = expires_at;
 
       this.webSocket = new WebSocket(collab_url);
       this.shareDBConnection = new ShareDB.Connection(this.webSocket);
@@ -28,12 +29,26 @@ class PageSharedDB extends EventEmitter {
       this.attachPageEvents();
     };
 
-    reconnect(){
-      this.emit('reconnect');
-      this.webSocket.close();
+    setReconnectTimer(){
+      // tries to reconnect 3 seconds before jwt-token expires
+      let reconnectInMilliseconds = (this.expires_at * 1000) - Date.now() - 3000;
+      clearTimeout(this.reconnect_timer);
 
+      this.reconnect_timer = setTimeout(() => {
+          this.reconnect();
+      }, reconnectInMilliseconds);
+    }
+
+    reconnect(){
       this.fetchEditorSettings()
-          .then((editor_settings) => this.connect(editor_settings))
+          .then((editor_settings) => {
+            this.page.whenNothingPending((_error) => {
+              this.emit('reconnect');
+
+              this.webSocket.close();
+              this.connect(editor_settings);
+            });
+          })
           .catch((error) => this.emit('failure-reconnect', error) );
     };
 
@@ -53,6 +68,7 @@ class PageSharedDB extends EventEmitter {
       this.page.on('error', (error) => {
         switch(error.code) {
           case 405: // invalid or expired token
+            this.emit('invalid-token');
             this.reconnect();
           case 403: // not authorized
             this.emit('not-authorized');
@@ -65,6 +81,7 @@ class PageSharedDB extends EventEmitter {
 
       this.page.subscribe((_error) => {
         this.emit('subscribe', this.page.data);
+        this.setReconnectTimer();
       });
     };
 

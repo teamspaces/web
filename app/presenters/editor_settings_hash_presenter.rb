@@ -1,6 +1,6 @@
 class EditorSettingsHashPresenter
   DEFAULT_COLLECTION = 'collab_pages'
-  DEFAULT_EXPIRES_IN = 10.seconds
+  DEFAULT_EXPIRES_IN = 20.seconds
 
   def initialize(controller:, user:, page:, expires_in: DEFAULT_EXPIRES_IN, collection: DEFAULT_COLLECTION)
     @controller = controller
@@ -15,6 +15,7 @@ class EditorSettingsHashPresenter
       collection: @collection,
       document_id: format_document_id,
       collab_url: "#{ENV["COLLAB_SERVICE_URL"]}?token=#{generate_token}",
+      expires_at: expires_at,
       page_content_url: @controller.page_content_url(@page.page_content),
       url: @controller.edit_page_url(@page),
       csrf_token: @controller.view_context.form_authenticity_token
@@ -25,7 +26,7 @@ class EditorSettingsHashPresenter
 
     def payload
       {
-        exp: format_expires_in,
+        exp: expires_at,
         user_id: @user.id,
         collection: @collection,
         document_id: format_document_id
@@ -36,7 +37,7 @@ class EditorSettingsHashPresenter
       JWT.encode(payload, ENV["COLLAB_SERVICE_JWT_SECRET"], "HS256")
     end
 
-    def format_expires_in
+    def expires_at
       Time.now.to_i + @expires_in.to_i.seconds
     end
 

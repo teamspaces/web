@@ -33,8 +33,7 @@ class Editor {
       this.quillEditor.setContents(content);
     });
 
-    this.pageSharedDB.on('update',    this.quillEditor.updateContents.bind(this.quillEditor));
-    this.pageSharedDB.on('reconnect', this.quillEditor.disable.bind(this.quillEditor));
+    this.pageSharedDB.on('update', this.quillEditor.updateContents.bind(this.quillEditor));
   };
 };
 

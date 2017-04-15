@@ -69,7 +69,12 @@ class QuillEditor extends EventEmitter {
   };
 
   setContents(contents){
+    let current_selection = this.editor.getSelection();
+
     this.editor.setContents(contents);
+
+    // jump to same position like before
+    this.editor.setSelection(current_selection);
   };
 
   updateContents(op, source){
