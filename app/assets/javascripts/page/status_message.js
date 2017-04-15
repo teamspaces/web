@@ -8,7 +8,8 @@ class PageStatusMessage {
     this.text_field.finish()
                    .show()
                    .text(msg)
-                   .delay(1500).fadeOut(500);
+                   .delay(1500)
+                   .fadeOut(500);
   };
 };
 
