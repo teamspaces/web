@@ -8,11 +8,14 @@ class PageSharedContent extends EventEmitter {
     // emits page_update
     // emits expired_token
 
-    constructor({ collab_url, collection, document_id }){
+    constructor({ collab_url, collection, document_id, url, csrf_token }){
      // this.collab_url = collab_url;
      // this.collection = collection;
      // this.document_id = document_id;
       super();
+
+      this.url = url;
+      this.csrf_token = csrf_token;
 
       this.webSocket = new WebSocket(collab_url);
       this.shareDBConnection = new ShareDB.Connection(this.webSocket);
@@ -29,9 +32,10 @@ class PageSharedContent extends EventEmitter {
 
       this.page.on('error', (err) => {
         if(err.code == 405){
-          this.webSocket.close();
+
 
           this.emit('expired_token');
+          this.reconnect();
         };
 
         console.log("VICOT");
@@ -42,7 +46,57 @@ class PageSharedContent extends EventEmitter {
       this.page.on("op", (op, source) => {
         this.emit('page_update', op, source);
       });
-    }
+    };
+
+    reconnect(){
+      this.webSocket.close();
+
+      console.log("reconnect");
+
+      fetch(this.url, {
+        method: 'GET',
+        headers: new Headers({
+          'X-CSRF-Token': this.csrf_token,
+          'Content-Type': 'application/json',
+          'Accept':  'application/json' }),
+        credentials: 'same-origin'
+      }).then(r => r.json())
+        .then(response => {
+        console.log(response.editor_settings);
+
+        let opt = JSON.parse(response.editor_settings);
+
+        this.webSocket = new WebSocket(opt.collab_url);
+        this.shareDBConnection = new ShareDB.Connection(this.webSocket);
+        this.page = this.shareDBConnection.get(opt.collection, opt.document_id);
+
+        this.page.subscribe((error) => {
+          //if (error) {
+          //  console.log("error");
+          //  console.log(error);
+         // }
+
+          this.emit('page_subscribe', this.page.data);
+        });
+
+        this.page.on('error', (err) => {
+        if(err.code == 405){
+
+
+          this.emit('expired_token');
+          this.reconnect();
+        };
+
+        console.log("VICOT");
+        console.log(err.code);
+        console.log(err);
+      });
+
+      this.page.on("op", (op, source) => {
+        this.emit('page_update', op, source);
+      });
+      });
+    };
 
     update(delta, options){
       this.page.submitOp(delta,options);

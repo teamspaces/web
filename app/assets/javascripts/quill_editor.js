@@ -17,6 +17,8 @@ const QuillOptions = { theme: "snow",
             }
         };
 
+const SaveAfterMilliseconds = 350;
+
 class QuillEditor extends EventEmitter {
   // emits text-change with parameters: ( delta, { source: } )
   // emits text-save   with parameters: ( html_content )
@@ -44,7 +46,7 @@ class QuillEditor extends EventEmitter {
         liveAutolinkUrlsFunc(delta, this.editor);
 
         clearTimeout(timer);
-        timer = setTimeout(() => { this.emit('text-save', this.contents()); }, 350);
+        timer = setTimeout(() => { this.emit('text-save', this.contents()); }, SaveAfterMilliseconds);
     });
   }
 
