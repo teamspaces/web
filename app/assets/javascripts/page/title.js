@@ -1,3 +1,5 @@
+const SaveAfterMilliseconds = 500;
+
 class PageTitle {
 
   constructor({attachTo, statusMessage, page}) {
@@ -6,28 +8,31 @@ class PageTitle {
     this.input = $(attachTo);
     this.page = page;
 
-    this.title = () => { return this.input.val() };
-
     this.addEventListeners();
   };
 
-  addEventListeners(){
-    this.onChange(() => {
-      this.page.update({title: this.title()})
+  title(){
+    return this.input.val();
+  }
+
+  save(){
+    this.page.update({title: this.title()})
         .then(response => this.statusMessage.update("SAVED TITLE"))
         .catch(error => Raven.captureException(error));
-    });
   };
 
-  onChange(fn){
-    let timer;
+  addEventListeners(){
+    let title_change_timer;
 
     this.input.keyup(() => {
-        clearTimeout(timer);
+        clearTimeout(title_change_timer);
 
         this.statusMessage.update("SAVING TITLE");
+
         // wait for more changes
-        timer = setTimeout(() => { fn(); }, 350);
+        title_change_timer = setTimeout(() => {
+          this.save();
+        }, SaveAfterMilliseconds);
     });
   };
 };
