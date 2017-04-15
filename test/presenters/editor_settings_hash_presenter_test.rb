@@ -29,8 +29,8 @@ describe EditorSettingsHashPresenter, :model do
 
       assert_equal "collab_pages", hash[:collection]
 
-      assert_not_nil hash[:document_id]
       assert_instance_of String, hash[:document_id]
+      assert_instance_of Fixnum, hash[:expires_at]
 
       assert_match /#{ENV["COLLAB_SERVICE_URL"]}.*.token=.*/, hash[:collab_url]
 
