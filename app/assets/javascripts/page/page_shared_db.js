@@ -6,9 +6,7 @@ const EventEmitter = require('events');
 class PageSharedDB extends EventEmitter {
     // emits subscribe
     // emits update
-    // emits reconnect
-    // emits not-authorized
-    // emits failure-reconnect
+    // emits error
 
     constructor(options){
       super();
@@ -43,13 +41,12 @@ class PageSharedDB extends EventEmitter {
       this.fetchEditorSettings()
           .then((editor_settings) => {
             this.page.whenNothingPending((_error) => {
-              this.emit('reconnect');
 
               this.webSocket.close();
               this.connect(editor_settings);
             });
           })
-          .catch((error) => this.emit('failure-reconnect', error) );
+          .catch((error) => this.emit('error', error) );
     };
 
     fetchEditorSettings(){
