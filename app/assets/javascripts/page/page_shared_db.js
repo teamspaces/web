@@ -3,7 +3,7 @@ const ShareDB = require('sharedb/lib/client');
       ShareDB.types.register(RichText.type);
 const EventEmitter = require('events');
 
-// performs requests to collab_server
+// handles connection to collab_server
 class PageSharedDB extends EventEmitter {
     // emits subscribe
     // emits update
