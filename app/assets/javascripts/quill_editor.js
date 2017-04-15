@@ -1,4 +1,5 @@
 const Quill = require("quill");
+const EventEmitter = require('events');
 import { clipboardURLMatcherFunc, liveAutolinkUrlsFunc } from './quill_editor_helpers'
 
 /* https://quilljs.com/docs/configuration/ */
@@ -16,12 +17,14 @@ const QuillOptions = { theme: "snow",
             }
         };
 
-class QuillEditor {
+class QuillEditor extends EventEmitter {
+  // emits text-change with parameters: ( delta, { source: } )
+  // emits text-save   with parameters: ( html_content )
 
-  constructor({ attachTo, onSaveTextChange, onSaveCompleteText} ){
+  constructor({ attachTo }){
+    super();
+
     this.attachTo = attachTo;
-    this.onSaveTextChange = onSaveTextChange;
-    this.onSaveCompleteText = onSaveCompleteText;
 
     this.editor = new Quill(attachTo, QuillOptions);
     this.contents = () => { return $(attachTo + " .ql-editor").html(); };
@@ -34,14 +37,14 @@ class QuillEditor {
   addOnTextChange(){
     let timer;
 
-    this.editor.on("text-change", (delta, oldDelta, source) => {
-      if (source !== "user") return;
+    this.editor.on('text-change', (delta, oldDelta, source) => {
+      if (source !== 'user') return;
 
-        this.onSaveTextChange(delta, {source: this.editor});
+        this.emit('text-change', delta, {source: this.editor});
         liveAutolinkUrlsFunc(delta, this.editor);
 
         clearTimeout(timer);
-        timer = setTimeout(() => { this.onSaveCompleteText(this.contents()); }, 350);
+        timer = setTimeout(() => { this.emit('text-save', this.contents()); }, 350);
     });
   }
 

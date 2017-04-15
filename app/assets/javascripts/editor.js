@@ -5,25 +5,29 @@ import PageContent from './page/content'
 class Editor {
 
   constructor({ attachTo, options }) {
-    this.pageContent = new PageContent(options);
+    this.pageContent       = new PageContent(options);
     this.pageSharedContent = new PageSharedContent(options);
+    this.quillEditor       = new QuillEditor({ attachTo: attachTo });
 
-    const onSaveTextChange   = this.pageSharedContent.update.bind(this.pageSharedContent);
-    const onSaveCompleteText = this.pageContent.update.bind(this.pageContent);
-
-    this.quillEditor = new QuillEditor({ attachTo: attachTo,
-                                         onSaveTextChange: onSaveTextChange,
-                                         onSaveCompleteText: onSaveCompleteText });
-
-    this.pageSharedContent.onUpdate(this.quillEditor.updateContents.bind(this.quillEditor));
-
-    this.init();
+    this.attachQuillEditorEvents();
+    this.attachPageSharedContentEvents();
   };
 
-  init(){
-    this.pageSharedContent.onPageSubscribe((content) => {
+  attachQuillEditorEvents(){
+    this.quillEditor.on('text-change', this.pageSharedContent.update.bind(this.pageSharedContent));
+    this.quillEditor.on('text-save',   this.pageContent.update.bind(this.pageContent));
+  };
+
+  attachPageSharedContentEvents(){
+    this.pageSharedContent.on('page_subscribe', (content) => {
       this.quillEditor.enable();
       this.quillEditor.setContents(content);
+    });
+
+    this.pageSharedContent.on('page_update', this.quillEditor.updateContents.bind(this.quillEditor));
+
+    this.pageSharedContent.on('expired_token', () => {
+        this.quillEditor.disable();
     });
   };
 };
