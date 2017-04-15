@@ -6,20 +6,16 @@ class PageContent {
   }
 
   update(content){
-    $.ajax({
-      url: this.page_content_url,
-      headers: { "X-CSRF-Token": this.csrf_token },
-      method: "PATCH",
-      dataType: "json",
-      data: {
-          page_content: {
-              contents: content,
-          }
-      },
-      error: function(){  console.log( "error ") },
-      success: function(){ console.log( "successs ")},
-      complete: function(){}
-    });
+    fetch(this.page_content_url, {
+          method: 'PATCH',
+          body: JSON.stringify({ page_content: { contents: content }}),
+          headers: new Headers({
+            'X-CSRF-Token': this.csrf_token,
+            'Content-Type': 'application/json',
+            'Accept':  'application/json' }),
+          credentials: 'same-origin'
+    }).then((response) => { console.log("Successfully")})
+      .catch((error)   => { console.log(error) })
   }
 };
 
