@@ -22,7 +22,12 @@ class PageSharedContent {
         }
 
         func(this.page.data);
-      })
+      });
+
+      this.page.on('error', (err) => {
+        console.log("VICOT");
+        console.log(err);
+      });
     };
 
     update(delta, options){
