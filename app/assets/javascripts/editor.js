@@ -17,9 +17,11 @@ class Editor {
   };
 
   attachQuillEditorEvents(){
+    // gets called on every change
     this.quillEditor.on('text-change', this.pageSharedDB.update.bind(this.pageSharedDB));
     this.quillEditor.on('text-change', () => this.statusMessage.update("SAVING..."));
-    this.quillEditor.on('text-save',   this.pageDB.update.bind(this.pageDB));
+    // gets called 500 milliseconds after changes have been made
+    this.quillEditor.on('text-save', this.pageDB.update.bind(this.pageDB));
   };
 
   attachPageDBEvents(){ // web_server events
