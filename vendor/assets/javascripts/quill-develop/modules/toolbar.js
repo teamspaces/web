@@ -309,6 +309,7 @@ Toolbar.DEFAULTS = {
       } while (cell && cell.statics.blotName !== 'table-cell')
       if (!cell) return
       const { tableId, cellId } = cell.formats()['table-cell']
+
       let place = 0
       let currentCell = cell.parent.children.head
       let currentCellId = currentCell.formats()['table-cell'].cellId
@@ -326,10 +327,12 @@ Toolbar.DEFAULTS = {
           refCell = refCell.next
         }
 
+
+
         let newCellId = 'cell-' + Math.random().toString(36).slice(2)
         const { rowId: currentRowId } = row.formats()['table-row']
         const newCell = Parchment.create('table-cell', { tableId, rowId: currentRowId, cellId: newCellId});
-        row.insertBefore(newCell, refCell)
+        row.insertBefore(newCell, refCell.next)
       }
     }
   }

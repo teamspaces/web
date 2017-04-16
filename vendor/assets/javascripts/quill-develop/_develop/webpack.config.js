@@ -54,12 +54,15 @@ module.exports = function(env) {
       extensions: ['.js', '.styl', '.ts']
     },
     module: {
-      rules: [{
-        test: /\.js$/,
-        use: ['eslint-loader'],
-        include: source,
-        enforce: 'pre'
-      }, {
+      rules: [
+     // {
+     //   test: /\.js$/,
+     //   use: ['eslint-loader'],
+     //   include: source,
+    //    enforce: 'pre'
+    //  },
+
+      {
         test: /\.ts$/,
         use: [{
           loader: 'ts-loader',
