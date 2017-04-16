@@ -1,0 +1,64 @@
+<!-- Include stylesheet -->
+<link href="http://localhost:9080/quill.snow.css" rel="stylesheet">
+<style>
+  .container {
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    display: inline-block;
+    float: left;
+    height: 100%;
+    width: 50%;
+  }
+  .container:first-child {
+    border-right: 0px;
+  }
+  #delta {
+    font-family: monospace;
+    overflow-y: auto;
+    white-space: pre-wrap;
+  }
+</style>
+
+<!-- Create the editor container -->
+<div class="container" id="editor">
+  <p>Hello World!</p>
+  <p>Some initial <strong>bold</strong> text</p>
+  <p><br></p>
+  <p><br></p>
+</div>
+<div class="container" id="delta"></div>
+
+<!-- Include the Quill library -->
+<script src="http://localhost:9080/quill.js"></script>
+
+<!-- Initialize Quill editor -->
+<script>
+  const toolbar = {
+    container: [
+      [{ 'header': [1, 2, 3, false] }],
+      ['bold', 'italic', 'underline', 'link'],
+      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+      ['clean'],
+      ['table', 'table-insert-rows', 'table-insert-columns'],
+    ]
+  };
+  const quill = new Quill('#editor', {
+    modules: {
+      toolbar
+    },
+    theme: 'snow'
+  });
+
+  quill.on('text-change', update);
+  const container = document.querySelector('#delta');
+  update();
+
+  function update(delta) {
+    const contents = quill.getContents();
+    let html = "contents = " + JSON.stringify(contents, null, 2);
+    if (delta) {
+      html = "change = " + JSON.stringify(delta, null, 2) + "\n\n" + html;
+    }
+    container.innerHTML = html;
+  }
+</script>
