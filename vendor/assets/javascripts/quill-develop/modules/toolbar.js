@@ -297,7 +297,7 @@ Toolbar.DEFAULTS = {
       for (let i = 0; i < row.children.length; i++) {
         let newCellId = 'cell-' + Math.random().toString(36).slice(2)
         const cell = Parchment.create('table-cell', { tableId, rowId: newRowId, cellId: newCellId});
-        table.insertBefore(cell, row)
+        table.insertBefore(cell, row.next)
       }
     },
     'table-insert-columns': function() {
