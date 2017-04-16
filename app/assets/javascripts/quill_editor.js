@@ -1,4 +1,4 @@
-const Quill = require("./quill-develop/quill");
+import Quill from '../../../vendor/assets/javascripts/quill-develop/dist/quill.js'
 const EventEmitter = require('events');
 import { clipboardURLMatcherFunc, liveAutolinkUrlsFunc } from './quill_editor_helpers'
 
