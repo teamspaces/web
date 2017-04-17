@@ -283,7 +283,15 @@ Toolbar.DEFAULTS = {
       this.quill.setSelection(newLineIndex + 1)
     },
     'table-delete-rows': function(){
-      console.log("hello remove rows");
+      const { index } = this.quill.getSelection()
+      const [line] = this.quill.getLine(index)
+      let row = line
+      do {
+        row = row.parent
+      } while (row && row.statics.blotName !== 'table-row')
+      if (!row) return
+
+      row.remove();
     },
     'table-delete-columns': function(){
       console.log("hello remove columns");
