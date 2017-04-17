@@ -294,7 +294,40 @@ Toolbar.DEFAULTS = {
       row.remove();
     },
     'table-delete-columns': function(){
-      console.log("hello remove columns");
+      const { index } = this.quill.getSelection()
+      const [line] = this.quill.getLine(index)
+      let cell = line
+      do {
+        cell = cell.parent
+      } while (cell && cell.statics.blotName !== 'table-cell')
+      if (!cell) return
+      const { tableId, cellId } = cell.formats()['table-cell']
+
+      let place = 0
+      let currentCell = cell.parent.children.head
+      let currentCellId = currentCell.formats()['table-cell'].cellId
+      while (currentCellId !== cellId) {
+        place += 1
+        currentCell = currentCell.next
+        currentCellId = currentCell.formats()['table-cell'].cellId
+      }
+
+      const table = cell.parent.parent
+      const rows = table.children
+
+      for (let i = 0, row = rows.head; i < rows.length; i += 1, row = row.next) {
+        let refCell = row.children.head
+        for (let j = 0; j < place; j++) {
+          refCell = refCell.next
+        }
+
+        refCell.remove();
+
+        //let newCellId = 'cell-' + Math.random().toString(36).slice(2)
+        //const { rowId: currentRowId } = row.formats()['table-row']
+        //const newCell = Parchment.create('table-cell', { tableId, rowId: currentRowId, cellId: newCellId});
+        //row.insertBefore(newCell, refCell.next)
+      }
     },
     'table-insert-rows': function() {
       const { index } = this.quill.getSelection()
@@ -340,8 +373,6 @@ Toolbar.DEFAULTS = {
         for (let j = 0; j < place; j++) {
           refCell = refCell.next
         }
-
-
 
         let newCellId = 'cell-' + Math.random().toString(36).slice(2)
         const { rowId: currentRowId } = row.formats()['table-row']
