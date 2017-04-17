@@ -13,7 +13,7 @@ const QuillOptions = { theme: "snow",
                   [{ "list": "ordered"}, { "list": "bullet" }],
                   ["link", "code-block"],
                   ["clean"],
-                  ['table', 'table-insert-rows', 'table-insert-columns']
+                  ['table', 'table-insert-rows', 'table-insert-columns','table-delete-rows','table-delete-columns']
                 ]
             }
         };

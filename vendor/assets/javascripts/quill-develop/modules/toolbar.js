@@ -282,6 +282,12 @@ Toolbar.DEFAULTS = {
       this.quill.updateContents(changeDelta, Quill.sources.USER)
       this.quill.setSelection(newLineIndex + 1)
     },
+    'table-delete-rows': function(){
+      console.log("hello remove rows");
+    },
+    'table-delete-columns': function(){
+      console.log("hello remove columns");
+    },
     'table-insert-rows': function() {
       const { index } = this.quill.getSelection()
       const [line] = this.quill.getLine(index)

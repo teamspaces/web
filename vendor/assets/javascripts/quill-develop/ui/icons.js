@@ -45,8 +45,10 @@ module.exports = {
   },
   'strike'    : require('../assets/icons/strike.svg'),
   'table'     : require('../assets/icons/table.svg'),
-  'table-insert-rows' : require('../assets/icons/table-insert-rows.svg'),
-  'table-insert-columns' : require('../assets/icons/table-insert-columns.svg'),
+  'table-insert-rows'   : require('../assets/icons/table-insert-rows.svg'),
+  'table-insert-columns': require('../assets/icons/table-insert-columns.svg'),
+  'table-delete-rows'   : require('../assets/icons/table-delete-rows.svg'),
+  'table-delete-columns': require('../assets/icons/table-delete-columns.svg'),
   'underline' : require('../assets/icons/underline.svg'),
   'video'     : require('../assets/icons/video.svg')
 };
