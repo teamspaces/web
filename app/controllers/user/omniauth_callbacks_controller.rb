@@ -58,6 +58,10 @@ class User::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
   end
 
+  def new_session_path(scope)
+    temporary_landing_path
+  end
+
   private
 
     def slack_identity

@@ -154,4 +154,15 @@ describe User::OmniauthCallbacksController do
       assert_includes slack_user.teams, slack_user_invitation.team
     end
   end
+
+  describe "omniauth failure" do
+    before(:each) { OmniAuth.config.mock_auth[:slack] = :invalid_credentials }
+    after(:each) { OmniAuth.config.mock_auth.delete(:slack) }
+
+    it "redirects to temporary_landing_path" do
+      get user_slack_omniauth_callback_url
+
+      assert_redirected_to temporary_landing_path
+    end
+  end
 end
