@@ -6,6 +6,7 @@ require('jquery-ui-bundle')
 
 // Adding path as the main path is incorrect in the package
 require('../../../vendor/assets/javascripts/jquery.mjs.nestedSortable.js')
+//require('../../../vendor/assets/javascripts/quill-develop/dist/quill.js')
 
 window.hljs = require('highlight.js')
 hljs.initHighlightingOnLoad()

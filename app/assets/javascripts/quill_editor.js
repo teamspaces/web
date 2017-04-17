@@ -1,4 +1,4 @@
-const Quill = require("quill");
+import Quill from '../../../vendor/assets/javascripts/quill-develop/dist/quill.js'
 const EventEmitter = require('events');
 import { clipboardURLMatcherFunc, liveAutolinkUrlsFunc } from './quill_editor_helpers'
 
@@ -12,7 +12,8 @@ const QuillOptions = { theme: "snow",
                   ["bold", "italic", "underline", "strike"],
                   [{ "list": "ordered"}, { "list": "bullet" }],
                   ["link", "code-block"],
-                  ["clean"]
+                  ["clean"],
+                  ['table', 'table-insert-rows', 'table-insert-columns','table-delete-rows','table-delete-columns']
                 ]
             }
         };
