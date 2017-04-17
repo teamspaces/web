@@ -174,6 +174,13 @@ Keyboard.DEFAULTS = {
     },
     'indent code-block': makeCodeBlockHandler(true),
     'outdent code-block': makeCodeBlockHandler(false),
+    'delete table': {
+      key: Keyboard.keys.BACKSPACE,
+      format: ['table'],
+      empty: true,
+      handler: function(range) { //prevent deletion of cells
+      }
+    },
     'indent table': {
       key: Keyboard.keys.TAB,
       format: ['table'],
