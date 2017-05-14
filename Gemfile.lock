@@ -53,6 +53,7 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.4.0)
     ansi (1.5.0)
+    api_cache (0.3.0)
     arel (7.1.1)
     authie (2.0.1)
     avatarly (1.5.0)
@@ -188,6 +189,7 @@ GEM
       ruby-progressbar
     mocha (1.1.0)
       metaclass (~> 0.0.1)
+    moneta (0.8.1)
     mongo (2.3.0)
       bson (~> 4.1)
     mongoid (6.0.0)
@@ -343,6 +345,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  api_cache
   authie (~> 2.0)
   avatarly
   awesome_print
@@ -368,6 +371,7 @@ DEPENDENCIES
   minitest-rails-capybara
   minitest-reporters
   mocha
+  moneta
   mongoid
   omniauth-slack!
   paranoia (~> 2.2)

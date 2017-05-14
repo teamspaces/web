@@ -58,7 +58,7 @@ class InvitationsController < SubdomainBaseController
     end
 
     def find_invitable_slack_users
-      @slack_users_to_invite = Team::FindInvitableSlackUsers.new(@team).all if @team.connected_to_slack?
+      @slack_team_users = Team::FindSlackUsers.new(@team) if @team.connected_to_slack?
     end
 
     def set_invitation

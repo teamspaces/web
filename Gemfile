@@ -36,6 +36,8 @@ gem "avatarly"
 gem "closure_tree"
 
 gem "slack-ruby-client"
+gem "moneta"
+gem "api_cache"
 gem "sentry-raven"
 
 # Use Redis adapter to run Action Cable in production

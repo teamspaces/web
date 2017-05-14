@@ -1,0 +1,15 @@
+<% slack_users.without_invitation.each do |slack_user| %>
+  <%= render "slack_user_profile", slack_user: slack_user %>
+  <%= render "slack_user_invitation_link", slack_user: slack_user, button_text: "Send Invitation" %>
+<% end %>
+
+<% slack_users.with_open_invitation.each do |slack_user| %>
+  <%= render "slack_user_profile", slack_user: slack_user %>
+  <p>Invitation sent</p>
+  <%= render "slack_user_invitation_link", slack_user: slack_user, button_text: "Send Again" %>
+<% end %>
+
+<% slack_users.with_accepted_invitation.each do |slack_user| %>
+  <%= render "slack_user_profile", slack_user: slack_user %>
+  <p>Accepted invitation</p>
+<% end %>

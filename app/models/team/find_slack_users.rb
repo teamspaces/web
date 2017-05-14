@@ -1,22 +1,33 @@
-class Team::FindInvitableSlackUsers
+class Team::FindSlackUsers
   def initialize(team)
     @team = team
   end
 
-  def all
-    all_slack_members.reject(&match_bot?)
-                     .reject(&match_deleted?)
-                     .reject(&match_already_invited?)
-                     .reject(&match_already_team_member?)
+  def without_invitation
+    all - with_open_invitation - with_accepted_invitation
+  end
+
+  def with_open_invitation
+    all.select(&match_with_open_invitation?)
+  end
+
+  def with_accepted_invitation
+    all.select(&match_with_accepted_invitation?)
   end
 
   private
+
+    def all
+      @all ||= all_slack_members.reject(&match_bot?)
+                                .reject(&match_deleted?)
+                                .reject(&match_already_team_member?)
+    end
 
     def all_slack_members
       team_authentication = @team.team_authentication
 
       begin
-        Slack::Web::Client.new(token: team_authentication.token).users_list.members
+        CachingSlackClient.new(token: team_authentication.token).users_list.members
       rescue Slack::Web::Api::Error => exception
         if exception.message == "token_revoked"
           team_authentication.destroy
@@ -39,8 +50,14 @@ class Team::FindInvitableSlackUsers
       lambda { |x| x.deleted == true }
     end
 
-    def match_already_invited?
-      invited_user_uids = @team.invitations.map(&:invited_slack_user_uid)
+    def match_with_open_invitation?
+      invited_user_uids = @team.invitations.unused.map(&:invited_slack_user_uid)
+
+      lambda { |x| invited_user_uids.include? x.id }
+    end
+
+    def match_with_accepted_invitation?
+      invited_user_uids = @team.invitations.used.map(&:invited_slack_user_uid)
 
       lambda { |x| invited_user_uids.include? x.id }
     end
