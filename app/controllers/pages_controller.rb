@@ -98,14 +98,16 @@ class PagesController < SubdomainBaseController
     end
   end
 
-  # DELETE /pages/1
+  # DELETE /pages/1(/:page_to_redirect_to_id)
   # DELETE /pages/1.json
   def destroy
     authorize @page, :destroy?
 
+    redirect_path = path_to_redirect_to_after_page_deletion
+
     @page.destroy
     respond_to do |format|
-      format.html { redirect_to space_pages_path(@page.space), notice: 'Page was successfully destroyed.' }
+      format.html { redirect_to redirect_path }
       format.json { head :no_content }
     end
   end
@@ -122,6 +124,12 @@ class PagesController < SubdomainBaseController
 
     def set_parent
       @parent = current_space.pages.find_by(id: params[:parent_id])
+    end
+
+    def path_to_redirect_to_after_page_deletion
+      Page::PathToRedirectToAfterDeletionInteractor.call(page_to_delete: @page,
+                                                         page_to_redirect_to: Page.find_by_id(params[:page_to_redirect_to_id]),
+                                                         controller: self).path
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -10,7 +10,7 @@
       </h3>
 
       <ul class="space-sidebar__pages">
-        <%= render "edit_page_tree", page_tree: @page.space.pages.hash_tree %>
+        <%= render "edit_page_tree", page_tree: @page.space.pages.hash_tree, current_page: @page %>
       </ul>
     </aside>
   </div>
