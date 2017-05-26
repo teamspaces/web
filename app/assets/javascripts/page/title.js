@@ -1,29 +1,35 @@
+const SaveAfterMilliseconds = 500;
+
 class PageTitle {
 
-  constructor(input, page) {
-    this.input = input;
-    this.title = () => { return input.val() };
+  constructor({attachTo, statusMessage, page}) {
+    this.statusMessage = statusMessage;
 
+    this.input = $(attachTo);
     this.page = page;
+
+    this.addEventListeners();
   };
 
-  init(){
-    this.onChange(() => {
-      const promise = this.page.update({title: this.title()})
+  title(){
+    return this.input.val();
+  }
 
-      promise
-        .then(response => console.log("Successfully updated page title"))
+  save(){
+    this.page.update({title: this.title()})
+        .then(response => this.statusMessage.update("SAVED"))
         .catch(error => Raven.captureException(error));
-    });
   };
 
-  onChange(fn){
-    let timer;
-
+  addEventListeners(){
     this.input.keyup(() => {
-        clearTimeout(timer);
+        this.statusMessage.update("SAVING...");
+
+        clearTimeout(this.title_change_timer);
         // wait for more changes
-        timer = setTimeout(() => { fn(); }, 350);
+        this.title_change_timer = setTimeout(() => {
+          this.save();
+        }, SaveAfterMilliseconds);
     });
   };
 };
