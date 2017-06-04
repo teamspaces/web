@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+
+  constraints subdomain: "accounts" do
+    resources :teams, controller: "team/new_teams"
+  end
+
   constraints ReservedSubdomain do
     get :login_into_team, to: "login_register_funnel/login_into_team#new", as: :login_into_team
 
@@ -16,8 +21,9 @@ Rails.application.routes.draw do
       end
     end
 
-    resource :team, only: [:show, :edit, :update, :destroy]
+    resource :team, only: [:show, :edit, :update, :destroy, :new, :create], path_names: { new: "new/:user_id" }
     namespace :team do
+      resource :choose_user, only: [:new]
       resources :members, only: [:destroy]
       resource :logo, only: [:destroy]
     end

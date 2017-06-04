@@ -1,6 +1,7 @@
 class TeamsController < SubdomainBaseController
   before_action :set_team, except: [:index]
   skip_before_action :verify_team_membership, only: [:index, :create, :new, :update]
+  #before_action :set_user_for_team, :authorize_user_for_new_team, only: [:create, :new]
   layout 'client'
 
   # GET /teams/1
@@ -8,6 +9,25 @@ class TeamsController < SubdomainBaseController
   def show
     authorize @team, :show?
   end
+
+  # GET /teams/new/:user_id
+ # def new
+    #redirect_to LoginRegisterFunnel::BaseController::SignInUrlForUser.new(current_user, self).new_team_url
+
+    #sign_in_url_for(user: current_user, new_team: true)
+    #@team_form = Team::CreateTeamForUserForm.new(user: @user_for_team)
+ # end
+
+  # POST /teams?user_id=
+ # def create
+ #   @team_form = Team::CreateTeamForUserForm.new(user: @user_for_team, attributes: create_team_params)
+#
+#    if @team_form.save
+ #     redirect_to sign_in_url_for(user: @user_for_team, created_team_to_redirect_to: @team_form.team)
+ #   else
+ #     render :new
+ #   end
+ # end
 
   # GET /teams/1/edit
   def edit
@@ -21,7 +41,7 @@ class TeamsController < SubdomainBaseController
   def update
     authorize @team, :update?
 
-    @team_form = Team::Form.new(team: @team, attributes: team_params)
+    @team_form = Team::Form.new(team: @team, attributes: update_team_params)
 
     respond_to do |format|
       if @team_form.save
@@ -47,13 +67,26 @@ class TeamsController < SubdomainBaseController
   end
 
   private
+    #def set_user_for_team
+    #  @user_for_team = User.find(params[:user_id])
+    #end
+
+    #def authorize_user_for_new_team
+    #  unless AvailableUsersPolicy.new(available_users, @user_for_team).create_team?
+    #    raise Pundit::NotAuthorizedError
+    #  end
+    #end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_team
       @team = current_team
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def team_params
+    def create_team_params
+      params.require(:team).permit(:name, :subdomain, :logo).to_h
+    end
+
+    def update_team_params
       params.require(:team).permit(:name, :logo).to_h
     end
 end

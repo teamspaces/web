@@ -1,0 +1,34 @@
+<main>
+  <div class="card">
+    <header>
+      <h1>Create new team</h1>
+    </header>
+
+    <div class="card__content">
+
+      <p>Account:</p>
+
+      <ul class="dropdown__accounts-list">
+        <li>
+          <%= image_tag(@user_for_team.avatar_url(:image_72), alt: @user_for_team.first_name) %>
+
+          <h3><%= @user_for_team.name %></h3>
+          <a><%= @user_for_team.email %></a>
+          <a style="color:black"><%= @user_for_team.decorate.auth_method %>-User</a>
+        </li>
+      </ul>
+
+      <%= link_to "Choose another account", new_team_choose_user_path %>
+
+      <hr>
+
+      <p>Team</p>
+
+      <%= render "/login_register_funnel/teams/form", team: @team_form, url: team_url(user_id: @user_for_team.id) %>
+
+      <div class="card__actions">
+        <%= link_to "Back", root_subdomain_path %>
+      </div>
+    </div>
+  </div>
+</main>
