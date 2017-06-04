@@ -1,23 +1,27 @@
 <nav class="mobile-navigation">
   <ul>
     <li>
-      <%= link_to "", spaces_path, class: "mobile_navigation__spaces" %>
+      <%= link_to "", spaces_path, class: "mobile-navigation__spaces" %>
     </li>
 
     <li>
-      <a href="#" class="mobile_navigation__search"></a>
+      <a href="#" class="mobile-navigation__search"></a>
     </li>
 
     <li>
-      <a href="#" class="mobile_navigation__help drift-open-chat"></a>
+      <a href="#" class="mobile-navigation__support drift-open-chat"></a>
     </li>
 
     <li>
-      <%= link_to image_tag(current_team.logo_url(:image_72), alt: current_team.name), invitations_path, class: "mobile_navigation__team" %>
+      <%= link_to image_tag(current_team.logo_url(:image_72), alt: current_team.name), invitations_path, class: "mobile-navigation__team" %>
     </li>
 
     <li>
-      <%= link_to image_tag(current_user.avatar_url(:image_72), alt: current_user.first_name), edit_user_path, class: "mobile_navigation__account" %>
+      <%= link_to(edit_user_path, class: "mobile-navigation__account") do %>
+        <span class="avatar">
+          <%= image_tag(current_user.avatar_url(:image_72), alt: current_user.first_name) %>
+        </span>
+      <% end %>
     </li>
   </ul>
 </nav>

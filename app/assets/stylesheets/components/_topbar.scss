@@ -43,6 +43,10 @@
   // Account toggle
   .dropdown--accounts .dropdown__toggle {
     padding: 18px !important;
+
+    .avatar {
+      display: block;
+    }
   }
 }
 
@@ -71,7 +75,7 @@ input.topbar__search {
   display: block;
   float: left;
   background: #fff;
-  width: calc(100% - 700px);
+  width: calc(100% - 600px);
   min-width: 150px;
   height: 60px;
   padding: 22px 0;
@@ -89,14 +93,29 @@ input.topbar__search {
 
   &::-webkit-input-placeholder {
     color: #A7A9AE;
+    transition: color 0.2s;
+  }
+
+  &:hover::-webkit-input-placeholder {
+    color: $color-text-secondary;
   }
 
   &::-moz-placeholder {
     color: #A7A9AE;
+    transition: color 0.2s;
+  }
+
+  &:hover::-moz-placeholder {
+    color: $color-text-secondary;
   }
 
   &:-ms-input-placeholder {
     color: #A7A9AE;
+    transition: color 0.2s;
+  }
+
+  &:hover:-ms-input-placeholder {
+    color: $color-text-secondary;
   }
 }
 

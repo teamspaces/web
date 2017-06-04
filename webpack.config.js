@@ -92,7 +92,7 @@ module.exports = {
     new ExtractTextPlugin(css_output_template),
 
     new CopyWebpackPlugin([
-        { from: "images", to: "images" }
+        { from: "images/static", to: "images" }
     ]),
 
     new webpack.DefinePlugin({
