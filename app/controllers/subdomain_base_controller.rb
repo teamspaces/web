@@ -39,7 +39,7 @@ class SubdomainBaseController < ApplicationController
       return unless current_space
       @set_sample_users_query =
         SampleUsersQuery.new(resource: current_space,
-                             total_users_to_sample: 3)
+                             total_users_to_sample: 4)
     end
 
     def verify_team_membership
