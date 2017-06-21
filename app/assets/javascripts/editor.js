@@ -45,6 +45,7 @@ class Editor {
       Raven.captureException(error);
       this.quillEditor.disable();
     });
+    this.pageSharedDB.on('disable_editor', () => this.quillEditor.disable());
   };
 };
 
