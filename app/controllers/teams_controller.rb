@@ -9,6 +9,10 @@ class TeamsController < SubdomainBaseController
     authorize @team, :show?
   end
 
+  def new
+    redirect_to choose_account_for_new_team_url(subdomain: ENV["ACCOUNTS_SUBDOMAIN"], auth_token: GenerateLoginToken.call(user: current_user))
+  end
+
   # GET /teams/1/edit
   def edit
     authorize @team, :edit?

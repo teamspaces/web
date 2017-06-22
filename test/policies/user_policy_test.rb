@@ -35,4 +35,18 @@ describe UserPolicy, :model do
       end
     end
   end
+
+  describe "#create_team?" do
+    context "user confirmed email" do
+      it "returns true" do
+        assert UserPolicy.new(default_context, current_user).create_team?
+      end
+    end
+
+    context "user needs to confirm email" do
+      it "returns false" do
+        refute UserPolicy.new(default_context, users(:with_unconfirmed_email)).create_team?
+      end
+    end
+  end
 end

@@ -1,0 +1,30 @@
+<main>
+  <div class="card">
+    <header>
+      <h1>Which account for the new team?</h1>
+    </header>
+
+    <div class="card__content">
+
+      <h4>Choose an existing account for the new team:</h4>
+
+      <ul class="dropdown__accounts-list">
+        <% available_users.users.each do |user| %>
+          <li>
+            <%= image_tag(user.avatar_url(:image_72), alt: user.first_name) %>
+
+            <h3><%= user.name %></h3>
+            <a><%= user.email %></a>
+            <a style="color:black"><%= user.decorate.auth_method %>-User</a>
+
+            <%= link_to 'Choose', new_team_for_account_path(user) %>
+          </li>
+        <% end %>
+      </ul>
+
+      <hr>
+        <%= link_to "Create a new account for the new team", choose_login_method_url(create_team: true, subdomain: ENV["DEFAULT_SUBDOMAIN"]) %>
+
+    </div>
+  </div>
+</main>

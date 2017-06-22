@@ -43,6 +43,7 @@ machine:
     COLLAB_SERVICE_JWT_SECRET: 'secret-jwt-token-123'
     USER_AUTH_JWT_SECRET: 'user-auth-jwt-token-123'
     DEFAULT_SUBDOMAIN: 'what'
+    ACCOUNTS_SUBDOMAIN: 'accounts'
     STORAGE_MEDIUM: 'local'
     NESTED_PAGE_LIMIT: 5
     SENTRY_PUBLIC_DSN: 'https://73d90a1b10434aae89b8bc3b812f91ef@sentry.io/122325'

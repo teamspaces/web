@@ -4,8 +4,15 @@ describe TeamsController do
   let(:user) { users(:lars) }
   let(:team) { teams(:spaces) }
   let(:auth_token) { "secret_token" }
-
+  before(:each) { GenerateLoginToken.stubs(:call).returns(auth_token) }
   before(:each) { sign_in user }
+
+  describe "#new" do
+    it "redirects to choose_account_for_new_team_url on accounts subdomain" do
+      get new_team_url(subdomain: team.subdomain)
+      assert_redirected_to choose_account_for_new_team_url(subdomain: ENV["ACCOUNTS_SUBDOMAIN"], auth_token: auth_token)
+    end
+  end
 
   describe "#show" do
     context "user is team member" do
