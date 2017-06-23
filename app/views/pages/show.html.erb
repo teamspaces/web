@@ -1,4 +1,16 @@
-<% content_for :body_class, 'body-space' %>
+<div class="mobile-space-toc">
+  <a href="#mobile-space-toc__content" class="mobile-space-toc__toggle" aria-expanded="false" aria-controls="navigation">
+    <%= current_space.name %>
+  </a>
+
+  <div class="mobile-space-toc__content" id="mobile-space-toc__content">
+
+  </div>
+</div>
+
+
+
+
 
 <%= render 'actions', page: @page %>
 
