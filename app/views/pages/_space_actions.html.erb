@@ -1,0 +1,17 @@
+<li>
+  <%= link_to edit_page_path(@page), class: "mobile-space-navigation__edit" do %>
+    <span>Edit <span>Page</span></span>
+  <% end %>
+</li>
+
+<li>
+  <%= link_to space_pages_path(@page.space, params: { page: { _: true } }), method: :post, class: "mobile-space-navigation__new" do %>
+    <span>New <span>Page</span></span>
+  <% end %>
+</li>
+
+<li>
+  <%= link_to edit_space_path(@page.space) do %>
+    <span>Settings</span>
+  <% end %>
+</li>

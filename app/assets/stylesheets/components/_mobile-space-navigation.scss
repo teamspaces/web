@@ -1,0 +1,24 @@
+.mobile-space-navigation {
+
+}
+
+.mobile-space-navigation__toggle {
+  @include ellipsis;
+  display: block;
+  padding: 0 24px;
+  height: 48px;
+  background: #fff url(../images/space/space-navigation-open-icon.svg) no-repeat right 24px center;
+  border-bottom: 1px solid #EEEFF0;
+  font-size: 13px;
+  line-height: 48px;
+  color: $color-text-secondary;
+
+  &:hover, &:active, &:focus{
+    color: $color-text-secondary;
+    opacity: 0.6;
+  }
+
+  &.mobile-space-navigation__toggle--open {
+    background-image: url(../images/space/space-navigation-close-icon.svg);
+  }
+}

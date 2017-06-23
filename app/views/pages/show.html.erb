@@ -1,31 +1,45 @@
-<div class="mobile-space-toc">
-  <a href="#mobile-space-toc__content" class="mobile-space-toc__toggle" aria-expanded="false" aria-controls="navigation">
+<!-- Space table of contents and actions for smaller viewports -->
+<div class="mobile-space-navigation">
+  <a href="#mobile-space-navigation__content" class="mobile-space-navigation__toggle" aria-expanded="false" aria-controls="navigation">
     <%= current_space.name %>
   </a>
 
-  <div class="mobile-space-toc__content" id="mobile-space-toc__content">
+  <nav class="mobile-space-navigation__content" id="mobile-space-navigation__content">
+    <ul class="toc-pages">
+      <%= render "page_tree", page_tree: current_space.pages.hash_tree %>
+    </ul>
 
-  </div>
+    <ul class="mobile-space-navigation__actions">
+      <%= render "space_actions" %>
+    </ul>
+  </nav>
 </div>
 
+<!-- Space table of contents for larger viewports -->
+<aside class="space-toc space-aside">
+  <nav>
+    <h3><%= link_to current_space.name, space_pages_path(current_space) %></h3>
 
+    <ul>
+      <%= render "page_tree", page_tree: current_space.pages.hash_tree %>
+    </ul>
+  </nav>
+</aside>
 
-
-
-<%= render 'actions', page: @page %>
-
-<div class="clearfix" id="sticky-container">
-  <%=
-    render 'sidebar',
-    space: @page.space,
-    pages: @page.space.pages,
-    sample_users_query: @sample_users_query
-  %>
-
+<!-- Page content for all viewports -->
+<main class="space-page">
   <%= render 'page_contents', page: @page, notice: notice %>
-</div>
+</main>
 
-<script>
+<!-- Space actions for larger viewports -->
+<aside class="space-actions space-aside">
+  <ul>
+    <%= render "space_actions" %>
+  </ul>
+</aside>
+
+
+<!-- <script>
   $(function(){
     // Sticky sidebar
     $('.space-sidebar').stick_in_parent({
@@ -33,4 +47,4 @@
       offset_top: 36
     })
   })
-</script>
+</script> -->
