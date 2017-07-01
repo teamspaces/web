@@ -1,43 +1,43 @@
-<!-- Space table of contents and actions for smaller viewports -->
+<!-- Table of contents and actions for small viewports -->
 <div class="mobile-space-navigation">
   <a href="#mobile-space-navigation__content" class="mobile-space-navigation__toggle" aria-expanded="false" aria-controls="navigation">
     <%= current_space.name %>
   </a>
 
   <nav class="mobile-space-navigation__content" id="mobile-space-navigation__content">
-    <ul class="toc-pages">
-      <%= render "page_tree", page_tree: current_space.pages.hash_tree %>
-    </ul>
+    <%= render "page_tree", page_tree: current_space.pages.hash_tree %>
 
-    <ul class="mobile-space-navigation__actions">
-      <%= render "space_actions" %>
-    </ul>
+    <%= render "space_actions" %>
   </nav>
 </div>
 
-<!-- Space table of contents for larger viewports -->
-<aside class="space-toc space-aside">
-  <nav>
+<div class="clearfix">
+  <!-- Table of contents for medium and large viewports -->
+  <nav class="space-toc">
     <h3><%= link_to current_space.name, space_pages_path(current_space) %></h3>
 
-    <ul>
-      <%= render "page_tree", page_tree: current_space.pages.hash_tree %>
-    </ul>
+    <%= render "page_tree", page_tree: current_space.pages.hash_tree %>
   </nav>
-</aside>
 
-<!-- Page content for all viewports -->
-<main class="space-page">
-  <%= render 'page_contents', page: @page, notice: notice %>
-</main>
+  <!-- Page content for all viewports -->
+  <main class="space-page">
+    <%= render "page_contents", page: @page, notice: notice %>
+  </main>
 
-<!-- Space actions for larger viewports -->
-<aside class="space-actions space-aside">
-  <ul>
-    <%= render "space_actions" %>
-  </ul>
-</aside>
+  <!-- Actions for medium and large viewports -->
+  <%= render "space_actions" %>
+</div>
 
+<script>
+  $(function() {
+    // Event handler for the space navigation toggle on smaller viewports
+    $('.mobile-space-navigation__toggle').on('click', function(e) {
+      e.preventDefault()
+      $('.mobile-space-navigation__toggle').toggleClass('mobile-space-navigation__toggle--open')
+      $('.mobile-space-navigation__content').stop().fadeToggle()
+    })
+  })
+</script>
 
 <!-- <script>
   $(function(){

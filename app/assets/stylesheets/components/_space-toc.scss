@@ -1,0 +1,44 @@
+.space-toc {
+  display: none;
+  background: #fff;
+
+  h3 {
+    @include ellipsis;
+
+    margin: 0;
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 24px;
+    color: $color-text-secondary;
+
+    a {
+      color: $color-text-secondary;
+
+      &:hover, &:focus, &:active {
+        color: #A7A9AE;
+      }
+    }
+  }
+
+  .page-tree {
+    margin-top: 9px;
+  }
+}
+
+// Medium viewports
+@media (min-width: 769px) {
+  .space-toc {
+    display: block;
+    float: left;
+    width: 240px;
+    min-height: calc( 100vh - 60px - 60px );
+    padding: 31px 36px;
+  }
+}
+
+// Large viewports
+@media (min-width: 1260px) {
+  .space-toc {
+    background: transparent;
+  }
+}

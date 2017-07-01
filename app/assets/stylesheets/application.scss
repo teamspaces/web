@@ -19,12 +19,13 @@
 @import 'components/message';
 @import 'components/card';
 @import 'components/avatar';
+@import 'components/dropdown';
+@import 'components/overflow-toggle';
+
 // @import 'components/space-sidebar';
 @import 'components/mobile-space-navigation';
 @import 'components/space-toc';
-@import 'components/toc-pages';
+@import 'components/page-tree';
 @import 'components/space-page';
-// @import 'components/space-actions';
-@import 'components/edit-toolbar';
-@import 'components/dropdown';
-@import 'components/overflow-toggle';
+@import 'components/space-actions';
+// @import 'components/edit-toolbar';

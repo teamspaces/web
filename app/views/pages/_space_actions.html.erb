@@ -1,17 +1,21 @@
-<li>
-  <%= link_to edit_page_path(@page), class: "mobile-space-navigation__edit" do %>
-    <span>Edit <span>Page</span></span>
-  <% end %>
-</li>
+<nav class="space-actions">
+  <ul>
+    <li>
+      <%= link_to edit_page_path(@page), class: "space-actions__edit" do %>
+        <span>Edit <span>Page</span></span>
+      <% end %>
+    </li>
 
-<li>
-  <%= link_to space_pages_path(@page.space, params: { page: { _: true } }), method: :post, class: "mobile-space-navigation__new" do %>
-    <span>New <span>Page</span></span>
-  <% end %>
-</li>
+    <li>
+      <%= link_to space_pages_path(@page.space, params: { page: { _: true } }), method: :post, class: "space-actions__new" do %>
+        <span>New <span>Page</span></span>
+      <% end %>
+    </li>
 
-<li>
-  <%= link_to edit_space_path(@page.space) do %>
-    <span>Settings</span>
-  <% end %>
-</li>
+    <li>
+      <%= link_to edit_space_path(@page.space), class: "space-actions__settings" do %>
+        <span>Settings</span>
+      <% end %>
+    </li>
+  </ul>
+</nav>

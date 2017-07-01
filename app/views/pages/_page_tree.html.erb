@@ -1,11 +1,13 @@
-<% page_tree.map do |page, page_tree| %>
-    <li class="<%= (current_page?(page)) ? 'space-sidebar__active' : nil %>">
-        <%= link_to(page.decorate.title_with_fallback, page) %>
+<ul class="page-tree">
+  <% page_tree.map do |page, page_tree| %>
+      <li class="<%= (current_page?(page)) ? 'page-tree__active' : nil %>">
+          <%= link_to(page.decorate.title_with_fallback, page) %>
 
-        <% if page_tree.size.positive? %>
-            <ul>
-                <%= render "page_tree", page_tree: page_tree %>
-            </ul>
-        <% end %>
-    </li>
-<% end %>
+          <% if page_tree.size.positive? %>
+              <ul>
+                  <%= render "page_tree", page_tree: page_tree %>
+              </ul>
+          <% end %>
+      </li>
+  <% end %>
+</ul>

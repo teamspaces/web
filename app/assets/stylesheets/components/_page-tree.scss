@@ -1,0 +1,33 @@
+.page-tree {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: block;
+  }
+
+  a {
+    display: block;
+    font-size: 12.5px;
+    line-height: 36px;
+    color: $color-text-secondary;
+
+    &:hover, &:focus, &:active {
+      color: #A7A9AE;
+    }
+  }
+
+  .page-tree__active a {
+    color: #A7A9AE;
+  }
+}
+
+// Medium viewports
+@media (min-width: 769px) {
+  .page-tree {
+    a {
+      line-height: 30px;
+    }
+  }
+}
