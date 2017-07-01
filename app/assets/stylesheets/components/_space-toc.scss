@@ -3,8 +3,6 @@
   background: #fff;
 
   h3 {
-    @include ellipsis;
-
     margin: 0;
     font-size: 13px;
     font-weight: normal;
@@ -12,6 +10,7 @@
     color: $color-text-secondary;
 
     a {
+      @include ellipsis;
       display: block;
       color: $color-text-secondary;
 

@@ -3,7 +3,6 @@
         <%= link_to(page.decorate.title_with_fallback, edit_page_path(page), class: 'page-tree__page-link') %>
 
         <div class="page-tree__edit-actions">
-            <span class="page-tree__move"></span>
             <%= link_to "", page_path(page, page_to_redirect_to_id: current_page.id), method: :delete, class: "page-tree__remove", data: { confirm: "Are you sure?" } %>
             <%= link_to "", space_pages_path(page.space, params: { page: { parent_id: page.id}}), method: :post, class: "page-tree__add-subpage" %>
         </div>

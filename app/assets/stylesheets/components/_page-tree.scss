@@ -27,7 +27,7 @@
   }
 }
 
-.page-tree__active .page-tree__page-link {
+.page-tree__active > .page-tree__page-link:first-child {
  color: #A7A9AE;
 }
 
@@ -49,7 +49,7 @@
 .page-tree__edit-actions {
   position: absolute;
   top: 5px;
-  right: 0;
+  right: -36px;
   z-index: 1;
   opacity: 0;
   transition: all 0.4s;
