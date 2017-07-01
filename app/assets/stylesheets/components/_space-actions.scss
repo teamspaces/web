@@ -95,12 +95,10 @@
 // Large viewports
 @media (min-width: 1260px) {
   .space-actions {
-    float: left;
-    position: relative;
     left: auto;
-    top: auto;
+    top: 96px;
+    right: 36px;
     width: 168px;
-    margin: 36px;
     height: auto;
     bottom: auto;
     border: 0;
@@ -108,7 +106,7 @@
     box-shadow: 0 0 1px rgba(0,0,0,0.12);
 
     ul {
-      padding: 24px 36px;
+      padding: 25px 36px 23px 36px;
     }
 
     li {

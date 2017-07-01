@@ -11,7 +11,7 @@
   </nav>
 </div>
 
-<div class="clearfix">
+<div class="clearfix" id="sticky-container">
   <!-- Table of contents for medium and large viewports -->
   <nav class="space-toc">
     <h3><%= link_to current_space.name, space_pages_path(current_space) %></h3>
@@ -39,12 +39,11 @@
   })
 </script>
 
-<!-- <script>
+<script>
   $(function(){
     // Sticky sidebar
-    $('.space-sidebar').stick_in_parent({
-      parent: '#sticky-container',
-      offset_top: 36
+    $('.space-toc').stick_in_parent({
+      offset_top: 60
     })
   })
-</script> -->
+</script>
