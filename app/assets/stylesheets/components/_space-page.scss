@@ -66,6 +66,53 @@
 
 
 
+// Edit
+.space-page.space-page--edit {
+  form {
+    margin: 0;
+  }
+
+  input[type=text] {
+    font-size: 31px;
+    font-weight: normal;
+    line-height: 48px;
+    height: 48px;
+    color: $color-title;
+    margin-top: 0;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    border-radius: 0;
+
+    &:hover, &:focus {
+      outline: none;
+    }
+
+    &::-webkit-input-placeholder {
+      color: $color-text-faded;
+    }
+
+    &::-moz-placeholder {
+      color: $color-text-faded;
+    }
+
+    &:-ms-input-placeholder {
+      color: $color-text-faded;
+    }
+  }
+
+  .ql-editor.ql-blank::before {
+    font-style: normal;
+    color: $color-text-faded;
+  }
+}
+
+#page-editor {
+  position: relative;
+}
+
+
+
 // Medium viewports
 @media (min-width: 769px) {
   .space-page {
@@ -83,6 +130,10 @@
   .space-page__content {
     padding-top: 35px;
   }
+
+  .space-page--edit .space-page__content {
+    padding-top: 29px;
+  }
 }
 
 
@@ -94,72 +145,15 @@
     min-height: calc( 100vh - 60px - 36px );
     padding: 85px 108px 84px 96px;
     margin-top: 36px;
+    margin-bottom: 36px;
     border-left: 0;
     border-radius: 5px;
     box-shadow: 0 0 1px rgba(0,0,0,0.12), 0 4px 10px rgba(0,0,0,0.03);
   }
+
+  .space-page--edit {
+    margin-bottom: 0;
+    border-radius: 5px 5px 0 0;
+    padding-bottom: 144px;
+  }
 }
-
-
-
-
-
-
-//
-//
-//
-// /**
-//  * Edit page
-//  */
-// .space-page.space-page--edit {
-//   padding-top: 32px;
-//   padding-bottom: 120px;
-//
-//   form {
-//     margin: 0;
-//   }
-//
-//   input[type=text] {
-//     font-size: 31px;
-//     font-weight: 300;
-//     line-height: 48px;
-//     height: 48px;
-//     color: $color-title;
-//     margin-top: 0;
-//     border: 0;
-//     padding: 0;
-//     background: transparent;
-//     border-radius: 0;
-//
-//     &:hover, &:focus {
-//       outline: none;
-//     }
-//
-//     &::-webkit-input-placeholder {
-//       color: #999;
-//     }
-//
-//     &::-moz-placeholder {
-//       color: #999;
-//     }
-//
-//     &:-ms-input-placeholder {
-//       color: #999;
-//     }
-//   }
-//
-//   .ql-editor.ql-blank::before {
-//     font-style: normal;
-//     color: #999;
-//   }
-// }
-//
-// #page-editor {
-//   position: relative;
-// }
-//
-// @media (min-width: 1400px) {
-//   .space-page {
-//     padding-top: 84px;
-//   }
-// }

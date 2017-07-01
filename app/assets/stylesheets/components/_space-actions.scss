@@ -22,7 +22,7 @@
 
   a {
     display: block;
-    font-size: 13px;
+    font-size: 12.5px;
     line-height: 48px;
     color: $color-text-secondary;
     padding: 0 30px 0 33px;
@@ -119,6 +119,7 @@
       height: 36px;
       line-height: 36px;
       padding-right: 0;
+      padding-left: 36px;
     }
 
     // Shows all words on larger viewports
@@ -128,6 +129,24 @@
 
     .space-actions__edit, .space-actions__new, .space-actions__settings {
       background-position: left center;
+    }
+
+    .space-actions__view {
+      display: block;
+      width: 100%;
+      height: 48px;
+      background: $color-primary;
+      font-size: 13px;
+      line-height: 48px;
+      color: #fff;
+      text-align: center;
+      padding: 0;
+      border-radius: 0 0 5px 5px;
+
+      &:hover, &:active, &:focus {
+        color: #fff;
+        opacity: 0.6;
+      }
     }
   }
 }

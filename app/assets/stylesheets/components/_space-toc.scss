@@ -12,6 +12,7 @@
     color: $color-text-secondary;
 
     a {
+      display: block;
       color: $color-text-secondary;
 
       &:hover, &:focus, &:active {

@@ -1,26 +1,21 @@
 .edit-toolbar {
   position: fixed;
   bottom: 0;
-  left: 0;
+  left: 240px;
   z-index: 100;
-  width: 100%;
-  height: 66px;
+  width: calc( 100% - 240px - 240px );
+  height: 61px;
+  padding: 0 96px;
   background: #fff;
-  border-top: 1px solid #E6E8EB;
-  box-shadow: 0 0 10px rgba(0,0,0,0.03);
-
-  input[type=submit] {
-    float: right;
-    margin-top: 12px;
-    margin-right: 12px;
-  }
+  border-top: 1px solid #F0F1F2;
 }
 
 .ql-toolbar {
   position: fixed;
-  bottom: 13px;
+  bottom: 10px;
   z-index: 101;
-  margin-left: -18px;
+  left: 240px;
+  margin-left: 80px;
 }
 
 .ql-snow .ql-picker.ql-expanded .ql-picker-options {
@@ -33,29 +28,10 @@
   z-index: 102;
 }
 
-.edit-toolbar__new-page {
-  display: block;
-  float: left;
-  height: 66px;
-  font-size: 13px;
-  line-height: 66px;
-  padding: 0 0 0 37px;
-  margin-left: 30px;
-  color: $color-text-secondary;
-  background: url(../images/space/new-page-icon.svg) no-repeat 0 center;
-  transition: all 0.2s;
-
-  &:hover, &:active, &:focus {
-    color: $color-primary;
-    background-image: url(../images/space/new-page-icon-on.svg);
-  }
-}
-
 .edit-toolbar__status {
   display: block;
   float: right;
   font-size: 13px;
-  line-height: 66px;
-  color: #bfbfbf;
-  margin-right: 0;
+  line-height: 60px;
+  color: $color-text-faded;
 }

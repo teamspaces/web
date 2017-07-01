@@ -1,6 +1,6 @@
 <%= notice %>
 
-<h1><%= page.title %></h1>
+<h1><%= page.decorate.title_with_fallback %></h1>
 
 <div class="space-page__meta">
   <%= number_of_words_to_minutes_reading(page.word_count) %> minute read. Updated <%= time_ago_in_words(page.updated_at) %> ago.

@@ -5,18 +5,22 @@
   </a>
 
   <nav class="mobile-space-navigation__content" id="mobile-space-navigation__content">
-    <%= render "page_tree", page_tree: current_space.pages.hash_tree %>
+    <ul class="page-tree">
+      <%= render "page_tree", page_tree: current_space.pages.hash_tree %>
+    </ul>
 
     <%= render "space_actions" %>
   </nav>
 </div>
 
-<div class="clearfix" id="sticky-container">
+<div class="clearfix">
   <!-- Table of contents for medium and large viewports -->
   <nav class="space-toc">
     <h3><%= link_to current_space.name, space_pages_path(current_space) %></h3>
 
-    <%= render "page_tree", page_tree: current_space.pages.hash_tree %>
+    <ul class="page-tree">
+      <%= render "page_tree", page_tree: current_space.pages.hash_tree %>
+    </ul>
   </nav>
 
   <!-- Page content for all viewports -->
@@ -35,6 +39,7 @@
       e.preventDefault()
       $('.mobile-space-navigation__toggle').toggleClass('mobile-space-navigation__toggle--open')
       $('.mobile-space-navigation__content').stop().fadeToggle()
+      $('body').toggleClass('body--mobile-no-scroll')
     })
   })
 </script>

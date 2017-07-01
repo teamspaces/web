@@ -19,13 +19,13 @@ class Editor {
   attachQuillEditorEvents(){
     // gets called on every change
     this.quillEditor.on('text-change', this.pageSharedDB.update.bind(this.pageSharedDB));
-    this.quillEditor.on('text-change', () => this.statusMessage.update("SAVING..."));
+    this.quillEditor.on('text-change', () => this.statusMessage.update("Saving..."));
     // gets called 500 milliseconds after changes have been made
     this.quillEditor.on('text-save', this.pageDB.update.bind(this.pageDB));
   };
 
   attachPageDBEvents(){ // web_server events
-    this.pageDB.on('saved', (response) => this.statusMessage.update("SAVED"));
+    this.pageDB.on('saved', (response) => this.statusMessage.update("All changes have been saved"));
     this.pageDB.on('error', (error) => {
       console.log(error);
       Raven.captureException(error);

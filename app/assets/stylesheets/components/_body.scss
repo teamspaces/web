@@ -4,3 +4,14 @@
  */
 
 .body {}
+
+.body--mobile-no-scroll {
+  overflow: hidden;
+}
+
+// Medium viewports
+@media (min-width: 769px) {
+  .body--mobile-no-scroll {
+    overflow: auto;
+  }
+}
