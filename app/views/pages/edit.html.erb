@@ -56,6 +56,9 @@
 
       // Toggle class
       $(this).toggleClass('page-tree__toggle--active')
+
+      // The height has changed so sticky needs to recalculate
+      $(document.body).trigger("sticky_kit:recalc");
     })
 
     // Update sidebar when the page name is updated

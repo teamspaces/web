@@ -66,6 +66,9 @@
 
       // Toggle class
       $(this).toggleClass('page-tree__toggle--active')
+
+      // The height has changed so sticky needs to recalculate
+      $(document.body).trigger("sticky_kit:recalc");
     })
   })
 </script>
