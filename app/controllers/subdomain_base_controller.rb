@@ -3,11 +3,6 @@ class SubdomainBaseController < ApplicationController
                 :add_sentry_team_context,
                 :verify_email_confirmed
 
-  helper_method :current_team
-  def current_team
-    subdomain_team
-  end
-
   helper_method :other_available_teams
   def other_available_teams
     available_users.teams - [current_team]
