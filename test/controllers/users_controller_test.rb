@@ -42,7 +42,7 @@ describe UsersController do
           patch user_url(subdomain: team.subdomain), params: { user: user_params }
 
           get team_path(subdomain: team.subdomain)
-          assert_equal user, @controller.current_user
+          assert_equal user, @controller.send(:current_user)
         end
       end
 
