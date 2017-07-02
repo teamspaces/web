@@ -1,6 +1,6 @@
 class LoginRegisterFunnel::EmailAddressForm
   include ActiveModel::Model
-  include Virtus.model
+  
 
   attr_reader :email
 

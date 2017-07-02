@@ -1,6 +1,6 @@
 class LoginRegisterFunnel::PasswordResetForm
   include ActiveModel::Model
-  include Virtus.model
+  
 
   attr_reader :email, :user
 

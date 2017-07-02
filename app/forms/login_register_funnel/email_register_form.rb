@@ -1,7 +1,7 @@
 class LoginRegisterFunnel::EmailRegisterForm
   include FormHelpers::Errors
   include ActiveModel::Model
-  include Virtus.model
+  
 
   attr_reader :email
 

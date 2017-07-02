@@ -1,7 +1,7 @@
 class Space::Form
   include ActiveModel::Model
   include ActiveModel::Conversion
-  include Virtus.model
+  
 
   attr_reader :space, :user
   delegate :cached_cover_data, to: :space

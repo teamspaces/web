@@ -25,6 +25,7 @@ gem 'omniauth-slack', git: 'https://github.com/teamspaces/omniauth-slack.git', b
 gem "httparty"
 gem "jwt"
 gem "json-schema"
+gem "virtus"
 
 gem 'draper', "~> 3.0.0.pre1"
 
