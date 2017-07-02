@@ -3,7 +3,7 @@
   bottom: 0;
   left: 240px;
   z-index: 100;
-  width: calc( 100% - 240px - 240px );
+  width: calc( 100vw - 240px - 240px );
   height: 61px;
   padding: 0 96px;
   background: #fff;
@@ -34,4 +34,39 @@
   font-size: 13px;
   line-height: 60px;
   color: $color-text-faded;
+}
+
+@media (min-width: 1360px) {
+  .edit-toolbar {
+    width: calc( 100vw - 264px - 264px );
+  }
+
+  .edit-toolbar, .ql-toolbar {
+    left: 264px;
+  }
+}
+
+@media (min-width: 1420px) {
+  .edit-toolbar {
+    width: calc( 100vw - 276px - 276px );
+    padding: 0 108px;
+  }
+
+  .edit-toolbar, .ql-toolbar {
+    left: 276px;
+  }
+
+  .ql-toolbar {
+    margin-left: 92px;
+  }
+}
+
+@media (min-width: 1441px) {
+  .edit-toolbar {
+    width: 900px;
+  }
+
+  .edit-toolbar, .ql-toolbar {
+    left: calc( (100vw - 900px) / 2 );
+  }
 }
