@@ -37,6 +37,26 @@
       offset_top: 60
     })
 
+    // Update page tree toggles based on active page
+    $('.page-tree__active').each(function() {
+      // Show lists
+      $(this).children('ul').show()
+      $(this).parents('li').children('ul').show()
+
+      // Update toggles
+      $(this).children('.page-tree__toggle').addClass('page-tree__toggle--active')
+      $(this).parents('li').children('.page-tree__toggle').addClass('page-tree__toggle--active')
+    })
+
+    // Listen for page tree toggle events
+    $('.page-tree').on('click', '.page-tree__toggle', function(e) {
+      // Toggle ul
+      $(this).parent('li').children('ul').toggle()
+
+      // Toggle class
+      $(this).toggleClass('page-tree__toggle--active')
+    })
+
     const statusMessage = new Spaces.PageStatusMessage({ attachTo: ".edit-toolbar__status" })
 
     new Spaces.Editor({ attachTo: '#page-editor',
@@ -52,6 +72,23 @@
     new Spaces.PageTree({
       container: $('.page-tree--edit'),
       onChange: function(hierarchy){
+        // Remove all page toggles
+        $('.page-tree__toggle').remove()
+
+        // Add page toggles
+        $('.page-tree li').each(function() {
+          const ul = $(this).children('ul')
+          let toggleClass = 'page-tree__toggle'
+
+          if(ul.length > 0) {
+            if(ul.is(':visible')) {
+              toggleClass += ' page-tree__toggle--active'
+            }
+
+            $(this).append('<span class="' + toggleClass + '"></span>')
+          }
+        })
+
         const promise = pageHierarchy.update({ page_hierarchy: hierarchy })
 
         promise

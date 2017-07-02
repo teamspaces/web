@@ -41,14 +41,30 @@
       $('.mobile-space-navigation__content').stop().fadeToggle()
       $('body').toggleClass('body--mobile-no-scroll')
     })
-  })
-</script>
 
-<script>
-  $(function(){
     // Sticky sidebar
     $('.space-toc').stick_in_parent({
       offset_top: 60
+    })
+
+    // Update page tree toggles based on active page
+    $('.page-tree__active').each(function() {
+      // Show lists
+      $(this).children('ul').show()
+      $(this).parents('li').children('ul').show()
+
+      // Update toggles
+      $(this).children('.page-tree__toggle').addClass('page-tree__toggle--active')
+      $(this).parents('li').children('.page-tree__toggle').addClass('page-tree__toggle--active')
+    })
+
+    // Listen for page tree toggle events
+    $('.page-tree').on('click', '.page-tree__toggle', function(e) {
+      // Toggle ul
+      $(this).parent('li').children('ul').toggle()
+
+      // Toggle class
+      $(this).toggleClass('page-tree__toggle--active')
     })
   })
 </script>

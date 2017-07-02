@@ -5,10 +5,12 @@
 
   li {
     display: block;
+    position: relative;
   }
 
   // Nested lists
   ul {
+    display: none;
     margin: 0;
     padding: 0 0 0 12px;
     list-style: none;
@@ -31,21 +33,29 @@
  color: #A7A9AE;
 }
 
+.page-tree__toggle {
+  position: absolute;
+  top: 0;
+  left: -27px;
+  width: 27px;
+  height: 30px;
+  background: transparent url(../images/space/toc-closed.svg) no-repeat center center;
+  cursor: pointer;
+  opacity: 0;
+  transition: 0.2s;
 
-// Edit
-.space-toc.space-toc--edit {
-  &:hover, &:active, &:focus {
-    .page-tree__edit-actions {
-      opacity: 1;
-      top: 0;
-    }
-  }
-
-  li {
-    position: relative;
+  &:hover, &:focus, &:active {
+   opacity: 0.4 !important;
   }
 }
 
+.page-tree__toggle.page-tree__toggle--active {
+  background-image: url(../images/space/toc-open.svg);
+}
+
+
+
+// Edit
 .page-tree__edit-actions {
   position: absolute;
   top: 5px;

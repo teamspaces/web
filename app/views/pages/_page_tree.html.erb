@@ -3,6 +3,8 @@
         <%= link_to(page.decorate.title_with_fallback, page, class: 'page-tree__page-link') %>
 
         <% if page_tree.size.positive? %>
+            <span class="page-tree__toggle"></span>
+
             <ul>
                 <%= render "page_tree", page_tree: page_tree %>
             </ul>

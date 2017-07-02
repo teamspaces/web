@@ -1,5 +1,5 @@
 <% page_tree.map do |page, page_tree| %>
-    <li class="<%= (current_page?(page)) ? 'page-tree__active' : nil %>" id=<%= "page_#{page.id}" %> >
+    <li class="<%= ( current_page?(edit_page_path(page)) ) ? 'page-tree__active' : nil %>" id=<%= "page_#{page.id}" %> >
         <%= link_to(page.decorate.title_with_fallback, edit_page_path(page), class: 'page-tree__page-link') %>
 
         <div class="page-tree__edit-actions">
@@ -8,6 +8,8 @@
         </div>
 
         <% if page_tree.size.positive? %>
+            <span class="page-tree__toggle"></span>
+
             <ul>
                 <%= render "edit_page_tree", page_tree: page_tree, current_page: current_page %>
             </ul>
