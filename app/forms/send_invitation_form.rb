@@ -1,7 +1,7 @@
 class SendInvitationForm
   include ActiveModel::Model
   include ActiveModel::Conversion
-  
+  include Virtus.model
 
   attr_reader :invitation
 

@@ -1,7 +1,7 @@
 class User::UpdateSettingsForm
   include FormHelpers::Errors
   include ActiveModel::Model
-  
+  include Virtus.model
 
   attr_reader :user
   delegate :model_name, to: :user

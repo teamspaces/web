@@ -1,7 +1,7 @@
 class User::UpdateEmailForm
   include FormHelpers::Errors
   include ActiveModel::Model
-  
+  include Virtus.model
 
   attr_reader :user
   attribute :email, String

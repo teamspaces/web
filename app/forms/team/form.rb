@@ -1,7 +1,7 @@
 class Team::Form
   include ActiveModel::Model
   include ActiveModel::Conversion
-  
+  include Virtus.model
 
   attr_reader :team
   delegate :cached_logo_data, to: :team
