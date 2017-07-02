@@ -57,6 +57,13 @@
       $(this).toggleClass('page-tree__toggle--active')
     })
 
+    // Update sidebar when the page name is updated
+    $('#title_input').on('input', function(e) {
+      const val = $('#title_input').val()
+
+      $('.page-tree__active').children('.page-tree__page-link').html(val)
+    })
+
     const statusMessage = new Spaces.PageStatusMessage({ attachTo: ".edit-toolbar__status" })
 
     new Spaces.Editor({ attachTo: '#page-editor',
