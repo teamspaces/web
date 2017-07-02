@@ -88,3 +88,21 @@
     background: transparent;
   }
 }
+
+@media (min-width: 1360px) {
+  .space-toc {
+    width: 264px;
+  }
+}
+
+@media (min-width: 1420px) {
+  .space-toc {
+    width: 276px;
+  }
+}
+
+@media (min-width: 1441px) {
+  .space-toc {
+    width: calc( (100vw - 900px) / 2 );
+  }
+}

@@ -149,7 +149,7 @@
 // Medium viewports
 @media (min-width: 769px) {
   .space-page {
-    width: calc( 100% - 240px );
+    width: calc( 100vw - 240px );
     min-height: calc( 100vh - 60px );
     padding: 73px 96px;
     float: left;
@@ -174,7 +174,7 @@
 // Large viewports
 @media (min-width: 1260px) {
   .space-page {
-    width: calc( 100% - 240px - 240px );
+    width: calc( 100vw - 240px - 240px );
     min-height: calc( 100vh - 60px - 36px );
     padding: 85px 108px 84px 96px;
     margin-top: 36px;
@@ -188,5 +188,24 @@
     margin-bottom: 0;
     border-radius: 5px 5px 0 0;
     padding-bottom: 144px;
+  }
+}
+
+@media (min-width: 1360px) {
+  .space-page {
+    width: calc( 100vw - 264px - 264px );
+  }
+}
+
+@media (min-width: 1420px) {
+  .space-page {
+    width: calc( 100vw - 276px - 276px );
+    padding: 85px 120px 84px 108px;
+  }
+}
+
+@media (min-width: 1441px) {
+  .space-page {
+    width: 900px;
   }
 }

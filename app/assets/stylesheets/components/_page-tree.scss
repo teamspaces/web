@@ -102,3 +102,10 @@
     line-height: 30px;
   }
 }
+
+// Large viewports
+@media (min-width: 1441px) {
+  .page-tree {
+    max-width: 180px;
+  }
+}
