@@ -1,7 +1,7 @@
 class Space::PageHierarchyForm
   include ActiveModel::Model
   include ActiveModel::Conversion
-  include Virtus.model
+  
 
   attr_reader :space, :page_hierarchy
 
