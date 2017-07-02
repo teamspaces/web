@@ -49,7 +49,7 @@
 .page-tree__edit-actions {
   position: absolute;
   top: 5px;
-  right: -36px;
+  right: -42px;
   z-index: 1;
   opacity: 0;
   transition: all 0.4s;
@@ -59,7 +59,6 @@
     float: left;
     height: 30px;
     width: 30px;
-    padding: 0 6px;
     background-color: #F9FAFC;
     background-position: center center;
     background-repeat: no-repeat;
@@ -71,19 +70,18 @@
   }
 }
 
-.page-tree__move {
-  background-image: url(../images/space/move-icon.svg);
-  cursor: move;
-}
+// .page-tree__move {
+//   background-image: url(../images/space/move-icon.svg);
+//   cursor: move;
+// }
 
 .page-tree__remove {
-  background-image: url(../images/space/remove-icon.svg);
-  width: 27px;
+  background-image: url(../images/space/toc-delete.svg);
+  width: 28px;
 }
 
 .page-tree__add-subpage {
-  background-image: url(../images/space/add-subpage-icon.svg);
-  width: 31px;
+  background-image: url(../images/space/toc-new.svg);
 }
 
 

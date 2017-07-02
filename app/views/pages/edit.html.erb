@@ -10,7 +10,10 @@
   <!-- Table of contents for medium and large viewports -->
   <nav class="space-toc space-toc--edit">
     <h3>
-      <%= link_to @page.space.name, edit_space_path(@page.space) %>
+      <%= link_to edit_space_path(@page.space) do %>
+        <%= @page.space.name %>
+        <span></span>
+      <% end %>
     </h3>
 
     <ul class="page-tree page-tree--edit">

@@ -11,13 +11,12 @@
 
   ul {
     margin: 0;
-    padding: 0 24px;
+    padding: 0 0 0 24px;
     list-style: none;
   }
 
   li {
     float: left;
-    width: 33.333333333%;
   }
 
   a {
@@ -33,11 +32,6 @@
       color: $color-text-secondary;
       opacity: 0.6;
     }
-  }
-
-  // Hides words on smaller viewports
-  span span {
-    display: none;
   }
 }
 
@@ -61,9 +55,11 @@
     display: block;
     width: 240px;
     height: 60px;
+    background: #F9FAFC;
+    border-top: 0;
 
     ul {
-      padding: 0 36px;
+      padding: 0 0 0 36px;
     }
 
     a {
@@ -71,21 +67,9 @@
       line-height: 60px;
     }
 
-    // Hides words on medium viewports
+    // Hides words on smaller viewports
     span {
       display: none;
-    }
-
-    .space-actions__edit {
-      background-position: left center;
-    }
-
-    .space-actions__new {
-      background-position: center center;
-    }
-
-    .space-actions__settings {
-      background-position: right center;
     }
   }
 }
@@ -101,6 +85,7 @@
     width: 168px;
     height: auto;
     bottom: auto;
+    background: #fff;
     border: 0;
     border-radius: 5px;
     box-shadow: 0 0 1px rgba(0,0,0,0.12);
@@ -113,6 +98,7 @@
       float: none;
       display: block;
       width: 100%;
+      margin: 0;
     }
 
     a {
@@ -123,12 +109,8 @@
     }
 
     // Shows all words on larger viewports
-    span, span span {
+    span {
       display: inline;
-    }
-
-    .space-actions__edit, .space-actions__new, .space-actions__settings {
-      background-position: left center;
     }
 
     .space-actions__view {

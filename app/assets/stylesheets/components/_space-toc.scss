@@ -25,12 +25,47 @@
   }
 }
 
+
+
+// Edit
+.space-toc.space-toc--edit {
+  &:hover, &:active, &:focus {
+    h3 span {
+      opacity: 1;
+      top: 0;
+    }
+  }
+
+  h3 {
+    position: relative;
+  }
+
+  h3 span {
+    display: block;
+    position: absolute;
+    top: 5px;
+    right: -42px;
+    height: 24px;
+    width: 30px;
+    background: #F9FAFC url(../images/space/toc-settings.svg) no-repeat center center;
+    opacity: 0;
+    transition: all 0.4s;
+  }
+
+  li {
+    position: relative;
+  }
+}
+
+
+
 // Medium viewports
 @media (min-width: 769px) {
   .space-toc {
     display: block;
     float: left;
     width: 240px;
+    background: #F9FAFC;
     min-height: calc( 100vh - 60px - 60px );
     padding: 31px 60px 31px 36px;
   }

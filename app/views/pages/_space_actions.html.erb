@@ -2,13 +2,13 @@
   <ul>
     <li>
       <%= link_to edit_page_path(@page), class: "space-actions__edit" do %>
-        <span>Edit <span>Page</span></span>
+        Edit <span>Page</span>
       <% end %>
     </li>
 
     <li>
       <%= link_to space_pages_path(@page.space, params: { page: { _: true } }), method: :post, class: "space-actions__new" do %>
-        <span>New <span>Page</span></span>
+        New <span>Page</span>
       <% end %>
     </li>
 
