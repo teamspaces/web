@@ -1,0 +1,108 @@
+.space-toc {
+  display: none;
+  background: #fff;
+
+  &:hover, &:active, &:focus {
+    .page-tree__toggle {
+      opacity: 1;
+    }
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 24px;
+    color: $color-text-secondary;
+
+    a {
+      @include ellipsis;
+      display: block;
+      color: $color-text-secondary;
+
+      &:hover, &:focus, &:active {
+        color: #A7A9AE;
+      }
+    }
+  }
+
+  .page-tree {
+    margin-top: 9px;
+  }
+}
+
+
+
+// Edit
+.space-toc.space-toc--edit {
+  &:hover, &:active, &:focus {
+    h3 span {
+      opacity: 1;
+      top: 0;
+    }
+
+    .page-tree__edit-actions {
+      opacity: 1;
+      top: 0;
+    }
+  }
+
+  h3 {
+    position: relative;
+  }
+
+  h3 span {
+    display: block;
+    position: absolute;
+    top: 5px;
+    right: -42px;
+    height: 24px;
+    width: 30px;
+    background: #F9FAFC url(../images/space/toc-settings.svg) no-repeat center center;
+    opacity: 0;
+    transition: all 0.4s;
+  }
+
+  li {
+    position: relative;
+  }
+}
+
+
+
+// Medium viewports
+@media (min-width: 769px) {
+  .space-toc {
+    display: block;
+    float: left;
+    width: 240px;
+    background: #F9FAFC;
+    min-height: calc( 100vh - 60px - 60px );
+    padding: 31px 60px 31px 36px;
+  }
+}
+
+// Large viewports
+@media (min-width: 1260px) {
+  .space-toc {
+    background: transparent;
+  }
+}
+
+@media (min-width: 1360px) {
+  .space-toc {
+    width: 264px;
+  }
+}
+
+@media (min-width: 1420px) {
+  .space-toc {
+    width: 276px;
+  }
+}
+
+@media (min-width: 1441px) {
+  .space-toc {
+    width: calc( (100vw - 900px) / 2 );
+  }
+}

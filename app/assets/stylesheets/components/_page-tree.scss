@@ -1,0 +1,111 @@
+.page-tree {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: block;
+    position: relative;
+  }
+
+  // Nested lists
+  ul {
+    display: none;
+    margin: 0;
+    padding: 0 0 0 12px;
+    list-style: none;
+  }
+}
+
+.page-tree__page-link {
+  @include ellipsis;
+  display: block;
+  font-size: 13px;
+  line-height: 36px;
+  color: $color-text-secondary;
+
+  &:hover, &:focus, &:active {
+   color: #A7A9AE;
+  }
+}
+
+.page-tree__active > .page-tree__page-link:first-child {
+ color: #A7A9AE;
+}
+
+.page-tree__toggle {
+  position: absolute;
+  top: 0;
+  left: -27px;
+  width: 27px;
+  height: 30px;
+  background: transparent url(../images/space/toc-closed.svg) no-repeat center center;
+  cursor: pointer;
+  opacity: 0;
+  transition: 0.2s;
+
+  &:hover, &:focus, &:active {
+   opacity: 0.4 !important;
+  }
+}
+
+.page-tree__toggle.page-tree__toggle--active {
+  background-image: url(../images/space/toc-open.svg);
+}
+
+
+
+// Edit
+.page-tree__edit-actions {
+  position: absolute;
+  top: 5px;
+  right: -42px;
+  z-index: 1;
+  opacity: 0;
+  transition: all 0.4s;
+
+  span, a {
+    display: block;
+    float: left;
+    height: 30px;
+    width: 30px;
+    background-color: #F9FAFC;
+    background-position: center center;
+    background-repeat: no-repeat;
+    transition: all 0.2s;
+
+    &:hover, &:active, &:focus {
+      opacity: 0.6;
+    }
+  }
+}
+
+// .page-tree__move {
+//   background-image: url(../images/space/move-icon.svg);
+//   cursor: move;
+// }
+
+.page-tree__remove {
+  background-image: url(../images/space/toc-delete.svg);
+  width: 28px;
+}
+
+.page-tree__add-subpage {
+  background-image: url(../images/space/toc-new.svg);
+}
+
+
+
+// Medium viewports
+@media (min-width: 769px) {
+  .page-tree__page-link  {
+    line-height: 30px;
+  }
+}
+
+// Large viewports
+@media (min-width: 1441px) {
+  .page-tree {
+    max-width: 180px;
+  }
+}
