@@ -63,6 +63,10 @@ class PageSharedDB extends EventEmitter {
     };
 
     attachPageEvents(){
+      this.webSocket.addEventListener('close', (_event) => {
+        this.emit('disable_editor');
+      });
+
       this.page.on('error', (error) => {
         this.emit('error', error);
       });
