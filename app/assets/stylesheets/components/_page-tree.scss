@@ -101,10 +101,6 @@
 
 // Medium viewports
 @media (min-width: 769px) {
-  .page-tree__page-link  {
-    padding-right: 36px;
-  }
-
   .page-tree__toggle {
     height: 48px;
   }
@@ -118,9 +114,5 @@
 @media (min-width: 1460px) {
   .page-tree {
     max-width: 180px;
-  }
-
-  .page-tree__page-link  {
-    padding-right: 0;
   }
 }

@@ -78,7 +78,7 @@
     width: 240px;
     background: #F9FAFC;
     min-height: calc( 100vh - 60px - 60px );
-    padding: 31px 0 31px 36px;
+    padding: 31px 36px 31px 36px;
 
     .page-tree {
       margin-top: 18px;
@@ -102,11 +102,13 @@
 @media (min-width: 1420px) {
   .space-toc {
     width: 276px;
+    padding-right: 60px;
   }
 }
 
 @media (min-width: 1460px) {
   .space-toc {
     width: calc( (100vw - 900px) / 2 );
+    padding-right: 0;
   }
 }
