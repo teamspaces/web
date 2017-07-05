@@ -21,8 +21,10 @@
   @include ellipsis;
   display: block;
   font-size: 13px;
-  line-height: 36px;
+  line-height: 47px;
+  height: 48px;
   color: $color-text-secondary;
+  border-bottom: 1px solid #EEEFF0;
 
   &:hover, &:focus, &:active {
    color: #A7A9AE;
@@ -59,7 +61,7 @@
 .page-tree__edit-actions {
   position: absolute;
   top: 5px;
-  right: -42px;
+  right: 6px;
   z-index: 1;
   opacity: 0;
   transition: all 0.4s;
@@ -67,8 +69,9 @@
   span, a {
     display: block;
     float: left;
-    height: 30px;
+    height: 46px;
     width: 30px;
+    margin-top: 1px;
     background-color: #F9FAFC;
     background-position: center center;
     background-repeat: no-repeat;
@@ -99,13 +102,25 @@
 // Medium viewports
 @media (min-width: 769px) {
   .page-tree__page-link  {
-    line-height: 30px;
+    padding-right: 36px;
+  }
+
+  .page-tree__toggle {
+    height: 48px;
   }
 }
 
 // Large viewports
-@media (min-width: 1441px) {
+@media (min-width: 1260px) {
+
+}
+
+@media (min-width: 1460px) {
   .page-tree {
     max-width: 180px;
+  }
+
+  .page-tree__page-link  {
+    padding-right: 0;
   }
 }
