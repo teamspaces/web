@@ -176,7 +176,7 @@
   .space-page {
     width: calc( 100vw - 240px - 240px );
     min-height: calc( 100vh - 60px - 36px );
-    padding: 97px 108px 96px 96px;
+    padding: 97px 120px 96px 108px;
     margin-top: 36px;
     margin-bottom: 36px;
     border-left: 0;
@@ -200,7 +200,6 @@
 @media (min-width: 1420px) {
   .space-page {
     width: calc( 100vw - 276px - 276px );
-    padding: 97px 120px 96px 108px;
   }
 }
 
