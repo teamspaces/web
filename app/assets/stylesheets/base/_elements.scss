@@ -2,10 +2,11 @@ html {
 }
 
 body {
-  background: #F9FAFC;
+  background: #F7FAFC;
   -webkit-font-smoothing: antialiased;
   font: normal 15px/24px $font-family;
   color: $color-text-primary;
+  min-height: 100vh;
 }
 
 main {

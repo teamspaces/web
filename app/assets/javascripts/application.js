@@ -5,6 +5,7 @@ import PageTitle from './page/title'
 import PageTree from './page_tree'
 import PageHierarchy from './page_hierarchy'
 import Dropdowns from './dropdowns'
+import SpaceSidebar from './SpaceSidebar'
 
 window.Spaces = {
   Editor: Editor,
@@ -12,7 +13,8 @@ window.Spaces = {
   PageStatusMessage: PageStatusMessage,
   PageTitle: PageTitle,
   PageTree: PageTree,
-  PageHierarchy: PageHierarchy
-};
+  PageHierarchy: PageHierarchy,
+  SpaceSidebar: SpaceSidebar
+}
 
 const dropdowns = new Dropdowns()

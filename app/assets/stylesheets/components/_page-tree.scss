@@ -24,7 +24,8 @@
   line-height: 47px;
   height: 48px;
   color: $color-text-secondary;
-  border-bottom: 1px solid #EEEFF0;
+  border-bottom: 1px dotted #E1E3E6;
+  padding-right: 36px;
 
   &:hover, &:focus, &:active {
    color: #A7A9AE;
@@ -40,7 +41,7 @@
   top: 0;
   left: -27px;
   width: 27px;
-  height: 30px;
+  height: 48px;
   background: transparent url(../images/space/toc-closed.svg) no-repeat center center;
   cursor: pointer;
   opacity: 0;
@@ -101,18 +102,15 @@
 
 // Medium viewports
 @media (min-width: 769px) {
-  .page-tree__toggle {
-    height: 48px;
-  }
+
 }
 
 // Large viewports
 @media (min-width: 1260px) {
-
+  .page-tree__page-link {
+    padding-right: 60px;
+  }
 }
 
 @media (min-width: 1460px) {
-  .page-tree {
-    max-width: 180px;
-  }
 }

@@ -8,31 +8,33 @@
     <ul class="page-tree">
       <%= render "page_tree", page_tree: current_space.pages.hash_tree %>
     </ul>
-
-    <%= render "space_actions" %>
   </nav>
 </div>
 
-<div class="clearfix">
-  <!-- Table of contents for medium and large viewports -->
-  <nav class="space-toc">
-    <h3><%= link_to current_space.name, space_pages_path(current_space) %></h3>
+<!-- Table of contents for medium and large viewports -->
+<nav class="space-toc" id="space-toc">
+  <h3><%= link_to current_space.name, space_pages_path(current_space) %></h3>
 
-    <ul class="page-tree">
-      <%= render "page_tree", page_tree: current_space.pages.hash_tree %>
-    </ul>
-  </nav>
+  <ul class="page-tree">
+    <%= render "page_tree", page_tree: current_space.pages.hash_tree %>
+  </ul>
 
-  <!-- Page content for all viewports -->
-  <main class="space-page">
-    <%= render "page_contents", page: @page, notice: notice %>
-  </main>
+  <div class="space-toc__actions">
+    <%= link_to space_pages_path(@page.space, params: { page: { _: true } }), method: :post, class: "space-toc__new-page" do %>
+      New page
+    <% end %>
+  </div>
+</nav>
 
-  <!-- Actions for medium and large viewports -->
-  <%= render "space_actions" %>
-</div>
+<!-- Page content for all viewports -->
+<main class="space-page">
+  <%= render "page_contents", page: @page, notice: notice %>
+</main>
 
 <script>
+  // Sidebar custom scroll
+  const scrollSidebar = new Spaces.SpaceSidebar()
+
   $(function() {
     // Event handler for the space navigation toggle on smaller viewports
     $('.mobile-space-navigation__toggle').on('click', function(e) {
@@ -40,35 +42,6 @@
       $('.mobile-space-navigation__toggle').toggleClass('mobile-space-navigation__toggle--open')
       $('.mobile-space-navigation__content').stop().fadeToggle()
       $('body').toggleClass('body--mobile-no-scroll')
-    })
-
-    // Sticky sidebar
-    $('.space-toc').stick_in_parent({
-      offset_top: 60
-    })
-
-    // TODO Move this to a class instead
-    // Update page tree toggles based on active page
-    $('.page-tree__active').each(function() {
-      // Show lists
-      $(this).children('ul').show()
-      $(this).parents('li').children('ul').show()
-
-      // Update toggles
-      $(this).children('.page-tree__toggle').addClass('page-tree__toggle--active')
-      $(this).parents('li').children('.page-tree__toggle').addClass('page-tree__toggle--active')
-    })
-
-    // Listen for page tree toggle events
-    $('.page-tree').on('click', '.page-tree__toggle', function(e) {
-      // Toggle ul
-      $(this).parent('li').children('ul').toggle()
-
-      // Toggle class
-      $(this).toggleClass('page-tree__toggle--active')
-
-      // The height has changed so sticky needs to recalculate
-      $(document.body).trigger("sticky_kit:recalc");
     })
   })
 </script>

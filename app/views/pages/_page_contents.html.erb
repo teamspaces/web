@@ -1,9 +1,7 @@
 <%= notice %>
-
-<h1><%= page.decorate.title_with_fallback %></h1>
-
-<div class="space-page__meta">
-  <%= number_of_words_to_minutes_reading(page.word_count) %> minute read. Updated <%= time_ago_in_words(page.updated_at) %> ago.
+<div class="space-page__hero" style="background-image: url(https://images.unsplash.com/photo-1415795854641-f4a487a0fdc8?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=);">
+  <h1><%= page.decorate.title_with_fallback %></h1>
+  <p><%= number_of_words_to_minutes_reading(page.word_count) %> minute read. Updated <%= time_ago_in_words(page.updated_at) %> ago.</p>
 </div>
 
 <div class="space-page__content">

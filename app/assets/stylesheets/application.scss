@@ -1,9 +1,10 @@
 // Uncomment this @import to display the baseline grid during development
 // @import 'dev/baseline';
 
-// Vendor
-@import '../../../node_modules/highlight.js/styles/atom-one-light.css';
-@import '../../../vendor/assets/stylesheets/quill.snow.css';
+// Import from packages in node_modules
+@import '~highlight.js/styles/atom-one-light.css';
+@import '~perfect-scrollbar/dist/css/perfect-scrollbar.css';
+// @import '../../../vendor/assets/stylesheets/quill.snow.css';
 
 // Base
 @import 'base/variables';
@@ -21,6 +22,7 @@
 @import 'components/avatar';
 @import 'components/dropdown';
 @import 'components/overflow-toggle';
+@import 'components/perfect-scrollbar';
 
 // TODO Refactor, all components should start with space
 @import 'components/mobile-space-navigation';

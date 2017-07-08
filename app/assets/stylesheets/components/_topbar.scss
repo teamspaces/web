@@ -5,15 +5,17 @@
   left: 0;
   z-index: 101;
   width: 100%;
-  height: 61px;
+  height: 60px;
+  padding: 0 24px;
   background: #fff;
-  border-bottom: 1px solid #EEEFF0;
-  padding: 0 36px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 1px 0 rgba(0,0,0,0.06);
 
   // Main navigation
+  // > to avoid styling of nested dropdowns
   nav {
     @include clearfix;
-    float: right;
+    float: left;
 
     > ul {
       margin: 0;
@@ -22,30 +24,117 @@
 
       > li {
         float: left;
-
-        > a, > .dropdown > .dropdown__toggle {
-          display: block;
-          font-size: 13px;
-          line-height: 60px;
-          padding: 0 18px;
-          color: $color-text-secondary;
-          vertical-align: middle;
-
-          &:hover, &:active, &:focus {
-            color: $color-text-secondary;
-            opacity: 0.6;
-          }
-        }
       }
     }
   }
 
-  // Account toggle
-  .dropdown--accounts .dropdown__toggle {
-    padding: 18px !important;
+  // Team toggle
+  .dropdown--teams .dropdown__toggle {
+    display: block;
+    padding: 17px 12px !important;
+    transition: all 0.5s $easing;
 
-    .avatar {
-      display: block;
+    img {
+      width: 26px;
+      height: 26px;
+      border-radius: 5px;
+    }
+
+    &:hover, &:active, &:focus {
+      transform: scale(1.1);
+    }
+  }
+
+
+  // Spaces toggle
+  .dropdown--spaces .dropdown__toggle {
+    display: block;
+    font-size: 13.5px;
+    line-height: 60px;
+    padding: 0 24px 0 12px;
+    color: $color-text-secondary;
+
+    &:hover, &:active, &:focus {
+      color: $color-text-secondary;
+      opacity: 0.6;
+    }
+  }
+
+
+  // Account toggle
+  // .dropdown--accounts .dropdown__toggle {
+  //   padding: 18px !important;
+  //
+  //   .avatar {
+  //     display: block;
+  //   }
+  // }
+}
+
+
+
+// Search
+.topbar__search {
+  position: relative;
+  float: left;
+  width: calc(50vw - 200px);
+
+  // Divider
+  &:before {
+    display: block;
+    content: " ";
+    position: absolute;
+    top: 18px;
+    left: 0px;
+    width: 1px;
+    height: 24px;
+    background: #E8EBED;
+  }
+
+  // Search input
+  input {
+    display: block;
+    width: 100%;
+    background: transparent;
+    height: 60px;
+    padding: 22px 0 22px 24px;
+    margin: 0 0 0 1px;
+    border: 0;
+    border-radius: 0;
+    font-size: 13.5px;
+    font-weight: normal;
+    line-height: 16px;
+    color: $color-text-primary;
+
+    &:hover, &:focus {
+      outline: none;
+    }
+
+    &::-webkit-input-placeholder {
+      color: #A7A9AE;
+      transition: color 0.2s;
+    }
+
+    &:hover::-webkit-input-placeholder {
+      color: $color-text-secondary;
+    }
+
+    &::-moz-placeholder {
+      color: #A7A9AE;
+      transition: color 0.2s;
+    }
+
+    &:hover::-moz-placeholder {
+      color: $color-text-secondary;
+    }
+
+    &:-ms-input-placeholder {
+      color: #A7A9AE;
+      transition: color 0.2s;
+    }
+
+    &:hover:-ms-input-placeholder {
+      color: $color-text-secondary;
     }
   }
 }
@@ -54,9 +143,15 @@
 
 // Logo
 .topbar__logo {
-  float: left;
-  display: block;
+  display: none;
+  position: absolute;
+  left: 50%;
+  margin-left: -30px;
+  width: 60px;
+  height: 60px;
   padding: 15px 0;
+  text-align: center;
+  transition: all 0.5s $easing;
 
   img {
     height: 30px;
@@ -64,58 +159,28 @@
   }
 
   &:hover, &:active, &:focus {
-    opacity: 0.6;
+    // opacity: 0.6;
+    transform: scale(1.1);
   }
 }
 
 
 
-// Search
-input.topbar__search {
+// Help
+.topbar__support {
   display: block;
-  float: left;
-  background: #fff;
-  width: calc(100% - 600px);
-  min-width: 150px;
-  height: 60px;
-  padding: 22px 0;
-  margin: 0 0 0 36px;
-  border: 0;
-  border-radius: 0;
-  font-size: 13px;
-  font-weight: normal;
-  line-height: 16px;
-  color: $color-text-primary;
+  float: right;
+  width: 28px;
+  height: 28px;
+  border-radius: 14px;
+  background: #fff url(../images/topbar/help.svg) no-repeat center center;
+  border: 1px solid #D2D3D7;
+  margin-top: 16px;
+  transition: all 0.5s $easing;
 
-  &:hover, &:focus {
-    outline: none;
-  }
-
-  &::-webkit-input-placeholder {
-    color: #A7A9AE;
-    transition: color 0.2s;
-  }
-
-  &:hover::-webkit-input-placeholder {
-    color: $color-text-secondary;
-  }
-
-  &::-moz-placeholder {
-    color: #A7A9AE;
-    transition: color 0.2s;
-  }
-
-  &:hover::-moz-placeholder {
-    color: $color-text-secondary;
-  }
-
-  &:-ms-input-placeholder {
-    color: #A7A9AE;
-    transition: color 0.2s;
-  }
-
-  &:hover:-ms-input-placeholder {
-    color: $color-text-secondary;
+  &:hover, &:active, &:focus {
+    border-color: $color-text-third;
+    transform: scale(1.1);
   }
 }
 
@@ -125,68 +190,87 @@ input.topbar__search {
 .topbar__invite {
   @include clearfix;
   float: right;
-  padding: 18px 0 18px 18px;
+  padding: 14px 4px 14px 7px;
+  margin-left: 9px;
+  transition: all 0.5s $easing;
 
   &:hover, &:active, &:focus {
-    opacity: 0.6;
+    transform: scale(1.05);
+
+    .topbar__invite-add {
+      box-shadow: inset 0 0 0 1px $color-text-third;
+    }
   }
 
   span {
+    position: relative;
     display: block;
     float: left;
-    width: 24px;
-    height: 24px;
-    margin-left: 12px;
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    margin: 1px 0 0 -7px;
+    border: 2px solid #fff;
 
     &:first-child {
       margin-left: 0;
     }
 
     // The fifth element is made visible for larger viewports in the media queries
-    &:nth-child(5) {
+    &:nth-child(4) {
       display: none;
+    }
+
+    &.topbar__invite-empty {
+      background: url(../images/topbar/avatar-empty.svg) no-repeat center center;
+    }
+
+    &.topbar__invite-add {
+      border-radius: 16px;
+      width: 32px;
+      height: 32px;
+      margin-top: 0;
+      background: #fff url(../images/topbar/invite.svg) no-repeat center center;
+      box-shadow: inset 0 0 0 1px #D2D3D7;
+      transition: all 0.5s;
     }
   }
 }
 
-.topbar__invite-team-icon img {
+
+
+// Accounts toggle
+.dropdown--accounts .dropdown__toggle {
   display: block;
-  width: 24px;
-  height: 24px;
-  border-radius: 8px;
-}
+  float: right;
+  padding: 17px 12px 17px 12px !important;
+  transition: all 0.5s $easing;
 
-.topbar__invite-empty {
-  border-radius: 12px;
-  background: url(../images/topbar/avatar-empty.svg) no-repeat center center;
-}
-
-.topbar__invite-add {
-  border-radius: 12px;
-  background: $color-primary url(../images/topbar/invite.svg) no-repeat center center;
+  &:hover, &:active, &:focus {
+    transform: scale(1.1);
+  }
 }
 
 
 
-// Media queries
+// Medium viewports
 @media (min-width: 769px) {
   .topbar {
     display: block;
   }
 }
 
-@media (min-width: 1360px) {
-  .topbar__invite {
-    span:nth-child(5) {
-      display: block;
-    }
+// Large viewports
+@media (min-width: 1260px) {
+  .topbar__logo {
+    display: block;
   }
 }
 
-@media (min-width: 1360px) and (max-width: 1420px) {
+@media (min-width: 1360px) {
   .topbar__invite {
-    span {
-      margin-left: 10px;
+    span:nth-child(4) {
+      display: block;
     }
   }
 }
