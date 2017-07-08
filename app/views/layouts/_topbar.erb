@@ -1,52 +1,46 @@
 <header class="topbar">
-
-  <!-- Spaces logo -->
-  <%= link_to image_tag("static/spaces-logo.svg", alt: "Spaces"), spaces_path, class: "topbar__logo" %>
-
-  <!-- Search input -->
-  <input type="text" placeholder="Search" class="topbar__search" tabindex="1">
-
-  <!-- Invite link -->
-  <%= link_to(invitations_path, class: "topbar__invite") do %>
-
-    <!-- Team icon -->
-    <span class="topbar__invite-team-icon">
-      <%= image_tag(current_team.logo_url(:image_48), alt: current_team.name) %>
-    </span>
-
-    <!-- Show a total of 4 avatars (some may be hidden with css for different breakpoints) -->
-    <% 4.times do |i| %>
-      <% if(avatar_users[i].nil?) %>
-        <span class="topbar__invite-empty"></span>
-      <% else %>
-        <span class="avatar">
-          <%= image_tag(avatar_users[i].avatar_url(:image_48), alt: avatar_users[i].first_name) %>
-        </span>
-      <% end %>
-    <% end %>
-
-    <!-- Add icon -->
-    <span class="topbar__invite-add"></span>
-  <% end %>
-
   <!-- Main navigation -->
   <nav>
     <ul>
-      <li>
-        <%= render "layouts/dropdown_spaces" %>
-      </li>
-
       <li>
         <%= render "layouts/dropdown_teams" %>
       </li>
 
       <li>
-        <a href="#" class="topbar__support drift-open-chat">Help</a>
-      </li>
-
-      <li>
-        <%= render "layouts/dropdown_accounts" %>
+        <%= render "layouts/dropdown_spaces" %>
       </li>
     </ul>
   </nav>
+
+  <!-- Search input -->
+  <div class="topbar__search">
+    <input type="text" placeholder="Search" class="topbar__search" tabindex="1">
+  </div>
+
+  <!-- Spaces logo -->
+  <%= link_to image_tag("static/spaces-logo.svg", alt: "Spaces"), spaces_path, class: "topbar__logo" %>
+
+  <!-- Accounts -->
+  <%= render "layouts/dropdown_accounts" %>
+
+  <!-- Invite link -->
+  <%= link_to(invitations_path, class: "topbar__invite") do %>
+
+    <!-- Show a total of 4 avatars (some will be hidden depending on the breakpoint) -->
+    <% 4.times do |i| %>
+      <% if(avatar_users[i].nil?) %>
+        <span class="topbar__invite-empty"></span>
+      <% else %>
+        <span class="avatar">
+          <%= image_tag(avatar_users[i].avatar_url(:image_72), alt: avatar_users[i].first_name) %>
+        </span>
+      <% end %>
+    <% end %>
+
+    <!-- Invite icon -->
+    <span class="topbar__invite-add"></span>
+  <% end %>
+
+  <!-- Support -->
+  <a href="#" class="topbar__support drift-open-chat"></a>
 </header>
