@@ -1,0 +1,190 @@
+#ql-inline-editor__tooltip {
+  @include clearfix;
+  display: none;
+  position: relative;
+  background: rgba(57, 65, 77, 0.98);
+  height: 42px;
+  width: 427px;
+  padding: 0 9px;
+  position: absolute;
+  top: 120px;
+  left: 409px;
+  border-radius: 5px;
+
+  &.ql-inline-editor__tooltip--visible {
+    display: block;
+  }
+
+  button {
+    float: left;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+    width: 20px;
+    height: 42px;
+    padding: 9px;
+    background-color: transparent;
+    background-position: center center;
+    background-repeat: no-repeat;
+    transition: all 0.3s;
+
+    &:hover, &:active, &:focus {
+      outline: none;
+      opacity: 0.4;
+    }
+  }
+
+  .ql-inline-editor__header-1 {
+    background-image: url(../images/space/tooltip-h1-off.svg);
+
+    &.ql-inline-editor__active {
+      background-image: url(../images/space/tooltip-h1-on.svg);
+      opacity: 1;
+    }
+  }
+
+  .ql-inline-editor__header-2 {
+    background-image: url(../images/space/tooltip-h2-off.svg);
+
+    &.ql-inline-editor__active {
+      background-image: url(../images/space/tooltip-h2-on.svg);
+      opacity: 1;
+    }
+  }
+
+  .ql-inline-editor__header-3 {
+    background-image: url(../images/space/tooltip-h3-off.svg);
+
+    &.ql-inline-editor__active {
+      background-image: url(../images/space/tooltip-h3-on.svg);
+      opacity: 1;
+    }
+  }
+
+  .ql-inline-editor__bold {
+    background-image: url(../images/space/tooltip-b-off.svg);
+
+    &.ql-inline-editor__active {
+      background-image: url(../images/space/tooltip-b-on.svg);
+      opacity: 1;
+    }
+  }
+
+  .ql-inline-editor__italic {
+    background-image: url(../images/space/tooltip-i-off.svg);
+
+    &.ql-inline-editor__active {
+      background-image: url(../images/space/tooltip-i-on.svg);
+      opacity: 1;
+    }
+  }
+
+  .ql-inline-editor__strike {
+    background-image: url(../images/space/tooltip-strike-off.svg);
+
+    &.ql-inline-editor__active {
+      background-image: url(../images/space/tooltip-strike-on.svg);
+      opacity: 1;
+    }
+  }
+
+  .ql-inline-editor__underline {
+    background-image: url(../images/space/tooltip-u-off.svg);
+
+    &.ql-inline-editor__active {
+      background-image: url(../images/space/tooltip-u-on.svg);
+      opacity: 1;
+    }
+  }
+
+  .ql-inline-editor__link {
+    background-image: url(../images/space/tooltip-link-off.svg);
+
+    &.ql-inline-editor__active {
+      background-image: url(../images/space/tooltip-link-on.svg);
+      opacity: 1;
+    }
+  }
+
+  .ql-inline-editor__list-bullet {
+    background-image: url(../images/space/tooltip-ul-off.svg);
+
+    &.ql-inline-editor__active {
+      background-image: url(../images/space/tooltip-ul-on.svg);
+      opacity: 1;
+    }
+  }
+
+  .ql-inline-editor__list-ordered {
+    background-image: url(../images/space/tooltip-ol-off.svg);
+
+    &.ql-inline-editor__active {
+      background-image: url(../images/space/tooltip-ol-on.svg);
+      opacity: 1;
+    }
+  }
+
+  .ql-inline-editor__code-block {
+    background-image: url(../images/space/tooltip-code-off.svg);
+
+    &.ql-inline-editor__active {
+      background-image: url(../images/space/tooltip-code-on.svg);
+      opacity: 1;
+    }
+  }
+}
+
+.ql-inline-editor__divider {
+  float: left;
+  width: 1px;
+  height: 42px;
+  background: #363D47;
+  margin: 0 9px;
+}
+
+#ql-inline-editor__tooltip, #ql-inline-editor__row {
+  .ql-inline-editor__header-1 {
+    width: 35px;
+  }
+
+  .ql-inline-editor__header-2 {
+    width: 39px;
+  }
+
+  .ql-inline-editor__header-3 {
+    width: 38px;
+  }
+
+  .ql-inline-editor__bold {
+    width: 28px;
+  }
+
+  .ql-inline-editor__italic {
+    width: 23px;
+  }
+
+  .ql-inline-editor__strike {
+    width: 35px;
+  }
+
+  .ql-inline-editor__underline {
+    width: 26px;
+  }
+
+  .ql-inline-editor__link {
+    width: 40px;
+  }
+
+  .ql-inline-editor__list-bullet {
+    width: 30px;
+  }
+
+  .ql-inline-editor__list-ordered {
+    width: 33px;
+  }
+
+  .ql-inline-editor__code-block {
+    width: 44px;
+  }
+}
