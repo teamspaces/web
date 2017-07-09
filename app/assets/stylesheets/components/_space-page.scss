@@ -3,7 +3,7 @@
   z-index: 2;
   padding: 0;
   width: 100%;
-  min-height: 100vh;
+  // min-height: 100vh;
   background: #fff;
   margin-top: 48px;
 
@@ -209,7 +209,7 @@
 @media (min-width: 769px) {
   .space-page {
     width: calc( 100vw - 240px - 36px );
-    min-height: calc( 100vh - 60px );
+    // min-height: calc( 100vh - 60px );
     margin-left: 240px;
     margin-top: 36px;
     margin-bottom: 36px;

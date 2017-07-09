@@ -14,7 +14,8 @@
   <%= f.hidden_field :parent_id %>
 
   <div class="space-page__hero" style="background-image: url(https://images.unsplash.com/photo-1444927714506-8492d94b4e3d);">
-    <%= f.text_field :title, placeholder: 'Give your page a name', id: "title_input", autocomplete: "off" %>
+    <%= f.text_field :title, placeholder: 'Add your title here...', id: "title_input", autocomplete: "off" %>
+
     <p><%= number_of_words_to_minutes_reading(page.word_count) %> minute read. Updated <%= time_ago_in_words(page.updated_at) %> ago.</p>
   </div>
 

@@ -11,12 +11,18 @@
   overflow: auto;
 
   &:hover, &:active, &:focus {
+    h3 span {
+      opacity: 1;
+      top: 0;
+    }
+
     .page-tree__toggle {
       opacity: 1;
     }
   }
 
   h3 {
+    position: relative;
     margin: 0;
     font-size: 13.5px;
     font-weight: normal;
@@ -32,47 +38,26 @@
         color: #A7A9AE;
       }
     }
-  }
 
-  .page-tree {
-    margin-top: 6px;
-  }
-}
-
-
-
-// Edit
-.space-toc.space-toc--edit {
-  &:hover, &:active, &:focus {
-    h3 span {
-      opacity: 1;
-      top: 0;
+    span {
+      display: block;
+      position: absolute;
+      top: 5px;
+      right: 6px;
+      height: 24px;
+      width: 30px;
+      background: #F9FAFC url(../images/space/toc-settings.svg) no-repeat center center;
+      opacity: 0;
+      transition: all 0.4s;
     }
-
-    .page-tree__edit-actions {
-      opacity: 1;
-      top: 0;
-    }
-  }
-
-  h3 {
-    position: relative;
-  }
-
-  h3 span {
-    display: block;
-    position: absolute;
-    top: 5px;
-    right: 6px;
-    height: 24px;
-    width: 30px;
-    background: #F9FAFC url(../images/space/toc-settings.svg) no-repeat center center;
-    opacity: 0;
-    transition: all 0.4s;
   }
 
   li {
     position: relative;
+  }
+
+  .page-tree {
+    margin-top: 6px;
   }
 }
 
