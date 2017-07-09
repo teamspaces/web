@@ -98,9 +98,13 @@
 
   // Add header margins
   h2, h3, h4, h5, h6 {
-    margin-top: 12px;
+    padding-top: 12px;
 
-    & + * {
+    & + p, & + ul, & + ol {
+      padding-top: 12px;
+    }
+
+    & + pre {
       margin-top: 12px;
     }
   }
@@ -131,7 +135,7 @@
   }
 
   li {
-    margin-top: 12px;
+    padding-top: 12px;
 
     &:first-child {
       margin-top: 0;

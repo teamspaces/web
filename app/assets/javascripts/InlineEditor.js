@@ -1,5 +1,6 @@
 import Quill from 'quill'
 import Break from 'quill/blots/block'
+import Header from 'quill/formats/header';
 
 // TODO Show prompt for link urls
 // TODO Test destroy
@@ -22,6 +23,11 @@ class InlineEditor {
     this.$rowToggle = null
     this.$controls = []
 
+    // Current mouse position
+    this.mousePosX = 0
+    this.mousePosY = 0
+    this.mouseTarget = null
+
     // Render elements
     this.render()
 
@@ -33,6 +39,7 @@ class InlineEditor {
     this.$tooltip.on('click.inlineeditor', 'button', this.onControlClick.bind(this))
     this.$rowControls.on('click.inlineeditor', 'button', this.onControlClick.bind(this))
     this.$rowToggle.on('click.inlineeditor', this.onRowToggleClick.bind(this))
+    $(document).on('mousemove.inlineeditor', this.onMouseMove.bind(this))
     this.quill.on(Quill.events.EDITOR_CHANGE, this.onEditorChange.bind(this))
   }
 
@@ -40,6 +47,7 @@ class InlineEditor {
     this.$tooltip.off('click.inlineeditor', 'button')
     this.$rowControls.off('click.inlineeditor', 'button')
     this.$rowToggle.off('click.inlineeditor')
+    $(document).off('mousemove.inlineeditor')
     this.quill.off(Quill.events.EDITOR_CHANGE, this.onEditorChange)
   }
 
@@ -135,41 +143,13 @@ class InlineEditor {
     const formats = (range === null) ? {} : this.quill.getFormat(range)
     let controlFormat = null
     let controlValue = null
+    let showRowToggle = false
 
     // Toggle tooltip visibibility
     if(range === null || range.length === 0 || this.quill.getText(range.index, range.length) === "\n") {
-      // Hide tooltip
-      this.$tooltip.removeClass('ql-inline-editor__tooltip--visible')
+      this.hideTooltip()
     } else {
-      // Get bounds of current range and make sure that the new position fits within the viewport
-      const rangeBounds = this.quill.getBounds(range)
-      const minLeft = - Math.abs( $(this.quill.container).offset().left ) + 12
-      const maxLeft = $(window).width() - $(this.quill.container).offset().left - this.$tooltip.outerWidth() - 12
-      let newLeft = rangeBounds.left + rangeBounds.width/2 - this.$tooltip.outerWidth()/2
-      if(newLeft > maxLeft) newLeft = maxLeft
-      if(newLeft < minLeft) newLeft = minLeft
-
-      // Position tooltip
-      this.$tooltip.css({
-        left: newLeft,
-        top: rangeBounds.top - this.$tooltip.outerHeight() - 3
-      })
-
-      // The arrow is positioned within the tooltip
-      // The container position may have been adjusted to fit within the viewport
-      // We calculate the diference between the centers to make sure that the arrow is always centered in the range
-      const tooltipCenter = newLeft + this.$tooltip.outerWidth()/2
-      const rangeCenter = rangeBounds.left + rangeBounds.width/2
-      const difference = rangeCenter - tooltipCenter
-
-      // Position arrow
-      this.$tooltipArrow.css({
-        left: this.$tooltip.outerWidth()/2 + difference
-        // - arrowWidth/2 is made with css instead as it can be scaled when calculated here
-      })
-
-      // Show tooltip
-      this.$tooltip.addClass('ql-inline-editor__tooltip--visible')
+      this.showTooltip()
     }
 
     // Update active state for all controls
@@ -185,42 +165,149 @@ class InlineEditor {
       }
     })
 
-    // Show or hide row toggle
-    if(range !== null && range.length === 0) {
+    // Position the row controls
+    // let lineBounds = this.quill.getBounds(range)
+    //
+    // this.$rowToggle.css({
+    //   left: lineBounds.left - this.$rowToggle.outerWidth(),
+    //   top: lineBounds.top + lineBounds.height/2 - this.$rowToggle.outerHeight()/2
+    // })
+    //
+    // this.$rowControls.css({
+    //   left: lineBounds.left,
+    //   top: lineBounds.top + lineBounds.height/2 - this.$rowControls.outerHeight()/2
+    // })
 
-      // Show the row controls if the first child is a br
+    // Show the row toggle if we're on new line or the cursor is over the left side
+    if(this.isOnStartOfNewLine() || this.isCursorOverLeftSide()) {
+      this.showRowToggle()
+    } else {
+      this.hideRowToggle()
+    }
+  }
+
+  isCursorOverLeftSide () {
+    const minX = 0
+    const maxX = $(window).width() / 2
+    // y
+
+    if(this.mousePosX >= minX & this.mousePosX <= maxX) {
+      return true
+    } else {
+      return false
+    }
+  }
+
+  isOnStartOfNewLine () {
+    const range = this.quill.getSelection()
+
+    if(range !== null && range.length === 0) {
+      // Checi if the current range is a br
       // TODO Is there a better way to check for empty new lines? (not empty headlines etc.)
       let [leaf, offset] = this.quill.getLeaf(range.index)
       let [line, offset2] = this.quill.getLine(range.index)
 
       if( leaf !== null && leaf.constructor.name === 'Break' && line.constructor.name === 'Block' ) {
-        // Position the row controls
-        let lineBounds = this.quill.getBounds(range)
-
-        this.$rowToggle.css({
-          left: lineBounds.left - this.$rowToggle.outerWidth(),
-          top: lineBounds.top + lineBounds.height/2 - this.$rowToggle.outerHeight()/2
-        })
-
-        this.$rowControls.css({
-          left: lineBounds.left,
-          top: lineBounds.top + lineBounds.height/2 - this.$rowControls.outerHeight()/2
-        })
-
-        // Show the row toggle
-        this.$rowToggle.addClass('ql-inline-editor__row-toggle--visible')
-      } else {
-
-        // Hide row controls
-        this.$rowToggle.removeClass('ql-inline-editor__row-toggle--visible')
-        this.$rowControls.removeClass('ql-inline-editor__row-container--visible')
+          return true
       }
-    } else {
-
-      // Hide row controls
-      this.$rowToggle.removeClass('ql-inline-editor__row-toggle--visible')
-      this.$rowControls.removeClass('ql-inline-editor__row-container--visible')
     }
+
+    return false
+  }
+
+  showRowToggle () {
+    let bounds = null
+    const range = this.quill.getSelection()
+
+    // TODO Lock in place when it's open
+
+    // Find the bounds based on the mouse position first
+    // Look for a blot under the cursor in the editor
+    // It may return the editor or something outside depending on the position of the cursor
+    const node = Quill.find(this.mouseTarget)
+
+    if(node && node.constructor) {
+      const name = node.constructor.name
+      const formats = ["Align", "Background", "Blockquote", "Bold", "Block", "Code", "Color", "Direction", "Embed", "Font", "Header", "Image", "Indent", "Inline", "Italic", "Link", "List", "ListItem", "Script", "Size", "Strike", "SyntaxCodeBlock", "Underline", "Video"]
+
+      // TODO Why is not instanceof for base classes working? Checking the constructor names here instead
+      if(formats.indexOf(name) >= 0) {
+
+        // Get the index of the start of the block
+        // If we just used the first variable here we could get the index for inline styling bold and italic
+        const index = this.quill.getIndex(node)
+        const [line, offset] = this.quill.getLine(index)
+        const lineIndex = this.quill.getIndex(line)
+
+        // Get bounds of index
+        bounds = this.quill.getBounds(lineIndex)
+      }
+    }
+
+    // If we don't found anything based on the mouse position, get it from quill if it has focus
+    if(bounds === null && range !== null) {
+      bounds = this.quill.getBounds(range)
+    }
+
+    // Position the row toggle and controls if we found bounds
+    if(bounds) {
+      this.$rowToggle.css({
+        left: 0,
+        top: bounds.top
+      })
+
+      this.$rowControls.css({
+        left: 0,
+        top: bounds.top
+      })
+
+      // Show the row toggle
+      this.$rowToggle.addClass('ql-inline-editor__row-toggle--visible')
+    } else {
+      this.hideRowToggle()
+    }
+  }
+
+  hideRowToggle () {
+    this.$rowToggle.removeClass('ql-inline-editor__row-toggle--visible')
+  }
+
+  showTooltip () {
+    // Get bounds of current range and make sure that the new position fits within the viewport
+    const range = this.quill.getSelection()
+    const rangeBounds = this.quill.getBounds(range)
+    const minLeft = - Math.abs( $(this.quill.container).offset().left ) + 12
+    const maxLeft = $(window).width() - $(this.quill.container).offset().left - this.$tooltip.outerWidth() - 12
+    let newLeft = rangeBounds.left + rangeBounds.width/2 - this.$tooltip.outerWidth()/2
+    if(newLeft > maxLeft) newLeft = maxLeft
+    if(newLeft < minLeft) newLeft = minLeft
+
+    // Position tooltip
+    this.$tooltip.css({
+      left: newLeft,
+      top: rangeBounds.top - this.$tooltip.outerHeight() - 3
+    })
+
+    // The arrow is positioned within the tooltip
+    // The container position may have been adjusted to fit within the viewport
+    // We calculate the diference between the centers to make sure that the arrow is always centered in the range
+    const tooltipCenter = newLeft + this.$tooltip.outerWidth()/2
+    const rangeCenter = rangeBounds.left + rangeBounds.width/2
+    const difference = rangeCenter - tooltipCenter
+
+    // Position arrow
+    this.$tooltipArrow.css({
+      left: this.$tooltip.outerWidth()/2 + difference
+      // - arrowWidth/2 is made with css instead as it can be scaled when calculated here
+    })
+
+    // Show tooltip
+    this.$tooltip.addClass('ql-inline-editor__tooltip--visible')
+  }
+
+  hideTooltip () {
+    // Hide tooltip
+    this.$tooltip.removeClass('ql-inline-editor__tooltip--visible')
   }
 
 
@@ -266,6 +353,14 @@ class InlineEditor {
 
     // Update all controls based on the current range
     this.updateControls()
+  }
+
+  onMouseMove (e) {
+    this.mousePosX = e.pageX
+    this.mousePosY = e.pageY
+    this.mouseTarget = e.target
+
+    if( this.isCursorOverLeftSide() ) this.showRowToggle()
   }
 
 
