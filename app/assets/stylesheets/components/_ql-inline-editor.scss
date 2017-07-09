@@ -1,25 +1,23 @@
 // Editor tooltip
 #ql-inline-editor__tooltip {
-  @include clearfix;
   display: block;
-  visibility: hidden;
-  position: relative;
-  background: rgba(57, 65, 77, 0.98);
-  height: 42px;
-  width: 427px;
-  padding: 0 9px;
   position: absolute;
   top: 0;
   left: 0;
-  border-radius: 5px;
-  opacity: 0;
-  margin-top: 6px;
-  transition: opacity 0.3s ease-out, margin-top 0.2s ease-out, visibility 0.3s ease-out;
+  width: 427px;
+  height: 46px;
+  visibility: hidden;
+  transition: visibility 0.3s ease-out;
 
   &.ql-inline-editor__tooltip--visible {
     visibility: visible;
-    opacity: 1;
-    margin-top: 0;
+
+    .ql-inline-editor__tooltip-inner {
+      visibility: visible;
+      opacity: 1;
+      margin-top: 0;
+      transform: scale(1);
+    }
   }
 
   button {
@@ -87,10 +85,28 @@
   }
 }
 
-#ql-inline-editor__tooltip-arrow {
+.ql-inline-editor__tooltip-inner {
+  position: relative;
+  visibility: hidden;
+  opacity: 0;
+  margin-top: 12px;
+  transform: scale(0.6);
+  transition: all 0.3s $easing;
+}
+
+.ql-inline-editor__tooltip-controls {
+  @include clearfix;
+  background: rgba(57, 65, 77, 0.98);
+  width: 427px;
+  height: 42px;
+  padding: 0 9px;
+  border-radius: 5px;
+}
+
+.ql-inline-editor__tooltip-arrow {
   position: absolute;
   top: 42px;
-  left: 50%;
+  left: 0;
   width: 10px;
   height: 4px;
   margin-left: -5px;
