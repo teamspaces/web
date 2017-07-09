@@ -14,6 +14,9 @@ const QuillOptions = {
         [{'header': 1}, {'header': 2}, {'header': 3}],
         ['bold', 'italic', 'strike', 'underline', 'link'],
         [{'list': 'bullet'}, {'list': 'ordered'}, 'code-block']
+      ],
+      rowControls: [
+        {'header': 1}, {'header': 2}, {'header': 3}, {'list': 'bullet'}, {'list': 'ordered'}, 'code-block'
       ]
     }
   }

@@ -107,10 +107,7 @@
   line-height: 24px;
   color: $color-text-third;
   padding: 12px 0 12px 36px;
-  transition: all 0.2s;
-  // background-repeat: no-repeat;
-  // background-position: left center;
-  // background-image: url(../images/space/edit-page.svg);
+  transition: all 0.4s $easing;
 
   &:hover, &:active, &:focus {
     color: $color-text-secondary;

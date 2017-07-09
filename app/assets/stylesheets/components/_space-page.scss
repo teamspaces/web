@@ -145,11 +145,14 @@
   }
 
   input[type=text] {
+    position: relative;
+    z-index: 2;
     font-size: 31px;
     font-weight: normal;
     line-height: 48px;
     height: 48px;
-    color: $color-title;
+    color: rgba(255, 255, 255, 1);
+    text-align: center;
     margin-top: 0;
     border: 0;
     padding: 0;
@@ -161,15 +164,15 @@
     }
 
     &::-webkit-input-placeholder {
-      color: $color-text-faded;
+      color: rgba(255, 255, 255, 0.8);
     }
 
     &::-moz-placeholder {
-      color: $color-text-faded;
+      color: rgba(255, 255, 255, 0.8);
     }
 
     &:-ms-input-placeholder {
-      color: $color-text-faded;
+      color: rgba(255, 255, 255, 0.8);
     }
   }
 
@@ -228,9 +231,9 @@
     padding: 55px 60px 52px 60px;
   }
 
-  .space-page--edit .space-page__content {
-    padding-top: 29px;
-  }
+  // .space-page--edit .space-page__content {
+  //   padding-top: 29px;
+  // }
 }
 
 
@@ -241,11 +244,11 @@
     width: calc( 100vw - 240px - 240px );
   }
 
-  .space-page--edit {
-    margin-bottom: 0;
-    border-radius: 5px 5px 0 0;
-    padding-bottom: 144px;
-  }
+  // .space-page--edit {
+  //   margin-bottom: 0;
+  //   border-radius: 5px 5px 0 0;
+  //   padding-bottom: 144px;
+  // }
 
   .space-page__hero {
     padding-left: 96px;

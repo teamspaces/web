@@ -1,63 +1,45 @@
-<div class="edit-space__resize-message">
-  <p>
-    You need a larger browser window to edit pages.
-  </p>
+<!-- Table of contents and actions for small viewports -->
+<div class="mobile-space-navigation">
+  <a href="#mobile-space-navigation__content" class="mobile-space-navigation__toggle" aria-expanded="false" aria-controls="navigation">
+    <%= current_space.name %>
+  </a>
 
-  <%= link_to "Back", space_pages_path(current_space), class: 'button button--primary' %>
-</div>
-
-<div class="edit-space__content clearfix">
-  <!-- Table of contents for medium and large viewports -->
-  <nav class="space-toc space-toc--edit">
-    <h3>
-      <%= link_to edit_space_path(@page.space) do %>
-        <%= @page.space.name %>
-        <span></span>
-      <% end %>
-    </h3>
-
-    <ul class="page-tree page-tree--edit">
-      <%= render "edit_page_tree", page_tree: @page.space.pages.hash_tree, current_page: @page %>
+  <nav class="mobile-space-navigation__content" id="mobile-space-navigation__content">
+    <ul class="page-tree">
+      <%= render "page_tree", page_tree: current_space.pages.hash_tree %>
     </ul>
   </nav>
-
-  <!-- Page content for all viewports -->
-  <main class="space-page space-page--edit">
-    <%= render 'form', page: @page %>
-  </main>
 </div>
 
+<!-- Table of contents for medium and large viewports -->
+<nav class="space-toc space-toc--edit" id="space-toc">
+  <h3>
+    <%= link_to edit_space_path(@page.space) do %>
+      <%= @page.space.name %>
+      <span></span>
+    <% end %>
+  </h3>
+
+  <ul class="page-tree page-tree--edit">
+    <%= render "edit_page_tree", page_tree: @page.space.pages.hash_tree, current_page: @page %>
+  </ul>
+
+  <div class="space-toc__actions">
+    <%= link_to space_pages_path(@page.space, params: { page: { _: true } }), method: :post, class: "space-toc__new-page" do %>
+      New page
+    <% end %>
+  </div>
+</nav>
+
+<!-- Page content for all viewports -->
+<main class="space-page space-page--edit">
+  <%= render 'form', page: @page %>
+</main>
+
 <script>
+  const scrollSidebar = new Spaces.SpaceSidebar()
+
   $(function(){
-    // Sticky sidebar
-    $('.space-toc').stick_in_parent({
-      offset_top: 60
-    })
-
-    // TODO Move this to a class instead
-    // Update page tree toggles based on active page
-    $('.page-tree__active').each(function() {
-      // Show lists
-      $(this).children('ul').show()
-      $(this).parents('li').children('ul').show()
-
-      // Update toggles
-      $(this).children('.page-tree__toggle').addClass('page-tree__toggle--active')
-      $(this).parents('li').children('.page-tree__toggle').addClass('page-tree__toggle--active')
-    })
-
-    // Listen for page tree toggle events
-    $('.page-tree').on('click', '.page-tree__toggle', function(e) {
-      // Toggle ul
-      $(this).parent('li').children('ul').toggle()
-
-      // Toggle class
-      $(this).toggleClass('page-tree__toggle--active')
-
-      // The height has changed so sticky needs to recalculate
-      $(document.body).trigger("sticky_kit:recalc");
-    })
-
     // Update sidebar when the page name is updated
     $('#title_input').on('input', function(e) {
       const val = $('#title_input').val()
