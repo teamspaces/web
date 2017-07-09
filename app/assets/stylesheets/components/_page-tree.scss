@@ -29,6 +29,11 @@
 
   &:hover, &:focus, &:active {
    color: #A7A9AE;
+
+    & + .page-tree__edit-actions {
+      opacity: 1;
+      top: 0;
+    }
   }
 }
 
@@ -62,7 +67,7 @@
 .page-tree__edit-actions {
   position: absolute;
   top: 5px;
-  right: 6px;
+  right: 14px;
   z-index: 1;
   opacity: 0;
   transition: all 0.4s;

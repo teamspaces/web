@@ -16,7 +16,8 @@ const QuillOptions = {
         [{'list': 'bullet'}, {'list': 'ordered'}, 'code-block']
       ],
       rowControls: [
-        {'header': 1}, {'header': 2}, {'header': 3}, {'list': 'bullet'}, {'list': 'ordered'}, 'code-block'
+        // {'header': 1}, {'header': 2}, {'header': 3},
+        {'list': 'bullet'}, {'list': 'ordered'}, 'code-block'
       ]
     }
   }
