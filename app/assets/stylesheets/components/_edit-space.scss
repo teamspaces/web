@@ -5,6 +5,7 @@
 .edit-space__resize-message {
   padding: 96px 24px;
   text-align: center;
+  display: none;
 
   p {
     display: block;
@@ -14,17 +15,17 @@
     margin-top: 24px;
   }
 }
-
-.edit-space__content {
-  display: none;
-}
-
-@media (min-width: 1260px) {
-  .edit-space__resize-message {
-    display: none;
-  }
-
-  .edit-space__content {
-    display: block;
-  }
-}
+//
+// .edit-space__content {
+//   display: none;
+// }
+//
+// @media (min-width: 1260px) {
+//   .edit-space__resize-message {
+//     display: none;
+//   }
+//
+//   .edit-space__content {
+//     display: block;
+//   }
+// }

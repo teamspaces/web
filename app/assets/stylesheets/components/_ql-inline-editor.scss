@@ -1,18 +1,25 @@
+// Editor tooltip
 #ql-inline-editor__tooltip {
   @include clearfix;
-  display: none;
+  display: block;
+  visibility: hidden;
   position: relative;
   background: rgba(57, 65, 77, 0.98);
   height: 42px;
   width: 427px;
   padding: 0 9px;
   position: absolute;
-  top: 120px;
-  left: 409px;
+  top: 0;
+  left: 0;
   border-radius: 5px;
+  opacity: 0;
+  margin-top: 6px;
+  transition: opacity 0.3s ease-out, margin-top 0.2s ease-out, visibility 0.3s ease-out;
 
   &.ql-inline-editor__tooltip--visible {
-    display: block;
+    visibility: visible;
+    opacity: 1;
+    margin-top: 0;
   }
 
   button {
@@ -23,7 +30,7 @@
     box-shadow: none;
     width: 20px;
     height: 42px;
-    padding: 9px;
+    padding: 0 9px;
     background-color: transparent;
     background-position: center center;
     background-repeat: no-repeat;
@@ -37,101 +44,68 @@
 
   .ql-inline-editor__header-1 {
     background-image: url(../images/space/tooltip-h1-off.svg);
-
-    &.ql-inline-editor__active {
-      background-image: url(../images/space/tooltip-h1-on.svg);
-      opacity: 1;
-    }
   }
 
   .ql-inline-editor__header-2 {
     background-image: url(../images/space/tooltip-h2-off.svg);
-
-    &.ql-inline-editor__active {
-      background-image: url(../images/space/tooltip-h2-on.svg);
-      opacity: 1;
-    }
   }
 
   .ql-inline-editor__header-3 {
     background-image: url(../images/space/tooltip-h3-off.svg);
-
-    &.ql-inline-editor__active {
-      background-image: url(../images/space/tooltip-h3-on.svg);
-      opacity: 1;
-    }
   }
 
   .ql-inline-editor__bold {
     background-image: url(../images/space/tooltip-b-off.svg);
-
-    &.ql-inline-editor__active {
-      background-image: url(../images/space/tooltip-b-on.svg);
-      opacity: 1;
-    }
   }
 
   .ql-inline-editor__italic {
     background-image: url(../images/space/tooltip-i-off.svg);
-
-    &.ql-inline-editor__active {
-      background-image: url(../images/space/tooltip-i-on.svg);
-      opacity: 1;
-    }
   }
 
   .ql-inline-editor__strike {
     background-image: url(../images/space/tooltip-strike-off.svg);
-
-    &.ql-inline-editor__active {
-      background-image: url(../images/space/tooltip-strike-on.svg);
-      opacity: 1;
-    }
   }
 
   .ql-inline-editor__underline {
     background-image: url(../images/space/tooltip-u-off.svg);
-
-    &.ql-inline-editor__active {
-      background-image: url(../images/space/tooltip-u-on.svg);
-      opacity: 1;
-    }
   }
 
   .ql-inline-editor__link {
     background-image: url(../images/space/tooltip-link-off.svg);
-
-    &.ql-inline-editor__active {
-      background-image: url(../images/space/tooltip-link-on.svg);
-      opacity: 1;
-    }
   }
 
   .ql-inline-editor__list-bullet {
     background-image: url(../images/space/tooltip-ul-off.svg);
-
-    &.ql-inline-editor__active {
-      background-image: url(../images/space/tooltip-ul-on.svg);
-      opacity: 1;
-    }
   }
 
   .ql-inline-editor__list-ordered {
     background-image: url(../images/space/tooltip-ol-off.svg);
-
-    &.ql-inline-editor__active {
-      background-image: url(../images/space/tooltip-ol-on.svg);
-      opacity: 1;
-    }
   }
 
   .ql-inline-editor__code-block {
     background-image: url(../images/space/tooltip-code-off.svg);
+  }
+}
 
-    &.ql-inline-editor__active {
-      background-image: url(../images/space/tooltip-code-on.svg);
-      opacity: 1;
-    }
+#ql-inline-editor__tooltip-arrow {
+  position: absolute;
+  top: 42px;
+  left: 50%;
+  width: 10px;
+  height: 4px;
+  margin-left: -5px;
+  overflow: hidden;
+  pointer-events: none;
+
+  &:after {
+    content: " ";
+    display: block;
+    width: 10px;
+    height: 10px;
+    margin: -7px 0 0 0;
+    border-radius: 3px;
+    background: rgba(57, 65, 77, 0.98);
+    transform: rotate(45deg);
   }
 }
 
@@ -143,48 +117,228 @@
   margin: 0 9px;
 }
 
+
+
+// Editor row controls
+#ql-inline-editor__row {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-left: -63px;
+  padding-left: 52px;
+  height: 36px;
+
+  &.ql-inline-editor__row--visible {
+    #ql-inline-editor__row-toggle {
+      &:before {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+      }
+    }
+  }
+
+  &.ql-inline-editor__row--visible.ql-inline-editor__row--open {
+    #ql-inline-editor__row-toggle {
+      &:hover, &:active, &:focus {
+        &:before {
+          transform: scale(1.2) rotate(45deg);
+          border-color: $color-text-third;
+          opacity: 1;
+        }
+      }
+
+      &:before {
+        transform: scale(1) rotate(45deg);
+        border-color: $color-text-third;
+        opacity: 1;
+      }
+    }
+
+    button {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  button {
+    float: left;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+    width: 20px;
+    height: 36px;
+    padding: 0 9px;
+    background-color: transparent;
+    background-position: center center;
+    background-repeat: no-repeat;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.4s $easing;
+
+    &:hover, &:active, &:focus {
+      outline: none;
+      opacity: 0.6;
+    }
+  }
+
+  .ql-inline-editor__header-1 {
+    background-image: url(../images/space/row-h1-off.svg);
+  }
+
+  .ql-inline-editor__header-2 {
+    background-image: url(../images/space/row-h2-off.svg);
+  }
+
+  .ql-inline-editor__header-3 {
+    background-image: url(../images/space/row-h3-off.svg);
+  }
+
+  .ql-inline-editor__list-bullet {
+    background-image: url(../images/space/row-ul-off.svg);
+  }
+
+  .ql-inline-editor__list-ordered {
+    background-image: url(../images/space/row-ol-off.svg);
+  }
+
+  .ql-inline-editor__code-block {
+    background-image: url(../images/space/row-code-off.svg);
+  }
+}
+
+#ql-inline-editor__row-toggle {
+  display: block;
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  height: 60px;
+  width: 60px;
+  cursor: pointer;
+  transition: all 0.4s $easing;
+
+  &:hover, &:active, &:focus {
+    &:before {
+      border-color: $color-text-third;
+      transform: scale(1.2) rotate(0deg);
+    }
+  }
+
+  &:before {
+    display: block;
+    content: " ";
+    border: 1px solid #CDCED1;
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    margin: 15px;
+    background: url(../images/space/row-insert.svg) no-repeat center center;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.4s $easing;
+  }
+}
+
+
+
+// Shared icon widths
 #ql-inline-editor__tooltip, #ql-inline-editor__row {
   .ql-inline-editor__header-1 {
     width: 35px;
+
+    &.ql-inline-editor__active {
+      background-image: url(../images/space/tooltip-h1-on.svg);
+      opacity: 1;
+    }
   }
 
   .ql-inline-editor__header-2 {
     width: 39px;
+
+    &.ql-inline-editor__active {
+      background-image: url(../images/space/tooltip-h2-on.svg);
+      opacity: 1;
+    }
   }
 
   .ql-inline-editor__header-3 {
     width: 38px;
+
+    &.ql-inline-editor__active {
+      background-image: url(../images/space/tooltip-h3-on.svg);
+      opacity: 1;
+    }
   }
 
   .ql-inline-editor__bold {
     width: 28px;
+
+    &.ql-inline-editor__active {
+      background-image: url(../images/space/tooltip-b-on.svg);
+      opacity: 1;
+    }
   }
 
   .ql-inline-editor__italic {
     width: 23px;
+
+    &.ql-inline-editor__active {
+      background-image: url(../images/space/tooltip-i-on.svg);
+      opacity: 1;
+    }
   }
 
   .ql-inline-editor__strike {
     width: 35px;
+
+    &.ql-inline-editor__active {
+      background-image: url(../images/space/tooltip-strike-on.svg);
+      opacity: 1;
+    }
   }
 
   .ql-inline-editor__underline {
     width: 26px;
+
+    &.ql-inline-editor__active {
+      background-image: url(../images/space/tooltip-u-on.svg);
+      opacity: 1;
+    }
   }
 
   .ql-inline-editor__link {
     width: 40px;
+
+    &.ql-inline-editor__active {
+      background-image: url(../images/space/tooltip-link-on.svg);
+      opacity: 1;
+    }
   }
 
   .ql-inline-editor__list-bullet {
     width: 30px;
+
+    &.ql-inline-editor__active {
+      background-image: url(../images/space/tooltip-ul-on.svg);
+      opacity: 1;
+    }
   }
 
   .ql-inline-editor__list-ordered {
     width: 33px;
+
+    &.ql-inline-editor__active {
+      background-image: url(../images/space/tooltip-ol-on.svg);
+      opacity: 1;
+    }
   }
 
   .ql-inline-editor__code-block {
     width: 44px;
+
+    &.ql-inline-editor__active {
+      background-image: url(../images/space/tooltip-code-on.svg);
+      opacity: 1;
+    }
   }
 }
