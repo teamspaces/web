@@ -5,7 +5,6 @@ import InlineEditor from './InlineEditor'
 
 /* https://quilljs.com/docs/configuration/ */
 const QuillOptions = {
-  // theme: "snow",
   placeholder: "And write something here...",
   modules: {
     syntax: true,

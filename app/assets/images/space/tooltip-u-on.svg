@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="8px" height="13px" viewBox="0 0 8 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>tooltip-u-on</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-23" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-240.000000, -60.000000)" fill-rule="nonzero" fill="#02B875">
+            <g id="Tooltip-on" transform="translate(24.000000, 59.000000)">
+                <path d="M216.75,11.96 L223.25,11.96 C223.664214,11.96 224,12.2957864 224,12.71 C224,13.1242136 223.664214,13.46 223.25,13.46 L216.75,13.46 C216.335786,13.46 216,13.1242136 216,12.71 C216,12.2957864 216.335786,11.96 216.75,11.96 L216.75,11.96 Z M219.982,9.592 C217.798,9.592 216.406,8.332 216.406,5.896 L216.406,1.732 C216.406,1.324 216.73,1 217.15,1 C217.558,1 217.882,1.324 217.882,1.732 L217.882,5.836 C217.882,7.396 218.686,8.224 220.006,8.224 C221.314,8.224 222.118,7.444 222.118,5.896 L222.118,1.732 C222.118,1.324 222.442,1 222.862,1 C223.27,1 223.594,1.324 223.594,1.732 L223.594,5.824 C223.594,8.332 222.178,9.592 219.982,9.592 Z" id="tooltip-u-on"></path>
+            </g>
+        </g>
+    </g>
+</svg>
