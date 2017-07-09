@@ -2,19 +2,27 @@ import Quill from 'quill'
 import Break from 'quill/blots/block'
 
 // TODO Show prompt for link urls
+// TODO Test destroy
+// TODO Check for empty options before adding controls
+// TODO Fix jumping scrolling
 
 class InlineEditor {
   constructor(quill, options) {
+    // Store options
     this.quill = quill
-    this.tooltipControls = options.tooltipControls
-    this.rowControls = options.rowControls
-    this.$tooltipContainer = null
-    this.$tooltipArrow = null
-    this.$rowContainer = null
-    this.$rowToggle = null
-    this.controls = []
+    this.tooltipOptions = options.tooltipControls
+    this.rowOptions = options.rowControls
 
-    // Render controls
+    // References to elements that will be created by this module
+    this.$tooltip = null
+    this.$tooltipInner = null
+    this.$tooltipControls = null
+    this.$tooltipArrow = null
+    this.$rowControls = null
+    this.$rowToggle = null
+    this.$controls = []
+
+    // Render elements
     this.render()
 
     // Add event listeners
@@ -22,43 +30,46 @@ class InlineEditor {
   }
 
   addListeners () {
-    this.$tooltipContainer.on('click.inlineeditor', 'button', this.onControlClick.bind(this))
-    this.$rowContainer.on('click.inlineeditor', 'button', this.onControlClick.bind(this))
+    this.$tooltip.on('click.inlineeditor', 'button', this.onControlClick.bind(this))
+    this.$rowControls.on('click.inlineeditor', 'button', this.onControlClick.bind(this))
     this.$rowToggle.on('click.inlineeditor', this.onRowToggleClick.bind(this))
     this.quill.on(Quill.events.EDITOR_CHANGE, this.onEditorChange.bind(this))
   }
 
   removeListeners () {
-    this.$tooltipContainer.off('click.inlineeditor', 'button')
-    this.$rowContainer.off('click.inlineeditor', 'button')
+    this.$tooltip.off('click.inlineeditor', 'button')
+    this.$rowControls.off('click.inlineeditor', 'button')
     this.$rowToggle.off('click.inlineeditor')
     this.quill.off(Quill.events.EDITOR_CHANGE, this.onEditorChange)
   }
 
   render () {
     // Create tooltip
-    this.$tooltipContainer = $('<div>', {id: 'ql-inline-editor__tooltip'})
-    this.$tooltipArrow = $('<div>', {id: 'ql-inline-editor__tooltip-arrow'})
-    this.$tooltipContainer.append( this.$tooltipArrow  )
+    this.$tooltip = $('<div>', {id: 'ql-inline-editor__tooltip'}) // Will have fixed dimensions that can be used for measuring
+    this.$tooltipInner = $('<div>', {class: 'ql-inline-editor__tooltip-inner'}) // Can be animated and scaled
+    this.$tooltipControls = $('<div>', {class: 'ql-inline-editor__tooltip-controls'}) // The container for tooltip controls
+    this.$tooltipArrow = $('<div>', {class: 'ql-inline-editor__tooltip-arrow'}) // The tooltip arrow
+
+    this.$tooltip.append( this.$tooltipInner  )
+    this.$tooltipInner.append( this.$tooltipControls  )
+    this.$tooltipInner.append( this.$tooltipArrow  )
 
     // Add tooltip in the quill editor container
-    this.quill.addContainer( this.$tooltipContainer.get(0) )
+    this.quill.addContainer( this.$tooltip.get(0) )
 
-    // TODO Check for empty control options before adding controls
+    // Create tooltip controls
+    this.addControls(this.$tooltipControls, this.tooltipOptions)
 
-    // Add tooltip controls
-    this.addControls(this.$tooltipContainer, this.tooltipControls)
-
-    // Create row container
-    this.$rowContainer = $('<div>', {id: 'ql-inline-editor__row'})
+    // Create row controls and toggle
+    this.$rowControls = $('<div>', {id: 'ql-inline-editor__row-controls'})
     this.$rowToggle = $('<div>', {id: 'ql-inline-editor__row-toggle'})
-    this.$rowContainer.append( this.$rowToggle )
 
     // Add row in the quill editor container
-    this.quill.addContainer( this.$rowContainer.get(0) )
+    this.quill.addContainer( this.$rowControls.get(0) )
+    this.quill.addContainer( this.$rowToggle.get(0) )
 
     // Add row controls
-    this.addControls(this.$rowContainer, this.rowControls)
+    this.addControls(this.$rowControls, this.rowOptions)
   }
 
   addControls (container, controls) {
@@ -104,7 +115,7 @@ class InlineEditor {
     button.attr('data-value', value || true)
 
     // Save reference to control
-    this.controls.push(button)
+    this.$controls.push(button)
 
     // Add button in container
     container.append(button)
@@ -128,40 +139,41 @@ class InlineEditor {
     // Toggle tooltip visibibility
     if(range === null || range.length === 0 || this.quill.getText(range.index, range.length) === "\n") {
       // Hide tooltip
-      this.$tooltipContainer.removeClass('ql-inline-editor__tooltip--visible')
+      this.$tooltip.removeClass('ql-inline-editor__tooltip--visible')
     } else {
       // Get bounds of current range and make sure that the new position fits within the viewport
       const rangeBounds = this.quill.getBounds(range)
       const minLeft = - Math.abs( $(this.quill.container).offset().left ) + 12
-      const maxLeft = $(window).width() - $(this.quill.container).offset().left - this.$tooltipContainer.outerWidth() - 12
-      let newLeft = rangeBounds.left + rangeBounds.width/2 - this.$tooltipContainer.outerWidth()/2
+      const maxLeft = $(window).width() - $(this.quill.container).offset().left - this.$tooltip.outerWidth() - 12
+      let newLeft = rangeBounds.left + rangeBounds.width/2 - this.$tooltip.outerWidth()/2
       if(newLeft > maxLeft) newLeft = maxLeft
       if(newLeft < minLeft) newLeft = minLeft
 
       // Position tooltip
-      this.$tooltipContainer.css({
+      this.$tooltip.css({
         left: newLeft,
-        top: rangeBounds.top - this.$tooltipContainer.outerHeight() - this.$tooltipArrow.outerHeight() - 3
+        top: rangeBounds.top - this.$tooltip.outerHeight() - 3
       })
 
-      // The arrow is positioned within the tooltip container
-      // The container may have been adjusted to fit within the viewport
-      // We calculate the diference between the centers to make sure that the arrow is always centered
-      const tooltipCenter = newLeft + this.$tooltipContainer.outerWidth()/2
+      // The arrow is positioned within the tooltip
+      // The container position may have been adjusted to fit within the viewport
+      // We calculate the diference between the centers to make sure that the arrow is always centered in the range
+      const tooltipCenter = newLeft + this.$tooltip.outerWidth()/2
       const rangeCenter = rangeBounds.left + rangeBounds.width/2
       const difference = rangeCenter - tooltipCenter
 
       // Position arrow
       this.$tooltipArrow.css({
-        left: this.$tooltipContainer.outerWidth()/2 - this.$tooltipArrow.outerWidth()/2 + difference
+        left: this.$tooltip.outerWidth()/2 + difference
+        // - arrowWidth/2 is made with css instead as it can be scaled when calculated here
       })
 
       // Show tooltip
-      this.$tooltipContainer.addClass('ql-inline-editor__tooltip--visible')
+      this.$tooltip.addClass('ql-inline-editor__tooltip--visible')
     }
 
     // Update active state for all controls
-    this.controls.forEach( (control) => {
+    this.$controls.forEach( (control) => {
       controlFormat = control.data('format')
       controlValue = control.data('value')
 
@@ -184,18 +196,30 @@ class InlineEditor {
       if( leaf !== null && leaf.constructor.name === 'Break' && line.constructor.name === 'Block' ) {
         // Position the row controls
         let lineBounds = this.quill.getBounds(range)
-        this.$rowContainer.css({
+
+        this.$rowToggle.css({
+          left: lineBounds.left - this.$rowToggle.outerWidth(),
+          top: lineBounds.top + lineBounds.height/2 - this.$rowToggle.outerHeight()/2
+        })
+
+        this.$rowControls.css({
           left: lineBounds.left,
-          top: lineBounds.top + lineBounds.height/2 - this.$rowContainer.outerHeight()/2
+          top: lineBounds.top + lineBounds.height/2 - this.$rowControls.outerHeight()/2
         })
 
         // Show the row toggle
-        this.$rowContainer.addClass('ql-inline-editor__row--visible')
+        this.$rowToggle.addClass('ql-inline-editor__row-toggle--visible')
       } else {
-        this.$rowContainer.removeClass('ql-inline-editor__row--visible')
+
+        // Hide row controls
+        this.$rowToggle.removeClass('ql-inline-editor__row-toggle--visible')
+        this.$rowControls.removeClass('ql-inline-editor__row-container--visible')
       }
     } else {
-      this.$rowContainer.removeClass('ql-inline-editor__row--visible')
+
+      // Hide row controls
+      this.$rowToggle.removeClass('ql-inline-editor__row-toggle--visible')
+      this.$rowControls.removeClass('ql-inline-editor__row-container--visible')
     }
   }
 
@@ -228,8 +252,11 @@ class InlineEditor {
   onRowToggleClick (e) {
     e.preventDefault();
 
-    // Togggle the visiblity of the row buttons
-    this.$rowContainer.toggleClass('ql-inline-editor__row--open')
+    // Togggle the visiblity of the row controls
+    this.$rowControls.toggleClass('ql-inline-editor__row-controls--open')
+    this.$rowToggle.toggleClass('ql-inline-editor__row-toggle--open')
+
+    // Bring focus back to the editor
     this.quill.focus()
   }
 
@@ -250,9 +277,16 @@ class InlineEditor {
     this.removeListeners()
 
     this.quill = null
-    this.tooltipControls = null
-    this.$tooltipContainer = null
-    this.controls = null
+    this.tooltipOptions = null
+    this.rowOptions = null
+
+    this.$tooltip.remove()
+    this.$tooltipInner.remove()
+    this.$tooltipControls.remove()
+    this.$tooltipArrow.remove()
+    this.$rowControls.remove()
+    this.$rowToggle.remove()
+    this.$controls.remove()
   }
 }
 
