@@ -48,6 +48,9 @@
       $('body').toggleClass('body--mobile-no-scroll')
     })
 
+    // Focus title input if it's empty
+    if( $('#title_input').val() == "" ) $('#title_input').focus()
+
     // Update sidebar when the page name is updated
     $('#title_input').on('input', function(e) {
       const val = $('#title_input').val()
