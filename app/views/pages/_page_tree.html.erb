@@ -1,12 +1,17 @@
 <% page_tree.map do |page, page_tree| %>
-    <li class="<%= (current_page?(page)) ? 'page-tree__active' : nil %>">
-        <%= link_to(page.decorate.title_with_fallback, page, class: 'page-tree__page-link') %>
+    <li class="<%= (current_page?(page_path(page))) ? 'page-tree__active' : nil %>" id=<%= "page_#{page.id}" %> >
+        <%= link_to(page.decorate.title_with_fallback, page_path(page), class: 'page-tree__page-link') %>
+
+        <div class="page-tree__edit-actions">
+            <%= link_to "", page_path(page, page_to_redirect_to_id: page.id), method: :delete, class: "page-tree__remove", data: { confirm: "Are you sure?" } %>
+            <%= link_to "", space_pages_path(page.space, params: { page: { parent_id: page.id}}), method: :post, class: "page-tree__add-subpage" %>
+        </div>
 
         <% if page_tree.size.positive? %>
             <span class="page-tree__toggle"></span>
 
             <ul>
-                <%= render "page_tree", page_tree: page_tree %>
+                <%= render "page_tree", page_tree: page_tree, current_page: current_page %>
             </ul>
         <% end %>
     </li>

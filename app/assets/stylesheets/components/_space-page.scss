@@ -6,6 +6,42 @@
   min-height: 100vh;
   background: #fff;
   margin-top: 48px;
+
+  form {
+    margin: 0;
+  }
+
+  input[type=text] {
+    position: relative;
+    z-index: 2;
+    font-size: 31px;
+    font-weight: normal;
+    line-height: 48px;
+    height: 48px;
+    color: rgba(255, 255, 255, 1);
+    text-align: center;
+    margin-top: 0;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    border-radius: 0;
+
+    &:hover, &:focus {
+      outline: none;
+    }
+
+    &::-webkit-input-placeholder {
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    &::-moz-placeholder {
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    &:-ms-input-placeholder {
+      color: rgba(255, 255, 255, 0.8);
+    }
+  }
 }
 
 .space-page__hero {
@@ -13,7 +49,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  padding: 97px 24px 100px 24px;
+  padding: 133px 24px 136px 24px;
   text-align: center;
 
   // Overlay
@@ -48,7 +84,7 @@
 }
 
 .space-page__content {
-  padding: 43px 24px 90px 24px;
+  position: relative;
 
   // Remove margins from elements and let users control this with linebreaks instead, i.e. <p><br></p> in the editor
   h2, h3, h4, h5, h6, p, ul, ol, pre, table, form, label {
@@ -136,71 +172,35 @@
   }
 }
 
-
-
-// Edit
-.space-page.space-page--edit {
-  form {
-    margin: 0;
-  }
-
-  input[type=text] {
-    position: relative;
-    z-index: 2;
-    font-size: 31px;
-    font-weight: normal;
-    line-height: 48px;
-    height: 48px;
-    color: rgba(255, 255, 255, 1);
-    text-align: center;
-    margin-top: 0;
-    border: 0;
-    padding: 0;
-    background: transparent;
-    border-radius: 0;
-
-    &:hover, &:focus {
-      outline: none;
-    }
-
-    &::-webkit-input-placeholder {
-      color: rgba(255, 255, 255, 0.8);
-    }
-
-    &::-moz-placeholder {
-      color: rgba(255, 255, 255, 0.8);
-    }
-
-    &:-ms-input-placeholder {
-      color: rgba(255, 255, 255, 0.8);
-    }
-  }
-
-  .ql-editor {
-    outline: none;
-  }
-
-  .ql-editor.ql-blank::before {
-    font-style: normal;
-    color: $color-text-faded;
-  }
-
-  .ql-clipboard {
-    left: -100000px;
-    height: 1px;
-    overflow-y: hidden;
-    position: absolute;
-    top: 50%;
-  }
-
-  .ql-clipboard p {
-    margin: 0;
-    padding: 0;
-  }
+.ql-editor {
+  outline: none;
+  padding: 43px 24px 90px 24px;
 }
 
-#page-editor {
-  position: relative;
+.ql-editor.ql-blank::before {
+  color: rgba(0,0,0,0.6);
+  content: attr(data-placeholder);
+  font-style: italic;
+  pointer-events: none;
+  position: absolute;
+}
+
+.ql-editor.ql-blank::before {
+  font-style: normal;
+  color: $color-text-faded;
+}
+
+.ql-clipboard {
+  left: -100000px;
+  height: 1px;
+  overflow-y: hidden;
+  position: absolute;
+  top: 50%;
+}
+
+.ql-clipboard p {
+  margin: 0;
+  padding: 0;
 }
 
 
@@ -227,7 +227,7 @@
     }
   }
 
-  .space-page__content {
+  .ql-editor {
     padding: 55px 60px 52px 60px;
   }
 
@@ -255,7 +255,7 @@
     padding-right: 96px;
   }
 
-  .space-page__content {
+  .ql-editor {
     padding: 67px 108px 88px 96px;
   }
 }
@@ -271,7 +271,7 @@
     width: calc( 100vw - 276px - 276px );
   }
 
-  .space-page__content {
+  .ql-editor {
     padding-left: 108px;
     padding-right: 120px;
   }

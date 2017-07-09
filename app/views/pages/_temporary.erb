@@ -1,0 +1,100 @@
+<!-- Table of contents and actions for small viewports -->
+<div class="mobile-space-navigation">
+  <a href="#mobile-space-navigation__content" class="mobile-space-navigation__toggle" aria-expanded="false" aria-controls="navigation">
+    <%= current_space.name %>
+  </a>
+
+  <nav class="mobile-space-navigation__content" id="mobile-space-navigation__content">
+    <ul class="page-tree">
+      <%= render "page_tree", page_tree: current_space.pages.hash_tree, current_page: @page %>
+    </ul>
+  </nav>
+</div>
+
+<!-- Table of contents for medium and large viewports -->
+<nav class="space-toc space-toc--edit" id="space-toc">
+  <h3>
+    <%= link_to edit_space_path(@page.space) do %>
+      <%= @page.space.name %>
+      <span></span>
+    <% end %>
+  </h3>
+
+  <ul class="page-tree page-tree--edit">
+    <%= render "page_tree", page_tree: @page.space.pages.hash_tree, current_page: @page %>
+  </ul>
+
+  <div class="space-toc__actions">
+    <%= link_to space_pages_path(@page.space, params: { page: { _: true } }), method: :post, class: "space-toc__new-page" do %>
+      New page
+    <% end %>
+  </div>
+</nav>
+
+<!-- Page content for all viewports -->
+<main class="space-page space-page--edit">
+  <%= render 'page_contents', page: @page %>
+</main>
+
+<script>
+  const scrollSidebar = new Spaces.SpaceSidebar()
+
+  $(function(){
+    // Event handler for the space navigation toggle on smaller viewports
+    $('.mobile-space-navigation__toggle').on('click', function(e) {
+      e.preventDefault()
+      $('.mobile-space-navigation__toggle').toggleClass('mobile-space-navigation__toggle--open')
+      $('.mobile-space-navigation__content').stop().fadeToggle()
+      $('body').toggleClass('body--mobile-no-scroll')
+    })
+
+    // Update sidebar when the page name is updated
+    $('#title_input').on('input', function(e) {
+      const val = $('#title_input').val()
+
+      $('.page-tree__active').children('.page-tree__page-link').html(val)
+    })
+
+    const statusMessage = new Spaces.PageStatusMessage({ attachTo: ".edit-toolbar__status" })
+
+    new Spaces.Editor({ attachTo: '#page-editor',
+                        statusMessage: statusMessage,
+                        options: <%= editor_settings %> })
+
+    new Spaces.PageTitle({ attachTo: '#title_input',
+                           statusMessage: statusMessage,
+                           page: new Spaces.Page(<%= page_settings %>)})
+
+    const pageHierarchy = new Spaces.PageHierarchy(<%= page_hierarchy_settings %>)
+
+    new Spaces.PageTree({
+      container: $('.page-tree--edit'),
+      onChange: function(hierarchy){
+        // TODO Move this to a class instead?
+        // TODO Make sure that toggles open/closed states are correct when reordering pages
+        // Remove all page toggles
+        $('.page-tree__toggle').remove()
+
+        // Add page toggles
+        $('.page-tree li').each(function() {
+          const ul = $(this).children('ul')
+          let toggleClass = 'page-tree__toggle'
+
+          if(ul.length > 0) {
+            if(ul.is(':visible')) {
+              toggleClass += ' page-tree__toggle--active'
+            }
+
+            $(this).append('<span class="' + toggleClass + '"></span>')
+          }
+        })
+
+        const promise = pageHierarchy.update({ page_hierarchy: hierarchy })
+
+        promise
+          .then(response => console.log('Successfully updated page hierarchy'))
+          .catch(error => Raven.captureException(error));
+      }
+    })
+  })
+</script>
