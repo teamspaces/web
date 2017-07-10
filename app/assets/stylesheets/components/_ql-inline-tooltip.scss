@@ -1,0 +1,200 @@
+// Editor tooltip
+.ql-inline-tooltip {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 427px;
+  height: 46px;
+  visibility: hidden;
+  transition: visibility 0.3s ease-out;
+
+  &.ql-inline-tooltip--visible {
+    visibility: visible;
+
+    .ql-inline-tooltip__inner {
+      visibility: visible;
+      opacity: 1;
+      margin-top: 0;
+      transform: scale(1);
+    }
+  }
+
+  button {
+    float: left;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+    width: 20px;
+    height: 42px;
+    padding: 0 9px;
+    background-color: transparent;
+    background-position: center center;
+    background-repeat: no-repeat;
+    transition: all 0.3s;
+
+    &:hover, &:active, &:focus {
+      outline: none;
+      opacity: 0.4;
+    }
+  }
+
+  .ql-inline-tooltip__header-1 {
+    background-image: url(../images/space/tooltip-h1-off.svg);
+    width: 35px;
+
+    &.ql-inline-tooltip__active {
+      background-image: url(../images/space/tooltip-h1-on.svg);
+      opacity: 1;
+    }
+  }
+
+  .ql-inline-tooltip__header-2 {
+    background-image: url(../images/space/tooltip-h2-off.svg);
+    width: 39px;
+
+    &.ql-inline-tooltip__active {
+      background-image: url(../images/space/tooltip-h2-on.svg);
+      opacity: 1;
+    }
+  }
+
+  .ql-inline-tooltip__header-3 {
+    background-image: url(../images/space/tooltip-h3-off.svg);
+    width: 38px;
+
+    &.ql-inline-tooltip__active {
+      background-image: url(../images/space/tooltip-h3-on.svg);
+      opacity: 1;
+    }
+  }
+
+  .ql-inline-tooltip__bold {
+    background-image: url(../images/space/tooltip-b-off.svg);
+    width: 28px;
+
+    &.ql-inline-tooltip__active {
+      background-image: url(../images/space/tooltip-b-on.svg);
+      opacity: 1;
+    }
+  }
+
+  .ql-inline-tooltip__italic {
+    background-image: url(../images/space/tooltip-i-off.svg);
+    width: 23px;
+
+    &.ql-inline-tooltip__active {
+      background-image: url(../images/space/tooltip-i-on.svg);
+      opacity: 1;
+    }
+  }
+
+  .ql-inline-tooltip__strike {
+    background-image: url(../images/space/tooltip-strike-off.svg);
+    width: 35px;
+
+    &.ql-inline-tooltip__active {
+      background-image: url(../images/space/tooltip-strike-on.svg);
+      opacity: 1;
+    }
+  }
+
+  .ql-inline-tooltip__underline {
+    background-image: url(../images/space/tooltip-u-off.svg);
+    width: 26px;
+
+    &.ql-inline-tooltip__active {
+      background-image: url(../images/space/tooltip-u-on.svg);
+      opacity: 1;
+    }
+  }
+
+  .ql-inline-tooltip__link {
+    background-image: url(../images/space/tooltip-link-off.svg);
+    width: 40px;
+
+    &.ql-inline-tooltip__active {
+      background-image: url(../images/space/tooltip-link-on.svg);
+      opacity: 1;
+    }
+  }
+
+  .ql-inline-tooltip__list-bullet {
+    background-image: url(../images/space/tooltip-ul-off.svg);
+    width: 30px;
+
+    &.ql-inline-tooltip__active {
+      background-image: url(../images/space/tooltip-ul-on.svg);
+      opacity: 1;
+    }
+  }
+
+  .ql-inline-tooltip__list-ordered {
+    background-image: url(../images/space/tooltip-ol-off.svg);
+    width: 33px;
+
+    &.ql-inline-tooltip__active {
+      background-image: url(../images/space/tooltip-ol-on.svg);
+      opacity: 1;
+    }
+  }
+
+  .ql-inline-tooltip__code-block {
+    background-image: url(../images/space/tooltip-code-off.svg);
+    width: 44px;
+
+    &.ql-inline-tooltip__active {
+      background-image: url(../images/space/tooltip-code-on.svg);
+      opacity: 1;
+    }
+  }
+
+  .ql-inline-tooltip__divider {
+    float: left;
+    width: 1px;
+    height: 42px;
+    background: #363D47;
+    margin: 0 9px;
+  }
+}
+
+.ql-inline-tooltip__inner {
+  position: relative;
+  visibility: hidden;
+  opacity: 0;
+  margin-top: 12px;
+  transform: scale(0.6);
+  transition: all 0.3s $easing;
+}
+
+.ql-inline-tooltip__controls {
+  @include clearfix;
+  background: rgba(57, 65, 77, 0.98);
+  width: 427px;
+  height: 42px;
+  padding: 0 9px;
+  border-radius: 5px;
+}
+
+.ql-inline-tooltip__arrow {
+  position: absolute;
+  top: 42px;
+  left: 0;
+  width: 10px;
+  height: 4px;
+  margin-left: -5px;
+  overflow: hidden;
+  pointer-events: none;
+
+  &:after {
+    content: " ";
+    display: block;
+    width: 10px;
+    height: 10px;
+    margin: -7px 0 0 0;
+    border-radius: 3px;
+    background: rgba(57, 65, 77, 0.98);
+    transform: rotate(45deg);
+  }
+}

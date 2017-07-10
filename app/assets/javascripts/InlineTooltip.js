@@ -23,22 +23,24 @@ class InlineTooltip extends InlineControl {
     super.addListeners()
 
     this.$tooltip.on('click.inlinetooltip', 'button', this.onControlClick.bind(this))
+    this.quill.on(Quill.events.EDITOR_CHANGE, this.onEditorChange.bind(this))
   }
 
   removeListeners () {
     super.removeListeners()
 
     this.$tooltip.off('click.inlinetooltip', 'button')
+    this.quill.off(Quill.events.EDITOR_CHANGE, this.onEditorChange)
   }
 
   render () {
     super.render()
 
     // Create tooltip
-    this.$tooltip = $('<div>', {id: 'ql-inline-editor__tooltip'}) // Will have fixed dimensions that can be used for measuring
-    this.$tooltipInner = $('<div>', {class: 'ql-inline-editor__tooltip-inner'}) // Can be animated and scaled
-    this.$tooltipControls = $('<div>', {class: 'ql-inline-editor__tooltip-controls'}) // The container for tooltip controls
-    this.$tooltipArrow = $('<div>', {class: 'ql-inline-editor__tooltip-arrow'}) // The tooltip arrow
+    this.$tooltip = $('<div>', {class: 'ql-inline-tooltip'}) // Will have fixed dimensions that can be used for measuring
+    this.$tooltipInner = $('<div>', {class: 'ql-inline-tooltip__inner'}) // Can be animated and scaled
+    this.$tooltipControls = $('<div>', {class: 'ql-inline-tooltip__controls'}) // The container for tooltip controls
+    this.$tooltipArrow = $('<div>', {class: 'ql-inline-tooltip__arrow'}) // The tooltip arrow
 
     this.$tooltip.append( this.$tooltipInner  )
     this.$tooltipInner.append( this.$tooltipControls  )
@@ -48,13 +50,28 @@ class InlineTooltip extends InlineControl {
     this.quill.addContainer( this.$tooltip.get(0) )
 
     // Add controls
-    this.addControls(this.$tooltipControls, this.options)
+    this.addControls(this.$tooltipControls, this.options, 'ql-inline-tooltip__')
   }
 
   updateControls () {
-    super.updateControls()
-
+    // Get all formats for the selected range
     const range = this.quill.getSelection()
+    const formats = (range === null) ? {} : this.quill.getFormat(range)
+    let controlFormat = null
+    let controlValue = null
+
+    // Update active state for all controls
+    this.$controls.forEach( (control) => {
+      controlFormat = control.data('format')
+      controlValue = control.data('value')
+
+      // Check if the range has the control's format
+      if(formats.hasOwnProperty(controlFormat) && formats[controlFormat] === controlValue) {
+        control.addClass('ql-inline-tooltip__active')
+      } else {
+        control.removeClass('ql-inline-tooltip__active')
+      }
+    })
 
     // Show tooltip if range is a non-empty row
     if(this.isRangeEmpty(range)) {
@@ -102,12 +119,12 @@ class InlineTooltip extends InlineControl {
     })
 
     // Show tooltip
-    this.$tooltip.addClass('ql-inline-editor__tooltip--visible')
+    this.$tooltip.addClass('ql-inline-tooltip--visible')
   }
 
   hideTooltip () {
     // Hide tooltip
-    this.$tooltip.removeClass('ql-inline-editor__tooltip--visible')
+    this.$tooltip.removeClass('ql-inline-tooltip--visible')
   }
 
   isRangeEmpty(range) {
@@ -127,7 +144,7 @@ class InlineTooltip extends InlineControl {
     const value = $control.data('value')
 
     // Remove formatting if the control is already active
-    if($control.hasClass('ql-inline-editor__active')) {
+    if($control.hasClass('ql-inline-tooltip__active')) {
       this.quill.format(format, false, Quill.sources.USER)
 
     // Otherwise add formatting
@@ -136,6 +153,14 @@ class InlineTooltip extends InlineControl {
     }
 
     // Update controls manually as we don't get an editor change event
+    this.updateControls()
+  }
+
+  onEditorChange (e) {
+    // Ignore the event if it's not a selection change
+    if (e !== Quill.events.SELECTION_CHANGE) return
+
+    // Update based on the new selection
     this.updateControls()
   }
 
