@@ -6,6 +6,7 @@ import Header from 'quill/formats/header';
 // TODO Test destroy
 // TODO Check for empty options before adding controls
 // TODO Fix jumping scrolling
+// TODO Throttle mouse move events
 
 class InlineEditor {
   constructor(quill, options) {
@@ -27,6 +28,10 @@ class InlineEditor {
     this.mousePosX = 0
     this.mousePosY = 0
     this.mouseTarget = null
+
+    //
+    this.isRowControlsOpen = false
+    this.rowControlsTarget = false
 
     // Render elements
     this.render()
@@ -138,19 +143,14 @@ class InlineEditor {
   }
 
   updateControls () {
-    // Get formats for the current range
+    this.updateTooltip()
+    this.updateRowToggle()
+
+    // Get all formats for the selected range
     const range = this.quill.getSelection()
     const formats = (range === null) ? {} : this.quill.getFormat(range)
     let controlFormat = null
     let controlValue = null
-    let showRowToggle = false
-
-    // Toggle tooltip visibibility
-    if(range === null || range.length === 0 || this.quill.getText(range.index, range.length) === "\n") {
-      this.hideTooltip()
-    } else {
-      this.showTooltip()
-    }
 
     // Update active state for all controls
     this.$controls.forEach( (control) => {
@@ -165,33 +165,23 @@ class InlineEditor {
       }
     })
 
-    // Position the row controls
-    // let lineBounds = this.quill.getBounds(range)
-    //
-    // this.$rowToggle.css({
-    //   left: lineBounds.left - this.$rowToggle.outerWidth(),
-    //   top: lineBounds.top + lineBounds.height/2 - this.$rowToggle.outerHeight()/2
-    // })
-    //
-    // this.$rowControls.css({
-    //   left: lineBounds.left,
-    //   top: lineBounds.top + lineBounds.height/2 - this.$rowControls.outerHeight()/2
-    // })
-
     // Show the row toggle if we're on new line or the cursor is over the left side
-    if(this.isOnStartOfNewLine() || this.isCursorOverLeftSide()) {
-      this.showRowToggle()
-    } else {
-      this.hideRowToggle()
-    }
+    // if(this.isOnStartOfNewLine() || this.isCursorOverLeftHalfOfPage()) {
+    //   this.showRowToggle()
+    // } else {
+    //   this.hideRowToggle()
+    // }
   }
 
-  isCursorOverLeftSide () {
-    const minX = 0
-    const maxX = $(window).width() / 2
-    // y
+  isCursorOverLeftHalfOfPage () {
+    const containerOffset = $(this.quill.container).offset()
 
-    if(this.mousePosX >= minX & this.mousePosX <= maxX) {
+    const minX = containerOffset.left
+    const maxX = containerOffset.left + 300
+    const minY = containerOffset.top
+    const maxY = containerOffset.top + $(this.quill.container).outerHeight()
+
+    if(this.mousePosX >= minX && this.mousePosX <= maxX && this.mousePosY >= minY && this.mousePosY <= maxY) {
       return true
     } else {
       return false
@@ -215,56 +205,68 @@ class InlineEditor {
     return false
   }
 
-  showRowToggle () {
-    let bounds = null
+  updateTooltip() {
     const range = this.quill.getSelection()
 
-    // TODO Lock in place when it's open
-
-    // Find the bounds based on the mouse position first
-    // Look for a blot under the cursor in the editor
-    // It may return the editor or something outside depending on the position of the cursor
-    const node = Quill.find(this.mouseTarget)
-
-    if(node && node.constructor) {
-      const name = node.constructor.name
-      const formats = ["Align", "Background", "Blockquote", "Bold", "Block", "Code", "Color", "Direction", "Embed", "Font", "Header", "Image", "Indent", "Inline", "Italic", "Link", "List", "ListItem", "Script", "Size", "Strike", "SyntaxCodeBlock", "Underline", "Video"]
-
-      // TODO Why is not instanceof for base classes working? Checking the constructor names here instead
-      if(formats.indexOf(name) >= 0) {
-
-        // Get the index of the start of the block
-        // If we just used the first variable here we could get the index for inline styling bold and italic
-        const index = this.quill.getIndex(node)
-        const [line, offset] = this.quill.getLine(index)
-        const lineIndex = this.quill.getIndex(line)
-
-        // Get bounds of index
-        bounds = this.quill.getBounds(lineIndex)
-      }
-    }
-
-    // If we don't found anything based on the mouse position, get it from quill if it has focus
-    if(bounds === null && range !== null) {
-      bounds = this.quill.getBounds(range)
-    }
-
-    // Position the row toggle and controls if we found bounds
-    if(bounds) {
-      this.$rowToggle.css({
-        left: 0,
-        top: bounds.top
-      })
-
-      this.$rowControls.css({
-        left: 0,
-        top: bounds.top
-      })
-
-      // Show the row toggle
-      this.$rowToggle.addClass('ql-inline-editor__row-toggle--visible')
+    // Toggle tooltip visibibility
+    if(range === null || range.length === 0 || this.quill.getText(range.index, range.length) === "\n") {
+      this.hideTooltip()
     } else {
-      this.hideRowToggle()
+      this.showTooltip()
+    }
+  }
+
+  updateRowToggle () {
+    // Only reposition when the controls are closed
+    if(!this.isRowControlsOpen) {
+      let bounds = null
+      const range = this.quill.getSelection()
+
+      // Find the bounds based on the mouse position first
+      // Look for a blot under the cursor in the editor
+      // It may return the editor or something outside depending on the position of the cursor
+      const node = Quill.find(this.mouseTarget)
+
+      if(node && node.constructor) {
+        const name = node.constructor.name
+        const formats = ["Align", "Background", "Blockquote", "Bold", "Block", "Code", "Color", "Direction", "Embed", "Font", "Header", "Image", "Indent", "Inline", "Italic", "Link", "List", "ListItem", "Script", "Size", "Strike", "SyntaxCodeBlock", "Underline", "Video"]
+
+        // TODO Why is not instanceof for base classes working? Checking the constructor names here instead
+        if(formats.indexOf(name) >= 0) {
+
+          // Get the index of the start of the block
+          // If we just used the first variable here we could get the index for inline styling bold and italic
+          const index = this.quill.getIndex(node)
+          const [line, offset] = this.quill.getLine(index)
+          const lineIndex = this.quill.getIndex(line)
+
+          // Get bounds of index
+          bounds = this.quill.getBounds(lineIndex)
+        }
+      }
+
+      // If we don't found anything based on the mouse position, get it from quill if it has focus
+      if(bounds === null && range !== null) {
+        bounds = this.quill.getBounds(range)
+      }
+
+      // Position the row toggle and controls if we found bounds
+      if(bounds) {
+        this.$rowToggle.css({
+          left: 0,
+          top: bounds.top
+        })
+
+        this.$rowControls.css({
+          left: 0,
+          top: bounds.top
+        })
+
+        // Show the row toggle
+        this.$rowToggle.addClass('ql-inline-editor__row-toggle--visible')
+      } else {
+        this.hideRowToggle()
+      }
     }
   }
 
@@ -360,7 +362,7 @@ class InlineEditor {
     this.mousePosY = e.pageY
     this.mouseTarget = e.target
 
-    if( this.isCursorOverLeftSide() ) this.showRowToggle()
+    if( this.isCursorOverLeftHalfOfPage() ) this.updateRowToggle()
   }
 
 
