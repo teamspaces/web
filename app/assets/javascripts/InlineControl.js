@@ -9,18 +9,18 @@ class InlineControl {
   }
 
   addListeners () {
-    this.quill.on(Quill.events.EDITOR_CHANGE, this.onEditorChange.bind(this))
+
   }
 
   removeListeners () {
-    this.quill.off(Quill.events.EDITOR_CHANGE, this.onEditorChange)
+
   }
 
   render () {
 
   }
 
-  addControls (container, controls) {
+  addControls (container, controls, classPrefix = '') {
     // Ensure that the controls are grouped
     const groups = ( Array.isArray(controls[0]) ) ? controls : [controls]
     let format = null
@@ -36,31 +36,31 @@ class InlineControl {
         if(typeof control === 'string') {
           format = control
           value = null
-          this.addControl(container, format)
+          this.addControl(container, format, true, classPrefix)
 
         // Extract the format and the value if it's an object
         } else {
           format = Object.keys(control)[0]
           value = control[format]
-          this.addControl(container, format, value)
+          this.addControl(container, format, value, classPrefix)
         }
       })
 
       // Add a divider after the group if there are more groups
       if(groups.length > index + 1) {
-        this.addDivider(container)
+        this.addDivider(container, classPrefix)
       }
     })
   }
 
-  addControl (container, format, value) {
+  addControl (container, format, value, classPrefix = '') {
     // Create button
-    const classSuffix = (value) ? format + '-' + value : format
-    const button = $('<button>', { 'class': 'ql-inline-editor__' + classSuffix })
+    const classSuffix = (value !== true) ? format + '-' + value : format
+    const button = $('<button>', { 'class': classPrefix + classSuffix })
 
     // Save format and value as data attributes
     button.attr('data-format', format)
-    button.attr('data-value', value || true)
+    button.attr('data-value', value)
 
     // Save reference to control
     this.$controls.push(button)
@@ -69,41 +69,12 @@ class InlineControl {
     container.append(button)
   }
 
-  addDivider (container) {
+  addDivider (container, classPrefix = '') {
     // Create divider
-    const divider = $('<div>', { 'class': 'ql-inline-editor__divider' })
+    const divider = $('<div>', { 'class': classPrefix + 'divider' })
 
     // Add divider in container
     container.append(divider)
-  }
-
-  updateControls () {
-    // Get all formats for the selected range
-    const range = this.quill.getSelection()
-    const formats = (range === null) ? {} : this.quill.getFormat(range)
-    let controlFormat = null
-    let controlValue = null
-
-    // Update active state for all controls
-    this.$controls.forEach( (control) => {
-      controlFormat = control.data('format')
-      controlValue = control.data('value')
-
-      // Check if the range has the control's format
-      if(formats.hasOwnProperty(controlFormat) && formats[controlFormat] === controlValue) {
-        control.addClass('ql-inline-editor__active')
-      } else {
-        control.removeClass('ql-inline-editor__active')
-      }
-    })
-  }
-
-  onEditorChange (e) {
-    // Ignore the event if it's not a selection change
-    if (e !== Quill.events.SELECTION_CHANGE) return
-
-    // Update all controls based on the current range
-    this.updateControls()
   }
 
   destroy () {
