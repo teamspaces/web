@@ -3,6 +3,7 @@ const EventEmitter = require('events');
 import { clipboardURLMatcherFunc, liveAutolinkUrlsFunc } from './quill_editor_helpers'
 import InlineTooltip from './InlineTooltip'
 import InlineRow from './InlineRow'
+import EditorClipboard from './EditorClipboard'
 
 /* https://quilljs.com/docs/configuration/ */
 const QuillOptions = {
@@ -11,12 +12,11 @@ const QuillOptions = {
     syntax: true,
     toolbar: false,
     inlineTooltip: [
-      [{'header': 1}, {'header': 2}, {'header': 3}],
       ['bold', 'italic', 'strike', 'underline', 'link'],
-      [{'list': 'bullet'}, {'list': 'ordered'}, 'code-block']
+      [{'header': 2}, {'header': 3}, {'list': 'bullet'}, {'list': 'ordered'}, 'code-block']
     ],
     inlineRow: [
-      {'header': 1}, {'header': 2}, {'header': 3}, {'list': 'bullet'}, {'list': 'ordered'}, 'code-block'
+      {'header': 2}, {'header': 3}, {'list': 'bullet'}, {'list': 'ordered'}, 'code-block'
     ]
   }
 };
