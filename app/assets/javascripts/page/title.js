@@ -22,7 +22,7 @@ class PageTitle {
 
   save() {
     this.page.update({title: this.title()})
-        .then(response => this.statusMessage.update("All changes have been saved"))
+        .then(response => this.statusMessage.update("All changes have been saved."))
         .catch(error => Raven.captureException(error));
   };
 
@@ -33,7 +33,7 @@ class PageTitle {
         this.statusMessage.update("Saving...");
 
         clearTimeout(this.title_change_timer);
-        
+
         // wait for more changes
         this.title_change_timer = setTimeout(() => {
           this.save();
