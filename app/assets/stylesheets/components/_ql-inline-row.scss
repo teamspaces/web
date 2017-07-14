@@ -3,6 +3,7 @@
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 2;
   height: 60px;
   width: 60px;
   margin-top: -19px;
@@ -10,12 +11,12 @@
   cursor: pointer;
   visibility: hidden;
   opacity: 0;
-  transition: opacity 0.4s $easing, visibility 0.4s $easing;
+  transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
 
   &:hover, &:active, &:focus {
     &:before {
       border-color: $color-text-third;
-      // transform: scale(1.2) rotate(0deg);
+      transform: scale(1.1);
     }
   }
 
@@ -28,6 +29,12 @@
     &:before {
       transform: rotate(45deg);
     }
+
+    &:hover, &:active, &:focus {
+      &:before {
+        transform: scale(1.1) rotate(45deg);
+      }
+    }
   }
 
   &:before {
@@ -38,10 +45,9 @@
     height: 30px;
     border-radius: 15px;
     margin: 15px;
-    background: url(../images/space/row-insert.svg) no-repeat center center;
-    // opacity: 0;
-    // transform: scale(0.5);
-    transition: all 0.4s $easing;
+    background: #fff url(../images/space/row-insert.svg) no-repeat center center;
+    transform: scale(1) rotate(0deg);
+    transition: all 0.2s ease-out;
   }
 }
 
@@ -49,48 +55,21 @@
   position: absolute;
   top: 0;
   left: 87px;
+  z-index: 1;
   height: 36px;
   margin-top: -7px;
-  // visibility: hidden;
-  // opacity: 0;
-  display: none;
-  // transition: opacity 0.4s $easing, visibility 0.4s $easing;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.8s $easing, visibility 0.8s $easing;
 
   &.ql-inline-row__controls--open {
-    // visibility: visible;
-    // opacity: 1;
-    display: block;
+    visibility: visible;
+    opacity: 1;
 
-    // #ql-inline-editor__row-toggle {
-    //   &:before {
-    //     transform: scale(1) rotate(0deg);
-    //     opacity: 1;
-    //   }
-    // }
+    button {
+      transform: scale(1) translate(0, 0) !important;
+    }
   }
-
-  // &.ql-inline-editor__row--visible.ql-inline-editor__row--open {
-  //   #ql-inline-editor__row-toggle {
-  //     &:hover, &:active, &:focus {
-  //       &:before {
-  //         transform: scale(1.2) rotate(45deg);
-  //         border-color: $color-text-third;
-  //         opacity: 1;
-  //       }
-  //     }
-  //
-  //     &:before {
-  //       transform: scale(1) rotate(45deg);
-  //       border-color: $color-text-third;
-  //       opacity: 1;
-  //     }
-  //   }
-
-    // button {
-    //   opacity: 1;
-    //   visibility: visible;
-    // }
-  // }
 
   button {
     float: left;
@@ -104,9 +83,31 @@
     background-color: transparent;
     background-position: center center;
     background-repeat: no-repeat;
-    // visibility: hidden;
-    // opacity: 0;
-    // transition: all 0.4s $easing;
+    transition: all 0.8s $easing;
+
+    &:nth-child(1) {
+      transform: scale(0.6) translate(-40px, 0);
+    }
+
+    &:nth-child(2) {
+      transform: scale(0.6) translate(-74px, 0);
+    }
+
+    &:nth-child(3) {
+      transform: scale(0.6) translate(-115px, 0);
+    }
+
+    &:nth-child(4) {
+      transform: scale(0.6) translate(-152px, 0);
+    }
+
+    &:nth-child(5) {
+      transform: scale(0.6) translate(-180px, 0);
+    }
+
+    &:nth-child(6) {
+      transform: scale(0.6) translate(-216px, 0);
+    }
 
     &:hover, &:active, &:focus {
       outline: none;

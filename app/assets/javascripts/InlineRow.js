@@ -70,10 +70,12 @@ class InlineRow extends InlineControl {
     this.currentIndex = index
 
     // Show the toggle if the index is on a new empty line
+    // and hide the controls in case they were opened on a different line
     if( this.isOnStartOfNewLine(this.currentIndex) ) {
       this.showRowToggle()
+      this.hideRowControls()
 
-    // Other wise hide both the toggle and the controls
+    // Otherwise hide both the toggle and the controls
     } else {
       this.hideRowToggle()
       this.hideRowControls()
