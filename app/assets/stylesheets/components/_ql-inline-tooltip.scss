@@ -5,7 +5,7 @@
   top: 0;
   left: 0;
   z-index: 3;
-  width: 427px;
+  width: 370px;
   height: 46px;
   visibility: hidden;
   transition: visibility 0.3s ease-out;
@@ -41,7 +41,7 @@
     }
   }
 
-  .ql-inline-tooltip__header-1 {
+  .ql-inline-tooltip__header-2 {
     background-image: url(../images/space/tooltip-h1-off.svg);
     width: 35px;
 
@@ -51,7 +51,7 @@
     }
   }
 
-  .ql-inline-tooltip__header-2 {
+  .ql-inline-tooltip__header-3 {
     background-image: url(../images/space/tooltip-h2-off.svg);
     width: 39px;
 
@@ -61,7 +61,7 @@
     }
   }
 
-  .ql-inline-tooltip__header-3 {
+  .ql-inline-tooltip__header-4 {
     background-image: url(../images/space/tooltip-h3-off.svg);
     width: 38px;
 
@@ -172,7 +172,7 @@
 .ql-inline-tooltip__controls {
   @include clearfix;
   background: rgba(57, 65, 77, 0.98);
-  width: 427px;
+  width: 370px;
   height: 42px;
   padding: 0 9px;
   border-radius: 5px;

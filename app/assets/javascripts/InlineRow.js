@@ -161,9 +161,15 @@ class InlineRow extends InlineControl {
     const format = $control.data('format')
     const value = $control.data('value')
 
+    // Save current scroll position
+    const scrollTop = $(document).scrollTop()
+
     // Format row
     this.quill.formatLine(this.currentIndex, 1, format, value, Quill.sources.USER)
     this.quill.setSelection(this.currentIndex, 0)
+
+    // Update scroll position to avoid jumping scroll behavior
+    $(document).scrollTop(scrollTop)
   }
 
   onEditorChange (e) {
