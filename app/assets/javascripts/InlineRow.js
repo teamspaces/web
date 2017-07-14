@@ -3,6 +3,11 @@ import Quill from 'quill'
 import Break from 'quill/blots/break'
 import $ from 'jquery'
 
+
+// on change, if empty store index
+
+
+
 class InlineRow extends InlineControl {
   constructor (quill, options) {
     super(quill, options)
@@ -11,16 +16,9 @@ class InlineRow extends InlineControl {
     this.$rowControls = null
     this.$rowToggle = null
 
-    // Current mouse position
-    this.clientX = 0
-    this.clientY = 0
-    this.pageX = 0
-    this.pageY = 0
-
     // State for row controls
     this.isRowControlsOpen = false
-    this.rowControlsTarget = null
-    this.rowControlsTargetIndex = 1
+    this.currentIndex = 0
 
     // Render elements
     this.render()
@@ -34,7 +32,6 @@ class InlineRow extends InlineControl {
 
     this.$rowControls.on('click.inlinerow', 'button', this.onControlClick.bind(this))
     this.$rowToggle.on('click.inlinerow', this.onRowToggleClick.bind(this))
-    $(document).on('mousemove.inlinerow', this.onMouseMove.bind(this))
     this.quill.on(Quill.events.EDITOR_CHANGE, this.onEditorChange.bind(this))
   }
 
@@ -43,7 +40,6 @@ class InlineRow extends InlineControl {
 
     this.$rowControls.off('click.inlinerow', 'button')
     this.$rowToggle.off('click.inlinerow')
-    $(document).off('mousemove.inlinerow')
     this.quill.off(Quill.events.EDITOR_CHANGE, this.onEditorChange)
   }
 
@@ -62,69 +58,38 @@ class InlineRow extends InlineControl {
     this.addControls(this.$rowControls, this.options, 'ql-inline-row__')
   }
 
-  positionToggle () {
-    // Only update when the controls are closed
-    if(!this.isRowControlsOpen) {
-      let bounds = null
+  update () {
+    // Get range for current selection
+    const range = this.quill.getSelection()
 
-      // We try to find bounds based on the mouse position first
-      // We'll look for a block (not inline) element in the editor with the same y position
-      // We move x to the right side of the document to avoid the row controls that can be animating above the element
-      const $editor = $(this.quill.container).find('.ql-editor')
-      const mouseX = $editor.offset().left + parseInt($editor.css('border-left-width')) + parseInt($editor.css('margin-left')) + parseInt($editor.css('padding-left')) + $editor.width() - 10 // Subtracting 10 pixels extra here just to be safe
-      const mouseY = this.clientY
+    // Use previous index if the range is empty,
+    // e.g. if the user clicks on the toggle which removes focus from the editor
+    const index = (range !== null) ? range.index : this.currentIndex
 
-      // Find an element under the new point
-      const element = document.elementFromPoint(mouseX, mouseY)
+    // Update index
+    this.currentIndex = index
 
-      // Find the closest block level parent
-      const $block = $(element).closest('h1, h2, h3, h4, ul, ol, p, pre, table, img')
+    // Show the toggle if the index is on a new empty line
+    if( this.isOnStartOfNewLine(this.currentIndex) ) {
+      this.showRowToggle()
 
-      // Double check that the block is within the editor
-      if( $block.closest('.ql-editor').length > 0 ) {
-
-        // Store a reference to the new target
-        this.rowControlsTarget = $block.get(0)
-
-        // Get the bounds
-        bounds = {
-          top: $block.position().top,
-          left: $block.position().left,
-          width: $block.outerWidth(),
-          height: $block.outerHeight(),
-        }
-      }
-
-      // Show and position based on the mouse position if it's over the page
-      if(bounds && this.isMouseOverLeftHalfOfPage()) {
-        // Add the element's top margin to the position
-        bounds.top = bounds.top + parseInt($block.css('margin-top'))
-
-        this.showRowToggle(bounds)
-
-      // Show and position based on the focused row if the row is's empty
-      } else if (this.quill.hasFocus() && this.isOnStartOfNewLine()) {
-
-        // Get the bounds of the row
-        const range = this.quill.getSelection()
-        bounds = this.quill.getBounds(range)
-
-        this.showRowToggle(bounds)
-
-      // Hide if the mouse is not over the page and the focus is not on an empty row
-      } else {
-        this.hideRowToggle()
-      }
+    // Other wise hide both the toggle and the controls
+    } else {
+      this.hideRowToggle()
+      this.hideRowControls()
     }
   }
 
-  showRowToggle (bounds) {
+  showRowToggle () {
+    // Get the bounds of the current row
+    const bounds = this.quill.getBounds(this.currentIndex, 0)
+
     // Positon toggle
     this.$rowToggle.css({
       top: bounds.top
     })
 
-    // Show the row toggle
+    // Show toggle
     this.$rowToggle.addClass('ql-inline-row__toggle--visible')
   }
 
@@ -137,18 +102,13 @@ class InlineRow extends InlineControl {
     if(this.isRowControlsOpen) {
       this.hideRowControls()
 
-    // Otherwise show the controls and push the content down by inserting and empty row
+    // Otherwise show the controls
     } else {
       this.showRowControls()
     }
-
-    this.positionToggle()
   }
 
   showRowControls () {
-    if(this.isRowControlsOpen) return
-
-    // Update state
     this.isRowControlsOpen = true
 
     // Position controls
@@ -156,96 +116,33 @@ class InlineRow extends InlineControl {
       top: this.$rowToggle.position().top
     })
 
-    // Find an index where the new row should be inserted
-    if(this.rowControlsTarget) {
-      // Search for the dom node's corresponing blot
-      const blot = Quill.find(this.rowControlsTarget)
-
-      if(blot) {
-        // Get the index for the start of the blot
-        this.rowControlsTargetIndex = this.quill.getIndex(blot)
-      } else {
-        this.rowControlsTargetIndex = 1
-      }
-    } else {
-      this.rowControlsTargetIndex = 1
-    }
-
-    // Insert a new row unless it's already empty
-    let [leaf, offset] = this.quill.getLeaf(this.rowControlsTargetIndex)
-
-    // if(leaf && leaf.constructor.name !== 'Break') {
-      this.quill.insertText(this.rowControlsTargetIndex, '\n', false, Quill.sources.USER)
-      this.quill.removeFormat(this.rowControlsTargetIndex, 0, Quill.sources.USER)
-    // }
-
     // Show the controls
     this.$rowControls.addClass('ql-inline-row__controls--open')
     this.$rowToggle.addClass('ql-inline-row__toggle--open')
   }
 
   hideRowControls () {
-    if(!this.isRowControlsOpen) return
-
-    // Update state
     this.isRowControlsOpen = false
-
-    // Remove the empty row if we earlier if we closed the controls without adding something
-    let [leaf, offset] = this.quill.getLeaf(this.rowControlsTargetIndex)
-
-    if( leaf !== null && leaf.constructor.name === 'Break' && leaf.parent.constructor.name === 'Block') {
-      this.quill.deleteText(this.rowControlsTargetIndex, 1, Quill.sources.USER)
-    }
 
     // Hide the controls
     this.$rowControls.removeClass('ql-inline-row__controls--open')
     this.$rowToggle.removeClass('ql-inline-row__toggle--open')
   }
 
-  isMouseOverLeftHalfOfPage () {
-    const containerOffset = $(this.quill.container).offset()
-
-    const minX = containerOffset.left
-    const maxX = containerOffset.left + 300
-    const minY = containerOffset.top
-    const maxY = containerOffset.top + $(this.quill.container).outerHeight()
-
-    if(this.pageX >= minX && this.pageX <= maxX && this.pageY >= minY && this.pageY <= maxY) {
-      return true
-    } else {
-      return false
-    }
-  }
-
-  isOnStartOfNewLine () {
+  isOnStartOfNewLine (index) {
     let isOnNewLine = false
-    const range = this.quill.getSelection()
 
-    if(range !== null && range.length === 0) {
+    // Check if the current range is on a new empty line
+    // TODO Is there a better way to check for empty new lines? (not empty headlines etc.)
+    let [leaf, offset] = this.quill.getLeaf(index)
 
-      // Check if the current range is on a new empty line
-      // TODO Is there a better way to check for empty new lines? (not empty headlines etc.)
-      let [leaf, offset] = this.quill.getLeaf(range.index)
-
-      if( leaf !== null && leaf.constructor.name === 'Break' && leaf.parent.constructor.name === 'Block') {
-        isOnNewLine = true
-      } else {
-        isOnNewLine = false
-      }
+    if( leaf !== null && leaf.constructor.name === 'Break' && leaf.parent.constructor.name === 'Block') {
+      isOnNewLine = true
     } else {
       isOnNewLine = false
     }
 
     return isOnNewLine
-  }
-
-  onMouseMove (e) {
-    this.clientX = e.clientX
-    this.clientY = e.clientY
-    this.pageX = e.pageX
-    this.pageY = e.pageY
-
-    this.positionToggle()
   }
 
   onRowToggleClick (e) {
@@ -262,19 +159,16 @@ class InlineRow extends InlineControl {
     const format = $control.data('format')
     const value = $control.data('value')
 
-    this.quill.formatLine(this.rowControlsTargetIndex, 1, format, value, Quill.sources.USER)
-    this.quill.setSelection(this.rowControlsTargetIndex, 0)
+    // Format row
+    this.quill.formatLine(this.currentIndex, 1, format, value, Quill.sources.USER)
+    this.quill.setSelection(this.currentIndex, 0)
   }
 
   onEditorChange (e) {
-    // Ignore the event if it's not a selection change
-    if (e !== Quill.events.SELECTION_CHANGE) return
-
-    // Hide the row controls when the selection changed
-    this.hideRowControls()
-
-    // Update positions
-    this.positionToggle()
+    // Listen for selection and text changes
+    if (e === Quill.events.SELECTION_CHANGE || e === Quill.events.TEXT_CHANGE) {
+      this.update()
+    }
   }
 
   destroy () {
@@ -283,7 +177,6 @@ class InlineRow extends InlineControl {
     this.$rowControls.remove()
     this.$rowToggle.remove()
     this.$controls.remove()
-    this.rowControlsTarget = null
   }
 }
 
