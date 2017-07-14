@@ -58,7 +58,7 @@
       $('.page-tree__active').children('.page-tree__page-link').html(val)
     })
 
-    const statusMessage = new Spaces.PageStatusMessage({ attachTo: ".edit-toolbar__status" })
+    const statusMessage = new Spaces.PageStatusMessage({ attachTo: ".space-page__status" })
 
     new Spaces.Editor({ attachTo: '#page-editor',
                         statusMessage: statusMessage,

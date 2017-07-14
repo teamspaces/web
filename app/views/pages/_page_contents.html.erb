@@ -24,7 +24,7 @@
   </div>
 
   <div class="space-page__meta">
-    <p><%= number_of_words_to_minutes_reading(page.word_count) %> minute read. Updated <%= time_ago_in_words(page.updated_at) %> ago.</p>
+    <p><%= number_of_words_to_minutes_reading(page.word_count) %> minute read. <span class="space-page__status">Updated <%= time_ago_in_words(page.updated_at) %> ago.</span></p>
   </div>
 
   <div id="page-editor" class="space-page__content"></div>
