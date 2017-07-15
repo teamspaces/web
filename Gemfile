@@ -11,6 +11,7 @@ gem "pg"
 gem "mongoid"
 gem "puma"
 gem "sidekiq"
+gem 'webpacker', '~> 2.0'
 
 gem "thor"
 gem "terminal-table"
