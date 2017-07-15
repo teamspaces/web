@@ -80,6 +80,7 @@
 
     button {
       transform: scale(1) translate(0, 0) !important;
+      pointer-events: auto;
     }
   }
 
@@ -95,6 +96,7 @@
     background-color: transparent;
     background-position: center center;
     background-repeat: no-repeat;
+    pointer-events: none; // Disables pointer events during the close animation
     transition: all 0.8s $easing;
 
     &:nth-child(1) {
