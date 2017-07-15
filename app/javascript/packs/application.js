@@ -31,3 +31,7 @@ const dropdowns = new Dropdowns()
 
 
 import '../stylesheets/application.scss';
+
+import '../static/default_space_cover.jpg';
+import '../static/default_team_logo.jpg';
+import '../static/default_user_avatar.jpg';
