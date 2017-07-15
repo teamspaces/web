@@ -5,9 +5,9 @@
   left: 0;
   z-index: 1;
   width: 240px;
-  height: calc(100vh - 96px - 60px);
+  height: calc(100vh - 96px);
   background: #F9FAFC;
-  padding: 7px 0 60px 36px;
+  padding: 7px 0 0 36px;
   overflow: auto;
 
   &:hover, &:active, &:focus {
@@ -61,7 +61,32 @@
   }
 }
 
+.space-toc--fixed-actions {
+  padding-bottom: 12px;
+
+  .space-toc__actions {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  .space-toc__fixed-actions {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.space-toc__inner {
+  // We measure this container with javascript instead of .space-toc
+  // to ensure that the scrollbar isn't included in the measurement
+}
+
 .space-toc__actions {
+  visibility: visible;
+  opacity: 1;
+  // transition: all 1s ease-in-out;
+}
+
+.space-toc__fixed-actions {
   position: fixed;
   bottom: 0;
   left: 0;
@@ -69,7 +94,10 @@
   width: 240px;
   height: 60px;
   padding: 0 60px 0 36px;
-  background: #F7FAFC;
+  background-color: #F7FAFC;
+  visibility: hidden;
+  opacity: 0;
+  // transition: all 1s ease-in-out;
 
   &:before {
     display: block;
@@ -91,7 +119,7 @@
   font-size: 13px;
   line-height: 24px;
   color: $color-text-third;
-  padding: 12px 0 12px 36px;
+  padding: 18px 0 18px 36px;
   transition: all 0.4s $easing;
 
   &:hover, &:active, &:focus {
@@ -107,7 +135,7 @@
     display: block;
     content: " ";
     position: absolute;
-    top: 12px;
+    top: 18px;
     left: 0;
     width: 24px;
     height: 24px;
