@@ -3,7 +3,7 @@
   z-index: 2;
   padding: 0;
   width: 100%;
-  min-height: 100vh;
+  min-height: calc(100vh - 60px);
   background: #fff;
   margin-top: 48px;
 }
@@ -12,7 +12,7 @@
   position: relative;
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center center;
+  background-position: top center;
   padding: 169px 24px 47px 24px;
 
   // Overlay
