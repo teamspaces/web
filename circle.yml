@@ -10,7 +10,7 @@ dependencies:
     - yarn add --force node-sass # Because it breaks every now and then...
     - bundle install --path=vendor/bundle --jobs 20 --retry 20
     - yarn global add webpack
-    - webpack
+    - ./bin/webpack
 
 machine:
 
