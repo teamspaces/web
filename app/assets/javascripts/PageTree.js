@@ -1,3 +1,6 @@
+// Adding path as the main path is incorrect in the package
+import '../../../vendor/assets/javascripts/jquery.mjs.nestedSortable'
+
 class PageTree {
 
   constructor({container, onChange}) {
