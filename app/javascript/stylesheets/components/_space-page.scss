@@ -1,29 +1,19 @@
-/**
- * Page
- */
 .space-page {
-  margin: 0 auto;
-  padding: 60px 0 60px 0;
+  width: 100%;
+  min-height: 100vh;
+  padding: 81px 24px;
+  background: #fff;
 }
 
-
-
-/**
- * Page meta
- */
 .space-page__meta {
-  font-size: 16px;
-  color: #A6A6A6;
-  margin: 12px 0 0 0;
+  font-size: 13px;
+  line-height: 24px;
+  color: $color-text-faded;
+  margin-top: 10px;
 }
 
-
-
-/**
- * Page content
- */
 .space-page__content {
-  padding-top: 21px;
+  padding-top: 36px;
 
   // Remove margins from elements and let users control this with linebreaks instead, i.e. <p><br></p> in the editor
   h2, h3, h4, h5, h6, p, ul, ol, pre, table, form, label {
@@ -44,7 +34,7 @@
     }
   }
 
-  // Style images
+  // Images
   img {
     border-radius: 5px;
   }
@@ -66,30 +56,58 @@
   }
 
   li {
-    margin-top: 6px;
+    margin-top: 12px;
 
     &:first-child {
       margin-top: 0;
     }
   }
+
+  // Intented list
+  .ql-indent-1 {
+    margin-left: 18px;
+  }
+
+  .ql-indent-2 {
+    margin-left: 36px;
+  }
+
+  .ql-indent-3 {
+    margin-left: 54px;
+  }
+
+  .ql-indent-4 {
+    margin-left: 72px;
+  }
+
+  .ql-indent-5 {
+    margin-left: 90px;
+  }
+
+  .ql-indent-6 {
+    margin-left: 108px;
+  }
+
+  .ql-indent-7 {
+    margin-left: 126px;
+  }
+
+  .ql-indent-8 {
+    margin-left: 144px;
+  }
 }
 
 
 
-/**
- * Edit page
- */
+// Edit
 .space-page.space-page--edit {
-  padding-top: 32px;
-  padding-bottom: 120px;
-
   form {
     margin: 0;
   }
 
   input[type=text] {
-    font-size: 36px;
-    font-weight: 300;
+    font-size: 31px;
+    font-weight: normal;
     line-height: 48px;
     height: 48px;
     color: $color-title;
@@ -104,21 +122,21 @@
     }
 
     &::-webkit-input-placeholder {
-      color: #999;
+      color: $color-text-faded;
     }
 
     &::-moz-placeholder {
-      color: #999;
+      color: $color-text-faded;
     }
 
     &:-ms-input-placeholder {
-      color: #999;
+      color: $color-text-faded;
     }
   }
 
   .ql-editor.ql-blank::before {
     font-style: normal;
-    color: #999;
+    color: $color-text-faded;
   }
 }
 
@@ -126,8 +144,68 @@
   position: relative;
 }
 
-@media (min-width: 1400px) {
+
+
+// Medium viewports
+@media (min-width: 769px) {
   .space-page {
-    padding-top: 84px;
+    width: calc( 100vw - 240px );
+    min-height: calc( 100vh - 60px );
+    padding: 85px 96px;
+    float: left;
+    border-left: 1px solid #EEEFF0;
+  }
+
+  .space-page__meta {
+    margin-top: 6px;
+  }
+
+  .space-page__content {
+    padding-top: 35px;
+  }
+
+  .space-page--edit .space-page__content {
+    padding-top: 29px;
+  }
+}
+
+
+
+// Large viewports
+@media (min-width: 1260px) {
+  .space-page {
+    width: calc( 100vw - 240px - 240px );
+    min-height: calc( 100vh - 60px - 36px );
+    padding: 97px 108px 96px 96px;
+    margin-top: 36px;
+    margin-bottom: 36px;
+    border-left: 0;
+    border-radius: 5px;
+    box-shadow: 0 0 1px rgba(0,0,0,0.12), 0 4px 10px rgba(0,0,0,0.03);
+  }
+
+  .space-page--edit {
+    margin-bottom: 0;
+    border-radius: 5px 5px 0 0;
+    padding-bottom: 144px;
+  }
+}
+
+@media (min-width: 1360px) {
+  .space-page {
+    width: calc( 100vw - 264px - 264px );
+  }
+}
+
+@media (min-width: 1420px) {
+  .space-page {
+    width: calc( 100vw - 276px - 276px );
+    padding: 97px 120px 96px 108px;
+  }
+}
+
+@media (min-width: 1460px) {
+  .space-page {
+    width: 900px;
   }
 }

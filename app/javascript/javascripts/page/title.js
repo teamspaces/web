@@ -17,13 +17,13 @@ class PageTitle {
 
   save(){
     this.page.update({title: this.title()})
-        .then(response => this.statusMessage.update("SAVED"))
+        .then(response => this.statusMessage.update("All changes have been saved"))
         .catch(error => Raven.captureException(error));
   };
 
   addEventListeners(){
     this.input.keyup(() => {
-        this.statusMessage.update("SAVING...");
+        this.statusMessage.update("Saving...");
 
         clearTimeout(this.title_change_timer);
         // wait for more changes

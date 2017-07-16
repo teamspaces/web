@@ -20,27 +20,12 @@
   </head>
 
   <body class="<%= content_for :body_class %>">
-    <header class="topbar">
-      <input type="text" placeholder="Search" class="topbar__search" tabindex="1">
 
-      <%= render "layouts/dropdown_accounts" %>
+    <!-- Main navigation for smaller viewports -->
+    <%= render "layouts/mobile_navigation" %>
 
-      <nav>
-        <ul>
-          <li>
-            <%= render "layouts/dropdown_spaces" %>
-          </li>
-
-          <li>
-            <%= render "layouts/dropdown_teams" %>
-          </li>
-
-          <li>
-            <a href="#" class="topbar-support drift-open-chat">Help</a>
-          </li>
-        </ul>
-      </nav>
-    </header>
+    <!-- Main navigation for larger viewports -->
+    <%= render "layouts/topbar" %>
 
     <% if notice %>
       <div class="message message--notice"><%= notice %></div>

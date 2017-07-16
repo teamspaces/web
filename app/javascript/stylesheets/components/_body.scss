@@ -1,7 +1,17 @@
 /**
  * Use the body namespace whenever you need to add classes to the body.
- * You would often use these selectors in child components.
+ * .body--modifier
  */
-.body-space {
-  background: #fff;
+
+.body {}
+
+.body--mobile-no-scroll {
+  overflow: hidden;
+}
+
+// Medium viewports
+@media (min-width: 769px) {
+  .body--mobile-no-scroll {
+    overflow: auto;
+  }
 }

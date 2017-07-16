@@ -19,6 +19,11 @@ class ApplicationController < ActionController::Base
     root_url(subdomain: ENV["DEFAULT_SUBDOMAIN"])
   end
 
+  helper_method :current_team
+  def current_team
+    subdomain_team
+  end
+
   helper_method :on_team_subdomain?
   def on_team_subdomain?
     subdomain_team.present?
