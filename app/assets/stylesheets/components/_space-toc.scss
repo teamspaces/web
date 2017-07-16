@@ -93,6 +93,15 @@
     background: linear-gradient(rgba(247, 250, 252, 0), rgba(247, 250, 252, 1));
     pointer-events: none;
   }
+
+  .space-toc__new-page {
+    padding-top: 12px;
+    padding-bottom: 24px;
+
+    &:before {
+      top: 12px;
+    }
+  }
 }
 
 .space-toc__new-page {
