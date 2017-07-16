@@ -2,11 +2,7 @@ import InlineControl from './InlineControl'
 import Quill from 'quill'
 import Break from 'quill/blots/break'
 import $ from 'jquery'
-
-
-// on change, if empty store index
-
-
+import tippy from 'tippy.js/dist/tippy'
 
 class InlineRow extends InlineControl {
   constructor (quill, options) {
@@ -15,6 +11,7 @@ class InlineRow extends InlineControl {
     // References to elements that will be created by this module
     this.$rowControls = null
     this.$rowToggle = null
+    this.tip = null
 
     // State for row controls
     this.isRowControlsOpen = false
@@ -48,7 +45,7 @@ class InlineRow extends InlineControl {
 
     // Create row controls and toggle
     this.$rowControls = $('<div>', {class: 'ql-inline-row__controls'})
-    this.$rowToggle = $('<div>', {class: 'ql-inline-row__toggle'})
+    this.$rowToggle = $('<div>', {class: 'ql-inline-row__toggle', title: 'Insert'})
 
     // Add new elements in the quill editor container
     this.quill.addContainer( this.$rowControls.get(0) )
@@ -56,6 +53,21 @@ class InlineRow extends InlineControl {
 
     // Add controls
     this.addControls(this.$rowControls, this.options, 'ql-inline-row__')
+
+    // Create tooltip
+    this.tip = tippy('.ql-inline-row__toggle', {
+      position: 'top',
+      arrow: true,
+      arrowSize: 'small',
+      animation: 'shift',
+      delay: [100, 0],
+      distance: -3,
+      size: 'regular',
+      theme: 'spaces',
+      sticky: true,
+      animateFill: false,
+      zIndex: 99
+    })
   }
 
   update () {
@@ -185,6 +197,7 @@ class InlineRow extends InlineControl {
     this.$rowControls.remove()
     this.$rowToggle.remove()
     this.$controls.remove()
+    this.tip.destroyAll()
   }
 }
 

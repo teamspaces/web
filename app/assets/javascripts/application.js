@@ -6,6 +6,7 @@ import PageTree from './PageTree'
 import PageHierarchy from './PageHierarchy'
 import Dropdowns from './dropdowns'
 import SpaceSidebar from './SpaceSidebar'
+import tippy from 'tippy.js/dist/tippy'
 
 window.Spaces = {
   Editor: Editor,
@@ -18,3 +19,19 @@ window.Spaces = {
 }
 
 const dropdowns = new Dropdowns()
+
+// Tooltips
+$(function() {
+  tippy('.tippy', {
+    position: 'top',
+    arrow: true,
+    arrowSize: 'small',
+    animation: 'shift',
+    delay: [100, 0],
+    size: 'regular',
+    theme: 'spaces',
+    sticky: true,
+    animateFill: false,
+    zIndex: 99
+  })
+})

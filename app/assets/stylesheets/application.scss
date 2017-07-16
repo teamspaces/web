@@ -4,6 +4,7 @@
 // Import from packages in node_modules
 @import '~highlight.js/styles/atom-one-light.css';
 @import '~perfect-scrollbar/dist/css/perfect-scrollbar.css';
+@import '~tippy.js/dist/tippy.css';
 // @import '../../../vendor/assets/stylesheets/quill.snow.css';
 
 // Base
@@ -24,6 +25,7 @@
 @import 'components/overflow-toggle';
 @import 'components/perfect-scrollbar';
 @import 'components/team-icon';
+@import 'components/tippy';
 
 // TODO Refactor, all components should start with space
 @import 'components/mobile-space-navigation';
