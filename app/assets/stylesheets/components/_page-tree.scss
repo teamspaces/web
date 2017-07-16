@@ -33,7 +33,7 @@
   height: 48px;
   color: $color-text-secondary;
   border-bottom: 1px dotted #E1E3E6;
-  padding-right: 36px;
+  padding-right: 24px;
 
   &:hover, &:focus, &:active {
    color: #A7A9AE;
@@ -67,7 +67,7 @@
 .page-tree__edit-actions {
   position: absolute;
   top: 3px;
-  right: 16px;
+  right: -4px;
   z-index: 1;
   opacity: 0;
   transition: all 0.4s;
@@ -127,7 +127,7 @@
 // Large viewports
 @media (min-width: 1260px) {
   .page-tree__page-link {
-    padding-right: 60px;
+    // padding-right: 60px;
   }
 }
 
