@@ -1,4 +1,5 @@
 .avatar {
+  display: inline-block;
   position: relative;
 
   img {
@@ -29,27 +30,18 @@
   }
 }
 
-.avatars {
-  @include clearfix;
-  display: inline-block;
-  transition: all 0.2s;
-
-  &:hover, &:active, &:focus {
-    transform: scale(1.05);
-  }
-
-  .avatar, .avatars__add {
-    display: block;
-    float: left;
-    margin: 0 3px;
-  }
-}
-
-.avatars__add {
-  display: block;
-  width: 24px;
-  height: 24px;
-  border-radius: 12px;
-  background: $color-primary url(../images/space/add-member-icon.svg) no-repeat center center;
-  border: 1px solid #2C8E46;
-}
+// .avatars {
+//   @include clearfix;
+//   display: inline-block;
+//   transition: all 0.2s;
+//
+//   &:hover, &:active, &:focus {
+//     transform: scale(1.05);
+//   }
+//
+//   .avatar, .avatars__add {
+//     display: block;
+//     float: left;
+//     margin: 0 3px;
+//   }
+// }

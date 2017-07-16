@@ -1,0 +1,42 @@
+.card {
+  width: 684px;
+  background: #fff;
+  border-radius: 6px;
+  border: 1px solid #EBEDF0;
+  margin: 0 auto;
+
+  header {
+    padding: 30px 48px 29px 48px;
+    border-bottom: 1px solid #EBEDF0;
+
+    h1 {
+      font-size: 20px;
+      line-height: 24px;
+      font-weight: 400;
+      letter-spacing: 0;
+      color: $color-text-primary;
+      margin: 0;
+    }
+  }
+}
+
+.card__content {
+  @include clearfix;
+  padding: 48px;
+
+  > *:first-child {
+    margin-top: 0;
+  }
+
+  .button, input[type=submit] {
+    float: right;
+  }
+}
+
+.card__actions {
+  float: left;
+  margin: 48px 0 0 0;
+  color: #ccc;
+  font-size: 12px;
+  line-height: 48px;
+}

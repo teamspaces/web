@@ -7,16 +7,13 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
-console.log('Hello World from Webpacker');
-
-
-import Editor from '../javascripts/editor'
-import Page from '../javascripts/page'
-import PageStatusMessage from '../javascripts/page/status_message'
-import PageTitle from '../javascripts/page/title'
-import PageTree from '../javascripts/page_tree'
-import PageHierarchy from '../javascripts/page_hierarchy'
-import Dropdowns from '../javascripts/dropdowns'
+import Editor from './editor'
+import Page from './page'
+import PageStatusMessage from './page/status_message'
+import PageTitle from './page/title'
+import PageTree from './page_tree'
+import PageHierarchy from './page_hierarchy'
+import Dropdowns from './dropdowns'
 
 window.Spaces = {
   Editor: Editor,
@@ -29,9 +26,11 @@ window.Spaces = {
 
 const dropdowns = new Dropdowns()
 
+// stylesheets
+import '../stylesheets/application.scss'
 
-import '../stylesheets/application.scss';
-
-import '../static/default_space_cover.jpg';
-import '../static/default_team_logo.jpg';
-import '../static/default_user_avatar.jpg';
+// images
+import '../static/default_space_cover.jpg'
+import '../static/default_team_logo.jpg'
+import '../static/default_user_avatar.jpg'
+import '../static/spaces-logo.svg'

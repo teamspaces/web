@@ -1,0 +1,72 @@
+.edit-toolbar {
+  position: fixed;
+  bottom: 0;
+  left: 240px;
+  z-index: 100;
+  width: calc( 100vw - 240px - 240px );
+  height: 61px;
+  padding: 0 96px;
+  background: #fff;
+  border-top: 1px solid #F0F1F2;
+}
+
+.ql-toolbar {
+  position: fixed;
+  bottom: 10px;
+  z-index: 101;
+  left: 240px;
+  margin-left: 80px;
+}
+
+.ql-snow .ql-picker.ql-expanded .ql-picker-options {
+  top: auto !important;
+  bottom: 100%;
+}
+
+.ql-snow .ql-tooltip {
+  visibility: visible !important;
+  z-index: 102;
+}
+
+.edit-toolbar__status {
+  display: block;
+  float: right;
+  font-size: 13px;
+  line-height: 60px;
+  color: $color-text-faded;
+}
+
+@media (min-width: 1360px) {
+  .edit-toolbar {
+    width: calc( 100vw - 264px - 264px );
+  }
+
+  .edit-toolbar, .ql-toolbar {
+    left: 264px;
+  }
+}
+
+@media (min-width: 1420px) {
+  .edit-toolbar {
+    width: calc( 100vw - 276px - 276px );
+    padding: 0 108px;
+  }
+
+  .edit-toolbar, .ql-toolbar {
+    left: 276px;
+  }
+
+  .ql-toolbar {
+    margin-left: 92px;
+  }
+}
+
+@media (min-width: 1460px) {
+  .edit-toolbar {
+    width: 900px;
+  }
+
+  .edit-toolbar, .ql-toolbar {
+    left: calc( (100vw - 900px) / 2 );
+  }
+}

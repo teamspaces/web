@@ -1,0 +1,233 @@
+html {
+}
+
+body {
+  background: #F9FAFC;
+  -webkit-font-smoothing: antialiased;
+  font: normal 15px/24px $font-family;
+  color: $color-text-primary;
+}
+
+main {
+  padding: 84px 0 84px 0;
+}
+
+
+
+/**
+ * Code blocks
+ */
+pre {
+  background-color: #f7f7f7;
+  padding: 10px 15px;
+  border-radius: 5px;
+}
+
+
+
+/**
+ * Links
+ */
+a {
+  color: $color-primary;
+  text-decoration: none;
+  transition: color 0.2s, opacity 0.2s;
+
+  &:hover, &:active, &:focus {
+    color: #67D4AC;
+    text-decoration: none;
+  }
+}
+
+
+
+/**
+ * Images
+ */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+
+
+/**
+ * Text
+ */
+h1, h2, h3, h4, h5, h6 {
+  margin: 36px 0 0 0;
+}
+
+h1 {
+  font-size: 26px;
+  font-weight: normal;
+  font-family: $font-family;
+  line-height: 36px;
+  color: $color-title;
+  margin-top: 0;
+}
+
+h2 {
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 24px;
+  color: $color-title;
+  position: relative;
+  // top: -3px;
+}
+
+h3, h4, h5, h6 {
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 24px;
+  color: $color-title;
+  position: relative;
+  // top: -1px;
+}
+
+p {
+  margin: 24px 0 0 0;
+}
+
+b, strong {
+  font-weight: bold;
+}
+
+
+
+/**
+ * Tables
+ */
+ table, tr, th, td {
+   border: 0;
+   margin: 0;
+   padding: 0;
+ }
+
+ table {
+   border-collapse: collapse;
+   width: 100%;
+   margin-top: 24px;
+ }
+
+ thead {
+   border-bottom: 1px solid #EBEDF0;
+ }
+
+ tbody tr {
+   border-bottom: 1px solid #EBEDF0;
+ }
+
+ th, td {
+   font-size: 13px;
+   line-height: 18px;
+   padding: 15px 24px;
+   text-align: left;
+   vertical-align: top;
+   color: $color-text-primary;
+
+   &:first-child {
+     padding-left: 0;
+   }
+
+   &:last-child {
+     padding-right: 0;
+   }
+ }
+
+ th {
+   font-weight: bold;
+ }
+
+
+
+/**
+ * Lists
+ */
+ul, ol {
+  margin: 24px 0 0 0;
+}
+
+li {
+  font-size: 15px;
+  line-height: 24px;
+}
+
+
+
+/**
+ * Forms
+ */
+form {
+  margin: 24px 0 0 0;
+  padding: 0;
+}
+
+label {
+  display: block;
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 24px;
+  color: $color-text-primary;
+  margin: 24px 0 0 0;
+
+  &:first-of-type {
+    margin-top: 0;
+  }
+}
+
+input[type=text], input[type=password], input[type=email] {
+  display: block;
+  width: 100%;
+  height: 60px;
+  font-family: $font-family;
+  font-size: 15px;
+  font-weight: normal;
+  line-height: 24px;
+  padding: 17px 24px;
+  background: #fff;
+  border: 1px solid #E1E3E6;
+  border-radius: 5px;
+  color: $color-text-primary;
+  margin: 12px 0 0 0;
+}
+
+input[type=submit] {
+  display: inline-block;
+  width: auto;
+  font-size: 15px;
+  font-weight: normal;
+  line-height: 18px;
+  background: $color-primary;
+  color: #fff;
+  margin: 48px 0 0 0;
+  padding: 12px 24px;
+  text-align: center;
+  border-radius: 5px;
+  border: 0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &:hover, &:active, &:focus {
+    opacity: 0.8;
+    color: #fff;
+    outline: 0;
+  }
+}
+
+.checkbox, .radio {
+  margin: 12px 0 0 0;
+}
+
+// Medium viewports
+@media (min-width: 769px) {
+  body {
+    padding-top: 60px;
+  }
+
+  h1 {
+    font-size: 31px;
+    line-height: 48px;
+  }
+}

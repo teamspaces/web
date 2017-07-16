@@ -1,0 +1,20 @@
+.message {
+  padding: 84px 24px 24px 24px;
+  background: #d9edf7;
+  border-bottom: 1px solid #bce8f1;
+  color: #31708f;
+  margin-bottom: -72px;
+}
+
+.message--notice {
+}
+
+.message--alert {
+  background-color: #f2dede;
+  color: #a94442;
+  border-color: #ebccd1;
+}
+
+.body-no-topbar .message {
+  padding-top: 24px;
+}
