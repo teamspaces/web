@@ -7,13 +7,13 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
-import Editor from './editor'
-import Page from './page'
-import PageStatusMessage from './page/status_message'
-import PageTitle from './page/title'
-import PageTree from './page_tree'
-import PageHierarchy from './page_hierarchy'
-import Dropdowns from './dropdowns'
+import Editor from '../javascripts/editor'
+import Page from '../javascripts/page'
+import PageStatusMessage from '../javascripts/page/status_message'
+import PageTitle from '../javascripts/page/title'
+import PageTree from '../javascripts/page_tree'
+import PageHierarchy from '../javascripts/page_hierarchy'
+import Dropdowns from '../javascripts/dropdowns'
 
 window.Spaces = {
   Editor: Editor,
