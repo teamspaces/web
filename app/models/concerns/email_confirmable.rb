@@ -6,7 +6,7 @@ module EmailConfirmable
   end
 
   def email_to_confirm_changed?
-    allow_email_login && (email_changed? || unconfirmed_email_changed?)
+    allow_email_login && (saved_change_to_email? || saved_change_to_unconfirmed_email?)
   end
 
   def confirmation_instructions_sent?
@@ -47,4 +47,3 @@ module EmailConfirmable
     allow_email_login && super
   end
 end
-
