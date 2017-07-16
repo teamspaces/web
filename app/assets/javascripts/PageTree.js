@@ -15,7 +15,7 @@ class PageTree {
       handle: 'a',
       items: 'li',
       listType: 'ul',
-      toleranceElement: '> a',
+      toleranceElement: '.page-tree__page-inner > a',
       isTree: true,
       relocate: this.relocate.bind(this)
     });
