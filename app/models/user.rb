@@ -39,7 +39,7 @@ class User < ApplicationRecord
       # If the record is new or changed then delay the
       # delivery until the after_commit callback otherwise
       # send now because after_commit will not be called.
-      if new_record? || saved_changes?
+      if new_record? || changed?
         pending_notifications << [notification, args]
       else
         # Devise: send emails with background job
