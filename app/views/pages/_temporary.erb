@@ -15,9 +15,8 @@
 <nav class="space-toc" id="space-toc">
   <div class="space-toc__inner">
     <h3>
-      <%= link_to edit_space_path(@page.space) do %>
-      <%= @page.space.name %>
-      <span></span>
+      <%= link_to edit_space_path(@page.space), class: "tippy", title: "Space settings", "data-distance": "15", "data-position": "right", "data-sticky": "false" do %>
+        <span><%= @page.space.name %></span>
       <% end %>
     </h3>
 

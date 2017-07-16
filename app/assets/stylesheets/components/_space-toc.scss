@@ -11,17 +11,13 @@
   overflow: auto;
 
   &:hover, &:active, &:focus {
-    h3 span {
-      opacity: 1;
-      top: 0;
-    }
-
     .page-tree__toggle {
       opacity: 1;
     }
   }
 
   h3 {
+    @include ellipsis;
     position: relative;
     margin: 0;
     font-size: 13.5px;
@@ -30,25 +26,11 @@
     color: $color-text-secondary;
 
     a {
-      @include ellipsis;
-      display: block;
       color: $color-text-secondary;
 
       &:hover, &:focus, &:active {
         color: #A7A9AE;
       }
-    }
-
-    span {
-      display: block;
-      position: absolute;
-      top: 5px;
-      right: 6px;
-      height: 24px;
-      width: 30px;
-      background: #F9FAFC url(../images/space/toc-settings.svg) no-repeat center center;
-      opacity: 0;
-      transition: all 0.4s;
     }
   }
 
