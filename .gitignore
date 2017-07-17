@@ -3,7 +3,7 @@
 !/log/.keep
 !/tmp/.keep
 
-/node_modules
+
 /yarn-error.log
 
 .byebug_history
@@ -19,6 +19,4 @@ public/images/
 public/javascripts/
 /public/packs
 /public/packs-test
-/node_modules
-/public/packs
 /node_modules
