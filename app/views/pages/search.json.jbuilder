@@ -15,6 +15,6 @@ json.array! @pages do |page|
 
   json.title page.search_highlights[:title] || page.title
   json.contents page.search_highlights[:contents]
-
+  json.url page_path(page)
   json.extract! page, :created_at, :updated_at
 end
