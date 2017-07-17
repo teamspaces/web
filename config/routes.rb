@@ -79,6 +79,11 @@ Rails.application.routes.draw do
     resource :reset_password, only: [:new, :create, :show]
   end
 
+  # Development routes
+  if Rails.env.development?
+    mount Searchjoy::Engine, at: "searchjoy"
+  end
+
   get :temporary_landing, to: "landing#index", path: "/landing"
 
   root "landing#blank"

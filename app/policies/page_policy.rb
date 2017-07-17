@@ -1,7 +1,11 @@
 class PagePolicy
   extend AliasMethods
 
-  attr_reader :default_context, :user, :team, :space, :page
+  attr_reader :default_context,
+              :user,
+              :team,
+              :space,
+              :page
 
   def initialize(default_context, page)
     @default_context = default_context
@@ -16,7 +20,8 @@ class PagePolicy
     team_page? && user_is_allowed_to_access_space?
   end
 
-  alias_methods :allowed_to_access?, [:show?, :new?, :edit?, :update?, :destroy?]
+  alias_methods :allowed_to_access?,
+                [:show?, :new?, :edit?, :update?, :destroy?, :search?]
 
   def create?
     team_page? &&

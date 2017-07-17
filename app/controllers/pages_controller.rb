@@ -112,6 +112,21 @@ class PagesController < SubdomainBaseController
     end
   end
 
+  def search
+    authorize @page, :search?
+
+    @search = Product.search(
+        params[:q],
+        fields: ["title^3", "content"],
+        misspellings: { below: 10 },
+        track: { user_id: current_user.id },
+        limit: 10
+      )
+
+    # TODO: Support json and html rendering...
+    render json: @search
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_page

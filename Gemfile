@@ -6,6 +6,7 @@ gem "pg"
 gem "mongoid"
 gem "puma"
 gem "sidekiq"
+gem "clockwork", require: false
 
 gem "thor"
 gem "terminal-table"
@@ -24,8 +25,13 @@ gem "authie", "~> 2.0"
 gem "pundit"
 gem 'omniauth-slack', git: 'https://github.com/teamspaces/omniauth-slack.git', branch: 'auth-hash-fixes'
 gem "httparty"
-gem "jwt"
-gem "json-schema"
+
+gem "oj" # Faster JSON
+gem "jwt" # API authorization
+gem "json-schema" # Verify JSON schemas
+
+gem "searchkick"
+gem "searchjoy"
 
 gem 'draper', "~> 3.0.0.pre1"
 
