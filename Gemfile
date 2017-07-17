@@ -7,7 +7,7 @@ gem "mongoid"
 gem "puma"
 gem "sidekiq"
 gem "sidekiq-symbols" # Adds symbol support to job arguments
-gem "clockwork", require: false
+gem "clockwork", require: false # Scheduler (config/schedule.rb)
 
 gem "thor"
 gem "terminal-table"
