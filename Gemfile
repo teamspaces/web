@@ -6,6 +6,7 @@ gem "pg"
 gem "mongoid"
 gem "puma"
 gem "sidekiq"
+gem "sidekiq-symbols" # Adds symbol support to job arguments
 gem "clockwork", require: false
 
 gem "thor"
@@ -30,6 +31,8 @@ gem "oj" # Faster JSON
 gem "jwt" # API authorization
 gem "json-schema" # Verify JSON schemas
 
+gem "elasticsearch"
+gem "faraday_middleware-aws-signers-v4"
 gem "searchkick"
 gem "searchjoy"
 

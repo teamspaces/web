@@ -131,6 +131,9 @@ GEM
       multipart-post (>= 1.2, < 3)
     faraday_middleware (0.10.1)
       faraday (>= 0.7.4, < 1.0)
+    faraday_middleware-aws-signers-v4 (0.1.7)
+      aws-sdk-resources (~> 2)
+      faraday (~> 0.9)
     ffi (1.9.14)
     gli (2.14.0)
     globalid (0.3.7)
@@ -311,6 +314,8 @@ GEM
       connection_pool (~> 2.2, >= 2.2.0)
       rack-protection (>= 1.5.0)
       redis (~> 3.2, >= 3.2.1)
+    sidekiq-symbols (0.1.1)
+      sidekiq
     skylight (1.0.1)
       activesupport (>= 3.0.0)
     slack-ruby-client (0.7.7)
@@ -377,7 +382,9 @@ DEPENDENCIES
   database_cleaner
   devise
   draper (~> 3.0.0.pre1)
+  elasticsearch
   envied
+  faraday_middleware-aws-signers-v4
   httparty
   image_processing
   inflorm
@@ -411,6 +418,7 @@ DEPENDENCIES
   shoulda-matchers (~> 2.0)
   shrine
   sidekiq
+  sidekiq-symbols
   skylight
   slack-ruby-client
   spring

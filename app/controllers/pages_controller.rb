@@ -1,46 +1,14 @@
 class PagesController < SubdomainBaseController
-  before_action :set_page, only: [:show, :edit, :update, :destroy]
+  before_action :set_page,
+                only: [:show, :edit, :update, :destroy]
 
   before_action :set_current_space,
-                :set_sample_users_query
+                :set_sample_users_query,
+                except: [:search]
 
   before_action :set_parent, only: [:create]
 
   layout 'client'
-
-  helper_method :number_of_words_to_minutes_reading
-  def number_of_words_to_minutes_reading(number_of_words)
-    reading_speed = 300
-    minutes = (number_of_words / reading_speed).floor
-    [minutes, 1].max
-  end
-
-  helper_method :editor_settings
-  def editor_settings
-    EditorSettingsHashPresenter
-      .new(controller: self,
-           user: current_user,
-           page: @page)
-      .to_hash
-      .to_json
-      .html_safe
-  end
-
-  helper_method :page_settings
-  def page_settings
-    PageSettingsHashPresenter.new(controller: self, page: @page)
-                             .to_hash
-                             .to_json
-                             .html_safe
-  end
-
-  helper_method :page_hierarchy_settings
-  def page_hierarchy_settings
-    PageHierarchyHashPresenter.new(controller: self, space: current_space)
-                              .to_hash
-                              .to_json
-                              .html_safe
-  end
 
   # GET /pages
   # GET /pages.json
@@ -112,19 +80,55 @@ class PagesController < SubdomainBaseController
     end
   end
 
+  # GET /page/search?q=bananas
+  # GET /page/search.json?q=bananas
   def search
-    authorize @page, :search?
-
-    @search = Product.search(
+    @pages = Page.search(
         params[:q],
-        fields: ["title^3", "content"],
-        misspellings: { below: 10 },
+        match: :word_start,
+        fields: ["title^3", "contents"],
+        misspellings: { below: 5, distance: 1 },
+        routing: [current_team.id],
         track: { user_id: current_user.id },
+        highlight: true,
+        includes: [:space, :team],
         limit: 10
       )
+    pp @pages.results
+  end
 
-    # TODO: Support json and html rendering...
-    render json: @search
+  helper_method :number_of_words_to_minutes_reading
+  def number_of_words_to_minutes_reading(number_of_words)
+    reading_speed = 300
+    minutes = (number_of_words / reading_speed).floor
+    [minutes, 1].max
+  end
+
+  helper_method :editor_settings
+  def editor_settings
+    EditorSettingsHashPresenter
+      .new(controller: self,
+           user: current_user,
+           page: @page)
+      .to_hash
+      .to_json
+      .html_safe
+  end
+
+  helper_method :page_settings
+  def page_settings
+    PageSettingsHashPresenter.new(controller: self, page: @page)
+                             .to_hash
+                             .to_json
+                             .html_safe
+  end
+
+  helper_method :page_hierarchy_settings
+  def page_hierarchy_settings
+    PageHierarchyHashPresenter.new(controller: self, space: current_space)
+                              .to_hash
+                              .to_json
+                              .html_safe
   end
 
   private

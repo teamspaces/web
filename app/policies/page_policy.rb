@@ -21,7 +21,7 @@ class PagePolicy
   end
 
   alias_methods :allowed_to_access?,
-                [:show?, :new?, :edit?, :update?, :destroy?, :search?]
+                [:show?, :new?, :edit?, :update?, :destroy?]
 
   def create?
     team_page? &&
