@@ -1,0 +1,60 @@
+.spaces-grid {
+  padding-bottom: 24px;
+}
+
+.spaces-grid__space {
+  background: #fff;
+  box-shadow: 0 0 1px rgba(0,0,0,0.25), 0 4px 10px rgba(0,0,0,0.03);
+  border-radius: 5px;
+  margin-top: 24px;
+  padding-bottom: 19px;
+  transition: box-shadow 1s $easing;
+
+  &:hover, &:active, &:focus {
+    box-shadow: 0 0 1px rgba(0,0,0,0.25), 0 10px 25px rgba(0,0,0,0.08);
+  }
+
+  h2 {
+    @include ellipsis;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 18px;;
+    color: $color-text-primary;
+    margin: 0;
+    padding: 22px 24px 0 24px;
+  }
+
+  p {
+    font-size: 13px;
+    line-height: 18px;
+    color: $color-text-faded;
+    margin: 0;
+    padding: 6px 24px 0 24px;
+  }
+
+  .overflow {
+    // TODO  Style
+    display: none;
+  }
+}
+
+.spaces-grid__cover {
+  width: 100%;
+  padding-bottom: 62.5%;
+  background-color: rgba(51, 51, 51, 0.1);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top center;
+  border-radius: 5px 5px 0 0;
+}
+
+// Medium viewports and up
+@media (min-width: 769px) {
+  .spaces-grid {
+    padding-bottom: 36px;
+  }
+
+  .spaces-grid__space {
+    margin-top: 36px;
+  }
+}

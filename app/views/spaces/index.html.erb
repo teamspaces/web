@@ -1,33 +1,66 @@
 <main>
-  <div class="card">
-    <header>
-      <h1>Spaces</h1>
-    </header>
+  <div class="title-bar">
+    <h1>Spaces</h1>
 
-    <div class="card__content">
-      <%= notice %>
+    <%= link_to 'New space', new_space_path, class: 'button button--medium button--outline' %>
+  </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th colspan="3"></th>
-          </tr>
-        </thead>
+  <div class="spaces-grid container-fluid">
+    <div class="row">
 
-        <tbody>
-          <% @spaces.each do |space| %>
-          <tr>
-            <td><%= space.name %></td>
-            <td><%= link_to 'View', space_pages_path(space) %></td>
-            <td><%= link_to 'Edit', edit_space_path(space) %></td>
-            <td><%= link_to 'Destroy', space, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-          </tr>
-          <% end %>
-        </tbody>
-      </table>
+      <% @spaces.each do |space| %>
+        <div class="col-sm-6 col-md-4 col-lg-3">
+          <div class="spaces-grid__space">
+            <%= link_to space_pages_path(space), class: "spaces-grid__space-link" do %>
+              <div class="spaces-grid__cover" style="background-image: url(<%=
+                [
+                  "https://images.unsplash.com/photo-1497215457980-d57c69aee12d?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=",
+                  "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=",
+                  "https://images.unsplash.com/photo-1497215728101-856f4ea42174?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=",
+                  "https://images.unsplash.com/photo-1426604966848-d7adac402bff?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=",
+                  "https://images.unsplash.com/photo-1450107579224-2d9b2bf1adc8?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=",
+                  "https://images.unsplash.com/photo-1445768593937-05a3f7832b68?dpr=2&auto=format&fit=crop&w=1500&h=907&q=80&cs=tinysrgb&crop=",
+                  "https://images.unsplash.com/photo-1492116136365-ab4b6cac399f?dpr=2&auto=format&fit=crop&w=1500&h=1125&q=80&cs=tinysrgb&crop=",
+                  "https://images.unsplash.com/photo-1489069313310-63735a4f3010?dpr=2&auto=format&fit=crop&w=1500&h=1126&q=80&cs=tinysrgb&crop=",
+                  "https://images.unsplash.com/photo-1468817739446-479f000a4c0f?dpr=2&auto=format&fit=crop&w=1500&h=975&q=80&cs=tinysrgb&crop=",
+                  "https://images.unsplash.com/photo-1490645935967-10de6ba17061?dpr=2&auto=format&fit=crop&w=1500&h=1021&q=80&cs=tinysrgb&crop=",
+                  "https://images.unsplash.com/uploads/141219200475673afcb68/f5bd8360?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=",
+                  "https://images.unsplash.com/photo-1422479278902-8cef24992df0?dpr=2&auto=format&fit=crop&w=1500&h=1001&q=80&cs=tinysrgb&crop=",
+                  "https://images.unsplash.com/photo-1497888329096-51c27beff665?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=",
+                  "https://images.unsplash.com/photo-1490079027102-cd08f2308c73?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=",
+                  "https://images.unsplash.com/photo-1496412705862-e0088f16f791?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=",
+                  "https://images.unsplash.com/photo-1495480024026-9dd2033e4b63?dpr=2&auto=format&fit=crop&w=1500&h=1028&q=80&cs=tinysrgb&crop=",
+                  "https://images.unsplash.com/photo-1484665739383-a1069a82d4be?dpr=2&auto=format&fit=crop&w=1500&h=1001&q=80&cs=tinysrgb&crop=",
+                  "https://images.unsplash.com/photo-1497864768494-78100d1ddf01?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=",
+                  "https://images.unsplash.com/photo-1497493292307-31c376b6e479?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=",
+                  "https://images.unsplash.com/photo-1452830978618-d6feae7d0ffa?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop="
+                ].sample
+              %>);"></div>
 
-      <%= link_to 'New Space', new_space_path, class: 'button button--primary' %>
+              <h2><%= space.name %></h2>
+
+              <p>Updated ? minutes ago</p>
+            <% end %>
+
+            <div class="overflow">
+              <div class="overflow__toggle">
+                <div></div>
+              </div>
+
+              <ul class="overflow__content">
+                <li>
+                  <%= link_to 'Space settings', edit_space_path(space) %>
+                </li>
+
+                <li>
+                  <%= link_to 'Remove space', space, method: :delete, data: { confirm: 'Are you sure?' } %>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
     </div>
   </div>
 </main>

@@ -1,0 +1,41 @@
+.title-bar {
+  height: 48px;
+  padding: 0 24px;
+  background: #fff;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+
+  h1 {
+    float: left;
+    font-size: 14px;
+    line-height: 48px;
+    color: $color-text-secondary;
+  }
+
+  .button {
+    float: right;
+  }
+
+  .button--medium {
+    padding-top: 7px;
+    padding-bottom: 7px;
+    margin: 7px -17px 0 0;
+  }
+}
+
+// Medium viewports and up
+@media (min-width: 769px) {
+  .title-bar {
+    height: 60px;
+    padding: 0 36px;
+
+    h1 {
+      font-size: 15px;
+      line-height: 60px;
+    }
+
+    .button--medium {
+      margin: 13px 0 0 0;
+    }
+  }
+}

@@ -16,30 +16,15 @@
   @include clearfix;
 }
 
-// Custom five column grid.
-// You can put these in a .container but don't use .row. It would make these columns
-// wider as they don't have any padding like normal bootstrap columns.
-.five-cols-1, .five-cols-2, .five-cols-3, .five-cols-4, .five-cols-5 {
-  float: left;
-  min-height: 1px;
+// Container padding
+.container-fluid {
+  padding-left: 24px;
+  padding-right: 24px;
 }
 
-.five-cols-1 {
-  width: calc((100% - 684px) / 2);
+@media (min-width: 769px) {
+  .container-fluid {
+    padding-left: 36px;
+    padding-right: 36px;
+  }
 }
-
-// .five-cols-2 {
-//   width: 40%;
-// }
-
-.five-cols-3 {
-  width: 684px;
-}
-
-// .five-cols-4 {
-//   width: 80%;
-// }
-//
-// .five-cols-5 {
-//   width: 100%;
-// }

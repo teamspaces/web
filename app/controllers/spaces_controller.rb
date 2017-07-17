@@ -5,7 +5,7 @@ class SpacesController < SubdomainBaseController
   # GET /spaces
   # GET /spaces.json
   def index
-    @spaces = policy_scope(Space)
+    @spaces = policy_scope(Space.order('name ASC'))
   end
 
   # GET /spaces/1
