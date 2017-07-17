@@ -47,3 +47,9 @@
     color: #fff;
   }
 }
+
+.button--outline {
+  background: transparent;
+  border-color: $color-primary;
+  color: $color-primary;
+}
