@@ -88,10 +88,10 @@ class PagesController < SubdomainBaseController
     @pages = Page.search(
         @search_query,
         fields: ["title^3", "contents"],
-        misspellings: { below: 5, distance: 1 },
+        misspellings: { below: 3, distance: 2 },
         routing: [current_team.id],
         track: { user_id: current_user.id },
-        highlight: true,
+        highlight: { fields: { title: {}, contents: { fragment_size: 200 } } },
         includes: [:space, :team],
         limit: 10
       )

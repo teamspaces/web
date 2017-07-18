@@ -10,9 +10,14 @@
         <%= link_to "Visit page (tracks conversion)", page_path(page, search_id: @pages.search.id)%>
 
         <% if page.search_highlights[:contents].present? %>
-          <p><%= sanitize page.search_highlights[:contents], scrubber: PageContentsScrubber.new %></p>
+          <div>
+            <%= sanitize(page.search_highlights[:contents], scrubber: PageContentsScrubber.new).html_safe %>
+          </div>
+
         <% elsif page.contents.present? %>
-          <p><%= sanitize page.contents, scrubber: PageContentsScrubber.new %></p>
+          <div>
+            <%= sanitize(truncate(page.contents, length: 200, escape: false), scrubber: PageContentsScrubber.new).html_safe %>
+          </div>
         <% end %>
 
         <hr>
