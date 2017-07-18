@@ -11,8 +11,7 @@ class Page < ApplicationRecord
   searchkick callbacks: :async,
              routing: true,
              conversions: ["unique_user_conversions", "total_conversions"],
-             highlight: [:title, :contents],
-             word_start: [:title]
+             highlight: [:title, :contents]
 
   def search_data
     {

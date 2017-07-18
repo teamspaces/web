@@ -1,0 +1,26 @@
+<main>
+  <div class="card">
+
+    <div class="card__content space-page__search-result">
+      <%= notice %>
+
+      <% @pages.each do |page| %>
+        <h2><%= page.search_highlights[:title]&.html_safe || page.title %></h2>
+
+        <%= link_to "Visit page (tracks conversion)", page_path(page, search_id: @pages.search.id)%>
+
+        <% unless page.contents.blank? %>
+          <p><%= sanitize page.contents, scrubber: PageContentsScrubber.new %></p>
+        <% end %>
+
+        <hr>
+      <% end %>
+    </div>
+  </div>
+</main>
+
+<style media="screen">
+  em {
+    background: #f0f;
+  }
+</style>

@@ -2,12 +2,6 @@ json.array! @pages do |page|
   json.id page.id
   json.score page.search_hit["_score"]
 
-  # json.space do
-  #   json.id page.space.id
-  #   json.name page.space.name
-  #   json.access_control page.space.access_control
-  # end
-
   json.space do
     json.id page.space.id
     json.name page.space.name

@@ -4,9 +4,11 @@ class PagesController < SubdomainBaseController
 
   before_action :set_current_space,
                 :set_sample_users_query,
-                except: [:search]
+                only: [:index, :show, :edit, :update, :create, :destroy]
 
   before_action :set_parent, only: [:create]
+
+  before_action :set_search_query
 
   layout 'client'
 
@@ -84,8 +86,7 @@ class PagesController < SubdomainBaseController
   # GET /page/search.json?q=bananas
   def search
     @pages = Page.search(
-        params[:q],
-        match: :word_start,
+        @search_query,
         fields: ["title^3", "contents"],
         misspellings: { below: 5, distance: 1 },
         routing: [current_team.id],
@@ -94,7 +95,6 @@ class PagesController < SubdomainBaseController
         includes: [:space, :team],
         limit: 10
       )
-    pp @pages.results
   end
 
   helper_method :number_of_words_to_minutes_reading
@@ -135,6 +135,10 @@ class PagesController < SubdomainBaseController
     # Use callbacks to share common setup or constraints between actions.
     def set_page
       @page = Page.find(params[:id])
+    end
+
+    def set_search_query
+      @search_query = params[:q].to_s
     end
 
     def set_current_space

@@ -32,9 +32,9 @@ gem "jwt" # API authorization
 gem "json-schema" # Verify JSON schemas
 
 gem "elasticsearch"
-gem "faraday_middleware-aws-signers-v4"
-gem "searchkick"
-gem "searchjoy"
+gem "faraday_middleware-aws-signers-v4" # Auth for AWS Elasticsearch endpoint
+gem "searchkick" # Easier to work with Elasticsearch
+gem "searchjoy" # Search analytics
 
 gem 'draper', "~> 3.0.0.pre1"
 
@@ -42,7 +42,7 @@ gem "image_processing"
 gem "mini_magick", ">= 4.3.5"
 gem "shrine"
 gem "avatarly"
-gem "closure_tree"
+gem "closure_tree" # Model tree relation support
 
 gem "slack-ruby-client"
 gem "sentry-raven"
@@ -76,6 +76,5 @@ end
 
 group :production do
   gem "passenger"
-  gem "rails_12factor"
-  gem "skylight"
+  gem "skylight" # Application performance monitoring
 end
