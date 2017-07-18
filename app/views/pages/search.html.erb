@@ -9,7 +9,9 @@
 
         <%= link_to "Visit page (tracks conversion)", page_path(page, search_id: @pages.search.id)%>
 
-        <% unless page.contents.blank? %>
+        <% if page.search_highlights[:contents].present? %>
+          <p><%= sanitize page.search_highlights[:contents], scrubber: PageContentsScrubber.new %></p>
+        <% elsif page.contents.present? %>
           <p><%= sanitize page.contents, scrubber: PageContentsScrubber.new %></p>
         <% end %>
 
