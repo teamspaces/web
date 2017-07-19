@@ -1,9 +1,8 @@
 class PagesController < SubdomainBaseController
   before_action :set_page,
                 only: [:show, :edit, :update, :destroy]
-
+  
   before_action :set_current_space,
-                :set_sample_users_query,
                 only: [:index, :show, :edit, :update, :create, :destroy]
 
   before_action :set_parent, only: [:create]
