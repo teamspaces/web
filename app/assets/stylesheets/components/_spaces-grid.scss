@@ -7,7 +7,6 @@
   box-shadow: 0 0 1px rgba(0,0,0,0.25), 0 4px 10px rgba(0,0,0,0.03);
   border-radius: 5px;
   margin-top: 24px;
-  padding-bottom: 19px;
   transition: box-shadow 1s $easing;
 
   &:hover, &:active, &:focus {
@@ -36,6 +35,11 @@
     // TODO  Style
     display: none;
   }
+}
+
+.spaces-grid__space-link {
+  display: block;
+  padding-bottom: 19px;
 }
 
 .spaces-grid__cover {
