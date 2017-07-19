@@ -15,12 +15,12 @@ class SubdomainBaseController < ApplicationController
 
   helper_method :avatar_users
   def avatar_users
-    @set_sample_users_query&.users || []
+    sample_users_query&.users || []
   end
 
   helper_method :hidden_avatar_users
   def hidden_avatar_users
-    @set_sample_users_query&.users_not_in_sample_count || 0
+    sample_users_query&.users_not_in_sample_count || 0
   end
 
   helper_method :current_space
@@ -30,10 +30,9 @@ class SubdomainBaseController < ApplicationController
 
   private
 
-    def set_sample_users_query
-      return unless current_space
-      @set_sample_users_query =
-        SampleUsersQuery.new(resource: current_space,
+    def sample_users_query
+      @sample_users_query ||=
+        SampleUsersQuery.new(resource: (current_space || current_team),
                              total_users_to_sample: 4)
     end
 
