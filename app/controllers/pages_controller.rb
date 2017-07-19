@@ -10,6 +10,9 @@ class PagesController < SubdomainBaseController
 
   before_action :set_search_query
 
+  before_action :track_search,
+                only: [:show]
+
   layout 'client'
 
   # GET /pages
@@ -153,6 +156,23 @@ class PagesController < SubdomainBaseController
       Page::PathToRedirectToAfterDeletionInteractor.call(page_to_delete: @page,
                                                          page_to_redirect_to: Page.find_by_id(params[:page_to_redirect_to_id]),
                                                          controller: self).path
+    end
+
+    def track_search
+      # Note: this strategy is OK for now but it means that if someone copies
+      #   the page to a colleageue it will convert a second time. Same thing
+      #   if the user goes back and reloads the page etc.
+      #
+      #   A better strategy would be to track the conversion when you click the
+      #   URL under search results, before redirecting to the page.
+      #
+      search_id = params[:search_id]
+      search = Searchjoy::Search.find_by(id: search_id)
+
+      return unless search.present?
+
+      logger.info "tracking conversion: id=#{search_id} convertable_type=#{@page.class.name} convertable_id=#{@page.id}"
+      search.convert(@page)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
