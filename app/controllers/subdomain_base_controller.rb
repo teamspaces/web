@@ -31,9 +31,9 @@ class SubdomainBaseController < ApplicationController
   private
 
     def set_sample_users_query
-      return unless current_space
-      @set_sample_users_query =
-        SampleUsersQuery.new(resource: current_space,
+      return unless (current_space || current_team)
+      @set_sample_users_query ||=
+        SampleUsersQuery.new(resource: (current_space || current_team),
                              total_users_to_sample: 4)
     end
 
