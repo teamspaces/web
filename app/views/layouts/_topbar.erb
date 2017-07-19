@@ -1,7 +1,9 @@
 <header class="topbar">
 
   <!-- Spaces logo -->
-  <%= link_to image_tag("static/spaces-logo.svg", alt: "Spaces"), spaces_path, class: "topbar__logo" %>
+  <a class="topbar__logo" href="<%= spaces_path %>">
+    <img src="<%= asset_pack_path 'spaces-logo.svg' %>" alt="Spaces" />
+  </a>
 
   <!-- Search input -->
   <input type="text" placeholder="Search" class="topbar__search" tabindex="1">

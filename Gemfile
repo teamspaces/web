@@ -1,11 +1,17 @@
-ruby "2.3.3"
+ruby "2.3.4"
 source "https://rubygems.org"
 
-gem "rails", "~> 5.0.0"
+git_source(:github) do |repo_name|
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  "https://github.com/#{repo_name}.git"
+end
+
+gem "rails", "~> 5.1.2"
 gem "pg"
 gem "mongoid"
 gem "puma"
 gem "sidekiq"
+gem 'webpacker', '~> 2.0'
 
 gem "thor"
 gem "terminal-table"
@@ -17,15 +23,15 @@ gem "paranoia", "~> 2.2"
 gem "jbuilder"
 gem "aws-sdk"
 
-gem "inflorm"
 gem "interactor-rails", "~> 2.0"
 gem "devise"
-gem "authie", "~> 2.0"
+gem "authie", "~> 3.0"
 gem "pundit"
 gem 'omniauth-slack', git: 'https://github.com/teamspaces/omniauth-slack.git', branch: 'auth-hash-fixes'
 gem "httparty"
 gem "jwt"
 gem "json-schema"
+gem "virtus"
 
 gem 'draper', "~> 3.0.0.pre1"
 

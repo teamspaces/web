@@ -33,11 +33,6 @@ class User < ApplicationRecord
             allow_email_login: true)
   end
 
-  # Devise: send emails with background job
-  def send_devise_notification(notification, *args)
-    devise_mailer.send(notification, self, *args).deliver_later
-  end
-
   protected
 
     def send_devise_notification(notification, *args)
@@ -47,6 +42,7 @@ class User < ApplicationRecord
       if new_record? || changed?
         pending_notifications << [notification, args]
       else
+        # Devise: send emails with background job
         devise_mailer.send(notification, self, *args).deliver_later
       end
     end

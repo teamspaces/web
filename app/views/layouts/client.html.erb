@@ -10,10 +10,10 @@
 
     <link rel="icon" href="">
     <%= render "layouts/fonts" %>
-    <%= stylesheet_link_tag fingerprinted_asset("application"), media: 'all' %>
+    <%= stylesheet_pack_tag "application", media: 'all' %>
 
-    <%= javascript_include_tag fingerprinted_asset("vendor") %>
-    <%= javascript_include_tag fingerprinted_asset("application") %>
+    <%= javascript_pack_tag "vendor" %>
+    <%= javascript_pack_tag "application" %>
     <%= render "layouts/google_analytics" %>
     <%= render "layouts/sentry" %>
     <%= render "layouts/drift" %>

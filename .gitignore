@@ -3,6 +3,9 @@
 !/log/.keep
 !/tmp/.keep
 
+
+/yarn-error.log
+
 .byebug_history
 .DS_Store
 npm-debug.log
@@ -14,3 +17,6 @@ public/uploads/
 public/stylesheets/
 public/images/
 public/javascripts/
+/public/packs
+/public/packs-test
+/node_modules
