@@ -6,6 +6,9 @@ class InlineTooltip extends InlineControl {
   constructor (quill, options) {
     super(quill, options)
 
+    // Reference to the editor
+    this.$root = $(this.quill.root)
+
     // References to elements that will be created by this module
     this.$tooltip = null
     this.$tooltipInner = null
@@ -24,6 +27,7 @@ class InlineTooltip extends InlineControl {
 
     this.$tooltip.on('click.inlinetooltip', 'button', this.onControlClick.bind(this))
     this.quill.on(Quill.events.EDITOR_CHANGE, this.onEditorChange.bind(this))
+    this.$root.on('click.inlinetooltip', this.onEditorClick.bind(this))
   }
 
   removeListeners () {
@@ -31,6 +35,7 @@ class InlineTooltip extends InlineControl {
 
     this.$tooltip.off('click.inlinetooltip', 'button')
     this.quill.off(Quill.events.EDITOR_CHANGE, this.onEditorChange)
+    this.$root.off('click.inlinetooltip')
   }
 
   render () {
@@ -141,7 +146,7 @@ class InlineTooltip extends InlineControl {
     // Get format and value from button
     const $control = $(e.currentTarget)
     const format = $control.data('format')
-    const value = $control.data('value')
+    const value = (format === 'link') ? prompt('Enter link') : $control.data('value')
 
     // Remove formatting if the control is already active
     if($control.hasClass('ql-inline-tooltip__active')) {
@@ -162,6 +167,25 @@ class InlineTooltip extends InlineControl {
 
     // Update based on the new selection
     this.updateControls()
+  }
+
+  onEditorClick (e) {
+    // Find the blot that received the click
+    const clickTarget = Quill.find(e.target)
+
+    // Get the index of the blot
+    const index = this.quill.getIndex(clickTarget)
+
+    // Get all formats at that index
+    // If we used (clickTarget instanceof Link) instead, we could miss links with multiple formats, e.g. link and bold
+    const format = this.quill.getFormat(index, 1)
+
+    // Check if the user clicked on a link
+    if( format.link ) {
+
+      // Redirect to the url
+      window.location.href = format.link
+    }
   }
 
   destroy () {
