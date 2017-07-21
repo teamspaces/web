@@ -28,6 +28,12 @@ Rails.application.routes.draw do
       resource :email_confirmation, only: [:new, :create, :update]
     end
 
+    resource :page, only: [] do
+      member do
+        get :search
+      end
+    end
+
     resources :pages, only: [:show, :edit, :update, :destroy]
     resources :page_contents, only: [:show, :update]
 
@@ -79,6 +85,14 @@ Rails.application.routes.draw do
     resource :reset_password, only: [:new, :create, :show]
   end
 
+  # Development routes
+  if Rails.env.development?
+    require "sidekiq/web"
+    mount Sidekiq::Web, at: "/sidekiq"
+    mount Searchjoy::Engine, at: "/searchjoy"
+  end
+
+  # Temporary landing
   get :temporary_landing, to: "landing#index", path: "/landing"
 
   root "landing#blank"

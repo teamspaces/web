@@ -1,0 +1,33 @@
+<main>
+  <div class="card">
+
+    <div class="card__content space-page__search-result">
+      <%= notice %>
+
+      <% @pages.each do |page| %>
+        <h2><%= page.search_highlights[:title]&.html_safe || page.title %></h2>
+
+        <%= link_to "Visit page (tracks conversion)", page_path(page, search_id: @pages.search.id)%>
+
+        <% if page.search_highlights[:contents].present? %>
+          <div>
+            <%= sanitize(page.search_highlights[:contents], scrubber: PageContentsScrubber.new).html_safe %>
+          </div>
+
+        <% elsif page.contents.present? %>
+          <div>
+            <%= sanitize(truncate(page.contents, length: 200, escape: false), scrubber: PageContentsScrubber.new).html_safe %>
+          </div>
+        <% end %>
+
+        <hr>
+      <% end %>
+    </div>
+  </div>
+</main>
+
+<style media="screen">
+  em {
+    background: #f0f;
+  }
+</style>

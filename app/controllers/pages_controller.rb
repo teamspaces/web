@@ -1,45 +1,18 @@
 class PagesController < SubdomainBaseController
-  before_action :set_page, only: [:show, :edit, :update, :destroy]
-
-  before_action :set_current_space
+  before_action :set_page,
+                only: [:show, :edit, :update, :destroy]
+  
+  before_action :set_current_space,
+                only: [:index, :show, :edit, :update, :create, :destroy]
 
   before_action :set_parent, only: [:create]
 
+  before_action :set_search_query
+
+  before_action :track_search,
+                only: [:show]
+
   layout 'client'
-
-  helper_method :number_of_words_to_minutes_reading
-  def number_of_words_to_minutes_reading(number_of_words)
-    reading_speed = 300
-    minutes = (number_of_words / reading_speed).floor
-    [minutes, 1].max
-  end
-
-  helper_method :editor_settings
-  def editor_settings
-    EditorSettingsHashPresenter
-      .new(controller: self,
-           user: current_user,
-           page: @page)
-      .to_hash
-      .to_json
-      .html_safe
-  end
-
-  helper_method :page_settings
-  def page_settings
-    PageSettingsHashPresenter.new(controller: self, page: @page)
-                             .to_hash
-                             .to_json
-                             .html_safe
-  end
-
-  helper_method :page_hierarchy_settings
-  def page_hierarchy_settings
-    PageHierarchyHashPresenter.new(controller: self, space: current_space)
-                              .to_hash
-                              .to_json
-                              .html_safe
-  end
 
   # GET /pages
   # GET /pages.json
@@ -111,10 +84,63 @@ class PagesController < SubdomainBaseController
     end
   end
 
+  # GET /page/search?q=bananas
+  # GET /page/search.json?q=bananas
+  def search
+    @pages = Page.search(
+        @search_query,
+        fields: ["title^3", "contents"],
+        misspellings: { below: 3, distance: 2 },
+        routing: [current_team.id],
+        track: { user_id: current_user.id },
+        highlight: { fields: { title: {}, contents: { fragment_size: 200 } } },
+        includes: [:space, :team],
+        limit: 10
+      )
+  end
+
+  helper_method :number_of_words_to_minutes_reading
+  def number_of_words_to_minutes_reading(number_of_words)
+    reading_speed = 300
+    minutes = (number_of_words / reading_speed).floor
+    [minutes, 1].max
+  end
+
+  helper_method :editor_settings
+  def editor_settings
+    EditorSettingsHashPresenter
+      .new(controller: self,
+           user: current_user,
+           page: @page)
+      .to_hash
+      .to_json
+      .html_safe
+  end
+
+  helper_method :page_settings
+  def page_settings
+    PageSettingsHashPresenter.new(controller: self, page: @page)
+                             .to_hash
+                             .to_json
+                             .html_safe
+  end
+
+  helper_method :page_hierarchy_settings
+  def page_hierarchy_settings
+    PageHierarchyHashPresenter.new(controller: self, space: current_space)
+                              .to_hash
+                              .to_json
+                              .html_safe
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_page
       @page = Page.find(params[:id])
+    end
+
+    def set_search_query
+      @search_query = params[:q].to_s
     end
 
     def set_current_space
@@ -129,6 +155,23 @@ class PagesController < SubdomainBaseController
       Page::PathToRedirectToAfterDeletionInteractor.call(page_to_delete: @page,
                                                          page_to_redirect_to: Page.find_by_id(params[:page_to_redirect_to_id]),
                                                          controller: self).path
+    end
+
+    def track_search
+      # Note: this strategy is OK for now but it means that if someone copies
+      #   the page to a colleageue it will convert a second time. Same thing
+      #   if the user goes back and reloads the page etc.
+      #
+      #   A better strategy would be to track the conversion when you click the
+      #   URL under search results, before redirecting to the page.
+      #
+      search_id = params[:search_id]
+      search = Searchjoy::Search.find_by(id: search_id)
+
+      return unless search.present?
+
+      logger.info "tracking conversion: id=#{search_id} convertable_type=#{@page.class.name} convertable_id=#{@page.id}"
+      search.convert(@page)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

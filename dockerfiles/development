@@ -49,6 +49,12 @@ RUN wget -q http://cnpmjs.org/mirrors/phantomjs/phantomjs-${PHANTOM_JS_VERSION}-
 RUN yarn global add webpack \
   && yarn cache clean
 
+# Disable gem docs from being installed
+RUN echo "gem: --no-ri --no-rdoc" > ~/.gemrc
+
+# Update Bundler
+RUN gem install bundler
+
 # Setup SSH and remove Host Checking
 RUN ssh-keygen -t rsa -N "" -f /root/.ssh/id_rsa && \
     echo "Host *\n\tStrictHostKeyChecking no\n" >> /root/.ssh/config

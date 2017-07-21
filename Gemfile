@@ -6,6 +6,8 @@ gem "pg"
 gem "mongoid"
 gem "puma"
 gem "sidekiq"
+gem "sidekiq-symbols" # Adds symbol support to job arguments
+gem "clockwork", require: false # Scheduler (config/schedule.rb)
 
 gem "thor"
 gem "terminal-table"
@@ -24,8 +26,15 @@ gem "authie", "~> 2.0"
 gem "pundit"
 gem 'omniauth-slack', git: 'https://github.com/teamspaces/omniauth-slack.git', branch: 'auth-hash-fixes'
 gem "httparty"
-gem "jwt"
-gem "json-schema"
+
+gem "oj" # Faster JSON
+gem "jwt" # API authorization
+gem "json-schema" # Verify JSON schemas
+
+gem "elasticsearch"
+gem "faraday_middleware-aws-signers-v4" # Auth for AWS Elasticsearch endpoint
+gem "searchkick" # Easier to work with Elasticsearch
+gem "searchjoy" # Search analytics
 
 gem 'draper', "~> 3.0.0.pre1"
 
@@ -33,7 +42,7 @@ gem "image_processing"
 gem "mini_magick", ">= 4.3.5"
 gem "shrine"
 gem "avatarly"
-gem "closure_tree"
+gem "closure_tree" # Model tree relation support
 
 gem "slack-ruby-client"
 gem "sentry-raven"
@@ -67,6 +76,5 @@ end
 
 group :production do
   gem "passenger"
-  gem "rails_12factor"
-  gem "skylight"
+  gem "skylight" # Application performance monitoring
 end
