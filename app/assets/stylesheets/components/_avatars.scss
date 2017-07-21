@@ -1,0 +1,22 @@
+.avatars {
+  @include clearfix;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: block;
+    float: left;
+  }
+
+  .avatar {
+    display: block;
+    margin: 0 6px 0 0;
+  }
+}
+
+.avatar--small {
+  .avatar {
+    margin-right: 6px;
+  }
+}
