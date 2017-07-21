@@ -7,9 +7,9 @@
   }
 
   &:after, img {
-    width: 26px;
-    height: 26px;
-    border-radius: 13px;
+    width: 36px;
+    height: 36px;
+    border-radius: 5px;
   }
 
   &:after {
@@ -22,26 +22,9 @@
   }
 }
 
-.avatar--large {
+.avatar--small {
   &:after, img {
-    width: 30px;
-    height: 30px;
-    border-radius: 15px;
+    width: 24px;
+    height: 24px;
   }
 }
-
-// .avatars {
-//   @include clearfix;
-//   display: inline-block;
-//   transition: all 0.2s;
-//
-//   &:hover, &:active, &:focus {
-//     transform: scale(1.05);
-//   }
-//
-//   .avatar, .avatars__add {
-//     display: block;
-//     float: left;
-//     margin: 0 3px;
-//   }
-// }

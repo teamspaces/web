@@ -1,5 +1,5 @@
 // Uncomment this @import to display the baseline grid during development
-// @import 'dev/baseline';
+@import 'dev/baseline';
 
 // Import from packages in node_modules
 @import '~highlight.js/styles/atom-one-light.css';
@@ -21,6 +21,7 @@
 @import 'components/message';
 @import 'components/card';
 @import 'components/avatar';
+@import 'components/avatars';
 @import 'components/dropdown';
 @import 'components/overflow-toggle';
 @import 'components/perfect-scrollbar';
@@ -28,6 +29,7 @@
 @import 'components/tippy';
 @import 'components/title-bar';
 @import 'components/spaces-grid';
+@import 'components/overlay';
 
 // TODO Refactor, all components should start with space
 @import 'components/mobile-space-navigation';

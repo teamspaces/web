@@ -1,56 +1,145 @@
-<div class="dropdown dropdown--teams">
-  <%= link_to image_tag(current_team.logo_url(:image_72), alt: current_team.name), team_url(subdomain: current_team.subdomain), class: "dropdown__toggle" %>
+<div class="overlay overlay--teams-accounts">
+  <div class="overlay__arrow"></div>
 
-  <div class="dropdown__content">
-    <div class="dropdown__arrow"></div>
+  <a href="#" class="overlay__close"></a>
 
-    <div class="dropdown__scroll-container">
-      <div class="dropdown__team-header">
-        <%= image_tag(current_team.logo_url(:image_192), alt: current_team.name) %>
+  <div class="overlay__content">
+    <div class="overlay__topbar">
+      <ul>
+        <li>
+          <a href="#" class="overlay__topbar-active">
+            <span>Team</span>
+          </a>
+        </li>
 
-        <h3>Spaces</h3>
+        <li>
+          <a href="#">
+            <span>Account</span>
+          </a>
+        </li>
+      </ul>
+    </div>
 
-        <div class="dropdown__team-avatars">
-          <%= link_to(invitations_path, class: "avatars") do %>
-            <% avatar_users.each do |user| %>
-              <div class="avatar avatar--large">
-                <%= image_tag(user.avatar_url(:image_72), alt: user.first_name) %>
-              </div>
-            <% end %>
-          <% end %>
-        </div>
+    <div class="overlay__teams">
+      <div class="overlay__current-team">
+        <%= image_tag current_team.logo_url(:image_72), alt: current_team.name, class: "team-icon" %>
+
+        <h3><%= current_team.name %></h3>
+        <p><%= current_team.subdomain %>.spaces.is</p>
+
+        <ul class="overlay__current-team-navigation">
+          <li>
+            <%= link_to "Team members", team_path %>
+          </li>
+
+          <li>
+            <%= link_to "Team settings", edit_team_path %>
+          </li>
+        </ul>
+
+        <%= link_to "Invite people", invitations_path, class: "button button--medium button--primary" %>
+
+        <ul class="avatars avatars--small">
+          <li>
+            <div class="avatar avatar--small">
+              <img src="" alt="">
+            </div>
+          </li>
+        </ul>
       </div>
 
-      <div class="dropdown__team-actions">
-        <%= link_to "Team members", team_path %>
-        <%= link_to "Invite people", invitations_path, class: "button button--primary" %>
-        <%= link_to "Team settings", edit_team_path %>
-      </div>
-
-      <div class="dropdown__teams-grid">
-        <ul>
+      <% if other_available_teams.any? %>
+        <ul class="overlay__other-teams">
           <% other_available_teams.each do |team| %>
             <li>
               <%= link_to root_subdomain_url(subdomain: team.subdomain) do %>
-                <%= image_tag team.logo_url(:image_192) %>
+                <%= image_tag team.logo_url(:image_48), class: 'team-icon team-icon--small' %>
 
                 <span><%= team.name %></span>
               <% end %>
             </li>
           <% end %>
         </ul>
+      <% end %>
 
-        <p>
-          You can switch between teams if you have more than one.<br>
-          <%= link_to "Sign in", choose_login_method_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]), target: "_blank" %> to show teams from other accounts here.
-        </p>
-      </div>
+      <ul class="overlay__other-teams">
+          <li>
+            <a href="#">
+              <%= image_tag current_team.logo_url(:image_48), class: 'team-icon team-icon--small' %>
+
+              <span>Switch to <%= current_team.name %></span>
+            </a>
+          </li>
+      </ul>
     </div>
 
-    <div class="dropdown__footer">
-      <%= link_to "Teams", team_url(subdomain: current_team.subdomain), class: "dropdown__expand" %>
+    <div class="overlay__accounts">
+      <ul>
+        <li>
+          <div class="avatar">
+            <%= image_tag(current_user.avatar_url(:image_72), alt: current_user.first_name) %>
+          </div>
 
-      <%= link_to "Create Team", choose_login_method_url(create_team: true, subdomain: ENV["DEFAULT_SUBDOMAIN"]), class: "button" %>
+          <h3><%= current_user.name %></h3>
+          <!-- TODO Add Slack team or email used to sign up -->
+          <!-- Slack team: Team name -->
+          <!-- Email: email@email.com -->
+          <p>Slack team: TODO</p>
+
+          <%= link_to 'Account settings', edit_user_path %>
+        </li>
+
+        <li>
+          <div class="avatar">
+            <%= image_tag(current_user.avatar_url(:image_72), alt: current_user.first_name) %>
+          </div>
+
+          <h3><%= current_user.name %></h3>
+          <!-- TODO Add Slack team or email used to sign up -->
+          <!-- Slack team: Team name -->
+          <!-- Email: email@email.com -->
+          <p>Slack team: TODO</p>
+
+          <%= link_to 'Account settings', edit_user_path %>
+        </li>
+
+        <% other_available_users.each do |user| %>
+          <li>
+            <div class="avatar">
+              <%= image_tag(user.avatar_url(:image_72), alt: user.first_name) %>
+            </div>
+
+            <h3><%= user.name %></h3>
+            <!-- TODO Add Slack team or email used to sign up -->
+            <!-- Slack team: Team name -->
+            <!-- Email: email@email.com -->
+            <p>Slack team: TODO</p>
+
+            <!-- TODO: should we have accounts.spaces.is for managing accounts? -->
+            <%= link_to 'Account settings', '#' %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div class="overlay__accounts-action-banner">
+      <%= image_tag "static/accounts-banner-icon.svg", alt: "Bring all of your teams to spaces" %>
+
+      <h3>Bring all of your teams to Spaces</h3>
+
+      <ul>
+        <li>
+          <%= link_to "Create team", choose_login_method_url(create_team: true, subdomain: ENV["DEFAULT_SUBDOMAIN"]) %>
+        </li>
+
+        <li>
+          <%= link_to "Sign in", choose_login_method_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]) %>
+        </li>
+
+        <li class="overlay__sign-out">
+          <a href="">Sign out</a>
+        </li>
+      </ul>
     </div>
   </div>
 </div>
