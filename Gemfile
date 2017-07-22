@@ -5,50 +5,48 @@ gem "rails", "~> 5.0.0"
 gem "pg"
 gem "mongoid"
 gem "puma"
-gem "sidekiq"
+gem "sidekiq" # Background workers
 gem "sidekiq-symbols" # Adds symbol support to job arguments
 gem "clockwork", require: false # Scheduler (config/schedule.rb)
 
-gem "thor"
-gem "terminal-table"
+gem "thor" # Powerful alternative to Rake (http://whatisthor.com/)
+gem "terminal-table" # Pretty tables for CLI / Console
 
-gem "envied"
-gem "lograge"
+gem "envied" # Force ENVs on boot (Envfile)
+gem "lograge" # Reduce the noise on Rails logger
 gem "bcrypt"
-gem "paranoia", "~> 2.2"
-gem "jbuilder"
 gem "aws-sdk"
 
-gem "inflorm"
-gem "interactor-rails", "~> 2.0"
-gem "devise"
-gem "authie", "~> 2.0"
-gem "pundit"
-gem 'omniauth-slack', git: 'https://github.com/teamspaces/omniauth-slack.git', branch: 'auth-hash-fixes'
 gem "httparty"
-
 gem "oj" # Faster JSON
+gem "jbuilder" # JSON presenters
 gem "jwt" # API authorization
 gem "json-schema" # Verify JSON schemas
+
+gem "paranoia", "~> 2.2" # Soft-delete records
+gem "inflorm"
+gem "interactor-rails", "~> 2.0" # Service (Interactor) Objects
+gem "devise" # Authentication and basic Authorization
+gem 'omniauth-slack', git: 'https://github.com/teamspaces/omniauth-slack.git', branch: 'auth-hash-fixes'
+gem "pundit" # Easy and powerful authorization
+gem "authie", "~> 2.0" # Database-backed session store
 
 gem "elasticsearch"
 gem "faraday_middleware-aws-signers-v4" # Auth for AWS Elasticsearch endpoint
 gem "searchkick" # Easier to work with Elasticsearch
 gem "searchjoy" # Search analytics
 
-gem 'draper', "~> 3.0.0.pre1"
+gem 'draper', "~> 3.0.0.pre1" # View presenters
 
+gem "shrine" # File uploads
 gem "image_processing"
 gem "mini_magick", ">= 4.3.5"
-gem "shrine"
-gem "avatarly"
+
+gem "avatarly" # Generate avatars from name
 gem "closure_tree" # Model tree relation support
 
 gem "slack-ruby-client"
 gem "sentry-raven"
-
-# Use Redis adapter to run Action Cable in production
-# gem "redis", "~> 3.0"
 
 group :test do
   gem "mocha"
