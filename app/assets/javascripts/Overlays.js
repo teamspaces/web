@@ -45,7 +45,7 @@ class Overlays {
     overlay.toggleClass('overlay--visible')
   }
 
-  hideOtherOverlays (overlay) { console.log('hide other')
+  hideOtherOverlays (overlay) {
     const visible = $('.overlay--visible')
 
     // Hide any visible overlays (but not if it's the new one or the new overlay is nested within it)
@@ -55,7 +55,7 @@ class Overlays {
     })
   }
 
-  hideAllOverlays () { console.log('hide all')
+  hideAllOverlays () { 
     $('.overlay').removeClass('overlay--visible')
   }
 
