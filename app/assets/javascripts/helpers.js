@@ -4,6 +4,7 @@ import Clipboard from 'clipboard/dist/clipboard'
 
 // Wait until the dom is ready
 $(function() {
+  
   // Tooltips
   $(function() {
     tippy('.tippy', {
