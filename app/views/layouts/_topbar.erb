@@ -1,5 +1,5 @@
 <header class="topbar">
-  <a href="#" class="topbar__teams-accounts">
+  <a href="#overlay--teams-accounts" class="topbar__teams-accounts overlay__toggle" aria-expanded="false" aria-controls="overlay--teams-accounts">
     <%= image_tag current_team.logo_url(:image_72), alt: current_team.name, class: "team-icon team-icon--medium" %>
     <h3>
       <%= current_team.name %>
@@ -14,7 +14,7 @@
     <input type="text" placeholder="Search" class="topbar__search" tabindex="1">
   </div>
 
-  <a href="#" class="topbar__share button button--small button--primary">Share</a>
+  <a href="#overlay--share" class="topbar__share button button--small button--primary overlay__toggle" aria-expanded="false" aria-controls="overlay--share">Share</a>
 
   <!-- Search input -->
   <form action="<%= search_page_path %>" method="get" style="margin: 0"> <!-- TODO: Move style to css file -->
