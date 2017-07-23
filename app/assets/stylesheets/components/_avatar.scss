@@ -28,3 +28,14 @@
     height: 24px;
   }
 }
+
+.avatar--empty {
+  border: 1px dashed #C4C9CC;
+  width: 36px;
+  height: 36px;
+  border-radius: 5px;
+
+  &:after {
+    display: none;
+  }
+}

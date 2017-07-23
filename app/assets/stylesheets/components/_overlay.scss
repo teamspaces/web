@@ -1,4 +1,5 @@
 .overlay {
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -48,6 +49,15 @@
   border-bottom: 1px solid #E6E9EB;
   padding: 0 12px;
 
+  h2 {
+    margin: 0;
+    font-size: 13.5px;
+    font-weight: normal;
+    line-height: 48px;
+    color: $color-text-third;
+    padding: 0 12px;
+  }
+
   ul {
     @include clearfix;
     margin: 0;
@@ -90,235 +100,12 @@
   z-index: 1002;
   width: 58px;
   height: 48px;
+  cursor: pointer;
   background: url(../images/overlay/overlay-close.svg) no-repeat center center;
   transition: all 0.4s $easing;
 
   &:hover, &:active, &:focus {
     transform: scale(1.2);
-  }
-}
-
-.overlay__teams, .overlay__accounts {
-  padding: 72px 24px 108px 24px;
-}
-
-.overlay__current-team {
-  position: relative;
-  padding-left: 60px;
-
-  .team-icon {
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-
-  h3 {
-    @include ellipsis;
-    margin: 0;
-    padding: 2px 0 0 0;
-    font-size: 14px;
-    font-weight: normal;
-    line-height: 18px;
-    color: $color-text-primary;
-  }
-
-  p {
-    @include ellipsis;
-    margin: 2px 0 0 0;
-    font-size: 13px;
-    line-height: 18px;
-    color: $color-text-faded;
-  }
-
-  .button {
-    margin: 16px 0 0 0;
-  }
-
-  .avatars {
-    margin: 18px 0 0 0;
-  }
-}
-
-.overlay__current-team-navigation {
-  margin: 8px 0 0 0;
-  padding: 0;
-  list-style: none;
-
-  li {
-    display: block;
-  }
-
-  a {
-    font-size: 13px;
-    line-height: 24px;
-    color: $color-text-secondary;
-
-    &:hover, &:focus, &:active {
-      color: $color-text-secondary;
-      opacity: 0.6;
-    }
-  }
-}
-
-.overlay__other-teams {
-  border-top: 1px solid #EBEEF0;
-  margin: 24px 0 0 0;
-  padding: 0;
-  list-style: none;
-
-  li {
-    position: relative;
-    display: block;
-    height: 49px;
-    border-bottom: 1px solid #EBEEF0;
-    padding: 0 0 0 60px;
-  }
-
-  a {
-    @include ellipsis;
-    display: block;
-    font-size: 13px;
-    line-height: 48px;
-    color: $color-text-secondary;
-
-    &:hover, &:focus, &:active {
-      color: $color-text-secondary;
-      opacity: 0.6;
-    }
-  }
-
-  .team-icon {
-    position: absolute;
-    top: 12px;
-    left: 6px;
-  }
-}
-
-.overlay__accounts {
-  display: none;
-  padding: 24px 24px 36px 24px;
-
-  ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  li {
-    display: block;
-    position: relative;
-    padding: 24px 0 16px 60px;
-    border-top: 1px solid #EBEEF0;
-
-    &:first-child {
-      padding-top: 0;
-      border-top: 0;
-
-      .avatar {
-        top: 0;
-      }
-    }
-  }
-
-  .avatar {
-    position: absolute;
-    top: 24px;
-    left: 0;
-  }
-
-  h3 {
-    @include ellipsis;
-    margin: 0;
-    font-size: 14px;
-    font-weight: normal;
-    line-height: 22px;
-    color: $color-text-secondary;
-  }
-
-  p {
-    margin: 0 0 2px 0;
-    font-size: 13px;
-    line-height: 18px;
-    color: $color-text-faded;
-  }
-
-  a {
-    font-size: 13px;
-    line-height: 24px;
-    color: $color-text-secondary;
-
-    &:hover, &:focus, &:active {
-      color: $color-text-secondary;
-      opacity: 0.6;
-    }
-  }
-}
-
-.overlay__accounts-action-banner {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: auto;
-  background: #434E59 url(../images/static/accounts-banner-bg.jpg) no-repeat center center;
-  background-size: cover;
-  padding: 22px 24px 16px 84px;
-
-  &:before {
-    display: block;
-    content: " ";
-    position: absolute;
-    top: -24px;
-    left: 0;
-    z-index: 2;
-    width: 100%;
-    height: 24px;
-    background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
-    pointer-events: none;
-  }
-
-  img {
-    position: absolute;
-    top: 24px;
-    left: 24px;
-    display: block;
-    width: 36px;
-    height: 36px;
-  }
-
-  h3 {
-    margin: 0;
-    font-size: 14px;
-    font-weight: normal;
-    line-height: 18px;
-    color: #EBF1F5;
-  }
-
-  ul {
-    margin: 2px -12px 0 -12px;
-    padding: 0;
-    list-style: none;
-  }
-
-  li {
-    display: block;
-    float: left;
-
-    &.overlay__sign-out {
-      float: right;
-    }
-  }
-
-  a {
-    font-size: 13px;
-    line-height: 24px;
-    color: #EBF1F5;
-    opacity: 0.8;
-    padding: 0 12px;
-
-    &:hover, &:active, &:focus {
-      opacity: 1;
-    }
   }
 }
 
@@ -347,40 +134,5 @@
 
   .overlay__arrow {
     display: block;
-    left: 50px;
-  }
-
-  .overlay--teams-accounts .overlay__content {
-    width: 600px;
-  }
-
-  .overlay__teams, .overlay__accounts {
-    width: 300px;
-    margin: 36px 0 156px 0;
-    padding: 0 36px 0 36px;
-    float: left;
-  }
-
-  .overlay__teams {
-    border-right: 1px solid #E6E9EB;
-  }
-
-  .overlay__accounts {
-    display: block;
-  }
-
-  .overlay__accounts-action-banner {
-    position: absolute;
-    width: 600px;
-    padding-top: 34px;
-    padding-left: 96px;
-    padding-bottom: 28px;
-    padding-right: 36px;
-    border-radius: 0 0 5px 5px;
-
-    img {
-      top: 36px;
-      left: 36px;
-    }
   }
 }
