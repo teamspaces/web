@@ -1,7 +1,7 @@
-<div class="overlay overlay--share">
+<div class="overlay overlay--share" id="overlay--share">
   <div class="overlay__arrow"></div>
 
-  <div class="overlay__close"></div>
+  <a href="#overlay--share" class="overlay__close overlay__toggle" aria-controls="overlay--share"></a>
 
   <div class="overlay__content">
     <div class="overlay__topbar">
@@ -20,7 +20,7 @@
               <span class="avatar avatar--empty"></span>
             <% else %>
               <span class="avatar">
-                <%= image_tag(avatar_users[i].avatar_url(:image_48), alt: avatar_users[i].first_name) %>
+                <%= image_tag(avatar_users[i].avatar_url(:image_72), alt: avatar_users[i].first_name) %>
               </span>
             <% end %>
           </li>
@@ -35,8 +35,8 @@
       <p>Only members of your team can access the link.</p>
 
       <div class="input-group">
-        <input type="text" class="form-control" value="<%= request.original_url %>" readonly>
-        <a href="#" class="button input-group-addon">Copy link</a>
+        <input type="text" id="overlay__share-link-input" class="form-control select-on-click" value="<%= request.original_url %>" readonly>
+        <a href="#" class="button input-group-addon copy-to-clipboard" data-clipboard-target="#overlay__share-link-input">Copy link</a>
       </div>
     </div>
   </div>

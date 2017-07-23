@@ -1,9 +1,20 @@
 .overlay {
-  display: none;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 1000;
+  visibility: hidden;
+  opacity: 0;
+  margin-top: -12px;
+  transform: scale(0.95);
+  transition: all 0.4s $easing;
+}
+
+.overlay--visible {
+  visibility: visible;
+  opacity: 1;
+  margin-top: 0;
+  transform: scale(1);
 }
 
 .overlay__content {
