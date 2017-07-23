@@ -1,1 +1,43 @@
-<a href="#" class="topbar__share"></a>
+<div class="overlay overlay--share">
+  <div class="overlay__arrow"></div>
+
+  <div class="overlay__close"></div>
+
+  <div class="overlay__content">
+    <div class="overlay__topbar">
+      <h2>Share</h2>
+    </div>
+
+    <div class="overlay__share-invite">
+      <h3>Invite people to your team</h3>
+      <p>It will boost your productivity 🚀</p>
+
+      <ul class="avatars">
+        <!-- Always show 8 avatars-->
+        <% 8.times do |i| %>
+          <li>
+            <% if(avatar_users[i].nil?) %>
+              <span class="avatar avatar--empty"></span>
+            <% else %>
+              <span class="avatar">
+                <%= image_tag(avatar_users[i].avatar_url(:image_48), alt: avatar_users[i].first_name) %>
+              </span>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+
+      <a href="#" class="button button--primary">Invite people</a>
+    </div>
+
+    <div class="overlay__share-link">
+      <h3>Share a link to this page</h3>
+      <p>Only members of your team can access the link.</p>
+
+      <div class="input-group">
+        <input type="text" class="form-control" value="<%= request.original_url %>" readonly>
+        <a href="#" class="button input-group-addon">Copy link</a>
+      </div>
+    </div>
+  </div>
+</div>

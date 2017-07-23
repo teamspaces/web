@@ -40,11 +40,14 @@
         <%= link_to "Invite people", invitations_path, class: "button button--medium button--primary" %>
 
         <ul class="avatars avatars--small">
-          <li>
-            <div class="avatar avatar--small">
-              <img src="" alt="">
-            </div>
-          </li>
+          <!-- TODO Add avatar limit/overflow -->
+          <% avatar_users.each do |user| %>
+            <li>
+              <div class="avatar avatar--small">
+                <%= image_tag(user.avatar_url(:image_48), alt: user.first_name) %>
+              </div>
+            </li>
+          <% end %>
         </ul>
       </div>
 
@@ -61,34 +64,10 @@
           <% end %>
         </ul>
       <% end %>
-
-      <ul class="overlay__other-teams">
-          <li>
-            <a href="#">
-              <%= image_tag current_team.logo_url(:image_48), class: 'team-icon team-icon--small' %>
-
-              <span>Switch to <%= current_team.name %></span>
-            </a>
-          </li>
-      </ul>
     </div>
 
     <div class="overlay__accounts">
       <ul>
-        <li>
-          <div class="avatar">
-            <%= image_tag(current_user.avatar_url(:image_72), alt: current_user.first_name) %>
-          </div>
-
-          <h3><%= current_user.name %></h3>
-          <!-- TODO Add Slack team or email used to sign up -->
-          <!-- Slack team: Team name -->
-          <!-- Email: email@email.com -->
-          <p>Slack team: TODO</p>
-
-          <%= link_to 'Account settings', edit_user_path %>
-        </li>
-
         <li>
           <div class="avatar">
             <%= image_tag(current_user.avatar_url(:image_72), alt: current_user.first_name) %>
@@ -137,7 +116,7 @@
         </li>
 
         <li class="overlay__sign-out">
-          <a href="">Sign out</a>
+          <%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
         </li>
       </ul>
     </div>
