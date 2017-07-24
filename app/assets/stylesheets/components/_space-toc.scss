@@ -168,20 +168,15 @@
 
 @media (min-width: 1360px) {
   .space-toc {
-    width: 264px;
+    width: calc( (100vw - 840px) / 2 );
+    padding-right: calc( ((100vw - 840px) / 2) - 204px );
 
     &:before {
-      width: 264px;
+      width: calc( (100vw - 840px) / 2 );
     }
   }
 }
 
 @media (min-width: 1420px) {
-  .space-toc {
-    width: 276px;
 
-    &:before {
-      width: 276px;
-    }
-  }
 }
