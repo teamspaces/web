@@ -250,18 +250,21 @@
 
 @media (min-width: 1360px) {
   .space-page {
-    width: calc( 100vw - 264px - 264px );
+    width: 840px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .space-page__hero, .space-page__meta, .ql-editor {
+    padding-left: 120px;
+    padding-right: 120px;
   }
 }
 
 @media (min-width: 1420px) {
-  .space-page {
-    width: calc( 100vw - 276px - 276px );
-  }
+
 }
 
 @media (min-width: 1460px) {
-  .space-page {
-    width: 900px;
-  }
+
 }
