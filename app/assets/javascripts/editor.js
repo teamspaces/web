@@ -25,7 +25,7 @@ class Editor {
   };
 
   attachPageDBEvents(){ // web_server events
-    this.pageDB.on('saved', (response) => this.statusMessage.update("All changes have been saved."));
+    this.pageDB.on('saved', (response) => this.statusMessage.update("Your changes have been saved."));
     this.pageDB.on('error', (error) => {
       console.log(error);
       Raven.captureException(error);

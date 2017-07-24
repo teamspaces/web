@@ -17,7 +17,7 @@ class PageTitle {
 
   save() {
     this.page.update({title: this.title()})
-        .then(response => this.statusMessage.update("All changes have been saved."))
+        .then(response => this.statusMessage.update("Your changes have been saved."))
         .catch(error => Raven.captureException(error));
   }
 
