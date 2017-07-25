@@ -173,18 +173,17 @@ class InlineTooltip extends InlineControl {
     // Find the blot that received the click
     const clickTarget = Quill.find(e.target)
 
-    // Get the index of the blot
-    const index = this.quill.getIndex(clickTarget)
-
-    // Get all formats at that index
-    // If we used (clickTarget instanceof Link) instead, we could miss links with multiple formats, e.g. link and bold
-    const format = this.quill.getFormat(index, 1)
+    // Check if the blot is a link or within a link, e.g. a > strong
+    const $link = $(clickTarget.domNode).closest('a')
 
     // Check if the user clicked on a link
-    if( format.link ) {
+    if( $link.length > 0 ) {
+
+      // Get url
+      const href = $link.attr('href')
 
       // Redirect to the url
-      window.location.href = format.link
+      window.location.href = href
     }
   }
 

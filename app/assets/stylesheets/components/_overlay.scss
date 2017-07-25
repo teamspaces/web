@@ -5,7 +5,7 @@
   z-index: 1000;
   visibility: hidden;
   opacity: 0;
-  margin-top: 6px;
+  margin-top: -18px;
   transform: scale(0.95);
   transition: visibility 0.4s $easing, opacity 0.4s $easing, margin-top 0.4s $easing, transform 0.4s $easing;
 }
