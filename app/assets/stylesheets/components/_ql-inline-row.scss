@@ -7,7 +7,7 @@
   height: 60px;
   width: 60px;
   margin-top: -21px;
-  margin-left: 25px;
+  margin-left: 44px;
   cursor: pointer;
   visibility: hidden;
   opacity: 0;
@@ -157,5 +157,55 @@
   .ql-inline-row__code-block {
     width: 44px;
     background-image: url(../images/space/row-code-off.svg);
+  }
+}
+
+// Medium viewports
+@media (min-width: 769px) {
+  .ql-inline-row__toggle {
+    margin-left: 19px;
+  }
+}
+
+// Large viewports
+@media (min-width: 1260px) {
+  .ql-inline-row__toggle {
+    margin-left: 25px;
+  }
+}
+
+@media (min-width: 1360px) {
+  .ql-inline-row__toggle {
+    margin-left: 30px;
+  }
+
+  .ql-inline-row__controls {
+    left: 111px;
+
+    button {
+      &:nth-child(1) {
+        transform: translate(-58px, 0) scale(0.6);
+      }
+
+      &:nth-child(2) {
+        transform: translate(-92px, 0) scale(0.6);
+      }
+
+      &:nth-child(3) {
+        transform: translate(-133px, 0) scale(0.6);
+      }
+
+      &:nth-child(4) {
+        transform: translate(-170px, 0) scale(0.6);
+      }
+
+      &:nth-child(5) {
+        transform: translate(-198px, 0) scale(0.6);
+      }
+
+      &:nth-child(6) {
+        transform: translate(-234px, 0) scale(0.6);
+      }
+    }
   }
 }

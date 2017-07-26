@@ -1,27 +1,26 @@
 <nav class="mobile-navigation">
   <ul>
     <li>
-      <%= link_to "", spaces_path, class: "mobile-navigation__spaces" %>
+      <%= link_to "Spaces", spaces_path, class: current_page?(spaces_path) ? "mobile-navigation__spaces mobile-navigation__active" : "mobile-navigation__spaces" %>
     </li>
 
     <li>
-      <a href="#" class="mobile-navigation__search"></a>
+      <a href="#" class="mobile-navigation__search">Search</a>
     </li>
 
     <li>
-      <a href="#" class="mobile-navigation__support drift-open-chat"></a>
+      <a href="#overlay--share" class="mobile-navigation__share overlay__toggle" aria-expanded="false" aria-controls="overlay--share">Share</a>
     </li>
 
     <li>
-      <%= link_to image_tag(current_team.logo_url(:image_72), alt: current_team.name), invitations_path, class: "mobile-navigation__team" %>
+      <a href="#" class="mobile-navigation__support drift-open-chat">Support</a>
     </li>
 
     <li>
-      <%= link_to(edit_user_path, class: "mobile-navigation__account") do %>
-        <span class="avatar">
-          <%= image_tag(current_user.avatar_url(:image_72), alt: current_user.first_name) %>
-        </span>
-      <% end %>
+      <a href="#overlay--teams-accounts" class="mobile-navigation__teams-accounts overlay__toggle" aria-expanded="false" aria-controls="overlay--teams-accounts">
+        <%= image_tag current_team.logo_url(:image_48), alt: current_team.name %>
+        Team
+      </a>
     </li>
   </ul>
 </nav>
