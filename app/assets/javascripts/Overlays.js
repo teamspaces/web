@@ -14,7 +14,7 @@ class Overlays {
   }
 
   removeListeners () {
-    // Removes event listeners with the .dropdowns namespace
+    // Removes event listeners with the .overlays namespace
     $('.overlay__toggle').off('.overlays')
     $(document).off('.overlays')
   }
@@ -55,7 +55,7 @@ class Overlays {
     })
   }
 
-  hideAllOverlays () { 
+  hideAllOverlays () {
     $('.overlay').removeClass('overlay--visible')
   }
 

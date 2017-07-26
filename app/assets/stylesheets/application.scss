@@ -23,8 +23,6 @@
 @import 'components/avatar';
 @import 'components/avatars';
 @import 'components/input-group';
-// @import 'components/dropdown';
-@import 'components/overflow-toggle';
 @import 'components/perfect-scrollbar';
 @import 'components/team-icon';
 @import 'components/tippy';
@@ -34,6 +32,7 @@
 @import 'components/overlay--teams-accounts';
 @import 'components/overlay--share';
 @import 'components/overlay--spaces';
+@import 'components/overflow';
 
 // TODO Refactor, all components should start with space
 @import 'components/mobile-space-navigation';

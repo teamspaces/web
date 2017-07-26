@@ -1,39 +1,36 @@
-<div class="dropdown dropdown--spaces">
-  <%= link_to 'Spaces', spaces_path, class: 'dropdown__toggle' %>
+<div class="overlay overlay--spaces" id="overlay--spaces">
+  <div class="overlay__arrow"></div>
 
-  <div class="dropdown__content">
-    <div class="dropdown__arrow"></div>
+  <a href="#overlay--spaces" class="overlay__close overlay__toggle" aria-controls="overlay--spaces"></a>
 
-    <div class="dropdown__scroll-container">
-      <ul class="dropdown__spaces-list">
-        <% policy_scope(Space).find_each do |space| %>
+  <div class="overlay__content">
+    <div class="overlay__topbar">
+      <h2>Spaces</h2>
+    </div>
+
+    <ul class="overlay__spaces-list">
+      <% policy_scope(Space).find_each do |space| %>
         <li>
           <%= link_to space.name, space_pages_path(space) %>
 
-          <div class="dropdown">
-            <div class="dropdown__toggle overflow-toggle">
+          <div class="overflow">
+            <div class="overflow__toggle">
               <div></div>
             </div>
 
-            <ul class="dropdown__content dropdown__content--right">
-              <li>
-                <%= link_to "Members", space_members_path(space) %>
-              </li>
-
+            <ul class="overflow__content">
               <li>
                 <%= link_to "Settings", edit_space_path(space) %>
               </li>
             </ul>
           </div>
         </li>
-        <% end %>
-      </ul>
+      <% end %>
+    </ul>
 
-      <%= link_to 'Create Space', new_space_path, class: 'button button--primary' %>
-    </div>
-
-    <div class="dropdown__footer dropdown__footer--centered">
-      <%= link_to 'Spaces', spaces_path, class: 'dropdown__expand' %>
+    <div class="overlay__spaces-actions">
+      <%= link_to 'Expand', spaces_path, class: 'button button--expand' %>
+      <%= link_to 'New space', new_space_path, class: 'button button--primary' %>
     </div>
   </div>
 </div>
