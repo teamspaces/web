@@ -19,8 +19,8 @@
             <% if(avatar_users[i].nil?) %>
               <span class="avatar avatar--empty"></span>
             <% else %>
-              <span class="avatar">
-                <%= image_tag(avatar_users[i].avatar_url(:image_72), alt: avatar_users[i].first_name) %>
+              <span class="avatar tippy" title="<%= avatar_users[i].name %>">
+                <%= image_tag(avatar_users[i].avatar_url(:image_72), alt: avatar_users[i].name) %>
               </span>
             <% end %>
           </li>

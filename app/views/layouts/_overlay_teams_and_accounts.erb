@@ -43,8 +43,8 @@
           <!-- TODO Add avatar limit/overflow -->
           <% avatar_users.each do |user| %>
             <li>
-              <div class="avatar avatar--small">
-                <%= image_tag(user.avatar_url(:image_48), alt: user.first_name) %>
+              <div class="avatar avatar--small tippy" title="<%= user.name %>">
+                <%= image_tag(user.avatar_url(:image_48), alt: user.name) %>
               </div>
             </li>
           <% end %>
@@ -70,7 +70,7 @@
       <ul>
         <li>
           <div class="avatar">
-            <%= image_tag(current_user.avatar_url(:image_72), alt: current_user.first_name) %>
+            <%= image_tag(current_user.avatar_url(:image_72), alt: current_user.name) %>
           </div>
 
           <h3><%= current_user.name %></h3>
@@ -85,7 +85,7 @@
         <% other_available_users.each do |user| %>
           <li>
             <div class="avatar">
-              <%= image_tag(user.avatar_url(:image_72), alt: user.first_name) %>
+              <%= image_tag(user.avatar_url(:image_72), alt: user.name) %>
             </div>
 
             <h3><%= user.name %></h3>

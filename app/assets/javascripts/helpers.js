@@ -4,7 +4,7 @@ import Clipboard from 'clipboard/dist/clipboard'
 
 // Wait until the dom is ready
 $(function() {
-  
+
   // Tooltips
   $(function() {
     tippy('.tippy', {
@@ -17,7 +17,7 @@ $(function() {
       theme: 'spaces',
       sticky: true,
       animateFill: false,
-      zIndex: 99
+      zIndex: 10000
     })
   })
 

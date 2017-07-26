@@ -1,7 +1,7 @@
 import Quill from 'quill'
 import $ from 'jquery'
 
-class InlineControl {
+class InlineToolbar {
   constructor(quill, options) {
     this.quill = quill
     this.options = options
@@ -84,4 +84,4 @@ class InlineControl {
   }
 }
 
-export default InlineControl
+export default InlineToolbar

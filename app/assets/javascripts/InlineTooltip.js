@@ -1,8 +1,8 @@
-import InlineControl from './InlineControl'
+import InlineToolbar from './InlineToolbar'
 import Quill from 'quill'
 import $ from 'jquery'
 
-class InlineTooltip extends InlineControl {
+class InlineTooltip extends InlineToolbar {
   constructor (quill, options) {
     super(quill, options)
 
