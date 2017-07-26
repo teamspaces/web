@@ -4,8 +4,8 @@
           <%= link_to(page.decorate.title_with_fallback, page_path(page), class: 'page-tree__page-link') %>
 
           <div class="page-tree__edit-actions">
-            <%= link_to "", page_path(page, page_to_redirect_to_id: page.id), method: :delete, class: "page-tree__remove tippy", title: "Remove page", data: { confirm: "Are you sure?", distance: "1" } %>
-            <%= link_to "", space_pages_path(page.space, params: { page: { parent_id: page.id}}), method: :post, class: "page-tree__add-subpage tippy", title: "Add subpage", data: { distance: "1" } %>
+            <%= link_to "", page_path(page, page_to_redirect_to_id: page.id), method: :delete, class: "page-tree__remove tippy", title: "Remove page", data: { confirm: "Are you sure?", distance: "1", zIndex: "99" } %>
+            <%= link_to "", space_pages_path(page.space, params: { page: { parent_id: page.id}}), method: :post, class: "page-tree__add-subpage tippy", title: "Add subpage", data: { distance: "1", zIndex: "99" } %>
           </div>
         </div>
 

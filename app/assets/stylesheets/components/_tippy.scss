@@ -1,4 +1,8 @@
 // Styling of tooltips from tippy.js
+.tippy-popper {
+  pointer-events: none;
+}
+
 .tippy-tooltip.spaces-theme {
   font-size: 13px;
   line-height: 18px;
