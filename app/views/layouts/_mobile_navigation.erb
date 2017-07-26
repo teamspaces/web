@@ -1,7 +1,7 @@
 <nav class="mobile-navigation">
   <ul>
     <li>
-      <%= link_to "Spaces", spaces_path, class: current_page?(spaces_path) ? "mobile-navigation__spaces mobile-navigation__active" : "mobile-navigation__spaces" %>
+      <a href="#overlay--spaces" class="mobile-navigation__spaces overlay__toggle <%= current_page?(spaces_path) ? 'mobile-navigation__active' : '' %>" aria-expanded="false" aria-controls="overlay--spaces">Spaces</a>
     </li>
 
     <li>
