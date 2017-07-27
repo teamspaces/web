@@ -5,28 +5,32 @@
 }
 
 .mobile-space-navigation__toggle {
-  @include ellipsis;
-  display: block;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 48px;
   z-index: 201;
-  padding: 0 24px;
-  background: #fff url(../images/space/space-navigation-open.svg) no-repeat right 24px center;
-  border-bottom: 1px solid #EEEFF0;
-  font-size: 13px;
-  line-height: 48px;
-  color: $color-text-secondary;
+  background: #fff;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.05);
 
-  &:hover, &:active, &:focus {
+  a {
+    @include ellipsis;
+    display: block;
+    padding: 0 24px;
+    background: url(../images/space/space-navigation-open.svg) no-repeat right 24px center;
+    font-size: 13px;
+    line-height: 48px;
     color: $color-text-secondary;
-    opacity: 0.6;
-  }
 
-  &.mobile-space-navigation__toggle--open {
-    background-image: url(../images/space/space-navigation-close.svg);
+    &:hover, &:active, &:focus {
+      color: $color-text-secondary;
+      opacity: 0.6;
+    }
+
+    &.mobile-space-navigation__toggle--open {
+      background-image: url(../images/space/space-navigation-close.svg);
+    }
   }
 }
 
@@ -49,7 +53,20 @@
   }
 
   .page-tree__toggle {
-    display: none;
+    opacity: 1;
+    left: -12px;
+  }
+
+  .page-tree__page-link {
+    margin-left: 22px;
+  }
+
+  .page-tree__edit-actions {
+    opacity: 1;
+
+    span, a {
+      background-color: #fff;
+    }
   }
 }
 

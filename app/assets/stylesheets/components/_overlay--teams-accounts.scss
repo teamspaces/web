@@ -101,9 +101,6 @@
 }
 
 .overlay__accounts {
-  display: none;
-  padding: 24px 24px 36px 24px;
-
   ul {
     margin: 0;
     padding: 0;
@@ -232,6 +229,10 @@
 @media (min-width: 769px) {
   .overlay--teams-accounts .overlay__content {
     width: 600px;
+
+    .tabs__tab {
+      display: block;
+    }
   }
 
   .overlay__teams, .overlay__accounts {

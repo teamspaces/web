@@ -88,7 +88,7 @@
     color: $color-text-third;
     padding: 0 12px;
 
-    &.overlay__topbar-active, &:hover, &:focus, &:active {
+    &.tabs__link--active, &:hover, &:focus, &:active {
       color: $color-primary;
 
       span {

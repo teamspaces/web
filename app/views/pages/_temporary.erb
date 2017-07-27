@@ -1,8 +1,10 @@
 <!-- Table of contents and actions for small viewports -->
 <div class="mobile-space-navigation">
-  <a href="#mobile-space-navigation__content" class="mobile-space-navigation__toggle" aria-expanded="false" aria-controls="navigation">
-    <%= current_space.name %>
-  </a>
+  <div class="mobile-space-navigation__toggle">
+    <a href="#mobile-space-navigation__content" aria-expanded="false" aria-controls="navigation">
+      <%= current_space.name %>
+    </a>
+  </div>
 
   <nav class="mobile-space-navigation__content" id="mobile-space-navigation__content">
     <ul class="page-tree">

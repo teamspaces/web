@@ -1,5 +1,6 @@
 import Overlays from './Overlays'
 import Overflows from './Overflows'
+import Tabs from './Tabs'
 import tippy from 'tippy.js/dist/tippy'
 import Clipboard from 'clipboard/dist/clipboard'
 
@@ -25,8 +26,11 @@ $(function() {
   // Team/account, spaces and share overlays
   new Overlays()
 
-  // overflows
+  // Overflows
   new Overflows()
+
+  // Tabs
+  new Tabs()
 
   // Copy to clipboard buttons
   new Clipboard('.copy-to-clipboard')

@@ -9,12 +9,8 @@
   background: #F9FAFC;
   padding: 7px 60px 0 36px;
   overflow: auto;
-  // opacity: 0.6;
-  // transition: opacity 0.3s;
 
   &:hover, &:active, &:focus {
-    // opacity: 1;
-
     .page-tree__toggle {
       opacity: 1;
     }

@@ -32,12 +32,13 @@
     color: $color-text-third;
     text-align: center;
     padding: 29px 0 0 0;
+    transition: all 0.2s;
 
     &:hover, &:active, &:focus, &.mobile-navigation__active {
       color: $color-primary;
     }
   }
-  
+
   .mobile-navigation__spaces {
     background-position: center 10px;
     background-image: url(../images/mobile-navigation/mobile-spaces-off.svg);
