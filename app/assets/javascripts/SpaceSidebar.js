@@ -111,7 +111,7 @@ class SpaceSidebar {
   onTitleInput (e) {
     const val = $('#title-input').text()
 
-    $('.page-tree__active').children('.page-tree__page-link').html(val)
+    $('.page-tree__active > .page-tree__page-inner .page-tree__page-link').html(val)
   }
 
   onPageTreeChange (hierarchy) {

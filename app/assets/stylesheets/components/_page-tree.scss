@@ -40,8 +40,8 @@
   }
 }
 
-.page-tree__active > .page-tree__page-link:first-child {
- color: #A7A9AE;
+.page-tree__active > .page-tree__page-inner .page-tree__page-link {
+ // color: #A7A9AE;
 }
 
 .page-tree__toggle {

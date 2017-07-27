@@ -43,6 +43,7 @@ class Overlays {
 
   toggleOverlay(overlay) {
     overlay.toggleClass('overlay--visible')
+    this.updateScroll()
   }
 
   hideOtherOverlays (overlay) {
@@ -57,6 +58,16 @@ class Overlays {
 
   hideAllOverlays () {
     $('.overlay').removeClass('overlay--visible')
+    this.updateScroll()
+  }
+
+  updateScroll () {
+    // Disable body scrolling on smaller viewports when an overlay is visible
+    if($('.overlay--visible').length) {
+      $('body').addClass('body--mobile-no-scroll')
+    } else {
+      $('body').removeClass('body--mobile-no-scroll')
+    }
   }
 
   destroy () {

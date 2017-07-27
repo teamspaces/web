@@ -3,24 +3,24 @@
 
   <a href="#overlay--teams-accounts" class="overlay__close overlay__toggle" aria-controls="overlay--teams-controls"></a>
 
-  <div class="overlay__content">
+  <div class="overlay__content tabs">
     <div class="overlay__topbar">
       <ul>
         <li>
-          <a href="#" class="overlay__topbar-active">
+          <a href="#" class="tabs__link tabs__link--active">
             <span>Team</span>
           </a>
         </li>
 
         <li>
-          <a href="#">
+          <a href="#" class="tabs__link">
             <span>Account</span>
           </a>
         </li>
       </ul>
     </div>
 
-    <div class="overlay__teams">
+    <div class="overlay__teams tabs__tab">
       <div class="overlay__current-team">
         <%= image_tag current_team.logo_url(:image_72), alt: current_team.name, class: "team-icon" %>
 
@@ -66,7 +66,7 @@
       <% end %>
     </div>
 
-    <div class="overlay__accounts">
+    <div class="overlay__accounts tabs__tab">
       <ul>
         <li>
           <div class="avatar">
