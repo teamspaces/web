@@ -10,17 +10,11 @@
     </p>
   </a>
 
-  <div class="topbar__search">
-    <input type="text" placeholder="Search" class="topbar__search" tabindex="1">
-  </div>
+  <form action="<%= search_page_path %>" method="get" class="topbar__search">
+    <input type="text" name="q" value="<%= @search_query %>" placeholder="Search" tabindex="1">
+  </form>
 
   <a href="#overlay--share" class="topbar__share button button--small button--primary overlay__toggle" aria-expanded="false" aria-controls="overlay--share">Share</a>
-
-
-  <!-- Search input -->
-  <form action="<%= search_page_path %>" method="get" style="margin: 0"> <!-- TODO: Move style to css file -->
-    <input type="text" name="q" value="<%= @search_query %>" placeholder="Search" class="topbar__search" tabindex="1">
-  </form>
 
   <a href="#" class="topbar__support drift-open-chat tippy" title="Support" data-distance="11"></a>
 

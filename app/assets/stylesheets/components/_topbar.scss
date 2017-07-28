@@ -67,6 +67,7 @@
   position: relative;
   float: left;
   width: calc(100vw - 300px - 180px);
+  margin: 0;
 
   // Divider
   &:before {
@@ -86,7 +87,7 @@
     width: 100%;
     background: transparent;
     height: 60px;
-    padding: 22px 0 22px 24px;
+    padding: 22px 0 22px 23px;
     margin: 0 0 0 1px;
     border: 0;
     border-radius: 0;
