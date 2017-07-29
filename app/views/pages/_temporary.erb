@@ -1,0 +1,68 @@
+<!-- Table of contents and actions for small viewports -->
+<div class="mobile-space-navigation">
+  <div class="mobile-space-navigation__toggle">
+    <a href="#mobile-space-navigation__content" aria-expanded="false" aria-controls="navigation">
+      <%= current_space.name %>
+    </a>
+  </div>
+
+  <nav class="mobile-space-navigation__content" id="mobile-space-navigation__content">
+    <ul class="page-tree">
+      <%= render "page_tree", page_tree: current_space.pages.hash_tree, current_page: @page %>
+    </ul>
+  </nav>
+</div>
+
+<!-- Table of contents for medium and large viewports -->
+<nav class="space-toc" id="space-toc">
+  <div class="space-toc__inner">
+    <h3>
+      <%= link_to edit_space_path(@page.space), class: "tippy", title: "Space settings", "data-distance": "15", "data-position": "right", "data-sticky": "false", "data-zIndex": "99" do %>
+        <span><%= @page.space.name %></span>
+      <% end %>
+    </h3>
+
+    <ul class="page-tree">
+      <%= render "page_tree", page_tree: @page.space.pages.hash_tree, current_page: @page %>
+    </ul>
+
+    <div class="space-toc__actions">
+      <%= link_to space_pages_path(@page.space, params: { page: { _: true } }), method: :post, class: "space-toc__new-page" do %>
+      New page
+      <% end %>
+    </div>
+
+    <div class="space-toc__fixed-actions">
+      <%= link_to space_pages_path(@page.space, params: { page: { _: true } }), method: :post, class: "space-toc__new-page" do %>
+      New page
+      <% end %>
+    </div>
+  </div>
+</nav>
+
+<!-- Page content for all viewports -->
+<main class="space-page">
+  <%= render 'page_contents', page: @page %>
+</main>
+
+<script>
+  const scrollSidebar = new Spaces.SpaceSidebar({
+    pageHierarchySettings: <%= page_hierarchy_settings %>,
+    pageTreeContainer: $('.space-toc .page-tree')
+  })
+
+  $(function(){
+    // Focus title input if it's empty
+    if( $('#title-input').text() === "" ) $('#title-input').focus()
+
+    const statusMessage = new Spaces.PageStatusMessage({ attachTo: ".space-page__status" })
+
+    new Spaces.Editor({ attachTo: '#page-editor',
+                        statusMessage: statusMessage,
+                        options: <%= editor_settings %> })
+
+    new Spaces.PageTitle({ attachTo: '#title-input',
+                           statusMessage: statusMessage,
+                           page: new Spaces.Page(<%= page_settings %>)})
+  })
+</script>

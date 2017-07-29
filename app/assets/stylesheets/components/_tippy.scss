@@ -1,0 +1,34 @@
+// Styling of tooltips from tippy.js
+.tippy-popper {
+  pointer-events: none;
+}
+
+.tippy-tooltip.spaces-theme {
+  font-size: 13px;
+  line-height: 18px;
+  padding: 9px 18px;
+  color: #EBF1F5;
+  background: #39414C;
+  background: rgba(57, 65, 76, 0.95);
+  border-radius: 5px;
+}
+
+.tippy-popper[x-placement^=left] .spaces-theme [x-arrow] {
+  border-left-color: #39414C !important;
+  border-left-color: rgba(57, 65, 76, 0.95) !important;
+}
+
+.tippy-popper[x-placement^=right] .spaces-theme [x-arrow] {
+  border-right-color: #39414C !important;
+  border-right-color: rgba(57, 65, 76, 0.95) !important;
+}
+
+.tippy-popper[x-placement^=top] .spaces-theme [x-arrow] {
+  border-top-color: #39414C !important;
+  border-top-color: rgba(57, 65, 76, 0.95) !important;
+}
+
+.tippy-popper[x-placement^=bottom] .spaces-theme [x-arrow] {
+  border-bottom-color: #39414C !important;
+  border-bottom-color: rgba(57, 65, 76, 0.95) !important;
+}

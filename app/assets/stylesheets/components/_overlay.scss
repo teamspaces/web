@@ -1,0 +1,149 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  visibility: hidden;
+  opacity: 0;
+  margin-top: -18px;
+  transform: scale(0.95);
+  transition: visibility 0.4s $easing, opacity 0.4s $easing, margin-top 0.4s $easing, transform 0.4s $easing;
+}
+
+.overlay--visible {
+  visibility: visible;
+  opacity: 1;
+  margin-top: 0;
+  transform: scale(1);
+}
+
+.overlay__content {
+  @include clearfix;
+  width: 100vw;
+  height: 100vh;
+  background: #fff;
+  overflow: auto;
+}
+
+.overlay__arrow {
+  display: none;
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  width: 40px;
+  height: 20px;
+  margin-left: -20px;
+  overflow: hidden;
+  pointer-events: none;
+
+  &:after {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 20px;
+    margin: 15px 0 0 10px;
+    border-radius: 5px;
+    background: #fff;
+    transform: rotate(45deg);
+    box-shadow: 0 0 1px rgba(0,0,0,0.5), 0 4px 10px rgba(0,0,0,0.05);
+  }
+}
+
+.overlay__topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1001;
+  width: 100%;
+  height: 49px;
+  background: #fff;
+  border-bottom: 1px solid #E6E9EB;
+  padding: 0 12px;
+
+  h2 {
+    margin: 0;
+    font-size: 13.5px;
+    font-weight: normal;
+    line-height: 48px;
+    color: $color-text-secondary;
+    padding: 0 12px;
+  }
+
+  ul {
+    @include clearfix;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    display: block;
+    float: left;
+  }
+
+  a {
+    display: block;
+    font-size: 13.5px;
+    line-height: 48px;
+    color: $color-text-third;
+    padding: 0 12px;
+
+    &.tabs__link--active, &:hover, &:focus, &:active {
+      color: $color-primary;
+
+      span {
+        border-bottom: 1px solid $color-primary;
+      }
+    }
+
+    span {
+      display: block;
+      transition: all 0.2s;
+      border-bottom: 1px solid transparent;
+    }
+  }
+}
+
+.overlay__close {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 1002;
+  width: 58px;
+  height: 48px;
+  cursor: pointer;
+  background: url(../images/overlay/overlay-close.svg) no-repeat center center;
+  transition: all 0.4s $easing;
+
+  &:hover, &:active, &:focus {
+    transform: scale(1.2);
+  }
+}
+
+
+
+// Medium viewports and up
+@media (min-width: 769px) {
+  .overlay {
+    top: 60px;
+  }
+
+  .overlay__close {
+    display: none;
+  }
+
+  .overlay__content {
+    height: auto;
+    max-height: calc(100vh - 60px);
+    border-radius: 5px;
+    box-shadow: 0 0 1px rgba(0,0,0,0.5), 0 4px 10px rgba(0,0,0,0.05);
+  }
+
+  .overlay__topbar {
+    display: none;
+  }
+
+  .overlay__arrow {
+    display: block;
+  }
+}

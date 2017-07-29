@@ -1,9 +1,11 @@
 // Uncomment this @import to display the baseline grid during development
 // @import 'dev/baseline';
 
-// Vendor
-@import '../../../node_modules/highlight.js/styles/atom-one-light.css';
-@import '../../../vendor/assets/stylesheets/quill.snow.css';
+// Import from packages in node_modules
+@import '~highlight.js/styles/atom-one-light.css';
+@import '~perfect-scrollbar/dist/css/perfect-scrollbar.css';
+@import '~tippy.js/dist/tippy.css';
+// @import '../../../vendor/assets/stylesheets/quill.snow.css';
 
 // Base
 @import 'base/variables';
@@ -19,14 +21,25 @@
 @import 'components/message';
 @import 'components/card';
 @import 'components/avatar';
-@import 'components/dropdown';
-@import 'components/overflow-toggle';
+@import 'components/avatars';
+@import 'components/input-group';
+@import 'components/perfect-scrollbar';
+@import 'components/team-icon';
+@import 'components/tippy';
+@import 'components/title-bar';
+@import 'components/spaces-grid';
+@import 'components/overlay';
+@import 'components/overlay--teams-accounts';
+@import 'components/overlay--share';
+@import 'components/overlay--spaces';
+@import 'components/overflow';
+@import 'components/tabs';
 
 // TODO Refactor, all components should start with space
 @import 'components/mobile-space-navigation';
 @import 'components/space-toc';
 @import 'components/page-tree';
 @import 'components/space-page';
-@import 'components/space-actions';
-@import 'components/edit-space';
+@import 'components/ql-inline-tooltip';
+@import 'components/ql-inline-row';
 @import 'components/edit-toolbar';

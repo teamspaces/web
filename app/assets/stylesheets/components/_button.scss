@@ -1,42 +1,66 @@
 .button {
   display: inline-block;
   width: auto;
-  font-size: 13px;
-  font-weight: 400;
+  font-size: 13.5px;
+  font-weight: normal;
   line-height: 18px;
   text-decoration: none;
-  background: #fff;
+  background-color: #F7FAFC;
   color: $color-text-secondary;
   margin: 36px 0 0 0;
   padding: 11px 24px;
   text-align: center;
   border-radius: 5px;
-  border: 1px solid #E6E8EB;
+  border: 1px solid #DCDFE1;
   cursor: pointer;
-  transition: all 0.2s;
-  border: 1px solid #E1E3E6;
+  transition: all 0.4s $easing;
 
   &:hover, &:active, &:focus {
-    transform: scale(1.025);
+    // transform: scale(1.025);
     text-decoration: none;
     border-color: $color-primary;
-    background: $color-primary;
+    background-color: $color-primary;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12);
     color: #fff;
     outline: 0;
   }
 }
 
+.button--medium {
+  padding: 8px 18px;
+  font-size: 13px;
+}
+
+.button--small {
+  padding: 6px 20px;
+  font-size: 13px;
+}
+
 .button--primary {
   border-color: $color-primary;
-  background: $color-primary;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
-  font-size: 14px;
+  background-color: $color-primary;
   color: #fff;
 
   &:hover, &:active, &:focus {
-    background: darken($color-primary, 5%);
+    background-color: darken($color-primary, 5%);
     border-color: darken($color-primary, 5%);
     color: #fff;
+  }
+}
+
+.button--outline {
+  background-color: transparent;
+  border-color: $color-primary;
+  color: $color-primary;
+}
+
+.button--expand {
+  background-image: url(../images/button/expand-spaces-off.svg);
+  background-repeat: no-repeat;
+  background-position: 14px 14px;
+  padding-left: 43px;
+
+  &:hover, &:focus, &:active {
+    background-image: url(../images/button/expand-spaces-on.svg);
   }
 }

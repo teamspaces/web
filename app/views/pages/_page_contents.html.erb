@@ -1,11 +1,46 @@
-<%= notice %>
+<%= form_for(page) do |f| %>
+  <% if page.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(page.errors.count, "error") %> prohibited this page from being saved:</h2>
 
-<h1><%= page.decorate.title_with_fallback %></h1>
+      <ul>
+      <% page.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-<div class="space-page__meta">
-  <%= number_of_words_to_minutes_reading(page.word_count) %> minute read. Updated <%= time_ago_in_words(page.updated_at) %> ago.
-</div>
+  <%= f.hidden_field :parent_id %>
 
-<div class="space-page__content">
-  <%= sanitize page.contents, scrubber: PageContentsScrubber.new %>
-</div>
+  <div class="space-page__hero" style="background-image: url(<%=
+    [
+      "https://images.unsplash.com/photo-1497215457980-d57c69aee12d?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=",
+      "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=",
+      "https://images.unsplash.com/photo-1497215728101-856f4ea42174?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=",
+      "https://images.unsplash.com/photo-1426604966848-d7adac402bff?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=",
+      "https://images.unsplash.com/photo-1450107579224-2d9b2bf1adc8?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=",
+      "https://images.unsplash.com/photo-1445768593937-05a3f7832b68?dpr=2&auto=format&fit=crop&w=1500&h=907&q=80&cs=tinysrgb&crop=",
+      "https://images.unsplash.com/photo-1492116136365-ab4b6cac399f?dpr=2&auto=format&fit=crop&w=1500&h=1125&q=80&cs=tinysrgb&crop=",
+      "https://images.unsplash.com/photo-1468817739446-479f000a4c0f?dpr=2&auto=format&fit=crop&w=1500&h=975&q=80&cs=tinysrgb&crop=",
+      "https://images.unsplash.com/uploads/141219200475673afcb68/f5bd8360?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=",
+      "https://images.unsplash.com/photo-1497888329096-51c27beff665?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=",
+      "https://images.unsplash.com/photo-1490079027102-cd08f2308c73?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=",
+      "https://images.unsplash.com/photo-1496412705862-e0088f16f791?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=",
+      "https://images.unsplash.com/photo-1495480024026-9dd2033e4b63?dpr=2&auto=format&fit=crop&w=1500&h=1028&q=80&cs=tinysrgb&crop=",
+      "https://images.unsplash.com/photo-1484665739383-a1069a82d4be?dpr=2&auto=format&fit=crop&w=1500&h=1001&q=80&cs=tinysrgb&crop=",
+      "https://images.unsplash.com/photo-1497864768494-78100d1ddf01?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=",
+      "https://images.unsplash.com/photo-1497493292307-31c376b6e479?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=",
+      "https://images.unsplash.com/photo-1452830978618-d6feae7d0ffa?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop="
+    ].sample
+  %>);">
+
+    <h1 contenteditable="true" placeholder="Title" id="title-input"><%= page.title %></h1>
+  </div>
+
+  <div class="space-page__meta">
+    <p><%= number_of_words_to_minutes_reading(page.word_count) %> minute read. <span class="space-page__status">Updated <%= time_ago_in_words(page.updated_at) %> ago.</span></p>
+  </div>
+
+  <div id="page-editor" class="space-page__content"></div>
+<% end %>

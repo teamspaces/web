@@ -1,0 +1,124 @@
+<div class="overlay overlay--teams-accounts" id="overlay--teams-accounts">
+  <div class="overlay__arrow"></div>
+
+  <a href="#overlay--teams-accounts" class="overlay__close overlay__toggle" aria-controls="overlay--teams-controls"></a>
+
+  <div class="overlay__content tabs">
+    <div class="overlay__topbar">
+      <ul>
+        <li>
+          <a href="#" class="tabs__link tabs__link--active">
+            <span>Team</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="#" class="tabs__link">
+            <span>Account</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="overlay__teams tabs__tab">
+      <div class="overlay__current-team">
+        <%= image_tag current_team.logo_url(:image_72), alt: current_team.name, class: "team-icon" %>
+
+        <h3><%= current_team.name %></h3>
+        <p><%= current_team.subdomain %>.spaces.is</p>
+
+        <ul class="overlay__current-team-navigation">
+          <li>
+            <%= link_to "Team members", team_path %>
+          </li>
+
+          <li>
+            <%= link_to "Team settings", edit_team_path %>
+          </li>
+        </ul>
+
+        <%= link_to "Invite people", invitations_path, class: "button button--medium button--primary" %>
+
+        <ul class="avatars avatars--small">
+          <!-- TODO Add avatar limit/overflow -->
+          <% avatar_users.each do |user| %>
+            <li>
+              <div class="avatar avatar--small tippy" title="<%= user.name %>">
+                <%= image_tag(user.avatar_url(:image_48), alt: user.name) %>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+
+      <% if other_available_teams.any? %>
+        <ul class="overlay__other-teams">
+          <% other_available_teams.each do |team| %>
+            <li>
+              <%= link_to root_subdomain_url(subdomain: team.subdomain) do %>
+                <%= image_tag team.logo_url(:image_48), class: 'team-icon team-icon--small' %>
+
+                <span><%= team.name %></span>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+
+    <div class="overlay__accounts tabs__tab">
+      <ul>
+        <li>
+          <div class="avatar">
+            <%= image_tag(current_user.avatar_url(:image_72), alt: current_user.name) %>
+          </div>
+
+          <h3><%= current_user.name %></h3>
+          <!-- TODO Add Slack team or email used to sign up -->
+          <!-- Slack team: Team name -->
+          <!-- Email: email@email.com -->
+          <p>Slack team: TODO</p>
+
+          <%= link_to 'Account settings', edit_user_path %>
+        </li>
+
+        <% other_available_users.each do |user| %>
+          <li>
+            <div class="avatar">
+              <%= image_tag(user.avatar_url(:image_72), alt: user.name) %>
+            </div>
+
+            <h3><%= user.name %></h3>
+            <!-- TODO Add Slack team or email used to sign up -->
+            <!-- Slack team: Team name -->
+            <!-- Email: email@email.com -->
+            <p>Slack team: TODO</p>
+
+            <!-- TODO: should we have accounts.spaces.is for managing accounts? -->
+            <%= link_to 'Account settings', '#' %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div class="overlay__accounts-action-banner">
+      <%= image_tag "static/accounts-banner-icon.svg", alt: "Bring all of your teams to spaces" %>
+
+      <h3>Bring all of your teams to Spaces</h3>
+
+      <ul>
+        <li>
+          <%= link_to "Create team", choose_login_method_url(create_team: true, subdomain: ENV["DEFAULT_SUBDOMAIN"]) %>
+        </li>
+
+        <li>
+          <%= link_to "Sign in", choose_login_method_url(subdomain: ENV["DEFAULT_SUBDOMAIN"]) %>
+        </li>
+
+        <li class="overlay__sign-out">
+          <%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

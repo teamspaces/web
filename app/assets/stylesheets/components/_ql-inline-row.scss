@@ -1,0 +1,211 @@
+.ql-inline-row__toggle {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  height: 60px;
+  width: 60px;
+  margin-top: -21px;
+  margin-left: 44px;
+  cursor: pointer;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+
+  &:hover, &:active, &:focus {
+    &:before {
+      border-color: $color-text-third;
+      transform: scale(1.1);
+    }
+  }
+
+  &.ql-inline-row__toggle--visible {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  &.ql-inline-row__toggle--open {
+    &:before {
+      transform: rotate(45deg);
+    }
+
+    &:hover, &:active, &:focus {
+      &:before {
+        transform: scale(1.1) rotate(45deg);
+      }
+    }
+  }
+
+  &:before {
+    display: block;
+    content: " ";
+    border: 1px solid #CDCED1;
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    margin: 15px;
+    background: #fff url(../images/space/row-insert.svg) no-repeat center center;
+    transform: scale(1) rotate(0deg);
+    transition: all 0.2s ease-out;
+  }
+}
+
+.ql-inline-row__controls {
+  position: absolute;
+  top: 0;
+  left: 100px;
+  z-index: 1;
+  height: 36px;
+  margin-top: -9px;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.8s $easing, visibility 0.8s $easing;
+
+  // Pseudo element that hides the placeholder when the editor is empty
+  &:before {
+    display: block;
+    content: " ";
+    position: absolute;
+    top: 6px;
+    left: 0;
+    width: 400px;
+    height: 24px;
+    background: #fff;
+  }
+
+  &.ql-inline-row__controls--open {
+    visibility: visible;
+    opacity: 1;
+
+    button {
+      transform: translate(0, 0) scale(1) !important;
+      pointer-events: auto;
+    }
+  }
+
+  button {
+    float: left;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+    width: 20px;
+    height: 36px;
+    padding: 0 9px;
+    background-color: transparent;
+    background-position: center center;
+    background-repeat: no-repeat;
+    pointer-events: none; // Disables pointer events during the close animation
+    transition: all 0.6s $easing;
+
+    &:nth-child(1) {
+      transform: translate(-52px, 0) scale(0.6);
+    }
+
+    &:nth-child(2) {
+      transform: translate(-86px, 0) scale(0.6);
+    }
+
+    &:nth-child(3) {
+      transform: translate(-127px, 0) scale(0.6);
+    }
+
+    &:nth-child(4) {
+      transform: translate(-164px, 0) scale(0.6);
+    }
+
+    &:nth-child(5) {
+      transform: translate(-192px, 0) scale(0.6);
+    }
+
+    &:nth-child(6) {
+      transform: translate(-228px, 0) scale(0.6);
+    }
+
+    &:hover, &:active, &:focus {
+      outline: none;
+      opacity: 0.6;
+    }
+  }
+
+  .ql-inline-row__header-2 {
+    width: 35px;
+    background-image: url(../images/space/row-h1-off.svg);
+  }
+
+  .ql-inline-row__header-3 {
+    width: 39px;
+    background-image: url(../images/space/row-h2-off.svg);
+  }
+
+  .ql-inline-row__header-4 {
+    width: 38px;
+    background-image: url(../images/space/row-h3-off.svg);
+  }
+
+  .ql-inline-row__list-bullet {
+    width: 30px;
+    background-image: url(../images/space/row-ul-off.svg);
+  }
+
+  .ql-inline-row__list-ordered {
+    width: 33px;
+    background-image: url(../images/space/row-ol-off.svg);
+  }
+
+  .ql-inline-row__code-block {
+    width: 44px;
+    background-image: url(../images/space/row-code-off.svg);
+  }
+}
+
+// Medium viewports
+@media (min-width: 769px) {
+  .ql-inline-row__toggle {
+    margin-left: 19px;
+  }
+}
+
+// Large viewports
+@media (min-width: 1260px) {
+  .ql-inline-row__toggle {
+    margin-left: 25px;
+  }
+}
+
+@media (min-width: 1360px) {
+  .ql-inline-row__toggle {
+    margin-left: 30px;
+  }
+
+  .ql-inline-row__controls {
+    left: 111px;
+
+    button {
+      &:nth-child(1) {
+        transform: translate(-58px, 0) scale(0.6);
+      }
+
+      &:nth-child(2) {
+        transform: translate(-92px, 0) scale(0.6);
+      }
+
+      &:nth-child(3) {
+        transform: translate(-133px, 0) scale(0.6);
+      }
+
+      &:nth-child(4) {
+        transform: translate(-170px, 0) scale(0.6);
+      }
+
+      &:nth-child(5) {
+        transform: translate(-198px, 0) scale(0.6);
+      }
+
+      &:nth-child(6) {
+        transform: translate(-234px, 0) scale(0.6);
+      }
+    }
+  }
+}

@@ -1,0 +1,43 @@
+<div class="overlay overlay--share" id="overlay--share">
+  <div class="overlay__arrow"></div>
+
+  <a href="#overlay--share" class="overlay__close overlay__toggle" aria-controls="overlay--share"></a>
+
+  <div class="overlay__content">
+    <div class="overlay__topbar">
+      <h2>Share</h2>
+    </div>
+
+    <div class="overlay__share-invite">
+      <h3>Invite people to your team</h3>
+      <p>You're even more awesome together 🚀</p>
+
+      <ul class="avatars">
+        <!-- Always show 8 avatars-->
+        <% 8.times do |i| %>
+          <li>
+            <% if(avatar_users[i].nil?) %>
+              <span class="avatar avatar--empty"></span>
+            <% else %>
+              <span class="avatar tippy" title="<%= avatar_users[i].name %>">
+                <%= image_tag(avatar_users[i].avatar_url(:image_72), alt: avatar_users[i].name) %>
+              </span>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+
+      <a href="#" class="button button--primary">Invite people</a>
+    </div>
+
+    <div class="overlay__share-link">
+      <h3>Share a link to this page</h3>
+      <p>Only members of your team can access the link.</p>
+
+      <div class="input-group">
+        <input type="text" id="overlay__share-link-input" class="form-control select-on-click" value="<%= request.original_url %>" readonly>
+        <a href="#" class="button input-group-addon copy-to-clipboard" data-clipboard-target="#overlay__share-link-input">Copy link</a>
+      </div>
+    </div>
+  </div>
+</div>

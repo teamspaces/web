@@ -1,0 +1,80 @@
+.overlay--share {
+  left: auto;
+  right: 0;
+
+  .overlay__arrow {
+    left: auto;
+    right: 53px;
+  }
+}
+
+.overlay__share-invite, .overlay__share-link {
+  h3 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: normal;
+    line-height: 24px;
+    color: $color-text-primary;
+  }
+
+  p {
+    margin: 4px 0 0 0;
+    font-size: 13px;
+    line-height: 18px;
+    color: $color-text-third;
+  }
+}
+
+.overlay__share-invite {
+  @include clearfix;
+  border-bottom: 1px solid #EBEEF0;
+  padding: 78px 24px 36px 24px;
+
+  .avatars {
+    margin: 19px 0 0 0;
+  }
+
+  .button {
+    margin: 16px 0 0 0;
+  }
+}
+
+.overlay__share-link {
+  padding: 30px 24px 36px 24px;
+
+  .input-group {
+    margin: 19px 0 0 0;
+  }
+
+  input {
+    background: #fff !important;
+    color: $color-text-secondary;
+  }
+
+  .button {
+    width: 120px;
+  }
+}
+
+// Medium viewports and up
+@media (min-width: 769px) {
+  .overlay--share .overlay__content {
+    width: 600px;
+  }
+
+  .overlay__share-invite {
+    padding: 30px 36px 31px 36px;
+
+    .avatars {
+      float: left;
+    }
+
+    .button {
+      float: right;
+    }
+  }
+
+  .overlay__share-link {
+    padding: 30px 36px 36px 36px;
+  }
+}

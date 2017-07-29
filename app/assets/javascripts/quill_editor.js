@@ -1,20 +1,25 @@
 const Quill = require("quill");
 const EventEmitter = require('events');
 import { clipboardURLMatcherFunc, liveAutolinkUrlsFunc } from './quill_editor_helpers'
+import InlineTooltip from './InlineTooltip'
+import InlineRow from './InlineRow'
+import EditorClipboard from './EditorClipboard'
 
 /* https://quilljs.com/docs/configuration/ */
-const QuillOptions = { theme: "snow",
-             placeholder: "And write something here...",
-             modules: {
-                syntax: true,
-                toolbar: [
-                  [{ "header": [2, 3, 4, false] }],
-                  ["bold", "italic", "underline", "strike"],
-                  [{ "list": "ordered"}, { "list": "bullet" }],
-                  ["link", "code-block"]
-                ]
-            }
-        };
+const QuillOptions = {
+  placeholder: "And write something here...",
+  modules: {
+    syntax: true,
+    toolbar: false,
+    inlineTooltip: [
+      ['bold', 'italic', 'strike', 'underline', 'link'],
+      [{'header': 2}, {'header': 3}, {'list': 'bullet'}, {'list': 'ordered'}, 'code-block']
+    ],
+    inlineRow: [
+      {'header': 2}, {'header': 3}, {'list': 'bullet'}, {'list': 'ordered'}, 'code-block'
+    ]
+  }
+};
 
 const SaveAfterMilliseconds = 500;
 

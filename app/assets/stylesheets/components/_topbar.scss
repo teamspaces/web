@@ -5,188 +5,174 @@
   left: 0;
   z-index: 101;
   width: 100%;
-  height: 61px;
-  background: #fff;
-  border-bottom: 1px solid #EEEFF0;
+  height: 60px;
   padding: 0 36px;
-
-  // Main navigation
-  nav {
-    @include clearfix;
-    float: right;
-
-    > ul {
-      margin: 0;
-      padding: 0;
-      list-style: none;
-
-      > li {
-        float: left;
-
-        > a, > .dropdown > .dropdown__toggle {
-          display: block;
-          font-size: 13px;
-          line-height: 60px;
-          padding: 0 18px;
-          color: $color-text-secondary;
-          vertical-align: middle;
-
-          &:hover, &:active, &:focus {
-            color: $color-text-secondary;
-            opacity: 0.6;
-          }
-        }
-      }
-    }
-  }
-
-  // Account toggle
-  .dropdown--accounts .dropdown__toggle {
-    padding: 18px !important;
-
-    .avatar {
-      display: block;
-    }
-  }
+  background: #fff;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 1px 0 rgba(0,0,0,0.05);
 }
 
-
-
-// Logo
-.topbar__logo {
-  float: left;
+.topbar__teams-accounts {
+  position: relative;
   display: block;
-  padding: 15px 0;
+  float: left;
+  padding: 16px 24px 16px 43px;
 
-  img {
-    height: 30px;
-    width: auto;
+  &:hover {
+    .team-icon {
+      // transform: scale(1.075);
+    }
+
+    h3 {
+      color: $color-text-primary;
+    }
+
+    p {
+      color: $color-text-secondary;
+    }
   }
 
-  &:hover, &:active, &:focus {
-    opacity: 0.6;
+  .team-icon {
+    position: absolute;
+    top: 16px;
+    left: 0;
+    transition: transform 0.2s;
+  }
+
+  h3, p {
+    @include ellipsis;
+    max-width: 72px;
+    transition: color 0.2s;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 16px;
+    color: $color-text-secondary;
+  }
+
+  p {
+    margin: 0;
+    font-size: 11px;
+    line-height: 16px;
+    color: $color-text-faded;
   }
 }
-
 
 
 // Search
-input.topbar__search {
-  display: block;
+.topbar__search {
+  position: relative;
   float: left;
-  background: #fff;
-  width: calc(100% - 600px);
-  min-width: 150px;
-  height: 60px;
-  padding: 22px 0;
-  margin: 0 0 0 36px;
-  border: 0;
-  border-radius: 0;
-  font-size: 13px;
-  font-weight: normal;
-  line-height: 16px;
-  color: $color-text-primary;
+  width: calc(100vw - 300px - 180px);
+  margin: 0;
 
-  &:hover, &:focus {
-    outline: none;
+  // Divider
+  &:before {
+    display: block;
+    content: " ";
+    position: absolute;
+    top: 17px;
+    left: 0px;
+    width: 1px;
+    height: 26px;
+    background: #E8EBED;
   }
 
-  &::-webkit-input-placeholder {
-    color: #A7A9AE;
-    transition: color 0.2s;
-  }
+  // Search input
+  input {
+    display: block;
+    width: 100%;
+    background: transparent;
+    height: 60px;
+    padding: 22px 0 22px 23px;
+    margin: 0 0 0 1px;
+    border: 0;
+    border-radius: 0;
+    font-size: 13.5px;
+    font-weight: normal;
+    line-height: 16px;
+    color: $color-text-primary;
 
-  &:hover::-webkit-input-placeholder {
-    color: $color-text-secondary;
-  }
+    &:hover, &:focus {
+      outline: none;
+    }
 
-  &::-moz-placeholder {
-    color: #A7A9AE;
-    transition: color 0.2s;
-  }
+    &::-webkit-input-placeholder {
+      color: #A7A9AE;
+      transition: color 0.2s;
+    }
 
-  &:hover::-moz-placeholder {
-    color: $color-text-secondary;
-  }
+    &:hover::-webkit-input-placeholder {
+      color: $color-text-secondary;
+    }
 
-  &:-ms-input-placeholder {
-    color: #A7A9AE;
-    transition: color 0.2s;
-  }
+    &::-moz-placeholder {
+      color: #A7A9AE;
+      transition: color 0.2s;
+    }
 
-  &:hover:-ms-input-placeholder {
-    color: $color-text-secondary;
+    &:hover::-moz-placeholder {
+      color: $color-text-secondary;
+    }
+
+    &:-ms-input-placeholder {
+      color: #A7A9AE;
+      transition: color 0.2s;
+    }
+
+    &:hover:-ms-input-placeholder {
+      color: $color-text-secondary;
+    }
   }
 }
 
-
-
-// Invite link
-.topbar__invite {
-  @include clearfix;
+// Spaces
+.topbar__spaces {
+  display: block;
   float: right;
-  padding: 18px 0 18px 18px;
+  font-size: 13.5px;
+  line-height: 60px;
+  padding: 0 24px 0 12px;
+  color: $color-text-secondary;
 
   &:hover, &:active, &:focus {
+    color: $color-text-secondary;
     opacity: 0.6;
   }
+}
 
-  span {
-    display: block;
-    float: left;
-    width: 24px;
-    height: 24px;
-    margin-left: 12px;
+// Support
+.topbar__support {
+  display: block;
+  float: right;
+  width: 28px;
+  height: 28px;
+  border-radius: 14px;
+  background: #fff url(../images/topbar/help.svg) no-repeat center center;
+  border: 1px solid #D2D3D7;
+  margin-top: 16px;
+  transition: all 0.2s ease-out;
 
-    &:first-child {
-      margin-left: 0;
-    }
-
-    // The fifth element is made visible for larger viewports in the media queries
-    &:nth-child(5) {
-      display: none;
-    }
+  &:hover, &:active, &:focus {
+    border-color: $color-text-third;
+    transform: scale(1.1);
   }
 }
 
-.topbar__invite-team-icon img {
-  display: block;
-  width: 24px;
-  height: 24px;
-  border-radius: 8px;
-}
-
-.topbar__invite-empty {
-  border-radius: 12px;
-  background: url(../images/topbar/avatar-empty.svg) no-repeat center center;
-}
-
-.topbar__invite-add {
-  border-radius: 12px;
-  background: $color-primary url(../images/topbar/invite.svg) no-repeat center center;
+// Share
+.topbar__share {
+  float: right;
+  margin: 14px 0 0 24px;
 }
 
 
 
-// Media queries
+// Medium viewports
 @media (min-width: 769px) {
   .topbar {
     display: block;
-  }
-}
-
-@media (min-width: 1360px) {
-  .topbar__invite {
-    span:nth-child(5) {
-      display: block;
-    }
-  }
-}
-
-@media (min-width: 1360px) and (max-width: 1420px) {
-  .topbar__invite {
-    span {
-      margin-left: 10px;
-    }
   }
 }

@@ -1,0 +1,98 @@
+.overlay--spaces {
+
+}
+
+.overlay__spaces-list {
+  margin: 0;
+  padding: 72px 24px 108px 24px;
+  list-style: none;
+
+  li {
+    display: block;
+    position: relative;
+  }
+
+  a {
+    @include ellipsis;
+    display: block;
+    font-size: 14px;
+    line-height: 36px;
+    color: $color-text-primary;
+    margin-right: 44px;
+
+    &:hover, &:focus, &:active {
+      color: $color-text-faded;
+    }
+  }
+
+  .overflow {
+    position: absolute;
+    top: 1px;
+    right: 0;
+  }
+}
+
+.overlay__spaces-actions {
+  @include clearfix;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 72px;
+  background: #fff;
+  border-top: 1px solid #E6E9EB;
+  border-radius: 0 0 5px 5px;
+  padding: 14px 24px;
+
+  &:before {
+    display: block;
+    content: " ";
+    position: absolute;
+    top: -43px;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    height: 42px;
+    background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+    pointer-events: none;
+  }
+
+  .button {
+    margin: 0;
+  }
+
+  .button--expand {
+    float: left;
+  }
+
+  .button--primary {
+    float: right;
+  }
+}
+
+
+
+// Medium viewports and up
+@media (min-width: 769px) {
+  .overlay--spaces {
+    left: auto;
+    right: 36px;
+
+    .overlay__arrow {
+      left: 149px;
+    }
+  }
+
+  .overlay--spaces .overlay__content {
+    width: 324px;
+  }
+
+  .overlay__spaces-list {
+    padding: 24px 36px 108px 36px;
+  }
+
+  .overlay__spaces-actions {
+    padding: 14px 36px;
+  }
+}
