@@ -1,6 +1,5 @@
 import InlineToolbar from './InlineToolbar'
 import Quill from 'quill'
-import Break from 'quill/blots/break'
 import $ from 'jquery'
 import tippy from 'tippy.js/dist/tippy'
 
