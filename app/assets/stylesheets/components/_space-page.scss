@@ -183,6 +183,11 @@
 .ql-editor {
   outline: none;
   padding: 41px 24px 102px 24px;
+
+  // Remove top margin from the first element in the editor
+  *:first-child {
+    margin-top: 0;
+  }
 }
 
 .ql-editor.ql-blank::before {
