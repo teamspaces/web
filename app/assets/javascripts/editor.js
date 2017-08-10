@@ -1,5 +1,3 @@
-// import * as log from 'loglevel'
-
 import QuillEditor from './quill_editor'
 import PageSharedDB from './page/page_shared_db'
 import PageDB from './page/page_db'

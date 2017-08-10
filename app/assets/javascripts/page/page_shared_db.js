@@ -1,5 +1,3 @@
-// import * as log from 'loglevel'
-
 const EventEmitter = require('events')
 const ReconnectingWebSocket = require('reconnecting-websocket')
 
