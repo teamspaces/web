@@ -11,8 +11,12 @@
   </a>
 
   <form action="<%= search_page_path %>" method="get" class="topbar__search">
-    <input type="text" name="q" value="<%= @search_query %>" placeholder="Search" tabindex="1">
+    <input type="text" name="q" value="<%= @search_query %>" placeholder="Search" tabindex="1" autocomplete="off" class="topbar__search-input">
   </form>
+
+  <div class="topbar__search-results">
+
+  </div>
 
   <a href="#overlay--share" class="topbar__share button button--small button--primary overlay__toggle" aria-expanded="false" aria-controls="overlay--share">Share</a>
 
