@@ -14,11 +14,15 @@ class PageSharedDB extends EventEmitter {
     constructor(options){
       super()
       this.connect(options)
+      this.setupPage()
       this.subscribePageEvents()
     }
 
     connect({ collab_url, collection, document_id, edit_page_url, csrf_token, expires_at}){
       // edit_page_url, csrf_token, expires_at are used to reconnect
+      this.collab_url = collab_url
+      this.collection = collection
+      this.document_id = document_id
       this.edit_page_url = edit_page_url
       this.csrf_token = csrf_token
       this.expires_at = expires_at
@@ -33,10 +37,13 @@ class PageSharedDB extends EventEmitter {
       })
 
       this.shareDBConnection = new ShareDB.Connection(this.webSocket)
-      this.page = this.shareDBConnection.get(collection, document_id)
 
       this.subscribeWebSocketEvents()
       this.setupTokenReconnectTimer()
+    }
+
+    setupPage(){
+      this.page = this.shareDBConnection.get(this.collection, this.document_id)
     }
 
     // Internal: Set timer to trigger JWT refresh.

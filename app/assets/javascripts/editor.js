@@ -42,7 +42,10 @@ class Editor {
       this.quillEditor.setContents(content)
     })
 
-    this.pageSharedDB.on('update', this.quillEditor.updateContents.bind(this.quillEditor))
+    this.pageSharedDB.on('update', () => {
+        this.quillEditor.updateContents.bind(this.quillEditor)
+    })
+
     this.pageSharedDB.on('error', (error) => {
       log.error(error)
       Raven.captureException(error)
