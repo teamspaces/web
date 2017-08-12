@@ -14,6 +14,7 @@ class PageSharedDB extends EventEmitter {
     constructor(options){
       super()
       this.connect(options)
+      this.subscribePageEvents()
     }
 
     connect({ collab_url, collection, document_id, edit_page_url, csrf_token, expires_at}){
@@ -24,7 +25,7 @@ class PageSharedDB extends EventEmitter {
 
       this.webSocket = new ReconnectingWebSocket(collab_url, [], {
           debug: true,
-          connectionTimeout: 750, // Milliseconds to wait for connection to open
+          connectionTimeout: 2000, // Milliseconds to wait for connection to open
           maxReconnectionDelay: 2500, // Max time waiting between reconnects
           minReconnectionDelay: 100, // Min time before reconnect
           reconnectionDelayGrowFactor: 1.3, // Rate of delaying reconnect
@@ -34,20 +35,23 @@ class PageSharedDB extends EventEmitter {
       this.shareDBConnection = new ShareDB.Connection(this.webSocket)
       this.page = this.shareDBConnection.get(collection, document_id)
 
-      this.attachPageEvents()
+      this.subscribeWebSocketEvents()
+      this.setupTokenReconnectTimer()
     }
 
-    setReconnectTimer(){
-      // tries to reconnect 3 seconds before jwt-token expires
-      let reconnectInMilliseconds = (this.expires_at * 1000) - Date.now() - 3000
-      clearTimeout(this.reconnect_timer)
+    // Internal: Set timer to trigger JWT refresh.
+    setupTokenReconnectTimer(){
+      log.debug('[PageSharedDB] setting up timer for token refresh')
+      let reconnectInMilliseconds = (this.expires_at * 1000) - Date.now() - 5000
+      clearTimeout(this.tokenReconnectTimer)
 
-      this.reconnect_timer = setTimeout(() => {
-          this.reconnect()
+      this.tokenReconnectTimer = setTimeout(() => {
+          this.tokenReconnect()
       }, reconnectInMilliseconds)
     }
 
-    reconnect(){
+    tokenReconnect(){
+      log.debug('[PageSharedDB] refreshing token and reconnecting')
       this.fetchEditorSettings()
           .then((editor_settings) => {
             this.page.whenNothingPending((_error) => {
@@ -71,16 +75,26 @@ class PageSharedDB extends EventEmitter {
         .then(body => JSON.parse(body.editor_settings))
     }
 
-    attachPageEvents(){
+    subscribeWebSocketEvents() {
+      log.debug('[PageSharedDB] subscribing to websocket events')
+
       this.webSocket.addEventListener('close', (_event) => {
-        log.debug('WebSocket connection=close')
+        log.debug('[PageSharedDB] disconnected')
         this.emit('disconnect')
       })
 
       this.webSocket.addEventListener('open', (_event) => {
-        log.debug('WebSocket connection=open')
+        log.debug('[PageSharedDB] connected')
         this.emit('connect')
       })
+
+      this.webSocket.addEventListener('error', (error) => {
+        log.debug('[PageSharedDB] websocket error', error)
+      })
+    }
+
+    subscribePageEvents(){
+      log.debug('[PageSharedDB] subscribing to page events')
 
       this.page.on('error', (error) => {
         this.emit('error', error)
@@ -91,8 +105,8 @@ class PageSharedDB extends EventEmitter {
       })
 
       this.page.subscribe((_error) => {
+        log.debug('[PageSharedDB] subscribe emitted')
         this.emit('subscribe', this.page.data)
-        this.setReconnectTimer()
       })
     }
 

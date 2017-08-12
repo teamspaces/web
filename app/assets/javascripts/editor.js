@@ -2,8 +2,6 @@ import QuillEditor from './quill_editor'
 import PageSharedDB from './page/page_shared_db'
 import PageDB from './page/page_db'
 
-const logger = log.getLogger('editor')
-
 class Editor {
 
   constructor({ attachTo, statusMessage, options }) {
@@ -19,43 +17,55 @@ class Editor {
   }
 
   attachQuillEditorEvents(){
+    log.debug('[Editor] attaching quill events')
     this.quillEditor.on('text-change', this.pageSharedDB.update.bind(this.pageSharedDB))
     this.quillEditor.on('text-change', () => this.statusMessage.update("Saving..."))
     this.quillEditor.on('text-save', this.pageDB.update.bind(this.pageDB))
   }
 
-  attachPageDBEvents(){ // web_server events
+  // Internal: Responsible for frequently saving page contents to database.
+  attachPageDBEvents(){
+    log.debug('[Editor] attaching Page events')
+
     this.pageDB.on('saved', (response) => this.statusMessage.update("Your changes have been saved."))
     this.pageDB.on('error', (error) => {
-      logger.error(error)
+      this.statusMessage.update("We are currently unable to save your changes.")
+      log.error(error)
       Raven.captureException(error)
       this.disableEditor();
     })
   }
 
-  attachPageSharedDBEvents(){ // collab_server events
+  // Internal: Responsible for updates from collaboration server.
+  attachPageSharedDBEvents(){
     this.pageSharedDB.on('subscribe', (content) => {
       this.quillEditor.setContents(content)
     })
 
     this.pageSharedDB.on('update', this.quillEditor.updateContents.bind(this.quillEditor))
     this.pageSharedDB.on('error', (error) => {
-      logger.error(error)
+      log.error(error)
       Raven.captureException(error)
       this.disableEditor();
     })
 
-    this.pageSharedDB.on('connect', () => this.enableEditor())
-    this.pageSharedDB.on('disconnect', () => this.disableEditor())
+    this.pageSharedDB.on('connect', () => {
+      this.statusMessage.clear()
+      this.enableEditor()
+    })
+    this.pageSharedDB.on('disconnect', () => {
+      this.statusMessage.update("You are currently offline.")
+      this.disableEditor()
+    })
   }
 
   enableEditor(){
-    logger.debug("enabling editor")
+    log.debug("[Editor] enabling")
     this.quillEditor.enable()
   }
 
   disableEditor(){
-    logger.debug("disabling editor")
+    log.debug("[Editor] disabling")
     this.quillEditor.disable()
   }
 }
