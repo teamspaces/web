@@ -26,7 +26,7 @@ class PageSharedDB extends EventEmitter {
       this.expires_at = expires_at
 
       this.webSocket = new ReconnectingWebSocket(collab_url, [], {
-          debug: true,
+          debug: this.isDebugEnabled(),
           connectionTimeout: 2000, // Milliseconds to wait for connection to open
           maxReconnectionDelay: 2500, // Max time waiting between reconnects
           minReconnectionDelay: 100, // Min time before reconnect
@@ -38,6 +38,15 @@ class PageSharedDB extends EventEmitter {
 
       this.subscribeWebSocketEvents()
       this.setupTokenReconnectTimer()
+    }
+
+    isDebugEnabled(){
+      // 0=TRACE 1=DEBUG 2=INFO
+      if(log.getLevel() <= 1){
+        return true
+      }else{
+        return false
+      }
     }
 
     setupPage(){
