@@ -163,27 +163,26 @@
 @media (min-width: 1260px) {
   .space-toc {
     background: transparent;
+    width: calc( (100vw - 800px) / 2 );
+    padding-right: calc( ((100vw - 800px) / 2) - 180px );
+
+    &:before {
+      width: calc( (100vw - 800px) / 2 );
+    }
   }
 }
 
 @media (min-width: 1360px) {
   .space-toc {
-    width: calc( (100vw - 880px) / 2 );
-    padding-right: calc( ((100vw - 880px) / 2) - 180px );
+    width: calc( (100vw - 840px) / 2 );
+    padding-right: calc( ((100vw - 840px) / 2) - 180px );
 
     &:before {
-      width: calc( (100vw - 880px) / 2 );
+      width: calc( (100vw - 840px) / 2 );
     }
   }
 }
 
 @media (min-width: 1420px) {
-  .space-toc {
-    width: calc( (100vw - 900px) / 2 );
-    padding-right: calc( ((100vw - 900px) / 2) - 204px );
 
-    &:before {
-      width: calc( (100vw - 900px) / 2 );
-    }
-  }
 }

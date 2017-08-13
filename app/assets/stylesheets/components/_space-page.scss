@@ -218,7 +218,7 @@
 @media (min-width: 769px) {
   .space-page {
     width: calc( 100vw - 240px - 36px );
-    max-width: 840px;
+    max-width: 800px;
     margin-left: 240px;
     margin-top: 36px;
     margin-bottom: 24px;
@@ -245,7 +245,9 @@
 // Large viewports
 @media (min-width: 1260px) {
   .space-page {
-    width: calc( 100vw - 240px - 240px );
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .space-page__hero, .space-page__meta, .ql-editor {
@@ -256,30 +258,13 @@
 
 @media (min-width: 1360px) {
   .space-page {
-    width: 880px;
-    max-width: 880px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .space-page__hero, .space-page__meta, .ql-editor {
-    padding-left: 140px;
-    padding-right: 140px;
+    width: 840px;
+    max-width: 840px;
   }
 }
 
 @media (min-width: 1420px) {
-  .space-page {
-    width: 900px;
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-  }
 
-  .space-page__hero, .space-page__meta, .ql-editor {
-    padding-left: 150px;
-    padding-right: 150px;
-  }
 }
 
 @media (min-width: 1460px) {
