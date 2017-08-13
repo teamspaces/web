@@ -115,7 +115,7 @@ class SpaceSidebar {
   }
 
   onPageTreeChange (hierarchy) {
-    // TODO Make sure that toggles open/closed states are correct when reordering pages
+    // TODO: Make sure that toggles open/closed states are correct when reordering pages
     // Remove all page toggles
     $('.page-tree__toggle').remove()
 
@@ -136,10 +136,9 @@ class SpaceSidebar {
     const promise = this.pageHierarchy.update({ page_hierarchy: hierarchy })
 
     promise.then( (response) => {
-      // console.log('Successfully updated page hierarchy')
+      log.debug('Successfully updated page hierarchy');
     })
 
-    // Update actions position
     this.updateActionsPosition()
   }
 

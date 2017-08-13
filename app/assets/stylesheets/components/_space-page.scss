@@ -17,7 +17,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: top center;
-  padding: 167px 24px 49px 24px;
+  padding: 143px 24px 49px 24px;
 
   // Overlay
   &:before {
@@ -249,26 +249,37 @@
   }
 
   .space-page__hero, .space-page__meta, .ql-editor {
-    padding-left: 108px;
-    padding-right: 108px;
-  }
-}
-
-@media (min-width: 1360px) {
-  .space-page {
-    width: 840px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .space-page__hero, .space-page__meta, .ql-editor {
     padding-left: 120px;
     padding-right: 120px;
   }
 }
 
-@media (min-width: 1420px) {
+@media (min-width: 1360px) {
+  .space-page {
+    width: 880px;
+    max-width: 880px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
+  .space-page__hero, .space-page__meta, .ql-editor {
+    padding-left: 140px;
+    padding-right: 140px;
+  }
+}
+
+@media (min-width: 1420px) {
+  .space-page {
+    width: 900px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .space-page__hero, .space-page__meta, .ql-editor {
+    padding-left: 150px;
+    padding-right: 150px;
+  }
 }
 
 @media (min-width: 1460px) {
