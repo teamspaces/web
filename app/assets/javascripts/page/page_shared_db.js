@@ -14,8 +14,6 @@ class PageSharedDB extends EventEmitter {
     constructor(options){
       super()
       this.connect(options)
-      this.setupPage()
-      this.subscribePageEvents()
     }
 
     connect({ collab_url, collection, document_id, edit_page_url, csrf_token, expires_at}){
@@ -44,6 +42,7 @@ class PageSharedDB extends EventEmitter {
 
     setupPage(){
       this.page = this.shareDBConnection.get(this.collection, this.document_id)
+      this.subscribePageEvents()
     }
 
     // Internal: Set timer to trigger JWT refresh.
@@ -58,16 +57,27 @@ class PageSharedDB extends EventEmitter {
     }
 
     tokenReconnect(){
-      log.debug('[PageSharedDB] refreshing token and reconnecting')
+      if(this.activeTokenReconnect == true){
+        log.debug('[PageSharedDB] token reconect in progress, ignoring new request')
+        return
+      }
+
+      this.activeTokenReconnect = true
+
+      log.debug('[PageSharedDB] reconnecting with refreshed token')
       this.fetchEditorSettings()
           .then((editor_settings) => {
             this.page.whenNothingPending((_error) => {
 
               this.webSocket.close()
               this.connect(editor_settings)
+              this.activeTokenReconnect = false
             })
           })
-          .catch((error) => this.emit('error', error) )
+          .catch((error) => {
+            this.emit('error', error)
+            this.activeTokenReconnect = false
+          })
     }
 
     fetchEditorSettings(){
@@ -93,10 +103,17 @@ class PageSharedDB extends EventEmitter {
       this.webSocket.addEventListener('open', (_event) => {
         log.debug('[PageSharedDB] connected')
         this.emit('connect')
+
+        this.setupPage()
       })
 
       this.webSocket.addEventListener('error', (error) => {
         log.debug('[PageSharedDB] websocket error', error)
+      })
+
+      this.webSocket.addEventListener('message', (event) => {
+        const data = JSON.parse(event.data)
+        log.trace('[PageSharedDB] websocket message:', data)
       })
     }
 
@@ -104,7 +121,13 @@ class PageSharedDB extends EventEmitter {
       log.debug('[PageSharedDB] subscribing to page events')
 
       this.page.on('error', (error) => {
-        this.emit('error', error)
+        if(error.code == 403){
+          log.debug('[PageSharedDB] invalid token error, catch and reconnect')
+          this.tokenReconnect()
+        }else{
+          log.error('[PageSharedDB] error:', error.code, error.message)
+          this.emit('error', error)
+        }
       })
 
       this.page.on('op', (op, source) => {
