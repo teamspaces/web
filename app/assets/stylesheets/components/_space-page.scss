@@ -256,14 +256,30 @@
 
 @media (min-width: 1360px) {
   .space-page {
-    width: 840px;
+    width: 880px;
+    max-width: 880px;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  .space-page__hero, .space-page__meta, .ql-editor {
+    padding-left: 140px;
+    padding-right: 140px;
   }
 }
 
 @media (min-width: 1420px) {
+  .space-page {
+    width: 900px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
+  .space-page__hero, .space-page__meta, .ql-editor {
+    padding-left: 150px;
+    padding-right: 150px;
+  }
 }
 
 @media (min-width: 1460px) {
