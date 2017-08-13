@@ -61,6 +61,7 @@
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.8s $easing, visibility 0.8s $easing;
+  // pointer-events: none;
 
   // Pseudo element that hides the placeholder when the editor is empty
   &:before {
@@ -77,6 +78,7 @@
   &.ql-inline-row__controls--open {
     visibility: visible;
     opacity: 1;
+    // pointer-events: auto;
 
     button {
       transform: translate(0, 0) scale(1) !important;
@@ -170,12 +172,6 @@
 // Large viewports
 @media (min-width: 1260px) {
   .ql-inline-row__toggle {
-    margin-left: 25px;
-  }
-}
-
-@media (min-width: 1360px) {
-  .ql-inline-row__toggle {
     margin-left: 30px;
   }
 
@@ -208,4 +204,8 @@
       }
     }
   }
+}
+
+@media (min-width: 1360px) {
+
 }

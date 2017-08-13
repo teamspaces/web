@@ -17,7 +17,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: top center;
-  padding: 167px 24px 49px 24px;
+  padding: 143px 24px 49px 24px;
 
   // Overlay
   &:before {
@@ -249,8 +249,8 @@
   }
 
   .space-page__hero, .space-page__meta, .ql-editor {
-    padding-left: 108px;
-    padding-right: 108px;
+    padding-left: 120px;
+    padding-right: 120px;
   }
 }
 
@@ -259,11 +259,6 @@
     width: 840px;
     margin-left: auto;
     margin-right: auto;
-  }
-
-  .space-page__hero, .space-page__meta, .ql-editor {
-    padding-left: 120px;
-    padding-right: 120px;
   }
 }
 
