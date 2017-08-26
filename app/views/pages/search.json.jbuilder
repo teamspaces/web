@@ -8,7 +8,7 @@ json.array! @pages do |page|
   end
 
   json.title page.search_highlights[:title] || page.title
-  json.contents page.search_highlights[:contents]
+  json.contents sanitize(page.search_highlights[:contents], tags: [])
   json.url page_path(page, search_id: @pages.search.id)
   json.extract! page, :created_at, :updated_at
 end
