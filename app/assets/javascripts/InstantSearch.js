@@ -1,6 +1,9 @@
 import $ from 'jquery'
 
 // TODO If results higher than viewport, fixed hints
+// TODO Users could tab, either disable tabindex=-1 or listen for changes
+// TODO Only show hints when search results
+// TODO Escape clears input and focus
 class InstantSearch {
 
   /*
@@ -53,7 +56,7 @@ class InstantSearch {
     if(this.showHints) {
       this.resultsContainerHints = $('<div>', {
         class: 'instant-search__hints',
-        html: '&uarr; &darr; to select, <b>Enter</b> to open'
+        html: '&uarr;&darr; to select, <b>Enter</b> to open'
       })
 
       this.resultsContainer.append(this.resultsContainerHints)
@@ -61,9 +64,9 @@ class InstantSearch {
   }
 
   addListeners () {
-    this.input.on('input', this.onInput.bind(this))
-    this.clearButton.on('click', this.onClearClick.bind(this))
-    $(document).on('keydown', this.onDocumentKeydown.bind(this))
+    this.input.on('input.instantsearch', this.onInput.bind(this))
+    this.clearButton.on('click.instantsearch', this.onClearClick.bind(this))
+    $(document).on('keydown.instantsearch', this.onDocumentKeydown.bind(this))
   }
 
   removeListeners () {
@@ -74,16 +77,24 @@ class InstantSearch {
     // Save the search query
     const query = $(e.currentTarget).val()
 
-    // Show the spinner
-    this.showSpinner()
+    // Check if the input is empty
+    if(query.length > 0) {
+      // Show results container and clear button
+      this.showResults()
 
-    // Clear any existing search timer
-    if(this.searchTimer) {
-      window.clearTimeout(this.searchTimer)
+      // Show the spinner
+      this.showSpinner()
+
+      // Clear any existing timer
+      this.clearSearchTimer()
+
+      // Delay the search to throttle requests
+      this.searchTimer = window.setTimeout(this.search.bind(this, query), 250)
+
+    // Hide results
+    } else {
+      this.hideResults()
     }
-
-    // Delay the search to throttle requests
-    this.searchTimer = window.setTimeout(this.search.bind(this, query), 250)
   }
 
   onClearClick () {
@@ -118,11 +129,11 @@ class InstantSearch {
     }
   }
 
-  onSearchDone (response) { console.log('done', response)
+  onSearchDone (response) {
     this.hideSpinner()
     this.clearResults()
 
-    // Show results
+    // Add results
     if(response.length > 0) {
       // Render an element for each element in the response
       response.map(this.renderItem, this)
@@ -231,12 +242,42 @@ class InstantSearch {
     window.location.href = url
   }
 
+  clearSearchTimer () {
+    if(this.searchTimer) {
+      window.clearTimeout(this.searchTimer)
+    }
+  }
+
   showSpinner () {
 
   }
 
   hideSpinner () {
 
+  }
+
+  showHints () {
+
+  }
+
+  hideHints () {
+
+  }
+
+  showResults () {
+    this.resultsContainer.addClass('instant-search__visible')
+    this.clearButton.addClass('instant-search__visible')
+  }
+
+  hideResults () {
+    this.resultsContainer.removeClass('instant-search__visible')
+    this.clearButton.removeClass('instant-search__visible')
+
+    // Clear any existing search timer
+    this.clearSearchTimer()
+
+    // Clear results
+    this.clearResults()
   }
 
   destroy () {

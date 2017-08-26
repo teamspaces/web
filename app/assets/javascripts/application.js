@@ -31,9 +31,9 @@ new Overflows()
 new Tabs()
 
 // Instant search
-new InstantSearch({
-  input: '.topbar__search-input',
-  resultsContainer: '.topbar__search-results',
-  clearButton: '',
-  showHints: true
-})
+// new InstantSearch({
+//   input: '.topbar__search-input',
+//   resultsContainer: '.topbar__search-results',
+//   clearButton: '.topbar__clear-search',
+//   showHints: true
+// })
