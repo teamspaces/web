@@ -1,72 +1,70 @@
 <style>
-    html, body {
-        height: 100%;
-    }
-
     body{
-        margin: 0;
-        -webkit-animation: background-pulse 18s infinite;
-        animation: background-pulse 18s infinite;
+      margin: 0;
+      padding: 0;
     }
 
     a {
-        color: #004941;
+      color: #766EFE;
     }
 
-    @-webkit-keyframes background-pulse{
-        0% { background: #b3ccff; }
-        25% { background: #74dfff; }
-        50% { background: #d991ff; }
-        75% { background: #879cff; }
-        100% { background: #b3ccff; }
+    a:hover, a:focus, a:active {
+      color: #766EFE;
+      opacity: 0.6;
     }
 
-    @keyframes pulse {
-        0% { background: #b3ccff; }
-        25% { background: #74dfff; }
-        50% { background: #d991ff; }
-        75% { background: #879cff; }
-        100% { background: #b3ccff; }
+    .landing-container {
+      width: 408px;
+      max-width: 100%;
+      padding: 120px 24px 120px 24px;
+      margin: 0 auto;
     }
 
-    .flex-container {
-        height: 100%;
-        padding: 0;
-        margin: 0;
-        display: -webkit-box;
-        display: -moz-box;
-        display: -ms-flexbox;
-        display: -webkit-flex;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    .landing-card {
+      background: #fff;
+      border-radius: 5px;
+      text-align: center;
+      padding: 96px 60px 90px 60px;
+      box-shadow: 0 0 1px rgba(0,0,0,0.25), 0 4px 10px rgba(0,0,0,0.03);
     }
-    .row {
-        width: auto;
+
+    .landing-card__logo {
+      width: 120px;
+      height: auto;
+      border-radius: 5px;
     }
-    .flex-item {
-        padding: 5px;
-        width: 300px;
-        margin: 10px;
-        line-height: 20px;
-        color: white;
-        font-weight: bold;
-        font-size: 1em;
-        text-align: center;
+
+    .landing-card__teams {
+      margin-top: 36px;
+    }
+
+    .landing-card__teams span {
+      margin: 0 6px;
+    }
+
+    .landing-card__teams img {
+      border-radius: 5px;
+      width: 24px;
+      height: 24px;
+      margin-right: 3px;
+    }
+
+    .landing-card__sign-in {
+      margin-top: 24px;
     }
 </style>
 
-<div class="flex-container">
-    <div class="row">
-        <div class="flex-item">
-            <img src="<%= fingerprinted_asset("images/static/helmet.png") %>" style="width: 147px">
-        </div>
-        <div class="flex-item">
-            <%= render "available_teams", teams: available_users.teams %>
-        </div>
-        <div class="flex-item">
-            <%= link_to "Sign in to existing team", choose_login_method_path, style: "font-size: 13px;" %> <div style="font-size:15px">or</div>
-            <%= link_to "Create new", choose_login_method_path(create_team: true), style: "font-size: 13px;" %>
-        </div>
+<div class="landing-container">
+  <div class="landing-card">
+    <img src="<%= fingerprinted_asset("images/static/helmet.png") %>" class="landing-card__logo">
+
+    <div class="landing-card__teams">
+      <%= render "available_teams", teams: available_users.teams %>
     </div>
+
+    <div class="landing-card__sign-in">
+      <%= link_to "Sign in", choose_login_method_path%> <br>
+      <%= link_to "Create team", choose_login_method_path(create_team: true) %>
+    </div>
+  </div>
 </div>
