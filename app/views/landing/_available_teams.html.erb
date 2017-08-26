@@ -1,10 +1,6 @@
-<ul>
-  <% teams.each do |team| %>
-
-    <li>
-      <%= image_tag team.logo_url(:image_32) %>
-      <%= link_to team.name, root_subdomain_url(subdomain: team.subdomain), target: "blank" %>
-    </li>
-
-  <% end %>
-</ul>
+<div style="">
+    <% teams.each do |team| %>
+        <img src="<%= team.logo_url(:image_32) %>" style="width: 28px; height: 28px; border-radius: 5px; margin-right: 7px;">
+        <a href="<%= root_subdomain_url(subdomain: team.subdomain) %>" style="font-size: 15px;"><%= team.name %></a>
+    <% end %>
+</div>
