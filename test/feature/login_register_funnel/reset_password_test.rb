@@ -8,7 +8,7 @@ describe "Reset Password", :capybara do
 
     it "let's user reset the password" do
       visit "/landing"
-      click_on "Sign In"
+      click_on "Sign in to existing team"
       click_on "Sign in with email"
 
       fill_in("Email", with: email_user.email)
