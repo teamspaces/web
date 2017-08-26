@@ -7,18 +7,15 @@
   padding: 0;
   list-style: none;
 
-  // TODO Move to a
-  li {
-    &.instant-search__selected, &:hover, &:active, &:focus {
-      background: #F7FAFC;
-    }
-  }
-
   a {
     display: block;
     position: relative;
     padding: 24px;
     border-bottom: 1px solid #EBEEF0;
+
+    &:focus {
+      outline: 0;
+    }
   }
 
   img {
@@ -42,6 +39,14 @@
   }
 }
 
+.instant-search__item {
+  &.instant-search__selected {
+    a {
+      background: #F7FAFC;
+    }
+  }
+}
+
 .instant-search__space, .instant-search__excerpt {
   color: #87878C;
   font-size: 13px;
@@ -52,6 +57,13 @@
 .instant-search__excerpt {
   @include ellipsis;
   max-width: 750px;
+}
+
+.instant-search__message {
+  padding: 30px 36px 29px 168px;
+  color: #87878C;
+  font-size: 14px;
+  line-height: 24px;
 }
 
 

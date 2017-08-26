@@ -35,5 +35,6 @@ new InstantSearch({
   input: '.topbar__search-input',
   resultsContainer: '.topbar__search-results',
   clearButton: '.topbar__clear-search',
-  showHints: true
+  showHints: true,
+  useFocusShortcut: true
 })

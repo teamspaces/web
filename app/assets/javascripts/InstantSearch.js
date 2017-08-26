@@ -1,9 +1,9 @@
 import $ from 'jquery'
+import Ps from 'perfect-scrollbar'
+import tippy from 'tippy.js/dist/tippy'
 
-// TODO If results higher than viewport, fixed hints
-// TODO Users could tab, either disable tabindex=-1 or listen for changes
-// TODO Only show hints when search results
-// TODO Escape clears input and focus
+// TODO Tooltip keyboard shortcut search
+// TODO Scroll to item when using arrow keys
 class InstantSearch {
 
   /*
@@ -12,7 +12,8 @@ class InstantSearch {
       input: '.selector',
       clearButton: '.selector',
       resultsContainer: '.selector',
-      showHints: true
+      showHints: true,
+      useFocusShortcut: true
     }
   */
   constructor (options) {
@@ -23,6 +24,9 @@ class InstantSearch {
     this.resultsContainerResults = null
     this.resultsContainerHints = null
     this.showHints = options.showHints || false
+    this.useFocusShortcut = options.useFocusShortcut || false
+    this.isCtrlDown = false
+    this.isJDown = false
     this.isVisible = false
     this.query = ''
     this.currentItemIndex = 0
@@ -35,7 +39,7 @@ class InstantSearch {
   }
 
   onDomLoaded () {
-    // Save the elements that were passed in as options
+    // Store the elements that were passed in as options
     this.input = $( this.options.input )
     this.clearButton = $( this.options.clearButton )
     this.resultsContainer = $( this.options.resultsContainer )
@@ -56,21 +60,26 @@ class InstantSearch {
     if(this.showHints) {
       this.resultsContainerHints = $('<div>', {
         class: 'instant-search__hints',
-        html: '&uarr;&darr; to select, <b>Enter</b> to open'
+        html: '&uarr;&darr; to select, <b>Enter</b> to open, <b>Escape</b> to close'
       })
 
       this.resultsContainer.append(this.resultsContainerHints)
     }
+
+    // Custom scrollbar
+    Ps.initialize( this.resultsContainerResults.get(0) )
   }
 
   addListeners () {
     this.input.on('input.instantsearch', this.onInput.bind(this))
     this.clearButton.on('click.instantsearch', this.onClearClick.bind(this))
+    this.resultsContainer.on('mouseenter.instantsearch', '.instant-search__item', this.onMouseEnterItem.bind(this))
     $(document).on('keydown.instantsearch', this.onDocumentKeydown.bind(this))
+    $(document).on('keyup.instantsearch', this.onDocumentKeyup.bind(this))
   }
 
   removeListeners () {
-    // TODO Test off with .bind(this), anonymous?
+
   }
 
   onInput (e) {
@@ -85,6 +94,11 @@ class InstantSearch {
       // Show the spinner
       this.showSpinner()
 
+      // Show a searching message if there are no results visible
+      if(this.resultsContainerResults.find('.instant-search__item').length === 0) {
+        this.addResultsMessage('Searching...')
+      }
+
       // Clear any existing timer
       this.clearSearchTimer()
 
@@ -97,35 +111,71 @@ class InstantSearch {
     }
   }
 
-  onClearClick () {
+  onClearClick (e) {
     this.clearInput()
+    this.hideResults()
+  }
+
+  onMouseEnterItem (e) {
+    // Find index of current element
+    const index = $(e.currentTarget).index()
+
+    // Update selected index
+    this.selectItem(index)
   }
 
   onDocumentKeydown (e) {
-    // Ignore the event if the instant search results aren't visible
-    if(!this.isVisible) {
-      return
+    if(e.keyCode === 17) {
+      this.isCtrlDown = true
+    } else if(e.keyCode === 74) {
+      this.isJDown = true
     }
 
-    // Escape clears the input
-    // TODO Check if programmatic change triggers input event
-    if(e.keyCode === 27) {
-      this.clearInput()
+    // Check if we want to use a keyboard shortcut to give the input focus
+    if(this.useFocusShortcut) {
+      if(this.isCtrlDown && this.isJDown) {
+        this.input.focus()
+      }
     }
 
-    // Up moves to the previous item
-    else if(e.keyCode === 38) {
-      this.selectPreviousItem()
-    }
+    // We're only interested in these events when the results are visible
+    if(this.isVisible) {
+      // Escape clears the input
+      if(e.keyCode === 27) {
+        this.clearInput()
+        this.hideResults()
+      }
 
-    // Down moves to the next item
-    else if(e.keyCode === 40) {
-      this.selectNextItem()
-    }
+      // Up moves to the previous item
+      else if(e.keyCode === 38) {
+        e.preventDefault()
+        this.selectPreviousItem()
+      }
 
-    // Enter opens the selected item
-    else if(e.keyCode === 13) {
-      this.openCurrentItem()
+      // Down moves to the next item
+      else if(e.keyCode === 40) {
+        e.preventDefault()
+        this.selectNextItem()
+      }
+
+      // Enter opens the selected item
+      else if(e.keyCode === 13) {
+        this.openCurrentItem()
+      }
+
+      // Tab blurs input but prevents default functionality
+      else if(e.keyCode === 9) {
+        e.preventDefault()
+        this.input.blur()
+      }
+    }
+  }
+
+  onDocumentKeyup (e) {
+    if(e.keyCode === 17) {
+      this.isCtrlDown = false
+    } else if(e.keyCode === 74) {
+      this.isJDown = false
     }
   }
 
@@ -141,7 +191,7 @@ class InstantSearch {
       // Select the first item in the results
       this.selectItem(0)
     } else {
-      this.resultsContainerResults.append('<li class="instant-search__empty">No results found for <b>' + this.query + '</b></li>')
+      this.addResultsMessage('No results found for <b>' + this.query + '</b>')
     }
   }
 
@@ -153,8 +203,7 @@ class InstantSearch {
 
     this.hideSpinner()
     this.clearResults()
-
-    this.resultsContainerResults.append('<li class="instant-search__error">Something went wrong. Please try again later.</li>')
+    this.addResultsMessage('Something went wrong. Please try again later.')
   }
 
   search (query) {
@@ -178,11 +227,6 @@ class InstantSearch {
     .fail( this.onSearchFail )
   }
 
-  clearInput () {
-    this.clearResults()
-    this.currentItemIndex = 0
-  }
-
   clearResults () {
     this.resultsContainerResults.empty()
     this.searchResults = []
@@ -191,8 +235,8 @@ class InstantSearch {
   renderItem (item) {
     // Create element
     const element = `
-      <li>
-        <a href="${ item.url }">
+      <li class="instant-search__item">
+        <a href="${ item.url }" tabindex="-1">
           <img src="https://images.unsplash.com/photo-1497215457980-d57c69aee12d?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=" alt="${ item.title }">
           <h3>${ item.title }</h3>
           <p class="instant-search__space">${ item.space.name }</p>
@@ -214,21 +258,29 @@ class InstantSearch {
   }
 
   selectItem (index) {
-    // Ensure that the index is within bounds
-    if(index < 0) {
-      index = 0
-    } else if(index > this.searchResults.length - 1) {
-      index = this.searchResults.length - 1
+    // Get items
+    const items = this.resultsContainerResults.find('.instant-search__item')
+
+    // Check if we have any visible results
+    if(items.length > 0) {
+
+      // Ensure that the index is within bounds
+      if(index < 0) {
+        index = 0
+      } else if(index > items.length - 1) {
+        index = items.length - 1
+      }
+
+      // Store new index
+      this.currentItemIndex = index
+
+      // Remove selected classes from all results
+      items.removeClass('instant-search__selected')
+
+      // Select the new item
+      items.eq(this.currentItemIndex).addClass('instant-search__selected')
     }
 
-    this.currentItemIndex = index
-
-    // Remove selected classes from all results
-    this.resultsContainerResults.find('li').removeClass('instant-search__selected')
-
-    // Select the new item
-    // TODO Check if empty first
-    this.resultsContainerResults.find('li').get(this.currentItemIndex).addClass('instant-search__selected')
   }
 
   openCurrentItem () {
@@ -256,28 +308,36 @@ class InstantSearch {
 
   }
 
-  showHints () {
-
-  }
-
-  hideHints () {
-
-  }
-
   showResults () {
+    this.isVisible = true
     this.resultsContainer.addClass('instant-search__visible')
     this.clearButton.addClass('instant-search__visible')
+    $('body').addClass('body--no-scroll')
   }
 
   hideResults () {
+    this.isVisible = false
     this.resultsContainer.removeClass('instant-search__visible')
     this.clearButton.removeClass('instant-search__visible')
+    $('body').removeClass('body--no-scroll')
+
+    // Reset index
+    this.currentItemIndex = 0
 
     // Clear any existing search timer
     this.clearSearchTimer()
 
     // Clear results
     this.clearResults()
+  }
+
+  addResultsMessage (message) {
+    this.resultsContainerResults.html('<li class="instant-search__message">' + message + '</li>')
+  }
+
+  clearInput () {
+    // Empty input
+    this.input.val('').focus()
   }
 
   destroy () {

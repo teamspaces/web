@@ -10,9 +10,9 @@
     </p>
   </a>
 
-  <form action="<%= search_page_path %>" method="get" class="topbar__search">
-    <input type="text" name="q" value="<%= @search_query %>" placeholder="Search" tabindex="1" autocomplete="off" class="topbar__search-input">
-  </form>
+  <div class="topbar__search">
+    <input type="text" name="q" value="<%= @search_query %>" placeholder="Search" tabindex="1" autocomplete="off" class="topbar__search-input tippy" data-distance="14" data-position="left" data-sticky="true" data-stickyDuration="0" data-trigger="mouseenter" title="ctrl + j">
+  </div>
 
   <div class="topbar__search-results">
 
