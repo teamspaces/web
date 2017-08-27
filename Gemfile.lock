@@ -54,7 +54,7 @@ GEM
       public_suffix (>= 2.0.2, < 4.0)
     ansi (1.5.0)
     arel (8.0.0)
-    authie (2.0.1)
+    authie (3.0.0)
     avatarly (1.5.0)
       rfc822
       rmagick
@@ -370,7 +370,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  authie (~> 2.0)
+  authie (~> 3.0)
   avatarly
   awesome_print
   aws-sdk

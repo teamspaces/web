@@ -35,7 +35,7 @@ gem "interactor-rails", "~> 2.1.1" # Service (Interactor) Objects
 gem "devise" # Authentication and basic Authorization
 gem 'omniauth-slack', git: 'https://github.com/teamspaces/omniauth-slack.git', branch: 'auth-hash-fixes'
 gem "pundit" # Easy and powerful authorization
-gem "authie", "~> 2.0" # Database-backed session store
+gem "authie", "~> 3.0" # Database-backed session store
 
 gem "elasticsearch"
 gem "faraday_middleware-aws-signers-v4" # Auth for AWS Elasticsearch endpoint
