@@ -1,11 +1,70 @@
-<h1>Landing#index</h1>
+<style>
+    body{
+      margin: 0;
+      padding: 0;
+    }
 
-<%= render "available_teams", teams: available_users.teams %>
+    a {
+      color: #766EFE;
+    }
 
-<% if !user_signed_in? %>
+    a:hover, a:focus, a:active {
+      color: #766EFE;
+      opacity: 0.6;
+    }
 
-  <p><%= link_to "Sign In", choose_login_method_path %></p>
+    .landing-container {
+      width: 408px;
+      max-width: 100%;
+      padding: 120px 24px 120px 24px;
+      margin: 0 auto;
+    }
 
-  <%= link_to "or create Team", choose_login_method_path(create_team: true) %>
+    .landing-card {
+      background: #fff;
+      border-radius: 5px;
+      text-align: center;
+      padding: 96px 60px 90px 60px;
+      box-shadow: 0 0 1px rgba(0,0,0,0.25), 0 4px 10px rgba(0,0,0,0.03);
+    }
 
-<% end %>
+    .landing-card__logo {
+      width: 120px;
+      height: auto;
+      border-radius: 5px;
+    }
+
+    .landing-card__teams {
+      margin-top: 36px;
+    }
+
+    .landing-card__teams span {
+      margin: 0 6px;
+    }
+
+    .landing-card__teams img {
+      border-radius: 5px;
+      width: 24px;
+      height: 24px;
+      margin-right: 3px;
+    }
+
+    .landing-card__sign-in {
+      margin-top: 24px;
+    }
+</style>
+
+<div class="landing-container">
+  <div class="landing-card">
+    <img src="<%= fingerprinted_asset("images/static/helmet.png") %>" class="landing-card__logo">
+
+    <div class="landing-card__teams">
+      <%= render "available_teams", teams: available_users.teams %>
+    </div>
+
+    <div class="landing-card__sign-in">
+      <%= link_to "Sign in", choose_login_method_path%> <br>
+      <%= link_to "Create team", choose_login_method_path(create_team: true) %>
+    </div>
+  </div>
+</div>
