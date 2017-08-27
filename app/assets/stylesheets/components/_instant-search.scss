@@ -59,6 +59,16 @@
   margin: 0;
 }
 
+.instant-search__excerpt em {
+  color: $color-text-primary;
+  background: #F7FAFC;
+  border: 1px solid #D7D9DB;
+  border-radius: 5px;
+  display: inline-block;
+  padding: 0 6px;
+  font-style: normal;
+}
+
 .instant-search__message {
   padding: 30px 36px 29px 168px;
   color: #87878C;
