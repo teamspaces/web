@@ -1,7 +1,7 @@
 class PagesController < SubdomainBaseController
   before_action :set_page,
                 only: [:show, :edit, :update, :destroy]
-  
+
   before_action :set_current_space,
                 only: [:index, :show, :edit, :update, :create, :destroy]
 
@@ -93,7 +93,10 @@ class PagesController < SubdomainBaseController
         misspellings: { below: 3, distance: 2 },
         routing: [current_team.id],
         track: { user_id: current_user.id },
-        highlight: { fields: { title: {}, contents: { fragment_size: 200 } } },
+        highlight: {
+          fields: { title: {}, contents: { fragment_size: 200 } },
+          tag: '<em>'
+        },
         includes: [:space, :team],
         limit: 10
       )
