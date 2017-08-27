@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>topbar-clear-search</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-23" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="2.1.1-View-Space---1280---Fixed-sidebar-actions-Copy-13" transform="translate(-1230.000000, -23.000000)" fill="#797C7F">
+            <g id="topbar-clear-search" transform="translate(1237.000000, 30.000000) rotate(45.000000) translate(-1237.000000, -30.000000) translate(1228.000000, 21.000000)">
+                <rect id="Rectangle-6" x="8.5" y="0" width="1" height="18"></rect>
+                <rect id="Rectangle-6" x="0" y="8.5" width="18" height="1"></rect>
+            </g>
+        </g>
+    </g>
+</svg>
