@@ -56,7 +56,7 @@
 
 <div class="landing-container">
   <div class="landing-card">
-    <img src="<%= fingerprinted_asset("images/static/helmet.png") %>" class="landing-card__logo">
+    <img src="<%= asset_path("images/static/helmet.png") %>" class="landing-card__logo">
 
     <div class="landing-card__teams">
       <%= render "available_teams", teams: available_users.teams %>
