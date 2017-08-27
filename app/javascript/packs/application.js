@@ -53,5 +53,10 @@ new InstantSearch({
 import '../stylesheets/application.scss'
 
 // images
-import '../images/static/helmet.png'
+import '../images/static/accounts-bannner-bg.jpg'
 import '../images/static/accounts-banner-icon.svg'
+import '../images/static/default_space_cover.jpg'
+import '../images/static/default_team_logo.jpg'
+import '../images/static/default_user_avatar.jpg'
+import '../images/static/helmet.png'
+import '../images/static/spaces-logo.svg'
