@@ -28,7 +28,7 @@ describe "Email Register", :capybara do
 
     it "creates user, lets user create a team and redirects to team page" do
       visit "/landing"
-      click_on "Create new"
+      click_on "Create team"
 
       click_on "Sign in with email"
 
