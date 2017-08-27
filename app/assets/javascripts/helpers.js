@@ -1,6 +1,10 @@
 import tippy from 'tippy.js/dist/tippy'
 import Clipboard from 'clipboard/dist/clipboard'
 
+// Logger
+import * as log from 'loglevel'
+window.log = log
+
 // Wait until the dom is ready
 $(function() {
 

@@ -7,7 +7,7 @@ import EditorClipboard from './EditorClipboard'
 
 /* https://quilljs.com/docs/configuration/ */
 const QuillOptions = {
-  placeholder: "And write something here...",
+  placeholder: "Write something here...",
   modules: {
     syntax: true,
     toolbar: false,

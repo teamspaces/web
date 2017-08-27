@@ -17,7 +17,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: top center;
-  padding: 167px 24px 49px 24px;
+  padding: 131px 24px 37px 24px;
 
   // Overlay
   &:before {
@@ -218,7 +218,7 @@
 @media (min-width: 769px) {
   .space-page {
     width: calc( 100vw - 240px - 36px );
-    max-width: 840px;
+    max-width: 800px;
     margin-left: 240px;
     margin-top: 36px;
     margin-bottom: 24px;
@@ -245,18 +245,7 @@
 // Large viewports
 @media (min-width: 1260px) {
   .space-page {
-    width: calc( 100vw - 240px - 240px );
-  }
-
-  .space-page__hero, .space-page__meta, .ql-editor {
-    padding-left: 108px;
-    padding-right: 108px;
-  }
-}
-
-@media (min-width: 1360px) {
-  .space-page {
-    width: 840px;
+    width: 800px;
     margin-left: auto;
     margin-right: auto;
   }
@@ -264,6 +253,13 @@
   .space-page__hero, .space-page__meta, .ql-editor {
     padding-left: 120px;
     padding-right: 120px;
+  }
+}
+
+@media (min-width: 1360px) {
+  .space-page {
+    width: 840px;
+    max-width: 840px;
   }
 }
 

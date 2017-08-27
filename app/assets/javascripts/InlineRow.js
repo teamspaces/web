@@ -2,6 +2,9 @@ import InlineToolbar from './InlineToolbar'
 import Quill from 'quill'
 import $ from 'jquery'
 import tippy from 'tippy.js/dist/tippy'
+const Break = Quill.import('blots/break')
+const Block = Quill.import('blots/block')
+const Header = Quill.import('formats/header')
 
 class InlineRow extends InlineToolbar {
   constructor (quill, options) {
@@ -145,14 +148,16 @@ class InlineRow extends InlineToolbar {
   isOnStartOfNewLine (index) {
     let isOnNewLine = false
 
-    // Check if the current range is on a new empty line
-    // TODO Is there a better way to check for empty new lines? (not empty headlines etc.)
+    // Get the leaf at the current index
     let [leaf, offset] = this.quill.getLeaf(index)
 
-    if( leaf !== null && leaf.constructor.name === 'Break' && leaf.parent.constructor.name === 'Block') {
-      isOnNewLine = true
-    } else {
-      isOnNewLine = false
+    // Check if the current index is on an empty line
+    if( leaf && leaf.constructor === Break ) {
+
+      // Check if the new line is an empty block or header (we don't want to show the icon for empty list items etc.)
+      if(leaf.parent.constructor === Block || leaf.parent.constructor === Header) {
+        isOnNewLine = true
+      }
     }
 
     return isOnNewLine
