@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 20170827211145) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "authentications", force: :cascade do |t|
+  create_table "authentications", id: :serial, force: :cascade do |t|
     t.integer "user_id"
     t.string "provider"
     t.string "uid"
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20170827211145) do
     t.index ["user_id"], name: "index_authentications_on_user_id"
   end
 
-  create_table "authie_sessions", force: :cascade do |t|
+  create_table "authie_sessions", id: :serial, force: :cascade do |t|
     t.string "token"
     t.string "browser_id"
     t.integer "user_id"
@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 20170827211145) do
     t.index ["user_id"], name: "index_authie_sessions_on_user_id"
   end
 
-  create_table "invitations", force: :cascade do |t|
+  create_table "invitations", id: :serial, force: :cascade do |t|
     t.integer "team_id"
     t.integer "invited_by_user_id"
     t.integer "invited_user_id"
@@ -74,7 +74,7 @@ ActiveRecord::Schema.define(version: 20170827211145) do
     t.index ["team_id"], name: "index_invitations_on_team_id"
   end
 
-  create_table "page_contents", force: :cascade do |t|
+  create_table "page_contents", id: :serial, force: :cascade do |t|
     t.integer "page_id"
     t.text "contents"
     t.integer "byte_size", default: 0
@@ -93,7 +93,7 @@ ActiveRecord::Schema.define(version: 20170827211145) do
     t.index ["descendant_id"], name: "page_desc_idx"
   end
 
-  create_table "pages", force: :cascade do |t|
+  create_table "pages", id: :serial, force: :cascade do |t|
     t.integer "space_id"
     t.string "title"
     t.datetime "created_at", null: false
@@ -106,7 +106,7 @@ ActiveRecord::Schema.define(version: 20170827211145) do
     t.index ["space_id"], name: "index_pages_on_space_id"
   end
 
-  create_table "searchjoy_searches", force: :cascade do |t|
+  create_table "searchjoy_searches", id: :serial, force: :cascade do |t|
     t.integer "user_id"
     t.string "search_type"
     t.string "query"
@@ -122,7 +122,7 @@ ActiveRecord::Schema.define(version: 20170827211145) do
     t.index ["search_type", "normalized_query", "created_at"], name: "index_searchjoy_searches_on_search_type_normalized_query"
   end
 
-  create_table "space_members", force: :cascade do |t|
+  create_table "space_members", id: :serial, force: :cascade do |t|
     t.integer "team_member_id"
     t.integer "space_id"
     t.datetime "created_at", null: false
@@ -133,7 +133,7 @@ ActiveRecord::Schema.define(version: 20170827211145) do
     t.index ["team_member_id"], name: "index_space_members_on_team_member_id"
   end
 
-  create_table "spaces", force: :cascade do |t|
+  create_table "spaces", id: :serial, force: :cascade do |t|
     t.integer "team_id"
     t.string "name"
     t.datetime "created_at", null: false
@@ -145,7 +145,7 @@ ActiveRecord::Schema.define(version: 20170827211145) do
     t.index ["team_id"], name: "index_spaces_on_team_id"
   end
 
-  create_table "team_authentications", force: :cascade do |t|
+  create_table "team_authentications", id: :serial, force: :cascade do |t|
     t.integer "team_id"
     t.string "provider"
     t.string "token"
@@ -159,7 +159,7 @@ ActiveRecord::Schema.define(version: 20170827211145) do
     t.index ["team_id"], name: "index_team_authentications_on_team_id"
   end
 
-  create_table "team_members", force: :cascade do |t|
+  create_table "team_members", id: :serial, force: :cascade do |t|
     t.integer "team_id"
     t.integer "user_id"
     t.string "role"
@@ -171,7 +171,7 @@ ActiveRecord::Schema.define(version: 20170827211145) do
     t.index ["user_id"], name: "index_team_members_on_user_id"
   end
 
-  create_table "teams", force: :cascade do |t|
+  create_table "teams", id: :serial, force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -182,7 +182,7 @@ ActiveRecord::Schema.define(version: 20170827211145) do
     t.index ["subdomain"], name: "index_teams_on_subdomain"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :serial, force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
