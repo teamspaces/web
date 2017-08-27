@@ -8,7 +8,7 @@ describe "Email Login", :capybara do
 
     it "signs in user and shows team page" do
       visit "/landing"
-      click_on "Sign In"
+      click_on "Sign in"
       click_on "Sign in with email"
 
       fill_in("Email", with: email_user.email)
