@@ -53,7 +53,7 @@ new InstantSearch({
 import '../stylesheets/application.scss'
 
 // images
-import '../images/static/accounts-bannner-bg.jpg'
+import '../images/static/accounts-banner-bg.jpg'
 import '../images/static/accounts-banner-icon.svg'
 import '../images/static/default_space_cover.jpg'
 import '../images/static/default_team_logo.jpg'
