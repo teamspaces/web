@@ -37,14 +37,14 @@ module.exports = {
     rules: sync(join(loadersDir, '*.js')).map(loader => require(loader))
   },
 
-  plugins:  appConfig.plugins.concat([
+  plugins: appConfig.plugins.concat([
     new webpack.EnvironmentPlugin(JSON.parse(JSON.stringify(env))),
     new ExtractTextPlugin(env.NODE_ENV === 'production' ? '[name]-[hash].css' : '[name].css'),
     new ManifestPlugin({
       publicPath: output.publicPath,
       writeToFileEmit: true
     })
-  ],
+  ]),
 
   resolve: {
     extensions: settings.extensions,
