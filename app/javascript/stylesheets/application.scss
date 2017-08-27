@@ -2,9 +2,9 @@
 // @import 'dev/baseline';
 
 // Import from packages in node_modules
-@import '~highlight.js/styles/atom-one-light.css';
-@import '~perfect-scrollbar/dist/css/perfect-scrollbar.css';
-@import '~tippy.js/dist/tippy.css';
+@import '../../../node_modules/highlight.js/styles/atom-one-light.css';
+@import '../../../node_modules/perfect-scrollbar/dist/css/perfect-scrollbar.css';
+@import '../../../node_modules/tippy.js/dist/tippy.css';
 // @import '../../../vendor/assets/stylesheets/quill.snow.css';
 
 // Base
