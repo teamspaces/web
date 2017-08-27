@@ -11,7 +11,7 @@ window.hljs = require('highlight.js')
 hljs.initHighlightingOnLoad()
 
 import "../../../node_modules/raven-js/dist/raven.js"
-import "./sentry.js"
+import "../javascripts/sentry.js"
 
 // Adding path as the main path is incorrect in the package
 require('sticky-kit/dist/sticky-kit.js');
