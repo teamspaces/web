@@ -52,3 +52,18 @@ new InstantSearch({
 
 // stylesheets
 import '../stylesheets/application.scss'
+
+// images
+
+//button
+import '../images/button/expand-spaces-off.svg'
+import '../images/button/expand-spaces-on.svg'
+
+//static
+import '../images/static/accounts-banner-bg.jpg'
+import '../images/static/accounts-banner-icon.jpg'
+import '../images/static/default_space_cover.jpg'
+import '../images/static/default_team_logo.jpg'
+import '../images/static/default_user_avatar.jpg'
+import '../images/static/helmet.png'
+import '../images/static/spaces-logo.svg'
