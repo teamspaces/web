@@ -23,7 +23,7 @@
     "file-loader": "^0.11.2",
     "glob": "^7.1.2",
     "highlight.js": "^9.9.0",
-    "image-webpack-loader": "^3.2.0",
+    "image-webpack-loader": "^3.4.0",
     "is-whitespace": "^0.3.0",
     "jquery": "^3.1.1",
     "jquery-ui-bundle": "^1.11.4",
