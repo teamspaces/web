@@ -1,6 +1,7 @@
 import QuillEditor from './quill_editor'
 import PageSharedDB from './page/page_shared_db'
 import PageDB from './page/page_db'
+import LinkReferences from './page/link_references'
 
 class Editor {
 
@@ -9,7 +10,9 @@ class Editor {
 
     this.pageDB       = new PageDB(options); // web_server
     this.pageSharedDB = new PageSharedDB(options); // collab_server
-    this.quillEditor  = new QuillEditor({ attachTo: attachTo });
+    this.linkReferences = new LinkReferences(options);
+    this.quillEditor  = new QuillEditor({ attachTo: attachTo,
+                                          linkReferences: this.linkReferences });
 
     this.attachQuillEditorEvents();
     this.attachPageDBEvents();

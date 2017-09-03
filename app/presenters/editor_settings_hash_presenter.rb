@@ -18,6 +18,7 @@ class EditorSettingsHashPresenter
       expires_at: expires_at,
       page_content_url: @controller.page_content_url(@page.page_content),
       edit_page_url: @controller.edit_page_url(@page),
+      link_references_url: @controller.link_references_url,
       csrf_token: @controller.view_context.form_authenticity_token
     }
   end
