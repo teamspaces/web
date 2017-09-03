@@ -62,7 +62,7 @@ describe PagesController do
 
   describe "#destroy" do
     it "works" do
-      assert_difference "Page.count", -1 do
+      assert_difference "Page.count", -2 do
         delete page_url(page, subdomain: team.subdomain)
         assert_redirected_to edit_page_url(onboarding_page, subdomain: team.subdomain)
       end
@@ -70,7 +70,7 @@ describe PagesController do
 
     context "page_to_redirect_to provided" do
       it "redirects to edit page_to_redirect_to" do
-        assert_difference "Page.count", -1 do
+        assert_difference "Page.count", -2 do
           delete page_url(page, page_to_redirect_to_id: marketing_page.id, subdomain: team.subdomain)
           assert_redirected_to edit_page_url(marketing_page, subdomain: team.subdomain)
         end
