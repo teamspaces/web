@@ -1,5 +1,3 @@
-<% debugger %>
-
 <% page_tree.map do |page, page_tree| %>
     <li class="<%= (current_page?(page_path(page))) ? "page-tree__active" : nil %>" id=<%= "page_#{page.id}" %> >
         <div class="page-tree__page-inner">
