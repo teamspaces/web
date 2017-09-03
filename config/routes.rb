@@ -94,6 +94,7 @@ Rails.application.routes.draw do
 
   # Temporary landing
   get :temporary_landing, to: "landing#index", path: "/landing"
+  get :link_references, to: "link_references#new"
 
   root "landing#blank"
 end

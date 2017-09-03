@@ -32,6 +32,7 @@ class QuillEditor extends EventEmitter {
 
     this.attachTo = attachTo;
     this.editor = new Quill(attachTo, QuillOptions);
+    this.page_reference = function(text) { console.log("Reference: " + text) }
 
     this.addEditorMatchers();
     this.addEditorEvents();
@@ -56,7 +57,7 @@ class QuillEditor extends EventEmitter {
 
   addEditorMatchers(){
     // Clipboard URL Matcher
-    this.editor.clipboard.addMatcher(Node.TEXT_NODE, clipboardURLMatcherFunc);
+    this.editor.clipboard.addMatcher(Node.TEXT_NODE, clipboardURLMatcherFunc(this.page_reference));
   };
 
   disable(){

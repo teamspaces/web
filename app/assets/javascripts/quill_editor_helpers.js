@@ -1,6 +1,7 @@
 import isWhitespace from 'is-whitespace';
 
-export function clipboardURLMatcherFunc(node, delta){
+export function clipboardURLMatcherFunc(page_reference){
+  return function(node, delta){
         var regex = /https?:\/\/[^\s]+/g;
         if(typeof(node.data) !== 'string') return;
         var matches = node.data.match(regex);
@@ -12,7 +13,8 @@ export function clipboardURLMatcherFunc(node, delta){
                 var split = str.split(match);
                 var beforeLink = split.shift();
                 ops.push({ insert: beforeLink });
-                ops.push({ insert: match, attributes: { link: match } });
+                ops.push({ insert: "NUMBERS", attributes: { link: match } });
+                page_reference(match);
                 str = split.join(match);
             });
             ops.push({ insert: str });
@@ -20,4 +22,5 @@ export function clipboardURLMatcherFunc(node, delta){
         }
 
         return delta;
+      }
     };
