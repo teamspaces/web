@@ -1,6 +1,6 @@
 const Quill = require("quill");
 const EventEmitter = require('events');
-import { clipboardURLMatcherFunc, liveAutolinkUrlsFunc } from './quill_editor_helpers'
+import { clipboardURLMatcherFunc } from './quill_editor_helpers'
 import InlineTooltip from './InlineTooltip'
 import InlineRow from './InlineRow'
 import EditorClipboard from './EditorClipboard'
@@ -45,7 +45,6 @@ class QuillEditor extends EventEmitter {
       if (source !== 'user') return;
 
         this.emit('text-change', delta, {source: this.editor});
-        liveAutolinkUrlsFunc(delta, this.editor);
 
         clearTimeout(text_change_timer);
 

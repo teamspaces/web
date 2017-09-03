@@ -21,25 +21,3 @@ export function clipboardURLMatcherFunc(node, delta){
 
         return delta;
     };
-
-export function liveAutolinkUrlsFunc (delta, editor){
-  var regex = /https?:\/\/[^\s]+$/;
-  if(delta.ops.length === 2 && delta.ops[0].retain && isWhitespace(delta.ops[1].insert)) {
-    var endRetain = delta.ops[0].retain;
-    var text = editor.getText().substr(0, endRetain);
-    var match = text.match(regex);
-    if(match !== null) {
-      var url = match[0];
-
-      var ops = [];
-      if(endRetain > url.length) {
-        ops.push({ retain: endRetain - url.length });
-      }
-
-      ops = ops.concat([{ delete: url.length },
-                        { insert: "MIGOS WETTER THAN THE OCEAN", attributes: { link: url } } ]);
-
-      editor.updateContents({ ops: ops });
-    }
-  }
-}
