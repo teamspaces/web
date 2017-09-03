@@ -8,6 +8,8 @@ class Page < ApplicationRecord
 
   # Search
   has_many :searches, class_name: "Searchjoy::Search", as: :convertable
+  has_many :link_references
+
   searchkick callbacks: :async,
              routing: true,
              conversions: ["unique_user_conversions", "total_conversions"],

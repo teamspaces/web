@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170717004125) do
+ActiveRecord::Schema.define(version: 20170903191848) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,9 +46,14 @@ ActiveRecord::Schema.define(version: 20170717004125) do
     t.string   "user_type"
     t.integer  "parent_id"
     t.integer  "team_id"
+    t.datetime "two_factored_at"
+    t.string   "two_factored_ip"
+    t.datetime "password_seen_at"
+    t.string   "token_hash"
     t.index ["browser_id", "team_id"], name: "index_authie_sessions_on_browser_id_and_team_id", using: :btree
     t.index ["browser_id"], name: "index_authie_sessions_on_browser_id", using: :btree
     t.index ["token"], name: "index_authie_sessions_on_token", using: :btree
+    t.index ["token_hash"], name: "index_authie_sessions_on_token_hash", using: :btree
     t.index ["user_id"], name: "index_authie_sessions_on_user_id", using: :btree
   end
 
@@ -67,6 +72,16 @@ ActiveRecord::Schema.define(version: 20170717004125) do
     t.datetime "deleted_at"
     t.index ["deleted_at"], name: "index_invitations_on_deleted_at", using: :btree
     t.index ["team_id"], name: "index_invitations_on_team_id", using: :btree
+  end
+
+  create_table "link_references", force: :cascade do |t|
+    t.integer  "page_id"
+    t.integer  "reference_id"
+    t.string   "reference_model"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["page_id"], name: "index_link_references_on_page_id", using: :btree
+    t.index ["reference_id", "reference_model"], name: "index_link_references_on_reference_id_and_reference_model", using: :btree
   end
 
   create_table "page_contents", force: :cascade do |t|
@@ -208,6 +223,7 @@ ActiveRecord::Schema.define(version: 20170717004125) do
   add_foreign_key "authentications", "users", on_delete: :cascade
   add_foreign_key "invitations", "spaces"
   add_foreign_key "invitations", "teams"
+  add_foreign_key "link_references", "pages"
   add_foreign_key "page_contents", "pages", on_delete: :cascade
   add_foreign_key "pages", "spaces", on_delete: :cascade
   add_foreign_key "space_members", "spaces"

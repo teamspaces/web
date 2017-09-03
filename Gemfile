@@ -16,6 +16,7 @@ gem "envied" # Force ENVs on boot (Envfile)
 gem "lograge" # Reduce the noise on Rails logger
 gem "bcrypt"
 gem "aws-sdk"
+gem 'active_model_serializers'
 
 gem "httparty"
 gem "oj" # Faster JSON

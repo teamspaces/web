@@ -16,11 +16,9 @@ class LinkReferences  {
     })
     .then(response => response.json())
     .then((body) => {
-      let reference = body.linkReference;
-
-      console.log(link);
-      console.log(reference);
-      $('a[href$="' + link + '"]').text(reference.text);
+      body.linkReferences.forEach((linkReference) => {
+        $('a[href$="' + linkReference.link + '"]').text(linkReference.text);
+      });
     })
   }
 };

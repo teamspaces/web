@@ -32,6 +32,11 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
+    active_model_serializers (0.10.6)
+      actionpack (>= 4.1, < 6)
+      activemodel (>= 4.1, < 6)
+      case_transform (>= 0.2)
+      jsonapi-renderer (>= 0.1.1.beta1, < 0.2)
     activejob (5.0.0)
       activesupport (= 5.0.0)
       globalid (>= 0.3.6)
@@ -83,6 +88,8 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    case_transform (0.2)
+      activesupport
     chartkick (2.2.4)
     cliver (0.3.2)
     clockwork (2.0.2)
@@ -161,6 +168,7 @@ GEM
     json (2.0.2)
     json-schema (2.7.0)
       addressable (>= 2.4)
+    jsonapi-renderer (0.1.3)
     jwt (1.5.4)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -366,6 +374,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_model_serializers
   authie (~> 2.0)
   avatarly
   awesome_print
@@ -425,4 +434,4 @@ RUBY VERSION
    ruby 2.3.3p222
 
 BUNDLED WITH
-   1.15.1
+   1.15.4
