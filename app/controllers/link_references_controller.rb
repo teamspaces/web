@@ -1,10 +1,15 @@
 class LinkReferencesController  < ApplicationController
+  before_action :set_page
+
   def create
-     debugger
+     result = FindOrCreateLinkReferenceInteractor.call(link: params[:link], page: page)
 
-     puts params
-     puts params[:link]
-
-     render json: { linkReference: { id: 4, text: "YES" } }
+     render json: { linkReference: result.references }
   end
+
+  private
+
+    def set_page
+      @page = Page.find(params[:page_id])
+    end
 end
