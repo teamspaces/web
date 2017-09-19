@@ -30,7 +30,8 @@ class Page < ApplicationRecord
   end
 
   # Tree
-  has_closure_tree order: "sort_order"
+  has_closure_tree order: "sort_order", # sort by 'sort_order' column
+                   dependent: :destroy  # on destroy, destroy all descendant nodes
 
   # Relations
   belongs_to :space
