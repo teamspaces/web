@@ -4,7 +4,7 @@ FROM ruby:2.3.3
 ENV APP_HOME=/app \
     DEBIAN_FRONTEND=noninteractive \
     DEBIAN_PRIORITY=critical \
-    DEBCONF_NOWARNINGS=yes {}
+    DEBCONF_NOWARNINGS=yes
 
 # Install build essentials
 RUN apt-get update -qq && apt-get install -y \
