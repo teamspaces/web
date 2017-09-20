@@ -7,6 +7,7 @@ ENV APP_HOME=/app \
     DEBCONF_NOWARNINGS=yes
 
 # Import ENV needed for build process
+# NOTE: We can remove the below lines after fully migrating to GCE.
 ARG RAILS_ENV
 ARG SECRET_KEY_BASE
 ARG DATABASE_URL
