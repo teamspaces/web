@@ -7,7 +7,6 @@ ENV APP_HOME=/app \
     DEBCONF_NOWARNINGS=yes
 
 # Import ENV needed for build process
-# NOTE: We can remove the below lines after fully migrating to GCE.
 ARG RAILS_ENV
 ARG SECRET_KEY_BASE
 ARG DATABASE_URL
@@ -58,7 +57,7 @@ RUN \
   && (bundle install --no-cache --clean --jobs 20 --retry 20 --without development test --with production \
     || (sleep 10 && bundle install --no-cache --clean --jobs 20 --retry 20 --without development test --with production)) \
   # Compile our assets
-  && bundle exec rails assets:precompile RAILS_ENV=production SECRET_KEY_BASE=noteverused \
+  && RAILS_ENV=production ./bin/webpack -p \
   # Clean caches
   && yarn cache clean
 
