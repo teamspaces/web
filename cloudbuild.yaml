@@ -2,7 +2,6 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: [ 'build', '-f', 'dockerfiles/production', '-t', 'gcr.io/$PROJECT_ID/web:$COMMIT_SHA', '.' ]
 images:
-  - 'gcr.io/$PROJECT_ID/web:latest'
   - 'gcr.io/$PROJECT_ID/web:$COMMIT_SHA'
 tags:
   - web
