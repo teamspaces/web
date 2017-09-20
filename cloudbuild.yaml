@@ -1,7 +1,7 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: [ 'build', '-f', 'dockerfiles/production', '-t', 'gcr.io/$PROJECT_ID/web:$COMMIT_SHA', '.' ]
-  env: ['RAILS_ENV=production', 'NODE_ENV=production']
+  env: ['RAILS_ENV=production', 'NODE_ENV=production', 'SECRET_KEY_BASE=huiwebfouhwfjs38924bef13bu12isd']
 images:
   - 'gcr.io/$PROJECT_ID/web:latest'
   - 'gcr.io/$PROJECT_ID/web:$COMMIT_SHA'
