@@ -1,6 +1,9 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: [ 'build', '-f', 'dockerfiles/production', '-t', 'gcr.io/$PROJECT_ID/web:$COMMIT_SHA', '.' ]
+  env:
+    RAILS_ENV: production
+    NODE_ENV: production
 images:
   - 'gcr.io/$PROJECT_ID/web:latest'
   - 'gcr.io/$PROJECT_ID/web:$COMMIT_SHA'
