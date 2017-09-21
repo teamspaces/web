@@ -18,7 +18,6 @@ gem "clockwork", require: false # Scheduler (config/schedule.rb)
 gem "thor" # Powerful alternative to Rake (http://whatisthor.com/)
 gem "terminal-table" # Pretty tables for CLI / Console
 
-gem "envied" # Force ENVs on boot (Envfile)
 gem "lograge" # Reduce the noise on Rails logger
 gem "bcrypt"
 gem "aws-sdk"
