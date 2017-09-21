@@ -95,5 +95,8 @@ Rails.application.routes.draw do
   # Temporary landing
   get :temporary_landing, to: "landing#index", path: "/landing"
 
+  # Used by load balancer to monitor health
+  get "_ping", to: "pings#show", as: "ping"
+
   root "landing#blank"
 end
