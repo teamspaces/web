@@ -2,7 +2,6 @@ import $ from 'jquery'
 import Ps from 'perfect-scrollbar'
 import tippy from 'tippy.js/dist/tippy'
 
-// TODO Tooltip keyboard shortcut search
 // TODO Scroll to item when using arrow keys
 class InstantSearch {
 
@@ -23,6 +22,7 @@ class InstantSearch {
     this.resultsContainer = null
     this.resultsContainerResults = null
     this.resultsContainerHints = null
+    this.resultsContainerSpinner = null
     this.showHints = options.showHints || false
     this.useFocusShortcut = options.useFocusShortcut || false
     this.isCtrlDown = false
@@ -66,6 +66,10 @@ class InstantSearch {
       this.resultsContainer.append(this.resultsContainerHints)
     }
 
+    // Create a spinner
+    this.resultsContainerSpinner = $('<div>', {class: 'instant-search__spinner', html: '<div class="instant-search__spinner-bounce-1"></div><div class="instant-search__spinner-bounce-2"></div>'})
+    this.resultsContainer.append(this.resultsContainerSpinner)
+
     // Custom scrollbar
     Ps.initialize( this.resultsContainerResults.get(0) )
   }
@@ -79,7 +83,11 @@ class InstantSearch {
   }
 
   removeListeners () {
-
+    this.input.off('input.instantsearch')
+    this.clearButton.off('click.instantsearch')
+    this.resultsContainer.off('mouseenter.instantsearch', '.instant-search__item')
+    $(document).off('keydown.instantsearch')
+    $(document).off('keyup.instantsearch')
   }
 
   onInput (e) {
@@ -94,7 +102,7 @@ class InstantSearch {
       // Show the spinner
       this.showSpinner()
 
-      // Show a searching message if there are no results visible
+      // Show a searching message if there are no results currently visible (from a previous query)
       if(this.resultsContainerResults.find('.instant-search__item').length === 0) {
         this.addResultsMessage('Searching...')
       }
@@ -105,7 +113,7 @@ class InstantSearch {
       // Delay the search to throttle requests
       this.searchTimer = window.setTimeout(this.search.bind(this, query), 250)
 
-    // Hide results
+    // Hide results if the query is empty
     } else {
       this.hideResults()
     }
@@ -117,7 +125,7 @@ class InstantSearch {
   }
 
   onMouseEnterItem (e) {
-    // Find index of current element
+    // Get the index of current element
     const index = $(e.currentTarget).index()
 
     // Update selected index
@@ -125,6 +133,7 @@ class InstantSearch {
   }
 
   onDocumentKeydown (e) {
+    // Store that ctrl or j is down
     if(e.keyCode === 17) {
       this.isCtrlDown = true
     } else if(e.keyCode === 74) {
@@ -132,10 +141,8 @@ class InstantSearch {
     }
 
     // Check if we want to use a keyboard shortcut to give the input focus
-    if(this.useFocusShortcut) {
-      if(this.isCtrlDown && this.isJDown) {
-        this.input.focus()
-      }
+    if(this.useFocusShortcut && this.isCtrlDown && this.isJDown) {
+      this.input.focus()
     }
 
     // We're only interested in these events when the results are visible
@@ -172,6 +179,7 @@ class InstantSearch {
   }
 
   onDocumentKeyup (e) {
+    // Store that ctrl or j is no longer down
     if(e.keyCode === 17) {
       this.isCtrlDown = false
     } else if(e.keyCode === 74) {
@@ -183,13 +191,15 @@ class InstantSearch {
     this.hideSpinner()
     this.clearResults()
 
-    // Add results
+    // Add new items
     if(response.length > 0) {
-      // Render an element for each element in the response
+      // Render an element for each item
       response.map(this.renderItem, this)
 
       // Select the first item in the results
       this.selectItem(0)
+
+    // Show a message if the response was empty
     } else {
       this.addResultsMessage('No results found for <b>' + this.query + '</b>')
     }
@@ -227,17 +237,12 @@ class InstantSearch {
     .fail( this.onSearchFail )
   }
 
-  clearResults () {
-    this.resultsContainerResults.empty()
-    this.searchResults = []
-  }
-
   renderItem (item) {
     // Create element
     const element = `
       <li class="instant-search__item">
         <a href="${ item.url }" tabindex="-1">
-          <img src="https://images.unsplash.com/photo-1497215457980-d57c69aee12d?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=" alt="${ item.title }">
+          <div class="instant-search__cover" style="background-image: url(https://images.unsplash.com/photo-1497215457980-d57c69aee12d?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=);"></div>
           <h3>${ item.title }</h3>
           <p class="instant-search__space">${ item.space.name }</p>
           <p class="instant-search__excerpt">${ item.contents }</p>
@@ -284,28 +289,26 @@ class InstantSearch {
   }
 
   openCurrentItem () {
-    // Find the selected item
+    // Search for a selected item
     const selected = this.resultsContainerResults.find('.instant-search__selected')
 
-    // Get the url
-    const url = selected.find('a').attr('href')
+    // Check if we found a selected item
+    if(selected.length > 0) {
+      // Get the url
+      const url = selected.find('a').attr('href')
 
-    // Redirect to the url
-    window.location.href = url
-  }
-
-  clearSearchTimer () {
-    if(this.searchTimer) {
-      window.clearTimeout(this.searchTimer)
+      // Redirect to the url
+      window.location.href = url
     }
+
   }
 
   showSpinner () {
-
+    this.resultsContainerSpinner.addClass('instant-search__visible')
   }
 
   hideSpinner () {
-
+    this.resultsContainerSpinner.removeClass('instant-search__visible')
   }
 
   showResults () {
@@ -335,6 +338,17 @@ class InstantSearch {
     this.resultsContainerResults.html('<li class="instant-search__message">' + message + '</li>')
   }
 
+  clearResults () {
+    this.resultsContainerResults.empty()
+    this.searchResults = []
+  }
+
+  clearSearchTimer () {
+    if(this.searchTimer) {
+      window.clearTimeout(this.searchTimer)
+    }
+  }
+
   clearInput () {
     // Empty input
     this.input.val('').focus()
@@ -347,6 +361,10 @@ class InstantSearch {
     this.clearButton = null
     this.resultsContainer = null
     this.searchXhr = null
+    this.resultsContainerSpinner.remove()
+    this.resultsContainerSpinner = null
+    if(this.resultsContainerHints) this.resultsContainerHints.remove()
+    this.resultsContainerHints = null
   }
 }
 
