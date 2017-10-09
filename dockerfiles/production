@@ -6,11 +6,6 @@ ENV APP_HOME=/app \
     DEBIAN_PRIORITY=critical \
     DEBCONF_NOWARNINGS=yes
 
-# Import ENV needed for build process
-ARG RAILS_ENV
-ARG SECRET_KEY_BASE
-ARG DATABASE_URL
-
 # Install build essentials
 RUN apt-get update -qq && apt-get install -y \
     build-essential \
@@ -37,6 +32,11 @@ RUN echo "gem: --no-ri --no-rdoc" > ~/.gemrc
 # Update Bundler
 RUN gem install bundler
 
+# ENV for app
+ENV RAILS_ENV=production \
+    RACK_ENV=production \
+    NODE_ENV=production
+
 # Setup app path
 RUN mkdir $APP_HOME
 WORKDIR $APP_HOME
@@ -50,14 +50,14 @@ RUN \
   yarn global add webpack --production \
   # Yarn
   && yarn install --production \
-  # Compile our assets
-  && RAILS_ENV=$RAILS_ENV webpack -p \
   # Disable bundler from installing documentation
   && echo 'gem: --no-rdoc --no-ri' >> /.gemrc \
   && echo 'gem: --no-document' >> ~/.gemrc \
   # Install application gems (with retry)
   && (bundle install --no-cache --clean --jobs 20 --retry 20 --without development test --with production \
     || (sleep 10 && bundle install --no-cache --clean --jobs 20 --retry 20 --without development test --with production)) \
+  # Compile our assets
+  && RAILS_ENV=production ./bin/webpack -p \
   # Clean caches
   && yarn cache clean
 
