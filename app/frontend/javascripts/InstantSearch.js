@@ -111,7 +111,7 @@ class InstantSearch {
       this.clearSearchTimer()
 
       // Delay the search to throttle requests
-      this.searchTimer = window.setTimeout(this.search.bind(this, query), 250)
+      this.searchTimer = window.setTimeout(this.search.bind(this, query), 150)
 
     // Hide results if the query is empty
     } else {
