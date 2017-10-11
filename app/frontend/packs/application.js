@@ -40,13 +40,22 @@ new Overflows()
 // Tabs
 new Tabs()
 
-// Instant search
+// Instant search for larger viewports
 new InstantSearch({
   input: '.topbar__search-input',
   resultsContainer: '.topbar__search-results',
   clearButton: '.topbar__clear-search',
   showHints: true,
   useFocusShortcut: true
+})
+
+// Instant search for smaller viewports
+new InstantSearch({
+  input: '.overlay--mobile-search .overlay__search-input',
+  resultsContainer: '.overlay--mobile-search .overlay__search-results',
+  clearButton: '.overlay--mobile-search .overlay__close',
+  showHints: false,
+  useFocusShortcut: false
 })
 
 // stylesheets
